@@ -1,6 +1,9 @@
 import Vector2 from "../types/Vector2";
 import InputHandler from "./InputHandler";
 
+const PAN_SPEED = 300;
+const ZOOM_SPEED = 0.4;
+
 export class Camera {
     x: number;
     y: number;
@@ -15,38 +18,47 @@ export class Camera {
         this._inputHandler = new InputHandler();
     }
 
-    update() {
+    update(delta: number) {
         if (this._inputHandler.isKeyDown("w")) {
-            this.y -= 0.1;
+            this.y -= PAN_SPEED / this.zoom * delta;
         }
         if (this._inputHandler.isKeyDown("s")) {
-            this.y += 0.1;
+            this.y += PAN_SPEED / this.zoom * delta;
         }
         if (this._inputHandler.isKeyDown("a")) {
-            this.x -= 0.1;
+            this.x -= PAN_SPEED / this.zoom * delta;
         }
         if (this._inputHandler.isKeyDown("d")) {
-            this.x += 0.1;
+            this.x += PAN_SPEED / this.zoom * delta;
         }
         if (this._inputHandler.isKeyDown("q")) {
-            this.zoom *= 1.1;
+            this.zoom *= ZOOM_SPEED ** delta;
         }
         if (this._inputHandler.isKeyDown("e")) {
-            this.zoom /= 1.1;
+            this.zoom /= ZOOM_SPEED ** delta;
         }
     }
 
-    worldToScreen(v: Vector2): Vector2 {
+    getSceenSize(): Vector2 {
         return {
-            x: (v.x - this.x) * this.zoom,
-            y: (v.y - this.y) * this.zoom
+            x: window.innerWidth,
+            y: window.innerHeight
+        };
+    }
+
+    worldToScreen(v: Vector2): Vector2 {
+        const screenSize = this.getSceenSize();
+        return {
+            x: (v.x - this.x) * this.zoom + screenSize.x / 2,
+            y: (v.y - this.y) * this.zoom + screenSize.y / 2
         }
     }
 
     screenToWorld(v: Vector2): Vector2 {
+        const screenSize = this.getSceenSize();
         return {
-            x: (v.x / this.zoom) + this.x,
-            y: (v.y / this.zoom) + this.y
+            x: (v.x / this.zoom) + this.x - screenSize.x / 2,
+            y: (v.y / this.zoom) + this.y - screenSize.y / 2
         }
     }
 }

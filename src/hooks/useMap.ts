@@ -3,13 +3,13 @@ import LIMap from "../types/LIMap";
 
 let mapData: LIMap = {
     id: "",
-    name: "",
+    name: "Example Map",
     description: "",
     elements: []
 };
 
 export default function useMap() {
-    const [version, setVersion] = React.useState<number>(0);
+    const [, setVersion] = React.useState<number>(0);
 
     const setMapData = (data: LIMap) => {
         mapData = data;

@@ -1,6 +1,32 @@
+import { Drawer, Typography } from "@mui/material";
+import Divider from '@mui/material/Divider';
+
+const DEFAULT_WIDTH = 240;
+
 export default function RightSidebar() {
     return (
-        <div className="bg-sidebar d-flex flex-column flex-shrink-0" style={{ width: 300 }}>
-        </div>
+        <Drawer
+            variant="permanent"
+            anchor="right"
+            sx={{
+                width: DEFAULT_WIDTH,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: DEFAULT_WIDTH,
+                    boxSizing: 'border-box',
+                },
+            }}
+        >
+            <Typography
+                variant="subtitle2"
+                noWrap
+                sx={{
+                    m: 2
+                }}>
+                Properties
+            </Typography>
+
+            <Divider />
+        </Drawer>
     );
 }

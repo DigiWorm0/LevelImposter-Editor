@@ -1,12 +1,57 @@
-import TitleBar from "../components/TitleBar";
+import { Button, Divider, Drawer, Typography } from "@mui/material";
+import React from "react";
+import AddObjectModal from "../components/AddObjectModal";
 import useMap from "../hooks/useMap";
 
+const DEFAULT_WIDTH = 240;
+
 export default function LeftSidebar() {
-    const [map, setMap] = useMap();
+    const [isModalVisible, setModalVisible] = React.useState(false);
+    const [map] = useMap();
+
+    const handleModalOpen = () => {
+        setModalVisible(true);
+    }
+    const handleModalClose = () => {
+        setModalVisible(false);
+    }
 
     return (
-        <div className="bg-sidebar d-flex flex-column flex-shrink-0" style={{ width: 300 }}>
-            <TitleBar />
-        </div>
+        <Drawer
+            variant="permanent"
+            anchor="left"
+            sx={{
+                width: DEFAULT_WIDTH,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: DEFAULT_WIDTH,
+                    boxSizing: 'border-box',
+                },
+            }}>
+
+            <Typography
+                variant="subtitle2"
+                noWrap
+                sx={{
+                    m: 2
+                }}>
+                {map.name}
+            </Typography>
+
+            <Divider />
+
+            <Button
+                variant="contained"
+                onClick={handleModalOpen}
+                sx={{
+                    m: 2
+                }}>
+
+                + Object
+
+            </Button>
+
+            <AddObjectModal isOpen={isModalVisible} onClose={handleModalClose} />
+        </Drawer>
     );
 }

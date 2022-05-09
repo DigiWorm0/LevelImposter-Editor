@@ -1,6 +1,5 @@
 import React from 'react';
 import { Graphics } from '../graphics/Graphics';
-import Renderer from '../types/Renderer';
 
 export default function useGraphics(ref: React.RefObject<HTMLCanvasElement>) {
     const [graphics, setGraphics] = React.useState<Graphics>();

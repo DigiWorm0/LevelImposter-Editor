@@ -1,14 +1,12 @@
-import React from 'react';
-import LIMap from '../types/LIMap';
 import Renderer from '../types/Renderer';
 import GraphicsContext from './GraphicsContext';
-import InputHandler from './InputHandler';
 import GridRenderer from './renderers/GridRenderer';
 
 export class Graphics {
     canvas: HTMLCanvasElement;
     ctx: GraphicsContext;
     renderers: Renderer[];
+    lastUpdate: number;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -16,12 +14,17 @@ export class Graphics {
         this.renderers = [
             new GridRenderer()
         ];
+        this.lastUpdate = Date.now();
         window.requestAnimationFrame(this.render.bind(this));
     }
 
     render() {
+        const now = Date.now();
+        const delta = (now - this.lastUpdate) / 1000;
+        this.lastUpdate = now;
+
         this.ctx.clearScreen();
-        this.ctx.cam.update();
+        this.ctx.cam.update(delta);
         this.renderers.forEach((renderer) => renderer.render(this.ctx));
         window.requestAnimationFrame(this.render.bind(this));
     }
