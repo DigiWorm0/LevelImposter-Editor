@@ -14,7 +14,7 @@ const generateGUID = () => {
 }
 
 export default function AddObjectModal(props: { isOpen: boolean, onClose: () => void }) {
-    const [map] = useMap();
+    const [map, setMap] = useMap();
 
     const handleClose = () => {
         props.onClose();
@@ -33,6 +33,7 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
             rotation: 0,
             properties: {}
         });
+        setMap(map);
         handleClose();
     }
 

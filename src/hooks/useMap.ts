@@ -1,7 +1,9 @@
 import React from 'react';
 import LIMap from "../types/LIMap";
+import useStorage, { getStorage, putStorage } from './useStorage';
 
-let mapData: LIMap = {
+const CURRENT_KEY = 'current';
+const DEFAULT_MAP: LIMap = {
     id: "",
     name: "Example Map",
     description: "",
@@ -9,16 +11,14 @@ let mapData: LIMap = {
 };
 
 export default function useMap(): [LIMap, (map: LIMap) => void] {
-    const [, setVersion] = React.useState<number>(0);
-
-    const setMapData = (data: LIMap) => {
-        mapData = data;
-        setVersion(v => v + 1);
-    }
-
-    return [mapData, setMapData];
+    const [map, setMap] = useStorage<LIMap>(CURRENT_KEY, DEFAULT_MAP);
+    return [map, setMap];
 }
 
 export function getMap() {
-    return mapData;
+    return getStorage<LIMap>(CURRENT_KEY, DEFAULT_MAP);
+}
+
+export function setMap(map: LIMap) {
+    putStorage(CURRENT_KEY, map);
 }

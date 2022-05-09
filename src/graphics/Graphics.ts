@@ -2,6 +2,7 @@ import Renderer from '../types/Renderer';
 import GraphicsContext from './GraphicsContext';
 import ElemRenderer from './renderers/ElemRenderer';
 import GridRenderer from './renderers/GridRenderer';
+import SelectRenderer from './renderers/SelectRenderer';
 
 export class Graphics {
     canvas: HTMLCanvasElement;
@@ -14,6 +15,7 @@ export class Graphics {
         this.ctx = new GraphicsContext(canvas);
         this.renderers = [
             new GridRenderer(),
+            new SelectRenderer(),
             new ElemRenderer(),
         ];
         this.lastUpdate = Date.now();
@@ -21,17 +23,20 @@ export class Graphics {
     }
 
     render() {
+        // Delta Time
         const now = Date.now();
-        const delta = (now - this.lastUpdate) / 1000;
+        this.ctx.deltaTime = (now - this.lastUpdate) / 1000;
         this.lastUpdate = now;
 
+        // Render
         this.ctx.clearScreen();
-        this.ctx.cam.update(delta);
         try {
             this.renderers.forEach((renderer) => renderer.render(this.ctx));
         } catch (e) {
             console.error(e);
         }
+
+        // Next Frame
         window.requestAnimationFrame(this.render.bind(this));
     }
 

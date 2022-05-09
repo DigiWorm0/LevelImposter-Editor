@@ -5,13 +5,25 @@ import InputHandler from "./InputHandler";
 
 export default class GraphicsContext {
     ctx: CanvasRenderingContext2D;
+    _spriteCache: { [key: string]: Sprite } = {};
     cam: Camera;
     input: InputHandler;
+    deltaTime: number;
 
     constructor(canvas: HTMLCanvasElement) {
         this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         this.cam = new Camera(0, 0, 100);
         this.input = new InputHandler();
+        this.deltaTime = 0;
+    }
+
+    getSprite(type: string) {
+        if (!this._spriteCache[type]) {
+            const sprite = new Sprite();
+            sprite.loadType(type);
+            this._spriteCache[type] = sprite;
+        }
+        return this._spriteCache[type];
     }
 
     clearScreen() {
@@ -39,12 +51,20 @@ export default class GraphicsContext {
         this.ctx.stroke();
     }
 
-    drawRect(from: Vector2, to: Vector2) {
-        const fromWorld = this.cam.worldToScreen(from);
-        const toWorld = this.cam.worldToScreen(to);
-        this.ctx.beginPath();
-        this.ctx.rect(fromWorld.x, fromWorld.y, toWorld.x - fromWorld.x, toWorld.y - fromWorld.y);
-        this.ctx.stroke();
+    drawRect(pos: Vector2, size: Vector2, rotation: number) {
+        const posWorld = this.cam.worldToScreen(pos);
+        const sizeWorld = {
+            x: size.x * this.cam.zoom,
+            y: size.y * this.cam.zoom
+        }
+
+        this.ctx.save();
+        this.ctx.translate(posWorld.x, posWorld.y);
+        this.ctx.rotate(rotation);
+        this.ctx.translate(-sizeWorld.x / 2, -sizeWorld.y / 2);
+        this.ctx.strokeRect(0, 0, sizeWorld.x, sizeWorld.y);
+        this.ctx.restore();
+
     }
 
     drawCircle(center: Vector2, radius: number) {
@@ -57,8 +77,14 @@ export default class GraphicsContext {
 
     drawText(text: string, pos: Vector2, fontSize: number) {
         const posWorld = this.cam.worldToScreen(pos);
-        this.ctx.font = Math.floor(this.cam.zoom * fontSize) + "px Arial";
-        this.ctx.fillText(text, posWorld.x, posWorld.y);
+        this.ctx.font = Math.floor(this.cam.zoom * fontSize * 0.1) + "px Arial";
+
+        const textMetrics = this.ctx.measureText(text);
+        this.ctx.fillText(
+            text,
+            posWorld.x - textMetrics.width / 2,
+            posWorld.y + textMetrics.actualBoundingBoxAscent / 2
+        );
     }
 
     drawSprite(sprite: Sprite, pos: Vector2, scale: Vector2, rotation: number) {
