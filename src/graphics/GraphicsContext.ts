@@ -1,3 +1,4 @@
+import Sprite from "../types/Sprite";
 import Vector2 from "../types/Vector2";
 import { Camera } from "./Camera";
 import InputHandler from "./InputHandler";
@@ -54,14 +55,27 @@ export default class GraphicsContext {
         this.ctx.stroke();
     }
 
-    drawText(text: string, pos: Vector2) {
+    drawText(text: string, pos: Vector2, fontSize: number) {
         const posWorld = this.cam.worldToScreen(pos);
+        this.ctx.font = Math.floor(this.cam.zoom * fontSize) + "px Arial";
         this.ctx.fillText(text, posWorld.x, posWorld.y);
     }
 
-    drawSprite(sprite: HTMLImageElement, pos: Vector2, size: Vector2) {
-        const posWorld = this.cam.worldToScreen(pos);
-        const sizeWorld = this.cam.worldToScreen(size);
-        this.ctx.drawImage(sprite, posWorld.x, posWorld.y, sizeWorld.x, sizeWorld.y);
+    drawSprite(sprite: Sprite, pos: Vector2, scale: Vector2, rotation: number) {
+        if (!sprite.isLoaded)
+            return;
+        const screenPos = this.cam.worldToScreen(pos);
+
+        this.ctx.save();
+        this.ctx.translate(screenPos.x, screenPos.y);
+        this.ctx.rotate(rotation);
+        this.ctx.scale(scale.x * sprite.scale * this.cam.zoom, scale.y * sprite.scale * this.cam.zoom);
+        this.ctx.translate(-sprite.w / 2, -sprite.h / 2);
+        this.ctx.drawImage(
+            sprite.img,
+            0,
+            0
+        );
+        this.ctx.restore();
     }
 }

@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+<p align="center">
+  <img align="center" src="https://levelimposter.net/img/logo.png">
+</p>
+<p align="center">
+World's first custom Among Us Map Maker
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Warning
+**LevelImposter is still in early beta is not yet production ready!!!**
 
-## Available Scripts
+## Features
+- Easy-to-use Map Editor
+- Custom Sprites / Assets
+- Choice of Tasks, Vents, and other Utilities
+- Official Sharing Platform for Maps
+- Support for Other Mods
+- Support for the Airship update
 
-In the project directory, you can run:
+## How to Install
+### Run a Map
+1. Install [BepInEx](https://docs.reactor.gg/docs/basic/install_bepinex)
+2. Download LevelImposter.exe and Newtonsoft.Json.dll in [releases](https://github.com/DigiWorm0/LevelImposter/releases)
+3. Run LevelImposter.exe
+4. Browse for a Map JSON file. (Some can be found at [LevelImposter.net](https://levelimposter.net/Map))
+5. Hit Apply and Restart Among Us
 
-### `npm start`
+#### Notes:
+- All players in the lobby must use the same map
+- It is recommended to use an [Impostor Server](https://github.com/Impostor/Impostor)
+- Mobile is not yet supported
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Make a Map
+1. Open the editor at [LevelImposter.net](https://levelimposter.net/Home/Editor)
+2. Add corresponding tasks / assets / etc. using the editor tool
+3. Export to JSON file
+4. *(Optional)* Upload JSON to [LevelImposter Maps](https://levelimposter.net/Map)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Building:
+- **LevelImposter-BepInEx:** BepInEx Plugin (DLL)
+- **LevelImposter-Installer:** Windows Forms Application
 
-### `npm test`
+Simply download and open the sln in Visual Studio. Requires Among Us with BepInEx to be installed
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Support
+- **Discord:** https://discord.gg/9jJEBQ4qJs
+- **Issues:** https://github.com/DigiWorm0/LevelImposter/issues
 
-### `npm run build`
+## Credits
+- [Newtonsoft.Json](https://www.newtonsoft.com/json)
+- [BepInEx](https://github.com/BepInEx/BepInEx)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Disclaimer
+This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This software is distributed under the GNU GPLv3 License

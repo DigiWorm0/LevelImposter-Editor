@@ -1,5 +1,6 @@
 import Renderer from '../types/Renderer';
 import GraphicsContext from './GraphicsContext';
+import ElemRenderer from './renderers/ElemRenderer';
 import GridRenderer from './renderers/GridRenderer';
 
 export class Graphics {
@@ -12,7 +13,8 @@ export class Graphics {
         this.canvas = canvas;
         this.ctx = new GraphicsContext(canvas);
         this.renderers = [
-            new GridRenderer()
+            new GridRenderer(),
+            new ElemRenderer(),
         ];
         this.lastUpdate = Date.now();
         window.requestAnimationFrame(this.render.bind(this));
@@ -25,7 +27,11 @@ export class Graphics {
 
         this.ctx.clearScreen();
         this.ctx.cam.update(delta);
-        this.renderers.forEach((renderer) => renderer.render(this.ctx));
+        try {
+            this.renderers.forEach((renderer) => renderer.render(this.ctx));
+        } catch (e) {
+            console.error(e);
+        }
         window.requestAnimationFrame(this.render.bind(this));
     }
 

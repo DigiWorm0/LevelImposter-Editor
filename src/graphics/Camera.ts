@@ -19,24 +19,23 @@ export class Camera {
     }
 
     update(delta: number) {
-        if (this._inputHandler.isKeyDown("w")) {
-            this.y -= PAN_SPEED / this.zoom * delta;
-        }
-        if (this._inputHandler.isKeyDown("s")) {
-            this.y += PAN_SPEED / this.zoom * delta;
-        }
-        if (this._inputHandler.isKeyDown("a")) {
-            this.x -= PAN_SPEED / this.zoom * delta;
-        }
-        if (this._inputHandler.isKeyDown("d")) {
-            this.x += PAN_SPEED / this.zoom * delta;
-        }
-        if (this._inputHandler.isKeyDown("q")) {
-            this.zoom *= ZOOM_SPEED ** delta;
-        }
-        if (this._inputHandler.isKeyDown("e")) {
-            this.zoom /= ZOOM_SPEED ** delta;
-        }
+        const scroll = this._inputHandler.getScroll();
+        let multiplier = 1;
+        multiplier = this._inputHandler.isKeyDown("shift") ? 2 : multiplier;
+        multiplier = this._inputHandler.isKeyDown("control") ? 0.5 : multiplier;
+
+        if (this._inputHandler.isKeyDown("w"))
+            this.y -= PAN_SPEED / this.zoom * delta * multiplier;
+        if (this._inputHandler.isKeyDown("s"))
+            this.y += PAN_SPEED / this.zoom * delta * multiplier;
+        if (this._inputHandler.isKeyDown("a"))
+            this.x -= PAN_SPEED / this.zoom * delta * multiplier;
+        if (this._inputHandler.isKeyDown("d"))
+            this.x += PAN_SPEED / this.zoom * delta * multiplier;
+        if (this._inputHandler.isKeyDown("q") || scroll > 0)
+            this.zoom *= ZOOM_SPEED ** delta * multiplier;
+        if (this._inputHandler.isKeyDown("e") || scroll < 0)
+            this.zoom /= ZOOM_SPEED ** delta * multiplier;
     }
 
     getSceenSize(): Vector2 {

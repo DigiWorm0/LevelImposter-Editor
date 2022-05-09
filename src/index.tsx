@@ -5,10 +5,9 @@ import '@fontsource/roboto/700.css';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
 
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './screens/App';
-import LITheme from './style/Theme';
+import LITheme from './Theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

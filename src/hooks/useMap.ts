@@ -8,7 +8,7 @@ let mapData: LIMap = {
     elements: []
 };
 
-export default function useMap() {
+export default function useMap(): [LIMap, (map: LIMap) => void] {
     const [, setVersion] = React.useState<number>(0);
 
     const setMapData = (data: LIMap) => {

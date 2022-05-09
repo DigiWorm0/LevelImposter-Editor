@@ -1,6 +1,6 @@
 import { Button, Divider, Drawer, Typography } from "@mui/material";
 import React from "react";
-import AddObjectModal from "../components/AddObjectModal";
+import AddObjectModal from "../components/modals/AddObjectModal";
 import useMap from "../hooks/useMap";
 
 const DEFAULT_WIDTH = 240;
