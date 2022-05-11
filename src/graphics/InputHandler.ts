@@ -8,7 +8,7 @@ export default class InputHandler {
     rightMouse: boolean;
     _scroll: number;
 
-    constructor() {
+    constructor(canvas: HTMLCanvasElement) {
         this.keys = {};
         this.mousePos = { x: 0, y: 0 };
         this._scroll = 0;
@@ -19,9 +19,9 @@ export default class InputHandler {
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
         document.addEventListener('wheel', (this.onScroll as EventListener).bind(this));
-        document.addEventListener('mousemove', (this.onMouseMove as EventListener).bind(this));
-        document.addEventListener('mousedown', (this.onMouseDown as EventListener).bind(this));
-        document.addEventListener('mouseup', (this.onMouseUp as EventListener).bind(this));
+        canvas.addEventListener('mousemove', (this.onMouseMove as EventListener).bind(this));
+        canvas.addEventListener('mousedown', (this.onMouseDown as EventListener).bind(this));
+        canvas.addEventListener('mouseup', (this.onMouseUp as EventListener).bind(this));
     }
 
     onKeyDown(e: KeyboardEvent) {

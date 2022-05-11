@@ -12,6 +12,8 @@ const ZOOM_SPEED = 0.4;
 
 export default class GridRenderer implements Renderer {
     render(ctx: GraphicsContext) {
+        this.updateCamera(ctx);
+
         ctx.setColor(LINE_COLOR);
         ctx.setLineWidth(LINE_WIDTH);
 
@@ -40,8 +42,6 @@ export default class GridRenderer implements Renderer {
             { x: -GRID_SIZE, y: 0 },
             { x: GRID_SIZE, y: 0 }
         );
-
-        this.updateCamera(ctx);
     }
 
     updateCamera(ctx: GraphicsContext) {

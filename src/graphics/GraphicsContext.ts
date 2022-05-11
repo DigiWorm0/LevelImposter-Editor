@@ -13,7 +13,7 @@ export default class GraphicsContext {
     constructor(canvas: HTMLCanvasElement) {
         this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         this.cam = new Camera(0, 0, 100);
-        this.input = new InputHandler();
+        this.input = new InputHandler(canvas);
         this.deltaTime = 0;
     }
 

@@ -1,12 +1,11 @@
 import { getMap, setMap } from "../../hooks/useMap";
+import { getSelectedElemIDs, setSelectedElemIDs } from "../../hooks/useSelection";
 import LIElement from "../../types/LIElement";
 import Renderer from "../../types/Renderer";
 import Vector2 from "../../types/Vector2";
 import GraphicsContext from "../GraphicsContext";
 
 export default class SelectRenderer implements Renderer {
-
-    static selectedElements: LIElement[] = [];
     dragOffsets?: Vector2[];
 
     render(ctx: GraphicsContext) {
@@ -36,14 +35,16 @@ export default class SelectRenderer implements Renderer {
                 relativeMousePos.y <= sizeWorld.y / 2;
         });
 
+        let selctedElements = map.elements.filter(element => getSelectedElemIDs().includes(element.id));
         if (ctx.input.leftMouse) {
             if (!this.dragOffsets) {
-                SelectRenderer.selectedElements = elementsUnderMouse.length > 0 ? [elementsUnderMouse[0]] : [];
-                this.dragOffsets = SelectRenderer.selectedElements.map(element => ({ x: element.x - mouseWorld.x, y: element.y - mouseWorld.y }));
+                selctedElements = elementsUnderMouse.length > 0 ? [elementsUnderMouse[0]] : [];
+                setSelectedElemIDs(selctedElements.map(element => element.id));
+                this.dragOffsets = selctedElements.map(element => ({ x: element.x - mouseWorld.x, y: element.y - mouseWorld.y }));
             } else {
                 this.dragOffsets.forEach((offset, i) => {
-                    SelectRenderer.selectedElements[i].x = mouseWorld.x + offset.x;
-                    SelectRenderer.selectedElements[i].y = mouseWorld.y + offset.y;
+                    selctedElements[i].x = mouseWorld.x + offset.x;
+                    selctedElements[i].y = mouseWorld.y + offset.y;
                 });
             }
         } else if (this.dragOffsets) {
@@ -57,7 +58,7 @@ export default class SelectRenderer implements Renderer {
         this.drawRectAroundElements(ctx, ...elementsUnderMouse);
 
         ctx.setColor("green");
-        this.drawRectAroundElements(ctx, ...SelectRenderer.selectedElements);
+        this.drawRectAroundElements(ctx, ...selctedElements);
 
 
     }
