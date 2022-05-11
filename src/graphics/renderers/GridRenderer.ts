@@ -47,20 +47,20 @@ export default class GridRenderer implements Renderer {
     updateCamera(ctx: GraphicsContext) {
         const scroll = ctx.input.getScroll();
         let multiplier = 1;
-        multiplier = ctx.input.isKeyDown("shift") ? 2 : multiplier;
-        multiplier = ctx.input.isKeyDown("control") ? 0.5 : multiplier;
+        multiplier = ctx.input.getKey("shift") ? 2 : multiplier;
+        multiplier = ctx.input.getKey("control") ? 0.5 : multiplier;
 
-        if (ctx.input.isKeyDown("w"))
+        if (ctx.input.getKey("w"))
             ctx.cam.y -= PAN_SPEED / ctx.cam.zoom * ctx.deltaTime * multiplier;
-        if (ctx.input.isKeyDown("s"))
+        if (ctx.input.getKey("s"))
             ctx.cam.y += PAN_SPEED / ctx.cam.zoom * ctx.deltaTime * multiplier;
-        if (ctx.input.isKeyDown("a"))
+        if (ctx.input.getKey("a"))
             ctx.cam.x -= PAN_SPEED / ctx.cam.zoom * ctx.deltaTime * multiplier;
-        if (ctx.input.isKeyDown("d"))
+        if (ctx.input.getKey("d"))
             ctx.cam.x += PAN_SPEED / ctx.cam.zoom * ctx.deltaTime * multiplier;
-        if (ctx.input.isKeyDown("q") || scroll > 0)
+        if (ctx.input.getKey("q") || scroll > 0)
             ctx.cam.zoom *= ZOOM_SPEED ** ctx.deltaTime * multiplier;
-        if (ctx.input.isKeyDown("e") || scroll < 0)
+        if (ctx.input.getKey("e") || scroll < 0)
             ctx.cam.zoom /= ZOOM_SPEED ** ctx.deltaTime * multiplier;
     }
 }

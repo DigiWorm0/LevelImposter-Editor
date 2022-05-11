@@ -1,17 +1,12 @@
 import { HorizontalRule } from "@mui/icons-material";
 import { Modal, Typography, Box, Grid } from "@mui/material";
+import { setElem } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
 import AUElement from "../../types/AUElement";
 import AUElementDB from "../../types/AUElementDB";
+import LIElement from "../../types/LIElement";
 import AddObjectButton from "./AddObjectButton";
-
-const generateGUID = () => {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v = c === "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
+import generateGUID from '../../hooks/generateGUID';
 
 export default function AddObjectModal(props: { isOpen: boolean, onClose: () => void }) {
     const [map, setMap] = useMap();
@@ -21,7 +16,7 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
     }
 
     const handleClick = (elem: AUElement) => {
-        map.elements.push({
+        const element: LIElement = {
             name: elem.name,
             type: elem.type,
             id: generateGUID(),
@@ -32,7 +27,9 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
             yScale: 1,
             rotation: 0,
             properties: {}
-        });
+        };
+        map.elemIDs.push(element.id);
+        setElem(element);
         setMap(map);
         handleClose();
     }

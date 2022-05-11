@@ -1,3 +1,4 @@
+import { getElem } from "../../hooks/useElement";
 import { getMap, setMap } from "../../hooks/useMap";
 import { getSelectedElemIDs, setSelectedElemIDs } from "../../hooks/useSelection";
 import LIElement from "../../types/LIElement";
@@ -10,7 +11,7 @@ export default class SelectRenderer implements Renderer {
 
     render(ctx: GraphicsContext) {
         const map = getMap();
-        const elements = map.elements;
+        const elements = map.elemIDs.map(id => getElem(id));
 
         // Get elements under mouse cursor
         const mouseScreen = ctx.input.mousePos;
@@ -35,7 +36,7 @@ export default class SelectRenderer implements Renderer {
                 relativeMousePos.y <= sizeWorld.y / 2;
         });
 
-        let selctedElements = map.elements.filter(element => getSelectedElemIDs().includes(element.id));
+        let selctedElements = getSelectedElemIDs().map(id => getElem(id));
         if (ctx.input.leftMouse) {
             if (!this.dragOffsets) {
                 selctedElements = elementsUnderMouse.length > 0 ? [elementsUnderMouse[0]] : [];
@@ -50,6 +51,14 @@ export default class SelectRenderer implements Renderer {
         } else if (this.dragOffsets) {
             setMap(map);
             this.dragOffsets = undefined;
+        }
+
+        // Delete Button
+        if (ctx.input.getKey("delete")) {
+            if (selctedElements.length > 0) {
+                const newElemIDs = elements.filter(element => !selctedElements.includes(element)).map(element => element.id);
+                setMap({ ...map, elemIDs: newElemIDs });
+            }
         }
 
 

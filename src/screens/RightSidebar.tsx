@@ -1,18 +1,19 @@
-import { Drawer, Grid, TextField, Typography } from "@mui/material";
+import { Drawer, Typography } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import { Box } from "@mui/system";
 import React from "react";
 import TransformPanel from "../components/properties/TransformPanel";
 import useSelectedElemIDs from "../hooks/useSelection";
+import GUID from "../types/GUID";
 
 const DEFAULT_WIDTH = 300;
 
 export default function RightSidebar() {
     const [selectedIDs] = useSelectedElemIDs();
-    const [tgtID, setTgtID] = React.useState("");
+    const [tgtID, setTgtID] = React.useState(undefined as GUID | undefined);
 
     React.useEffect(() => {
-        setTgtID(selectedIDs.length > 0 ? selectedIDs[0] : "");
+        setTgtID(selectedIDs.length > 0 ? selectedIDs[0] : undefined);
     }, [selectedIDs]);
 
     return (

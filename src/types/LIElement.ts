@@ -1,7 +1,8 @@
+import GUID from "./GUID";
 import LIProperties from "./LIProperties";
 
 export default interface LIElement {
-    id: string;
+    id: GUID;
     name: string;
     type: string;
     x: number;
@@ -10,6 +11,5 @@ export default interface LIElement {
     xScale: number;
     yScale: number;
     rotation: number;
-
     properties: LIProperties;
 }

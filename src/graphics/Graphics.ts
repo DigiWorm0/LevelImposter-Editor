@@ -15,8 +15,8 @@ export class Graphics {
         this.ctx = new GraphicsContext(canvas);
         this.renderers = [
             new GridRenderer(),
-            new SelectRenderer(),
             new ElemRenderer(),
+            new SelectRenderer(),
         ];
         this.lastUpdate = Date.now();
         window.requestAnimationFrame(this.render.bind(this));

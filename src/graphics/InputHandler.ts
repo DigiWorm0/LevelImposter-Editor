@@ -18,7 +18,7 @@ export default class InputHandler {
 
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
-        document.addEventListener('wheel', (this.onScroll as EventListener).bind(this));
+        canvas.addEventListener('wheel', (this.onScroll as EventListener).bind(this));
         canvas.addEventListener('mousemove', (this.onMouseMove as EventListener).bind(this));
         canvas.addEventListener('mousedown', (this.onMouseDown as EventListener).bind(this));
         canvas.addEventListener('mouseup', (this.onMouseUp as EventListener).bind(this));
@@ -76,7 +76,7 @@ export default class InputHandler {
         return scroll;
     }
 
-    isKeyDown(key: string): boolean {
+    getKey(key: string): boolean {
         return this.keys[key] === true;
     }
 }

@@ -1,43 +1,45 @@
 import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import useMap, { setMap } from "../../hooks/useMap";
+import useElement from "../../hooks/useElement";
+import GUID from "../../types/GUID";
 
-export default function TransformPanel(props: { elementID: string }) {
-    const [map] = useMap();
-    const tgtElement = map.elements.find(e => e.id === props.elementID);
+export default function TransformPanel(props: { elementID: GUID }) {
+    const [elem, setElement] = useElement(props.elementID);
 
-    const [name, setName] = React.useState(tgtElement ? tgtElement.name : "");
-    const [x, setX] = React.useState(tgtElement ? tgtElement.x : 0);
-    const [y, setY] = React.useState(tgtElement ? tgtElement.y : 0);
-    const [z, setZ] = React.useState(tgtElement ? tgtElement.z : 0);
-    const [xScale, setXScale] = React.useState(tgtElement ? tgtElement.xScale : 1);
-    const [yScale, setYScale] = React.useState(tgtElement ? tgtElement.yScale : 1);
-    const [rotation, setRotation] = React.useState(tgtElement ? tgtElement.rotation : 0);
-
-    React.useEffect(() => {
-        if (tgtElement) {
-            setName(tgtElement.name);
-            setX(tgtElement.x);
-            setY(tgtElement.y);
-            setZ(tgtElement.z);
-            setXScale(tgtElement.xScale);
-            setYScale(tgtElement.yScale);
-            setRotation(tgtElement.rotation);
-        }
-    }, [props.elementID, tgtElement]);
+    const [name, setName] = React.useState(elem ? elem.name : "");
+    const [x, setX] = React.useState(elem ? elem.x : 0);
+    const [y, setY] = React.useState(elem ? elem.y : 0);
+    const [z, setZ] = React.useState(elem ? elem.z : 0);
+    const [xScale, setXScale] = React.useState(elem ? elem.xScale : 1);
+    const [yScale, setYScale] = React.useState(elem ? elem.yScale : 1);
+    const [rotation, setRotation] = React.useState(elem ? elem.rotation : 0);
 
     React.useEffect(() => {
-        if (tgtElement) {
-            tgtElement.name = name;
-            tgtElement.x = x;
-            tgtElement.y = y;
-            tgtElement.z = z;
-            tgtElement.xScale = xScale;
-            tgtElement.yScale = yScale;
-            tgtElement.rotation = rotation;
-            setMap(map);
+        if (elem) {
+            setName(elem.name);
+            setX(elem.x);
+            setY(elem.y);
+            setZ(elem.z);
+            setXScale(elem.xScale);
+            setYScale(elem.yScale);
+            setRotation(elem.rotation);
         }
+        console.log("ELEM");
+    }, [props.elementID, elem]);
+
+    React.useEffect(() => {
+        if (elem) {
+            elem.name = name;
+            elem.x = x;
+            elem.y = y;
+            elem.z = z;
+            elem.xScale = xScale;
+            elem.yScale = yScale;
+            elem.rotation = rotation;
+            setElement(elem);
+        }
+        console.log("TRANSFORM");
     }, [name, x, y, z, xScale, yScale, rotation]);
     return (
         <Box sx={{
