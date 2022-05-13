@@ -1,5 +1,5 @@
 import Renderer from '../types/Renderer';
-import GraphicsContext from './GraphicsContext';
+import GraphicsContext from '../hooks/graphics/GraphicsContext';
 import ElemRenderer from './renderers/ElemRenderer';
 import GridRenderer from './renderers/GridRenderer';
 import SelectRenderer from './renderers/SelectRenderer';

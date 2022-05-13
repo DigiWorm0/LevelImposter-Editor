@@ -1,5 +1,5 @@
 import Renderer from "../../types/Renderer";
-import GraphicsContext from "../GraphicsContext";
+import GraphicsContext from "../../hooks/graphics/GraphicsContext";
 
 const LINE_WIDTH = 1;
 const LINE_COLOR = "#888";

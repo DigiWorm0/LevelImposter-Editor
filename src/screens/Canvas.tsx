@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import React from 'react';
-import useGraphics from '../hooks/useGraphics';
+import useGraphics from '../hooks/graphics/useCanvas';
 
 export default function Canvas() {
     const [screenSize, setSize] = React.useState({ x: window.innerWidth, y: window.innerHeight });

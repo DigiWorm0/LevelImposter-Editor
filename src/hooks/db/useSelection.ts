@@ -1,8 +1,8 @@
 import EventEmitter from "eventemitter3";
 import React from "react";
-import SelectRenderer from "../graphics/renderers/SelectRenderer";
-import GUID from "../types/GUID";
-import LIElement from "../types/LIElement";
+import SelectRenderer from "../../graphics/renderers/SelectRenderer";
+import GUID from "../../types/GUID";
+import LIElement from "../../types/LIElement";
 
 const eventEmitter = new EventEmitter();
 const DEFAULT_KEY = "default";

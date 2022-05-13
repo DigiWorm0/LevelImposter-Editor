@@ -41,6 +41,48 @@ export default function useStorage<Type>(id: string, defaultValue: Type): [Type,
 }
 
 /**
+ * Acts as a react hook for multiple Local Storage keys
+ * @param ids - ID of the elements
+ * @param defaultValue - Default value of the element
+ * @returns A react hook of the element
+ */
+export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (values: Type[]) => void] {
+    const [version, setVersion] = React.useState(0);
+    const [data, setData] = React.useState([] as Type[]);
+
+    // Get Data
+    React.useEffect(() => {
+        setData(ids.map((id, index) => getStorage(id, defaultValue)));
+    }, [ids, version, defaultValue, setData]);
+
+    // Save Data
+    const saveData = (values: Type[]) => {
+        ids.forEach((id, index) => {
+            putStorage(id, values[index]);
+        });
+    }
+
+    // Listen for changes
+    React.useEffect(() => {
+        const handleDataChange = () => {
+            setVersion(v => v + 1);
+        }
+
+        ids.forEach(id => {
+            eventEmitter.addListener(id, handleDataChange);
+        });
+
+        return () => {
+            ids.forEach(id => {
+                eventEmitter.removeListener(id, handleDataChange);
+            });
+        };
+    }, [ids, setVersion]);
+
+    return [data, saveData];
+}
+
+/**
  * Puts a new element into Local Storage
  * @param id - ID of the element
  * @param value - Value of the element

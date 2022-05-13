@@ -3,7 +3,7 @@ import Divider from '@mui/material/Divider';
 import { Box } from "@mui/system";
 import React from "react";
 import TransformPanel from "../components/properties/TransformPanel";
-import useSelectedElemIDs from "../hooks/useSelection";
+import useSelectedElemIDs from "../hooks/db/useSelection";
 import GUID from "../types/GUID";
 
 const DEFAULT_WIDTH = 300;

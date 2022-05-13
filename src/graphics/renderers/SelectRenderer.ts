@@ -1,10 +1,10 @@
 import { getElem } from "../../hooks/useElement";
 import { getMap, setMap } from "../../hooks/useMap";
-import { getSelectedElemIDs, setSelectedElemIDs } from "../../hooks/useSelection";
+import { getSelectedElemIDs, setSelectedElemIDs } from "../../hooks/db/useSelection";
 import LIElement from "../../types/LIElement";
 import Renderer from "../../types/Renderer";
 import Vector2 from "../../types/Vector2";
-import GraphicsContext from "../GraphicsContext";
+import GraphicsContext from "../../hooks/graphics/GraphicsContext";
 
 export default class SelectRenderer implements Renderer {
     dragOffsets?: Vector2[];

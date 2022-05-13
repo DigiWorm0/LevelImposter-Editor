@@ -1,7 +1,7 @@
-import Sprite from "../types/Sprite";
-import Vector2 from "../types/Vector2";
-import { Camera } from "./Camera";
-import InputHandler from "./InputHandler";
+import Sprite from "../../types/Sprite";
+import Vector2 from "../../types/Vector2";
+import { Camera } from "../../graphics/Camera";
+import InputHandler from "../../graphics/InputHandler";
 
 export default class GraphicsContext {
     ctx: CanvasRenderingContext2D;
