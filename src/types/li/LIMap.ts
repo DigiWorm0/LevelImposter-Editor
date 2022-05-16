@@ -1,9 +1,8 @@
-import GUID from "./GUID";
-import LIElement from "./LIElement";
+import GUID from "../generic/GUID";
 
 export default interface LIMap {
     id: GUID;
     name: string;
     description: string;
-    elemIDs: GUID[];
+    elementIDs: GUID[];
 }

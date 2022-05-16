@@ -2,7 +2,7 @@ import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import useElement from "../../hooks/useElement";
-import GUID from "../../types/GUID";
+import GUID from "../../types/generic/GUID";
 
 export default function TransformPanel(props: { elementID: GUID }) {
     const [elem, setElement] = useElement(props.elementID);

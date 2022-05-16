@@ -1,5 +1,5 @@
 import { Typography, Card, CardContent, CardActionArea, Grid } from "@mui/material";
-import AUElement from "../../types/AUElement";
+import AUElement from "../../types/au/AUElement";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";

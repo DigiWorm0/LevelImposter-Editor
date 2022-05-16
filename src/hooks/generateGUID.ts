@@ -1,4 +1,4 @@
-import GUID from "../types/GUID";
+import GUID from "../types/generic/GUID";
 
 /**
  * Generates a random GUID

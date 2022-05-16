@@ -1,6 +1,6 @@
 import React from 'react';
-import GUID from '../types/GUID';
-import LIMap from "../types/LIMap";
+import GUID from '../types/generic/GUID';
+import LIMap from '../types/li/LIMap';
 import useStorage, { getStorage, putStorage } from './useStorage';
 
 const CURRENT_KEY = 'current';
@@ -8,7 +8,7 @@ const DEFAULT_MAP: LIMap = {
     id: "" as GUID,
     name: "Example Map",
     description: "",
-    elemIDs: [] as GUID[],
+    elementIDs: [],
 };
 
 export default function useMap(): [LIMap, (map: LIMap) => void] {

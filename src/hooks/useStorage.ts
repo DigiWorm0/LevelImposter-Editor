@@ -102,11 +102,13 @@ export function putStorage<Type>(id: string, value: Type) {
 export function getStorage<Type>(id: string, defaultValue: Type): Type {
     if (id in storageCache)
         return storageCache[id] as Type;
-
+    /*
     const jsonData = localStorage.getItem(id);
     const value = jsonData ? (JSON.parse(jsonData) as Type) : defaultValue;
     storageCache[id] = value;
     return value;
+    */
+    return defaultValue;
 }
 
 /**

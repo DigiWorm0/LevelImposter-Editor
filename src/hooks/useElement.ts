@@ -1,5 +1,5 @@
-import GUID from '../../types/GUID';
-import LIElement from '../../types/LIElement';
+import GUID from '../types/generic/GUID';
+import LIElement from '../types/li/LIElement';
 import useStorage, { getStorage, putStorage, useStorages } from './useStorage';
 
 const DEFAULT_ELEM: LIElement = {
@@ -25,10 +25,10 @@ export function useElements(ids: GUID[]): [LIElement[], (elems: LIElement[]) => 
     return [elems, setElems];
 }
 
-export function getElem(id: GUID) {
+export function getElement(id: GUID) {
     return getStorage<LIElement>(id, DEFAULT_ELEM);
 }
 
-export function setElem(elem: LIElement) {
+export function setElement(elem: LIElement) {
     putStorage(elem.id, elem);
 }

@@ -1,10 +1,10 @@
 import { HorizontalRule } from "@mui/icons-material";
 import { Modal, Typography, Box, Grid } from "@mui/material";
-import { setElem } from "../../hooks/useElement";
+import { setElement } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
-import AUElement from "../../types/AUElement";
-import AUElementDB from "../../types/AUElementDB";
-import LIElement from "../../types/LIElement";
+import AUElement from "../../types/au/AUElement";
+import AUElementDB from "../../types/au/AUElementDB";
+import LIElement from "../../types/li/LIElement";
 import AddObjectButton from "./AddObjectButton";
 import generateGUID from '../../hooks/generateGUID';
 
@@ -28,8 +28,8 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
             rotation: 0,
             properties: {}
         };
-        map.elemIDs.push(element.id);
-        setElem(element);
+        map.elementIDs.push(element.id);
+        setElement(element);
         setMap(map);
         handleClose();
     }
