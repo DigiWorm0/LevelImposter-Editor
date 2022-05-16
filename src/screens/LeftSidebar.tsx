@@ -2,6 +2,8 @@ import { Button, Divider, Drawer, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import AddObjectModal from "../components/modals/AddObjectModal";
+import MapElement from "../components/scenegraph/MapElement";
+import MapName from "../components/scenegraph/MapName";
 import { getElement } from "../hooks/useElement";
 import useMap from "../hooks/useMap";
 
@@ -31,30 +33,11 @@ export default function LeftSidebar() {
                 },
             }}>
 
-            <Typography
-                variant="subtitle2"
-                noWrap
-                sx={{
-                    m: 2
-                }}>
-                {map.name}
-            </Typography>
-
+            <MapName />
             <Divider />
 
             {map.elementIDs.map(elementID => (
-                <Box key={elementID}>
-                    <Typography
-                        variant="body2"
-                        noWrap
-                        sx={{
-                            ml: 2,
-                            mr: 2,
-                            mt: 1
-                        }}>
-                        {getElement(elementID).name}
-                    </Typography>
-                </Box>
+                <MapElement id={elementID} key={elementID} />
             ))}
 
             <Button
@@ -63,9 +46,7 @@ export default function LeftSidebar() {
                 sx={{
                     m: 2
                 }}>
-
                 + Object
-
             </Button>
 
             <AddObjectModal isOpen={isModalVisible} onClose={handleModalClose} />

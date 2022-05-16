@@ -35,6 +35,8 @@ export default function RightSidebar() {
             <TransformPanel />
             <TaskPanel />
             <ColliderPanel />
+
+            <Divider />
         </Drawer >
     );
 }
