@@ -1,12 +1,22 @@
 import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import useElement from "../../hooks/useElement";
+import useElement, { removeElement } from "../../hooks/useElement";
+import useKeyboard from "../../hooks/useKeyboard";
 import useSelected from "../../hooks/useSelected";
+import GUID from "../../types/generic/GUID";
 
 export default function TransformPanel() {
-    const [selectedID] = useSelected();
+    const [selectedID, setSelectedID] = useSelected();
     const [element, setElement] = useElement(selectedID);
+    const keys = useKeyboard();
+
+    React.useEffect(() => {
+        if (keys["Delete"] && selectedID !== "") {
+            removeElement(selectedID);
+            setSelectedID("" as GUID);
+        }
+    }, [keys, selectedID, setElement]);
 
     const parseNum = (value: string) => {
         if (value === "") {

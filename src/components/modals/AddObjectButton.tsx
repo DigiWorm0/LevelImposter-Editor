@@ -19,6 +19,8 @@ export default function AddObjectButton(props: { onClick: (elem: AUElement) => v
                         <img
                             src={url}
                             alt={props.element.name}
+                            width={"auto"}
+                            height={64}
                         />
                         <Typography
                             variant="subtitle2"

@@ -37,20 +37,26 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
     return (
         <Modal
             open={props.isOpen}
-            onClose={handleClose}>
+            onClose={handleClose}
+            sx={{
+                width: "100%",
+                height: "100%",
+            }}>
 
             <Box
                 sx={{
-                    position: 'absolute' as 'absolute',
+                    transform: 'translate(-50%, -50%)',
+                    position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '50%',
+                    width: '80%',
                     bgcolor: 'background.paper',
                     color: 'text.primary',
                     border: '2px solid #000',
                     boxShadow: 24,
                     p: 4,
+                    overflow: 'auto',
+                    maxHeight: '90%'
                 }}>
 
                 <Typography variant="h6" noWrap>
@@ -58,7 +64,13 @@ export default function AddObjectModal(props: { isOpen: boolean, onClose: () => 
                 </Typography>
                 <HorizontalRule />
 
-                <Grid container spacing={2}>
+                <Grid
+                    container
+                    spacing={2}
+                    sx={{
+                        height: '100%',
+                        width: '100%',
+                    }}>
                     {AUElementDB.map((element, index) => {
                         return (
                             <AddObjectButton

@@ -1,17 +1,21 @@
 import React from "react";
 
 export default function useKeyboard() {
-    const [keys, setKeys] = React.useState([] as string[]);
+    const [keys, setKeys] = React.useState({} as Record<string, boolean>);
 
     React.useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (keys.indexOf(event.key) === -1) {
-                setKeys([...keys, event.key]);
-            }
+            setKeys({
+                ...keys,
+                [event.key]: true,
+            });
         };
 
         const handleKeyUp = (event: KeyboardEvent) => {
-            setKeys(keys.filter(key => key !== event.key));
+            setKeys({
+                ...keys,
+                [event.key]: false,
+            });
         };
 
         window.addEventListener("keydown", handleKeyDown);

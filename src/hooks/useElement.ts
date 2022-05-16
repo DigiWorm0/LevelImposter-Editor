@@ -1,6 +1,7 @@
 import GUID from '../types/generic/GUID';
 import LIElement from '../types/li/LIElement';
-import useStorage, { getStorage, putStorage, useStorages } from './useStorage';
+import { getMap, setMap } from './useMap';
+import useStorage, { clearStorageFor, getStorage, putStorage, useStorages } from './useStorage';
 
 const DEFAULT_ELEM: LIElement = {
     id: "" as GUID,
@@ -31,4 +32,11 @@ export function getElement(id: GUID) {
 
 export function setElement(elem: LIElement) {
     putStorage(elem.id, elem);
+}
+
+export function removeElement(id: GUID) {
+    clearStorageFor(id);
+    const map = getMap();
+    const ids = map.elementIDs.filter(e => e !== id);
+    setMap({ ...map, elementIDs: ids });
 }

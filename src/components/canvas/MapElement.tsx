@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Image, Rect, Text } from "react-konva";
+import { Group, Image, Rect } from "react-konva";
 import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
@@ -27,8 +27,8 @@ export default function MapElement(props: { elementID: GUID }) {
         }
     }, [elem, setSprite, props.elementID]);
 
-    const w = (sprite ? sprite.width : 0) * elem.xScale;
-    const h = (sprite ? sprite.height : 0) * elem.yScale;
+    const w = (sprite ? sprite.width : 0) * Math.abs(elem.xScale);
+    const h = (sprite ? sprite.height : 0) * Math.abs(elem.yScale);
     const isSelected = selectedID === props.elementID;
 
     return (
@@ -60,8 +60,8 @@ export default function MapElement(props: { elementID: GUID }) {
                 y={-h / 2}
                 width={w}
                 height={h}
-                scaleX={elem.xScale}
-                scaleY={elem.yScale}
+                xScale={elem.xScale < 0 ? -1 : 1}
+                yScale={elem.yScale < 0 ? -1 : 1}
                 image={sprite as CanvasImageSource}
             />
 
@@ -71,8 +71,6 @@ export default function MapElement(props: { elementID: GUID }) {
                     y={-h / 2 - RECT_PADDING}
                     width={w + RECT_PADDING * 2}
                     height={h + RECT_PADDING * 2}
-                    scaleX={elem.xScale}
-                    scaleY={elem.yScale}
                     stroke={isSelected ? "red" : "gray"}
                     strokeWidth={1}
                 />

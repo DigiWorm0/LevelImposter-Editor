@@ -1,5 +1,7 @@
 import { Drawer, Typography } from "@mui/material";
 import Divider from '@mui/material/Divider';
+import React from "react";
+import TaskPanel from "../components/properties/TaskPanel";
 import TransformPanel from "../components/properties/TransformPanel";
 
 const DEFAULT_WIDTH = 300;
@@ -30,6 +32,7 @@ export default function RightSidebar() {
             <Divider />
 
             <TransformPanel />
+            <TaskPanel />
         </Drawer >
     );
 }

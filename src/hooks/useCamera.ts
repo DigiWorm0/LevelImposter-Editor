@@ -1,39 +1,21 @@
 import React from "react";
+import useKey from "./useKey";
 import useKeyboard from "./useKeyboard";
 
-const PAN_SPEED = 5;
+const PAN_SPEED = 10;
 const ZOOM_SPEED = 1.1;
 
 export default function useCamera() {
     const [x, setX] = React.useState(0);
     const [y, setY] = React.useState(0);
     const [zoom, setZoom] = React.useState(1);
-    const keys = useKeyboard();
 
-    React.useEffect(() => {
-        keys.forEach(keyCode => {
-            switch (keyCode) {
-                case "w":
-                    setY(y + PAN_SPEED);
-                    break;
-                case "s":
-                    setY(y - PAN_SPEED);
-                    break;
-                case "a":
-                    setX(x - PAN_SPEED);
-                    break;
-                case "d":
-                    setX(x + PAN_SPEED);
-                    break;
-                case "q":
-                    setZoom(zoom * ZOOM_SPEED);
-                    break;
-                case "e":
-                    setZoom(zoom / ZOOM_SPEED);
-                    break;
-            }
-        });
-    }, [keys]);
+    useKey("w", () => setY(y => y + PAN_SPEED));
+    useKey("s", () => setY(y => y - PAN_SPEED));
+    useKey("a", () => setX(x => x - PAN_SPEED));
+    useKey("d", () => setX(x => x + PAN_SPEED));
+    useKey("q", () => setZoom(zoom => zoom * ZOOM_SPEED));
+    useKey("e", () => setZoom(zoom => zoom / ZOOM_SPEED));
 
     return {
         x: x,

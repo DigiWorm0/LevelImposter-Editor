@@ -1,6 +1,7 @@
 import { Box } from '@mui/system';
 import React from 'react';
 import { Layer, Stage } from 'react-konva';
+import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import useCamera from '../hooks/useCamera';
 import useMap from '../hooks/useMap';
@@ -27,6 +28,8 @@ export default function Canvas() {
                     x={-camera.x + (window.innerWidth / 2)}
                     y={camera.y + (window.innerHeight / 2)}
                     scale={{ x: camera.z, y: camera.z }}>
+
+                    <CanvasGrid />
 
                     {map.elementIDs.map(elementID => (
                         <MapElement key={elementID} elementID={elementID} />
