@@ -1,6 +1,8 @@
 import { Button, Divider, Drawer, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import AddObjectModal from "../components/modals/AddObjectModal";
+import { getElement } from "../hooks/useElement";
 import useMap from "../hooks/useMap";
 
 const DEFAULT_WIDTH = 240;
@@ -39,6 +41,21 @@ export default function LeftSidebar() {
             </Typography>
 
             <Divider />
+
+            {map.elementIDs.map(elementID => (
+                <Box key={elementID}>
+                    <Typography
+                        variant="body2"
+                        noWrap
+                        sx={{
+                            ml: 2,
+                            mr: 2,
+                            mt: 1
+                        }}>
+                        {getElement(elementID).name}
+                    </Typography>
+                </Box>
+            ))}
 
             <Button
                 variant="contained"

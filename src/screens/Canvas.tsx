@@ -24,8 +24,8 @@ export default function Canvas() {
                 width={window.innerWidth}
                 height={window.innerHeight}>
                 <Layer
-                    x={camera.x}
-                    y={camera.y}
+                    x={-camera.x + (window.innerWidth / 2)}
+                    y={camera.y + (window.innerHeight / 2)}
                     scale={{ x: camera.z, y: camera.z }}>
 
                     {map.elementIDs.map(elementID => (

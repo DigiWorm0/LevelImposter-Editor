@@ -11,14 +11,15 @@ export let storageCache: Record<string, any> = {};
  * @param defaultValue - Default value of the element
  * @returns A react hook of the element
  */
-export default function useStorage<Type>(id: string, defaultValue: Type): [Type, (value: Type) => void] {
+export default function useStorage<Type>(id: string, defaultValue: Type): [Type, (value: Type) => void, number] {
     const [version, setVersion] = React.useState(0);
     const [data, setData] = React.useState(defaultValue);
 
     // Get Data
     React.useEffect(() => {
-        setData(getStorage(id, defaultValue));
-    }, [id, version, defaultValue, setData]);
+        const data = getStorage(id, defaultValue);
+        setData(data);
+    }, [id, version, defaultValue]);
 
     // Save Data
     const saveData = (value: Type) => {
@@ -37,7 +38,7 @@ export default function useStorage<Type>(id: string, defaultValue: Type): [Type,
         };
     }, [id, setVersion]);
 
-    return [data, saveData];
+    return [data, saveData, version];
 }
 
 /**
@@ -46,7 +47,7 @@ export default function useStorage<Type>(id: string, defaultValue: Type): [Type,
  * @param defaultValue - Default value of the element
  * @returns A react hook of the element
  */
-export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (values: Type[]) => void] {
+export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (values: Type[]) => void, number] {
     const [version, setVersion] = React.useState(0);
     const [data, setData] = React.useState([] as Type[]);
 
@@ -79,7 +80,7 @@ export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (
         };
     }, [ids, setVersion]);
 
-    return [data, saveData];
+    return [data, saveData, version];
 }
 
 /**

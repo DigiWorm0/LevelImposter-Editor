@@ -1,10 +1,10 @@
 import { Drawer, Typography } from "@mui/material";
 import Divider from '@mui/material/Divider';
+import TransformPanel from "../components/properties/TransformPanel";
 
 const DEFAULT_WIDTH = 300;
 
 export default function RightSidebar() {
-
     return (
         <Drawer
             variant="permanent"
@@ -28,6 +28,8 @@ export default function RightSidebar() {
             </Typography>
 
             <Divider />
+
+            <TransformPanel />
         </Drawer >
     );
 }

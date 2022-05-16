@@ -2,45 +2,26 @@ import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import useSelected from "../../hooks/useSelected";
 
-export default function TransformPanel(props: { elementID: GUID }) {
-    const [elem, setElement] = useElement(props.elementID);
+export default function TransformPanel() {
+    const [selectedID] = useSelected();
+    const [element, setElement] = useElement(selectedID);
 
-    const [name, setName] = React.useState(elem ? elem.name : "");
-    const [x, setX] = React.useState(elem ? elem.x : 0);
-    const [y, setY] = React.useState(elem ? elem.y : 0);
-    const [z, setZ] = React.useState(elem ? elem.z : 0);
-    const [xScale, setXScale] = React.useState(elem ? elem.xScale : 1);
-    const [yScale, setYScale] = React.useState(elem ? elem.yScale : 1);
-    const [rotation, setRotation] = React.useState(elem ? elem.rotation : 0);
-
-    React.useEffect(() => {
-        if (elem) {
-            setName(elem.name);
-            setX(elem.x);
-            setY(elem.y);
-            setZ(elem.z);
-            setXScale(elem.xScale);
-            setYScale(elem.yScale);
-            setRotation(elem.rotation);
+    const parseNum = (value: string) => {
+        if (value === "") {
+            return 0;
         }
-        console.log("ELEM");
-    }, [props.elementID, elem]);
+        return parseFloat(value);
+    }
 
-    React.useEffect(() => {
-        if (elem) {
-            elem.name = name;
-            elem.x = x;
-            elem.y = y;
-            elem.z = z;
-            elem.xScale = xScale;
-            elem.yScale = yScale;
-            elem.rotation = rotation;
-            setElement(elem);
-        }
-        console.log("TRANSFORM");
-    }, [name, x, y, z, xScale, yScale, rotation]);
+    const onInput = () => {
+        setElement(element);
+    }
+
+    if (selectedID === "")
+        return null;
+
     return (
         <Box sx={{
             p: 1
@@ -50,8 +31,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                 id="name"
                 label="Name"
                 type="text"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
+                onChange={(e) => { element.name = e.target.value; onInput() }}
+                value={element.name}
                 variant="outlined"
                 fullWidth />
 
@@ -64,8 +45,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="xPosition"
                         label="X"
                         type="number"
-                        onChange={(e) => setX(parseFloat(e.target.value))}
-                        value={x}
+                        onChange={(e) => { element.x = parseNum(e.target.value); onInput() }}
+                        value={element.x}
                         variant="outlined" />
                 </Grid>
                 <Grid item xs>
@@ -73,8 +54,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="yPosition"
                         label="Y"
                         type="number"
-                        onChange={(e) => setY(parseFloat(e.target.value))}
-                        value={y}
+                        onChange={(e) => { element.y = parseNum(e.target.value); onInput() }}
+                        value={element.y}
                         variant="outlined" />
                 </Grid>
                 <Grid item xs>
@@ -82,8 +63,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="zPosition"
                         label="Z"
                         type="number"
-                        onChange={(e) => setZ(parseFloat(e.target.value))}
-                        value={z}
+                        onChange={(e) => { element.z = parseNum(e.target.value); onInput() }}
+                        value={element.z}
                         variant="outlined" />
                 </Grid>
             </Grid>
@@ -96,8 +77,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="xScale"
                         label="X Scale"
                         type="number"
-                        onChange={(e) => setXScale(parseFloat(e.target.value))}
-                        value={xScale}
+                        onChange={(e) => { element.xScale = parseNum(e.target.value); onInput() }}
+                        value={element.xScale}
                         variant="outlined" />
                 </Grid>
                 <Grid item xs>
@@ -105,8 +86,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="yScale"
                         label="Y Scale"
                         type="number"
-                        onChange={(e) => setYScale(parseFloat(e.target.value))}
-                        value={yScale}
+                        onChange={(e) => { element.yScale = parseNum(e.target.value); onInput() }}
+                        value={element.yScale}
                         variant="outlined" />
                 </Grid>
                 <Grid item xs>
@@ -114,8 +95,8 @@ export default function TransformPanel(props: { elementID: GUID }) {
                         id="rotation"
                         label="Rotation"
                         type="number"
-                        onChange={(e) => setRotation(parseFloat(e.target.value))}
-                        value={rotation}
+                        onChange={(e) => { element.rotation = parseNum(e.target.value); onInput() }}
+                        value={element.rotation}
                         variant="outlined" />
                 </Grid>
             </Grid>
