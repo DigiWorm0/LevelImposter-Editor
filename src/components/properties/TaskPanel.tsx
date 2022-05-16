@@ -51,21 +51,6 @@ export default function TaskPanel() {
                     {element.type}
                 </Typography>
             </Box>
-
-            <Grid
-                container
-                spacing={2}
-                sx={{
-                    p: 2,
-                    alignItems: "center",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                }}>
-                <Grid item xs={12}>
-                    <FormControlLabel control={<Switch defaultChecked />} label="Only From Bottom" />
-                </Grid>
-            </Grid>
         </Box>
 
     );

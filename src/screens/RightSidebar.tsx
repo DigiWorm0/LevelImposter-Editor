@@ -1,6 +1,7 @@
 import { Drawer, Typography } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import React from "react";
+import ColliderPanel from "../components/properties/ColliderPanel";
 import TaskPanel from "../components/properties/TaskPanel";
 import TransformPanel from "../components/properties/TransformPanel";
 
@@ -33,6 +34,7 @@ export default function RightSidebar() {
 
             <TransformPanel />
             <TaskPanel />
+            <ColliderPanel />
         </Drawer >
     );
 }
