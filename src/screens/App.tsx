@@ -1,12 +1,14 @@
 import { H1, Spinner } from '@blueprintjs/core';
+import useSettings from '../hooks/useSettings';
 import Canvas from './Canvas';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
 import Topbar from './Topbar';
 
 export default function App() {
+    const [settings] = useSettings();
     return (
-        <div className="app bp4-dark">
+        <div className={"app" + (settings.isDarkMode ? " bp4-dark" : "")}>
             <Topbar />
             <LeftSidebar />
             <Canvas />

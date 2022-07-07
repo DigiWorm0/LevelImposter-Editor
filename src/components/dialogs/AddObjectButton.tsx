@@ -37,9 +37,9 @@ export default function AddObjectButton() {
             rotation: 0,
             properties: {}
         };
-        map.elementIDs.push(element.id);
+        const elementIDs = [...map.elementIDs, element.id];
+        setMap({ ...map, elementIDs });
         setElement(element);
-        setMap(map);
         setIsOpen(false);
     }
 
@@ -69,9 +69,25 @@ export default function AddObjectButton() {
                             onFocus={props.handleFocus} />
                     )
                 }}
-                noResults={<MenuItem disabled text="No results." />}
                 onQueryChange={(query) => { setSerchTerm(query) }}
                 query={searchTerm}
+                createNewItemPosition="first"
+                createNewItemFromQuery={(query) => {
+                    return {
+                        name: query,
+                        type: "util-blank"
+                    }
+                }}
+                createNewItemRenderer={(query, isActive, onClick) => {
+                    return (
+                        <MenuItem
+                            icon="add"
+                            text={"Create '" + query + "'"}
+                            label={"util-blank"}
+                            active={isActive}
+                            onClick={onClick} />
+                    )
+                }}
             />
         </>
     );

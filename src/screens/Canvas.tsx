@@ -14,7 +14,7 @@ export default function Canvas() {
 
 
     const checkDeselect = (e: KonvaEventObject<MouseEvent>) => {
-        const clickedOnEmpty = e.target === e.target.getStage();
+        const clickedOnEmpty = e.target.parent?.hasName("canvas-grid");
         if (clickedOnEmpty) {
             setSelectedID(undefined);
         }
@@ -27,8 +27,9 @@ export default function Canvas() {
                 height={window.innerHeight - 50}
                 onMouseDown={checkDeselect}>
                 <Layer
-                    x={-camera.x + (window.innerWidth / 2)}
-                    y={camera.y + (window.innerHeight / 2)}
+                    draggable
+                    x={window.innerWidth / 2}
+                    y={window.innerHeight / 2}
                     scale={{ x: camera.z, y: camera.z }}>
 
                     <CanvasGrid />

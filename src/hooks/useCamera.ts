@@ -9,6 +9,17 @@ export default function useCamera() {
     const [x, setX] = React.useState(0);
     const [y, setY] = React.useState(0);
     const [zoom, setZoom] = React.useState(1);
+    const [version, setVersion] = React.useState(0);
+
+    React.useEffect(() => {
+        window.onresize = () => {
+            setVersion(v => v + 1);
+        }
+
+        return () => {
+            window.onresize = null;
+        }
+    })
 
     useKey("w", () => setY(y => y + PAN_SPEED));
     useKey("s", () => setY(y => y - PAN_SPEED));
