@@ -1,0 +1,31 @@
+.left-sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: #f1f1f1;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    overflow-x: hidden;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.right-sidebar {
+    width: 300px;
+    height: 100%;
+    background-color: #f1f1f1;
+    position: fixed;
+    top: 50px;
+    right: 0;
+    overflow-x: hidden;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.canvas {
+    position: absolute;
+    top: 50px;
+    left: 200px;
+    right: 200px;
+    bottom: 0;
+}

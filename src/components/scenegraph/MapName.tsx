@@ -1,31 +1,31 @@
-import { TrapFocus } from "@mui/base";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, InputGroup } from "@blueprintjs/core";
 import React from "react";
-import useMap from "../../hooks/useMap"
+import useMap from "../../hooks/useMap";
 
 export default function MapName() {
     const [map, setMap] = useMap();
     const [isEditingName, setIsEditingName] = React.useState(false);
 
-    if (!isEditingName)
+    if (!isEditingName) {
         return (
-            <Button
-                variant="text"
-                color="inherit"
-                onClick={() => setIsEditingName(true)}
-                sx={{
-                    m: 2
-                }}>
-                {map.name}
-            </Button>
+            <div className="map-name">
+                <Button
+                    minimal
+                    large
+                    onClick={() => setIsEditingName(true)}>
+
+                    {map.name}
+
+                </Button>
+            </div>
         );
-    else
+    }
+    else {
         return (
-            <TrapFocus open>
-                <TextField
+            <div className="map-name">
+                <InputGroup
                     autoFocus
-                    variant="standard"
-                    label="Map Name"
+                    large
                     value={map.name}
                     onChange={(e) => setMap({ ...map, name: e.target.value })}
                     onBlur={() => setIsEditingName(false)}
@@ -34,10 +34,8 @@ export default function MapName() {
                             setIsEditingName(false);
                         }
                     }}
-                    sx={{
-                        m: 2
-                    }}
                 />
-            </TrapFocus>
+            </div>
         );
+    }
 }

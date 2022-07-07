@@ -8,10 +8,11 @@ interface SelectionState {
     selectedID: GUID;
 }
 
-export default function useSelected(): [GUID, (selectedID: GUID) => void] {
+export default function useSelected(): [GUID, (selectedID?: GUID) => void] {
     const [selectedID, setSelectedID] = useStorage<SelectionState>(CURRENT_KEY, DEFAULT_SELECTED);
-    const setData = (id: GUID) => {
-        setSelectedID({ selectedID: id });
+    const setData = (id?: GUID) => {
+        setSelectedID({ selectedID: id ? id : "" as GUID });
+        console.log(id);
     }
     return [selectedID.selectedID, setData];
 }

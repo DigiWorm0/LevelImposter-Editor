@@ -1,16 +1,16 @@
-import { Container } from '@mui/material';
+import { H1, Spinner } from '@blueprintjs/core';
 import Canvas from './Canvas';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
+import Topbar from './Topbar';
 
 export default function App() {
     return (
-        <Container fixed>
-
+        <div className="app">
+            <Topbar />
             <LeftSidebar />
             <Canvas />
             <RightSidebar />
-
-        </Container>
+        </div>
     );
 }

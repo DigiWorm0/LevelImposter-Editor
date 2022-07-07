@@ -1,14 +1,8 @@
-import { HorizontalRule, Image } from "@mui/icons-material";
-import { Button, Checkbox, Divider, FormControlLabel, FormGroup, Grid, Slider, Switch, TextField, Tooltip, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Card, ControlGroup, Divider, FormGroup, H5, H6, Menu, MenuItem, NavbarDivider, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
+import generateGUID from "../../hooks/generateGUID";
 import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
-import EditIcon from '@mui/icons-material/Edit';
-import EditOffIcon from '@mui/icons-material/EditOff';
-import DeleteIcon from '@mui/icons-material/Delete';
-import generateGUID from "../../hooks/generateGUID";
-import GUID from "../../types/generic/GUID";
 import LICollider from "../../types/li/LICollider";
 
 const URL_PREFIX = "/sprites/";
@@ -19,7 +13,6 @@ export default function ColliderPanel() {
     const [element, setElement] = useElement(selectedID);
     const [currentCollider, setCurrentCollider] = React.useState(null as null | LICollider);
 
-    // Stop Editing on Element Change
     React.useEffect(() => {
         if (currentCollider) {
             if (element.properties.colliders?.find((collider) => collider.id === currentCollider.id) == null) {
@@ -40,114 +33,108 @@ export default function ColliderPanel() {
         setElement(element);
     }
     const editCollider = (collider: LICollider | null) => {
-        setCurrentCollider(collider);
+        if (currentCollider === collider)
+            setCurrentCollider(null);
+        else
+            setCurrentCollider(collider);
     }
     const delCollider = (collider: LICollider) => {
         element.properties.colliders = element.properties.colliders?.filter(c => c.id !== collider.id);
         setElement(element);
-    }
-    const onBlockLightChange = (collider: LICollider) => {
-        collider.blocksLight = !collider.blocksLight;
-        setElement(element);
-    }
-    const onSolidChange = (collider: LICollider) => {
-        collider.isSolid = !collider.isSolid;
-        setElement(element);
+        if (currentCollider === collider)
+            setCurrentCollider(null);
     }
 
     if (selectedID === "")
         return null;
 
     return (
-        <Box>
+        <div className="collider-panel">
+            <H5 style={{ marginTop: 25 }}>Colliders</H5>
             <Divider />
-            <Typography
-                variant="subtitle2"
-                noWrap
-                sx={{
-                    m: 2
-                }}>
-                Colliders
-            </Typography>
 
-            <Divider />
-            {element.properties.colliders ? element.properties.colliders.map((collider, index) => {
-                return (<Box key={index}>
-                    <Box
-                        sx={{
-                            alignItems: "center",
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "center",
-                        }}>
+            <Menu>
+                <MenuItem icon="add" text="Add Collider" onClick={addCollider} />
 
-                        <Typography
-                            variant="subtitle1"
-                            noWrap
-                            sx={{
-                                pr: 2
-                            }}>
-                            {index + 1}
-                        </Typography>
+                {element.properties.colliders?.map((collider, index) => {
+                    return (
+                        <MenuItem
+                            key={collider.id + index}
+                            icon="edit"
+                            text={"Collider " + (index + 1)}
+                            onClick={() => editCollider(collider)}
+                            active={currentCollider?.id === collider.id}
+                        />
+                    );
+                })}
+            </Menu>
 
-                        {currentCollider === collider ?
-                            <Button
-                                variant="contained"
-                                color="error"
-                                onClick={() => { editCollider(null); }}
-                                sx={{
-                                    m: 1
-                                }}>
-                                <EditOffIcon />
-                            </Button>
-                            :
-                            <Button
-                                variant="contained"
-                                onClick={() => { editCollider(collider); }}
-                                sx={{
-                                    m: 1
-                                }}>
-                                <EditIcon />
-                            </Button>
-                        }
-                        <Button
-                            color="primary"
-                            variant="outlined"
-                            onClick={() => { delCollider(collider); }}>
-                            <DeleteIcon />
-                        </Button>
-                    </Box>
-                    {currentCollider === collider ?
-                        <Box
-                            sx={{
-                                p: 2,
-                                alignItems: "center",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                            }}>
-                            <FormGroup>
-                                <FormControlLabel control={<Checkbox checked={collider.blocksLight} onChange={() => { onBlockLightChange(collider); }} />} label="Blocks Light" />
-                                <FormControlLabel control={<Checkbox checked={!collider.isSolid} onChange={() => { onSolidChange(collider); }} />} label="Hollow" />
-                            </FormGroup>
-                        </Box>
-                        : null}
-                </Box>);
-            }) : null}
+            {currentCollider && (
+                <Card>
+                    <H6>Edit Collider:</H6>
 
-            <Box
-                sx={{
-                    p: 2,
-                    alignItems: "center",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                }}>
-                <Button variant="contained" onClick={addCollider}>
-                    + Collider
-                </Button>
-            </Box>
-
-        </Box>
+                    <Switch
+                        label="Is Solid"
+                        checked={currentCollider.isSolid}
+                        onChange={(e) => {
+                            currentCollider.isSolid = e.currentTarget.checked;
+                            setElement(element);
+                        }} />
+                    <Switch
+                        label="Blocks Light"
+                        checked={currentCollider.blocksLight}
+                        onChange={(e) => {
+                            currentCollider.blocksLight = e.currentTarget.checked;
+                            setElement(element);
+                        }} />
+                    <FormGroup label="Points">
+                        <NumericInput
+                            fill
+                            disabled={!currentCollider}
+                            value={currentCollider?.points.length}
+                            onValueChange={(value) => {
+                                if (value < 0)
+                                    return;
+                                currentCollider.points = [];
+                                for (let i = 0; i < value; i++) {
+                                    currentCollider.points.push({
+                                        x: 0,
+                                        y: 0,
+                                    });
+                                }
+                                setElement(element);
+                            }} />
+                    </FormGroup>
+                    <div>
+                        {currentCollider.points.map((point, index) => {
+                            return (
+                                <ControlGroup fill>
+                                    <NumericInput
+                                        fill
+                                        disabled={!currentCollider}
+                                        value={point.x}
+                                        onValueChange={(value) => {
+                                            currentCollider.points[index].x = value;
+                                            setElement(element);
+                                        }} />
+                                    <NumericInput
+                                        fill
+                                        disabled={!currentCollider}
+                                        value={point.y}
+                                        onValueChange={(value) => {
+                                            currentCollider.points[index].y = value;
+                                            setElement(element);
+                                        }} />
+                                </ControlGroup>
+                            );
+                        })}
+                    </div>
+                    <div style={{ marginTop: 10 }}>
+                        <Button icon="tick" intent="success" onClick={() => editCollider(null)} style={{ marginRight: 5 }} />
+                        <Button icon="trash" intent="danger" onClick={() => delCollider(currentCollider)} />
+                    </div>
+                </Card>
+            )}
+        </div>
     );
 }

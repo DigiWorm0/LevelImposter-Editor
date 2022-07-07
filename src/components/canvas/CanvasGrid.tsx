@@ -1,4 +1,4 @@
-import { Group, Image, Line, Rect, Shape, Text } from "react-konva";
+import { Group, Line, Shape } from "react-konva";
 import React from "react";
 
 const GRID_SPACING = 100;
