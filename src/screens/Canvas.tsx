@@ -23,7 +23,7 @@ export default function Canvas() {
     return (
         <div className="canvas">
             <Stage
-                width={window.innerWidth}
+                width={window.innerWidth - 500}
                 height={window.innerHeight - 50}
                 onMouseDown={checkDeselect}>
                 <Layer

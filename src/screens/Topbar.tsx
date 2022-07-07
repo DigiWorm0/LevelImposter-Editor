@@ -11,11 +11,7 @@ export default function Topbar() {
         <div className="topbar">
             <Navbar
                 className="topbar-navbar"
-                fixedToTop={true}
-                style={{
-                    backgroundColor: "#f5f5f5",
-                    borderBottom: "1px solid #e5e5e5"
-                }}>
+                fixedToTop={true}>
                 <NavbarGroup>
                     <MapName />
                     <NavbarDivider />

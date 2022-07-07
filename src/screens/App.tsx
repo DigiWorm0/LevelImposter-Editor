@@ -6,7 +6,7 @@ import Topbar from './Topbar';
 
 export default function App() {
     return (
-        <div className="app">
+        <div className="app bp4-dark">
             <Topbar />
             <LeftSidebar />
             <Canvas />
