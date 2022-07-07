@@ -6,6 +6,7 @@ import useStorage, { getStorage, putStorage } from './useStorage';
 const CURRENT_KEY = 'current';
 const DEFAULT_MAP: LIMap = {
     id: "" as GUID,
+    v: 0,
     name: "Example Map",
     description: "",
     elementIDs: [],

@@ -65,7 +65,7 @@ export default function AddObjectButton() {
                             label={elem.type}
                             active={props.modifiers.active}
                             disabled={props.modifiers.disabled}
-                            onClick={() => { handleClick(elem) }}
+                            onClick={props.handleClick}
                             onFocus={props.handleFocus} />
                     )
                 }}

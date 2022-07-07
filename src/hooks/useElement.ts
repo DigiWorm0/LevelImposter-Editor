@@ -16,8 +16,8 @@ const DEFAULT_ELEM: LIElement = {
     properties: {},
 };
 
-export default function useElement(id: GUID): [LIElement, (elem: LIElement) => void, number] {
-    const [elem, setElem, v] = useStorage<LIElement>(id, DEFAULT_ELEM);
+export default function useElement(id: GUID | undefined): [LIElement, (elem: LIElement) => void, number] {
+    const [elem, setElem, v] = useStorage<LIElement>(id ? id : "", DEFAULT_ELEM);
     return [elem, setElem, v];
 }
 
@@ -39,4 +39,10 @@ export function removeElement(id: GUID) {
     const map = getMap();
     const ids = map.elementIDs.filter(e => e !== id);
     setMap({ ...map, elementIDs: ids });
+}
+
+export function removeAllElements() {
+    const map = getMap();
+    map.elementIDs.forEach(id => clearStorageFor(id));
+    setMap({ ...map, elementIDs: [] });
 }

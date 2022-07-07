@@ -1,13 +1,13 @@
 import { Button, Classes, Navbar, NavbarDivider, NavbarGroup, NavbarHeading } from "@blueprintjs/core";
 import React from "react";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
+import ImportLegacyButton from "../components/dialogs/ImportLegacyButton";
+import OpenButton from "../components/dialogs/OpenButton";
+import SaveButton from "../components/dialogs/SaveButton";
 import SettingsButton from "../components/dialogs/SettingsButton";
 import MapName from "../components/scenegraph/MapName";
-import useMap from "../hooks/useMap";
 
 export default function Topbar() {
-    const [map, setMap] = useMap();
-
     return (
         <div className="topbar">
             <Navbar
@@ -17,6 +17,12 @@ export default function Topbar() {
                     <MapName />
                     <NavbarDivider />
                     <AddObjectButton />
+                    <NavbarDivider />
+                    <SaveButton />
+                    <NavbarDivider />
+                    <OpenButton />
+                    <NavbarDivider />
+                    <ImportLegacyButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SettingsButton />

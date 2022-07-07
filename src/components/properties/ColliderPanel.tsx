@@ -1,6 +1,7 @@
 import { Button, Card, ControlGroup, Divider, FormGroup, H5, H6, Menu, MenuItem, NavbarDivider, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import generateGUID from "../../hooks/generateGUID";
+import useColliderEditing from "../../hooks/useColliderEditing";
 import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import LICollider from "../../types/li/LICollider";
@@ -11,12 +12,14 @@ const URL_SUFFIX = ".png";
 export default function ColliderPanel() {
     const [selectedID] = useSelected();
     const [element, setElement] = useElement(selectedID);
-    const [currentCollider, setCurrentCollider] = React.useState(null as null | LICollider);
+    const [colliderID, setColliderID] = useColliderEditing();
+
+    const currentCollider = element.properties.colliders?.find(c => c.id === colliderID);
 
     React.useEffect(() => {
         if (currentCollider) {
             if (element.properties.colliders?.find((collider) => collider.id === currentCollider.id) == null) {
-                setCurrentCollider(null);
+                setColliderID(undefined);
             }
         }
     }, [element]);
@@ -33,16 +36,16 @@ export default function ColliderPanel() {
         setElement(element);
     }
     const editCollider = (collider: LICollider | null) => {
-        if (currentCollider === collider)
-            setCurrentCollider(null);
+        if (colliderID === collider?.id)
+            setColliderID(undefined);
         else
-            setCurrentCollider(collider);
+            setColliderID(collider?.id);
     }
     const delCollider = (collider: LICollider) => {
         element.properties.colliders = element.properties.colliders?.filter(c => c.id !== collider.id);
         setElement(element);
-        if (currentCollider === collider)
-            setCurrentCollider(null);
+        if (colliderID === collider.id)
+            setColliderID(undefined);
     }
 
     if (selectedID === "")
@@ -63,7 +66,7 @@ export default function ColliderPanel() {
                             icon="edit"
                             text={"Collider " + (index + 1)}
                             onClick={() => editCollider(collider)}
-                            active={currentCollider?.id === collider.id}
+                            active={colliderID === collider.id}
                         />
                     );
                 })}

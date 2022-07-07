@@ -71,7 +71,6 @@ export default function TransformPanel() {
             <ControlGroup fill>
                 <NumericInput
                     fill
-                    stepSize={45}
                     placeholder="Rotation"
                     onValueChange={(value) => { element.rotation = value; onInput() }}
                     value={element.rotation}

@@ -1,8 +1,11 @@
 import React from "react";
-import { Group, Image, Rect } from "react-konva";
-import useElement from "../../hooks/useElement";
+import { Group, Image, Rect, Shape } from "react-konva";
+import useColliderEditing from "../../hooks/useColliderEditing";
+import useElement, { getElement } from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
+import ColliderRender from "./ColliderRender";
+import VentConnections from "./VentConnections";
 
 const UNITY_SCALE = 100;
 const RECT_PADDING = 5;
@@ -12,6 +15,9 @@ export default function MapElement(props: { elementID: GUID }) {
     const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
     const [selectedID, setSelectedID] = useSelected();
     const [isHovering, setHovering] = React.useState(false);
+    const [colliderID, setColliderID] = useColliderEditing();
+
+    const collider = elem.properties.colliders?.find(c => c.id === colliderID);
 
     React.useEffect(() => {
         if (elem.id === props.elementID) {
@@ -38,6 +44,10 @@ export default function MapElement(props: { elementID: GUID }) {
             rotation={elem.rotation}
             onDragStart={(e) => {
                 setSelectedID(props.elementID);
+            }}
+            onDragMove={(e) => {
+                elem.x = e.target.x() / UNITY_SCALE;
+                elem.y = e.target.y() / UNITY_SCALE;
             }}
             onDragEnd={(e) => {
                 const x = e.target.x() / UNITY_SCALE;
@@ -75,6 +85,9 @@ export default function MapElement(props: { elementID: GUID }) {
                     strokeWidth={1}
                 />
             ) : null}
+
+            <ColliderRender elementID={props.elementID} />
+            <VentConnections elementID={props.elementID} />
 
         </Group>
     );

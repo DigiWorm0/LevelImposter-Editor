@@ -1,6 +1,54 @@
 import AUElement from "./AUElement";
 
 const AUElementDB: AUElement[] = [
+    // Utilities
+    {
+        name: "Skeld / Polus Button",
+        type: "util-button1"
+    }, {
+        name: "Mira Button",
+        type: "util-button2"
+    }, {
+        name: "Admin Table",
+        type: "util-admin"
+    }, {
+        name: "Vitals",
+        type: "util-vitals"
+    }, {
+        name: "Freeplay Laptop",
+        type: "util-computer"
+    }, {
+        name: "Room",
+        type: "util-room"
+    }, {
+        name: "Dummy",
+        type: "util-player"
+    }, {
+        name: "Skeld / Mira Vent",
+        type: "util-vent1"
+    }, {
+        name: "Polus Vent",
+        type: "util-vent2"
+    }, {
+        name: "Camera",
+        type: "util-cam"
+    }, {
+        name: "Polus Camera Panel",
+        type: "util-cams"
+    }, {
+        name: "Skeld Camera Panel",
+        type: "util-cams2"
+    }, {
+        name: "Airship Camera Panel",
+        type: "util-cams3"
+    }, {
+        name: "Initial Spawnpoint",
+        type: "util-spawn1"
+    }, {
+        name: "Meeting Spawnpoint",
+        type: "util-spawn2"
+    },
+    // Tasks
     {
         name: "Card Swipe",
         type: "task-id"
@@ -217,7 +265,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Calibrate Distributer",
         type: "task-distributor"
-    }, {
+    },
+    // Decoration
+    {
         name: "Rock 1",
         type: "dec-rock1"
     }, {
@@ -385,7 +435,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Stove 2",
         type: "dec-stove2"
-    }, {
+    },
+    //      Rooms
+    {
         name: "Polus Admin",
         type: "room-polusadmin"
     }, {
