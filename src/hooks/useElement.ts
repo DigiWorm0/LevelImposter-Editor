@@ -41,7 +41,7 @@ export function removeElement(id: GUID) {
     setMap({ ...map, elementIDs: ids });
 }
 
-export function removeAllElements() {
+export function clearElements() {
     const map = getMap();
     map.elementIDs.forEach(id => clearStorageFor(id));
     setMap({ ...map, elementIDs: [] });

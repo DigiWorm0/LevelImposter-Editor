@@ -22,7 +22,7 @@ export default function SaveButton() {
             elements,
         };
         const mapJSON = JSON.stringify(mapData);
-        const blob = new Blob([mapJSON], { type: "application/json" });
+        const blob = new Blob([mapJSON], { type: "application/levelimposter.map" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;

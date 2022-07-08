@@ -7,7 +7,7 @@ const CURRENT_KEY = 'current';
 const DEFAULT_MAP: LIMap = {
     id: "" as GUID,
     v: 0,
-    name: "Example Map",
+    name: "New Map",
     description: "",
     elementIDs: [],
 };
@@ -23,4 +23,8 @@ export function getMap() {
 
 export function setMap(map: LIMap) {
     putStorage(CURRENT_KEY, map);
+}
+
+export function clearMap() {
+    putStorage(CURRENT_KEY, DEFAULT_MAP);
 }

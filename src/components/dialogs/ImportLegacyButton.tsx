@@ -1,5 +1,5 @@
-import useElement, { removeAllElements, setElement, useElements } from "../../hooks/useElement";
-import useMap, { setMap } from "../../hooks/useMap";
+import useElement, { clearElements, setElement, useElements } from "../../hooks/useElement";
+import useMap, { clearMap, setMap } from "../../hooks/useMap";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
@@ -10,6 +10,8 @@ import React from "react";
 import LIMapFile from "../../types/li/LIMapFile";
 import LILegacyFile from "../../types/li/LILegacyFile";
 import GUID from "../../types/generic/GUID";
+import { setSelection } from "../../hooks/useSelected";
+import { setColliderEditing } from "../../hooks/useColliderEditing";
 
 export default function ImportLegacyButton() {
 
@@ -25,8 +27,14 @@ export default function ImportLegacyButton() {
             reader.onload = () => {
                 const mapData = JSON.parse(reader.result as string) as LILegacyFile;
 
-                const elementIDs: GUID[] = [];
-                removeAllElements();
+                // Clear
+                clearElements();
+                clearMap();
+                setSelection("" as GUID);
+                setColliderEditing("" as GUID);
+
+                // Import Objects
+                const elements: LIElement[] = [];
                 mapData.objs.forEach(legacyObj => {
                     const isCustomObj = legacyObj.spriteType == "custom";
                     const element: LIElement = {
@@ -51,15 +59,31 @@ export default function ImportLegacyButton() {
                             })
                         }
                     };
-                    elementIDs.push(element.id);
+                    elements.push(element);
                     setElement(element);
                 });
+
+                // Target IDs
+                mapData.objs.forEach(((legacyObj, index) => {
+                    const elem = elements[index];
+
+                    const targetIndexes = legacyObj.targetIds.map(id => mapData.objs.findIndex(obj => obj.id == id));
+                    const targetElements = targetIndexes.map(index => elements[index]);
+
+                    if (elem.type.startsWith("util-vent")) {
+                        elem.properties.leftVent = targetElements[0]?.id;
+                        elem.properties.middleVent = targetElements[1]?.id;
+                        elem.properties.rightVent = targetElements[2]?.id;
+                    }
+                }))
+
+                // Set Map
                 setMap({
                     id: generateGUID(),
                     v: 0,
                     name: mapData.name,
                     description: "",
-                    elementIDs
+                    elementIDs: elements.map(element => element.id)
                 });
             }
             reader.readAsText(file);

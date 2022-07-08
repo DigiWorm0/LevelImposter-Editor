@@ -1,7 +1,7 @@
 {
     "name": "levelimposter-editor",
     "description": "LevelImposter Editor",
-    "homepage": "https://digiworm0.github.io/levelimposter-editor/",
+    "homepage": "https://editor.levelimposter.net/",
     "version": "0.1.0",
     "main": "index.js",
     "author": "DigiWorm",
