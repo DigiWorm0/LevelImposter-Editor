@@ -50,11 +50,14 @@ export default function ImportLegacyButton() {
                         properties: {
                             spriteData: isCustomObj ? legacyObj.type : undefined,
                             colliders: legacyObj.colliders.map(legacyCollider => {
+                                const points = legacyCollider.points;
+                                if (legacyCollider.isClosed && points.length > 1)
+                                    points.push(points[0]);
                                 return {
                                     id: generateGUID(),
                                     blocksLight: legacyCollider.blocksLight,
-                                    isSolid: legacyCollider.isClosed,
-                                    points: legacyCollider.points,
+                                    isSolid: legacyObj.type === "util-room",
+                                    points,
                                 }
                             })
                         }

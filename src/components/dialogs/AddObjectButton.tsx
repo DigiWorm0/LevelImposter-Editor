@@ -63,6 +63,7 @@ export default function AddObjectButton() {
                             key={elem.type + props.index}
                             text={elem.name}
                             label={elem.type}
+                            icon={<div style={{ width: 20, textAlign: "center" }}><img src={"/sprites/" + elem.type + ".png"} style={{ maxWidth: 20, maxHeight: 20 }} /></div>}
                             active={props.modifiers.active}
                             disabled={props.modifiers.disabled}
                             onClick={props.handleClick}

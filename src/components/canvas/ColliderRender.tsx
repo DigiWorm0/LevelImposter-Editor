@@ -23,10 +23,11 @@ export default function ColliderRender(props: { elementID: GUID }) {
                 for (let i = 1; i < collider.points.length; i++) {
                     ctx.lineTo(collider.points[i].x * UNITY_SCALE, collider.points[i].y * UNITY_SCALE);
                 }
-                ctx.closePath();
+                if (collider.isSolid)
+                    ctx.closePath();
                 ctx.fillStrokeShape(shape);
             }}
-            fill="transparent"
+            fill={collider.isSolid ? "#ff000066" : "transparent"}
             stroke="red"
             strokeWidth={10}
         />

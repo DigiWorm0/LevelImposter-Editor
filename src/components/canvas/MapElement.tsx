@@ -2,6 +2,7 @@ import React from "react";
 import { Group, Image, Rect, Shape } from "react-konva";
 import useColliderEditing from "../../hooks/useColliderEditing";
 import useElement, { getElement } from "../../hooks/useElement";
+import useMouse from "../../hooks/useMouse";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
 import ColliderRender from "./ColliderRender";
@@ -16,8 +17,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const [selectedID, setSelectedID] = useSelected();
     const [isHovering, setHovering] = React.useState(false);
     const [colliderID, setColliderID] = useColliderEditing();
-
-    const collider = elem.properties.colliders?.find(c => c.id === colliderID);
+    const [, , rightMouse, onMouseDown, onMouseUp] = useMouse();
 
     React.useEffect(() => {
         if (elem.id === props.elementID) {
@@ -42,6 +42,12 @@ export default function MapElement(props: { elementID: GUID }) {
             x={elem.x * UNITY_SCALE}
             y={elem.y * UNITY_SCALE}
             rotation={elem.rotation}
+            onMouseDown={(e) => {
+                onMouseDown(e.evt);
+            }}
+            onMouseUp={(e) => {
+                onMouseUp(e.evt);
+            }}
             onDragStart={(e) => {
                 setSelectedID(props.elementID);
             }}
@@ -63,7 +69,8 @@ export default function MapElement(props: { elementID: GUID }) {
             onMouseLeave={(e) => {
                 setHovering(false);
             }}
-            draggable>
+            draggable={!rightMouse}
+            listening={!rightMouse}>
 
             <Image
                 x={-w / 2}

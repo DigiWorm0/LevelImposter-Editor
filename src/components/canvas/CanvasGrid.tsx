@@ -9,7 +9,7 @@ export default function CanvasGrid() {
     const [settings] = useSettings();
 
     return (
-        <Group name="canvas-grid">
+        <Group name="canvas-grid" listening={false}>
             {settings.isGridVisible && (
                 <Shape
                     sceneFunc={(ctx, shape) => {
@@ -41,15 +41,6 @@ export default function CanvasGrid() {
                         strokeWidth={2} />
                 </>
             )}
-
-            <Rect
-                x={-GRID_SIZE * GRID_SPACING}
-                y={-GRID_SIZE * GRID_SPACING}
-                width={GRID_SIZE * GRID_SPACING * 2}
-                height={GRID_SIZE * GRID_SPACING * 2}
-                fill={"transparent"}
-                stroke={"white"}
-            />
         </Group>
 
     );

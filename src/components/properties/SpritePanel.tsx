@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, ControlGroup, Divider, H2, H4, H5, H6, InputGroup, NumericInput } from "@blueprintjs/core";
+import { Button, ButtonGroup, Card, ControlGroup, Divider, FormGroup, H2, H4, H5, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import useElement, { removeElement } from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
@@ -45,7 +45,7 @@ export default function SpritePanel() {
         });
     }
 
-    if (selectedID === "")
+    if (selectedID === "" || (element.type.startsWith("util-") && element.type !== "util-blank"))
         return null;
 
     return (

@@ -1,6 +1,4 @@
 import React from "react";
-import useKey from "./useKey";
-import useKeyboard from "./useKeyboard";
 
 const PAN_SPEED = 10;
 const ZOOM_SPEED = 1.1;
@@ -9,24 +7,24 @@ export default function useCamera() {
     const [x, setX] = React.useState(0);
     const [y, setY] = React.useState(0);
     const [zoom, setZoom] = React.useState(1);
-    const [version, setVersion] = React.useState(0);
+    const [, setVersion] = React.useState(0);
+
+    const onMouseScroll = (e: WheelEvent) => {
+        e.preventDefault();
+        setZoom(z => z * (e.deltaY < 0 ? ZOOM_SPEED : 1 / ZOOM_SPEED));
+    }
 
     React.useEffect(() => {
+        document.addEventListener('wheel', onMouseScroll);
         window.onresize = () => {
             setVersion(v => v + 1);
         }
 
         return () => {
+            document.removeEventListener('wheel', onMouseScroll);
             window.onresize = null;
         }
-    })
-
-    useKey("w", () => setY(y => y + PAN_SPEED));
-    useKey("s", () => setY(y => y - PAN_SPEED));
-    useKey("a", () => setX(x => x + PAN_SPEED));
-    useKey("d", () => setX(x => x - PAN_SPEED));
-    useKey("q", () => setZoom(zoom => zoom * ZOOM_SPEED));
-    useKey("e", () => setZoom(zoom => zoom / ZOOM_SPEED));
+    }, []);
 
     return {
         x: x,
