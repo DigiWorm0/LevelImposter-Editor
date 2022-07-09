@@ -9,9 +9,6 @@ import LIElement from "../../types/li/LIElement";
 
 const VentSelect = Select2.ofType<LIElement>();
 
-const URL_PREFIX = "/sprites/";
-const URL_SUFFIX = ".png";
-
 export default function VentPanel() {
     const [map] = useMap();
     const [allElements] = useElements(map.elementIDs);
@@ -49,13 +46,6 @@ export default function VentPanel() {
         <div className="vent-panel">
             <H5 style={{ marginTop: 25 }}>Vent</H5>
             <Divider />
-            <div style={{ textAlign: "center", margin: 15 }}>
-                <img
-                    style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={URL_PREFIX + element.type + URL_SUFFIX}
-                    alt={element.name}
-                />
-            </div>
 
             <ControlGroup fill>
                 <VentSelect

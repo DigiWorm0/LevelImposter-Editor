@@ -3,23 +3,21 @@ import React from "react";
 const PAN_SPEED = 10;
 const ZOOM_SPEED = 1.1;
 
-export default function useCamera() {
-    const [x, setX] = React.useState(0);
-    const [y, setY] = React.useState(0);
+export default function useCamera(w: number, h: number) {
+    const [x, setX] = React.useState(-w / 2);
+    const [y, setY] = React.useState(-h / 2);
     const [zoom, setZoom] = React.useState(1);
-    const [, setVersion] = React.useState(0);
 
     const onMouseScroll = (e: WheelEvent) => {
         e.preventDefault();
-        setZoom(z => z * (e.deltaY < 0 ? ZOOM_SPEED : 1 / ZOOM_SPEED));
+        const zoomDelta = e.deltaY < 0 ? ZOOM_SPEED : 1 / ZOOM_SPEED;
+        setZoom(z => z * zoomDelta);
+        setX(x => ((x + (w / 2)) * zoomDelta) - (w / 2));
+        setY(y => ((y + (h / 2)) * zoomDelta) - (h / 2));
     }
 
     React.useEffect(() => {
         document.addEventListener('wheel', onMouseScroll);
-        window.onresize = () => {
-            setVersion(v => v + 1);
-        }
-
         return () => {
             document.removeEventListener('wheel', onMouseScroll);
             window.onresize = null;
@@ -30,5 +28,9 @@ export default function useCamera() {
         x: x,
         y: y,
         z: zoom,
+        width: w,
+        height: h,
+        setX,
+        setY,
     };
 }

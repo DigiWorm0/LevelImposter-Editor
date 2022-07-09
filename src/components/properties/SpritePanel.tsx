@@ -45,7 +45,12 @@ export default function SpritePanel() {
         });
     }
 
-    if (selectedID === "" || (element.type.startsWith("util-") && element.type !== "util-blank"))
+    if (selectedID === ""
+        || element.type === "util-player"
+        || element.type === "util-room"
+        || element.type === "util-spawn1"
+        || element.type === "util-spawn2")
+
         return null;
 
     return (

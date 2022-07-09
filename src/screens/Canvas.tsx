@@ -13,7 +13,7 @@ import useSelected from '../hooks/useSelected';
 export default function Canvas() {
     const [map] = useMap();
     const [elements] = useElements(map.elementIDs);
-    const camera = useCamera();
+    const camera = useCamera(window.innerWidth - 500, window.innerHeight - 50);
     const [, setSelectedID] = useSelected();
     const [leftMouse] = useMouse();
 
@@ -23,13 +23,21 @@ export default function Canvas() {
     return (
         <div className="canvas">
             <Stage
-                width={window.innerWidth - 500}
-                height={window.innerHeight - 50}
+                x={camera.x}
+                y={camera.y}
+                width={camera.width}
+                height={camera.height}
                 draggable={!leftMouse}
+                onDragEnd={(e: KonvaEventObject<DragEvent>) => {
+                    if (e.target === e.target.getStage()) {
+                        camera.setX(e.target.x());
+                        camera.setY(e.target.y());
+                    }
+                }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
                 <Layer
-                    x={window.innerWidth / 2}
-                    y={window.innerHeight / 2}
+                    x={camera.width}
+                    y={camera.height}
                     scale={{ x: camera.z, y: camera.z }}>
 
                     {map.elementIDs.map(elementID => (
