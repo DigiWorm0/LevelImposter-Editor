@@ -1,7 +1,8 @@
 import GUID from '../types/generic/GUID';
 import LIElement from '../types/li/LIElement';
+import useAutosave, { clearAutosaveFor, getAutosave, putAutosave } from './storage/useIndexedDB';
 import { getMap, setMap } from './useMap';
-import useStorage, { clearStorageFor, getStorage, putStorage, useStorages } from './useStorage';
+import { useStores } from './storage/useStore';
 
 const DEFAULT_ELEM: LIElement = {
     id: "" as GUID,
@@ -17,25 +18,25 @@ const DEFAULT_ELEM: LIElement = {
 };
 
 export default function useElement(id: GUID | undefined): [LIElement, (elem: LIElement) => void, number] {
-    const [elem, setElem, v] = useStorage<LIElement>(id ? id : "", DEFAULT_ELEM);
+    const [elem, setElem, v] = useAutosave<LIElement>(id ? id : "", DEFAULT_ELEM);
     return [elem, setElem, v];
 }
 
-export function useElements(ids: GUID[]): [LIElement[], (elems: LIElement[]) => void] {
-    const [elems, setElems] = useStorages<LIElement>(ids, DEFAULT_ELEM);
-    return [elems, setElems];
+export function useElements(ids: GUID[]): [LIElement[]] {
+    const [elems] = useStores<LIElement>(ids, DEFAULT_ELEM);
+    return [elems];
 }
 
 export function getElement(id: GUID) {
-    return getStorage<LIElement>(id, DEFAULT_ELEM);
+    return getAutosave<LIElement>(id, DEFAULT_ELEM);
 }
 
 export function setElement(elem: LIElement) {
-    putStorage(elem.id, elem);
+    putAutosave(elem.id, elem);
 }
 
 export function removeElement(id: GUID) {
-    clearStorageFor(id);
+    clearAutosaveFor(id);
     const map = getMap();
     const ids = map.elementIDs.filter(e => e !== id);
     setMap({ ...map, elementIDs: ids });
@@ -43,6 +44,6 @@ export function removeElement(id: GUID) {
 
 export function clearElements() {
     const map = getMap();
-    map.elementIDs.forEach(id => clearStorageFor(id));
+    map.elementIDs.forEach(id => clearAutosaveFor(id));
     setMap({ ...map, elementIDs: [] });
 }

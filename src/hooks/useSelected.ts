@@ -1,5 +1,5 @@
 import GUID from '../types/generic/GUID';
-import useStorage, { getStorage, putStorage } from './useStorage';
+import useStore, { getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'selected';
 const DEFAULT_SELECTED = { selectedID: "" as GUID };
@@ -9,7 +9,7 @@ interface SelectionState {
 }
 
 export default function useSelected(): [GUID, (selectedID?: GUID) => void] {
-    const [selectedID, setSelectedID] = useStorage<SelectionState>(CURRENT_KEY, DEFAULT_SELECTED);
+    const [selectedID, setSelectedID] = useStore<SelectionState>(CURRENT_KEY, DEFAULT_SELECTED);
     const setData = (id?: GUID) => {
         setSelectedID({ selectedID: id ? id : "" as GUID });
     }
@@ -17,9 +17,9 @@ export default function useSelected(): [GUID, (selectedID?: GUID) => void] {
 }
 
 export function getSelection() {
-    return getStorage<SelectionState>(CURRENT_KEY, DEFAULT_SELECTED).selectedID;
+    return getStore<SelectionState>(CURRENT_KEY, DEFAULT_SELECTED).selectedID;
 }
 
 export function setSelection(selectedID: GUID) {
-    putStorage(CURRENT_KEY, { selectedID: selectedID });
+    putStore(CURRENT_KEY, { selectedID: selectedID });
 }

@@ -1,4 +1,4 @@
-import useElement, { clearElements, setElement, useElements } from "../../hooks/useElement";
+import useElement, { clearElements, setElement } from "../../hooks/useElement";
 import useMap, { setMap } from "../../hooks/useMap";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";

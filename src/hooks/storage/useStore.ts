@@ -2,28 +2,27 @@ import EventEmitter from "eventemitter3";
 import React from "react";
 
 const eventEmitter = new EventEmitter();
-
-export let storageCache: Record<string, any> = {};
+const store: Record<string, any> = {};
 
 /**
- * Acts as a react hook for Local Storage
+ * Acts as a react hook for a global store.
  * @param id - ID of the element
  * @param defaultValue - Default value of the element
  * @returns A react hook of the element
  */
-export default function useStorage<Type>(id: string, defaultValue: Type): [Type, (value: Type) => void, number] {
+export default function useStore<Type>(id: string, defaultValue: Type): [Type, (value: Type) => void, number] {
     const [version, setVersion] = React.useState(0);
     const [data, setData] = React.useState(defaultValue);
 
     // Get Data
     React.useEffect(() => {
-        const data = getStorage(id, defaultValue);
+        const data = getStore(id, defaultValue);
         setData(data);
     }, [id, version, defaultValue]);
 
     // Save Data
     const saveData = (value: Type) => {
-        putStorage(id, value);
+        putStore(id, value);
     }
 
     // Listen for changes
@@ -42,24 +41,24 @@ export default function useStorage<Type>(id: string, defaultValue: Type): [Type,
 }
 
 /**
- * Acts as a react hook for multiple Local Storage keys
+ * Acts as a react hook for multiple global stores.
  * @param ids - ID of the elements
  * @param defaultValue - Default value of the element
  * @returns A react hook of the element
  */
-export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (values: Type[]) => void, number] {
+export function useStores<Type>(ids: string[], defaultValue: Type): [Type[], (values: Type[]) => void, number] {
     const [version, setVersion] = React.useState(0);
     const [data, setData] = React.useState([] as Type[]);
 
     // Get Data
     React.useEffect(() => {
-        setData(ids.map((id, index) => getStorage(id, defaultValue)));
+        setData(ids.map((id, index) => getStore(id, defaultValue)));
     }, [ids, version, defaultValue, setData]);
 
     // Save Data
     const saveData = (values: Type[]) => {
         ids.forEach((id, index) => {
-            putStorage(id, values[index]);
+            putStore(id, values[index]);
         });
     }
 
@@ -84,45 +83,36 @@ export function useStorages<Type>(ids: string[], defaultValue: Type): [Type[], (
 }
 
 /**
- * Puts a new element into Local Storage
+ * Puts a new element into the store
  * @param id - ID of the element
  * @param value - Value of the element
  */
-export function putStorage<Type>(id: string, value: Type) {
-    storageCache[id] = value;
-    const jsonData = JSON.stringify(value);
-    localStorage.setItem(id, jsonData);
+export function putStore<Type>(id: string, value: Type) {
+    store[id] = value;
     eventEmitter.emit(id);
 }
 
 /**
- * Gets a value from Local Storage
+ * Gets a value from store
  * @param id - ID of the element
  * @returns value in Local Storage
  */
-export function getStorage<Type>(id: string, defaultValue: Type): Type {
-    if (id in storageCache)
-        return storageCache[id] as Type;
-    const jsonData = localStorage.getItem(id);
-    const value = jsonData ? (JSON.parse(jsonData) as Type) : defaultValue;
-    storageCache[id] = value;
-    return value;
+export function getStore<Type>(id: string, defaultValue: Type): Type {
+    return id in store ? store[id] as Type : defaultValue;
 }
 
 /**
- * Removes all keys from Local Storage
+ * Removes all keys from the store
  */
-export function clearStorage() {
-    storageCache = {};
-    const keys = localStorage.getAllKeys();
+export function clearStore() {
+    const keys = store.keys();
     for (let key of keys) {
-        localStorage.removeItem(key);
         eventEmitter.emit(key);
+        delete store[key];
     }
 }
 
-export function clearStorageFor(id: string) {
-    delete storageCache[id];
-    localStorage.removeItem(id);
+export function clearStoreFor(id: string) {
+    delete store[id];
     eventEmitter.emit(id);
 }

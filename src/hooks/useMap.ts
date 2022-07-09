@@ -1,7 +1,8 @@
 import React from 'react';
 import GUID from '../types/generic/GUID';
 import LIMap from '../types/li/LIMap';
-import useStorage, { getStorage, putStorage } from './useStorage';
+import useIndexedDB, { getAutosave, putAutosave } from './storage/useIndexedDB';
+import useStore, { clearStoreFor, getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'current';
 const DEFAULT_MAP: LIMap = {
@@ -13,18 +14,18 @@ const DEFAULT_MAP: LIMap = {
 };
 
 export default function useMap(): [LIMap, (map: LIMap) => void] {
-    const [map, setMap] = useStorage<LIMap>(CURRENT_KEY, DEFAULT_MAP);
+    const [map, setMap] = useIndexedDB<LIMap>(CURRENT_KEY, DEFAULT_MAP);
     return [map, setMap];
 }
 
 export function getMap() {
-    return getStorage<LIMap>(CURRENT_KEY, DEFAULT_MAP);
+    return getAutosave<LIMap>(CURRENT_KEY, DEFAULT_MAP);
 }
 
 export function setMap(map: LIMap) {
-    putStorage(CURRENT_KEY, map);
+    putAutosave(CURRENT_KEY, map);
 }
 
 export function clearMap() {
-    putStorage(CURRENT_KEY, DEFAULT_MAP);
+    putAutosave(CURRENT_KEY, DEFAULT_MAP);
 }

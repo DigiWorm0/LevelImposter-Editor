@@ -1,5 +1,5 @@
 import GUID from '../types/generic/GUID';
-import useStorage, { getStorage, putStorage } from './useStorage';
+import useStore, { getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'collider-editing';
 const DEFAULT_EDITING = { editingID: "" as GUID };
@@ -9,7 +9,7 @@ interface EditingState {
 }
 
 export default function useColliderEditing(): [GUID, (editingID?: GUID) => void] {
-    const [editingID, setEditingID] = useStorage<EditingState>(CURRENT_KEY, DEFAULT_EDITING);
+    const [editingID, setEditingID] = useStore<EditingState>(CURRENT_KEY, DEFAULT_EDITING);
     const setData = (id?: GUID) => {
         setEditingID({ editingID: id ? id : "" as GUID });
     }
@@ -17,9 +17,9 @@ export default function useColliderEditing(): [GUID, (editingID?: GUID) => void]
 }
 
 export function getColliderEditing() {
-    return getStorage<EditingState>(CURRENT_KEY, DEFAULT_EDITING).editingID;
+    return getStore<EditingState>(CURRENT_KEY, DEFAULT_EDITING).editingID;
 }
 
 export function setColliderEditing(editingID: GUID) {
-    putStorage(CURRENT_KEY, { editingID: editingID });
+    putStore(CURRENT_KEY, { editingID: editingID });
 }

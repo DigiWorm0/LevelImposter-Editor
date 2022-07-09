@@ -1,5 +1,6 @@
 import LISettings from '../types/li/LISettings';
-import useStorage, { getStorage, putStorage } from './useStorage';
+import useStorage from './storage/useStorage';
+import useStore, { getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'settings';
 const DEFAULT_SETTINGS: LISettings = {
@@ -11,12 +12,4 @@ const DEFAULT_SETTINGS: LISettings = {
 export default function useSettings(): [LISettings, (settings: LISettings) => void] {
     const [settings, setSettings] = useStorage<LISettings>(CURRENT_KEY, DEFAULT_SETTINGS);
     return [settings, setSettings];
-}
-
-export function getSettings() {
-    return getStorage<LISettings>(CURRENT_KEY, DEFAULT_SETTINGS);
-}
-
-export function setSettings(settings: LISettings) {
-    putStorage(CURRENT_KEY, settings);
 }

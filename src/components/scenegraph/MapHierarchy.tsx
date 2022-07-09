@@ -7,7 +7,7 @@ import GUID from "../../types/generic/GUID";
 
 export default function MapHierarchy() {
     const [map, setMap] = useMap();
-    const [elems, setElems] = useElements(map.elementIDs);
+    const [elems] = useElements(map.elementIDs);
     const [selectedID, setSelectedID] = useSelected();
 
     const treeContents: TreeNodeInfo[] = [];
