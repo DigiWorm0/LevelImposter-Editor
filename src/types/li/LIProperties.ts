@@ -8,6 +8,10 @@ export default interface LIProperties {
     middleVent?: GUID;
     rightVent?: GUID;
 
+    camXOffset?: number;
+    camYOffset?: number;
+    camZoom?: number;
+
     onlyFromBelow?: boolean;
     range?: number;
 

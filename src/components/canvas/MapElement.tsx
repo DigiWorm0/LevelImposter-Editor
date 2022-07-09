@@ -5,6 +5,7 @@ import useElement, { getElement } from "../../hooks/useElement";
 import useMouse from "../../hooks/useMouse";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
+import CameraRender from "./CameraRender";
 import ColliderRender from "./ColliderRender";
 import VentConnections from "./VentConnections";
 
@@ -95,6 +96,7 @@ export default function MapElement(props: { elementID: GUID }) {
 
             <ColliderRender elementID={props.elementID} />
             <VentConnections elementID={props.elementID} />
+            <CameraRender elementID={props.elementID} />
 
         </Group>
     );
