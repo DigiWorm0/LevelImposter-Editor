@@ -1,7 +1,7 @@
 import { Card, ControlGroup, Divider, H2, H4, H5, H6, InputGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import useElement, { removeElement } from "../../hooks/useElement";
-import useKeyboard from "../../hooks/useKeyboard";
+import useKeyboard from "../../hooks/input/useKeyboard";
 import useSelected from "../../hooks/useSelected";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";

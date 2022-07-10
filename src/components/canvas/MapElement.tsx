@@ -2,7 +2,7 @@ import React from "react";
 import { Group, Image, Rect, Shape } from "react-konva";
 import useColliderEditing from "../../hooks/useColliderEditing";
 import useElement, { getElement } from "../../hooks/useElement";
-import useMouse from "../../hooks/useMouse";
+import useMouse from "../../hooks/input/useMouse";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
 import CameraRender from "./CameraRender";

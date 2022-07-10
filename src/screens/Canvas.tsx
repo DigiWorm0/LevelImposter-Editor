@@ -7,7 +7,7 @@ import MapElement from '../components/canvas/MapElement';
 import useCamera from '../hooks/useCamera';
 import { useElements } from '../hooks/useElement';
 import useMap from '../hooks/useMap';
-import useMouse from '../hooks/useMouse';
+import useMouse from '../hooks/input/useMouse';
 import useSelected from '../hooks/useSelected';
 
 export default function Canvas() {
