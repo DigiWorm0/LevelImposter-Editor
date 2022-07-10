@@ -11,7 +11,7 @@ export default function MapHierarchy() {
     const [selectedID, setSelectedID] = useSelected();
 
     const treeContents: TreeNodeInfo[] = [];
-    elems.forEach((elem) => {
+    elems.forEach((elem, index) => {
         let icon: IconName = "cube";
         if (elem.type.startsWith("task-"))
             icon = "build";
@@ -19,7 +19,7 @@ export default function MapHierarchy() {
             icon = "wrench";
 
         treeContents.push({
-            id: elem.id,
+            id: elem.id + "-" + index,
             label: elem.name,
             icon: icon,
             isSelected: elem.id === selectedID,

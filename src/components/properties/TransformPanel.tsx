@@ -39,18 +39,21 @@ export default function TransformPanel() {
                     fill
                     placeholder="X"
                     onValueChange={(value) => { element.x = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.x}
                 />
                 <NumericInput
                     fill
                     placeholder="Y"
                     onValueChange={(value) => { element.y = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.y}
                 />
                 <NumericInput
                     fill
                     placeholder="Z"
                     onValueChange={(value) => { element.z = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.z}
                 />
             </ControlGroup>
@@ -59,12 +62,14 @@ export default function TransformPanel() {
                     fill
                     placeholder="X Scale"
                     onValueChange={(value) => { element.xScale = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.xScale}
                 />
                 <NumericInput
                     fill
                     placeholder="Y Scale"
                     onValueChange={(value) => { element.yScale = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.yScale}
                 />
             </ControlGroup>
@@ -73,6 +78,7 @@ export default function TransformPanel() {
                     fill
                     placeholder="Rotation"
                     onValueChange={(value) => { element.rotation = value; onInput() }}
+                    minorStepSize={0.001}
                     value={element.rotation}
                 />
             </ControlGroup>

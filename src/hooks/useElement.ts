@@ -1,6 +1,6 @@
 import GUID from '../types/generic/GUID';
 import LIElement from '../types/li/LIElement';
-import useAutosave, { clearAutosaveFor, getAutosave, putAutosave } from './storage/useIndexedDB';
+import useAutosave, { clearAutosaveFor, getAutosave, putAutosave, useAutosaves } from './storage/useIndexedDB';
 import { getMap, setMap } from './useMap';
 import { useStores } from './storage/useStore';
 
@@ -23,7 +23,7 @@ export default function useElement(id: GUID | undefined): [LIElement, (elem: LIE
 }
 
 export function useElements(ids: GUID[]): [LIElement[]] {
-    const [elems] = useStores<LIElement>(ids, DEFAULT_ELEM);
+    const [elems] = useAutosaves<LIElement>(ids, DEFAULT_ELEM);
     return [elems];
 }
 

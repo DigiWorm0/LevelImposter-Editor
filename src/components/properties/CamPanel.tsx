@@ -23,6 +23,7 @@ export default function CamPanel() {
                     <NumericInput
                         fill
                         value={element.properties.camXOffset}
+                        minorStepSize={0.001}
                         onValueChange={(value) => {
                             element.properties.camXOffset = value;
                             setElement(element);
@@ -30,6 +31,7 @@ export default function CamPanel() {
                     <NumericInput
                         fill
                         value={element.properties.camYOffset}
+                        minorStepSize={0.001}
                         onValueChange={(value) => {
                             element.properties.camYOffset = value;
                             setElement(element);
@@ -40,6 +42,7 @@ export default function CamPanel() {
                 <NumericInput
                     fill
                     value={element.properties.camZoom}
+                    minorStepSize={0.001}
                     onValueChange={(value) => {
                         element.properties.camZoom = value;
                         setElement(element);

@@ -94,6 +94,7 @@ export default function ColliderPanel() {
                         <NumericInput
                             fill
                             disabled={!currentCollider}
+                            minorStepSize={0.001}
                             value={currentCollider?.points.length}
                             onValueChange={(value) => {
                                 if (value < 0)
@@ -115,6 +116,7 @@ export default function ColliderPanel() {
                                     <NumericInput
                                         fill
                                         disabled={!currentCollider}
+                                        minorStepSize={0.001}
                                         value={point.x}
                                         onValueChange={(value) => {
                                             currentCollider.points[index].x = value;
@@ -123,6 +125,7 @@ export default function ColliderPanel() {
                                     <NumericInput
                                         fill
                                         disabled={!currentCollider}
+                                        minorStepSize={0.001}
                                         value={point.y}
                                         onValueChange={(value) => {
                                             currentCollider.points[index].y = value;

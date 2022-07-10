@@ -1,5 +1,5 @@
 import React from "react";
-import useStore, { clearStore, clearStoreFor, getStore, putStore } from "./useStore";
+import useStore, { clearStore, clearStoreFor, getStore, inStore, putStore, useStores } from "./useStore";
 import dbWrapper from "./dbWrapper";
 
 /**
@@ -9,28 +9,59 @@ import dbWrapper from "./dbWrapper";
  * @returns A react hook of the element
  */
 export default function useAutosave<Type>(id: string, defaultValue: Type): [Type, (value: Type) => void, number] {
-    const [data, saveData, version] = useStore(id, defaultValue);
+    const [data, setData, version] = useStore(id, defaultValue);
 
     // Save Data
     const saveToStorage = (value: Type) => {
-        saveData(value);
+        setData(value);
         dbWrapper.put(id, JSON.stringify(value));
-        console.log(`Saved ${id} to indexed db`);
-        console.log(JSON.stringify(value));
+        console.log(`%cSaved ${id} to db`, "color:lime; font-weight: bold;");
     }
 
     // Get Data
     React.useEffect(() => {
-        const data = dbWrapper.get(id).then(data => {
-            if (data) {
-                saveData(JSON.parse(data.value));
-            }
-        });
+        if (!inStore(id)) {
+            dbWrapper.get(id).then(dbData => {
+                if (dbData) {
+                    setData(JSON.parse(dbData.value));
+                    console.log(`%cLoaded ${id} from db`, "color:green; font-weight: bold;");
+                }
+            });
+        }
     }, [id]);
 
     return [data, saveToStorage, version];
 }
 
+export function useAutosaves<Type>(ids: string[], defaultValue: Type): [Type[], (value: Type[]) => void, number] {
+    const [data, setData, version] = useStores(ids, defaultValue);
+
+    // Save Data
+    const saveToStorage = (values: Type[]) => {
+        setData(values);
+        ids.forEach((id, index) => {
+            dbWrapper.put(id, JSON.stringify(values[index]));
+        });
+        console.log(`%cSaved ${ids} to db`, "color:lime; font-weight: bold;");
+    }
+
+    // Get Data
+    React.useEffect(() => {
+        ids.forEach((id, index) => {
+            if (!inStore(id)) {
+                dbWrapper.get(id).then(dbData => {
+                    if (dbData) {
+                        data[index] = JSON.parse(dbData.value);
+                        setData(data);
+                        console.log(`%cLoaded ${id} from db`, "color:green; font-weight: bold;");
+                    }
+                });
+            }
+        }, [ids]);
+    }, [ids]);
+
+    return [data, saveToStorage, version];
+}
 
 /**
  * Puts a new element into the indexedDB

@@ -98,7 +98,11 @@ export function putStore<Type>(id: string, value: Type) {
  * @returns value in Local Storage
  */
 export function getStore<Type>(id: string, defaultValue: Type): Type {
-    return id in store ? store[id] as Type : defaultValue;
+    if (id in store) {
+        const data = store[id];
+        return data ? data : defaultValue;
+    }
+    return defaultValue;
 }
 
 /**
@@ -115,4 +119,8 @@ export function clearStore() {
 export function clearStoreFor(id: string) {
     delete store[id];
     eventEmitter.emit(id);
+}
+
+export function inStore(id: string): boolean {
+    return id in store;
 }
