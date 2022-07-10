@@ -13,9 +13,23 @@ import useSelected from '../hooks/useSelected';
 export default function Canvas() {
     const [map] = useMap();
     const [elements] = useElements(map.elementIDs);
-    const camera = useCamera(window.innerWidth - 500, window.innerHeight - 50);
+    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
+    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
+    const camera = useCamera(canvasWidth, canvasHeight);
     const [, setSelectedID] = useSelected();
     const [leftMouse] = useMouse();
+
+    const onWindowResize = () => {
+        setCanvasWidth(window.innerWidth - 500);
+        setCanvasHeight(window.innerHeight - 50);
+    }
+
+    React.useEffect(() => {
+        window.addEventListener('resize', onWindowResize);
+        return () => {
+            window.removeEventListener('resize', onWindowResize);
+        }
+    }, []);
 
     Konva.dragButtons = [0, 1, 2];
     Konva.hitOnDragEnabled = true;

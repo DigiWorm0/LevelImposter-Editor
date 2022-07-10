@@ -22,7 +22,7 @@ export default function useCamera(w: number, h: number) {
             document.removeEventListener('wheel', onMouseScroll);
             window.onresize = null;
         }
-    }, []);
+    }, [w, h]);
 
     return {
         x: x,

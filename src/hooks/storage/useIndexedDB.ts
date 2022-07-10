@@ -2,6 +2,8 @@ import React from "react";
 import useStore, { clearStore, clearStoreFor, getStore, inStore, putStore, useStores } from "./useStore";
 import dbWrapper from "./dbWrapper";
 
+const loadingList: string[] = [];
+
 /**
  * Acts as a react hook for an indexed db.
  * @param id - ID of the element
@@ -20,12 +22,18 @@ export default function useAutosave<Type>(id: string, defaultValue: Type): [Type
 
     // Get Data
     React.useEffect(() => {
-        if (!inStore(id)) {
+        if (!inStore(id) && !loadingList.includes(id)) {
+            console.log("%cLoading " + id + " from db", "color:orange; font-weight: bold;");
+            loadingList.push(id);
             dbWrapper.get(id).then(dbData => {
+                loadingList.splice(loadingList.indexOf(id), 1);
                 if (dbData) {
                     setData(JSON.parse(dbData.value));
                     console.log(`%cLoaded ${id} from db`, "color:green; font-weight: bold;");
                 }
+            }).catch(err => {
+                console.error(err);
+                loadingList.splice(loadingList.indexOf(id), 1);
             });
         }
     }, [id]);
@@ -48,13 +56,19 @@ export function useAutosaves<Type>(ids: string[], defaultValue: Type): [Type[], 
     // Get Data
     React.useEffect(() => {
         ids.forEach((id, index) => {
-            if (!inStore(id)) {
+            if (!inStore(id) && !loadingList.includes(id)) {
+                console.log("%cLoading " + id + " from db", "color:orange; font-weight: bold;");
+                loadingList.push(id);
                 dbWrapper.get(id).then(dbData => {
+                    loadingList.splice(loadingList.indexOf(id), 1);
                     if (dbData) {
                         data[index] = JSON.parse(dbData.value);
                         setData(data);
                         console.log(`%cLoaded ${id} from db`, "color:green; font-weight: bold;");
                     }
+                }).catch(err => {
+                    console.error(err);
+                    loadingList.splice(loadingList.indexOf(id), 1);
                 });
             }
         }, [ids]);
@@ -71,6 +85,7 @@ export function useAutosaves<Type>(ids: string[], defaultValue: Type): [Type[], 
 export function putAutosave<Type>(id: string, value: Type) {
     putStore(id, value);
     dbWrapper.put(id, JSON.stringify(value));
+    console.log(`%cSaved ${id} directly to db`, "color:red; font-weight: bold;");
 }
 
 /**
@@ -86,11 +101,13 @@ export function getAutosave<Type>(id: string, defaultValue: Type): Type {
  * Removes all keys from the store
  */
 export function clearAutosave() {
+    console.log(`%cCleared db`, "color:red; font-weight: bold;");
     dbWrapper.clear();
     clearStore();
 }
 
 export function clearAutosaveFor(id: string) {
+    console.log(`%cCleared ${id} from db`, "color:red; font-weight: bold;");
     dbWrapper.delete(id);
     clearStoreFor(id);
 }
