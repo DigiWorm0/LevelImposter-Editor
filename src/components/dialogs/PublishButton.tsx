@@ -67,7 +67,7 @@ export default function PublishButton() {
                 description: mapData.description,
                 isPublic: mapData.isPublic,
                 authorID: user?.uid,
-                downloadURL: storagePath,
+                storageURL: storagePath
             } as LIMetadata).then(() => {
                 console.log(`Map published to firestore: ${docRef.path}`);
 

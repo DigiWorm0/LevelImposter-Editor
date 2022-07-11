@@ -77,7 +77,7 @@ export default function ImportLegacyButton() {
 
                 // Set Map
                 setMap({
-                    id: generateGUID(),
+                    id: "" as GUID,
                     v: 0,
                     name: mapData.name,
                     description: "",
