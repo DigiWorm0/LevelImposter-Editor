@@ -1,8 +1,6 @@
-import React from 'react';
 import GUID from '../types/generic/GUID';
 import LIMap from '../types/li/LIMap';
 import useIndexedDB, { getAutosave, putAutosave } from './storage/useIndexedDB';
-import useStore, { clearStoreFor, getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'current';
 const DEFAULT_MAP: LIMap = {
@@ -10,6 +8,7 @@ const DEFAULT_MAP: LIMap = {
     v: 0,
     name: "New Map",
     description: "",
+    isPublic: false,
     elementIDs: [],
 };
 

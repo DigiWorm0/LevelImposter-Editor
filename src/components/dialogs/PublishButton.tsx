@@ -1,16 +1,16 @@
-import { Alert, Button, ButtonGroup, Classes, ControlGroup, Dialog, Divider, FormGroup, InputGroup, Label, ProgressBar, Text, TextArea } from "@blueprintjs/core";
-import React from "react";
-import useSettings from "../../hooks/useSettings";
-import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button, ButtonGroup, Classes, Dialog, Divider, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
 import { signInWithPopup, signOut } from "firebase/auth";
-import useMap from "../../hooks/useMap";
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, ref, uploadString } from "firebase/storage";
+import React from "react";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
+import generateGUID from "../../hooks/generateGUID";
 import { useElements } from "../../hooks/useElement";
+import useMap from "../../hooks/useMap";
+import useSettings from "../../hooks/useSettings";
 import LIMapFile from "../../types/li/LIMapFile";
 import LIMetadata from "../../types/li/LIMetadata";
-import generateGUID from "../../hooks/generateGUID";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
 
 export default function PublishButton() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -22,6 +22,7 @@ export default function PublishButton() {
     const [isPublishing, setIsPublishing] = React.useState(false);
 
     const isLoggedIn = user !== null;
+    const isUploaded = map.id !== "";
     const googleIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-google" viewBox="0 0 16 16">
             <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
@@ -33,43 +34,54 @@ export default function PublishButton() {
         </svg>
     );
 
-    const publishMap = async () => {
+    const publishMap = () => {
         setIsPublishing(true);
-
-        // Update
-        map.id = generateGUID();
-        setMap(map);
-
-        // Parse
         const mapData: LIMapFile = {
-            id: map.id,
+            id: isUploaded ? map.id : generateGUID(),
             v: map.v,
             name: map.name,
             description: map.description,
+            isPublic: map.isPublic,
             elements,
         };
         const mapJSON = JSON.stringify(mapData);
-
-        // Storage
         const storageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
-        const storageDoc = await uploadString(storageRef, mapJSON);
-        const storageURL = await getDownloadURL(storageDoc.ref);
-        console.log(`Map uploaded to ${storageURL}`);
-
-        // Firestore
         const storeRef = collection(db, "maps");
-        const mapDocument = await addDoc(storeRef, {
-            id: mapData.id,
-            name: mapData.name,
-            description: mapData.description,
-            authorID: user?.uid,
-            downloadURL: storageURL,
-        } as LIMetadata);
-        console.log(`Map added to Firestore: ${mapDocument.id}`);
+        const docRef = doc(storeRef, mapData.id);
 
-        setIsPublishing(false);
-        setIsOpen(false);
-        setIsDoneOpen(true);
+        const uploadToStorage = () => {
+            uploadString(storageRef, mapJSON).then((storageDoc) => {
+                console.log(`Map uploaded to firebase storage: ${storageDoc.ref.fullPath}`);
+
+                uploadToFirestore(storageDoc.ref.fullPath);
+            }).catch((err) => {
+                alert(`Error uploading map to firebase storage: ${err}`);
+                setIsPublishing(false);
+            });
+        }
+
+        const uploadToFirestore = (storagePath: string) => {
+            setDoc(docRef, {
+                id: mapData.id,
+                name: mapData.name,
+                description: mapData.description,
+                isPublic: mapData.isPublic,
+                authorID: user?.uid,
+                downloadURL: storagePath,
+            } as LIMetadata).then(() => {
+                console.log(`Map published to firestore: ${docRef.path}`);
+
+                setIsPublishing(false);
+                setIsOpen(false);
+                setIsDoneOpen(true);
+                setMap({ ...map, id: mapData.id });
+            }).catch((err) => {
+                alert(`Error publishing map to firestore: ${err}`);
+                setIsPublishing(false);
+            });
+        }
+
+        uploadToStorage();
     }
 
     return (
@@ -77,7 +89,7 @@ export default function PublishButton() {
             <Button
                 className={Classes.MINIMAL}
                 icon="cloud-upload"
-                text="Publish"
+                text={isUploaded ? "Update" : "Publish"}
                 onClick={() => { setIsOpen(true) }} />
 
             {/*  Login  */}
@@ -157,11 +169,18 @@ export default function PublishButton() {
                             value={map.description}
                             onChange={(e) => { setMap({ ...map, description: e.target.value }) }} />
                     </FormGroup>
+                    <FormGroup label="Public" disabled={isPublishing}>
+                        <Switch
+                            large
+                            disabled={isPublishing}
+                            checked={map.isPublic}
+                            onChange={(e) => { setMap({ ...map, isPublic: e.currentTarget.checked }) }} />
+                    </FormGroup>
 
                     <Button
                         disabled={isPublishing}
                         icon={"cloud-upload"}
-                        text={"Publish"}
+                        text={"Upload"}
                         intent={"primary"}
                         onClick={() => {
                             publishMap();

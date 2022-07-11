@@ -32,6 +32,7 @@ export default function OpenButton() {
                     v: mapData.v,
                     name: mapData.name,
                     description: mapData.description,
+                    isPublic: mapData.isPublic,
                     elementIDs: mapData.elements.map((elem) => elem.id),
                 });
             }

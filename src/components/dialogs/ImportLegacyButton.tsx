@@ -1,17 +1,12 @@
-import useElement, { clearElements, setElement } from "../../hooks/useElement";
-import useMap, { clearMap, setMap } from "../../hooks/useMap";
-import AUElement from "../../types/au/AUElement";
-import AUElementDB from "../../types/au/AUElementDB";
-import LIElement from "../../types/li/LIElement";
+import { Button, Classes } from "@blueprintjs/core";
 import generateGUID from '../../hooks/generateGUID';
-import { Button, Classes, Dialog, InputGroup, Menu, MenuItem } from "@blueprintjs/core";
-import { Omnibar } from "@blueprintjs/select";
-import React from "react";
-import LIMapFile from "../../types/li/LIMapFile";
-import LILegacyFile from "../../types/li/LILegacyFile";
-import GUID from "../../types/generic/GUID";
-import { setSelection } from "../../hooks/useSelected";
 import { setColliderEditing } from "../../hooks/useColliderEditing";
+import { clearElements, setElement } from "../../hooks/useElement";
+import { clearMap, setMap } from "../../hooks/useMap";
+import { setSelection } from "../../hooks/useSelected";
+import GUID from "../../types/generic/GUID";
+import LIElement from "../../types/li/LIElement";
+import LILegacyFile from "../../types/li/LILegacyFile";
 
 export default function ImportLegacyButton() {
 
@@ -86,6 +81,7 @@ export default function ImportLegacyButton() {
                     v: 0,
                     name: mapData.name,
                     description: "",
+                    isPublic: false,
                     elementIDs: elements.map(element => element.id)
                 });
             }

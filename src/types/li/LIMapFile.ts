@@ -6,5 +6,6 @@ export default interface LIMapExport {
     v: number;
     name: string;
     description: string;
+    isPublic: boolean;
     elements: LIElement[];
 }

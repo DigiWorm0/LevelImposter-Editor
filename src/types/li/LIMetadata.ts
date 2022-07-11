@@ -4,6 +4,7 @@ export default interface LIMetadata {
     id: GUID;
     name: string;
     description: string;
+    isPublic: boolean;
     authorID: string;
     downloadURL: string;
 }

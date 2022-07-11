@@ -5,5 +5,6 @@ export default interface LIMap {
     v: number;
     name: string;
     description: string;
+    isPublic: boolean;
     elementIDs: GUID[];
 }
