@@ -44,7 +44,7 @@ export default function MapElement(props: { elementID: GUID }) {
             y={elem.y * UNITY_SCALE}
             scaleX={elem.xScale < 0 ? -1 : 1}
             scaleY={elem.yScale < 0 ? -1 : 1}
-            rotation={elem.rotation}
+            rotation={-elem.rotation}
             onMouseDown={(e) => {
                 onMouseDown(e.evt);
             }}

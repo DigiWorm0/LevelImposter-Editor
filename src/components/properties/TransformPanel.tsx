@@ -49,21 +49,21 @@ export default function TransformPanel() {
                 <NumericInput
                     fill
                     placeholder="X"
-                    onValueChange={(numVal, strVal) => { setX(strVal); numVal && setElement({ ...element, x: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setX(strVal); !isNaN(numVal) && setElement({ ...element, x: numVal }); }}
                     minorStepSize={0.001}
                     value={x}
                 />
                 <NumericInput
                     fill
                     placeholder="Y"
-                    onValueChange={(numVal, strVal) => { setY(strVal); numVal && setElement({ ...element, y: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setY(strVal); !isNaN(numVal) && setElement({ ...element, y: numVal }); }}
                     minorStepSize={0.001}
                     value={y}
                 />
                 <NumericInput
                     fill
                     placeholder="Z"
-                    onValueChange={(numVal, strVal) => { setZ(strVal); numVal && setElement({ ...element, z: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setZ(strVal); !isNaN(numVal) && setElement({ ...element, z: numVal }); }}
                     minorStepSize={0.001}
                     value={z}
                 />
@@ -72,14 +72,14 @@ export default function TransformPanel() {
                 <NumericInput
                     fill
                     placeholder="X Scale"
-                    onValueChange={(numVal, strVal) => { setXScale(strVal); numVal && setElement({ ...element, xScale: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setXScale(strVal); !isNaN(numVal) && setElement({ ...element, xScale: numVal }); }}
                     minorStepSize={0.001}
                     value={xScale}
                 />
                 <NumericInput
                     fill
                     placeholder="Y Scale"
-                    onValueChange={(numVal, strVal) => { setYScale(strVal); numVal && setElement({ ...element, yScale: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setYScale(strVal); !isNaN(numVal) && setElement({ ...element, yScale: numVal }); }}
                     minorStepSize={0.001}
                     value={yScale}
                 />
@@ -88,7 +88,7 @@ export default function TransformPanel() {
                 <NumericInput
                     fill
                     placeholder="Rotation"
-                    onValueChange={(numVal, strVal) => { setRotation(strVal); numVal && setElement({ ...element, rotation: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setRotation(strVal); !isNaN(numVal) && setElement({ ...element, rotation: numVal }); }}
                     minorStepSize={0.001}
                     value={rotation}
                 />

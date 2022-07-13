@@ -9,6 +9,7 @@ import { useElements } from '../hooks/useElement';
 import useMap from '../hooks/useMap';
 import useMouse from '../hooks/input/useMouse';
 import useSelected from '../hooks/useSelected';
+import useMousePos from '../hooks/input/useMousePos';
 
 export default function Canvas() {
     const [map] = useMap();
@@ -16,7 +17,7 @@ export default function Canvas() {
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
     const camera = useCamera(canvasWidth, canvasHeight);
-    const [, setSelectedID] = useSelected();
+    const [, , setMousePos] = useMousePos();
     const [leftMouse] = useMouse();
 
     const onWindowResize = () => {
@@ -47,6 +48,14 @@ export default function Canvas() {
                         camera.setX(e.target.x());
                         camera.setY(e.target.y());
                     }
+                }}
+                onMouseMove={(e: KonvaEventObject<MouseEvent>) => {
+                    const mousePos = e.target.getStage()?.getRelativePointerPosition();
+                    if (mousePos)
+                        setMousePos(
+                            (mousePos.x - camera.width) / camera.z,
+                            (mousePos.y - camera.height) / camera.z
+                        );
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
                 <Layer

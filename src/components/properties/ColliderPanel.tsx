@@ -29,9 +29,15 @@ export default function ColliderPanel() {
             element.properties.colliders = [];
         element.properties.colliders.push({
             id: generateGUID(),
-            blocksLight: false,
+            blocksLight: true,
             isSolid: false,
-            points: [],
+            points: [
+                { x: -0.5, y: -0.5 },
+                { x: 0.5, y: -0.5 },
+                { x: 0.5, y: 0.5 },
+                { x: -0.5, y: 0.5 },
+                { x: -0.5, y: -0.5 }
+            ],
         });
         setElement(element);
     }
@@ -99,12 +105,12 @@ export default function ColliderPanel() {
                             onValueChange={(value) => {
                                 if (value < 0)
                                     return;
-                                currentCollider.points = [];
                                 for (let i = 0; i < value; i++) {
-                                    currentCollider.points.push({
-                                        x: 0,
-                                        y: 0,
-                                    });
+                                    if (currentCollider.points[i] == null)
+                                        currentCollider.points[i] = { x: 0, y: 0 };
+                                }
+                                for (let i = currentCollider.points.length - 1; i >= value; i--) {
+                                    currentCollider.points.splice(i, 1);
                                 }
                                 setElement(element);
                             }} />
@@ -112,7 +118,7 @@ export default function ColliderPanel() {
                     <div>
                         {currentCollider.points.map((point, index) => {
                             return (
-                                <ControlGroup fill>
+                                <ControlGroup fill key={index}>
                                     <NumericInput
                                         fill
                                         disabled={!currentCollider}

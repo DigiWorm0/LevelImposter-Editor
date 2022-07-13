@@ -11,7 +11,6 @@ export default function ColliderRender(props: { elementID: GUID }) {
     const [colliderID] = useColliderEditing();
 
     const collider = elem.properties.colliders?.find(c => c.id === colliderID);
-
     if (!collider || collider.points.length <= 0)
         return null;
 
@@ -27,9 +26,9 @@ export default function ColliderRender(props: { elementID: GUID }) {
                     ctx.closePath();
                 ctx.fillStrokeShape(shape);
             }}
-            fill={collider.isSolid ? "#ff000066" : "transparent"}
-            stroke="red"
-            strokeWidth={10}
+            fill={collider.isSolid ? (collider.blocksLight ? "#ff000066" : "#00ff0044") : "transparent"}
+            stroke={collider.blocksLight ? "red" : "green"}
+            strokeWidth={5}
         />
     );
 }
