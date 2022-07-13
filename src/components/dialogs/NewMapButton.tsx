@@ -1,9 +1,10 @@
+import { Button, Classes, Dialog, ProgressBar } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
+import React from "react";
+import { setColliderEditing } from "../../hooks/useColliderEditing";
 import { clearElements } from "../../hooks/useElement";
 import { clearMap } from "../../hooks/useMap";
-import { Button, Classes, Dialog, ProgressBar } from "@blueprintjs/core";
-import React from "react";
 import { setSelection } from "../../hooks/useSelected";
-import { setColliderEditing } from "../../hooks/useColliderEditing";
 import useSettings from "../../hooks/useSettings";
 import GUID from "../../types/generic/GUID";
 
@@ -30,11 +31,16 @@ export default function NewMapButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="document"
-                text="New"
-                onClick={() => { setIsVisible(true); }} />
+            <Tooltip2
+                content="Create a new map"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="document"
+                    onClick={() => { setIsVisible(true); }} />
+
+            </Tooltip2>
 
             <Dialog
                 isOpen={isVisible}

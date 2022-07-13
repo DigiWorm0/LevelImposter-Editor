@@ -70,7 +70,7 @@ export default function MapElement(props: { elementID: GUID }) {
             onMouseLeave={(e) => {
                 setHovering(false);
             }}
-            draggable={!rightMouse}
+            draggable={!rightMouse && !elem.properties.isLocked}
             listening={!rightMouse}>
 
             <Image

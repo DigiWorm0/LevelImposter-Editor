@@ -1,4 +1,5 @@
 import { Button, Classes } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import { useElements } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
 import LIMapFile from "../../types/li/LIMapFile";
@@ -27,11 +28,16 @@ export default function SaveButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="floppy-disk"
-                text="Save"
-                onClick={onSave} />
+            <Tooltip2
+                content="Save to a LIM File"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="floppy-disk"
+                    onClick={onSave} />
+
+            </Tooltip2>
         </>
     );
 }

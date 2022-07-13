@@ -1,12 +1,7 @@
-import useElement, { clearElements, setElement } from "../../hooks/useElement";
-import useMap, { setMap } from "../../hooks/useMap";
-import AUElement from "../../types/au/AUElement";
-import AUElementDB from "../../types/au/AUElementDB";
-import LIElement from "../../types/li/LIElement";
-import generateGUID from '../../hooks/generateGUID';
-import { Button, Classes, Dialog, InputGroup, Menu, MenuItem } from "@blueprintjs/core";
-import { Omnibar } from "@blueprintjs/select";
-import React from "react";
+import { Button, Classes } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
+import { clearElements, setElement } from "../../hooks/useElement";
+import { setMap } from "../../hooks/useMap";
 import LIMapFile from "../../types/li/LIMapFile";
 
 export default function OpenButton() {
@@ -43,11 +38,16 @@ export default function OpenButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="document-open"
-                text="Open"
-                onClick={onOpen} />
+            <Tooltip2
+                content="Open a LIM File"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="document-open"
+                    onClick={onOpen} />
+
+            </Tooltip2>
         </>
     );
 }

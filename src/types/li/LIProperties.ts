@@ -15,6 +15,8 @@ export default interface LIProperties {
     onlyFromBelow?: boolean;
     range?: number;
 
+    isLocked?: boolean;
+
     spriteData?: string;
     colliders?: LICollider[];
 }

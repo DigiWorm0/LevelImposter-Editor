@@ -1,7 +1,8 @@
 import { Button, ButtonGroup, Classes, Dialog, Divider, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
-import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
-import { deleteObject, getDownloadURL, ref, uploadString } from "firebase/storage";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { ref, uploadString } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
@@ -86,11 +87,16 @@ export default function PublishButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="cloud-upload"
-                text={isUploaded ? "Update" : "Publish"}
-                onClick={() => { setIsOpen(true) }} />
+            <Tooltip2
+                content={isUploaded ? "Update Map" : "Publish Map"}
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="cloud-upload"
+                    onClick={() => { setIsOpen(true) }} />
+
+            </Tooltip2>
 
             {/*  Login  */}
 

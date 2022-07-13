@@ -1,4 +1,4 @@
-import { H1, Spinner } from '@blueprintjs/core';
+import CheckMobile from '../components/dialogs/CheckMobile';
 import useSettings from '../hooks/useSettings';
 import Canvas from './Canvas';
 import LeftSidebar from './LeftSidebar';
@@ -13,6 +13,7 @@ export default function App() {
             <LeftSidebar />
             <Canvas />
             <RightSidebar />
+            <CheckMobile />
         </div>
     );
 }

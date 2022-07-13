@@ -1,36 +1,27 @@
+import { Button, Classes, MenuItem } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
+import { Omnibar } from "@blueprintjs/select";
+import React from "react";
+import generateGUID from '../../hooks/generateGUID';
 import { setElement } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
-import generateGUID from '../../hooks/generateGUID';
-import { Button, Classes, Dialog, InputGroup, Menu, MenuItem } from "@blueprintjs/core";
-import { Omnibar } from "@blueprintjs/select";
-import React from "react";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton() {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [filteredElements, setFilteredElements] = React.useState<AUElement[]>([]);
-    const [searchTerm, setSerchTerm] = React.useState("");
     const [map, setMap] = useMap();
-
-    React.useEffect(() => {
-        const filtered = AUElementDB.filter(e => {
-            return e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                e.type.toLowerCase().includes(searchTerm.toLowerCase());
-        });
-        setFilteredElements(filtered);
-    }, [searchTerm, setFilteredElements])
 
     const handleClick = (elem: AUElement) => {
         const element: LIElement = {
             name: elem.name,
             type: elem.type,
             id: generateGUID(),
-            x: 1,
-            y: 1,
+            x: 0,
+            y: 0,
             z: 0,
             xScale: 1,
             yScale: 1,
@@ -45,22 +36,28 @@ export default function AddObjectButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="plus"
-                text="Add Object"
-                onClick={() => { setIsOpen(true) }} />
+            <Tooltip2
+                content="Add an object"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="cube-add"
+                    onClick={() => { setIsOpen(true) }} />
+
+            </Tooltip2>
 
             <AUElementOmnibar
                 resetOnSelect
+                resetOnQuery
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
-                items={filteredElements}
+                items={AUElementDB}
                 onItemSelect={(elem) => { handleClick(elem) }}
                 itemRenderer={(elem, props) => {
                     return (
                         <MenuItem
-                            key={elem.type + props.index}
+                            key={elem.type}
                             text={elem.name}
                             label={elem.type}
                             icon={<div style={{ width: 20, textAlign: "center" }}><img src={"/sprites/" + elem.type + ".png"} style={{ maxWidth: 20, maxHeight: 20 }} /></div>}
@@ -70,8 +67,11 @@ export default function AddObjectButton() {
                             onFocus={props.handleFocus} />
                     )
                 }}
-                onQueryChange={(query) => { setSerchTerm(query) }}
-                query={searchTerm}
+                itemPredicate={(query, elem) => {
+                    return elem.name.toLowerCase().includes(query.toLowerCase()) ||
+                        elem.type.toLowerCase().includes(query.toLowerCase());
+                }}
+                initialContent={undefined}
                 createNewItemPosition="first"
                 createNewItemFromQuery={(query) => {
                     return {

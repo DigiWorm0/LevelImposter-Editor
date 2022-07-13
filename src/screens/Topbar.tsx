@@ -1,5 +1,7 @@
 import { Button, Classes, Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
+import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
 import ImportLegacyButton from "../components/dialogs/ImportLegacyButton";
 import NewMapButton from "../components/dialogs/NewMapButton";
 import OpenButton from "../components/dialogs/OpenButton";
@@ -15,24 +17,30 @@ export default function Topbar() {
                 className="topbar-navbar"
                 fixedToTop={true}>
                 <NavbarGroup>
+
                     <MapName />
                     <NavbarDivider />
-                    <AddObjectButton />
-                    <NavbarDivider />
                     <SaveButton />
-                    <NavbarDivider />
                     <OpenButton />
+                    <NewMapButton />
+                    <NavbarDivider />
+                    <AddObjectButton />
+                    <DeleteObjectButton />
                     <NavbarDivider />
                     <ImportLegacyButton />
-                    <NavbarDivider />
-                    <NewMapButton />
+
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <PublishButton />
-                    <NavbarDivider />
                     <SettingsButton />
-                    <NavbarDivider />
-                    <Button className={Classes.MINIMAL} icon="help" text="Help" onClick={() => { window.open("https://docs.levelimposter.net/"); }} />
+                    <Tooltip2
+                        content="Open Documentation"
+                        position="bottom">
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="help"
+                            onClick={() => { window.open("https://docs.levelimposter.net/"); }} />
+                    </Tooltip2>
                 </NavbarGroup>
             </Navbar>
         </div>

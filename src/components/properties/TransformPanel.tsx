@@ -1,4 +1,4 @@
-import { ControlGroup, Divider, H5, InputGroup, NumericInput } from "@blueprintjs/core";
+import { Button, ButtonGroup, ControlGroup, Divider, H5, InputGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import useKeyboard from "../../hooks/input/useKeyboard";
 import useElement, { removeElement } from "../../hooks/useElement";
@@ -82,6 +82,20 @@ export default function TransformPanel() {
                     value={element.rotation}
                 />
             </ControlGroup>
+            <ButtonGroup minimal style={{ marginTop: 10 }} fill>
+                <Button
+                    fill
+                    icon={element.properties.isLocked ? "lock" : "unlock"}
+                    text={element.properties.isLocked ? "Unlock" : "Lock"}
+                    onClick={() => { element.properties.isLocked = !element.properties.isLocked; onInput() }}
+                />
+                <Button
+                    fill
+                    icon="trash"
+                    text="Remove"
+                    onClick={() => { removeElement(selectedID); setSelectedID("" as GUID) }}
+                />
+            </ButtonGroup>
         </div>
     );
 }

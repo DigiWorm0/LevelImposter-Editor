@@ -1,6 +1,5 @@
-import { Button, ButtonGroup, Card, ControlGroup, Divider, FormGroup, H2, H4, H5, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
-import React from "react";
-import useElement, { removeElement } from "../../hooks/useElement";
+import { Button, ButtonGroup, Divider, H5 } from "@blueprintjs/core";
+import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 
 const URL_PREFIX = "/sprites/";
@@ -66,13 +65,15 @@ export default function SpritePanel() {
 
             </div>
 
-            <ButtonGroup minimal>
+            <ButtonGroup minimal fill>
                 <Button
+                    fill
                     icon="refresh"
                     text="Reset Sprite"
                     onClick={onResetClick}
                 />
                 <Button
+                    fill
                     icon="upload"
                     text="Upload Sprite"
                     onClick={onUploadClick}

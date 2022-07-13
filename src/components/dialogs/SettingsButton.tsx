@@ -1,4 +1,5 @@
 import { Button, Classes, Dialog, FormGroup, Switch } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import useSettings from "../../hooks/useSettings";
 
@@ -8,11 +9,16 @@ export default function SettingsButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="cog"
-                text="Settings"
-                onClick={() => { setIsOpen(true) }} />
+            <Tooltip2
+                content="Open Settings"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="cog"
+                    onClick={() => { setIsOpen(true) }} />
+
+            </Tooltip2>
 
             <Dialog
                 isOpen={isOpen}
