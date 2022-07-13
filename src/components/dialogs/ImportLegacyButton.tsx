@@ -39,8 +39,8 @@ export default function ImportLegacyButton() {
                         x: legacyObj.x,
                         y: legacyObj.y,
                         z: legacyObj.z,
-                        xScale: legacyObj.xScale,
-                        yScale: legacyObj.yScale,
+                        xScale: legacyObj.xScale * (legacyObj.flipX ? -1 : 1),
+                        yScale: legacyObj.yScale * (legacyObj.flipY ? -1 : 1),
                         rotation: legacyObj.rotation,
                         properties: {
                             spriteData: isCustomObj ? legacyObj.type : undefined,

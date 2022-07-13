@@ -11,7 +11,7 @@ import LIElement from "../../types/li/LIElement";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
-export default function AddObjectButton() {
+export default function AddObjectButton(props: { large?: boolean }) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [map, setMap] = useMap();
 
@@ -41,6 +41,7 @@ export default function AddObjectButton() {
                 position="bottom">
 
                 <Button
+                    large={props.large}
                     className={Classes.MINIMAL}
                     icon="cube-add"
                     onClick={() => { setIsOpen(true) }} />

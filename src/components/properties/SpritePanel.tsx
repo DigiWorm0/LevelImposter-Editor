@@ -69,13 +69,13 @@ export default function SpritePanel() {
                 <Button
                     fill
                     icon="refresh"
-                    text="Reset Sprite"
+                    text="Reset"
                     onClick={onResetClick}
                 />
                 <Button
                     fill
                     icon="upload"
-                    text="Upload Sprite"
+                    text="Upload"
                     onClick={onUploadClick}
                 />
             </ButtonGroup>

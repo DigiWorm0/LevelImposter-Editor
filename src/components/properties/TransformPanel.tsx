@@ -9,6 +9,12 @@ export default function TransformPanel() {
     const [selectedID, setSelectedID] = useSelected();
     const [element, setElement] = useElement(selectedID);
     const keys = useKeyboard();
+    const [x, setX] = React.useState("");
+    const [y, setY] = React.useState("");
+    const [z, setZ] = React.useState("");
+    const [xScale, setXScale] = React.useState("");
+    const [yScale, setYScale] = React.useState("");
+    const [rotation, setRotation] = React.useState("");
 
     React.useEffect(() => {
         if (keys["Delete"] && selectedID !== "") {
@@ -17,9 +23,14 @@ export default function TransformPanel() {
         }
     }, [keys, selectedID, setElement]);
 
-    const onInput = () => {
-        setElement(element);
-    }
+    React.useEffect(() => {
+        setX(element.x.toString());
+        setY(element.y.toString());
+        setZ(element.z.toString());
+        setXScale(element.xScale.toString());
+        setYScale(element.yScale.toString());
+        setRotation(element.rotation.toString());
+    }, [element, setX, setY, setZ, setXScale, setYScale, setRotation]);
 
     if (selectedID === "")
         return null;
@@ -31,55 +42,55 @@ export default function TransformPanel() {
             <InputGroup
                 placeholder="Name"
                 large
-                onChange={(e) => { element.name = e.target.value; onInput() }}
+                onChange={(e) => { setElement({ ...element, name: e.target.value }); }}
                 value={element.name}
             />
             <ControlGroup fill style={{ marginTop: 15 }}>
                 <NumericInput
                     fill
                     placeholder="X"
-                    onValueChange={(value) => { element.x = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setX(strVal); numVal && setElement({ ...element, x: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.x}
+                    value={x}
                 />
                 <NumericInput
                     fill
                     placeholder="Y"
-                    onValueChange={(value) => { element.y = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setY(strVal); numVal && setElement({ ...element, y: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.y}
+                    value={y}
                 />
                 <NumericInput
                     fill
                     placeholder="Z"
-                    onValueChange={(value) => { element.z = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setZ(strVal); numVal && setElement({ ...element, z: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.z}
+                    value={z}
                 />
             </ControlGroup>
             <ControlGroup fill>
                 <NumericInput
                     fill
                     placeholder="X Scale"
-                    onValueChange={(value) => { element.xScale = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setXScale(strVal); numVal && setElement({ ...element, xScale: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.xScale}
+                    value={xScale}
                 />
                 <NumericInput
                     fill
                     placeholder="Y Scale"
-                    onValueChange={(value) => { element.yScale = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setYScale(strVal); numVal && setElement({ ...element, yScale: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.yScale}
+                    value={yScale}
                 />
             </ControlGroup>
             <ControlGroup fill>
                 <NumericInput
                     fill
                     placeholder="Rotation"
-                    onValueChange={(value) => { element.rotation = value; onInput() }}
+                    onValueChange={(numVal, strVal) => { setRotation(strVal); numVal && setElement({ ...element, rotation: numVal }); }}
                     minorStepSize={0.001}
-                    value={element.rotation}
+                    value={rotation}
                 />
             </ControlGroup>
             <ButtonGroup minimal style={{ marginTop: 10 }} fill>
@@ -87,7 +98,7 @@ export default function TransformPanel() {
                     fill
                     icon={element.properties.isLocked ? "lock" : "unlock"}
                     text={element.properties.isLocked ? "Unlock" : "Lock"}
-                    onClick={() => { element.properties.isLocked = !element.properties.isLocked; onInput() }}
+                    onClick={() => { setElement({ ...element, properties: { ...element.properties, isLocked: !element.properties.isLocked } }); }}
                 />
                 <Button
                     fill

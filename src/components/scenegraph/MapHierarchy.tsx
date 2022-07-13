@@ -23,6 +23,8 @@ export default function MapHierarchy() {
             label: elem.name,
             icon: icon,
             isSelected: elem.id === selectedID,
+            nodeData: elem.id
+
         });
     });
 
@@ -31,7 +33,7 @@ export default function MapHierarchy() {
             <Tree
                 contents={treeContents}
                 onNodeClick={(node) => {
-                    setSelectedID(node.id as GUID);
+                    setSelectedID(node.nodeData as GUID);
                 }}
             />
         </div>
