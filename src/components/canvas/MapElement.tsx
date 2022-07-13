@@ -1,49 +1,30 @@
 import React from "react";
-import { Group, Image, Rect, Shape } from "react-konva";
-import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement, { getElement } from "../../hooks/useElement";
+import { Group, Image, Rect } from "react-konva";
 import useMouse from "../../hooks/input/useMouse";
+import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
+import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
-import CameraRender from "./CameraRender";
-import ColliderRender from "./ColliderRender";
-import VentConnections from "./VentConnections";
 
 const UNITY_SCALE = 100;
-const RECT_PADDING = 5;
 
 export default function MapElement(props: { elementID: GUID }) {
-    const [elem, setElement, version] = useElement(props.elementID);
-    const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
+    const [elem, setElement] = useElement(props.elementID);
+    const sprite = useSprite(props.elementID);
     const [selectedID, setSelectedID] = useSelected();
     const [isHovering, setHovering] = React.useState(false);
-    const [colliderID, setColliderID] = useColliderEditing();
     const [, , rightMouse, onMouseDown, onMouseUp] = useMouse();
 
-    React.useEffect(() => {
-        if (elem.id === props.elementID) {
-            const url = elem.properties.spriteData ?
-                elem.properties.spriteData :
-                "/sprites/" + elem.type + ".png";
-
-            const img = new window.Image();
-            img.src = url;
-            img.onload = () => {
-                setSprite(img);
-            };
-        }
-    }, [elem, setSprite, props.elementID]);
-
-    const w = (sprite ? sprite.width : 0) * Math.abs(elem.xScale);
-    const h = (sprite ? sprite.height : 0) * Math.abs(elem.yScale);
+    const w = sprite ? sprite.width : 0;
+    const h = sprite ? sprite.height : 0;
     const isSelected = selectedID === props.elementID;
 
     return (
         <Group
             x={elem.x * UNITY_SCALE}
-            y={elem.y * UNITY_SCALE}
-            scaleX={elem.xScale < 0 ? -1 : 1}
-            scaleY={elem.yScale < 0 ? -1 : 1}
+            y={-elem.y * UNITY_SCALE}
+            scaleX={elem.xScale}
+            scaleY={elem.yScale}
             rotation={-elem.rotation}
             onMouseDown={(e) => {
                 onMouseDown(e.evt);
@@ -56,11 +37,11 @@ export default function MapElement(props: { elementID: GUID }) {
             }}
             onDragMove={(e) => {
                 elem.x = e.target.x() / UNITY_SCALE;
-                elem.y = e.target.y() / UNITY_SCALE;
+                elem.y = -e.target.y() / UNITY_SCALE;
             }}
             onDragEnd={(e) => {
                 const x = e.target.x() / UNITY_SCALE;
-                const y = e.target.y() / UNITY_SCALE;
+                const y = -e.target.y() / UNITY_SCALE;
                 setElement({ ...elem, x, y });
             }}
             onClick={(e) => {
@@ -85,18 +66,14 @@ export default function MapElement(props: { elementID: GUID }) {
 
             {isSelected || isHovering ? (
                 <Rect
-                    x={-w / 2 - RECT_PADDING}
-                    y={-h / 2 - RECT_PADDING}
-                    width={w + RECT_PADDING * 2}
-                    height={h + RECT_PADDING * 2}
+                    x={-w / 2}
+                    y={-h / 2}
+                    width={w}
+                    height={h}
                     stroke={isSelected ? "red" : "gray"}
                     strokeWidth={1}
                 />
             ) : null}
-
-            <ColliderRender elementID={props.elementID} />
-            <VentConnections elementID={props.elementID} />
-            <CameraRender elementID={props.elementID} />
 
         </Group>
     );

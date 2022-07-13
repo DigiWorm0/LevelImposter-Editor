@@ -1,5 +1,4 @@
-import { Group, Line, Rect, Shape } from "react-konva";
-import React from "react";
+import { Group, Line, Shape } from "react-konva";
 import useSettings from "../../hooks/useSettings";
 
 const GRID_SPACING = 100;

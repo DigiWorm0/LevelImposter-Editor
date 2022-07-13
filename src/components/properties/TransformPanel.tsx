@@ -5,9 +5,9 @@ import useElement, { removeElement } from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
 
-export default function TransformPanel() {
+export default function TransformPanel(props: { elementID: GUID }) {
+    const [element, setElement] = useElement(props.elementID);
     const [selectedID, setSelectedID] = useSelected();
-    const [element, setElement] = useElement(selectedID);
     const keys = useKeyboard();
     const [x, setX] = React.useState("");
     const [y, setY] = React.useState("");
@@ -17,8 +17,8 @@ export default function TransformPanel() {
     const [rotation, setRotation] = React.useState("");
 
     React.useEffect(() => {
-        if (keys["Delete"] && selectedID !== "") {
-            removeElement(selectedID);
+        if (keys["Delete"] && props.elementID !== "") {
+            removeElement(props.elementID);
             setSelectedID("" as GUID);
         }
     }, [keys, selectedID, setElement]);
@@ -32,7 +32,7 @@ export default function TransformPanel() {
         setRotation(element.rotation.toString());
     }, [element, setX, setY, setZ, setXScale, setYScale, setRotation]);
 
-    if (selectedID === "")
+    if (element.id === "")
         return null;
 
     return (

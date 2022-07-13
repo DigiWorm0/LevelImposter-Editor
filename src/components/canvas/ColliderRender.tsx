@@ -1,7 +1,6 @@
-import React from "react";
 import { Shape } from "react-konva";
 import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement, { getElement } from "../../hooks/useElement";
+import useElement from "../../hooks/useElement";
 import GUID from "../../types/generic/GUID";
 
 const UNITY_SCALE = 100;

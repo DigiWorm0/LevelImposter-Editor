@@ -1,19 +1,18 @@
 import Konva from 'konva';
 import { KonvaEventObject } from 'konva/lib/Node';
 import React from 'react';
-import { Layer, Rect, Stage } from 'react-konva';
+import { Layer, Stage } from 'react-konva';
 import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
+import SelectedMapElement from '../components/canvas/SelectedMapElement';
+import useMouse from '../hooks/input/useMouse';
+import useMousePos from '../hooks/input/useMousePos';
 import useCamera from '../hooks/useCamera';
 import { useElements } from '../hooks/useElement';
 import useMap from '../hooks/useMap';
-import useMouse from '../hooks/input/useMouse';
-import useSelected from '../hooks/useSelected';
-import useMousePos from '../hooks/input/useMousePos';
 
 export default function Canvas() {
     const [map] = useMap();
-    const [elements] = useElements(map.elementIDs);
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
     const camera = useCamera(canvasWidth, canvasHeight);
@@ -58,6 +57,7 @@ export default function Canvas() {
                         );
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
+
                 <Layer
                     x={camera.width}
                     y={camera.height}
@@ -66,10 +66,12 @@ export default function Canvas() {
                     {map.elementIDs.map(elementID => (
                         <MapElement key={elementID} elementID={elementID} />
                     ))}
+                    <SelectedMapElement />
 
                     <CanvasGrid />
 
                 </Layer>
+
             </Stage>
         </div>
 

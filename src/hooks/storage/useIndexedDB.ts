@@ -1,6 +1,6 @@
 import React from "react";
-import useStore, { clearStore, clearStoreFor, getStore, inStore, putStore, useStores } from "./useStore";
 import dbWrapper from "./dbWrapper";
+import useStore, { clearStore, clearStoreFor, getStore, inStore, putStore, useStores } from "./useStore";
 
 const loadingList: string[] = [];
 

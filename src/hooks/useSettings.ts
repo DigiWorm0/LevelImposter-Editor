@@ -1,6 +1,5 @@
 import LISettings from '../types/li/LISettings';
 import useStorage from './storage/useStorage';
-import useStore, { getStore, putStore } from './storage/useStore';
 
 const CURRENT_KEY = 'settings';
 const DEFAULT_SETTINGS: LISettings = {

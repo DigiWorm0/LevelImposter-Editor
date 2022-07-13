@@ -1,21 +1,19 @@
-import { Button, Card, ControlGroup, Divider, FormGroup, H2, H4, H5, H6, InputGroup, MenuItem, NumericInput } from "@blueprintjs/core";
+import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
-import useElement, { removeElement, useElements } from "../../hooks/useElement";
+import useElement, { useElements } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
-import useSelected from "../../hooks/useSelected";
-import AUElementDB from "../../types/au/AUElementDB";
+import GUID from "../../types/generic/GUID";
 import LIElement from "../../types/li/LIElement";
 
 const VentSelect = Select2.ofType<LIElement>();
 
-export default function VentPanel() {
+export default function VentPanel(props: { elementID: GUID }) {
     const [map] = useMap();
     const [allElements] = useElements(map.elementIDs);
     const [ventElements, setVentElements] = React.useState([] as LIElement[]);
 
-    const [selectedID, setSelectedID] = useSelected();
-    const [element, setElement] = useElement(selectedID);
+    const [element, setElement] = useElement(props.elementID);
 
     const leftVent = allElements.find((e) => e.id === element.properties.leftVent);
     const middleVent = allElements.find((e) => e.id === element.properties.middleVent);
@@ -33,11 +31,11 @@ export default function VentPanel() {
     );
 
     React.useEffect(() => {
-        const newVentElements = allElements.filter((elem) => (elem.type.startsWith("util-vent") && elem.id != selectedID));
+        const newVentElements = allElements.filter((elem) => (elem.type.startsWith("util-vent") && elem.id != props.elementID));
         setVentElements(newVentElements);
-    }, [allElements, selectedID]);
+    }, [allElements, props.elementID]);
 
-    if (selectedID === "")
+    if (element.id === "")
         return null;
     if (!element.type.startsWith("util-vent"))
         return null;

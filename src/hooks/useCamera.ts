@@ -1,6 +1,5 @@
 import React from "react";
 
-const PAN_SPEED = 10;
 const ZOOM_SPEED = 1.1;
 
 export default function useCamera(w: number, h: number) {

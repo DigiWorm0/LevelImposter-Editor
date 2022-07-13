@@ -1,17 +1,13 @@
-import { Button, Card, ControlGroup, Divider, FormGroup, H5, H6, Menu, MenuItem, NavbarDivider, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Card, ControlGroup, Divider, FormGroup, H5, H6, Menu, MenuItem, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import useColliderEditing from "../../hooks/useColliderEditing";
 import useElement from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import GUID from "../../types/generic/GUID";
 import LICollider from "../../types/li/LICollider";
 
-const URL_PREFIX = "/sprites/";
-const URL_SUFFIX = ".png";
-
-export default function ColliderPanel() {
-    const [selectedID] = useSelected();
-    const [element, setElement] = useElement(selectedID);
+export default function ColliderPanel(props: { elementID: GUID }) {
+    const [element, setElement] = useElement(props.elementID);
     const [colliderID, setColliderID] = useColliderEditing();
 
     const currentCollider = element.properties.colliders?.find(c => c.id === colliderID);
@@ -54,7 +50,7 @@ export default function ColliderPanel() {
             setColliderID(undefined);
     }
 
-    if (selectedID === "")
+    if (element.id === "")
         return null;
 
     return (

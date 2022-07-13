@@ -1,28 +1,22 @@
-import { Card, ControlGroup, Divider, H2, H4, H5, H6, InputGroup, NumericInput } from "@blueprintjs/core";
+import { Divider, H5 } from "@blueprintjs/core";
 import React from "react";
-import useElement, { removeElement } from "../../hooks/useElement";
-import useKeyboard from "../../hooks/input/useKeyboard";
-import useSelected from "../../hooks/useSelected";
-import AUElement from "../../types/au/AUElement";
+import useElement from "../../hooks/useElement";
 import AUElementDB from "../../types/au/AUElementDB";
 import GUID from "../../types/generic/GUID";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
 
-export default function TaskPanel() {
-    const [selectedID, setSelectedID] = useSelected();
-    const [element, setElement] = useElement(selectedID);
+export default function TaskPanel(props: { elementID: GUID }) {
+    const [element, setElement] = useElement(props.elementID);
     const [taskName, setTaskName] = React.useState("");
 
     React.useEffect(() => {
-        if (selectedID === "")
-            return;
         const auElement = AUElementDB.find((elem) => elem.type === element.type);
         setTaskName(auElement ? auElement.name : "");
     }, [element]);
 
-    if (selectedID === "")
+    if (element.id === "")
         return null;
     if (!element.type.startsWith("task"))
         return null;

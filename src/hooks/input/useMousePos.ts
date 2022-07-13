@@ -1,4 +1,3 @@
-import React from "react";
 import useStore from "../storage/useStore";
 
 export default function useMousePos(): [number, number, (x: number, y: number) => void] {

@@ -1,12 +1,11 @@
-import { Button, H2, IconName, InputGroup, Tree, TreeNode, TreeNodeInfo } from "@blueprintjs/core";
-import React from "react";
+import { IconName, Tree, TreeNodeInfo } from "@blueprintjs/core";
 import { useElements } from "../../hooks/useElement";
 import useMap from "../../hooks/useMap";
 import useSelected from "../../hooks/useSelected";
 import GUID from "../../types/generic/GUID";
 
 export default function MapHierarchy() {
-    const [map, setMap] = useMap();
+    const [map] = useMap();
     const [elems] = useElements(map.elementIDs);
     const [selectedID, setSelectedID] = useSelected();
 

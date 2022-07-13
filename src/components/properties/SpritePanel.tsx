@@ -1,13 +1,12 @@
 import { Button, ButtonGroup, Divider, H5 } from "@blueprintjs/core";
 import useElement from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import GUID from "../../types/generic/GUID";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
 
-export default function SpritePanel() {
-    const [selectedID, setSelectedID] = useSelected();
-    const [element, setElement] = useElement(selectedID);
+export default function SpritePanel(props: { elementID: GUID }) {
+    const [element, setElement] = useElement(props.elementID);
 
     const defaultURL = URL_PREFIX + element.type + URL_SUFFIX;
 
@@ -44,7 +43,7 @@ export default function SpritePanel() {
         });
     }
 
-    if (selectedID === ""
+    if (element.id === ""
         || element.type === "util-player"
         || element.type === "util-room"
         || element.type === "util-spawn1"

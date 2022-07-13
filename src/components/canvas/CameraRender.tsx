@@ -1,17 +1,14 @@
-import React from "react";
-import { Rect, Shape } from "react-konva";
-import useElement, { getElement } from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import { Rect } from "react-konva";
+import useElement from "../../hooks/useElement";
 import GUID from "../../types/generic/GUID";
 
 const UNITY_SCALE = 100;
 const CAM_SIZE = 5; // TODO: Get the actual size of the camera
 
 export default function CameraRender(props: { elementID: GUID }) {
-    const [selectedID] = useSelected();
     const [elem] = useElement(props.elementID);
 
-    if (elem.type !== "util-cam" || selectedID !== props.elementID)
+    if (elem.type !== "util-cam")
         return null;
 
     const { camXOffset, camYOffset, camZoom } = elem.properties;
@@ -29,6 +26,7 @@ export default function CameraRender(props: { elementID: GUID }) {
             fill="#00ff0022"
             stroke="green"
             strokeWidth={10}
+            listening={false}
         />
     );
 }

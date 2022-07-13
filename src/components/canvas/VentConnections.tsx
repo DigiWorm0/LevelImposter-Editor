@@ -1,36 +1,28 @@
-import React from "react";
-import { Group, Image, Rect, Shape } from "react-konva";
-import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement, { getElement } from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import { Shape } from "react-konva";
+import useElement from "../../hooks/useElement";
 import GUID from "../../types/generic/GUID";
+import LIElement from "../../types/li/LIElement";
 
 const UNITY_SCALE = 100;
 
 export default function VentConnections(props: { elementID: GUID }) {
     const [elem] = useElement(props.elementID);
-    const [selectedID] = useSelected();
-
-    const isSelected = selectedID === props.elementID;
-
-    if (!elem.type.startsWith("util-vent") || !isSelected)
-        return null;
+    const [leftVent] = useElement(elem.properties.leftVent);
+    const [middleVent] = useElement(elem.properties.middleVent);
+    const [rightVent] = useElement(elem.properties.rightVent);
 
     return (
         <Shape
             sceneFunc={(ctx, shape) => {
-                const drawToVent = (vent: GUID | undefined) => {
-                    if (vent) {
-                        const ventElem = getElement(vent);
-                        ctx.moveTo(0, 0);
-                        ctx.lineTo(UNITY_SCALE * (ventElem?.x - elem.x), UNITY_SCALE * (ventElem?.y - elem.y));
-                    }
+                const drawToVent = (target: LIElement) => {
+                    ctx.moveTo(elem.x * UNITY_SCALE, -elem.y * UNITY_SCALE);
+                    ctx.lineTo(target.x * UNITY_SCALE, -target.y * UNITY_SCALE);
                 }
 
                 ctx.beginPath();
-                drawToVent(elem.properties.leftVent);
-                drawToVent(elem.properties.middleVent);
-                drawToVent(elem.properties.rightVent);
+                elem.properties.leftVent && drawToVent(leftVent);
+                elem.properties.middleVent && drawToVent(middleVent);
+                elem.properties.rightVent && drawToVent(rightVent);
                 ctx.closePath();
                 ctx.fillStrokeShape(shape);
 
