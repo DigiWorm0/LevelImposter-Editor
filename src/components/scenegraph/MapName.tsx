@@ -5,6 +5,16 @@ import useMap from "../../hooks/useMap";
 export default function MapName() {
     const [map, setMap] = useMap();
     const [isEditingName, setIsEditingName] = React.useState(false);
+    const [name, setName] = React.useState(map.name);
+
+    React.useEffect(() => {
+        setName(map.name);
+    }, [map]);
+
+    React.useEffect(() => {
+        if (!isEditingName)
+            setMap({ ...map, name });
+    }, [isEditingName])
 
     if (!isEditingName) {
         return (
@@ -26,8 +36,8 @@ export default function MapName() {
                 <InputGroup
                     autoFocus
                     large
-                    value={map.name}
-                    onChange={(e) => setMap({ ...map, name: e.target.value })}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     onBlur={() => setIsEditingName(false)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {

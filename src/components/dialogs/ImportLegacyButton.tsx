@@ -37,7 +37,7 @@ export default function ImportLegacyButton() {
                         name: legacyObj.name,
                         type: isCustomObj ? "util-blank" : legacyObj.type,
                         x: legacyObj.x,
-                        y: legacyObj.y,
+                        y: -legacyObj.y,
                         z: legacyObj.z,
                         xScale: legacyObj.xScale * (legacyObj.flipX ? -1 : 1),
                         yScale: legacyObj.yScale * (legacyObj.flipY ? -1 : 1),
@@ -45,7 +45,12 @@ export default function ImportLegacyButton() {
                         properties: {
                             spriteData: isCustomObj ? legacyObj.type : undefined,
                             colliders: legacyObj.colliders.map(legacyCollider => {
-                                const points = legacyCollider.points;
+                                const points = legacyCollider.points.map((p) => {
+                                    return {
+                                        x: p.x / legacyObj.xScale,
+                                        y: p.y / legacyObj.yScale
+                                    }
+                                });
                                 if (legacyCollider.isClosed && points.length > 1)
                                     points.push(points[0]);
                                 return {

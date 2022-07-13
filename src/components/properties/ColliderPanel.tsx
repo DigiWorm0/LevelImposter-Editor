@@ -12,14 +12,6 @@ export default function ColliderPanel(props: { elementID: GUID }) {
 
     const currentCollider = element.properties.colliders?.find(c => c.id === colliderID);
 
-    React.useEffect(() => {
-        if (currentCollider) {
-            if (element.properties.colliders?.find((collider) => collider.id === currentCollider.id) == null) {
-                setColliderID(undefined);
-            }
-        }
-    }, [element]);
-
     const addCollider = () => {
         if (!element.properties.colliders)
             element.properties.colliders = [];

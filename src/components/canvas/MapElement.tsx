@@ -1,6 +1,7 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useMouse from "../../hooks/input/useMouse";
+import useColliderEditing from "../../hooks/useColliderEditing";
 import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import useSprite from "../../hooks/useSprite";
@@ -12,6 +13,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const [elem, setElement] = useElement(props.elementID);
     const sprite = useSprite(props.elementID);
     const [selectedID, setSelectedID] = useSelected();
+    const [colliderID] = useColliderEditing();
     const [isHovering, setHovering] = React.useState(false);
     const [, , rightMouse, onMouseDown, onMouseUp] = useMouse();
 
@@ -54,7 +56,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setHovering(false);
             }}
             draggable={!rightMouse && !elem.properties.isLocked}
-            listening={!rightMouse}>
+            listening={!rightMouse && colliderID == ""}>
 
             <Image
                 x={-w / 2}

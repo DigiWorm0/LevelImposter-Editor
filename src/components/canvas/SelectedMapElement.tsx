@@ -2,6 +2,7 @@ import { Group } from "react-konva";
 import useElement from "../../hooks/useElement";
 import useSelected from "../../hooks/useSelected";
 import CameraRender from "./CameraRender";
+import ColliderEditor from "./ColliderEditor";
 import ColliderRender from "./ColliderRender";
 import VentConnections from "./VentConnections";
 
@@ -24,6 +25,7 @@ export default function SelectedMapElement() {
 
                 <ColliderRender elementID={selectedID} />
                 <CameraRender elementID={selectedID} />
+                <ColliderEditor elementID={selectedID} />
 
             </Group>
         </>
