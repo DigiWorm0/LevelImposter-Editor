@@ -3,7 +3,7 @@ import useElement from "../../hooks/useElement";
 import GUID from "../../types/generic/GUID";
 
 const UNITY_SCALE = 100;
-const CAM_SIZE = 5; // TODO: Get the actual size of the camera
+const CAM_SIZE = 6; // TODO: Get the actual size of the camera
 
 export default function CameraRender(props: { elementID: GUID }) {
     const [elem] = useElement(props.elementID);
@@ -13,9 +13,9 @@ export default function CameraRender(props: { elementID: GUID }) {
 
     const { camXOffset, camYOffset, camZoom } = elem.properties;
 
-    const camSize = (camZoom ? camZoom : 1) * CAM_SIZE * UNITY_SCALE;
+    const camSize = (camZoom ? camZoom * 2 : CAM_SIZE) * UNITY_SCALE;
     const camX = camXOffset ? camXOffset * UNITY_SCALE : 0;
-    const camY = camYOffset ? camYOffset * UNITY_SCALE : 0;
+    const camY = camYOffset ? -camYOffset * UNITY_SCALE : 0;
 
     return (
         <Rect

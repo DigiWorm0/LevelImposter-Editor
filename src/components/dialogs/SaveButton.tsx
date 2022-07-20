@@ -15,6 +15,9 @@ export default function SaveButton() {
             name: map.name,
             description: map.description,
             isPublic: map.isPublic,
+            isVerified: false,
+            authorID: "",
+            authorName: "",
             elements,
         };
         const mapJSON = JSON.stringify(mapData);

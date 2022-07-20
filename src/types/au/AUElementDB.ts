@@ -22,7 +22,7 @@ const AUElementDB: AUElement[] = [
         type: "util-room"
     }, {
         name: "Dummy",
-        type: "util-player"
+        type: "util-dummy"
     }, {
         name: "Skeld / Mira Vent",
         type: "util-vent1"

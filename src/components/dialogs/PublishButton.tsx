@@ -43,6 +43,9 @@ export default function PublishButton() {
             name: map.name,
             description: map.description,
             isPublic: map.isPublic,
+            isVerified: false,
+            authorID: user?.uid ? user.uid : "",
+            authorName: user?.displayName ? user.displayName : "",
             elements,
         };
         const mapJSON = JSON.stringify(mapData);
@@ -54,21 +57,22 @@ export default function PublishButton() {
             uploadString(storageRef, mapJSON).then((storageDoc) => {
                 console.log(`Map uploaded to firebase storage: ${storageDoc.ref.fullPath}`);
 
-                uploadToFirestore(storageDoc.ref.fullPath);
+                uploadToFirestore();
             }).catch((err) => {
                 alert(`Error uploading map to firebase storage: ${err}`);
                 setIsPublishing(false);
             });
         }
 
-        const uploadToFirestore = (storagePath: string) => {
+        const uploadToFirestore = () => {
             setDoc(docRef, {
                 id: mapData.id,
                 name: mapData.name,
                 description: mapData.description,
                 isPublic: mapData.isPublic,
+                isVerified: false,
                 authorID: user?.uid,
-                storageURL: storagePath
+                authorName: user?.displayName,
             } as LIMetadata).then(() => {
                 console.log(`Map published to firestore: ${docRef.path}`);
 

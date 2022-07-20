@@ -55,7 +55,7 @@ export default function ImportLegacyButton() {
                                     points.push(points[0]);
                                 return {
                                     id: generateGUID(),
-                                    blocksLight: legacyCollider.blocksLight,
+                                    blocksLight: legacyObj.type === "util-room" ? false : legacyCollider.blocksLight,
                                     isSolid: legacyObj.type === "util-room",
                                     points,
                                 }
