@@ -2,14 +2,16 @@ import { Button, ButtonGroup, ControlGroup, Divider, H5, InputGroup, NumericInpu
 import React from "react";
 import useKeyboard from "../../hooks/input/useKeyboard";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
-import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { useSelectedElemIDValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 
 export default function TransformPanel() {
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
+    const selectedElemID = useSelectedElemIDValue();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const keys = useKeyboard();
+    const [name, setName] = React.useState("");
     const [x, setX] = React.useState("");
     const [y, setY] = React.useState("");
     const [z, setZ] = React.useState("");
@@ -27,13 +29,14 @@ export default function TransformPanel() {
     React.useEffect(() => {
         if (!selectedElem)
             return;
+        setName(selectedElem.name);
         setX(selectedElem.x.toString());
         setY(selectedElem.y.toString());
         setZ(selectedElem.z.toString());
         setXScale(selectedElem.xScale.toString());
         setYScale(selectedElem.yScale.toString());
         setRotation(selectedElem.rotation.toString());
-    }, [selectedElem, setX, setY, setZ, setXScale, setYScale, setRotation]);
+    }, [selectedElemID]);
 
     if (!selectedElem)
         return null;
@@ -45,8 +48,8 @@ export default function TransformPanel() {
             <InputGroup
                 placeholder="Name"
                 large
-                onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
-                value={selectedElem.name}
+                onChange={(e) => { setName(name); setSelectedElem({ ...selectedElem, name: e.target.value }); }}
+                value={name}
             />
             <ControlGroup fill style={{ marginTop: 15 }}>
                 <NumericInput

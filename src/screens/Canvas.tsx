@@ -5,24 +5,25 @@ import React from 'react';
 import { Layer, Stage } from 'react-konva';
 import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
+import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useMouse from '../hooks/input/useMouse';
 import useMousePos from '../hooks/input/useMousePos';
 import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
-import { useElementIDs, useMapValue } from '../hooks/jotai/useMap';
+import { useElementIDs } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
 
 export default function Canvas() {
     const elementIDs = useElementIDs();
-    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
-    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
+    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
+    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
     const camera = useCamera(canvasWidth, canvasHeight);
     const [, , setMousePos] = useMousePos();
     const [leftMouse] = useMouse();
 
     const onWindowResize = () => {
-        setCanvasWidth(window.innerWidth - 500);
-        setCanvasHeight(window.innerHeight - 50);
+        setCanvasWidth(window.innerWidth);
+        setCanvasHeight(window.innerHeight);
     }
 
     React.useEffect(() => {
@@ -72,6 +73,7 @@ export default function Canvas() {
                         <SelectedMapElement />
 
                         <CanvasGrid />
+                        <MapSorter />
 
                     </Layer>
                 </Provider>

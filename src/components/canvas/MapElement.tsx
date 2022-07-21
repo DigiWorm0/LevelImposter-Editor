@@ -4,12 +4,14 @@ import useMouse from "../../hooks/input/useMouse";
 import useElement from "../../hooks/jotai/useElement";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useEmbed } from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
 
 const UNITY_SCALE = 100;
 
 export default function MapElement(props: { elementID: GUID }) {
+    const isEmbeded = useEmbed();
     const [elem, setElement] = useElement(props.elementID);
     const sprite = useSprite(props.elementID);
     const setSelectedID = useSetSelectedElemID();
@@ -58,8 +60,8 @@ export default function MapElement(props: { elementID: GUID }) {
             onMouseLeave={(e) => {
                 setHovering(false);
             }}
-            draggable={!rightMouse && !elem.properties.isLocked}
-            listening={!rightMouse && !isColliderSelected}>
+            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded}
+            listening={!rightMouse && !isColliderSelected && !isEmbeded}>
 
             <Image
                 x={-w / 2}
