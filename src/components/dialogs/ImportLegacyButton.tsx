@@ -1,14 +1,12 @@
 import { Button, Classes } from "@blueprintjs/core";
-import generateGUID from '../../hooks/generateGUID';
-import { setColliderEditing } from "../../hooks/useColliderEditing";
-import { clearElements, setElement } from "../../hooks/useElement";
-import { clearMap, setMap } from "../../hooks/useMap";
-import { setSelection } from "../../hooks/useSelected";
-import GUID from "../../types/generic/GUID";
+import generateGUID, { DEFAULT_GUID } from '../../hooks/generateGUID';
+import { useSetMap } from "../../hooks/jotai/useMap";
 import LIElement from "../../types/li/LIElement";
 import LILegacyFile from "../../types/li/LILegacyFile";
+import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 
 export default function ImportLegacyButton() {
+    const setMap = useSetMap();
 
     const onImport = () => {
         const input = document.createElement("input");
@@ -21,12 +19,6 @@ export default function ImportLegacyButton() {
             const reader = new FileReader();
             reader.onload = () => {
                 const mapData = JSON.parse(reader.result as string) as LILegacyFile;
-
-                // Clear
-                clearElements();
-                clearMap();
-                setSelection("" as GUID);
-                setColliderEditing("" as GUID);
 
                 // Import Objects
                 const elements: LIElement[] = [];
@@ -63,7 +55,6 @@ export default function ImportLegacyButton() {
                         }
                     };
                     elements.push(element);
-                    setElement(element);
                 });
 
                 // Target IDs
@@ -82,12 +73,16 @@ export default function ImportLegacyButton() {
 
                 // Set Map
                 setMap({
-                    id: "" as GUID,
-                    v: 0,
+                    v: MAP_FORMAT_VER,
+                    id: DEFAULT_GUID,
                     name: mapData.name,
                     description: "",
                     isPublic: false,
-                    elementIDs: elements.map(element => element.id)
+                    isVerified: false,
+                    authorID: "",
+                    authorName: "",
+                    elements,
+                    properties: {}
                 });
             }
             reader.readAsText(file);

@@ -3,20 +3,18 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
-import { setElement } from "../../hooks/useElement";
-import useMap from "../../hooks/useMap";
+import { useAddElement } from "../../hooks/jotai/useElement";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
-import LIElement from "../../types/li/LIElement";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { large?: boolean }) {
+    const addElement = useAddElement();
     const [isOpen, setIsOpen] = React.useState(false);
-    const [map, setMap] = useMap();
 
     const handleClick = (elem: AUElement) => {
-        const element: LIElement = {
+        addElement({
             name: elem.name,
             type: elem.type,
             id: generateGUID(),
@@ -27,10 +25,7 @@ export default function AddObjectButton(props: { large?: boolean }) {
             yScale: 1,
             rotation: 0,
             properties: {}
-        };
-        const elementIDs = [...map.elementIDs, element.id];
-        setMap({ ...map, elementIDs });
-        setElement(element);
+        });
         setIsOpen(false);
     }
 

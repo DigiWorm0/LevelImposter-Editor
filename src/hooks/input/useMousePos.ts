@@ -1,8 +1,9 @@
-import useStore from "../storage/useStore";
+import { useAtom } from "jotai";
+import { mouseXAtom, mouseYAtom } from "../jotai/Jotai";
 
 export default function useMousePos(): [number, number, (x: number, y: number) => void] {
-    const [x, setX] = useStore("mouse-x", 0);
-    const [y, setY] = useStore("mouse-y", 0);
+    const [x, setX] = useAtom(mouseXAtom)
+    const [y, setY] = useAtom(mouseYAtom)
 
     const setData = (x: number, y: number) => {
         setX(x);

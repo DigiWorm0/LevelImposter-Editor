@@ -1,9 +1,10 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useMouse from "../../hooks/input/useMouse";
-import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import useElement from "../../hooks/jotai/useElement";
+import { useMapValue } from "../../hooks/jotai/useMap";
+import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
+import useSelectedElem, { useIsSelectedElem, useSelectedElemID, useSelectedElemIDValue, useSelectedElemValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
 
@@ -11,15 +12,33 @@ const UNITY_SCALE = 100;
 
 export default function MapElement(props: { elementID: GUID }) {
     const [elem, setElement] = useElement(props.elementID);
+    const map = useMapValue();
+    const selectedElem = useSelectedElemValue();
+    const selectedElemID = useSelectedElemIDValue();
     const sprite = useSprite(props.elementID);
-    const [selectedID, setSelectedID] = useSelected();
-    const [colliderID] = useColliderEditing();
+    const setSelectedID = useSetSelectedElemID();
+    const isSelected = useIsSelectedElem(props.elementID);
+    const isColliderSelected = useIsSelectedCollider();
     const [isHovering, setHovering] = React.useState(false);
     const [, , rightMouse, onMouseDown, onMouseUp] = useMouse();
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
-    const isSelected = selectedID === props.elementID;
+
+    React.useEffect(() => {
+        console.log("Element (Elem)", props.elementID, elem);
+    }, [elem]);
+
+    React.useEffect(() => {
+        console.log("Map (Elem)", map.id, map);
+    }, [map]);
+
+    React.useEffect(() => {
+        console.log("Selection (Elem)", selectedElemID, selectedElem);
+    }, [selectedElem, selectedElemID]);
+
+    if (!elem)
+        return null;
 
     return (
         <Group
@@ -56,7 +75,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setHovering(false);
             }}
             draggable={!rightMouse && !elem.properties.isLocked}
-            listening={!rightMouse && colliderID == ""}>
+            listening={!rightMouse && !isColliderSelected}>
 
             <Image
                 x={-w / 2}

@@ -7,3 +7,5 @@ export default interface LICollider {
     isSolid: boolean;
     points: Point[];
 }
+
+export type MaybeLICollider = LICollider | undefined;

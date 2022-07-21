@@ -51,6 +51,8 @@ npm start
 - **Discord:** https://discord.gg/9jJEBQ4qJs
 - **Issues:** https://github.com/DigiWorm0/LevelImposter/issues
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X7DXBEC)
+
 ## Credits
 - [Blueprint](https://blueprintjs.com/)
 - [Konva](https://konvajs.org/)

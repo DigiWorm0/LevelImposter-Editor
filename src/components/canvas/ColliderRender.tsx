@@ -1,18 +1,16 @@
-import { Line, Shape } from "react-konva";
-import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import { Line } from "react-konva";
+import { useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
 import Point from "../../types/generic/Point";
 
 const UNITY_SCALE = 100;
 
-export default function ColliderRender(props: { elementID: GUID }) {
-    const [elem] = useElement(props.elementID);
-    const [colliderID] = useColliderEditing();
+export default function ColliderRender() {
+    const collider = useSelectedColliderValue();
 
-    const collider = elem.properties.colliders?.find(c => c.id === colliderID);
-    if (!collider || collider.points.length <= 0)
+    if (!collider
+        || collider.points.length <= 0)
         return null;
+
     const points = collider.points.reduce((prev: number[], cur: Point) => { prev.push(cur.x * UNITY_SCALE, cur.y * UNITY_SCALE); return prev; }, [] as number[]);
 
     return (

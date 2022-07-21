@@ -1,17 +1,17 @@
 import { Rect } from "react-konva";
-import useColliderEditing from "../../hooks/useColliderEditing";
-import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 
 const UNITY_SCALE = 100;
 const RECT_SIZE = 12;
 
-export default function ColliderEditor(props: { elementID: GUID }) {
-    const [elem, setElement] = useElement(props.elementID);
-    const [colliderID] = useColliderEditing();
+export default function ColliderEditor() {
+    const [elem, setElement] = useSelectedElem();
+    const [colliderID] = useSelectedColliderID();
 
-    const collider = elem.properties.colliders?.find(c => c.id === colliderID);
-    if (!collider || collider.points.length <= 0)
+    const collider = elem?.properties.colliders?.find(c => c.id === colliderID);
+    if (!collider
+        || collider.points.length <= 0)
         return null;
 
     return (

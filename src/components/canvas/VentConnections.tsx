@@ -1,27 +1,25 @@
 import { Shape } from "react-konva";
-import useElement, { getElement } from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedVentConnections } from "../../hooks/jotai/useVents";
 
 const UNITY_SCALE = 100;
 
-export default function VentConnections(props: { elementID: GUID }) {
-    const [elem] = useElement(props.elementID);
+export default function VentConnections() {
+    const selectedElem = useSelectedElemValue();
+    const selectedElemConnections = useSelectedVentConnections();
 
+    if (!selectedElem)
+        return null;
     return (
         <Shape
             sceneFunc={(ctx, shape) => {
-                const drawToVent = (targetID: GUID | undefined) => {
-                    if (!targetID)
-                        return;
-                    const target = getElement(targetID);
-                    ctx.moveTo(elem.x * UNITY_SCALE, -elem.y * UNITY_SCALE);
-                    ctx.lineTo(target.x * UNITY_SCALE, -target.y * UNITY_SCALE);
-                }
-
                 ctx.beginPath();
-                drawToVent(elem.properties.leftVent);
-                drawToVent(elem.properties.middleVent);
-                drawToVent(elem.properties.rightVent);
+                selectedElemConnections.forEach((vent) => {
+                    if (!vent)
+                        return;
+                    ctx.moveTo(selectedElem.x * UNITY_SCALE, -selectedElem.y * UNITY_SCALE);
+                    ctx.lineTo(vent.x * UNITY_SCALE, -vent.y * UNITY_SCALE);
+                });
                 ctx.closePath();
                 ctx.fillStrokeShape(shape);
 

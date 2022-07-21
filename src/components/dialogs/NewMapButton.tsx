@@ -1,33 +1,18 @@
-import { Button, Classes, Dialog, ProgressBar } from "@blueprintjs/core";
+import { Button, Classes, Dialog } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
-import { setColliderEditing } from "../../hooks/useColliderEditing";
-import { clearElements } from "../../hooks/useElement";
-import { clearMap } from "../../hooks/useMap";
-import { setSelection } from "../../hooks/useSelected";
-import useSettings from "../../hooks/useSettings";
-import GUID from "../../types/generic/GUID";
+import { useMapReset } from "../../hooks/jotai/useMap";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 
 export default function NewMapButton() {
-    const [settings] = useSettings();
+    const settings = useSettingsValue();
+    const resetMap = useMapReset();
     const [isVisible, setIsVisible] = React.useState(false);
-    const [isClearing, setIsClearing] = React.useState(false);
 
     const onClear = () => {
-        clearElements();
-        clearMap();
-        setSelection("" as GUID);
-        setColliderEditing("" as GUID);
+        resetMap();
         setIsVisible(false);
     }
-
-    React.useEffect(() => {
-        if (isClearing) {
-            onClear();
-            setIsClearing(false);
-        }
-    })
-
 
     return (
         <>
@@ -52,15 +37,8 @@ export default function NewMapButton() {
                     <p>Are you sure you want to create a new map?</p>
                     <p>This will delete all elements and reset the map.</p>
 
-                    <Button onClick={() => { setIsClearing(true); }} text="Yes" intent="danger" style={{ marginRight: 10 }} />
+                    <Button onClick={() => { onClear(); }} text="Yes" intent="danger" style={{ marginRight: 10 }} />
                     <Button onClick={() => { setIsVisible(false); }} text="Cancel" />
-
-                    {
-                        isClearing &&
-                        <div style={{ marginTop: 15 }}>
-                            <ProgressBar intent="danger" />
-                        </div>
-                    }
                 </div>
             </Dialog>
         </>

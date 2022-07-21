@@ -1,10 +1,11 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { removeElement } from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import { useRemoveElement } from "../../hooks/jotai/useElement";
+import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 
 export default function DeleteObjectButton() {
-    const [selectedID, setSelectedID] = useSelected();
+    const removeElement = useRemoveElement();
+    const [selectedID, setSelectedID] = useSelectedElemID();
 
     const handleClick = () => {
         removeElement(selectedID);

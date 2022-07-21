@@ -1,23 +1,18 @@
 import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import React from "react";
-import useElement, { useElements } from "../../hooks/useElement";
-import useMap from "../../hooks/useMap";
-import GUID from "../../types/generic/GUID";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import { useVents } from "../../hooks/jotai/useVents";
 import LIElement from "../../types/li/LIElement";
 
 const VentSelect = Select2.ofType<LIElement>();
 
-export default function VentPanel(props: { elementID: GUID }) {
-    const [map] = useMap();
-    const [allElements] = useElements(map.elementIDs);
-    const [ventElements, setVentElements] = React.useState([] as LIElement[]);
+export default function VentPanel() {
+    const ventElems = useVents();
+    const [selectedElem, setSelectedElem] = useSelectedElem();
 
-    const [element, setElement] = useElement(props.elementID);
-
-    const leftVent = allElements.find((e) => e.id === element.properties.leftVent);
-    const middleVent = allElements.find((e) => e.id === element.properties.middleVent);
-    const rightVent = allElements.find((e) => e.id === element.properties.rightVent);
+    const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
+    const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);
+    const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
 
     const ventSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem
@@ -30,14 +25,8 @@ export default function VentPanel(props: { elementID: GUID }) {
             onFocus={props.handleFocus} />
     );
 
-    React.useEffect(() => {
-        const newVentElements = allElements.filter((elem) => (elem.type.startsWith("util-vent") && elem.id != props.elementID));
-        setVentElements(newVentElements);
-    }, [allElements, props.elementID]);
-
-    if (element.id === "")
-        return null;
-    if (!element.type.startsWith("util-vent"))
+    if (!selectedElem
+        || !selectedElem.type.startsWith("util-vent"))
         return null;
 
     return (
@@ -49,10 +38,10 @@ export default function VentPanel(props: { elementID: GUID }) {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElements}
+                    items={ventElems}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        setElement({ ...element, properties: { ...element.properties, leftVent: vent.id } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: vent.id } });
                     }}>
 
                     <Button
@@ -65,7 +54,7 @@ export default function VentPanel(props: { elementID: GUID }) {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        setElement({ ...element, properties: { ...element.properties, leftVent: undefined } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: undefined } });
                     }}
                 />
             </ControlGroup>
@@ -74,10 +63,10 @@ export default function VentPanel(props: { elementID: GUID }) {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElements}
+                    items={ventElems}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        setElement({ ...element, properties: { ...element.properties, middleVent: vent.id } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: vent.id } });
                     }}>
 
                     <Button
@@ -90,7 +79,7 @@ export default function VentPanel(props: { elementID: GUID }) {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        setElement({ ...element, properties: { ...element.properties, middleVent: undefined } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: undefined } });
                     }}
                 />
             </ControlGroup>
@@ -99,10 +88,10 @@ export default function VentPanel(props: { elementID: GUID }) {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElements}
+                    items={ventElems}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        setElement({ ...element, properties: { ...element.properties, rightVent: vent.id } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: vent.id } });
                     }}>
 
                     <Button
@@ -115,7 +104,7 @@ export default function VentPanel(props: { elementID: GUID }) {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        setElement({ ...element, properties: { ...element.properties, rightVent: undefined } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: undefined } });
                     }}
                 />
             </ControlGroup>

@@ -1,5 +1,5 @@
 import GUID from "../generic/GUID";
-import LIProperties from "./LIProperties";
+import LICollider from "./LICollider";
 
 export default interface LIElement {
     id: GUID;
@@ -11,5 +11,25 @@ export default interface LIElement {
     xScale: number;
     yScale: number;
     rotation: number;
-    properties: LIProperties;
+    properties: {
+        parent?: GUID;
+
+        leftVent?: GUID;
+        middleVent?: GUID;
+        rightVent?: GUID;
+
+        camXOffset?: number;
+        camYOffset?: number;
+        camZoom?: number;
+
+        onlyFromBelow?: boolean;
+        range?: number;
+
+        isLocked?: boolean;
+
+        spriteData?: string;
+        colliders?: LICollider[];
+    };
 }
+
+export type MaybeLIElement = LIElement | undefined;

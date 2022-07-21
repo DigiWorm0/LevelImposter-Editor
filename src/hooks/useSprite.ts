@@ -1,23 +1,24 @@
 import React from "react";
 import GUID from "../types/generic/GUID";
-import useElement from "./useElement";
+import { useElementValue } from "./jotai/useElement";
 
 export default function useSprite(elementID: GUID) {
-    const [elem] = useElement(elementID);
+    const elem = useElementValue(elementID);
     const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
 
     React.useEffect(() => {
-        if (elem.id === elementID) {
-            const url = elem.properties.spriteData ?
-                elem.properties.spriteData :
-                "/sprites/" + elem.type + ".png";
+        if (!elem)
+            return;
 
-            const img = new window.Image();
-            img.src = url;
-            img.onload = () => {
-                setSprite(img);
-            };
-        }
+        const url = elem.properties.spriteData ?
+            elem.properties.spriteData :
+            "/sprites/" + elem.type + ".png";
+
+        const img = new window.Image();
+        img.src = url;
+        img.onload = () => {
+            setSprite(img);
+        };
     }, [elem, setSprite, elementID]);
 
     return sprite;

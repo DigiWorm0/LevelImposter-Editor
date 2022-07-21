@@ -1,14 +1,13 @@
 import { Button, ButtonGroup, Divider, H5 } from "@blueprintjs/core";
-import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
 
-export default function SpritePanel(props: { elementID: GUID }) {
-    const [element, setElement] = useElement(props.elementID);
+export default function SpritePanel() {
+    const [selectedElem, setSelectedElem] = useSelectedElem();
 
-    const defaultURL = URL_PREFIX + element.type + URL_SUFFIX;
+    const defaultURL = URL_PREFIX + selectedElem?.type + URL_SUFFIX;
 
     const onUploadClick = () => {
         const input = document.createElement("input");
@@ -20,10 +19,12 @@ export default function SpritePanel(props: { elementID: GUID }) {
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = () => {
-                setElement({
-                    ...element,
+                if (!selectedElem)
+                    return;
+                setSelectedElem({
+                    ...selectedElem,
                     properties: {
-                        ...element.properties,
+                        ...selectedElem.properties,
                         spriteData: reader.result as string
                     }
                 });
@@ -34,20 +35,22 @@ export default function SpritePanel(props: { elementID: GUID }) {
     }
 
     const onResetClick = () => {
-        setElement({
-            ...element,
+        if (!selectedElem)
+            return;
+        setSelectedElem({
+            ...selectedElem,
             properties: {
-                ...element.properties,
+                ...selectedElem.properties,
                 spriteData: undefined
             }
         });
     }
 
-    if (element.id === ""
-        || element.type === "util-player"
-        || element.type === "util-room"
-        || element.type === "util-spawn1"
-        || element.type === "util-spawn2")
+    if (!selectedElem
+        || selectedElem.type === "util-player"
+        || selectedElem.type === "util-room"
+        || selectedElem.type === "util-spawn1"
+        || selectedElem.type === "util-spawn2")
 
         return null;
 
@@ -58,8 +61,8 @@ export default function SpritePanel(props: { elementID: GUID }) {
             <div style={{ textAlign: "center", margin: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={element.properties.spriteData ? element.properties.spriteData : defaultURL}
-                    alt={element.name}
+                    src={selectedElem.properties.spriteData ? selectedElem.properties.spriteData : defaultURL}
+                    alt={selectedElem.name}
                 />
 
             </div>

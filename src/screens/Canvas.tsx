@@ -1,3 +1,4 @@
+import { Provider } from 'jotai';
 import Konva from 'konva';
 import { KonvaEventObject } from 'konva/lib/Node';
 import React from 'react';
@@ -7,12 +8,13 @@ import MapElement from '../components/canvas/MapElement';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useMouse from '../hooks/input/useMouse';
 import useMousePos from '../hooks/input/useMousePos';
+import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
+import { useElementIDs, useMapValue } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
-import { useElements } from '../hooks/useElement';
-import useMap from '../hooks/useMap';
 
 export default function Canvas() {
-    const [map] = useMap();
+    const map = useMapValue();
+    const elementIDs = useElementIDs();
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
     const camera = useCamera(canvasWidth, canvasHeight);
@@ -31,8 +33,16 @@ export default function Canvas() {
         }
     }, []);
 
+    React.useEffect(() => {
+        console.log("Map (Canvas)", map.id, map);
+    }, [map]);
+
     Konva.dragButtons = [0, 1, 2];
     Konva.hitOnDragEnabled = true;
+
+    React.useEffect(() => {
+        console.log("Element IDs", elementIDs);
+    }, [elementIDs]);
 
     return (
         <div className="canvas">
@@ -58,19 +68,22 @@ export default function Canvas() {
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
 
-                <Layer
-                    x={camera.width}
-                    y={camera.height}
-                    scale={{ x: camera.z, y: camera.z }}>
+                <Provider scope={PROVIDER_SCOPE}>
 
-                    {map.elementIDs.map(elementID => (
-                        <MapElement key={elementID} elementID={elementID} />
-                    ))}
-                    <SelectedMapElement />
+                    <Layer
+                        x={camera.width}
+                        y={camera.height}
+                        scale={{ x: camera.z, y: camera.z }}>
 
-                    <CanvasGrid />
+                        {elementIDs.map(elementID => (
+                            <MapElement key={elementID} elementID={elementID} />
+                        ))}
+                        <SelectedMapElement />
 
-                </Layer>
+                        <CanvasGrid />
+
+                    </Layer>
+                </Provider>
 
             </Stage>
         </div>

@@ -1,13 +1,14 @@
 import { Button, ButtonGroup, ControlGroup, Divider, H5, InputGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import useKeyboard from "../../hooks/input/useKeyboard";
-import useElement, { removeElement } from "../../hooks/useElement";
-import useSelected from "../../hooks/useSelected";
+import { useRemoveElement } from "../../hooks/jotai/useElement";
+import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 
-export default function TransformPanel(props: { elementID: GUID }) {
-    const [element, setElement] = useElement(props.elementID);
-    const [selectedID, setSelectedID] = useSelected();
+export default function TransformPanel() {
+    const setSelectedID = useSetSelectedElemID();
+    const removeElement = useRemoveElement();
+    const [selectedElem, setSelectedElem] = useSelectedElem();
     const keys = useKeyboard();
     const [x, setX] = React.useState("");
     const [y, setY] = React.useState("");
@@ -17,22 +18,28 @@ export default function TransformPanel(props: { elementID: GUID }) {
     const [rotation, setRotation] = React.useState("");
 
     React.useEffect(() => {
-        if (keys["Delete"] && props.elementID !== "") {
-            removeElement(props.elementID);
+        if (keys["Delete"] && selectedElem) {
+            removeElement(selectedElem.id);
             setSelectedID("" as GUID);
         }
-    }, [keys, selectedID, setElement]);
+    }, [keys, selectedElem, removeElement, setSelectedID]);
 
     React.useEffect(() => {
-        setX(element.x.toString());
-        setY(element.y.toString());
-        setZ(element.z.toString());
-        setXScale(element.xScale.toString());
-        setYScale(element.yScale.toString());
-        setRotation(element.rotation.toString());
-    }, [element, setX, setY, setZ, setXScale, setYScale, setRotation]);
+        if (!selectedElem)
+            return;
+        setX(selectedElem.x.toString());
+        setY(selectedElem.y.toString());
+        setZ(selectedElem.z.toString());
+        setXScale(selectedElem.xScale.toString());
+        setYScale(selectedElem.yScale.toString());
+        setRotation(selectedElem.rotation.toString());
+    }, [selectedElem, setX, setY, setZ, setXScale, setYScale, setRotation]);
 
-    if (element.id === "")
+    React.useEffect(() => {
+        console.log("Element (Panel)", selectedElem);
+    }, [selectedElem]);
+
+    if (!selectedElem)
         return null;
 
     return (
@@ -42,28 +49,28 @@ export default function TransformPanel(props: { elementID: GUID }) {
             <InputGroup
                 placeholder="Name"
                 large
-                onChange={(e) => { setElement({ ...element, name: e.target.value }); }}
-                value={element.name}
+                onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
+                value={selectedElem.name}
             />
             <ControlGroup fill style={{ marginTop: 15 }}>
                 <NumericInput
                     fill
                     placeholder="X"
-                    onValueChange={(numVal, strVal) => { setX(strVal); !isNaN(numVal) && setElement({ ...element, x: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setX(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, x: numVal }); }}
                     minorStepSize={0.001}
                     value={x}
                 />
                 <NumericInput
                     fill
                     placeholder="Y"
-                    onValueChange={(numVal, strVal) => { setY(strVal); !isNaN(numVal) && setElement({ ...element, y: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setY(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, y: numVal }); }}
                     minorStepSize={0.001}
                     value={y}
                 />
                 <NumericInput
                     fill
                     placeholder="Z"
-                    onValueChange={(numVal, strVal) => { setZ(strVal); !isNaN(numVal) && setElement({ ...element, z: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setZ(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, z: numVal }); }}
                     minorStepSize={0.001}
                     value={z}
                 />
@@ -72,14 +79,14 @@ export default function TransformPanel(props: { elementID: GUID }) {
                 <NumericInput
                     fill
                     placeholder="X Scale"
-                    onValueChange={(numVal, strVal) => { setXScale(strVal); !isNaN(numVal) && setElement({ ...element, xScale: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setXScale(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, xScale: numVal }); }}
                     minorStepSize={0.001}
                     value={xScale}
                 />
                 <NumericInput
                     fill
                     placeholder="Y Scale"
-                    onValueChange={(numVal, strVal) => { setYScale(strVal); !isNaN(numVal) && setElement({ ...element, yScale: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setYScale(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, yScale: numVal }); }}
                     minorStepSize={0.001}
                     value={yScale}
                 />
@@ -88,7 +95,7 @@ export default function TransformPanel(props: { elementID: GUID }) {
                 <NumericInput
                     fill
                     placeholder="Rotation"
-                    onValueChange={(numVal, strVal) => { setRotation(strVal); !isNaN(numVal) && setElement({ ...element, rotation: numVal }); }}
+                    onValueChange={(numVal, strVal) => { setRotation(strVal); !isNaN(numVal) && setSelectedElem({ ...selectedElem, rotation: numVal }); }}
                     minorStepSize={0.001}
                     value={rotation}
                 />
@@ -96,15 +103,15 @@ export default function TransformPanel(props: { elementID: GUID }) {
             <ButtonGroup minimal style={{ marginTop: 10 }} fill>
                 <Button
                     fill
-                    icon={element.properties.isLocked ? "lock" : "unlock"}
-                    text={element.properties.isLocked ? "Unlock" : "Lock"}
-                    onClick={() => { setElement({ ...element, properties: { ...element.properties, isLocked: !element.properties.isLocked } }); }}
+                    icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
+                    text={selectedElem.properties.isLocked ? "Unlock" : "Lock"}
+                    onClick={() => { setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } }); }}
                 />
                 <Button
                     fill
                     icon="trash"
                     text="Remove"
-                    onClick={() => { removeElement(selectedID); setSelectedID("" as GUID) }}
+                    onClick={() => { removeElement(selectedElem.id); setSelectedID("" as GUID) }}
                 />
             </ButtonGroup>
         </div>

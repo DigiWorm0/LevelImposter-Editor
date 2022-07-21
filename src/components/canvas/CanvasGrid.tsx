@@ -1,5 +1,5 @@
 import { Group, Line, Shape } from "react-konva";
-import useSettings from "../../hooks/useSettings";
+import useSettings from "../../hooks/jotai/useSettings";
 
 const GRID_SPACING = 100;
 const GRID_SIZE = 25;

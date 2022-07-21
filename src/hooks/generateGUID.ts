@@ -10,3 +10,6 @@ export default function generateGUID(): GUID {
         return v.toString(16);
     }) as GUID;
 }
+
+const DEFAULT_GUID = "00000000-0000-0000-0000-000000000000" as GUID;
+export { DEFAULT_GUID };

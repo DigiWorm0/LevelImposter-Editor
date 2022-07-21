@@ -1,13 +1,11 @@
 import { ControlGroup, Divider, FormGroup, H5, NumericInput } from "@blueprintjs/core";
-import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 
-export default function CamPanel(props: { elementID: GUID }) {
-    const [element, setElement] = useElement(props.elementID);
+export default function CamPanel() {
+    const [element, setElement] = useSelectedElem();
 
-    if (element.id === "")
-        return null;
-    if (element.type !== "util-cam")
+    if (!element
+        || element.type !== "util-cam")
         return null;
 
     return (

@@ -7,10 +7,9 @@ import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
-import { useElements } from "../../hooks/useElement";
-import useMap from "../../hooks/useMap";
-import useSettings from "../../hooks/useSettings";
-import LIMapFile from "../../types/li/LIMapFile";
+import useMap from "../../hooks/jotai/useMap";
+import useSettings from "../../hooks/jotai/useSettings";
+import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 
 export default function PublishButton() {
@@ -18,7 +17,6 @@ export default function PublishButton() {
     const [isDoneOpen, setIsDoneOpen] = React.useState(false);
     const [settings] = useSettings();
     const [map, setMap] = useMap();
-    const [elements] = useElements(map.elementIDs);
     const [user] = useAuthState(auth);
     const [isPublishing, setIsPublishing] = React.useState(false);
 
@@ -37,7 +35,7 @@ export default function PublishButton() {
 
     const publishMap = () => {
         setIsPublishing(true);
-        const mapData: LIMapFile = {
+        const mapData: LIMap = {
             id: isUploaded ? map.id : generateGUID(),
             v: map.v,
             name: map.name,
@@ -46,7 +44,8 @@ export default function PublishButton() {
             isVerified: false,
             authorID: user?.uid ? user.uid : "",
             authorName: user?.displayName ? user.displayName : "",
-            elements,
+            elements: map.elements,
+            properties: {}
         };
         const mapJSON = JSON.stringify(mapData);
         const storageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);

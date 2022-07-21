@@ -1,16 +1,14 @@
 import { IconName, Tree, TreeNodeInfo } from "@blueprintjs/core";
-import { useElements } from "../../hooks/useElement";
-import useMap from "../../hooks/useMap";
-import useSelected from "../../hooks/useSelected";
+import { useMapValue } from "../../hooks/jotai/useMap";
+import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 
 export default function MapHierarchy() {
-    const [map] = useMap();
-    const [elems] = useElements(map.elementIDs);
-    const [selectedID, setSelectedID] = useSelected();
+    const map = useMapValue();
+    const [selectedID, setSelectedID] = useSelectedElemID();
 
     const treeContents: TreeNodeInfo[] = [];
-    elems.forEach((elem, index) => {
+    map.elements.forEach((elem, index) => {
         let icon: IconName = "cube";
         if (elem.type.startsWith("task-"))
             icon = "build";

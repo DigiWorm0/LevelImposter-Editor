@@ -1,8 +1,10 @@
 import GUID from "../generic/GUID";
 
+export const MAP_FORMAT_VER = 0;
+
 export default interface LIMetadata {
-    id: GUID;
     v: number;
+    id: GUID;
     name: string;
     description: string;
     isPublic: boolean;

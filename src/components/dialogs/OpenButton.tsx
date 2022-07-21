@@ -1,10 +1,10 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { clearElements, setElement } from "../../hooks/useElement";
-import { setMap } from "../../hooks/useMap";
-import LIMapFile from "../../types/li/LIMapFile";
+import { useSetMap } from "../../hooks/jotai/useMap";
+import LIMap from "../../types/li/LIMap";
 
 export default function OpenButton() {
+    const setMap = useSetMap();
 
     const onOpen = () => {
         const input = document.createElement("input");
@@ -16,20 +16,8 @@ export default function OpenButton() {
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = () => {
-                const mapData = JSON.parse(reader.result as string) as LIMapFile;
-
-                clearElements();
-                mapData.elements.forEach(element => {
-                    setElement(element);
-                });
-                setMap({
-                    id: mapData.id,
-                    v: mapData.v,
-                    name: mapData.name,
-                    description: mapData.description,
-                    isPublic: mapData.isPublic,
-                    elementIDs: mapData.elements.map((elem) => elem.id),
-                });
+                const mapData = JSON.parse(reader.result as string) as LIMap;
+                setMap(mapData);
             }
             reader.readAsText(file);
         }

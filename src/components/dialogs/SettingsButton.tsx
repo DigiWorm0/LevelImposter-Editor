@@ -1,7 +1,7 @@
 import { Button, Classes, Dialog, FormGroup, Switch } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
-import useSettings from "../../hooks/useSettings";
+import useSettings from "../../hooks/jotai/useSettings";
 
 export default function SettingsButton() {
     const [isOpen, setIsOpen] = React.useState(false);

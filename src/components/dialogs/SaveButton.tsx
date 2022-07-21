@@ -1,26 +1,12 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { useElements } from "../../hooks/useElement";
-import useMap from "../../hooks/useMap";
-import LIMapFile from "../../types/li/LIMapFile";
+import { useMapValue } from "../../hooks/jotai/useMap";
 
 export default function SaveButton() {
-    const [map] = useMap();
-    const [elements] = useElements(map.elementIDs);
+    const map = useMapValue();
 
     const onSave = () => {
-        const mapData: LIMapFile = {
-            id: map.id,
-            v: map.v,
-            name: map.name,
-            description: map.description,
-            isPublic: map.isPublic,
-            isVerified: false,
-            authorID: "",
-            authorName: "",
-            elements,
-        };
-        const mapJSON = JSON.stringify(mapData);
+        const mapJSON = JSON.stringify(map);
         const blob = new Blob([mapJSON], { type: "application/levelimposter.map" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");

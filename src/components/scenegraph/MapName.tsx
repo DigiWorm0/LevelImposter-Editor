@@ -1,19 +1,19 @@
 import { Button, InputGroup } from "@blueprintjs/core";
 import React from "react";
-import useMap from "../../hooks/useMap";
+import { useMapName } from "../../hooks/jotai/useMap";
 
 export default function MapName() {
-    const [map, setMap] = useMap();
+    const [mapName, setMapName] = useMapName()
     const [isEditingName, setIsEditingName] = React.useState(false);
-    const [name, setName] = React.useState(map.name);
+    const [name, setName] = React.useState(mapName);
 
     React.useEffect(() => {
-        setName(map.name);
-    }, [map]);
+        setName(mapName);
+    }, [mapName]);
 
     React.useEffect(() => {
         if (!isEditingName)
-            setMap({ ...map, name });
+            setMapName(name);
     }, [isEditingName])
 
     if (!isEditingName) {
@@ -24,7 +24,7 @@ export default function MapName() {
                     large
                     onClick={() => setIsEditingName(true)}>
 
-                    {map.name}
+                    {mapName}
 
                 </Button>
             </div>

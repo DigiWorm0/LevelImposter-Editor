@@ -1,17 +1,17 @@
 import { Rect } from "react-konva";
-import useElement from "../../hooks/useElement";
-import GUID from "../../types/generic/GUID";
+import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 
 const UNITY_SCALE = 100;
 const CAM_SIZE = 6; // TODO: Get the actual size of the camera
 
-export default function CameraRender(props: { elementID: GUID }) {
-    const [elem] = useElement(props.elementID);
+export default function CameraRender() {
+    const selectedElem = useSelectedElemValue();
 
-    if (elem.type !== "util-cam")
+    if (!selectedElem
+        || selectedElem.type !== "util-cam")
         return null;
 
-    const { camXOffset, camYOffset, camZoom } = elem.properties;
+    const { camXOffset, camYOffset, camZoom } = selectedElem.properties;
 
     const camSize = (camZoom ? camZoom * 2 : CAM_SIZE) * UNITY_SCALE;
     const camX = camXOffset ? camXOffset * UNITY_SCALE : 0;
