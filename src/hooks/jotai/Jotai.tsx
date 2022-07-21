@@ -36,24 +36,24 @@ export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements")
 export const elementIDsAtom = atom((get) => {
     return get(elementsAtom).map((e) => e.id);
 });
-export const elementFamilyAtom = atomFamily((id: MaybeGUID) =>
-    atom(
+export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
+    const elemAtom = atom(
         (get) => {
-            return get(elementsAtom).find((elem) => elem.id === id);
+            const elements = get(elementsAtom);
+            return elements.find((elem) => elem.id === id);
         },
         (get, set, elem: MaybeLIElement) => {
-            if (elem) {
-                const elements = get(elementsAtom);
-                const index = elements.findIndex((e) => e.id === elem.id);
-                if (index >= 0) {
-                    elements[index] = elem;
-                    set(elementsAtom, elements);
-                }
+            const elements = get(elementsAtom);
+            const index = elements.findIndex((e) => e.id === elem?.id);
+            if (index >= 0 && elem) {
+                elements[index] = elem;
+                set(elementsAtom, [...elements]);
             }
         }
-    ),
-    (a, b) => a === b
-);
+    );
+    elemAtom.debugLabel = `elementFamilyAtom(${id})`;
+    return elemAtom;
+}, (a, b) => a === b);
 
 // Element Helpers
 export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
@@ -71,13 +71,15 @@ export const selectedElemAtom = atom(
         const id = get(selectedElemIDAtom);
         const elemAtom = elementFamilyAtom(id);
         const elem = get(elemAtom);
-        console.log("Get", id, elemAtom.toString(), elem);
         return elem;
     },
     (get, set, elem: MaybeLIElement) => {
-        const elemAtom = elementFamilyAtom(elem?.id);
-        console.log("Set", elem?.id, elemAtom.toString(), elem);
-        set(elemAtom, elem);
+        const elements = get(elementsAtom);
+        const index = elements.findIndex((e) => e.id === elem?.id);
+        if (index >= 0 && elem) {
+            elements[index] = elem;
+            set(elementsAtom, [...elements]);
+        }
     }
 );
 
@@ -137,3 +139,20 @@ export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETT
 // Mouse
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
+
+// Debug Labels
+mapAtom.debugLabel = "map";
+mapNameAtom.debugLabel = "mapName";
+elementsAtom.debugLabel = "elements";
+elementIDsAtom.debugLabel = "elementIDs";
+selectedElemIDAtom.debugLabel = "selectedElemID";
+selectedElemAtom.debugLabel = "selectedElem";
+selectedColliderIDAtom.debugLabel = "selectedColliderID";
+selectedColliderAtom.debugLabel = "selectedCollider";
+isSelectedColliderAtom.debugLabel = "isSelectedCollider";
+selectElemAtom.debugLabel = "selectElem";
+ventsAtom.debugLabel = "vents";
+selectedVentConnectionsAtom.debugLabel = "selectedVentConnections";
+settingsAtom.debugLabel = "settings";
+mouseXAtom.debugLabel = "mouseX";
+mouseYAtom.debugLabel = "mouseY";

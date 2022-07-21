@@ -13,7 +13,6 @@ import { useElementIDs, useMapValue } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
 
 export default function Canvas() {
-    const map = useMapValue();
     const elementIDs = useElementIDs();
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth - 500);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight - 50);
@@ -33,16 +32,8 @@ export default function Canvas() {
         }
     }, []);
 
-    React.useEffect(() => {
-        console.log("Map (Canvas)", map.id, map);
-    }, [map]);
-
     Konva.dragButtons = [0, 1, 2];
     Konva.hitOnDragEnabled = true;
-
-    React.useEffect(() => {
-        console.log("Element IDs", elementIDs);
-    }, [elementIDs]);
 
     return (
         <div className="canvas">

@@ -2,9 +2,8 @@ import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useMouse from "../../hooks/input/useMouse";
 import useElement from "../../hooks/jotai/useElement";
-import { useMapValue } from "../../hooks/jotai/useMap";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
-import useSelectedElem, { useIsSelectedElem, useSelectedElemID, useSelectedElemIDValue, useSelectedElemValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
 
@@ -12,9 +11,6 @@ const UNITY_SCALE = 100;
 
 export default function MapElement(props: { elementID: GUID }) {
     const [elem, setElement] = useElement(props.elementID);
-    const map = useMapValue();
-    const selectedElem = useSelectedElemValue();
-    const selectedElemID = useSelectedElemIDValue();
     const sprite = useSprite(props.elementID);
     const setSelectedID = useSetSelectedElemID();
     const isSelected = useIsSelectedElem(props.elementID);
@@ -24,18 +20,6 @@ export default function MapElement(props: { elementID: GUID }) {
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
-
-    React.useEffect(() => {
-        console.log("Element (Elem)", props.elementID, elem);
-    }, [elem]);
-
-    React.useEffect(() => {
-        console.log("Map (Elem)", map.id, map);
-    }, [map]);
-
-    React.useEffect(() => {
-        console.log("Selection (Elem)", selectedElemID, selectedElem);
-    }, [selectedElem, selectedElemID]);
 
     if (!elem)
         return null;

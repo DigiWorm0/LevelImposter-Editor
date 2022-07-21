@@ -35,10 +35,6 @@ export default function TransformPanel() {
         setRotation(selectedElem.rotation.toString());
     }, [selectedElem, setX, setY, setZ, setXScale, setYScale, setRotation]);
 
-    React.useEffect(() => {
-        console.log("Element (Panel)", selectedElem);
-    }, [selectedElem]);
-
     if (!selectedElem)
         return null;
 
