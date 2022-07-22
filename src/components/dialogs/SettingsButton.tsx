@@ -1,11 +1,13 @@
-import { Button, Classes, Dialog, FormGroup, Switch } from "@blueprintjs/core";
+import { Button, Classes, Dialog, FormGroup, Label, Switch } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
+import useMap, { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 
 export default function SettingsButton() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [settings, setSettings] = useSettings();
+    const [properties, setProperties] = useMapProperties();
 
     return (
         <>
@@ -49,6 +51,15 @@ export default function SettingsButton() {
                             onChange={(e) => {
                                 setSettings({ ...settings, isAxisVisible: e.currentTarget.checked });
                             }} />
+
+                    </FormGroup>
+                    <FormGroup label="Map">
+
+                        <Label className="bp4-inline">
+                            <input type="color" value={properties.bgColor} className="bp4-input" onChange={(e) => {
+                                setProperties({ ...properties, bgColor: e.target.value });
+                            }} />
+                        </Label>
 
                     </FormGroup>
                 </div>

@@ -1,19 +1,38 @@
-import { Divider, H5 } from "@blueprintjs/core";
+import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
+import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import AUElementDB from "../../types/au/AUElementDB";
+import LIElement from "../../types/li/LIElement";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
 
+const RoomSelect = Select2.ofType<LIElement>();
+
 export default function TaskPanel() {
+    const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
+
+    const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
         const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
         setTaskName(auElement ? auElement.name : "");
     }, [selectedElem]);
+
+    const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
+        <MenuItem
+            key={elem.type + props.index}
+            text={elem.name}
+            label={elem.type}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus} />
+    );
 
     if (!selectedElem
         || !selectedElem.type.startsWith("task"))
@@ -32,6 +51,30 @@ export default function TaskPanel() {
                 <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
                 <p className="bp4-text-muted">{selectedElem.type}</p>
             </div>
+            <ControlGroup fill>
+                <RoomSelect
+                    fill
+                    filterable={false}
+                    items={roomElems}
+                    itemRenderer={roomSelectRenderer}
+                    onItemSelect={(room) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
+                    }}>
+
+                    <Button
+                        rightIcon="caret-down"
+                        text={parentRoom ? parentRoom.name : "(Default Room)"}
+                        fill
+                    />
+                </RoomSelect>
+                <Button
+                    minimal
+                    rightIcon="cross"
+                    onClick={() => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
+                    }}
+                />
+            </ControlGroup>
         </div>
     );
 }

@@ -32,6 +32,7 @@ export const PROVIDER_SCOPE = "main";
 // Map
 export const mapAtom = atomWithReset(DEFAULT_MAP);
 export const mapNameAtom = focusAtom(mapAtom, (optic) => optic.prop("name"));
+export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
 export const elementIDsAtom = atom((get) => {
     return get(elementsAtom).map((e) => e.id);
@@ -62,6 +63,10 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
 });
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
     set(elementsAtom, [...get(elementsAtom), elem]);
+});
+export const roomsAtom = atom<LIElement[]>((get) => {
+    const elements = get(elementsAtom);
+    return elements.filter(element => element.type.startsWith("util-room"));
 });
 
 // Selected Element

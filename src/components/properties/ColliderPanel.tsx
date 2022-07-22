@@ -12,12 +12,12 @@ export default function ColliderPanel() {
     const addCollider = () => {
         if (!selectedElem)
             return;
-        if (!selectedElem.properties.colliders)
+        if (selectedElem.properties.colliders === undefined)
             selectedElem.properties.colliders = [];
-        selectedElem.properties.colliders.push({
+        selectedElem.properties.colliders = [...selectedElem.properties.colliders, {
             id: generateGUID(),
-            blocksLight: true,
-            isSolid: false,
+            blocksLight: selectedElem.type !== "util-room",
+            isSolid: selectedElem.type === "util-room",
             points: [
                 { x: -0.5, y: -0.5 },
                 { x: 0.5, y: -0.5 },
@@ -25,8 +25,8 @@ export default function ColliderPanel() {
                 { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 }
             ],
-        });
-        setSelectedElem(selectedElem);
+        }];
+        setSelectedElem({ ...selectedElem });
     }
     const editCollider = (collider: LICollider | null) => {
         if (selectedColliderID === collider?.id)
@@ -52,7 +52,11 @@ export default function ColliderPanel() {
             <Divider />
 
             <Menu>
-                <MenuItem icon="add" text="Add Collider" onClick={addCollider} />
+                <MenuItem
+                    icon="add"
+                    text="Add Collider"
+                    disabled={selectedElem.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0}
+                    onClick={addCollider} />
 
                 {selectedElem.properties.colliders?.map((collider, index) => {
                     return (
@@ -74,6 +78,7 @@ export default function ColliderPanel() {
                     <Switch
                         label="Is Solid"
                         checked={selectedCollider.isSolid}
+                        disabled={selectedElem.type === "util-room"}
                         onChange={(e) => {
                             selectedCollider.isSolid = e.currentTarget.checked;
                             setSelectedElem(selectedElem);
@@ -81,6 +86,7 @@ export default function ColliderPanel() {
                     <Switch
                         label="Blocks Light"
                         checked={selectedCollider.blocksLight}
+                        disabled={selectedElem.type === "util-room"}
                         onChange={(e) => {
                             selectedCollider.blocksLight = e.currentTarget.checked;
                             setSelectedElem(selectedElem);

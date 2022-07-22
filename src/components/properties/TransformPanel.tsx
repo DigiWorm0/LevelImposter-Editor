@@ -11,7 +11,6 @@ export default function TransformPanel() {
     const selectedElemID = useSelectedElemIDValue();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const keys = useKeyboard();
-    const [name, setName] = React.useState("");
     const [x, setX] = React.useState("");
     const [y, setY] = React.useState("");
     const [z, setZ] = React.useState("");
@@ -29,7 +28,6 @@ export default function TransformPanel() {
     React.useEffect(() => {
         if (!selectedElem)
             return;
-        setName(selectedElem.name);
         setX(selectedElem.x.toString());
         setY(selectedElem.y.toString());
         setZ(selectedElem.z.toString());
@@ -48,8 +46,8 @@ export default function TransformPanel() {
             <InputGroup
                 placeholder="Name"
                 large
-                onChange={(e) => { setName(name); setSelectedElem({ ...selectedElem, name: e.target.value }); }}
-                value={name}
+                onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
+                value={selectedElem.name}
             />
             <ControlGroup fill style={{ marginTop: 15 }}>
                 <NumericInput

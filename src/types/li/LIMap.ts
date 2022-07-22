@@ -1,4 +1,3 @@
-import GUID from "../generic/GUID";
 import LIElement from "./LIElement";
 import LIMetadata from "./LIMetadata";
 
