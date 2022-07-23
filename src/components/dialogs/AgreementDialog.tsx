@@ -9,13 +9,13 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
-                title="LevelImposter Map API Policy"
+                title="LevelImposter API Policy"
                 portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
 
                 <div style={{ margin: 15 }} >
 
                     <p>
-                        In order to abide by InnerSloth's <a href="https://www.innersloth.com/among-us-mod-policy/" target={"_blank"}>Among Us Mod Policy</a>,
+                        In order to abide by local laws and regulations as well as InnerSloth's <a href="https://www.innersloth.com/among-us-mod-policy/" target={"_blank"} rel="noreferrer">Among Us Mod Policy</a>,
                         you must agree upon a few rules before uploading...
                     </p>
 
@@ -41,6 +41,8 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                         Both LevelImposter and InnerSloth reserve the right to modify or delete your map or account at any time for any reason.
                         <br /><br />
                         My pressing "I Agree", you are agreeing to abide by these rules and to be bound by the terms of the Among Us Mod Policy.
+                        <br /><br />
+                        A copy of these rules can be found at <a href="https://levelimposter.net/policy" target={"_blank"} rel="noreferrer">LevelImposter.net/Policy</a>
                     </p>
 
                     <ButtonGroup>
