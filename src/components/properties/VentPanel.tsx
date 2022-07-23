@@ -10,6 +10,8 @@ export default function VentPanel() {
     const ventElems = useVents();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
+    const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id);
+
     const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
     const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);
     const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
@@ -38,7 +40,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElems}
+                    items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: vent.id } });
@@ -63,7 +65,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElems}
+                    items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: vent.id } });
@@ -88,7 +90,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
-                    items={ventElems}
+                    items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: vent.id } });

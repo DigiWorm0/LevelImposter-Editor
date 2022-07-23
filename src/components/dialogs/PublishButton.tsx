@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Classes, Dialog, Divider, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -8,15 +8,17 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
-import useSettings from "../../hooks/jotai/useSettings";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
+import AgreementDialog from "./AgreementDialog";
 
 export default function PublishButton() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [isDoneOpen, setIsDoneOpen] = React.useState(false);
-    const [settings] = useSettings();
+    const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
+    const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
     const [isPublishing, setIsPublishing] = React.useState(false);
@@ -79,7 +81,7 @@ export default function PublishButton() {
                 setIsPublishing(false);
                 setIsOpen(false);
                 setIsDoneOpen(true);
-                setMap({ ...map, id: mapData.id });
+                setMap(mapData);
             }).catch((err) => {
                 alert(`Error publishing map to firestore: ${err}`);
                 setIsPublishing(false);
@@ -192,7 +194,7 @@ export default function PublishButton() {
                         text={"Upload New"}
                         intent={"primary"}
                         onClick={() => {
-                            publishMap(generateGUID());
+                            setIsAgreementOpen(true);
                         }}
                     />
 
@@ -237,6 +239,17 @@ export default function PublishButton() {
                     />
                 </div>
             </Dialog>
+
+            <AgreementDialog
+                isOpen={isAgreementOpen}
+                onAgree={() => {
+                    setIsAgreementOpen(false);
+                    publishMap(generateGUID());
+                }}
+                onCancel={() => {
+                    setIsAgreementOpen(false);
+                }}
+            />
         </>
     );
 }

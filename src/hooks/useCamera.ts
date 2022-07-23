@@ -8,6 +8,8 @@ export default function useCamera(w: number, h: number) {
     const [zoom, setZoom] = React.useState(1);
 
     const onMouseScroll = (e: WheelEvent) => {
+        if ((e.target as HTMLElement).tagName.toLowerCase() !== "canvas")
+            return;
         e.preventDefault();
         const zoomDelta = e.deltaY < 0 ? ZOOM_SPEED : 1 / ZOOM_SPEED;
         setZoom(z => z * zoomDelta);
