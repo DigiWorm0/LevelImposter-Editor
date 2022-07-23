@@ -47,6 +47,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Meeting Spawnpoint",
         type: "util-spawn2"
+    }, {
+        name: "Minimap",
+        type: "util-minimap"
     },
     // Tasks
     {
