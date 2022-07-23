@@ -81,7 +81,7 @@ export default function ColliderPanel() {
                         disabled={selectedElem.type === "util-room"}
                         onChange={(e) => {
                             selectedCollider.isSolid = e.currentTarget.checked;
-                            setSelectedElem(selectedElem);
+                            setSelectedElem({ ...selectedElem });
                         }} />
                     <Switch
                         label="Blocks Light"
@@ -89,7 +89,7 @@ export default function ColliderPanel() {
                         disabled={selectedElem.type === "util-room"}
                         onChange={(e) => {
                             selectedCollider.blocksLight = e.currentTarget.checked;
-                            setSelectedElem(selectedElem);
+                            setSelectedElem({ ...selectedElem });
                         }} />
                     <FormGroup label="Points">
                         <NumericInput
@@ -107,7 +107,7 @@ export default function ColliderPanel() {
                                 for (let i = selectedCollider.points.length - 1; i >= value; i--) {
                                     selectedCollider.points.splice(i, 1);
                                 }
-                                setSelectedElem(selectedElem);
+                                setSelectedElem({ ...selectedElem });
                             }} />
                     </FormGroup>
                     <div>
@@ -121,7 +121,7 @@ export default function ColliderPanel() {
                                         value={point.x}
                                         onValueChange={(value) => {
                                             selectedCollider.points[index].x = value;
-                                            setSelectedElem(selectedElem);
+                                            setSelectedElem({ ...selectedElem });
                                         }} />
                                     <NumericInput
                                         fill
@@ -130,7 +130,7 @@ export default function ColliderPanel() {
                                         value={point.y}
                                         onValueChange={(value) => {
                                             selectedCollider.points[index].y = value;
-                                            setSelectedElem(selectedElem);
+                                            setSelectedElem({ ...selectedElem });
                                         }} />
                                 </ControlGroup>
                             );

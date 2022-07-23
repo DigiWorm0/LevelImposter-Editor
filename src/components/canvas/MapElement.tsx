@@ -2,7 +2,7 @@ import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useMouseButtons from "../../hooks/input/useMouse";
 import useElement from "../../hooks/jotai/useElement";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouseCursor";
+import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useEmbed } from "../../hooks/useEmbed";

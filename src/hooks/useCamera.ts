@@ -1,11 +1,13 @@
+import { useAtom } from "jotai";
 import React from "react";
+import { camXAtom, camYAtom, camZAtom } from "./jotai/Jotai";
 
 const ZOOM_SPEED = 1.1;
 
 export default function useCamera(w: number, h: number) {
-    const [x, setX] = React.useState(-w / 2);
-    const [y, setY] = React.useState(-h / 2);
-    const [zoom, setZoom] = React.useState(1);
+    const [x, setX] = useAtom(camXAtom);
+    const [y, setY] = useAtom(camYAtom);
+    const [zoom, setZoom] = useAtom(camZAtom);
 
     const onMouseScroll = (e: WheelEvent) => {
         if ((e.target as HTMLElement).tagName.toLowerCase() !== "canvas")

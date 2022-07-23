@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { mouseCursorAtom } from "./Jotai";
+import { mouseCursorAtom } from "../jotai/Jotai";
 
 
 export function useMouseCursor() {

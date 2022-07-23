@@ -3,6 +3,7 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
+import useMousePos from "../../hooks/input/useMousePos";
 import { useAddElement } from "../../hooks/jotai/useElement";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
@@ -10,6 +11,7 @@ import AUElementDB from "../../types/au/AUElementDB";
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { large?: boolean }) {
+    const mousePos = useMousePos();
     const addElement = useAddElement();
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -18,8 +20,8 @@ export default function AddObjectButton(props: { large?: boolean }) {
             name: elem.name,
             type: elem.type,
             id: generateGUID(),
-            x: 0,
-            y: 0,
+            x: mousePos.x,
+            y: mousePos.y,
             z: 0,
             xScale: 1,
             yScale: 1,

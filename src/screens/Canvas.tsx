@@ -8,20 +8,22 @@ import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useMouseButtons from '../hooks/input/useMouse';
-import useMousePos from '../hooks/input/useMousePos';
-import { mapAtom, PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
+import useMousePos, { useSetMousePos } from '../hooks/input/useMousePos';
+import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
-import { useMouseCursorValue } from '../hooks/jotai/useMouseCursor';
+import { useMouseCursorValue } from '../hooks/input/useMouseCursor';
 import useCamera from '../hooks/useCamera';
 
+const UNITY_SCALE = 100;
+
 export default function Canvas() {
+    const setMousePos = useSetMousePos();
     const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
     const camera = useCamera(canvasWidth, canvasHeight);
-    const [, , setMousePos] = useMousePos();
     const [leftMouse] = useMouseButtons();
 
     const onWindowResize = () => {
@@ -58,8 +60,8 @@ export default function Canvas() {
                     const mousePos = e.target.getStage()?.getRelativePointerPosition();
                     if (mousePos)
                         setMousePos(
-                            (mousePos.x - camera.width) / camera.z,
-                            (mousePos.y - camera.height) / camera.z
+                            ((mousePos.x - camera.width) / camera.z) / UNITY_SCALE,
+                            ((mousePos.y - camera.height) / camera.z) / -UNITY_SCALE
                         );
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>

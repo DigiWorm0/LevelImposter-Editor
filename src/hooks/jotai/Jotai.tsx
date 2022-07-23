@@ -145,6 +145,9 @@ export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETT
 // Mouse
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
+export const camXAtom = atom(-window.innerWidth / 2);
+export const camYAtom = atom(-window.innerHeight / 2);
+export const camZAtom = atom(1);
 export const mouseCursorAtom = atom("default");
 
 // Debug Labels
