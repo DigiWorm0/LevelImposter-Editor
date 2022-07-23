@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function useMouse(): [boolean, boolean, boolean, (e: MouseEvent) => void, (e: MouseEvent) => void] {
+export default function useMouseButtons(): [boolean, boolean, boolean, (e: MouseEvent) => void, (e: MouseEvent) => void] {
     const [isLeft, setIsLeft] = React.useState(false);
     const [isMiddle, setIsMiddle] = React.useState(false);
     const [isRight, setIsRight] = React.useState(false);

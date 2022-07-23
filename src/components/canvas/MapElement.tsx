@@ -1,7 +1,8 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useMouse from "../../hooks/input/useMouse";
+import useMouseButtons from "../../hooks/input/useMouse";
 import useElement from "../../hooks/jotai/useElement";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouseCursor";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useEmbed } from "../../hooks/useEmbed";
@@ -18,7 +19,8 @@ export default function MapElement(props: { elementID: GUID }) {
     const isSelected = useIsSelectedElem(props.elementID);
     const isColliderSelected = useIsSelectedCollider();
     const [isHovering, setHovering] = React.useState(false);
-    const [, , rightMouse, onMouseDown, onMouseUp] = useMouse();
+    const [, , rightMouse, onMouseDown, onMouseUp] = useMouseButtons();
+    const setMouseCursor = useSetMouseCursor();
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
@@ -28,6 +30,7 @@ export default function MapElement(props: { elementID: GUID }) {
 
     return (
         <Group
+            opacity={isColliderSelected ? 0.5 : 1}
             x={elem.x * UNITY_SCALE}
             y={-elem.y * UNITY_SCALE}
             scaleX={elem.xScale}
@@ -56,9 +59,14 @@ export default function MapElement(props: { elementID: GUID }) {
             }}
             onMouseEnter={(e) => {
                 setHovering(true);
+                if (!elem.properties.isLocked)
+                    setMouseCursor("pointer");
+                else
+                    setMouseCursor("default");
             }}
             onMouseLeave={(e) => {
                 setHovering(false);
+                setMouseCursor("default");
             }}
             draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded}
             listening={!rightMouse && !isColliderSelected && !isEmbeded}>

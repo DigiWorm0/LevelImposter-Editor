@@ -24,8 +24,9 @@ export default function VentConnections() {
                 ctx.fillStrokeShape(shape);
 
             }}
-            stroke="green"
-            strokeWidth={1}
+            stroke="blue"
+            strokeWidth={3}
+            listening={false}
         />
     );
 }

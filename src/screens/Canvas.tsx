@@ -7,20 +7,22 @@ import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
-import useMouse from '../hooks/input/useMouse';
+import useMouseButtons from '../hooks/input/useMouse';
 import useMousePos from '../hooks/input/useMousePos';
 import { mapAtom, PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
+import { useMouseCursorValue } from '../hooks/jotai/useMouseCursor';
 import useCamera from '../hooks/useCamera';
 
 export default function Canvas() {
+    const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
     const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
     const camera = useCamera(canvasWidth, canvasHeight);
     const [, , setMousePos] = useMousePos();
-    const [leftMouse] = useMouse();
+    const [leftMouse] = useMouseButtons();
 
     const onWindowResize = () => {
         setCanvasWidth(window.innerWidth);
@@ -40,6 +42,7 @@ export default function Canvas() {
     return (
         <div className="canvas" style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}>
             <Stage
+                style={{ cursor: cursor }}
                 x={camera.x}
                 y={camera.y}
                 width={camera.width}

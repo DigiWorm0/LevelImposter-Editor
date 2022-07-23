@@ -1,4 +1,5 @@
 import { Rect } from "react-konva";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouseCursor";
 import { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 
@@ -8,6 +9,7 @@ const RECT_SIZE = 12;
 export default function ColliderEditor() {
     const [elem, setElement] = useSelectedElem();
     const [colliderID] = useSelectedColliderID();
+    const setMouseCursor = useSetMouseCursor();
 
     const collider = elem?.properties.colliders?.find(c => c.id === colliderID);
     if (!collider
@@ -26,6 +28,12 @@ export default function ColliderEditor() {
                     strokeWidth={1}
                     fill={"blue"}
                     stroke={"white"}
+                    onMouseEnter={(e) => {
+                        setMouseCursor("pointer");
+                    }}
+                    onMouseLeave={(e) => {
+                        setMouseCursor("default");
+                    }}
                     onDragMove={(e) => {
                         p.x = (e.target.x() + RECT_SIZE / 2) / UNITY_SCALE;
                         p.y = (e.target.y() + RECT_SIZE / 2) / UNITY_SCALE;

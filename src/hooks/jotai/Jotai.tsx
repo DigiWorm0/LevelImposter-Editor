@@ -26,6 +26,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     isDarkMode: true,
     isGridVisible: true,
     isAxisVisible: true,
+    isBrowserAccepted: false,
 };
 export const PROVIDER_SCOPE = "main";
 
@@ -144,6 +145,7 @@ export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETT
 // Mouse
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
+export const mouseCursorAtom = atom("default");
 
 // Debug Labels
 mapAtom.debugLabel = "map";
