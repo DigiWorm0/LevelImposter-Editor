@@ -5,7 +5,7 @@ import useElement from "../../hooks/jotai/useElement";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useEmbed } from "../../hooks/useEmbed";
+import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
 

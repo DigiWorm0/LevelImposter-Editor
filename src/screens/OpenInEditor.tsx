@@ -1,5 +1,5 @@
 import { Button } from "@blueprintjs/core";
-import { useEmbed } from "../hooks/useEmbed";
+import useEmbed from "../hooks/useEmbed";
 
 export default function OpenInEditor() {
     const isEmbed = useEmbed();

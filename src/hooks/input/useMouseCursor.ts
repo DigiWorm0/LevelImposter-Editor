@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { mouseCursorAtom } from "../jotai/Jotai";
 
 
-export function useMouseCursor() {
+export default function useMouseCursor() {
     return useAtom(mouseCursorAtom);
 }
 

@@ -6,7 +6,7 @@ import LIMetadata from "../types/li/LIMetadata";
 import { db, storage } from "./Firebase";
 import { useSetMap } from "./jotai/useMap";
 
-export function useIDParam() {
+export default function useIDParam() {
     const setMap = useSetMap();
 
     React.useEffect(() => {

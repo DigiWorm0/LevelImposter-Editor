@@ -1,6 +1,5 @@
 import { Button, ButtonGroup, ControlGroup, Divider, H5, InputGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
-import useKeyboard from "../../hooks/input/useKeyboard";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
 import useSelectedElem, { useSelectedElemIDValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
@@ -10,20 +9,12 @@ export default function TransformPanel() {
     const removeElement = useRemoveElement();
     const selectedElemID = useSelectedElemIDValue();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const keys = useKeyboard();
     const [x, setX] = React.useState("");
     const [y, setY] = React.useState("");
     const [z, setZ] = React.useState("");
     const [xScale, setXScale] = React.useState("");
     const [yScale, setYScale] = React.useState("");
     const [rotation, setRotation] = React.useState("");
-
-    React.useEffect(() => {
-        if (keys["Delete"] && selectedElem) {
-            removeElement(selectedElem.id);
-            setSelectedID("" as GUID);
-        }
-    }, [keys, selectedElem, removeElement, setSelectedID]);
 
     React.useEffect(() => {
         if (!selectedElem)
