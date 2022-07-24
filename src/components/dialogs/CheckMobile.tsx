@@ -9,13 +9,12 @@ export default function CheckMobile() {
     React.useEffect(() => {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         if (isMobile) {
-            setDialogText("The LevelImposter Editor was not designed to run on a mobile device. Your mileage may vary.");
+            setDialogText("The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.");
         }
 
         const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
         if (!isChrome && !settings.isBrowserAccepted) {
-            setDialogText("While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Edge, Brave) will be much faster while working with larger maps.");
-            setSettings({ ...settings, isBrowserAccepted: true });
+            setDialogText("While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.");
         }
     }, []);
 
@@ -32,7 +31,10 @@ export default function CheckMobile() {
                         {dialogText}
                     </p>
                     <Button
-                        onClick={() => setDialogText(undefined)}
+                        onClick={() => {
+                            setDialogText(undefined);
+                            setSettings({ ...settings, isBrowserAccepted: true });
+                        }}
                         text="OK"
                         intent="primary"
                     />

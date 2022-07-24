@@ -605,6 +605,26 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Airship Records",
         type: "room-airshiprecords"
+    },
+    //      Sabotagesz
+    {
+        name: "Lights Panel",
+        type: "sab-electric"
+    }, {
+        name: "Left Reactor",
+        type: "sab-reactorleft"
+    }, {
+        name: "Right Reactor",
+        type: "sab-reactorright"
+    }, {
+        name: "O2 Panel 1",
+        type: "sab-oxygen1"
+    }, {
+        name: "O2 Panel 2",
+        type: "sab-oxygen2"
+    }, {
+        name: "Comms Panel",
+        type: "sab-comms"
     }
 ]
 
