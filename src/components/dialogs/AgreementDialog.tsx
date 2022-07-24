@@ -30,7 +30,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                             Maps cannot state or suggest that your mod is official, licensed, or otherwise authorized by Innersloth.
                         </li>
                         <li style={{ margin: 5 }}>
-                            You cannot hack, flood, dos, or break the LevelImposter API in any way.
+                            You cannot hack, flood, DoS, or break the LevelImposter API in any way.
                         </li>
                         <li style={{ margin: 5 }}>
                             You cannot redistribute maps or copyrighted materials that is not explicitly owned or licensed by you or InnerSloth.
@@ -40,7 +40,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                     <p>
                         Both LevelImposter and InnerSloth reserve the right to modify or delete your map or account at any time for any reason.
                         <br /><br />
-                        My pressing "I Agree", you are agreeing to abide by these rules and to be bound by the terms of the Among Us Mod Policy.
+                        By pressing "I Agree", you are agreeing to abide by these rules and to be bound by the terms of the Among Us Mod Policy.
                         <br /><br />
                         A copy of these rules can be found at <a href="https://levelimposter.net/policy" target={"_blank"} rel="noreferrer">LevelImposter.net/Policy</a>
                     </p>

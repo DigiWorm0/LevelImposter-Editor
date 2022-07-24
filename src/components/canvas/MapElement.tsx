@@ -30,7 +30,6 @@ export default function MapElement(props: { elementID: GUID }) {
 
     return (
         <Group
-            opacity={isColliderSelected ? 0.5 : 1}
             x={elem.x * UNITY_SCALE}
             y={-elem.y * UNITY_SCALE}
             scaleX={elem.xScale}
@@ -72,6 +71,7 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!rightMouse && !isColliderSelected && !isEmbeded}>
 
             <Image
+                opacity={(isColliderSelected ? 0.5 : 1) * ((elem.type === "util-minimap" && !isSelected) ? 0.1 : 1)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}
