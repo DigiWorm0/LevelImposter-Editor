@@ -24,10 +24,11 @@ export default function Topbar() {
                     <OpenButton />
                     <NewMapButton />
                     <NavbarDivider />
-                    <AddObjectButton />
-                    <DeleteObjectButton />
-                    <NavbarDivider />
                     <ImportLegacyButton />
+                    <NavbarDivider />
+                    <DeleteObjectButton />
+                    <AddObjectButton />
+
 
                 </NavbarGroup>
                 <NavbarGroup align="right">

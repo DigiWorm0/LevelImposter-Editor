@@ -18,7 +18,7 @@ export default function SaveButton() {
     return (
         <>
             <Tooltip2
-                content="Save to a LIM File"
+                content="Save to an LIM file"
                 position="bottom">
 
                 <Button

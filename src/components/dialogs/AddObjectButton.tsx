@@ -41,6 +41,7 @@ export default function AddObjectButton(props: { large?: boolean }) {
                     large={props.large}
                     className={Classes.MINIMAL}
                     icon="cube-add"
+                    text="Add Object"
                     onClick={() => { setIsOpen(true) }} />
 
             </Tooltip2>

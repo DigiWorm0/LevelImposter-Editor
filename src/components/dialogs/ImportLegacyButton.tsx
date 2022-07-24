@@ -1,4 +1,5 @@
 import { Button, Classes } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import generateGUID, { DEFAULT_GUID } from '../../hooks/generateGUID';
 import { useSetMap } from "../../hooks/jotai/useMap";
 import LIElement from "../../types/li/LIElement";
@@ -92,11 +93,17 @@ export default function ImportLegacyButton() {
 
     return (
         <>
-            <Button
-                className={Classes.MINIMAL}
-                icon="import"
-                text="Import Legacy"
-                onClick={onImport} />
+
+            <Tooltip2
+                content="Import from legacy JSON"
+                position="bottom">
+
+                <Button
+                    className={Classes.MINIMAL}
+                    icon="archive"
+                    onClick={onImport} />
+
+            </Tooltip2>
         </>
     );
 }

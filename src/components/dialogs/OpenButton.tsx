@@ -27,12 +27,12 @@ export default function OpenButton() {
     return (
         <>
             <Tooltip2
-                content="Open a LIM File"
+                content="Open an LIM file"
                 position="bottom">
 
                 <Button
                     className={Classes.MINIMAL}
-                    icon="document-open"
+                    icon="import"
                     onClick={onOpen} />
 
             </Tooltip2>
