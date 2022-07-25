@@ -5,9 +5,11 @@ import GUID from "../types/generic/GUID";
 import LIMetadata from "../types/li/LIMetadata";
 import { db, storage } from "./Firebase";
 import { useSetMap } from "./jotai/useMap";
+import useToaster from "./useToaster";
 
 export default function useIDParam() {
     const setMap = useSetMap();
+    const toaster = useToaster();
 
     React.useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -18,6 +20,7 @@ export default function useIDParam() {
     }, []);
 
     const loadMapFromID = async (id: GUID) => {
+        const params = new URLSearchParams(window.location.search);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, id);
 
@@ -30,12 +33,15 @@ export default function useIDParam() {
                     const mapJSON = decoder.decode(new Uint8Array(mapBytes));
                     const mapData = JSON.parse(mapJSON);
                     setMap(mapData);
+
+                    if (!params.has("embed"))
+                        toaster.success(`Loaded ${metadata.name} by ${metadata.authorName}`);
                 }).catch((e) => {
-                    console.error(e);
+                    toaster.error(e.message);
                 });
             }
         }).catch((e) => {
-            console.error(e);
+            toaster.error(e.message);
         });
     }
 

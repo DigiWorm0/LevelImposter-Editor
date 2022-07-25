@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, Intent, Position, ProgressBar, Switch, TextArea, Toaster } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -9,12 +9,16 @@ import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/F
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useToaster from "../../hooks/useToaster";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
 
+const toaster = Toaster.create();
+
 export default function PublishButton() {
+    const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isDoneOpen, setIsDoneOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
@@ -61,7 +65,7 @@ export default function PublishButton() {
 
                 uploadToFirestore();
             }).catch((err) => {
-                alert(`Error uploading map to firebase storage: ${err}`);
+                toaster.error(err.message);
                 setIsPublishing(false);
             });
         }
@@ -83,7 +87,7 @@ export default function PublishButton() {
                 setIsDoneOpen(true);
                 setMap(mapData);
             }).catch((err) => {
-                alert(`Error publishing map to firestore: ${err}`);
+                toaster.error(err.message);
                 setIsPublishing(false);
             });
         }
@@ -120,7 +124,7 @@ export default function PublishButton() {
                             text="Google"
                             onClick={() => {
                                 signInWithPopup(auth, googleProvider).catch((err) => {
-                                    alert(err.message);
+                                    toaster.error(err.message);
                                 })
                             }}
                         />
@@ -129,7 +133,7 @@ export default function PublishButton() {
                             text="Github"
                             onClick={() => {
                                 signInWithPopup(auth, githubProvider).catch((err) => {
-                                    alert(err.message);
+                                    toaster.error(err.message);
                                 });
                             }}
                         />
