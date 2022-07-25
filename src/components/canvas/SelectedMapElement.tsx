@@ -4,6 +4,7 @@ import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
 import ColliderRender from "./ColliderRender";
 import TaskParent from "./TaskParent";
+import ConsoleRange from "./ConsoleRange";
 import VentConnections from "./VentConnections";
 
 const UNITY_SCALE = 100;
@@ -17,6 +18,7 @@ export default function SelectedMapElement() {
         <>
             <VentConnections />
             <TaskParent />
+            <ConsoleRange />
 
             <Group
                 x={selectedElem.x * UNITY_SCALE}

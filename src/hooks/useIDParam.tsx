@@ -24,6 +24,8 @@ export default function useIDParam() {
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, id);
 
+        toaster.info("Downloading map...");
+
         getDoc(docRef).then((document) => {
             if (document.exists()) {
                 const metadata = document.data() as LIMetadata;

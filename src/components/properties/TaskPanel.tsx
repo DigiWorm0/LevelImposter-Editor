@@ -1,4 +1,4 @@
-import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, Divider, FormGroup, H5, InputGroup, MenuItem, NumericInput, Switch } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useRooms } from "../../hooks/jotai/useMap";
@@ -51,30 +51,50 @@ export default function TaskPanel() {
                 <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
                 <p className="bp4-text-muted">{selectedElem.type}</p>
             </div>
-            <ControlGroup fill>
-                <RoomSelect
-                    fill
-                    filterable={false}
-                    items={roomElems}
-                    itemRenderer={roomSelectRenderer}
-                    onItemSelect={(room) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
-                    }}>
-
-                    <Button
-                        rightIcon="caret-down"
-                        text={parentRoom ? parentRoom.name : "(Default Room)"}
+            <FormGroup>
+                <ControlGroup fill>
+                    <RoomSelect
                         fill
+                        filterable={false}
+                        items={roomElems}
+                        itemRenderer={roomSelectRenderer}
+                        onItemSelect={(room) => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
+                        }}>
+
+                        <Button
+                            rightIcon="caret-down"
+                            text={parentRoom ? parentRoom.name : "(Default Room)"}
+                            fill
+                        />
+                    </RoomSelect>
+                    <Button
+                        minimal
+                        rightIcon="cross"
+                        onClick={() => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
+                        }}
                     />
-                </RoomSelect>
-                <Button
-                    minimal
-                    rightIcon="cross"
-                    onClick={() => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
-                    }}
-                />
-            </ControlGroup>
+                </ControlGroup>
+                <ControlGroup fill style={{ marginTop: 5 }}>
+                    <InputGroup
+                        fill
+                        leftIcon="info-sign"
+                        placeholder={"(Default Description)"}
+                        value={selectedElem.properties.description}
+                        onChange={(e) => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
+                        }}
+                    />
+                    <Button
+                        minimal
+                        rightIcon="cross"
+                        onClick={() => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
+                        }}
+                    />
+                </ControlGroup>
+            </FormGroup>
         </div>
     );
 }

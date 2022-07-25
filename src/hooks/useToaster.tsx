@@ -27,9 +27,18 @@ export default function useToaster() {
         });
     }
 
+    const info = (message: string) => {
+        toaster.show({
+            intent: Intent.PRIMARY,
+            message,
+            icon: "info-sign",
+        });
+    }
+
     return {
         success,
         error,
         warning,
+        info,
     };
 }

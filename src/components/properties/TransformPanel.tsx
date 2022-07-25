@@ -34,7 +34,7 @@ export default function TransformPanel() {
 
     return (
         <div className="transform-panel">
-            <H5>Properties</H5>
+            <H5>Transform</H5>
             <Divider />
             <InputGroup
                 placeholder="Name"

@@ -24,6 +24,7 @@ export default interface LIElement {
 
         onlyFromBelow?: boolean;
         range?: number;
+        description?: string;
 
         isLocked?: boolean;
 
