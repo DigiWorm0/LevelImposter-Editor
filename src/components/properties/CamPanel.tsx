@@ -17,30 +17,33 @@ export default function CamPanel() {
                 <ControlGroup fill>
                     <NumericInput
                         fill
-                        value={element.properties.camXOffset}
-                        minorStepSize={0.001}
+                        value={element.properties.camXOffset === undefined ? 0 : element.properties.camXOffset}
+                        minorStepSize={0.1}
+                        stepSize={1}
+                        majorStepSize={10}
                         onValueChange={(value) => {
-                            element.properties.camXOffset = value;
-                            setElement(element);
+                            setElement({ ...element, properties: { ...element.properties, camXOffset: value } });
                         }} />
                     <NumericInput
                         fill
-                        value={element.properties.camYOffset}
-                        minorStepSize={0.001}
+                        value={element.properties.camYOffset === undefined ? 0 : element.properties.camYOffset}
+                        minorStepSize={0.1}
+                        stepSize={1}
+                        majorStepSize={10}
                         onValueChange={(value) => {
-                            element.properties.camYOffset = value;
-                            setElement(element);
+                            setElement({ ...element, properties: { ...element.properties, camYOffset: value } });
                         }} />
                 </ControlGroup>
             </FormGroup>
             <FormGroup label="Zoom">
                 <NumericInput
                     fill
-                    value={element.properties.camZoom}
-                    minorStepSize={0.001}
+                    value={element.properties.camZoom === undefined ? 1 : element.properties.camZoom}
+                    minorStepSize={0.1}
+                    stepSize={0.5}
+                    majorStepSize={1}
                     onValueChange={(value) => {
-                        element.properties.camZoom = value;
-                        setElement(element);
+                        setElement({ ...element, properties: { ...element.properties, camZoom: value } });
                     }} />
             </FormGroup>
         </div>

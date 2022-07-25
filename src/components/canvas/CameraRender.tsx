@@ -14,11 +14,15 @@ export default function CameraRender() {
 
     const { camXOffset, camYOffset, camZoom } = selectedElem.properties;
 
+    const { x, y } = selectedElem;
+
     const camHeight = (camZoom ? camZoom * 2 : CAM_SIZE) * UNITY_SCALE;
     const camWidth = camHeight * CAM_ASPECT;
 
-    const camX = camXOffset ? camXOffset * UNITY_SCALE : 0;
-    const camY = camYOffset ? -camYOffset * UNITY_SCALE : 0;
+    const camX = (camXOffset ? (camXOffset + x) : x) * UNITY_SCALE;
+    const camY = (camYOffset ? (-camYOffset - y) : -y) * UNITY_SCALE;
+
+    console.log(camX + "," + camY);
 
     return (
         <Rect

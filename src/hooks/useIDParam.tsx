@@ -36,8 +36,7 @@ export default function useIDParam() {
                     const mapData = JSON.parse(mapJSON);
                     setMap(mapData);
 
-                    if (!params.has("embed"))
-                        toaster.success(`Loaded ${metadata.name} by ${metadata.authorName}`);
+                    toaster.success(`Loaded ${metadata.name} by ${metadata.authorName}`);
                     params.delete("id");
                     window.history.replaceState({}, "", `?${params.toString()}`);
                 }).catch((e) => {

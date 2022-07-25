@@ -19,6 +19,7 @@ export default function SelectedMapElement() {
             <VentConnections />
             <TaskParent />
             <ConsoleRange />
+            <CameraRender />
 
             <Group
                 x={selectedElem.x * UNITY_SCALE}
@@ -28,7 +29,6 @@ export default function SelectedMapElement() {
                 rotation={-selectedElem.rotation}>
 
                 <ColliderRender />
-                <CameraRender />
                 <ColliderEditor />
 
             </Group>

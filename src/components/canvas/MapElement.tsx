@@ -1,8 +1,8 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useMouseButtons from "../../hooks/input/useMouse";
-import useElement from "../../hooks/jotai/useElement";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
+import useElement from "../../hooks/jotai/useElement";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import useEmbed from "../../hooks/useEmbed";
@@ -71,7 +71,7 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!rightMouse && !isColliderSelected && !isEmbeded}>
 
             <Image
-                opacity={(isColliderSelected ? 0.5 : 1) * ((elem.type === "util-minimap" && !isSelected) ? 0.1 : 1)}
+                opacity={isColliderSelected ? 0.5 : 1}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}

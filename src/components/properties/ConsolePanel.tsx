@@ -7,6 +7,7 @@ export default function ConsolePanel() {
     const isConsole = selectedElem?.type.startsWith("task-")
         || selectedElem?.type.startsWith("sab-")
         || selectedElem?.type.startsWith("util-button")
+        || selectedElem?.type.startsWith("util-cams")
         || selectedElem?.type === "util-admin"
         || selectedElem?.type === "util-vitals"
         || selectedElem?.type === "util-computer";
