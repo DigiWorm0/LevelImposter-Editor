@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, Intent, Position, ProgressBar, Switch, TextArea, Toaster } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea, Toaster } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";

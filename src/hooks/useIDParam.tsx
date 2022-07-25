@@ -36,6 +36,8 @@ export default function useIDParam() {
 
                     if (!params.has("embed"))
                         toaster.success(`Loaded ${metadata.name} by ${metadata.authorName}`);
+                    params.delete("id");
+                    window.history.replaceState({}, "", `?${params.toString()}`);
                 }).catch((e) => {
                     toaster.error(e.message);
                 });
