@@ -1,4 +1,4 @@
-import { ControlGroup, Divider, FormGroup, H5, NumericInput } from "@blueprintjs/core";
+import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import PanelContainer from "./PanelContainer";
 

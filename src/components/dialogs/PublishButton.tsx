@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBa
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable, uploadString } from "firebase/storage";
+import { ref, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
@@ -110,6 +110,7 @@ export default function PublishButton() {
                 position="bottom">
 
                 <Button
+                    disabled
                     className={Classes.MINIMAL}
                     icon="cloud-upload"
                     onClick={() => { setIsOpen(true) }} />

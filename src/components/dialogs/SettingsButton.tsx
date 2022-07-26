@@ -1,7 +1,7 @@
-import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Classes, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
-import useMap, { useMapProperties } from "../../hooks/jotai/useMap";
+import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 
 export default function SettingsButton() {

@@ -1,4 +1,4 @@
-import { Button, Card, ControlGroup, Divider, FormGroup, H5, H6, Menu, MenuItem, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Card, ControlGroup, FormGroup, H6, Menu, MenuItem, NumericInput, Switch } from "@blueprintjs/core";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";

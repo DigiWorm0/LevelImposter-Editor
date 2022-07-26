@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Divider, H5 } from "@blueprintjs/core";
+import { Button, ButtonGroup } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import PanelContainer from "./PanelContainer";
 

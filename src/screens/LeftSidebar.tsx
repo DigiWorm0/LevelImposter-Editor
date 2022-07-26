@@ -1,4 +1,3 @@
-import { Divider } from "@blueprintjs/core";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import MapHierarchy from "../components/scenegraph/MapHierarchy";
 

@@ -1,4 +1,4 @@
-import { ActionProps, Intent, Toaster } from "@blueprintjs/core";
+import { Intent, Toaster } from "@blueprintjs/core";
 
 const toaster = Toaster.create();
 

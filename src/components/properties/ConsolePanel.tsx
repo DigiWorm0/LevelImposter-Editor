@@ -1,5 +1,4 @@
-import { Button, Collapse, Divider, FormGroup, H5, NumericInput, Switch } from "@blueprintjs/core";
-import React from "react";
+import { FormGroup, NumericInput, Switch } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import PanelContainer from "./PanelContainer";
 

@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { focusAtom } from "jotai/optics";
-import { atomFamily, atomWithReset, atomWithStorage, splitAtom } from 'jotai/utils';
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import { atomFamily, atomWithReset, atomWithStorage } from 'jotai/utils';
+import { MaybeGUID } from "../../types/generic/GUID";
 import { MaybeLICollider } from "../../types/li/LICollider";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import LIMap from "../../types/li/LIMap";

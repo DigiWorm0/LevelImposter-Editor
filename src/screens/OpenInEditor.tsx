@@ -1,5 +1,5 @@
 import { Button } from "@blueprintjs/core";
-import useMap, { useMapValue } from "../hooks/jotai/useMap";
+import { useMapValue } from "../hooks/jotai/useMap";
 import useEmbed from "../hooks/useEmbed";
 
 export default function OpenInEditor() {

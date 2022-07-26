@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { mouseXAtom, mouseYAtom } from "../jotai/Jotai";
 
 export default function useMousePos() {

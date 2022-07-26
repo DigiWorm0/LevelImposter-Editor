@@ -1,4 +1,4 @@
-import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useVents } from "../../hooks/jotai/useVents";

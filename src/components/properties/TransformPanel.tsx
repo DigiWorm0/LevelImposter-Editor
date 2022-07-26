@@ -1,7 +1,6 @@
-import { Button, ButtonGroup, ControlGroup, Divider, H5, InputGroup, NumericInput } from "@blueprintjs/core";
-import React from "react";
+import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
-import useSelectedElem, { useSelectedElemIDValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 import PanelContainer from "./PanelContainer";
 

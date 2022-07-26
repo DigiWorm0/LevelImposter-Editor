@@ -1,4 +1,4 @@
-import { Button, ControlGroup, Divider, H5, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, H5, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useRooms } from "../../hooks/jotai/useMap";
