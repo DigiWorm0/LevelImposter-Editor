@@ -4,16 +4,15 @@ import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import useMousePos from "../../hooks/input/useMousePos";
-import { useAddElement } from "../../hooks/jotai/useElement";
+import { useAddElement, useAddElementAtMouse } from "../../hooks/jotai/useElement";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
-export default function AddObjectButton(props: { large?: boolean }) {
-    const mousePos = useMousePos();
-    const addElement = useAddElement();
+export default function AddObjectButton() {
+    const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -23,8 +22,8 @@ export default function AddObjectButton(props: { large?: boolean }) {
             name: elem.name,
             type: elem.type,
             id,
-            x: mousePos.x,
-            y: mousePos.y,
+            x: 0,
+            y: 0,
             z: 0,
             xScale: 1,
             yScale: 1,
@@ -38,11 +37,12 @@ export default function AddObjectButton(props: { large?: boolean }) {
     return (
         <>
             <Tooltip2
+                fill
                 content="Add an object"
                 position="bottom">
 
                 <Button
-                    large={props.large}
+                    fill
                     className={Classes.MINIMAL}
                     icon="cube-add"
                     text="Add Object"
@@ -51,8 +51,6 @@ export default function AddObjectButton(props: { large?: boolean }) {
             </Tooltip2>
 
             <AUElementOmnibar
-                resetOnSelect
-                resetOnQuery
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
                 items={AUElementDB}

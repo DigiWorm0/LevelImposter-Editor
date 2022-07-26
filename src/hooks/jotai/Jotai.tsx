@@ -145,10 +145,20 @@ export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETT
 // Mouse
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
+export const mouseCursorAtom = atom("default");
+export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
+    const mouseX = get(mouseXAtom);
+    const mouseY = get(mouseYAtom);
+    elem.x = mouseX;
+    elem.y = mouseY;
+    set(elementsAtom, [...get(elementsAtom), elem]);
+});
+
+
+// Camera
 export const camXAtom = atom(-window.innerWidth / 2);
 export const camYAtom = atom(-window.innerHeight / 2);
 export const camZAtom = atom(1);
-export const mouseCursorAtom = atom("default");
 
 // Debug Labels
 mapAtom.debugLabel = "map";

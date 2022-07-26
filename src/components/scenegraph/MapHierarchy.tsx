@@ -32,8 +32,7 @@ export default function MapHierarchy() {
             label: elem.name,
             icon: icon,
             isSelected: elem.id === selectedID,
-            nodeData: elem.id,
-
+            nodeData: elem.id
         });
     });
 

@@ -2,17 +2,15 @@ import React from "react";
 import GUID from "../types/generic/GUID";
 import { MaybeLIElement } from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
-import useMousePos from "./input/useMousePos";
-import { useAddElement, useRemoveElement } from "./jotai/useElement";
-import { useSelectedElemIDValue, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
+import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
+import { useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 
 export default function useComboHandles() {
-    const mousePos = useMousePos();
     const [clipboard, setClipboard] = React.useState<MaybeLIElement>(undefined);
     const selectedElem = useSelectedElemValue();
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
-    const addElement = useAddElement();
+    const addElement = useAddElementAtMouse();
 
     const onDelete = () => {
         if (selectedElem) {
@@ -41,8 +39,6 @@ export default function useComboHandles() {
             addElement({
                 ...clipboard,
                 id: newID,
-                x: mousePos.x,
-                y: mousePos.y
             });
             setSelectedID(newID);
         }

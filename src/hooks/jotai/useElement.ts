@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../types/generic/GUID";
-import { addElementAtom, elementFamilyAtom, removeElementAtom } from "./Jotai";
+import { addElementAtMouseAtom, addElementAtom, elementFamilyAtom, removeElementAtom } from "./Jotai";
 
 export default function useElement(id: MaybeGUID) {
     return useAtom(elementFamilyAtom(id));
@@ -16,6 +16,10 @@ export function useElementValue(id: MaybeGUID) {
 
 export function useAddElement() {
     return useSetAtom(addElementAtom);
+}
+
+export function useAddElementAtMouse() {
+    return useSetAtom(addElementAtMouseAtom);
 }
 
 export function useRemoveElement() {

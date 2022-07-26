@@ -20,6 +20,7 @@ export default function MapName() {
         return (
             <div className="map-name">
                 <Button
+                    style={{ fontWeight: 600 }}
                     minimal
                     large
                     onClick={() => setIsEditingName(true)}>

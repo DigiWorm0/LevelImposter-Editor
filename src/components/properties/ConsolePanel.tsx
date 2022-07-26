@@ -26,9 +26,9 @@ export default function ConsolePanel() {
                     placeholder="Range"
                     defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : 1}
                     min={0}
-                    minorStepSize={0.1}
-                    stepSize={0.5}
-                    majorStepSize={1}
+                    minorStepSize={0.05}
+                    stepSize={0.1}
+                    majorStepSize={0.5}
                     leftIcon="ring"
                     onValueChange={(val) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, range: val } });

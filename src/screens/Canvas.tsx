@@ -10,17 +10,16 @@ import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useCombos from '../hooks/input/useCombos';
 import useMouseButtons from '../hooks/input/useMouse';
 import { useMouseCursorValue } from '../hooks/input/useMouseCursor';
-import { useSetMousePos } from '../hooks/input/useMousePos';
 import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
 
 export default function Canvas() {
+    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
+    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
     const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
-    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
-    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
     const camera = useCamera(canvasWidth, canvasHeight);
     const [leftMouse] = useMouseButtons();
     useCombos();
