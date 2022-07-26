@@ -19,7 +19,7 @@ export default function useToaster() {
         });
     }
 
-    const error = (message: string) => {
+    const danger = (message: string) => {
         toaster.show({
             intent: Intent.DANGER,
             message,
@@ -45,7 +45,7 @@ export default function useToaster() {
 
     return {
         success,
-        error,
+        danger,
         warning,
         info,
     };

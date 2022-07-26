@@ -7,12 +7,12 @@ import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
-import useCombos from '../hooks/input/useCombos';
 import useMouseButtons from '../hooks/input/useMouse';
 import { useMouseCursorValue } from '../hooks/input/useMouseCursor';
 import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
+import useCombos from '../hooks/useCombos';
 
 export default function Canvas() {
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
@@ -22,7 +22,7 @@ export default function Canvas() {
     const elementIDs = useElementIDs();
     const camera = useCamera(canvasWidth, canvasHeight);
     const [leftMouse] = useMouseButtons();
-    useCombos();
+    const { handleKeyDown, handleKeyUp } = useCombos();
 
     const onWindowResize = () => {
         setCanvasWidth(window.innerWidth);
@@ -40,8 +40,15 @@ export default function Canvas() {
     Konva.hitOnDragEnabled = true;
 
     return (
-        <div className="canvas" style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}>
+        <div
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
+            className="canvas"
+            style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}>
+
             <Stage
+                id="canvas"
                 style={{ cursor: cursor }}
                 x={camera.x}
                 y={camera.y}
@@ -76,6 +83,5 @@ export default function Canvas() {
 
             </Stage>
         </div>
-
     );
 }

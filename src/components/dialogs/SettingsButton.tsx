@@ -1,4 +1,4 @@
-import { Button, Classes, Dialog, FormGroup, Label, Switch } from "@blueprintjs/core";
+import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import useMap, { useMapProperties } from "../../hooks/jotai/useMap";
@@ -46,11 +46,19 @@ export default function SettingsButton() {
                             }} />
 
                         <Switch
-                            label="Axis"
-                            checked={settings.isAxisVisible}
+                            label="Snap to Grid"
+                            checked={settings.isGridSnapEnabled}
                             onChange={(e) => {
-                                setSettings({ ...settings, isAxisVisible: e.currentTarget.checked });
+                                setSettings({ ...settings, isGridSnapEnabled: e.currentTarget.checked });
                             }} />
+
+                        <FormGroup label="Grid Snap Resolution" inline>
+                            <NumericInput
+                                defaultValue={settings.gridSnapResolution}
+                                onValueChange={(value) => {
+                                    setSettings({ ...settings, gridSnapResolution: value });
+                                }} />
+                        </FormGroup>
 
                     </FormGroup>
                     <FormGroup label="Map">

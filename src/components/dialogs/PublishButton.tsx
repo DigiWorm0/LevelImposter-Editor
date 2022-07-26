@@ -70,7 +70,7 @@ export default function PublishButton() {
                 setProgress(progress / 100);
             }, (err) => {
                 console.error(err);
-                toaster.error(err.message);
+                toaster.danger(err.message);
                 setIsPublishing(false);
             }, () => {
                 console.log(`Map uploaded to firebase storage: ${storageRef.fullPath}`);
@@ -95,7 +95,7 @@ export default function PublishButton() {
                 setMap(mapData);
             }).catch((err) => {
                 console.error(err);
-                toaster.error(err.message);
+                toaster.danger(err.message);
                 setIsPublishing(false);
             });
         }
@@ -106,7 +106,7 @@ export default function PublishButton() {
     return (
         <>
             <Tooltip2
-                content={isUploaded ? "Update Map" : "Publish Map"}
+                content={"Upload Map"}
                 position="bottom">
 
                 <Button
@@ -132,7 +132,7 @@ export default function PublishButton() {
                             text="Google"
                             onClick={() => {
                                 signInWithPopup(auth, googleProvider).catch((err) => {
-                                    toaster.error(err.message);
+                                    toaster.danger(err.message);
                                 })
                             }}
                         />
@@ -141,7 +141,7 @@ export default function PublishButton() {
                             text="Github"
                             onClick={() => {
                                 signInWithPopup(auth, githubProvider).catch((err) => {
-                                    toaster.error(err.message);
+                                    toaster.danger(err.message);
                                 });
                             }}
                         />

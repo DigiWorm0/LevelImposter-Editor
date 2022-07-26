@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { settingsAtom } from "./Jotai";
 
 export default function useSettings() {
@@ -6,7 +6,7 @@ export default function useSettings() {
 }
 
 export function useSetSettings() {
-    return useAtom(settingsAtom);
+    return useSetAtom(settingsAtom);
 }
 
 export function useSettingsValue() {

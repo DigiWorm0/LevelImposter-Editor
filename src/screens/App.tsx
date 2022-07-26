@@ -1,7 +1,9 @@
+import { HotkeysProvider } from '@blueprintjs/core';
 import { Provider } from 'jotai';
+import React from 'react';
 import CheckMobile from '../components/dialogs/CheckMobile';
 import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
-import useSettings from '../hooks/jotai/useSettings';
+import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useEmbed from '../hooks/useEmbed';
 import useIDParam from '../hooks/useIDParam';
 import Canvas from './Canvas';
@@ -11,29 +13,42 @@ import RightSidebar from './RightSidebar';
 import Topbar from './Topbar';
 
 export default function App() {
-    const [settings] = useSettings();
+    const settings = useSettingsValue();
     const isEmbeded = useEmbed();
     useIDParam();
 
+    React.useEffect(() => {
+        if (!isEmbeded)
+            window.onbeforeunload = () => {
+                return 'Are you sure you want to leave? Unsaved changes will be lost.';
+            }
+
+        return () => {
+            window.onbeforeunload = null;
+        }
+    }, []);
+
     return (
         <div className={"app" + (settings.isDarkMode ? " bp4-dark" : "")}>
-            <Provider scope={PROVIDER_SCOPE}>
-                {!isEmbeded && (<>
-                    <Topbar />
-                    <LeftSidebar />
-                </>)}
+            <HotkeysProvider>
+                <Provider scope={PROVIDER_SCOPE}>
+                    {!isEmbeded && (<>
+                        <Topbar />
+                        <LeftSidebar />
+                    </>)}
 
-                <Canvas />
+                    <Canvas />
 
-                {!isEmbeded && (<>
-                    <RightSidebar />
-                    <CheckMobile />
-                </>)}
+                    {!isEmbeded && (<>
+                        <RightSidebar />
+                        <CheckMobile />
+                    </>)}
 
-                {isEmbeded && (<>
-                    <OpenInEditor />
-                </>)}
-            </Provider>
+                    {isEmbeded && (<>
+                        <OpenInEditor />
+                    </>)}
+                </Provider>
+            </HotkeysProvider>
         </div>
     );
 }

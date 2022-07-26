@@ -40,11 +40,11 @@ export default function useIDParam() {
                     params.delete("id");
                     window.history.replaceState({}, "", `?${params.toString()}`);
                 }).catch((e) => {
-                    toaster.error(e.message);
+                    toaster.danger(e.message);
                 });
             }
         }).catch((e) => {
-            toaster.error(e.message);
+            toaster.danger(e.message);
         });
     }
 

@@ -36,8 +36,8 @@ export default function ConsoleRange() {
                 ctx.fillStrokeShape(shape);
 
             }}
-            fill="#00ff0044"
-            stroke="green"
+            fill="#ffaa0066"
+            stroke="#ffaa00ff"
             strokeWidth={4}
             dashEnabled={true}
             dash={[10, 10]}

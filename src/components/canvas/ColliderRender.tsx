@@ -1,30 +1,34 @@
 import { Line } from "react-konva";
-import { useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
+import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
+import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import Point from "../../types/generic/Point";
 
 const UNITY_SCALE = 100;
 
 export default function ColliderRender() {
-    const collider = useSelectedColliderValue();
+    const elem = useSelectedElemValue();
+    const selectedColliderID = useSelectedColliderIDValue();
 
-    if (!collider
-        || collider.points.length <= 0)
+    if (!elem
+        || !elem.properties.colliders)
         return null;
-
-    const points = collider.points.reduce((prev: number[], cur: Point) => { prev.push(cur.x * UNITY_SCALE, cur.y * UNITY_SCALE); return prev; }, [] as number[]);
 
     return (
         <>
-            <Line
-                points={points}
-                fill={collider.isSolid ? (collider.blocksLight ? "#ff000066" : "#00ff0044") : "transparent"}
-                stroke={collider.blocksLight ? "red" : "green"}
-                strokeWidth={4}
-                closed={collider.isSolid}
-                onClick={() => {
-                    console.log("B");
-                }}
-            />
+            {elem.properties.colliders.map((collider) => {
+                const points = collider.points.reduce((prev: number[], cur: Point) => { prev.push(cur.x * UNITY_SCALE, cur.y * UNITY_SCALE); return prev; }, [] as number[]);
+                return (
+                    <Line
+                        key={collider.id}
+                        points={points}
+                        fill={collider.isSolid ? (collider.blocksLight ? "#ff000011" : "#00ff0011") : "transparent"}
+                        stroke={collider.blocksLight ? "red" : "green"}
+                        strokeWidth={selectedColliderID === undefined ? 2 : 1}
+                        closed={collider.isSolid}
+                        listening={false}
+                    />
+                )
+            })}
         </>
     );
 }

@@ -14,13 +14,24 @@ export default function TaskParent() {
         <Shape
             sceneFunc={(ctx, shape) => {
                 ctx.beginPath();
+
+                ctx.arc(
+                    selectedParent.x * UNITY_SCALE,
+                    -selectedParent.y * UNITY_SCALE,
+                    6,
+                    0,
+                    Math.PI * 2,
+                    false
+                );
                 ctx.moveTo(selectedElem.x * UNITY_SCALE, -selectedElem.y * UNITY_SCALE);
                 ctx.lineTo(selectedParent.x * UNITY_SCALE, -selectedParent.y * UNITY_SCALE);
+
                 ctx.closePath();
                 ctx.fillStrokeShape(shape);
             }}
+            fill="blue"
             stroke="blue"
-            strokeWidth={3}
+            strokeWidth={4}
             listening={false}
         />
     );

@@ -5,11 +5,13 @@ import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useElement from "../../hooks/jotai/useElement";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import GUID from "../../types/generic/GUID";
 
 const UNITY_SCALE = 100;
+const SNAP_RESOLUTION = 0.5;
 
 export default function MapElement(props: { elementID: GUID }) {
     const isEmbeded = useEmbed();
@@ -21,6 +23,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const [isHovering, setHovering] = React.useState(false);
     const [, , rightMouse, onMouseDown, onMouseUp] = useMouseButtons();
     const setMouseCursor = useSetMouseCursor();
+    const settings = useSettingsValue();
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
@@ -45,6 +48,12 @@ export default function MapElement(props: { elementID: GUID }) {
                 setSelectedID(props.elementID);
             }}
             onDragMove={(e) => {
+                if (settings.isGridSnapEnabled) {
+                    e.target.position({
+                        x: Math.round(e.target.x() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution,
+                        y: Math.round(e.target.y() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution
+                    })
+                }
                 elem.x = e.target.x() / UNITY_SCALE;
                 elem.y = -e.target.y() / UNITY_SCALE;
             }}

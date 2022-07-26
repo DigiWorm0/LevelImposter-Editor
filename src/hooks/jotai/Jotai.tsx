@@ -25,8 +25,9 @@ export const DEFAULT_MAP: LIMap = {
 export const DEFAULT_SETTINGS: LISettings = {
     isDarkMode: true,
     isGridVisible: true,
-    isAxisVisible: true,
     isBrowserAccepted: false,
+    isGridSnapEnabled: false,
+    gridSnapResolution: 0.25
 };
 export const PROVIDER_SCOPE = "main";
 
@@ -142,7 +143,7 @@ export const selectedVentConnectionsAtom = atom((get) => {
 });
 export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETTINGS);
 
-// Mouse
+// Input
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
 export const mouseCursorAtom = atom("default");
