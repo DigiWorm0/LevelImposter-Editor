@@ -16,34 +16,37 @@ export default function CamPanel() {
             <FormGroup label="Offset">
                 <ControlGroup fill>
                     <NumericInput
+                        key={element.id + "-camXOffset"}
                         fill
-                        value={element.properties.camXOffset === undefined ? 0 : element.properties.camXOffset}
+                        defaultValue={element.properties.camXOffset === undefined ? 0 : element.properties.camXOffset}
                         minorStepSize={0.1}
                         stepSize={1}
                         majorStepSize={10}
-                        onValueChange={(value) => {
-                            setElement({ ...element, properties: { ...element.properties, camXOffset: value } });
+                        onValueChange={(val) => {
+                            !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camXOffset: val } });
                         }} />
                     <NumericInput
+                        key={element.id + "-camYOffset"}
                         fill
-                        value={element.properties.camYOffset === undefined ? 0 : element.properties.camYOffset}
+                        defaultValue={element.properties.camYOffset === undefined ? 0 : element.properties.camYOffset}
                         minorStepSize={0.1}
                         stepSize={1}
                         majorStepSize={10}
-                        onValueChange={(value) => {
-                            setElement({ ...element, properties: { ...element.properties, camYOffset: value } });
+                        onValueChange={(val) => {
+                            !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camYOffset: val } });
                         }} />
                 </ControlGroup>
             </FormGroup>
             <FormGroup label="Zoom">
                 <NumericInput
+                    key={element.id + "-camZoom"}
                     fill
-                    value={element.properties.camZoom === undefined ? 1 : element.properties.camZoom}
+                    defaultValue={element.properties.camZoom === undefined ? 3 : element.properties.camZoom}
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    onValueChange={(value) => {
-                        setElement({ ...element, properties: { ...element.properties, camZoom: value } });
+                    onValueChange={(val) => {
+                        !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camZoom: val } });
                     }} />
             </FormGroup>
         </div>

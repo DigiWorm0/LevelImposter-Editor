@@ -13,8 +13,8 @@ export default function RightSidebar() {
             <TransformPanel />
             <SpritePanel />
             <TaskPanel />
-            <ConsolePanel />
             <SabPanel />
+            <ConsolePanel />
             <VentPanel />
             <CamPanel />
             <ColliderPanel />

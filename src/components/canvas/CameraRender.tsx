@@ -22,8 +22,6 @@ export default function CameraRender() {
     const camX = (camXOffset ? (camXOffset + x) : x) * UNITY_SCALE;
     const camY = (camYOffset ? (-camYOffset - y) : -y) * UNITY_SCALE;
 
-    console.log(camX + "," + camY);
-
     return (
         <Rect
             x={camX - camWidth / 2}

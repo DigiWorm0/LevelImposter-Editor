@@ -1,4 +1,5 @@
 import { Divider, FormGroup, H5, NumericInput, Switch } from "@blueprintjs/core";
+import React from "react";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 
 export default function ConsolePanel() {
@@ -21,14 +22,15 @@ export default function ConsolePanel() {
             <Divider />
             <FormGroup>
                 <NumericInput
+                    key={selectedElem.id + "-range"}
                     fill
                     placeholder="Range"
-                    value={selectedElem.properties.range === undefined ? 1 : selectedElem.properties.range}
+                    defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : 1}
                     min={0}
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    leftIcon="circle"
+                    leftIcon="ring"
                     onValueChange={(val) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, range: val } });
                     }}

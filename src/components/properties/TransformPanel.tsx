@@ -7,27 +7,7 @@ import GUID from "../../types/generic/GUID";
 export default function TransformPanel() {
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
-    const selectedElemID = useSelectedElemIDValue();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [name, setName] = React.useState("");
-    const [x, setX] = React.useState("");
-    const [y, setY] = React.useState("");
-    const [z, setZ] = React.useState("");
-    const [xScale, setXScale] = React.useState("");
-    const [yScale, setYScale] = React.useState("");
-    const [rotation, setRotation] = React.useState("");
-
-    React.useEffect(() => {
-        if (!selectedElem)
-            return;
-        setName(selectedElem.name);
-        setX(selectedElem.x.toString());
-        setY(selectedElem.y.toString());
-        setZ(selectedElem.z.toString());
-        setXScale(selectedElem.xScale.toString());
-        setYScale(selectedElem.yScale.toString());
-        setRotation(selectedElem.rotation.toString());
-    }, [selectedElem]);
 
     if (!selectedElem)
         return null;
@@ -37,59 +17,67 @@ export default function TransformPanel() {
             <H5>Transform</H5>
             <Divider />
             <InputGroup
+                key={selectedElem.id + "-name"}
+                defaultValue={selectedElem.name}
                 placeholder="Name"
                 large
-                onChange={(e) => { setName(e.target.value); setSelectedElem({ ...selectedElem, name: e.target.value }); }}
-                value={name}
+                onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
             />
             <ControlGroup fill style={{ marginTop: 15 }}>
                 <NumericInput
+                    key={selectedElem.id + "-x"}
+                    defaultValue={selectedElem.x}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, x: val }); }}
                     fill
                     placeholder="X"
-                    onValueChange={(numVal, strVal) => {
-                        setX(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, x: numVal });
-                    }}
                     minorStepSize={0.001}
-                    value={x}
                 />
                 <NumericInput
+                    key={selectedElem.id + "-y"}
+                    defaultValue={selectedElem.y}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, y: val }); }}
                     fill
                     placeholder="Y"
-                    onValueChange={(numVal, strVal) => { setY(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, y: numVal }); }}
                     minorStepSize={0.001}
-                    value={y}
                 />
                 <NumericInput
+                    key={selectedElem.id + "-z"}
+                    defaultValue={selectedElem.z}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, z: val }); }}
                     fill
                     placeholder="Z"
-                    onValueChange={(numVal, strVal) => { setZ(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, z: numVal }); }}
                     minorStepSize={0.001}
-                    value={z}
                 />
             </ControlGroup>
             <ControlGroup fill>
                 <NumericInput
+                    key={selectedElem.id + "-xScale"}
+                    defaultValue={selectedElem.xScale}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, xScale: val }); }}
                     fill
+                    leftIcon="arrows-horizontal"
                     placeholder="X Scale"
-                    onValueChange={(numVal, strVal) => { setXScale(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, xScale: numVal }); }}
                     minorStepSize={0.001}
-                    value={xScale}
                 />
                 <NumericInput
+                    key={selectedElem.id + "-yScale"}
+                    defaultValue={selectedElem.yScale}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, yScale: val }); }}
                     fill
+                    leftIcon="arrows-vertical"
                     placeholder="Y Scale"
-                    onValueChange={(numVal, strVal) => { setYScale(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, yScale: numVal }); }}
                     minorStepSize={0.001}
-                    value={yScale}
                 />
             </ControlGroup>
             <ControlGroup fill>
                 <NumericInput
+                    key={selectedElem.id + "-rotation"}
+                    defaultValue={selectedElem.rotation}
+                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, rotation: val }); }}
                     fill
+                    leftIcon="refresh"
                     placeholder="Rotation"
-                    onValueChange={(numVal, strVal) => { setRotation(strVal); (!isNaN(numVal) && strVal != "") && setSelectedElem({ ...selectedElem, rotation: numVal }); }}
                     minorStepSize={0.001}
-                    value={rotation}
                 />
             </ControlGroup>
             <ButtonGroup minimal style={{ marginTop: 10 }} fill>
