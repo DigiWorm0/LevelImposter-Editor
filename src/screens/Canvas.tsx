@@ -15,10 +15,7 @@ import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/useCamera';
 
-const UNITY_SCALE = 100;
-
 export default function Canvas() {
-    const setMousePos = useSetMousePos();
     const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
@@ -57,14 +54,6 @@ export default function Canvas() {
                         camera.setX(e.target.x());
                         camera.setY(e.target.y());
                     }
-                }}
-                onMouseMove={(e: KonvaEventObject<MouseEvent>) => {
-                    const mousePos = e.target.getStage()?.getRelativePointerPosition();
-                    if (mousePos)
-                        setMousePos(
-                            ((mousePos.x - camera.width) / camera.z) / UNITY_SCALE,
-                            ((mousePos.y - camera.height) / camera.z) / -UNITY_SCALE
-                        );
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
 

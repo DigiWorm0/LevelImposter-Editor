@@ -5,6 +5,7 @@ import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import useMousePos from "../../hooks/input/useMousePos";
 import { useAddElement } from "../../hooks/jotai/useElement";
+import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
@@ -13,13 +14,15 @@ const AUElementOmnibar = Omnibar.ofType<AUElement>();
 export default function AddObjectButton(props: { large?: boolean }) {
     const mousePos = useMousePos();
     const addElement = useAddElement();
+    const setSelectedID = useSetSelectedElemID();
     const [isOpen, setIsOpen] = React.useState(false);
 
     const handleClick = (elem: AUElement) => {
+        const id = generateGUID();
         addElement({
             name: elem.name,
             type: elem.type,
-            id: generateGUID(),
+            id,
             x: mousePos.x,
             y: mousePos.y,
             z: 0,
@@ -29,6 +32,7 @@ export default function AddObjectButton(props: { large?: boolean }) {
             properties: {}
         });
         setIsOpen(false);
+        setSelectedID(id);
     }
 
     return (
