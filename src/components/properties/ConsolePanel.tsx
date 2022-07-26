@@ -36,7 +36,7 @@ export default function ConsolePanel() {
                 />
                 <Switch
                     key={selectedElem.id + "-onlyfrombelow"}
-                    checked={selectedElem.properties.onlyFromBelow}
+                    checked={selectedElem.properties.onlyFromBelow === undefined ? false : selectedElem.properties.onlyFromBelow}
                     label="Only from Below"
                     onChange={(e) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, onlyFromBelow: e.currentTarget.checked } });
