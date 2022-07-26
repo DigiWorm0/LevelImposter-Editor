@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBa
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { ref, uploadString } from "firebase/storage";
+import { ref, uploadBytesResumable, uploadString } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
@@ -20,12 +20,12 @@ const toaster = Toaster.create();
 export default function PublishButton() {
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
-    const [isDoneOpen, setIsDoneOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
     const [isPublishing, setIsPublishing] = React.useState(false);
+    const [uploadProgress, setProgress] = React.useState(0);
 
     const isLoggedIn = user !== null;
     const isUploaded = map.id !== "" && user?.uid === map.authorID;
@@ -42,6 +42,8 @@ export default function PublishButton() {
 
     const publishMap = (id?: GUID) => {
         setIsPublishing(true);
+        setProgress(0);
+
         const mapData: LIMap = {
             id: id || map.id,
             v: map.v,
@@ -60,13 +62,19 @@ export default function PublishButton() {
         const docRef = doc(storeRef, mapData.id);
 
         const uploadToStorage = () => {
-            uploadString(storageRef, mapJSON).then((storageDoc) => {
-                console.log(`Map uploaded to firebase storage: ${storageDoc.ref.fullPath}`);
-
-                uploadToFirestore();
-            }).catch((err) => {
+            const byteData = new TextEncoder().encode(mapJSON);
+            const uploadTask = uploadBytesResumable(storageRef, byteData);
+            uploadTask.on("state_changed", (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`Upload is ${progress}% done`);
+                setProgress(progress / 100);
+            }, (err) => {
+                console.error(err);
                 toaster.error(err.message);
                 setIsPublishing(false);
+            }, () => {
+                console.log(`Map uploaded to firebase storage: ${storageRef.fullPath}`);
+                uploadToFirestore();
             });
         }
 
@@ -81,12 +89,12 @@ export default function PublishButton() {
                 authorName: user?.displayName,
             } as LIMetadata).then(() => {
                 console.log(`Map published to firestore: ${docRef.path}`);
-
+                toaster.success("Map published successfully!", "https://levelimposter.net/map/" + mapData.id);
                 setIsPublishing(false);
                 setIsOpen(false);
-                setIsDoneOpen(true);
                 setMap(mapData);
             }).catch((err) => {
+                console.error(err);
                 toaster.error(err.message);
                 setIsPublishing(false);
             });
@@ -216,32 +224,13 @@ export default function PublishButton() {
 
                     {isPublishing &&
                         <div style={{ marginTop: 15 }}>
-                            <ProgressBar intent={"primary"} />
+                            <ProgressBar
+                                intent={"primary"}
+                                value={uploadProgress} />
                         </div>
                     }
                 </div>
 
-            </Dialog>
-
-            {/*  Done  */}
-
-            <Dialog
-                isOpen={isDoneOpen}
-                onClose={() => { setIsDoneOpen(false) }}
-                title="Published"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
-
-                <div style={{ margin: 15 }} >
-                    <p>Map has been successfully published!</p>
-                    <Button
-                        icon={"share"}
-                        text={"View Map"}
-                        intent={"primary"}
-                        onClick={() => {
-                            window.open("https://levelimposter.net/map/" + map.id, "_blank");
-                        }}
-                    />
-                </div>
             </Dialog>
 
             <AgreementDialog

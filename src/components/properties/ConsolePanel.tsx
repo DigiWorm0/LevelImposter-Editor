@@ -35,6 +35,7 @@ export default function ConsolePanel() {
                     }}
                 />
                 <Switch
+                    key={selectedElem.id + "-onlyfrombelow"}
                     checked={selectedElem.properties.onlyFromBelow}
                     label="Only from Below"
                     onChange={(e) => {

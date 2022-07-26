@@ -1,13 +1,21 @@
-import { Intent, Toaster } from "@blueprintjs/core";
+import { ActionProps, Intent, Toaster } from "@blueprintjs/core";
 
 const toaster = Toaster.create();
 
 export default function useToaster() {
-    const success = (message: string) => {
+    const success = (message: string, link?: string) => {
         toaster.show({
             intent: Intent.SUCCESS,
             message,
             icon: "tick",
+            action: link ? {
+                icon: "share",
+                text: "Open",
+                onClick: () => {
+                    if (link)
+                        window.open(link, "_blank");
+                }
+            } : undefined
         });
     }
 
