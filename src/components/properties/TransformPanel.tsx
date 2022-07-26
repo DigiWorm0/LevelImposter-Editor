@@ -3,6 +3,7 @@ import React from "react";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
 import useSelectedElem, { useSelectedElemIDValue, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
+import PanelContainer from "./PanelContainer";
 
 export default function TransformPanel() {
     const setSelectedID = useSetSelectedElemID();
@@ -13,9 +14,7 @@ export default function TransformPanel() {
         return null;
 
     return (
-        <div className="transform-panel">
-            <H5>Transform</H5>
-            <Divider />
+        <PanelContainer title="Transform">
             <InputGroup
                 key={selectedElem.id + "-name"}
                 defaultValue={selectedElem.name}
@@ -94,6 +93,6 @@ export default function TransformPanel() {
                     onClick={() => { removeElement(selectedElem.id); setSelectedID("" as GUID) }}
                 />
             </ButtonGroup>
-        </div>
+        </PanelContainer>
     );
 }

@@ -5,6 +5,7 @@ import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
+import PanelContainer from "./PanelContainer";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
@@ -39,10 +40,8 @@ export default function TaskPanel() {
         return null;
 
     return (
-        <div className="task-panel">
-            <H5 style={{ marginTop: 25 }}>Task</H5>
-            <Divider />
-            <div style={{ textAlign: "center", margin: 15 }}>
+        <PanelContainer title="Task">
+            <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
                     src={URL_PREFIX + selectedElem.type + URL_SUFFIX}
@@ -78,10 +77,11 @@ export default function TaskPanel() {
                 </ControlGroup>
                 <ControlGroup fill style={{ marginTop: 5 }}>
                     <InputGroup
+                        key={selectedElem.id + "-description"}
                         fill
                         leftIcon="info-sign"
                         placeholder={"(Default Description)"}
-                        value={selectedElem.properties.description}
+                        defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                         onChange={(e) => {
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
                         }}
@@ -95,6 +95,6 @@ export default function TaskPanel() {
                     />
                 </ControlGroup>
             </FormGroup>
-        </div>
+        </PanelContainer>
     );
 }

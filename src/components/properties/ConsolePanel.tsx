@@ -1,6 +1,7 @@
-import { Divider, FormGroup, H5, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Collapse, Divider, FormGroup, H5, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import PanelContainer from "./PanelContainer";
 
 export default function ConsolePanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -17,9 +18,7 @@ export default function ConsolePanel() {
         return null;
 
     return (
-        <div className="console-panel">
-            <H5 style={{ marginTop: 25 }}>Console</H5>
-            <Divider />
+        <PanelContainer title="Console">
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-range"}
@@ -43,6 +42,6 @@ export default function ConsolePanel() {
                     }}
                 />
             </FormGroup>
-        </div>
+        </PanelContainer>
     );
 }

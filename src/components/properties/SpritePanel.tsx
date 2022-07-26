@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, Divider, H5 } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import PanelContainer from "./PanelContainer";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
@@ -55,10 +56,8 @@ export default function SpritePanel() {
         return null;
 
     return (
-        <div className="sprite-panel">
-            <H5 style={{ marginTop: 25 }}>Sprite</H5>
-            <Divider />
-            <div style={{ textAlign: "center", margin: 15 }}>
+        <PanelContainer title="Sprite">
+            <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
                     src={selectedElem.properties.spriteData ? selectedElem.properties.spriteData : defaultURL}
@@ -81,6 +80,6 @@ export default function SpritePanel() {
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
-        </div>
+        </PanelContainer>
     );
 }

@@ -3,6 +3,7 @@ import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useVents } from "../../hooks/jotai/useVents";
 import LIElement from "../../types/li/LIElement";
+import PanelContainer from "./PanelContainer";
 
 const VentSelect = Select2.ofType<LIElement>();
 
@@ -32,10 +33,7 @@ export default function VentPanel() {
         return null;
 
     return (
-        <div className="vent-panel">
-            <H5 style={{ marginTop: 25 }}>Vent</H5>
-            <Divider />
-
+        <PanelContainer title="Vent">
             <ControlGroup fill>
                 <VentSelect
                     fill
@@ -110,6 +108,6 @@ export default function VentPanel() {
                     }}
                 />
             </ControlGroup>
-        </div>
+        </PanelContainer>
     );
 }

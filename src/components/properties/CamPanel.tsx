@@ -1,5 +1,6 @@
 import { ControlGroup, Divider, FormGroup, H5, NumericInput } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import PanelContainer from "./PanelContainer";
 
 export default function CamPanel() {
     const [element, setElement] = useSelectedElem();
@@ -9,10 +10,7 @@ export default function CamPanel() {
         return null;
 
     return (
-        <div className="cam-panel">
-            <H5 style={{ marginTop: 25 }}>Camera</H5>
-            <Divider />
-
+        <PanelContainer title="Camera">
             <FormGroup label="Offset">
                 <ControlGroup fill>
                     <NumericInput
@@ -49,6 +47,6 @@ export default function CamPanel() {
                         !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camZoom: val } });
                     }} />
             </FormGroup>
-        </div>
+        </PanelContainer>
     );
 }

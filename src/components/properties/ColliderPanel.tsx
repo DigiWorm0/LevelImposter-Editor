@@ -3,6 +3,7 @@ import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import LICollider from "../../types/li/LICollider";
+import PanelContainer from "./PanelContainer";
 
 export default function ColliderPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -48,10 +49,7 @@ export default function ColliderPanel() {
         return null;
 
     return (
-        <div className="collider-panel">
-            <H5 style={{ marginTop: 25 }}>Colliders</H5>
-            <Divider />
-
+        <PanelContainer title="Colliders">
             <Menu>
                 <MenuItem
                     icon="add"
@@ -144,6 +142,6 @@ export default function ColliderPanel() {
                     );
                 })}
             </Menu>
-        </div>
+        </PanelContainer>
     );
 }

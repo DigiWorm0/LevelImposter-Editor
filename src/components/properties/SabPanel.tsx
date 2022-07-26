@@ -5,6 +5,7 @@ import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
+import PanelContainer from "./PanelContainer";
 
 const URL_PREFIX = "/sprites/";
 const URL_SUFFIX = ".png";
@@ -39,9 +40,7 @@ export default function SabPanel() {
         return null;
 
     return (
-        <div className="sab-panel">
-            <H5 style={{ marginTop: 25 }}>Sabotage</H5>
-            <Divider />
+        <PanelContainer title="Sabotage">
             <div style={{ textAlign: "center", margin: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
@@ -75,6 +74,6 @@ export default function SabPanel() {
                     }}
                 />
             </ControlGroup>
-        </div>
+        </PanelContainer>
     );
 }
