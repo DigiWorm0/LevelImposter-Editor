@@ -110,7 +110,6 @@ export default function PublishButton() {
                 position="bottom">
 
                 <Button
-                    disabled
                     className={Classes.MINIMAL}
                     icon="cloud-upload"
                     onClick={() => { setIsOpen(true) }} />

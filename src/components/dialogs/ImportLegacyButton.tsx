@@ -6,6 +6,14 @@ import LIElement from "../../types/li/LIElement";
 import LILegacyFile from "../../types/li/LILegacyFile";
 import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 
+const legacyPorts: Record<string, string> = {
+    "util-player": "util-dummy",
+    "task-fuel3": "task-fuel2",
+    "task-waterwheel2": "task-waterwheel1",
+    "task-waterwheel3": "task-waterwheel1",
+    "task-align2": "task-align1",
+}
+
 export default function ImportLegacyButton() {
     const setMap = useSetMap();
 
@@ -25,10 +33,15 @@ export default function ImportLegacyButton() {
                 const elements: LIElement[] = [];
                 mapData.objs.forEach(legacyObj => {
                     const isCustomObj = legacyObj.spriteType == "custom";
+                    let type = legacyObj.type;
+                    if (type in legacyPorts)
+                        type = legacyPorts[type];
+                    if (isCustomObj)
+                        type = "util-blank";
                     const element: LIElement = {
                         id: generateGUID(),
                         name: legacyObj.name,
-                        type: isCustomObj ? "util-blank" : legacyObj.type,
+                        type: type,
                         x: legacyObj.x,
                         y: -legacyObj.y,
                         z: legacyObj.z,

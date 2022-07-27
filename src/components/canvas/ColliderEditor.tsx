@@ -4,7 +4,7 @@ import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/us
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 
 const UNITY_SCALE = 100;
-const RECT_SIZE = 12;
+const RECT_SIZE = 8;
 
 export default function ColliderEditor() {
     const [collider, setCollider] = useSelectedCollider();
@@ -20,14 +20,17 @@ export default function ColliderEditor() {
     return (
         <>
             {collider.points.map((p, index) => {
-                const p2 = collider.points[(index + 1) % collider.points.length];
+                let pointIndex = (index + 1) % collider.points.length;
+                if (pointIndex == 0 && !collider.isSolid)
+                    pointIndex = index;
+                const p2 = collider.points[pointIndex];
 
                 return (
                     <Line
                         key={collider.id + "-" + index}
                         points={[p.x * UNITY_SCALE, p.y * UNITY_SCALE, p2.x * UNITY_SCALE, p2.y * UNITY_SCALE]}
                         stroke={collider.blocksLight ? "red" : "green"}
-                        strokeWidth={6}
+                        strokeWidth={5}
                         closed={collider.isSolid}
                         onMouseDown={() => {
                             insertPointAtMouse(index + 1);
