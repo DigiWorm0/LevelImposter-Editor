@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { isSelectedColliderAtom, selectedColliderAtom, selectedColliderIDAtom } from "./Jotai";
+import { insertPointAtMouseAtom, isSelectedColliderAtom, selectedColliderAtom, selectedColliderIDAtom } from "./Jotai";
 
 export function useSelectedColliderID() {
     return useAtom(selectedColliderIDAtom);
@@ -27,4 +27,8 @@ export function useSelectedColliderValue() {
 
 export function useIsSelectedCollider() {
     return useAtomValue(isSelectedColliderAtom);
+}
+
+export function useInsertPointAtMouse() {
+    return useSetAtom(insertPointAtMouseAtom);
 }

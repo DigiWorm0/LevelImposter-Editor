@@ -4,6 +4,7 @@ import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
+import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
@@ -13,6 +14,7 @@ const AUElementOmnibar = Omnibar.ofType<AUElement>();
 export default function AddObjectButton() {
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
+    const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
 
     const handleClick = (elem: AUElement) => {
@@ -31,6 +33,7 @@ export default function AddObjectButton() {
         });
         setIsOpen(false);
         setSelectedID(id);
+        setColliderID(undefined);
     }
 
     return (

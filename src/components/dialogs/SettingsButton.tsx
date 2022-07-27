@@ -60,6 +60,13 @@ export default function SettingsButton() {
                                 }} />
                         </FormGroup>
 
+                        <Switch
+                            label="Developer Mode"
+                            checked={settings.isDevMode}
+                            onChange={(e) => {
+                                setSettings({ ...settings, isDevMode: e.currentTarget.checked });
+                            }} />
+
                     </FormGroup>
                     <FormGroup label="Map">
 

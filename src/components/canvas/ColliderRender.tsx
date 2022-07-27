@@ -21,7 +21,7 @@ export default function ColliderRender() {
                     <Line
                         key={collider.id}
                         points={points}
-                        fill={collider.isSolid ? (collider.blocksLight ? "#ff000011" : "#00ff0011") : "transparent"}
+                        fill={collider.isSolid ? (collider.blocksLight ? "#ff000022" : "#00ff0022") : "transparent"}
                         stroke={collider.blocksLight ? "red" : "green"}
                         strokeWidth={selectedColliderID === undefined ? 2 : 1}
                         closed={collider.isSolid}

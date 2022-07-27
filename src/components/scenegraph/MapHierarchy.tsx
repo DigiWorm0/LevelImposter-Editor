@@ -14,6 +14,8 @@ export default function MapHierarchy() {
             icon = "media";
         else if (elem.type.startsWith("task-"))
             icon = "build";
+        else if (elem.type.startsWith("sab-"))
+            icon = "warning-sign";
         else if (elem.type === "util-minimap")
             icon = "map";
         else if (elem.type === "util-cam")

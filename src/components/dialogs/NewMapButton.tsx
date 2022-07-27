@@ -2,15 +2,21 @@ import { Button, Classes, Dialog } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useMapReset } from "../../hooks/jotai/useMap";
+import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
+import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 
 export default function NewMapButton() {
     const settings = useSettingsValue();
     const resetMap = useMapReset();
+    const setSelectedID = useSetSelectedElemID();
+    const setColliderID = useSetSelectedColliderID();
     const [isVisible, setIsVisible] = React.useState(false);
 
     const onClear = () => {
         resetMap();
+        setSelectedID(undefined);
+        setColliderID(undefined);
         setIsVisible(false);
     }
 

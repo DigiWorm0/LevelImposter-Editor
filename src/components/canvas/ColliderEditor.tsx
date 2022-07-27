@@ -1,33 +1,41 @@
-import { Point } from "electron";
 import { Line, Rect } from "react-konva";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
-import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 
 const UNITY_SCALE = 100;
 const RECT_SIZE = 12;
 
 export default function ColliderEditor() {
-    const [elem, setElement] = useSelectedElem();
-    const colliderID = useSelectedColliderIDValue();
+    const [collider, setCollider] = useSelectedCollider();
     const setMouseCursor = useSetMouseCursor();
+    const insertPointAtMouse = useInsertPointAtMouse();
     const settings = useSettingsValue();
 
-    const collider = elem?.properties.colliders?.find(c => c.id === colliderID);
-    const points = collider?.points.reduce((prev: number[], cur: Point) => { prev.push(cur.x * UNITY_SCALE, cur.y * UNITY_SCALE); return prev; }, [] as number[]);
-    const updateColliders = () => {
-        if (elem?.properties.colliders)
-            setElement({ ...elem, properties: { ...elem.properties, colliders: [...elem.properties.colliders] } });
-    }
 
     if (!collider
-        || !elem
         || collider.points.length <= 0)
         return null;
 
     return (
         <>
+            {collider.points.map((p, index) => {
+                const p2 = collider.points[(index + 1) % collider.points.length];
+
+                return (
+                    <Line
+                        key={collider.id + "-" + index}
+                        points={[p.x * UNITY_SCALE, p.y * UNITY_SCALE, p2.x * UNITY_SCALE, p2.y * UNITY_SCALE]}
+                        stroke={collider.blocksLight ? "red" : "green"}
+                        strokeWidth={6}
+                        closed={collider.isSolid}
+                        onMouseDown={() => {
+                            insertPointAtMouse(index + 1);
+                        }}
+                    />
+                )
+            })}
+
             {collider.points.map((p, index) => (
                 <Rect
                     key={index}
@@ -38,6 +46,12 @@ export default function ColliderEditor() {
                     strokeWidth={1}
                     fill={"blue"}
                     stroke={"white"}
+                    onMouseDown={(e) => {
+                        if (e.evt.button === 2) {
+                            collider.points.splice(index, 1);
+                            setCollider({ ...collider });
+                        }
+                    }}
                     onMouseEnter={(e) => {
                         setMouseCursor("pointer");
                     }}
@@ -55,23 +69,11 @@ export default function ColliderEditor() {
                         p.y = (e.target.y() + RECT_SIZE / 2) / UNITY_SCALE;
                     }}
                     onDragEnd={() => {
-                        updateColliders();
+                        setCollider({ ...collider });
                     }}
                     draggable
                 />
             ))}
-
-            <Line
-                points={points}
-                fill={collider.isSolid ? (collider.blocksLight ? "#ff000066" : "#00ff0044") : "transparent"}
-                stroke={collider.blocksLight ? "red" : "green"}
-                strokeWidth={6}
-                closed={collider.isSolid}
-                onClick={() => {
-                    console.log("B");
-                }}
-                listening={false}
-            />
         </>
     );
 }

@@ -1,4 +1,4 @@
-import { Rect } from "react-konva";
+import { Rect, Shape } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 
 const UNITY_SCALE = 100;

@@ -1,4 +1,5 @@
 export default interface LISettings {
+    isDevMode: boolean;
     isDarkMode: boolean;
     isGridVisible: boolean;
     isBrowserAccepted: boolean;

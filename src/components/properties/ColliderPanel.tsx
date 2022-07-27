@@ -91,7 +91,7 @@ export default function ColliderPanel() {
                                         <NumericInput
                                             fill
                                             disabled={!selectedCollider}
-                                            minorStepSize={0.001}
+                                            min={2}
                                             value={selectedCollider?.points.length}
                                             onValueChange={(value) => {
                                                 if (value < 0)

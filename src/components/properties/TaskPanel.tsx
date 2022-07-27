@@ -3,12 +3,10 @@ import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useSprite from "../../hooks/useSprite";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
-
-const URL_PREFIX = "/sprites/";
-const URL_SUFFIX = ".png";
 
 const RoomSelect = Select2.ofType<LIElement>();
 
@@ -16,12 +14,13 @@ export default function TaskPanel() {
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
+    const sprite = useSprite(selectedElem?.id, true);
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
         const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
-        setTaskName(auElement ? auElement.name : "");
+        setTaskName(auElement ? auElement.name : "Unknown");
     }, [selectedElem]);
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
@@ -36,7 +35,7 @@ export default function TaskPanel() {
     );
 
     if (!selectedElem
-        || !selectedElem.type.startsWith("task"))
+        || !selectedElem.type.startsWith("task-"))
         return null;
 
     return (
@@ -44,7 +43,7 @@ export default function TaskPanel() {
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={URL_PREFIX + selectedElem.type + URL_SUFFIX}
+                    src={sprite?.src}
                     alt={selectedElem.name}
                 />
                 <H5 style={{ marginBottom: 3 }}>{taskName}</H5>

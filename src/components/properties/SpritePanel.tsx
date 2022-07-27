@@ -1,14 +1,11 @@
 import { Button, ButtonGroup } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useSprite from "../../hooks/useSprite";
 import PanelContainer from "./PanelContainer";
-
-const URL_PREFIX = "/sprites/";
-const URL_SUFFIX = ".png";
 
 export default function SpritePanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-
-    const defaultURL = URL_PREFIX + selectedElem?.type + URL_SUFFIX;
+    const sprite = useSprite(selectedElem?.id);
 
     const onUploadClick = () => {
         const input = document.createElement("input");
@@ -60,7 +57,7 @@ export default function SpritePanel() {
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={selectedElem.properties.spriteData ? selectedElem.properties.spriteData : defaultURL}
+                    src={sprite?.src}
                     alt={selectedElem.name}
                 />
 

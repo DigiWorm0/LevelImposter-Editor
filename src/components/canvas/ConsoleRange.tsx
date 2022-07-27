@@ -1,4 +1,4 @@
-import { Shape } from "react-konva";
+import { Group, Shape } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 
 const UNITY_SCALE = 100;
@@ -22,7 +22,6 @@ export default function ConsoleRange() {
         <Shape
             sceneFunc={(ctx, shape) => {
                 ctx.beginPath();
-
                 ctx.arc(
                     selectedElem.x * UNITY_SCALE,
                     -selectedElem.y * UNITY_SCALE,
@@ -31,17 +30,14 @@ export default function ConsoleRange() {
                     angle,
                     false
                 );
-
                 ctx.closePath();
                 ctx.fillStrokeShape(shape);
-
             }}
             fill="#ffaa0066"
             stroke="#ffaa00ff"
             strokeWidth={4}
             dashEnabled={true}
             dash={[10, 10]}
-
             listening={false}
         />
     );

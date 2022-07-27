@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
 import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
 import PanelContainer from "./PanelContainer";
 
@@ -8,20 +9,35 @@ export default function TransformPanel() {
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const settings = useSettingsValue();
 
     if (!selectedElem)
         return null;
 
     return (
         <PanelContainer title="Transform">
+            {settings.isDevMode && (
+                <p style={{ fontSize: 12, textAlign: "center" }}>{selectedElem.id}</p>
+            )}
             <InputGroup
+                style={{ marginBottom: 5 }}
                 key={selectedElem.id + "-name"}
                 defaultValue={selectedElem.name}
                 placeholder="Name"
                 large
                 onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
             />
-            <ControlGroup fill style={{ marginTop: 15 }}>
+            {settings.isDevMode && (
+                <InputGroup
+                    style={{ marginBottom: 5 }}
+                    key={selectedElem.id + "-type"}
+                    defaultValue={selectedElem.type}
+                    placeholder="Type"
+                    large
+                    onChange={(e) => { setSelectedElem({ ...selectedElem, type: e.target.value }); }}
+                />
+            )}
+            <ControlGroup fill>
                 <NumericInput
                     key={selectedElem.id + "-x"}
                     defaultValue={selectedElem.x}

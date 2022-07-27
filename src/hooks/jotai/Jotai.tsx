@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { focusAtom } from "jotai/optics";
 import { atomFamily, atomWithReset, atomWithStorage } from 'jotai/utils';
 import { MaybeGUID } from "../../types/generic/GUID";
+import Point from "../../types/generic/Point";
 import { MaybeLICollider } from "../../types/li/LICollider";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import LIMap from "../../types/li/LIMap";
@@ -23,6 +24,7 @@ export const DEFAULT_MAP: LIMap = {
     properties: {},
 };
 export const DEFAULT_SETTINGS: LISettings = {
+    isDevMode: false,
     isDarkMode: true,
     isGridVisible: true,
     isBrowserAccepted: false,
@@ -154,7 +156,19 @@ export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     elem.y = mouseY;
     set(elementsAtom, [...get(elementsAtom), elem]);
 });
-
+export const insertPointAtMouseAtom = atom(null, (get, set, index: number) => {
+    const selectedElem = get(selectedElemAtom);
+    const selectedCollider = get(selectedColliderAtom);
+    if (selectedCollider && selectedElem) {
+        const mouseX = get(mouseXAtom);
+        const mouseY = get(mouseYAtom);
+        selectedCollider.points.splice(index, 0, {
+            x: mouseX - selectedElem.x,
+            y: -mouseY + selectedElem.y
+        });
+        set(selectedColliderAtom, { ...selectedCollider });
+    }
+});
 
 // Camera
 export const camXAtom = atom(-window.innerWidth / 2);

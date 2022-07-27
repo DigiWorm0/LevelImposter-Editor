@@ -94,7 +94,7 @@ export default function MapElement(props: { elementID: GUID }) {
                     y={-h / 2}
                     width={w}
                     height={h}
-                    stroke={isSelected ? "red" : "gray"}
+                    stroke={isSelected ? "red" : "#aaaaaa"}
                     strokeWidth={1}
                 />
             ) : null}
