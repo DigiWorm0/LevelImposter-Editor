@@ -12,24 +12,31 @@ export default interface LIElement {
     yScale: number;
     rotation: number;
     properties: {
+        // Generic
+        spriteData?: string;
+        colliders?: LICollider[];
         parent?: GUID;
 
+        // Vent
         leftVent?: GUID;
         middleVent?: GUID;
         rightVent?: GUID;
 
+        // Camera
         camXOffset?: number;
         camYOffset?: number;
         camZoom?: number;
 
+        // Console
         onlyFromBelow?: boolean;
         range?: number;
+
+        // Task
         description?: string;
+        taskLength?: string;
 
+        // Editor
         isLocked?: boolean;
-
-        spriteData?: string;
-        colliders?: LICollider[];
     };
 }
 

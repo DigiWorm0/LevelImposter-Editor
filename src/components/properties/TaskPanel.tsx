@@ -5,10 +5,12 @@ import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import AUElementDB from "../../types/au/AUElementDB";
+import TaskLength from "../../types/generic/TaskLength";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
 
 const RoomSelect = Select2.ofType<LIElement>();
+const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
     const roomElems = useRooms();
@@ -25,9 +27,19 @@ export default function TaskPanel() {
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem
-            key={elem.type + props.index}
+            key={elem.type + props.index + "-room"}
             text={elem.name}
             label={elem.type}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus} />
+    );
+    const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (
+        <MenuItem
+            key={props.index + "-length"}
+            text={length + " Task"}
+            label={props.index?.toString()}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
@@ -63,6 +75,7 @@ export default function TaskPanel() {
                         <Button
                             rightIcon="caret-down"
                             text={parentRoom ? parentRoom.name : "(Default Room)"}
+                            style={{ fontStyle: parentRoom !== undefined ? "normal" : "italic" }}
                             fill
                         />
                     </RoomSelect>
@@ -71,6 +84,31 @@ export default function TaskPanel() {
                         rightIcon="cross"
                         onClick={() => {
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
+                        }}
+                    />
+                </ControlGroup>
+                <ControlGroup fill>
+                    <LengthSelect
+                        fill
+                        filterable={false}
+                        items={TaskLength}
+                        itemRenderer={lengthSelectRenderer}
+                        onItemSelect={(length) => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
+                        }}>
+
+                        <Button
+                            rightIcon="caret-down"
+                            text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " Task" : "(Default Length)"}
+                            style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
+                            fill
+                        />
+                    </LengthSelect>
+                    <Button
+                        minimal
+                        rightIcon="cross"
+                        onClick={() => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
                         }}
                     />
                 </ControlGroup>

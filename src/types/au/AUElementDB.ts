@@ -68,20 +68,11 @@ const AUElementDB: AUElement[] = [
         name: "Gas Canister",
         type: "task-fuel1"
     }, {
-        name: "Gas Output 1",
+        name: "Gas Output",
         type: "task-fuel2"
     }, {
-        name: "Gas Output 2",
-        type: "task-fuel3"
-    }, {
-        name: "Water Wheel 1",
+        name: "Water Wheel",
         type: "task-waterwheel1"
-    }, {
-        name: "Water Wheel 2",
-        type: "task-waterwheel2"
-    }, {
-        name: "Water Wheel 3",
-        type: "task-waterwheel3"
     }, {
         name: "Inspect Samples",
         type: "task-samples"
@@ -175,9 +166,6 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Align Engine 1",
         type: "task-align1"
-    }, {
-        name: "Align Engine 2",
-        type: "task-align2"
     }, {
         name: "Stabilize Steering",
         type: "task-stabilize"
