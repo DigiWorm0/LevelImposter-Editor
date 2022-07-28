@@ -28,8 +28,8 @@ export const DEFAULT_SETTINGS: LISettings = {
     isDarkMode: true,
     isGridVisible: true,
     isBrowserAccepted: false,
-    isGridSnapEnabled: false,
-    gridSnapResolution: 0.25
+    isGridSnapEnabled: true,
+    gridSnapResolution: 0.1
 };
 export const PROVIDER_SCOPE = "main";
 
