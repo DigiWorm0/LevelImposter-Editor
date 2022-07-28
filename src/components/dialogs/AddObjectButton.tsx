@@ -11,7 +11,7 @@ import AUElementDB from "../../types/au/AUElementDB";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
-export default function AddObjectButton() {
+export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -45,9 +45,10 @@ export default function AddObjectButton() {
 
                 <Button
                     fill
+                    large={props.isSidePanel}
                     className={Classes.MINIMAL}
-                    icon="cube-add"
-                    text="Add Object"
+                    icon={props.isSidePanel ? "plus" : "cube-add"}
+                    text={props.isSidePanel ? "Add Object" : undefined}
                     onClick={() => { setIsOpen(true) }} />
 
             </Tooltip2>

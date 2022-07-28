@@ -20,11 +20,11 @@ export default function Topbar() {
 
                     <MapName />
                     <NavbarDivider />
-                    <SaveButton />
                     <OpenButton />
                     <NewMapButton />
-                    <NavbarDivider />
                     <ImportLegacyButton />
+                    <NavbarDivider />
+                    <SaveButton />
                     <NavbarDivider />
                     <DeleteObjectButton />
                     <AddObjectButton />

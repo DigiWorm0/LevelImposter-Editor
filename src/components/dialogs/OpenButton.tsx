@@ -32,7 +32,7 @@ export default function OpenButton() {
 
                 <Button
                     className={Classes.MINIMAL}
-                    icon="import"
+                    icon="folder-open"
                     onClick={onOpen} />
 
             </Tooltip2>
