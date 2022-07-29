@@ -46,6 +46,8 @@ export default function TaskPanel() {
             onFocus={props.handleFocus} />
     );
 
+    const hasRooms = roomElems.length > 0;
+
     if (!selectedElem
         || !selectedElem.type.startsWith("task-"))
         return null;
@@ -66,6 +68,7 @@ export default function TaskPanel() {
                     <RoomSelect
                         fill
                         filterable={false}
+                        disabled={!hasRooms}
                         items={roomElems}
                         itemRenderer={roomSelectRenderer}
                         onItemSelect={(room) => {

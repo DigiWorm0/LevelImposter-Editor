@@ -34,6 +34,8 @@ export default function SabPanel() {
             onFocus={props.handleFocus} />
     );
 
+    const hasRooms = roomElems.length > 0;
+
     if (!selectedElem
         || !selectedElem.type.startsWith("sab-"))
         return null;
@@ -53,6 +55,7 @@ export default function SabPanel() {
                 <RoomSelect
                     fill
                     filterable={false}
+                    disabled={!hasRooms}
                     items={roomElems}
                     itemRenderer={roomSelectRenderer}
                     onItemSelect={(room) => {

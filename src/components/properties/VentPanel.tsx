@@ -28,6 +28,8 @@ export default function VentPanel() {
             onFocus={props.handleFocus} />
     );
 
+    const hasVents = filteredVents.length > 1;
+
     if (!selectedElem
         || !selectedElem.type.startsWith("util-vent"))
         return null;
@@ -38,6 +40,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
+                    disabled={!hasVents}
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
@@ -63,6 +66,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
+                    disabled={!hasVents}
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
@@ -88,6 +92,7 @@ export default function VentPanel() {
                 <VentSelect
                     fill
                     filterable={false}
+                    disabled={!hasVents}
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
