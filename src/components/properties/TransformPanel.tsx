@@ -44,7 +44,9 @@ export default function TransformPanel() {
                     onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, x: val }); }}
                     fill
                     placeholder="X"
-                    minorStepSize={0.001}
+                    minorStepSize={0.01}
+                    stepSize={0.1}
+                    majorStepSize={1}
                 />
                 <NumericInput
                     key={selectedElem.id + "-y"}
@@ -52,7 +54,9 @@ export default function TransformPanel() {
                     onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, y: val }); }}
                     fill
                     placeholder="Y"
-                    minorStepSize={0.001}
+                    minorStepSize={0.01}
+                    stepSize={0.1}
+                    majorStepSize={1}
                 />
                 <NumericInput
                     key={selectedElem.id + "-z"}
@@ -60,7 +64,9 @@ export default function TransformPanel() {
                     onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, z: val }); }}
                     fill
                     placeholder="Z"
-                    minorStepSize={0.001}
+                    minorStepSize={0.01}
+                    stepSize={0.1}
+                    majorStepSize={1}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -71,7 +77,9 @@ export default function TransformPanel() {
                     fill
                     leftIcon="arrows-horizontal"
                     placeholder="X Scale"
-                    minorStepSize={0.001}
+                    minorStepSize={0.01}
+                    stepSize={0.1}
+                    majorStepSize={1}
                 />
                 <NumericInput
                     key={selectedElem.id + "-yScale"}
@@ -80,7 +88,9 @@ export default function TransformPanel() {
                     fill
                     leftIcon="arrows-vertical"
                     placeholder="Y Scale"
-                    minorStepSize={0.001}
+                    minorStepSize={0.01}
+                    stepSize={0.1}
+                    majorStepSize={1}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -91,7 +101,9 @@ export default function TransformPanel() {
                     fill
                     leftIcon="refresh"
                     placeholder="Rotation"
-                    minorStepSize={0.001}
+                    minorStepSize={1}
+                    stepSize={45}
+                    majorStepSize={90}
                 />
             </ControlGroup>
             <ButtonGroup minimal style={{ marginTop: 10 }} fill>

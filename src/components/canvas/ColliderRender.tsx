@@ -1,4 +1,4 @@
-import { Line } from "react-konva";
+import { Line, Shape } from "react-konva";
 import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import Point from "../../types/generic/Point";
@@ -16,15 +16,25 @@ export default function ColliderRender() {
     return (
         <>
             {elem.properties.colliders.map((collider) => {
-                const points = collider.points.reduce((prev: number[], cur: Point) => { prev.push(cur.x * UNITY_SCALE, cur.y * UNITY_SCALE); return prev; }, [] as number[]);
                 return (
-                    <Line
+                    <Shape
                         key={collider.id}
-                        points={points}
+                        sceneFunc={(ctx, shape) => {
+                            ctx.beginPath();
+
+                            const initialPoint = collider.points[0];
+                            ctx.moveTo(initialPoint.x * UNITY_SCALE, initialPoint.y * UNITY_SCALE);
+                            collider.points.forEach((p, index) => {
+                                ctx.lineTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE);
+                            })
+
+                            if (collider.isSolid)
+                                ctx.closePath();
+                            ctx.fillStrokeShape(shape);
+                        }}
                         fill={collider.isSolid ? (collider.blocksLight ? "#ff000022" : "#00ff0022") : "transparent"}
                         stroke={collider.blocksLight ? "red" : "green"}
                         strokeWidth={selectedColliderID === undefined ? 2 : 1}
-                        closed={collider.isSolid}
                         listening={false}
                     />
                 )

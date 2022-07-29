@@ -20,11 +20,10 @@ export default function ColliderPanel() {
             blocksLight: selectedElem.type !== "util-room",
             isSolid: selectedElem.type === "util-room",
             points: [
+                { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 },
                 { x: 0.5, y: -0.5 },
                 { x: 0.5, y: 0.5 },
-                { x: -0.5, y: 0.5 },
-                { x: -0.5, y: -0.5 }
             ],
         }];
         setSelectedElem({ ...selectedElem });

@@ -1,4 +1,4 @@
-import { Line, Rect } from "react-konva";
+import { Line, Rect, Shape } from "react-konva";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -26,12 +26,18 @@ export default function ColliderEditor() {
                 const p2 = collider.points[pointIndex];
 
                 return (
-                    <Line
+                    <Shape
                         key={collider.id + "-" + index}
-                        points={[p.x * UNITY_SCALE, p.y * UNITY_SCALE, p2.x * UNITY_SCALE, p2.y * UNITY_SCALE]}
+                        sceneFunc={(ctx, shape) => {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE);
+                            ctx.lineTo(p2.x * UNITY_SCALE, p2.y * UNITY_SCALE);
+                            ctx.fillStrokeShape(shape);
+                        }}
+                        onMouseEnter={() => setMouseCursor("pointer")}
+                        onMouseLeave={() => setMouseCursor("default")}
                         stroke={collider.blocksLight ? "red" : "green"}
                         strokeWidth={5}
-                        closed={collider.isSolid}
                         onMouseDown={() => {
                             insertPointAtMouse(index + 1);
                         }}
@@ -41,7 +47,7 @@ export default function ColliderEditor() {
 
             {collider.points.map((p, index) => (
                 <Rect
-                    key={index}
+                    key={collider.id + "-" + index}
                     x={p.x * UNITY_SCALE - RECT_SIZE / 2}
                     y={p.y * UNITY_SCALE - RECT_SIZE / 2}
                     width={RECT_SIZE}

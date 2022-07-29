@@ -63,6 +63,8 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
 // Element Helpers
 export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
     elementFamilyAtom.remove(id);
+    set(selectedElemIDAtom, undefined);
+    set(selectedColliderIDAtom, undefined);
     set(elementsAtom, get(elementsAtom).filter((elem) => elem.id !== id));
 });
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
