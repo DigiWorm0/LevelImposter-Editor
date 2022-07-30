@@ -1,6 +1,7 @@
 import CamPanel from "../components/properties/CamPanel";
 import ColliderPanel from "../components/properties/ColliderPanel";
 import ConsolePanel from "../components/properties/ConsolePanel";
+import MinimapPanel from "../components/properties/MinimapPanel";
 import SabPanel from "../components/properties/SabPanel";
 import SpritePanel from "../components/properties/SpritePanel";
 import TaskPanel from "../components/properties/TaskPanel";
@@ -18,6 +19,8 @@ export default function RightSidebar() {
             <VentPanel />
             <CamPanel />
             <ColliderPanel />
+            <MinimapPanel />
+
             <div style={{ height: 40 }} />
         </div>
     );
