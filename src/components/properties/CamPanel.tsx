@@ -18,8 +18,8 @@ export default function CamPanel() {
                         fill
                         defaultValue={element.properties.camXOffset === undefined ? 0 : element.properties.camXOffset}
                         minorStepSize={0.1}
-                        stepSize={1}
-                        majorStepSize={10}
+                        stepSize={0.5}
+                        majorStepSize={1}
                         onValueChange={(val) => {
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camXOffset: val } });
                         }} />
@@ -28,8 +28,8 @@ export default function CamPanel() {
                         fill
                         defaultValue={element.properties.camYOffset === undefined ? 0 : element.properties.camYOffset}
                         minorStepSize={0.1}
-                        stepSize={1}
-                        majorStepSize={10}
+                        stepSize={0.5}
+                        majorStepSize={1}
                         onValueChange={(val) => {
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camYOffset: val } });
                         }} />
