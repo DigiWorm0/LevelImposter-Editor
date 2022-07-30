@@ -1,12 +1,11 @@
-import { Group, Shape } from "react-konva";
+import { Shape } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-
-const UNITY_SCALE = 100;
+import { DEFAULT_CONSOLE_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function ConsoleRange() {
     const selectedElem = useSelectedElemValue();
 
-    const radius = selectedElem?.properties.range ? selectedElem.properties.range : 1;
+    const radius = selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_CONSOLE_RANGE;
     const angle = selectedElem?.properties.onlyFromBelow ? Math.PI : Math.PI * 2;
     const isConsole = selectedElem?.type.startsWith("task-")
         || selectedElem?.type.startsWith("sab-")

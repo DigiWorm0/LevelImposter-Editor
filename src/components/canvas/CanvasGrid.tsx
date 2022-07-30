@@ -1,8 +1,7 @@
 import { Group, Line, Shape } from "react-konva";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { GRID_SIZE, GRID_SPACING } from "../../types/generic/Constants";
 
-const GRID_SPACING = 100;
-const GRID_SIZE = 25;
 
 export default function CanvasGrid() {
     const settings = useSettingsValue();

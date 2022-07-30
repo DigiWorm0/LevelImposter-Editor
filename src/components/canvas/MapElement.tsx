@@ -8,10 +8,9 @@ import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSe
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 
-const UNITY_SCALE = 100;
-const SNAP_RESOLUTION = 0.5;
 
 export default function MapElement(props: { elementID: GUID }) {
     const isEmbeded = useEmbed();

@@ -1,13 +1,13 @@
 import { Group } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
 import ColliderRender from "./ColliderRender";
 import ConsoleRange from "./ConsoleRange";
+import LadderRange from "./LadderRange";
 import TaskParent from "./TaskParent";
 import VentConnections from "./VentConnections";
-
-const UNITY_SCALE = 100;
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -18,6 +18,7 @@ export default function SelectedMapElement() {
         <>
             <VentConnections />
             <ConsoleRange />
+            <LadderRange />
             <TaskParent />
             <CameraRender />
 

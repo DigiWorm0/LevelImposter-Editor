@@ -1,8 +1,7 @@
 import { Shape } from "react-konva";
 import { useElementValue } from "../../hooks/jotai/useElement";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-
-const UNITY_SCALE = 100;
+import { UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function TaskParent() {
     const selectedElem = useSelectedElemValue();

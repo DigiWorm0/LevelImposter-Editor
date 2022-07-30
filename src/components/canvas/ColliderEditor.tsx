@@ -1,10 +1,9 @@
-import { Line, Rect, Shape } from "react-konva";
+import { Rect, Shape } from "react-konva";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { COLLIDER_RECT_SIZE, UNITY_SCALE } from "../../types/generic/Constants";
 
-const UNITY_SCALE = 100;
-const RECT_SIZE = 8;
 
 export default function ColliderEditor() {
     const [collider, setCollider] = useSelectedCollider();
@@ -48,10 +47,10 @@ export default function ColliderEditor() {
             {collider.points.map((p, index) => (
                 <Rect
                     key={collider.id + "-" + index}
-                    x={p.x * UNITY_SCALE - RECT_SIZE / 2}
-                    y={p.y * UNITY_SCALE - RECT_SIZE / 2}
-                    width={RECT_SIZE}
-                    height={RECT_SIZE}
+                    x={p.x * UNITY_SCALE - COLLIDER_RECT_SIZE / 2}
+                    y={p.y * UNITY_SCALE - COLLIDER_RECT_SIZE / 2}
+                    width={COLLIDER_RECT_SIZE}
+                    height={COLLIDER_RECT_SIZE}
                     strokeWidth={1}
                     fill={"blue"}
                     stroke={"white"}
@@ -74,8 +73,8 @@ export default function ColliderEditor() {
                                 y: Math.round(e.target.y() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution
                             })
                         }
-                        p.x = (e.target.x() + RECT_SIZE / 2) / UNITY_SCALE;
-                        p.y = (e.target.y() + RECT_SIZE / 2) / UNITY_SCALE;
+                        p.x = (e.target.x() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;
+                        p.y = (e.target.y() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;
                     }}
                     onDragEnd={() => {
                         setCollider({ ...collider });

@@ -1,8 +1,7 @@
 import { Shape } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSelectedVentConnections } from "../../hooks/jotai/useVents";
-
-const UNITY_SCALE = 100;
+import { UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function VentConnections() {
     const selectedElem = useSelectedElemValue();

@@ -1,5 +1,6 @@
 import { FormGroup, NumericInput, Switch } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import { DEFAULT_CONSOLE_RANGE } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function ConsolePanel() {
@@ -23,7 +24,7 @@ export default function ConsolePanel() {
                     key={selectedElem.id + "-range"}
                     fill
                     placeholder="Range"
-                    defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : 1}
+                    defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_CONSOLE_RANGE}
                     min={0}
                     minorStepSize={0.05}
                     stepSize={0.1}

@@ -1,9 +1,7 @@
-import { Line, Shape } from "react-konva";
+import { Shape } from "react-konva";
 import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import Point from "../../types/generic/Point";
-
-const UNITY_SCALE = 100;
+import { UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function ColliderRender() {
     const elem = useSelectedElemValue();
@@ -24,7 +22,7 @@ export default function ColliderRender() {
 
                             const initialPoint = collider.points[0];
                             ctx.moveTo(initialPoint.x * UNITY_SCALE, initialPoint.y * UNITY_SCALE);
-                            collider.points.forEach((p, index) => {
+                            collider.points.forEach((p, _) => {
                                 ctx.lineTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE);
                             })
 

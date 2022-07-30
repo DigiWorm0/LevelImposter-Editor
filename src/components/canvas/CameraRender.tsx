@@ -1,9 +1,7 @@
-import { Rect, Shape } from "react-konva";
+import { Rect } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { DEFAULT_CAM_ASPECT, DEFAULT_CAM_SIZE, UNITY_SCALE } from "../../types/generic/Constants";
 
-const UNITY_SCALE = 100;
-const CAM_SIZE = 6;
-const CAM_ASPECT = 1.5;
 
 export default function CameraRender() {
     const selectedElem = useSelectedElemValue();
@@ -13,11 +11,10 @@ export default function CameraRender() {
         return null;
 
     const { camXOffset, camYOffset, camZoom } = selectedElem.properties;
-
     const { x, y } = selectedElem;
 
-    const camHeight = (camZoom ? camZoom * 2 : CAM_SIZE) * UNITY_SCALE;
-    const camWidth = camHeight * CAM_ASPECT;
+    const camHeight = (camZoom ? camZoom * 2 : DEFAULT_CAM_SIZE) * UNITY_SCALE;
+    const camWidth = camHeight * DEFAULT_CAM_ASPECT;
 
     const camX = (camXOffset ? (camXOffset + x) : x) * UNITY_SCALE;
     const camY = (camYOffset ? (-camYOffset - y) : -y) * UNITY_SCALE;

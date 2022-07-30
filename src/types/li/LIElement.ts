@@ -31,6 +31,9 @@ export default interface LIElement {
         onlyFromBelow?: boolean;
         range?: number;
 
+        // Ladder
+        ladderHeight?: number;
+
         // Task
         description?: string;
         taskLength?: string;

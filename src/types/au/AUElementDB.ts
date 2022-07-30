@@ -9,6 +9,12 @@ const AUElementDB: AUElement[] = [
         name: "Mira Button",
         type: "util-button2"
     }, {
+        name: "Tall Ladder",
+        type: "util-ladder1"
+    }, {
+        name: "Short Ladder",
+        type: "util-ladder2"
+    }, {
         name: "Admin Table",
         type: "util-admin"
     }, {
