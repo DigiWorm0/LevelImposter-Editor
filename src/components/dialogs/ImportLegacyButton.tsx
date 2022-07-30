@@ -95,6 +95,7 @@ export default function ImportLegacyButton() {
                     isVerified: false,
                     authorID: "",
                     authorName: "",
+                    createdAt: -1,
                     elements,
                     properties: {}
                 });

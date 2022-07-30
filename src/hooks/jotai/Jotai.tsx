@@ -2,7 +2,6 @@ import { atom } from "jotai";
 import { focusAtom } from "jotai/optics";
 import { atomFamily, atomWithReset, atomWithStorage } from 'jotai/utils';
 import { MaybeGUID } from "../../types/generic/GUID";
-import Point from "../../types/generic/Point";
 import { MaybeLICollider } from "../../types/li/LICollider";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import LIMap from "../../types/li/LIMap";
@@ -20,6 +19,7 @@ export const DEFAULT_MAP: LIMap = {
     isVerified: false,
     authorID: "",
     authorName: "",
+    createdAt: -1,
     elements: [],
     properties: {},
 };

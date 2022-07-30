@@ -43,6 +43,7 @@ export default function PublishButton() {
             isVerified: false,
             authorID: user?.uid ? user.uid : "",
             authorName: user?.displayName ? user.displayName : "",
+            createdAt: new Date().getTime(),
             elements: map.elements,
             properties: map.properties
         };
@@ -69,15 +70,19 @@ export default function PublishButton() {
         }
 
         const uploadToFirestore = () => {
-            setDoc(docRef, {
+            const metadata: LIMetadata = {
+                v: mapData.v,
                 id: mapData.id,
                 name: mapData.name,
                 description: mapData.description,
                 isPublic: mapData.isPublic,
-                isVerified: false,
-                authorID: user?.uid,
-                authorName: user?.displayName,
-            } as LIMetadata).then(() => {
+                isVerified: mapData.isVerified,
+                authorID: mapData.authorID,
+                authorName: mapData.authorName,
+                createdAt: mapData.createdAt,
+            };
+
+            setDoc(docRef, metadata).then(() => {
                 console.log(`Map published to firestore: ${docRef.path}`);
                 toaster.success("Map published successfully!", "https://levelimposter.net/map/" + mapData.id);
                 setIsPublishing(false);

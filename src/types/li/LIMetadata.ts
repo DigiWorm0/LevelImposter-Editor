@@ -11,4 +11,5 @@ export default interface LIMetadata {
     isVerified: boolean;
     authorID: string;
     authorName: string;
+    createdAt: number;
 }
