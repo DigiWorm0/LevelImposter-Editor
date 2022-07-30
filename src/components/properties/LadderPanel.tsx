@@ -13,20 +13,6 @@ export default function LadderPanel() {
         <PanelContainer title="Ladder">
             <FormGroup>
                 <NumericInput
-                    key={selectedElem.id + "-range"}
-                    fill
-                    placeholder="Range"
-                    defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_CONSOLE_RANGE}
-                    min={0}
-                    minorStepSize={0.05}
-                    stepSize={0.1}
-                    majorStepSize={0.5}
-                    leftIcon="ring"
-                    onValueChange={(val) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, range: val } });
-                    }}
-                />
-                <NumericInput
                     key={selectedElem.id + "-ladderheight"}
                     fill
                     placeholder="Ladder Height"
