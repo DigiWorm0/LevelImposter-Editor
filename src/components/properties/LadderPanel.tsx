@@ -1,6 +1,6 @@
 import { FormGroup, NumericInput } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { DEFAULT_CONSOLE_RANGE, DEFAULT_LADDER_HEIGHTS } from "../../types/generic/Constants";
+import { DEFAULT_LADDER_HEIGHTS } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function LadderPanel() {

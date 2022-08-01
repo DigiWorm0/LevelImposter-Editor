@@ -7,6 +7,11 @@ export const DEFAULT_LADDER_HEIGHTS: Record<string, number> = {
     "util-ladder2": 1.5,
 }
 
+export const DEFAULT_PLATFORM_OFFSET = 3;
+export const DEFAULT_PLATFORM_ENTER = -1.5;
+export const DEFAULT_PLATFORM_EXIT = 1.5;
+export const PLATFORM_RADIUS = 0.4;
+
 export const LADDER_Y_OFFSET = -0.4;
 export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;

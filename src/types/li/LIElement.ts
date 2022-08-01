@@ -34,6 +34,14 @@ export default interface LIElement {
         // Ladder
         ladderHeight?: number;
 
+        // Platform
+        platformXOffset?: number;
+        platformYOffset?: number;
+        platformXEntranceOffset?: number;
+        platformYEntranceOffset?: number;
+        platformXExitOffset?: number;
+        platformYExitOffset?: number;
+
         // Task
         description?: string;
         taskLength?: string;

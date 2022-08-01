@@ -6,6 +6,7 @@ import ColliderEditor from "./ColliderEditor";
 import ColliderRender from "./ColliderRender";
 import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
+import PlatformRange from "./PlatformRange";
 import TaskParent from "./TaskParent";
 import VentConnections from "./VentConnections";
 
@@ -21,6 +22,7 @@ export default function SelectedMapElement() {
             <LadderRange />
             <TaskParent />
             <CameraRender />
+            <PlatformRange />
 
             <Group
                 x={selectedElem.x * UNITY_SCALE}

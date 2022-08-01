@@ -73,9 +73,10 @@ export default function Canvas() {
                         {elementIDs.map(elementID => (
                             <MapElement key={elementID} elementID={elementID} />
                         ))}
-                        <SelectedMapElement />
 
                         <CanvasGrid />
+                        <SelectedMapElement />
+
                         <MapSorter />
 
                     </Layer>

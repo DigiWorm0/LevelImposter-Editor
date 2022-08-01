@@ -56,6 +56,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Minimap",
         type: "util-minimap"
+    }, {
+        name: "Moving Platform",
+        type: "util-platform"
     },
     // Tasks
     {
