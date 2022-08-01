@@ -2,11 +2,13 @@ import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { DEFAULT_GUID } from "../../hooks/generateGUID";
 import { useSetMap } from "../../hooks/jotai/useMap";
+import useToaster from "../../hooks/useToaster";
 import LIMap from "../../types/li/LIMap";
 import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 
 export default function OpenButton() {
     const setMap = useSetMap();
+    const toaser = useToaster();
 
     const onOpen = () => {
         const input = document.createElement("input");
@@ -18,9 +20,18 @@ export default function OpenButton() {
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = () => {
-                const mapData = JSON.parse(reader.result as string) as LIMap;
+                const data = reader.result as string;
+                const mapData = JSON.parse(data) as LIMap;
                 repairMap(mapData);
                 setMap(mapData);
+
+                toaser.success(`Loaded ${mapData.name}`);
+                // 50mb limit
+                if (data.length > 1024 * 1024 * 50) {
+                    toaser.danger("Map is over the 50MB limit for uploads. It is reccommended you remove or compress large sprites or gifs before proceeding.");
+                } else if (data.length > 1024 * 1024 * 30) {
+                    toaser.warning("Map is near the 50MB limit for uploads. It is reccommended you remove or compress large sprites or gifs before proceeding.");
+                }
             }
             reader.readAsText(file);
         }

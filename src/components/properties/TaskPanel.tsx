@@ -39,7 +39,6 @@ export default function TaskPanel() {
         <MenuItem
             key={props.index + "-length"}
             text={length + " Task"}
-            label={props.index?.toString()}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}

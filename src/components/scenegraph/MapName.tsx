@@ -38,6 +38,7 @@ export default function MapName() {
                     autoFocus
                     large
                     value={name}
+                    maxLength={32}
                     onChange={(e) => setName(e.target.value)}
                     onBlur={() => setIsEditingName(false)}
                     onKeyDown={(e) => {

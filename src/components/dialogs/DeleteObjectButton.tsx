@@ -1,4 +1,4 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
@@ -18,7 +18,7 @@ export default function DeleteObjectButton() {
                 content="Remove the object"
                 position="bottom">
 
-                <Button
+                <AnchorButton
                     className={Classes.MINIMAL}
                     icon="cube-remove"
                     disabled={!selectedID}
