@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, FormGroup, InputGroup } from "@blueprintjs/core";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, UserCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, UserCredential } from "firebase/auth";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import React from "react";
 import { auth, db, githubProvider, googleProvider } from "../hooks/Firebase";
@@ -68,7 +68,10 @@ export default function SignIn() {
 
     const signUpWithEmail = () => {
         setIsSigningIn(true);
-        createUserWithEmailAndPassword(auth, email, password).then(onSignIn).catch((e) => {
+        createUserWithEmailAndPassword(auth, email, password).then((cred) => {
+            sendEmailVerification(cred.user);
+            onSignIn(cred);
+        }).catch((e) => {
             toaster.danger(e.message);
             setIsSigningIn(false);
         });
