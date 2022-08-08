@@ -84,7 +84,7 @@ export default function PublishButton() {
 
             setDoc(docRef, metadata).then(() => {
                 console.log(`Map published to firestore: ${docRef.path}`);
-                toaster.success("Map published successfully!", "https://levelimposter.net/map/" + mapData.id);
+                toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
                 setIsPublishing(false);
                 setIsOpen(false);
                 setMap(mapData);
