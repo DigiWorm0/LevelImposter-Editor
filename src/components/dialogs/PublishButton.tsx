@@ -31,6 +31,11 @@ export default function PublishButton() {
 
 
     const publishMap = (id?: GUID) => {
+        if (!user?.emailVerified) {
+            toaster.danger("You must verify your email before you can publish a map.");
+            return;
+        }
+
         setIsPublishing(true);
         setProgress(0);
 
