@@ -42,7 +42,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                         <br /><br />
                         By pressing "I Agree", you are agreeing to abide by these rules and to be bound by the terms of the Among Us Mod Policy.
                         <br /><br />
-                        A copy of these rules can be found at <a href="https://levelimposter.net/policy" target={"_blank"} rel="noreferrer">LevelImposter.net/Policy</a>
+                        A copy of these rules can be found at <a href="https://levelimposter.net/#/policy" target={"_blank"} rel="noreferrer">LevelImposter.net/#/Policy</a>
                     </p>
 
                     <ButtonGroup>
