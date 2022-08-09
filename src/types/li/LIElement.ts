@@ -14,6 +14,7 @@ export default interface LIElement {
     properties: {
         // Generic
         spriteData?: string;
+        noShadows?: boolean;
         colliders?: LICollider[];
         parent?: GUID;
 

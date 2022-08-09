@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@blueprintjs/core";
+import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import PanelContainer from "./PanelContainer";
@@ -77,6 +77,17 @@ export default function SpritePanel() {
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
+            {(selectedElem.type.startsWith("dec-") || selectedElem.type === "util-blank") && (
+                <Switch
+                    key={selectedElem.id + "-noShadows"}
+                    checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
+                    label="No Shadows"
+                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                    onChange={(e) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
+                    }}
+                />
+            )}
         </PanelContainer>
     );
 }
