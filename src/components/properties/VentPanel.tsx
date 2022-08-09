@@ -28,7 +28,7 @@ export default function VentPanel() {
             onFocus={props.handleFocus} />
     );
 
-    const hasVents = filteredVents.length > 1;
+    const hasVents = filteredVents.length >= 1;
 
     if (!selectedElem
         || !selectedElem.type.startsWith("util-vent"))
