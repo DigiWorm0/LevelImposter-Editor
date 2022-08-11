@@ -3,12 +3,14 @@ import React from "react";
 import { MaybeLIElement } from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
+import { useMapValue } from "./jotai/useMap";
 import { useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 
 export default function useCombos() {
     const [clipboard, setClipboard] = React.useState<MaybeLIElement>(undefined);
+    const map = useMapValue();
     const selectedElem = useSelectedElemValue();
     const addElement = useAddElementAtMouse();
     const removeElement = useRemoveElement();
@@ -113,8 +115,24 @@ export default function useCombos() {
                 }
             },
             preventDefault: true,
+        },
+        {
+            group: "Map",
+            label: "Save",
+            combo: "ctrl+s",
+            description: "Save map",
+            onKeyDown: () => {
+                const mapJSON = JSON.stringify(map);
+                const blob = new Blob([mapJSON], { type: "application/levelimposter.map" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = map.name + ".lim";
+                link.click();
+            },
+            preventDefault: true,
         }
-    ], [clipboard, selectedElem, addElement, removeElement, setSettings, setSelectedID]);
+    ], [clipboard, selectedElem, map, addElement, removeElement, setSettings, setSelectedID]);
     const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
 
     return { handleKeyDown, handleKeyUp };
