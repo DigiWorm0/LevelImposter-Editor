@@ -63,7 +63,16 @@ export default function useCombos() {
             onKeyDown: () => {
                 if (clipboard) {
                     const id = generateGUID();
-                    addElement({ ...clipboard, id });
+                    addElement({
+                        ...clipboard,
+                        id,
+                        properties: {
+                            ...clipboard.properties,
+                            colliders: [
+                                ...(clipboard.properties.colliders || []),
+                            ]
+                        }
+                    });
                     setSelectedID(id);
                 }
             },
@@ -77,7 +86,16 @@ export default function useCombos() {
             onKeyDown: () => {
                 if (selectedElem) {
                     const id = generateGUID();
-                    addElement({ ...selectedElem, id });
+                    addElement({
+                        ...selectedElem,
+                        id,
+                        properties: {
+                            ...selectedElem.properties,
+                            colliders: [
+                                ...(selectedElem.properties.colliders || []),
+                            ]
+                        }
+                    });
                     setSelectedID(id);
                 }
             },

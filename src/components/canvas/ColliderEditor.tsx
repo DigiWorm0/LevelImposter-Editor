@@ -77,7 +77,7 @@ export default function ColliderEditor() {
                         p.y = (e.target.y() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;
                     }}
                     onDragEnd={() => {
-                        setCollider({ ...collider });
+                        setCollider({ ...collider, points: collider.points.map((p) => ({ ...p })) });
                     }}
                     draggable
                 />

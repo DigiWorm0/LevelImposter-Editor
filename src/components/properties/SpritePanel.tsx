@@ -8,15 +8,18 @@ export default function SpritePanel() {
     const sprite = useSprite(selectedElem?.id);
 
     const onUploadClick = () => {
+        console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
         input.onchange = () => {
+            console.log("Uploaded File");
             if (input.files === null)
                 return;
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = () => {
+                console.log("Loaded File");
                 if (!selectedElem)
                     return;
                 setSelectedElem({
@@ -85,6 +88,17 @@ export default function SpritePanel() {
                     style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
                     onChange={(e) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
+                    }}
+                />
+            )}
+            {(selectedElem.properties.noShadows === true) && (
+                <Switch
+                    key={selectedElem.id + "-noShadowsBehaviour"}
+                    checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
+                    label="Shadow Behaviour"
+                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                    onChange={(e) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
                     }}
                 />
             )}

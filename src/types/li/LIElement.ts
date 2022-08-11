@@ -13,10 +13,13 @@ export default interface LIElement {
     rotation: number;
     properties: {
         // Generic
-        spriteData?: string;
-        noShadows?: boolean;
         colliders?: LICollider[];
         parent?: GUID;
+
+        // Sprite
+        spriteData?: string;
+        noShadows?: boolean;
+        noShadowsBehaviour?: boolean;
 
         // Vent
         leftVent?: GUID;
