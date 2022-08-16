@@ -1,5 +1,6 @@
 export const UNITY_SCALE = 100;
 export const DEFAULT_CONSOLE_RANGE = 1;
+export const DEFAULT_SPAWN_RANGE = 1.55;
 export const DEFAULT_CAM_SIZE = 6;
 export const DEFAULT_CAM_ASPECT = 1.5;
 export const DEFAULT_LADDER_HEIGHTS: Record<string, number> = {

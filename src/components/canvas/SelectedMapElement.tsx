@@ -7,6 +7,7 @@ import ColliderRender from "./ColliderRender";
 import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
 import PlatformRange from "./PlatformRange";
+import SpawnRange from "./SpawnRange";
 import TaskParent from "./TaskParent";
 import VentConnections from "./VentConnections";
 
@@ -19,6 +20,7 @@ export default function SelectedMapElement() {
         <>
             <VentConnections />
             <ConsoleRange />
+            <SpawnRange />
             <LadderRange />
             <TaskParent />
             <CameraRender />

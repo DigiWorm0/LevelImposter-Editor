@@ -30,6 +30,9 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                             Maps cannot state or suggest that your mod is official, licensed, or otherwise authorized by Innersloth.
                         </li>
                         <li style={{ margin: 5 }}>
+                            Maps cannot be in a broken or unusable state at time of publish.
+                        </li>
+                        <li style={{ margin: 5 }}>
                             You cannot hack, flood, DoS, or break the LevelImposter API in any way.
                         </li>
                         <li style={{ margin: 5 }}>

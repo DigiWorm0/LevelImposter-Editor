@@ -42,3 +42,19 @@ export default function useSprite(elementID: MaybeGUID, prioritizeType?: boolean
 
     return sprite;
 }
+
+export function useSpriteType(type: string) {
+    const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
+
+    React.useEffect(() => {
+        console.log(`Loading Sprite ${type}`);
+        const img = new window.Image();
+        img.src = "/sprites/" + type + ".png";
+        img.onload = () => {
+            console.log(`Loaded Sprite ${type}`);
+            setSprite(img);
+        };
+    }, [type]);
+
+    return sprite;
+}

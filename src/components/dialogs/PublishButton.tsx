@@ -190,7 +190,7 @@ export default function PublishButton() {
                         <Button
                             disabled={isPublishing}
                             icon={"saved"}
-                            text={"Update Existing"}
+                            text={"Replace Existing"}
                             intent={"danger"}
                             onClick={() => {
                                 publishMap();
