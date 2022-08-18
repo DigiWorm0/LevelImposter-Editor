@@ -11,11 +11,11 @@ export default function StarfieldRender() {
     const sprite = useSprite(selectedElem?.id);
     const [starPositions, setStarPositions] = React.useState<Array<{ x: number, y: number, speed: number }>>([]);
 
-    const height = selectedElem?.properties.starfieldHeight ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT;
-    const minSpeed = selectedElem?.properties.starfieldMinSpeed ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED;
-    const maxSpeed = selectedElem?.properties.starfieldMaxSpeed ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED;
-    const count = selectedElem?.properties.starfieldCount ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT;
-    const length = selectedElem?.properties.starfieldLength ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH;
+    const height = selectedElem?.properties.starfieldHeight !== undefined ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT;
+    const minSpeed = selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED;
+    const maxSpeed = selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED;
+    const count = selectedElem?.properties.starfieldCount !== undefined ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT;
+    const length = selectedElem?.properties.starfieldLength !== undefined ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH;
 
     React.useEffect(() => {
         const interval = setInterval(() => {
@@ -68,7 +68,6 @@ export default function StarfieldRender() {
                 return (
                     <Image
                         key={i}
-                        opacity={0.5}
                         x={x - w / 2}
                         y={y - h / 2}
                         image={sprite}
