@@ -46,6 +46,13 @@ export default interface LIElement {
         platformXExitOffset?: number;
         platformYExitOffset?: number;
 
+        // Star Field
+        starfieldMinSpeed?: number;
+        starfieldMaxSpeed?: number;
+        starfieldCount?: number;
+        starfieldHeight?: number;
+        starfieldLength?: number;
+
         // Task
         description?: string;
         taskLength?: string;

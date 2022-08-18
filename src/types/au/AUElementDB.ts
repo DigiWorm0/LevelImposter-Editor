@@ -59,6 +59,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Moving Platform",
         type: "util-platform"
+    }, {
+        name: "Star Field",
+        type: "util-starfield"
     },
     // Tasks
     {

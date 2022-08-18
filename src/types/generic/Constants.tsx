@@ -13,6 +13,12 @@ export const DEFAULT_PLATFORM_ENTER = -1.5;
 export const DEFAULT_PLATFORM_EXIT = 1.5;
 export const PLATFORM_RADIUS = 0.4;
 
+export const DEFAULT_STARFIELD_MAXSPEED = 4;
+export const DEFAULT_STARFIELD_MINSPEED = 2;
+export const DEFAULT_STARFIELD_COUNT = 100;
+export const DEFAULT_STARFIELD_HEIGHT = 10;
+export const DEFAULT_STARFIELD_LENGTH = 10;
+
 export const LADDER_Y_OFFSET = -0.4;
 export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;

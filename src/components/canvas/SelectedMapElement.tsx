@@ -8,6 +8,7 @@ import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
 import PlatformRange from "./PlatformRange";
 import SpawnRange from "./SpawnRange";
+import StarfieldRender from "./StarfieldRender";
 import TaskParent from "./TaskParent";
 import VentConnections from "./VentConnections";
 
@@ -35,6 +36,7 @@ export default function SelectedMapElement() {
 
                 <ColliderRender />
                 <ColliderEditor />
+                <StarfieldRender />
 
             </Group>
         </>
