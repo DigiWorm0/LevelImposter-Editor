@@ -53,7 +53,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
                             text="I Agree"
-                            intent="primary"
+                            intent="success"
                         />
                         <Button
                             onClick={props.onCancel}

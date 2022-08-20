@@ -15,11 +15,13 @@ import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import SignIn from "../SignIn";
 import AgreementDialog from "./AgreementDialog";
+import PublishInfoDialog from "./PublishInfoDialog";
 
 export default function PublishButton() {
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
+    const [isInfoOpen, setIsInfoOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
@@ -106,7 +108,7 @@ export default function PublishButton() {
     return (
         <>
             <Tooltip2
-                content={"Upload Map"}
+                content={"Publish Map"}
                 position="bottom">
 
                 <Button
@@ -213,12 +215,23 @@ export default function PublishButton() {
                 isOpen={isAgreementOpen}
                 onAgree={() => {
                     setIsAgreementOpen(false);
-                    publishMap(generateGUID());
+                    setIsInfoOpen(true);
                 }}
                 onCancel={() => {
                     setIsAgreementOpen(false);
                 }}
             />
+            <PublishInfoDialog
+                isOpen={isInfoOpen}
+                onAgree={() => {
+                    setIsInfoOpen(false);
+                    publishMap(generateGUID());
+                }}
+                onCancel={() => {
+                    setIsInfoOpen(false);
+                }}
+            />
+
         </>
     );
 }
