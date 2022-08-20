@@ -3,6 +3,7 @@ import { Group, Image, Rect } from "react-konva";
 import useMouseButtons from "../../hooks/input/useMouse";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useElement from "../../hooks/jotai/useElement";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -23,6 +24,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const [, , rightMouse, onMouseDown, onMouseUp] = useMouseButtons();
     const setMouseCursor = useSetMouseCursor();
     const settings = useSettingsValue();
+    const saveHistory = useSaveHistory();
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
@@ -45,6 +47,7 @@ export default function MapElement(props: { elementID: GUID }) {
             }}
             onDragStart={(e) => {
                 setSelectedID(props.elementID);
+                saveHistory();
             }}
             onDragMove={(e) => {
                 if (settings.isGridSnapEnabled) {
@@ -53,8 +56,8 @@ export default function MapElement(props: { elementID: GUID }) {
                         y: Math.round(e.target.y() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution
                     })
                 }
-                elem.x = e.target.x() / UNITY_SCALE;
-                elem.y = -e.target.y() / UNITY_SCALE;
+                //elem.x = e.target.x() / UNITY_SCALE;
+                //elem.y = -e.target.y() / UNITY_SCALE;
             }}
             onDragEnd={(e) => {
                 const x = e.target.x() / UNITY_SCALE;

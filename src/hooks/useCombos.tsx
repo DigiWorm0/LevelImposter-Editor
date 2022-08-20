@@ -3,6 +3,7 @@ import React from "react";
 import { MaybeLIElement } from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
+import { useSaveHistory, useUndo } from "./jotai/useHistory";
 import { useMapValue } from "./jotai/useMap";
 import { useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
@@ -11,12 +12,14 @@ import useToaster from "./useToaster";
 export default function useCombos() {
     const [clipboard, setClipboard] = React.useState<MaybeLIElement>(undefined);
     const map = useMapValue();
+    const undo = useUndo();
     const selectedElem = useSelectedElemValue();
     const addElement = useAddElementAtMouse();
     const removeElement = useRemoveElement();
     const setSettings = useSetSettings();
     const setSelectedID = useSetSelectedElemID();
     const toaster = useToaster();
+    const saveHistory = useSaveHistory();
 
     const hotkeys = React.useMemo<HotkeyConfig[]>(() => [
         {
@@ -65,6 +68,7 @@ export default function useCombos() {
             onKeyDown: () => {
                 if (clipboard) {
                     const id = generateGUID();
+                    saveHistory();
                     addElement({
                         ...clipboard,
                         id,
@@ -88,6 +92,7 @@ export default function useCombos() {
             onKeyDown: () => {
                 if (selectedElem) {
                     const id = generateGUID();
+                    saveHistory();
                     addElement({
                         ...selectedElem,
                         id,
@@ -111,6 +116,7 @@ export default function useCombos() {
             onKeyDown: () => {
                 if (selectedElem) {
                     toaster.danger("Deleted " + selectedElem.name);
+                    saveHistory();
                     removeElement(selectedElem.id);
                 }
             },
@@ -129,6 +135,16 @@ export default function useCombos() {
                 link.href = url;
                 link.download = map.name + ".lim";
                 link.click();
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Map",
+            label: "Undo",
+            combo: "ctrl+z",
+            description: "Undo",
+            onKeyDown: () => {
+                undo();
             },
             preventDefault: true,
         }

@@ -1,6 +1,7 @@
 import { Button, ControlGroup, H5, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
@@ -15,6 +16,7 @@ export default function SabPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSprite(selectedElem?.id, true);
+    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
@@ -59,6 +61,7 @@ export default function SabPanel() {
                     items={roomElems}
                     itemRenderer={roomSelectRenderer}
                     onItemSelect={(room) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
                     }}>
 
@@ -72,6 +75,7 @@ export default function SabPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                     }}
                 />

@@ -32,6 +32,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     gridSnapResolution: 0.1
 };
 export const PROVIDER_SCOPE = "main";
+export const MAX_HISTORY_LENGTH = 20;
 
 // Map
 export const mapAtom = atomWithReset(DEFAULT_MAP);
@@ -51,7 +52,7 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
             const elements = get(elementsAtom);
             const index = elements.findIndex((e) => e.id === elem?.id);
             if (index >= 0 && elem) {
-                elements[index] = elem;
+                elements[index] = { ...elem };
                 set(elementsAtom, [...elements]);
             }
         }
@@ -88,7 +89,7 @@ export const selectedElemAtom = atom(
         const elements = get(elementsAtom);
         const index = elements.findIndex((e) => e.id === elem?.id);
         if (index >= 0 && elem) {
-            elements[index] = elem;
+            elements[index] = { ...elem };
             set(elementsAtom, [...elements]);
         }
     }
@@ -177,6 +178,35 @@ export const camXAtom = atom(-window.innerWidth / 2);
 export const camYAtom = atom(-window.innerHeight / 2);
 export const camZAtom = atom(1);
 
+// History
+export const historyAtom = atom<LIMap[]>([]);
+export const saveHistoryAtom = atom(null, (get, set) => {
+    const history = get(historyAtom);
+    const current = get(mapAtom);
+    history.push({ ...current, elements: [...current.elements] });
+    if (history.length > MAX_HISTORY_LENGTH)
+        history.shift();
+    set(historyAtom, [...history]);
+});
+export const undoHistoryAtom = atom(null, (get, set) => {
+    const history = get(historyAtom);
+    if (history.length > 0) {
+        const current = history[history.length - 1];
+        set(mapAtom, current);
+        history.pop();
+        set(historyAtom, [...history]);
+
+        const selectedID = get(selectedElemIDAtom);
+        if (selectedID && !current.elements.find(e => e.id === selectedID)) {
+            set(selectedElemIDAtom, undefined);
+            set(selectedColliderIDAtom, undefined);
+        }
+    }
+    else {
+        console.warn("No more history to undo");
+    }
+});
+
 // Debug Labels
 mapAtom.debugLabel = "map";
 mapNameAtom.debugLabel = "mapName";
@@ -193,3 +223,12 @@ selectedVentConnectionsAtom.debugLabel = "selectedVentConnections";
 settingsAtom.debugLabel = "settings";
 mouseXAtom.debugLabel = "mouseX";
 mouseYAtom.debugLabel = "mouseY";
+mouseCursorAtom.debugLabel = "mouseCursor";
+addElementAtMouseAtom.debugLabel = "addElementAtMouse";
+insertPointAtMouseAtom.debugLabel = "insertPointAtMouse";
+camXAtom.debugLabel = "camX";
+camYAtom.debugLabel = "camY";
+camZAtom.debugLabel = "camZ";
+historyAtom.debugLabel = "history";
+saveHistoryAtom.debugLabel = "saveHistory";
+undoHistoryAtom.debugLabel = "undoHistory";

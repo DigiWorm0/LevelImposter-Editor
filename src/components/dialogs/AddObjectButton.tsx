@@ -4,6 +4,7 @@ import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import AUElement from "../../types/au/AUElement";
@@ -16,9 +17,11 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
+    const saveHistory = useSaveHistory();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
+        saveHistory();
         addElement({
             name: elem.name,
             type: elem.type,

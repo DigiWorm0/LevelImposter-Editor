@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import PanelContainer from "./PanelContainer";
@@ -6,6 +7,7 @@ import PanelContainer from "./PanelContainer";
 export default function SpritePanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const sprite = useSprite(selectedElem?.id);
+    const saveHistory = useSaveHistory();
 
     const onUploadClick = () => {
         console.log("Showing Upload Dialog");
@@ -22,6 +24,7 @@ export default function SpritePanel() {
                 console.log("Loaded File");
                 if (!selectedElem)
                     return;
+                saveHistory();
                 setSelectedElem({
                     ...selectedElem,
                     properties: {
@@ -38,6 +41,7 @@ export default function SpritePanel() {
     const onResetClick = () => {
         if (!selectedElem)
             return;
+        saveHistory();
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -87,6 +91,7 @@ export default function SpritePanel() {
                     label="No Shadows"
                     style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
                     onChange={(e) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
                     }}
                 />
@@ -98,6 +103,7 @@ export default function SpritePanel() {
                     label="Shadow Behaviour"
                     style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
                     onChange={(e) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
                     }}
                 />

@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
@@ -10,6 +11,7 @@ export default function TransformPanel() {
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
+    const saveHistory = useSaveHistory();
 
     if (!selectedElem)
         return null;
@@ -25,7 +27,10 @@ export default function TransformPanel() {
                 defaultValue={selectedElem.name}
                 placeholder="Name"
                 large
-                onChange={(e) => { setSelectedElem({ ...selectedElem, name: e.target.value }); }}
+                onChange={(e) => {
+                    saveHistory();
+                    setSelectedElem({ ...selectedElem, name: e.target.value });
+                }}
             />
             {settings.isDevMode && (
                 <InputGroup
@@ -34,14 +39,20 @@ export default function TransformPanel() {
                     defaultValue={selectedElem.type}
                     placeholder="Type"
                     large
-                    onChange={(e) => { setSelectedElem({ ...selectedElem, type: e.target.value }); }}
+                    onChange={(e) => {
+                        saveHistory();
+                        setSelectedElem({ ...selectedElem, type: e.target.value });
+                    }}
                 />
             )}
             <ControlGroup fill>
                 <NumericInput
                     key={selectedElem.id + "-x"}
                     defaultValue={selectedElem.x}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, x: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, x: val });
+                    }}
                     fill
                     placeholder="X"
                     minorStepSize={0.01}
@@ -51,7 +62,10 @@ export default function TransformPanel() {
                 <NumericInput
                     key={selectedElem.id + "-y"}
                     defaultValue={selectedElem.y}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, y: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, y: val });
+                    }}
                     fill
                     placeholder="Y"
                     minorStepSize={0.01}
@@ -61,7 +75,10 @@ export default function TransformPanel() {
                 <NumericInput
                     key={selectedElem.id + "-z"}
                     defaultValue={selectedElem.z}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, z: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, z: val });
+                    }}
                     fill
                     placeholder="Z"
                     minorStepSize={0.01}
@@ -73,7 +90,10 @@ export default function TransformPanel() {
                 <NumericInput
                     key={selectedElem.id + "-xScale"}
                     defaultValue={selectedElem.xScale}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, xScale: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, xScale: val });
+                    }}
                     fill
                     leftIcon="arrows-horizontal"
                     placeholder="X Scale"
@@ -84,7 +104,10 @@ export default function TransformPanel() {
                 <NumericInput
                     key={selectedElem.id + "-yScale"}
                     defaultValue={selectedElem.yScale}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, yScale: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, yScale: val });
+                    }}
                     fill
                     leftIcon="arrows-vertical"
                     placeholder="Y Scale"
@@ -97,7 +120,10 @@ export default function TransformPanel() {
                 <NumericInput
                     key={selectedElem.id + "-rotation"}
                     defaultValue={selectedElem.rotation}
-                    onValueChange={(val) => { !isNaN(val) && setSelectedElem({ ...selectedElem, rotation: val }); }}
+                    onValueChange={(val) => {
+                        saveHistory();
+                        !isNaN(val) && setSelectedElem({ ...selectedElem, rotation: val });
+                    }}
                     fill
                     leftIcon="refresh"
                     placeholder="Rotation"
@@ -111,13 +137,20 @@ export default function TransformPanel() {
                     fill
                     icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
                     text={selectedElem.properties.isLocked ? "Unlock" : "Lock"}
-                    onClick={() => { setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } }); }}
+                    onClick={() => {
+                        saveHistory();
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } });
+                    }}
                 />
                 <Button
                     fill
                     icon="trash"
                     text="Remove"
-                    onClick={() => { removeElement(selectedElem.id); setSelectedID("" as GUID) }}
+                    onClick={() => {
+                        saveHistory();
+                        removeElement(selectedElem.id);
+                        setSelectedID("" as GUID)
+                    }}
                 />
             </ButtonGroup>
         </PanelContainer>

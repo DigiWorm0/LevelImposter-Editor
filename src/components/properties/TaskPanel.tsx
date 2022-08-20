@@ -1,6 +1,7 @@
 import { Button, ControlGroup, FormGroup, H5, InputGroup, MenuItem } from "@blueprintjs/core";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
@@ -17,6 +18,7 @@ export default function TaskPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
     const sprite = useSprite(selectedElem?.id, true);
+    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
@@ -71,6 +73,7 @@ export default function TaskPanel() {
                         items={roomElems}
                         itemRenderer={roomSelectRenderer}
                         onItemSelect={(room) => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
                         }}>
 
@@ -85,6 +88,7 @@ export default function TaskPanel() {
                         minimal
                         rightIcon="cross"
                         onClick={() => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                         }}
                     />
@@ -96,6 +100,7 @@ export default function TaskPanel() {
                         items={TaskLength}
                         itemRenderer={lengthSelectRenderer}
                         onItemSelect={(length) => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
                         }}>
 
@@ -110,6 +115,7 @@ export default function TaskPanel() {
                         minimal
                         rightIcon="cross"
                         onClick={() => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
                         }}
                     />
@@ -122,6 +128,7 @@ export default function TaskPanel() {
                         placeholder={"(Default Description)"}
                         defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                         onChange={(e) => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
                         }}
                     />
@@ -129,6 +136,7 @@ export default function TaskPanel() {
                         minimal
                         rightIcon="cross"
                         onClick={() => {
+                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
                         }}
                     />

@@ -16,11 +16,12 @@ export default function StarfieldPanel() {
                     key={selectedElem.id + "-count"}
                     fill
                     placeholder="Count"
-                    defaultValue={selectedElem?.properties.starfieldCount ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT}
+                    defaultValue={selectedElem?.properties.starfieldCount !== undefined ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT}
                     min={1}
                     minorStepSize={1}
                     stepSize={5}
                     majorStepSize={10}
+                    max={10000}
                     leftIcon="layout-sorted-clusters"
                     onValueChange={(val) => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, starfieldCount: val } });
@@ -32,7 +33,7 @@ export default function StarfieldPanel() {
                         key={selectedElem.id + "-length"}
                         fill
                         placeholder="Length"
-                        defaultValue={selectedElem?.properties.starfieldLength ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH}
+                        defaultValue={selectedElem?.properties.starfieldLength !== undefined ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH}
                         min={0}
                         minorStepSize={0.1}
                         stepSize={1}
@@ -46,7 +47,7 @@ export default function StarfieldPanel() {
                         key={selectedElem.id + "-height"}
                         fill
                         placeholder="Height"
-                        defaultValue={selectedElem?.properties.starfieldHeight ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT}
+                        defaultValue={selectedElem?.properties.starfieldHeight !== undefined ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT}
                         min={0}
                         minorStepSize={0.1}
                         stepSize={1}
@@ -63,8 +64,8 @@ export default function StarfieldPanel() {
                         key={selectedElem.id + "-maxspeed"}
                         fill
                         placeholder="Max Speed"
-                        defaultValue={selectedElem?.properties.starfieldMaxSpeed ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
-                        min={selectedElem?.properties.starfieldMinSpeed ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
+                        defaultValue={selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
+                        min={selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
                         minorStepSize={0.1}
                         stepSize={1}
                         majorStepSize={10}
@@ -77,8 +78,8 @@ export default function StarfieldPanel() {
                         key={selectedElem.id + "-minspeed"}
                         fill
                         placeholder="Min Speed"
-                        defaultValue={selectedElem?.properties.starfieldMinSpeed ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
-                        max={selectedElem?.properties.starfieldMaxSpeed ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
+                        defaultValue={selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
+                        max={selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
                         minorStepSize={0.1}
                         stepSize={1}
                         majorStepSize={10}
