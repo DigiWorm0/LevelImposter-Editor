@@ -1,8 +1,30 @@
-import { Button, IconName, MenuItem } from "@blueprintjs/core";
+import { Button, IconName, Intent, MenuItem } from "@blueprintjs/core";
 import useElement from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
+
+const ICON_DB: Record<string, IconName> = {
+    "util-blank": "media",
+    "util-minimap": "map",
+    "util-cam": "camera",
+    "util-dummy": "person",
+    "util-vitals": "pulse",
+    "util-room": "map-marker",
+    "util-computer": "desktop",
+    "util-admin": "globe-network",
+    "util-platform": "arrows-horizontal",
+    "util-ladder1": "arrows-vertical",
+    "util-ladder2": "arrows-vertical",
+    "util-starfield": "star",
+    "util-button1": "target",
+    "util-button2": "target",
+    "util-spawn1": "locate",
+    "util-spawn2": "locate",
+    "util-cams1": "video",
+    "util-cams2": "video",
+    "util-cams3": "video",
+}
 
 export default function MapHierarchyElement(props: { elementID: GUID }) {
     const [element, setElement] = useElement(props.elementID);
@@ -10,43 +32,51 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
     const saveHistory = useSaveHistory();
 
     const getIcon = (type: string): IconName => {
-        let icon: IconName = "cube";
-        if (type === "util-blank")
-            icon = "media";
-        else if (type.startsWith("task-"))
-            icon = "build";
+        let icon = ICON_DB[type];
+        if (icon)
+            return icon;
+        if (type.startsWith("task-"))
+            return "build";
         else if (type.startsWith("sab-"))
-            icon = "warning-sign";
-        else if (type === "util-minimap")
-            icon = "map";
-        else if (type === "util-cam")
-            icon = "camera";
-        else if (type === "util-dummy")
-            icon = "person";
-        else if (type.startsWith("util-button"))
-            icon = "widget-button";
-        else if (type.startsWith("util-spawn"))
-            icon = "locate";
+            return "warning-sign";
         else if (type.startsWith("util-"))
-            icon = "wrench";
-        return icon
+            return "wrench";
+        return "help";
+    }
+
+    const getIntent = (type: string): Intent => {
+        if (type === "util-blank")
+            return "none";
+        else if (type === "util-room")
+            return "success";
+        else if (type.startsWith("task-"))
+            return "primary";
+        else if (type.startsWith("sab-"))
+            return "danger";
+        else if (type.startsWith("util-"))
+            return "warning";
+        return "none";
     }
 
     if (element === undefined)
         return null;
 
     const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
+    const intent = getIntent(element.type);
+    const icon = getIcon(element.type);
 
     return (
         <MenuItem
-            icon={getIcon(element.type)}
+            icon={icon}
             text={element.name}
             selected={element.id === selectedID}
+            intent={intent}
             onClick={() => setSelectedID(element.id)}
             labelElement={
                 <Button
                     icon={isVisible ? "eye-open" : "eye-off"}
                     minimal={true}
+                    intent={intent}
                     small
                     onClick={() => {
                         saveHistory();
