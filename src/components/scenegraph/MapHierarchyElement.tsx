@@ -41,6 +41,8 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
             return "warning-sign";
         else if (type.startsWith("util-"))
             return "wrench";
+        else if (type.startsWith("dec-") || type.startsWith("room-"))
+            return "cube";
         return "help";
     }
 

@@ -122,7 +122,7 @@ export default function PublishButton() {
                 isOpen={isOpen && !isLoggedIn}
                 onClose={() => { setIsOpen(false) }}
                 title="Login"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <SignIn />
 
@@ -134,7 +134,7 @@ export default function PublishButton() {
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
                 title="Publish"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 

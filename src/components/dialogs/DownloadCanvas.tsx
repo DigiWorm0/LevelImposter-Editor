@@ -34,7 +34,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                 isOpen={props.isVisible}
                 onClose={() => props.setVisible(false)}
                 title="Download Map Image"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 {props.isVisible && (
                     <Stage

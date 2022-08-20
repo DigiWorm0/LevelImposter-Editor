@@ -7,6 +7,7 @@ import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
@@ -18,6 +19,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
     const saveHistory = useSaveHistory();
+    const settings = useSettingsValue();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
@@ -61,6 +63,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 onClose={() => { setIsOpen(false) }}
                 items={AUElementDB}
                 onItemSelect={(elem) => { handleClick(elem) }}
+                className={settings.isDarkMode === false ? "" : "bp4-dark"}
                 itemRenderer={(elem, props) => {
                     return (
                         <MenuItem

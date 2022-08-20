@@ -2,7 +2,7 @@ import { Rect, Shape } from "react-konva";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import { COLLIDER_RECT_SIZE, UNITY_SCALE } from "../../types/generic/Constants";
+import { COLLIDER_RECT_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, UNITY_SCALE } from "../../types/generic/Constants";
 
 
 export default function ColliderEditor() {
@@ -15,6 +15,8 @@ export default function ColliderEditor() {
     if (!collider
         || collider.points.length <= 0)
         return null;
+
+    const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
 
     return (
         <>
@@ -67,10 +69,10 @@ export default function ColliderEditor() {
                         setMouseCursor("default");
                     }}
                     onDragMove={(e) => {
-                        if (settings.isGridSnapEnabled) {
+                        if (settings.isGridSnapEnabled != false) {
                             e.target.position({
-                                x: Math.round(e.target.x() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution,
-                                y: Math.round(e.target.y() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution
+                                x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
+                                y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
                             })
                         }
                         p.x = (e.target.x() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;

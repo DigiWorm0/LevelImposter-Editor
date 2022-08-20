@@ -10,7 +10,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
                 title="LevelImposter API Policy"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 

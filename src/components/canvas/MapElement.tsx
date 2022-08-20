@@ -9,7 +9,7 @@ import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSe
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
-import { UNITY_SCALE } from "../../types/generic/Constants";
+import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 
 
@@ -32,6 +32,8 @@ export default function MapElement(props: { elementID: GUID }) {
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
     const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
+    const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
+    const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
 
     return (
         <Group
@@ -53,8 +55,8 @@ export default function MapElement(props: { elementID: GUID }) {
             onDragMove={(e) => {
                 if (settings.isGridSnapEnabled) {
                     e.target.position({
-                        x: Math.round(e.target.x() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution,
-                        y: Math.round(e.target.y() / UNITY_SCALE / settings.gridSnapResolution) * UNITY_SCALE * settings.gridSnapResolution
+                        x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
+                        y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
                     })
                 }
                 //elem.x = e.target.x() / UNITY_SCALE;
@@ -83,7 +85,7 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
-                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : 0.2)}
+                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}

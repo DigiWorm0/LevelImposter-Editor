@@ -23,14 +23,6 @@ export const DEFAULT_MAP: LIMap = {
     elements: [],
     properties: {},
 };
-export const DEFAULT_SETTINGS: LISettings = {
-    isDevMode: false,
-    isDarkMode: true,
-    isGridVisible: true,
-    isBrowserAccepted: false,
-    isGridSnapEnabled: true,
-    gridSnapResolution: 0.1
-};
 export const PROVIDER_SCOPE = "main";
 export const MAX_HISTORY_LENGTH = 20;
 
@@ -146,7 +138,7 @@ export const selectedVentConnectionsAtom = atom((get) => {
     const rightVent = vents.find(e => e.id === selectedElem.properties.rightVent);
     return [leftVent, middleVent, rightVent];
 });
-export const settingsAtom = atomWithStorage<LISettings>("settings", DEFAULT_SETTINGS);
+export const settingsAtom = atomWithStorage<LISettings>("settings", {});
 
 // Input
 export const mouseXAtom = atom(0);

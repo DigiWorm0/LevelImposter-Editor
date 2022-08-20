@@ -24,3 +24,6 @@ export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;
 export const GRID_SIZE = 25;
 export const COLLIDER_RECT_SIZE = 8;
+
+export const DEFAULT_GRID_SNAP_RESOLUTION = 0.1;
+export const DEFAULT_INVISIBLE_OPACITY = 0.2;

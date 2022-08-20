@@ -1,13 +1,18 @@
 import React from "react";
 import useMap from "../../hooks/jotai/useMap";
+import LIElement from "../../types/li/LIElement";
 
 export function MapSorter() {
     const [map, setMap] = useMap();
 
+    const getZ = (elem: LIElement) => {
+        return elem.z - ((elem.y - 25) / 1000 + 5);
+    }
+
     React.useEffect(() => {
         let isSorted = true;
         for (let i = 0; i < map.elements.length - 1; i++) {
-            if (map.elements[i].z < map.elements[i + 1].z) {
+            if (getZ(map.elements[i]) < getZ(map.elements[i + 1])) {
                 isSorted = false;
                 break;
             }
@@ -15,7 +20,7 @@ export function MapSorter() {
         if (!isSorted) {
             setMap({
                 ...map,
-                elements: map.elements.sort((a, b) => b.z - a.z)
+                elements: map.elements.sort((a, b) => getZ(b) - getZ(a))
             })
         }
     }, [map]);

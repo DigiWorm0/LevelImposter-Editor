@@ -24,7 +24,7 @@ export default function CheckMobile() {
                 isOpen={dialogText !== undefined}
                 onClose={() => setDialogText(undefined)}
                 title="Warning"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
                     <p>
