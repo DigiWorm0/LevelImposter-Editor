@@ -8,6 +8,7 @@ import OpenButton from "../components/dialogs/OpenButton";
 import PublishButton from "../components/dialogs/PublishButton";
 import SaveButton from "../components/dialogs/SaveButton";
 import SettingsButton from "../components/dialogs/SettingsButton";
+import UndoButton from "../components/dialogs/UndoButton";
 import MapName from "../components/scenegraph/MapName";
 
 export default function Topbar() {
@@ -28,6 +29,8 @@ export default function Topbar() {
                     <NavbarDivider />
                     <DeleteObjectButton />
                     <AddObjectButton />
+                    <NavbarDivider />
+                    <UndoButton />
 
 
                 </NavbarGroup>
