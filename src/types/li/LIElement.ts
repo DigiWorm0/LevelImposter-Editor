@@ -59,6 +59,7 @@ export default interface LIElement {
 
         // Editor
         isLocked?: boolean;
+        isVisible?: boolean;
     };
 }
 

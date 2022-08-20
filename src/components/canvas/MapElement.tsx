@@ -26,11 +26,12 @@ export default function MapElement(props: { elementID: GUID }) {
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    const w = sprite ? sprite.width : 0;
-    const h = sprite ? sprite.height : 0;
-
     if (!elem)
         return null;
+
+    const w = sprite ? sprite.width : 0;
+    const h = sprite ? sprite.height : 0;
+    const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
 
     return (
         <Group
@@ -78,11 +79,11 @@ export default function MapElement(props: { elementID: GUID }) {
                 setHovering(false);
                 setMouseCursor("default");
             }}
-            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded}
-            listening={!rightMouse && !isColliderSelected && !isEmbeded}>
+            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded && isVisible}
+            listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
-                opacity={isColliderSelected ? 0.5 : 1}
+                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : 0.2)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}
