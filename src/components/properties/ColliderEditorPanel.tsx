@@ -8,6 +8,8 @@ export default function ColliderEditorPanel() {
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const selectedCollider = useSelectedColliderValue();
 
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2";
+
     const delCollider = (collider: LICollider) => {
         if (!selectedElem)
             return;
@@ -27,7 +29,7 @@ export default function ColliderEditorPanel() {
             <Switch
                 label="Is Solid"
                 checked={selectedCollider.isSolid}
-                disabled={selectedElem.type === "util-room"}
+                disabled={isRestricted}
                 onChange={(e) => {
                     selectedCollider.isSolid = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
@@ -35,7 +37,7 @@ export default function ColliderEditorPanel() {
             <Switch
                 label="Blocks Light"
                 checked={selectedCollider.blocksLight}
-                disabled={selectedElem.type === "util-room"}
+                disabled={isRestricted}
                 onChange={(e) => {
                     selectedCollider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });

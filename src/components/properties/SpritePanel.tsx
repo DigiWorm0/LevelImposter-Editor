@@ -55,7 +55,9 @@ export default function SpritePanel() {
         || selectedElem.type === "util-player"
         || selectedElem.type === "util-room"
         || selectedElem.type === "util-spawn1"
-        || selectedElem.type === "util-spawn2")
+        || selectedElem.type === "util-spawn2"
+        || selectedElem.type === "util-sound1"
+        || selectedElem.type === "util-sound2")
 
         return null;
 

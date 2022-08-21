@@ -10,6 +10,8 @@ export default function ColliderPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
 
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2";
+
     const addCollider = () => {
         if (!selectedElem)
             return;
@@ -18,8 +20,8 @@ export default function ColliderPanel() {
 
         const collider = {
             id: generateGUID(),
-            blocksLight: selectedElem.type !== "util-room",
-            isSolid: selectedElem.type === "util-room",
+            blocksLight: !isRestricted,
+            isSolid: isRestricted,
             points: [
                 { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 },

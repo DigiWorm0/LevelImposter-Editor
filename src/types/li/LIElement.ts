@@ -16,6 +16,11 @@ export default interface LIElement {
         colliders?: LICollider[];
         parent?: GUID;
 
+        // Sound
+        soundID?: GUID;
+        soundIDs?: GUID[];
+        soundVolume?: number;
+
         // Sprite
         spriteData?: string;
         noShadows?: boolean;

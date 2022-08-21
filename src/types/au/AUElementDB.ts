@@ -63,10 +63,14 @@ const AUElementDB: AUElement[] = [
         name: "Star Field",
         type: "util-starfield"
     },
-    /*{
-        name: "Sound Emitter",      // TODO: Implement Sound Emitter
-        type: "util-sound"
-    },*/
+    {
+        name: "Ambient Sound",
+        type: "util-sound1"
+    },
+    {
+        name: "Footstep Sound",
+        type: "util-sound2"
+    },
     // Tasks
     {
         name: "Card Swipe",

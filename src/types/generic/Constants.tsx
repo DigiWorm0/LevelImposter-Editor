@@ -27,3 +27,5 @@ export const COLLIDER_RECT_SIZE = 8;
 
 export const DEFAULT_GRID_SNAP_RESOLUTION = 0.1;
 export const DEFAULT_INVISIBLE_OPACITY = 0.2;
+
+export const DEFAULT_VOLUME = 1;

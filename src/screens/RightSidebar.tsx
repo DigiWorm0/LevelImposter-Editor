@@ -1,3 +1,4 @@
+import AmbientSoundPanel from "../components/properties/AmbientSoundPanel";
 import CamPanel from "../components/properties/CamPanel";
 import ColliderPanel from "../components/properties/ColliderPanel";
 import ConsolePanel from "../components/properties/ConsolePanel";
@@ -24,6 +25,7 @@ export default function RightSidebar() {
             <VentPanel />
             <CamPanel />
             <PlatformPanel />
+            <AmbientSoundPanel />
             <ColliderPanel />
             <MinimapPanel />
 
