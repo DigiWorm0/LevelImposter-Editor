@@ -1,4 +1,5 @@
-import { Button, Card, Intent, Menu, MenuItem } from "@blueprintjs/core";
+import { Button, Card, Intent, Menu } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -46,7 +47,7 @@ export default function DebugPanel() {
                     const stringValue = (value !== undefined && value !== null) ? value.toString() : "UNDEFINED";
                     return (
                         <>
-                            <MenuItem
+                            <MenuItem2
                                 key={key}
                                 text={key}
                                 intent={TYPE_INTENTS[typeof value]}

@@ -1,4 +1,5 @@
-import { Button, ControlGroup, FormGroup, H5, InputGroup, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, FormGroup, H5, InputGroup } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
@@ -28,7 +29,7 @@ export default function TaskPanel() {
     }, [selectedElem]);
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem
+        <MenuItem2
             key={elem.type + props.index + "-room"}
             text={elem.name}
             label={elem.type}
@@ -38,7 +39,7 @@ export default function TaskPanel() {
             onFocus={props.handleFocus} />
     );
     const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (
-        <MenuItem
+        <MenuItem2
             key={props.index + "-length"}
             text={length + " Task"}
             active={props.modifiers.active}

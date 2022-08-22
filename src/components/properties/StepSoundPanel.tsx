@@ -1,4 +1,5 @@
-import { Button, FormGroup, Menu, MenuItem, NumericInput } from "@blueprintjs/core";
+import { Button, FormGroup, Menu, NumericInput } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from "../../hooks/generateGUID";
@@ -23,7 +24,7 @@ export default function StepSoundPanel() {
     }
 
     const soundPresetSelectRenderer: ItemRenderer<string> = (soundPreset, props) => (
-        <MenuItem
+        <MenuItem2
             key={soundPreset + props.index + "-soundPreset"}
             text={soundPreset}
             active={props.modifiers.active}
@@ -81,7 +82,7 @@ export default function StepSoundPanel() {
 
                     return (
                         <div key={soundID + + "-" + index}>
-                            <MenuItem
+                            <MenuItem2
                                 icon="volume-up"
                                 text={"Step Variant " + (index + 1)}
                                 onClick={() => editSound(soundID)}

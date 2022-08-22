@@ -1,4 +1,5 @@
-import { Button, IconName, Intent, MenuItem } from "@blueprintjs/core";
+import { Button, IconName, Intent } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import useElement from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
@@ -68,7 +69,7 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
     const icon = getIcon(element.type);
 
     return (
-        <MenuItem
+        <MenuItem2
             icon={icon}
             text={element.name}
             selected={element.id === selectedID}
@@ -85,7 +86,6 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
                         setElement({ ...element, properties: { ...element.properties, isVisible: !isVisible } });
                     }}
                 />
-            }
-        />
+            } />
     );
 }

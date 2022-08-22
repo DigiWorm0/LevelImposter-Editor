@@ -6,7 +6,7 @@ import PanelContainer from "./PanelContainer";
 
 export default function MinimapPanel() {
     const [isVisible, setVisible] = React.useState(false);
-    const [element, setElement] = useSelectedElem();
+    const [element] = useSelectedElem();
 
     if (!element
         || element.type !== "util-minimap")

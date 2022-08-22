@@ -1,4 +1,5 @@
-import { Button, ControlGroup, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -20,7 +21,7 @@ export default function VentPanel() {
     const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
 
     const ventSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem
+        <MenuItem2
             key={elem.type + props.index}
             text={elem.name}
             label={elem.type}

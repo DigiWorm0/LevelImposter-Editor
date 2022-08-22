@@ -1,4 +1,5 @@
-import { Button, ControlGroup, H5, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, H5 } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
@@ -26,7 +27,7 @@ export default function SabPanel() {
     }, [selectedElem]);
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem
+        <MenuItem2
             key={elem.type + props.index}
             text={elem.name}
             label={elem.type}

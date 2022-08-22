@@ -1,4 +1,5 @@
-import { Menu, MenuItem } from "@blueprintjs/core";
+import { Menu } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -57,7 +58,7 @@ export default function ColliderPanel() {
     return (
         <PanelContainer title="Colliders">
             <Menu>
-                <MenuItem
+                <MenuItem2
                     icon="add"
                     text="Add Collider"
                     disabled={selectedElem.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0}
@@ -66,7 +67,7 @@ export default function ColliderPanel() {
                 {selectedElem.properties.colliders?.map((collider, index) => {
                     return (
                         <div key={collider.id + + "-" + index}>
-                            <MenuItem
+                            <MenuItem2
                                 icon="edit"
                                 text={"Collider " + (index + 1)}
                                 onClick={() => editCollider(collider)}

@@ -1,5 +1,5 @@
-import { Button, Classes, MenuItem } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Button, Classes } from "@blueprintjs/core";
+import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
@@ -66,7 +66,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 className={settings.isDarkMode === false ? "" : "bp4-dark"}
                 itemRenderer={(elem, props) => {
                     return (
-                        <MenuItem
+                        <MenuItem2
                             key={elem.type}
                             text={elem.name}
                             label={elem.type}
@@ -91,7 +91,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 }}
                 createNewItemRenderer={(query, isActive, onClick) => {
                     return (
-                        <MenuItem
+                        <MenuItem2
                             icon="add"
                             text={"Create '" + query + "'"}
                             label={"util-blank"}
