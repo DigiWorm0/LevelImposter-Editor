@@ -1,5 +1,6 @@
 import React from "react";
 import useMap from "../../hooks/jotai/useMap";
+import GUID from "../../types/generic/GUID";
 import LIElement from "../../types/li/LIElement";
 
 export function MapSorter() {
@@ -22,6 +23,41 @@ export function MapSorter() {
                 ...map,
                 elements: map.elements.sort((a, b) => getZ(b) - getZ(a))
             })
+        }
+    }, [map]);
+
+    // Garbage Collection
+    React.useEffect(() => {
+        if (!map.properties.resources)
+            return;
+        const resourceIDs: GUID[] = [];
+        map.elements.forEach((e) => {
+            //if (e.properties.spriteID)
+            //    resourceIDs.push(e.properties.spriteID);
+            if (e.properties.soundID)
+                resourceIDs.push(e.properties.soundID);
+            if (e.properties.soundIDs)
+                resourceIDs.push(...e.properties.soundIDs);
+        });
+        const resourceKeys = Object.keys(map.properties.resources) as GUID[];
+        let hasGarbageResources = false;
+        for (const resourceID of resourceKeys) {
+            if (resourceIDs.includes(resourceID))
+                continue;
+            delete map.properties.resources[resourceID];
+            console.warn(`Garbage collected resource ${resourceID}`);
+            hasGarbageResources = true;
+        }
+        if (hasGarbageResources) {
+            setMap({
+                ...map,
+                properties: {
+                    ...map.properties,
+                    resources: {
+                        ...map.properties.resources
+                    }
+                }
+            });
         }
     }, [map]);
 
