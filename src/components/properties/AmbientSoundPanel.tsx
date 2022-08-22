@@ -50,13 +50,6 @@ export default function AmbientSoundPanel() {
         if (!selectedElem)
             return;
         saveHistory();
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                soundID: undefined
-            }
-        });
         setSound(undefined);
     }
     if (!selectedElem || selectedElem.type !== "util-sound1")

@@ -1,20 +1,20 @@
 import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
-import { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
+import useSelectedCollider, { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import LICollider from "../../types/li/LICollider";
 
 export default function ColliderEditorPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
-    const selectedCollider = useSelectedColliderValue();
+    const [selectedCollider, setSelectedCollider] = useSelectedCollider();
 
     const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2";
 
     const delCollider = (collider: LICollider) => {
         if (!selectedElem)
             return;
-        selectedElem.properties.colliders = selectedElem.properties.colliders?.filter(c => c.id !== collider.id);
-        setSelectedElem(selectedElem);
+        const colliders = selectedElem.properties.colliders?.filter(c => c.id !== collider.id);
+        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, colliders } });
         if (selectedColliderID === collider.id)
             setSelectedColliderID(undefined);
     }
@@ -51,14 +51,17 @@ export default function ColliderEditorPanel() {
                     onValueChange={(value) => {
                         if (value < 0)
                             return;
+                        const points = [];
                         for (let i = 0; i < value; i++) {
-                            if (selectedCollider.points[i] == null)
-                                selectedCollider.points[i] = { x: 0, y: 0 };
+                            if (i < selectedCollider.points.length)
+                                points.push({
+                                    x: selectedCollider.points[i].x,
+                                    y: selectedCollider.points[i].y
+                                });
+                            else
+                                points.push({ x: 0, y: 0 });
                         }
-                        for (let i = selectedCollider.points.length - 1; i >= value; i--) {
-                            selectedCollider.points.splice(i, 1);
-                        }
-                        setSelectedElem({ ...selectedElem });
+                        setSelectedCollider({ ...selectedCollider, points: points });
                     }} />
             </FormGroup>
             <div>
@@ -72,8 +75,12 @@ export default function ColliderEditorPanel() {
                             majorStepSize={0.1}
                             value={point.x.toString()}
                             onValueChange={(value) => {
-                                selectedCollider.points[index].x = value;
-                                setSelectedElem({ ...selectedElem });
+                                const points = selectedCollider.points.map((p, i) => {
+                                    if (i === index)
+                                        return { x: value, y: p.y };
+                                    return p;
+                                });
+                                setSelectedCollider({ ...selectedCollider, points });
                             }} />
                         <NumericInput
                             fill
@@ -83,8 +90,12 @@ export default function ColliderEditorPanel() {
                             majorStepSize={0.1}
                             value={point.y.toString()}
                             onValueChange={(value) => {
-                                selectedCollider.points[index].y = value;
-                                setSelectedElem({ ...selectedElem });
+                                const points = selectedCollider.points.map((p, i) => {
+                                    if (i === index)
+                                        return { x: p.x, y: value };
+                                    return p;
+                                });
+                                setSelectedCollider({ ...selectedCollider, points });
                             }} />
                     </ControlGroup>
                 ))}
