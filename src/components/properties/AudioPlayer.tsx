@@ -1,7 +1,8 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
 
-const UPDATE_INTERVAL = 100;
+const MAJOR_UPDATE_INTERVAL = 1;
+const MINOR_UPDATE_INTERVAL = 0.01;
 
 export default function AudioPlayer(props: { audioData?: string, volume: number, onVolumeChange: (volume: number) => void }) {
     const audioRef = React.useRef<HTMLAudioElement>(null);
@@ -14,12 +15,12 @@ export default function AudioPlayer(props: { audioData?: string, volume: number,
                 return;
             setProgress(audioRef.current.currentTime);
             setDuration(audioRef.current.duration);
-        }, UPDATE_INTERVAL);
+        }, duration > 10 ? MAJOR_UPDATE_INTERVAL : MINOR_UPDATE_INTERVAL);
 
         return () => {
             clearInterval(interval);
         }
-    }, [audioRef]);
+    }, [audioRef, duration]);
 
     React.useEffect(() => {
         if (!audioRef.current)
@@ -95,7 +96,7 @@ export default function AudioPlayer(props: { audioData?: string, volume: number,
                     />
                 </>
             ) : (
-                <p>No Audio Uploaded</p>
+                <p>(No Audio Uploaded)</p>
             )}
         </div>
     );

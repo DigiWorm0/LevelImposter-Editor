@@ -8,6 +8,7 @@ import PlatformPanel from "../components/properties/PlatformPanel";
 import SabPanel from "../components/properties/SabPanel";
 import SpritePanel from "../components/properties/SpritePanel";
 import StarfieldPanel from "../components/properties/StarfieldPanel";
+import StepSoundPanel from "../components/properties/StepSoundPanel";
 import TaskPanel from "../components/properties/TaskPanel";
 import TransformPanel from "../components/properties/TransformPanel";
 import VentPanel from "../components/properties/VentPanel";
@@ -26,6 +27,7 @@ export default function RightSidebar() {
             <CamPanel />
             <PlatformPanel />
             <AmbientSoundPanel />
+            <StepSoundPanel />
             <ColliderPanel />
             <MinimapPanel />
 
