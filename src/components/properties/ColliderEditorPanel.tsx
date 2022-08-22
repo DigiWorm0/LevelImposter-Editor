@@ -2,6 +2,7 @@ import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from 
 import useSelectedCollider, { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import LICollider from "../../types/li/LICollider";
+import DevInfo from "../DevInfo";
 
 export default function ColliderEditorPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -25,6 +26,10 @@ export default function ColliderEditorPanel() {
     return (
         <Card>
             <H6>Edit Collider:</H6>
+
+            <DevInfo>
+                {selectedCollider.id}
+            </DevInfo>
 
             <Switch
                 label="Is Solid"

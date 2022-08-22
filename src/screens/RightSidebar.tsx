@@ -2,6 +2,7 @@ import AmbientSoundPanel from "../components/properties/AmbientSoundPanel";
 import CamPanel from "../components/properties/CamPanel";
 import ColliderPanel from "../components/properties/ColliderPanel";
 import ConsolePanel from "../components/properties/ConsolePanel";
+import DebugPanel from "../components/properties/DebugPanel";
 import LadderPanel from "../components/properties/LadderPanel";
 import MinimapPanel from "../components/properties/MinimapPanel";
 import PlatformPanel from "../components/properties/PlatformPanel";
@@ -17,6 +18,7 @@ export default function RightSidebar() {
     return (
         <div className="right-sidebar">
             <TransformPanel />
+            <DebugPanel />
             <SpritePanel />
             <TaskPanel />
             <SabPanel />
@@ -30,6 +32,7 @@ export default function RightSidebar() {
             <StepSoundPanel />
             <ColliderPanel />
             <MinimapPanel />
+
 
             <div style={{ height: 40 }} />
         </div>

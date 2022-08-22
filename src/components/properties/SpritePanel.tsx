@@ -2,6 +2,7 @@ import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
+import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
 export default function SpritePanel() {
@@ -63,6 +64,9 @@ export default function SpritePanel() {
 
     return (
         <PanelContainer title="Sprite">
+            <DevInfo>
+                {sprite ? (sprite.src.length > 30 ? "..." + sprite.src.substring(sprite.src.length - 30, sprite.src.length) : sprite.src) : "No Sprite"}
+            </DevInfo>
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}

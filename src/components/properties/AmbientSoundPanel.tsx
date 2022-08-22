@@ -4,6 +4,7 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useResource from "../../hooks/useResource";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
+import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
 import PanelContainer from "./PanelContainer";
 
@@ -56,6 +57,12 @@ export default function AmbientSoundPanel() {
     return (
         <PanelContainer title="Ambient Sound">
             <FormGroup>
+                <DevInfo>
+                    {soundID}
+                </DevInfo>
+                <DevInfo>
+                    {sound?.length}
+                </DevInfo>
 
                 <AudioPlayer
                     audioData={sound}

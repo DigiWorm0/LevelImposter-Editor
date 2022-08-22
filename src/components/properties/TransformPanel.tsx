@@ -4,6 +4,7 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
+import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
 export default function TransformPanel() {
@@ -18,9 +19,10 @@ export default function TransformPanel() {
 
     return (
         <PanelContainer title="Transform">
-            {settings.isDevMode && (
-                <p style={{ fontSize: 12, textAlign: "center" }}>{selectedElem.id}</p>
-            )}
+            <DevInfo>
+                {selectedElem.id}
+            </DevInfo>
+
             <InputGroup
                 style={{ marginBottom: 5 }}
                 key={selectedElem.id + "-name"}
