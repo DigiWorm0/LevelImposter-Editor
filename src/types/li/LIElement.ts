@@ -17,8 +17,8 @@ export default interface LIElement {
         parent?: GUID;
 
         // Sound
-        soundID?: GUID;
-        soundIDs?: GUID[];
+        soundID?: string;
+        soundIDs?: string[];
         soundVolume?: number;
 
         // Sprite

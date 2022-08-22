@@ -1,3 +1,4 @@
+import React from "react";
 import GUID from "../types/generic/GUID";
 
 /**
@@ -11,5 +12,20 @@ export default function generateGUID(): GUID {
     }) as GUID;
 }
 
-const DEFAULT_GUID = "00000000-0000-0000-0000-000000000000" as GUID;
-export { DEFAULT_GUID };
+export const DEFAULT_GUID = "00000000-0000-0000-0000-000000000000" as GUID;
+export function useID(inputID?: string): string {
+    const [id, setID] = React.useState<string>(inputID || DEFAULT_GUID);
+    React.useEffect(() => {
+        if (!inputID)
+            setID(generateGUID());
+    }, []);
+    return id;
+}
+export function useGUID(inputGUID?: GUID): GUID {
+    const [guid, setGUID] = React.useState<GUID>(inputGUID || DEFAULT_GUID);
+    React.useEffect(() => {
+        if (!inputGUID)
+            setGUID(generateGUID());
+    }, []);
+    return guid;
+}

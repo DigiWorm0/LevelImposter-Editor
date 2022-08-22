@@ -1,23 +1,36 @@
-import { Card, FormGroup, Menu, MenuItem, NumericInput } from "@blueprintjs/core";
+import { Button, FormGroup, Menu, MenuItem, NumericInput } from "@blueprintjs/core";
+import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import PanelContainer from "./PanelContainer";
 import StepSoundEditorPanel from "./StepSoundEditorPanel";
 
+const SoundPresetSelect = Select2.ofType<string>();
+
 export default function StepSoundPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = React.useState<MaybeGUID>(undefined);
+    const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
     const soundIDs = selectedElem?.properties.soundIDs || [];
 
-    const editSound = (soundID: GUID) => {
+    const editSound = (soundID: string) => {
         if (soundID === selectedSoundID)
             setSelectedSoundID(undefined);
         else
             setSelectedSoundID(soundID);
     }
+
+    const soundPresetSelectRenderer: ItemRenderer<string> = (soundPreset, props) => (
+        <MenuItem
+            key={soundPreset + props.index + "-soundPreset"}
+            text={soundPreset}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus} />
+    );
 
     if (!selectedElem
         || selectedElem.type !== "util-sound2")
@@ -25,26 +38,44 @@ export default function StepSoundPanel() {
 
     return (
         <PanelContainer title="Step Sounds">
-            <Menu>
-                <FormGroup label="Step Variants">
-                    <NumericInput
-                        fill
-                        min={1}
-                        value={soundIDs.length}
-                        onValueChange={(value) => {
-                            if (value < 0)
-                                return;
-                            for (let i = 0; i < value; i++) {
-                                if (soundIDs[i] == null)
-                                    soundIDs[i] = generateGUID();
-                            }
-                            for (let i = soundIDs.length - 1; i >= value; i--) {
-                                soundIDs.splice(i, 1);
-                            }
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundIDs } });
-                        }} />
-                </FormGroup>
 
+            <SoundPresetSelect
+                fill
+                filterable={false}
+                items={Object.keys(PRESET_RESOURCE_IDS)}
+                itemRenderer={soundPresetSelectRenderer}
+                onItemSelect={(soundPreset) => {
+                    const resourceIDs = PRESET_RESOURCE_IDS[soundPreset];
+                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundIDs: resourceIDs } });
+                }}>
+
+                <Button
+                    rightIcon="caret-down"
+                    text={"Sound Presets"}
+                    fill
+                />
+            </SoundPresetSelect>
+
+            <FormGroup label="Step Variants" style={{ marginTop: 10 }}>
+                <NumericInput
+                    fill
+                    min={0}
+                    value={soundIDs.length}
+                    onValueChange={(value) => {
+                        if (value < 0)
+                            return;
+                        for (let i = 0; i < value; i++) {
+                            if (soundIDs[i] == null)
+                                soundIDs[i] = generateGUID();
+                        }
+                        for (let i = soundIDs.length - 1; i >= value; i--) {
+                            soundIDs.splice(i, 1);
+                        }
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundIDs } });
+                    }} />
+            </FormGroup>
+
+            <Menu>
                 {selectedElem.properties.soundIDs?.map((soundID, index) => {
                     const isSelected = selectedSoundID === soundID;
 

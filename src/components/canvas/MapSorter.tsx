@@ -30,7 +30,7 @@ export function MapSorter() {
     React.useEffect(() => {
         if (!map.properties.resources)
             return;
-        const resourceIDs: GUID[] = [];
+        const resourceIDs: string[] = [];
         map.elements.forEach((e) => {
             //if (e.properties.spriteID)
             //    resourceIDs.push(e.properties.spriteID);

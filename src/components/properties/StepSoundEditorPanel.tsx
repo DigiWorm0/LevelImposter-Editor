@@ -3,20 +3,17 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useResource from "../../hooks/useResource";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import GUID from "../../types/generic/GUID";
 import AudioPlayer from "./AudioPlayer";
 
-export default function StepSoundEditorPanel(props: { soundID: GUID, onClose: () => void }) {
+export default function StepSoundEditorPanel(props: { soundID: string, onClose: () => void }) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [, sound, setSound] = useResource(props.soundID);
+    const [sound, setSound] = useResource(props.soundID);
     const saveHistory = useSaveHistory();
-
-    const soundIDs = selectedElem?.properties.soundIDs || [];
 
     const onDeleteClick = () => {
         if (!selectedElem)
             return;
-        selectedElem.properties.soundIDs = soundIDs.filter(id => id !== props.soundID);
+        selectedElem.properties.soundIDs = selectedElem.properties.soundIDs?.filter(id => id !== props.soundID);
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -80,7 +77,6 @@ export default function StepSoundEditorPanel(props: { soundID: GUID, onClose: ()
                 <Button
                     icon="trash"
                     intent="danger"
-                    disabled={soundIDs.length <= 1}
                     onClick={() => onDeleteClick()} />
             </div>
         </Card>

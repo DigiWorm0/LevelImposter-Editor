@@ -1,5 +1,81 @@
 import AUElement from "./AUElement";
 
+export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
+    "Carpet": [
+        "FootstepCarpet01.wav",
+        "FootstepCarpet02.wav",
+        "FootstepCarpet03.wav",
+        "FootstepCarpet04.wav",
+        "FootstepCarpet05.wav",
+        "FootstepCarpet06.wav",
+        "FootstepCarpet07.wav",
+    ],
+    "Dirt": [
+        "FootstepDirt01.wav",
+        "FootstepDirt02.wav",
+        "FootstepDirt03.wav",
+        "FootstepDirt04.wav",
+        "FootstepDirt05.wav",
+        "FootstepDirt06.wav",
+        "FootstepDirt07.wav",
+    ],
+    "Glass": [
+        "FootstepGlass01.wav",
+        "FootstepGlass02.wav",
+        "FootstepGlass03.wav",
+        "FootstepGlass04.wav",
+        "FootstepGlass05.wav",
+        "FootstepGlass06.wav",
+        "FootstepGlass07.wav",
+    ],
+    "Metal": [
+        "FootstepMetal01.wav",
+        "FootstepMetal02.wav",
+        "FootstepMetal03.wav",
+        "FootstepMetal04.wav",
+        "FootstepMetal05.wav",
+        "FootstepMetal06.wav",
+        "FootstepMetal07.wav",
+        "FootstepMetal08.wav",
+    ],
+    "Plastic": [
+        "FootstepPlastic01.wav",
+        "FootstepPlastic02.wav",
+        "FootstepPlastic03.wav",
+        "FootstepPlastic04.wav",
+        "FootstepPlastic05.wav",
+    ],
+    "Snow": [
+        "FootstepSnow01.wav",
+        "FootstepSnow02.wav",
+        "FootstepSnow03.wav",
+        "FootstepSnow04.wav",
+        "FootstepSnow05.wav",
+        "FootstepSnow06.wav",
+        "FootstepSnow07.wav",
+    ],
+    "Tile": [
+        "FootstepTile01.wav",
+        "FootstepTile02.wav",
+        "FootstepTile03.wav",
+        "FootstepTile04.wav",
+        "FootstepTile05.wav",
+        "FootstepTile06.wav",
+        "FootstepTile07.wav",
+    ],
+    "Wood": [
+        "FootstepWood01.wav",
+        "FootstepWood02.wav",
+        "FootstepWood03.wav",
+        "FootstepWood04.wav",
+        "FootstepWood05.wav",
+        "FootstepWood06.wav",
+        "FootstepWood07.wav",
+    ]
+};
+
+export const RESOURCE_PRESET_IDS: string[] = Object.values(PRESET_RESOURCE_IDS).flat();
+
 const AUElementDB: AUElement[] = [
     // Utilities
     {

@@ -1,19 +1,17 @@
-import React from "react";
-import { Button, ButtonGroup, FormGroup, NumericInput, Slider } from "@blueprintjs/core";
-import generateGUID from "../../hooks/generateGUID";
+import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
+import { useID } from "../../hooks/generateGUID";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useResource from "../../hooks/useResource";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import PanelContainer from "./PanelContainer";
 import AudioPlayer from "./AudioPlayer";
+import PanelContainer from "./PanelContainer";
 
 export default function AmbientSoundPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [properties, setProperties] = useMapProperties();
     const saveHistory = useSaveHistory();
-    const [soundID, sound, setSound] = useResource(selectedElem?.properties.soundID);
+    const soundID = useID(selectedElem?.properties.soundID);
+    const [sound, setSound] = useResource(soundID);
 
     const onUploadClick = () => {
         console.log("Showing Upload Dialog");
