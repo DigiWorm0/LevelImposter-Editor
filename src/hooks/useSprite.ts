@@ -5,20 +5,11 @@ import { useElementValue } from "./jotai/useElement";
 
 const DEFAULT_URL = "/sprites/util-unknown.png";
 
-export default function useSprite(elementID: MaybeGUID, prioritizeType?: boolean) {
-    const elem = useElementValue(elementID);
-    const [spriteURL, setSpriteURL] = React.useState<string>("");
-    const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
+const spriteCache: Record<string, HTMLImageElement> = {};
 
-    React.useEffect(() => {
-        console.log(`Loading Sprite ${elem?.type} [${elem?.id}]`, spriteURL.length);
-        const img = new window.Image();
-        img.src = spriteURL;
-        img.onload = () => {
-            console.log(`Loaded Sprite ${elem?.type} [${elem?.id}]`, spriteURL.length);
-            setSprite(img);
-        };
-    }, [spriteURL]);
+export function useSpriteSrc(elementID: MaybeGUID) {
+    const elem = useElementValue(elementID);
+    const [spriteURL, setSpriteURL] = React.useState<string>(DEFAULT_URL);
 
     React.useEffect(() => {
         if (elem) {
@@ -26,7 +17,7 @@ export default function useSprite(elementID: MaybeGUID, prioritizeType?: boolean
             const spriteURL = elem.properties.spriteData;
             const typeURL = "/sprites/" + elem.type + ".png";
 
-            if (prioritizeType || spriteURL === undefined) {
+            if (spriteURL === undefined) {
                 if (dbIndex !== -1)
                     setSpriteURL(typeURL);
                 else
@@ -38,12 +29,31 @@ export default function useSprite(elementID: MaybeGUID, prioritizeType?: boolean
         else {
             setSpriteURL(DEFAULT_URL);
         }
-    }, [elem, prioritizeType]);
+    }, [elem]);
+
+    return spriteURL;
+}
+
+export default function useSprite(elementID: MaybeGUID) {
+    const spriteURL = useSpriteSrc(elementID);
+    const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
+
+    React.useEffect(() => {
+        if (spriteURL in spriteCache) {
+            setSprite(spriteCache[spriteURL]);
+        }
+        const img = new window.Image();
+        img.src = spriteURL;
+        img.onload = () => {
+            setSprite(img);
+            spriteCache[spriteURL] = img;
+        };
+    }, [spriteURL]);
 
     return sprite;
 }
 
-export function useSpriteType(type: string) {
+export function useSpriteType(type?: string) {
     const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
 
     React.useEffect(() => {

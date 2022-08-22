@@ -47,6 +47,13 @@ export default function SettingsButton() {
                             }} />
 
                         <Switch
+                            label="Collider Preview"
+                            checked={settings.colliderPreview === undefined ? true : settings.colliderPreview}
+                            onChange={(e) => {
+                                setSettings({ ...settings, colliderPreview: e.currentTarget.checked });
+                            }} />
+
+                        <Switch
                             label="Grid"
                             checked={settings.isGridVisible === undefined ? true : settings.isGridVisible}
                             onChange={(e) => {

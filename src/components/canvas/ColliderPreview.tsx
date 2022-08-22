@@ -1,14 +1,17 @@
 import { Shape } from "react-konva";
 import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 
-export default function ColliderRender() {
+export default function ColliderPreview() {
     const elem = useSelectedElemValue();
     const selectedColliderID = useSelectedColliderIDValue();
+    const settings = useSettingsValue();
 
     if (!elem
-        || !elem.properties.colliders)
+        || !elem.properties.colliders
+        || settings.colliderPreview === false)
         return null;
 
     return (

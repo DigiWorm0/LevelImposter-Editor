@@ -4,7 +4,7 @@ import React from "react";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { useSpriteType } from "../../hooks/useSprite";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
@@ -15,7 +15,7 @@ export default function SabPanel() {
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [sabName, setSabName] = React.useState("");
-    const sprite = useSprite(selectedElem?.id, true);
+    const sprite = useSpriteType(selectedElem?.type);
     const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);

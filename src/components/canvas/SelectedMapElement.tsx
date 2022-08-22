@@ -3,7 +3,7 @@ import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
-import ColliderRender from "./ColliderRender";
+import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
 import PlatformRange from "./PlatformRange";
@@ -34,7 +34,7 @@ export default function SelectedMapElement() {
                 scaleY={selectedElem.yScale}
                 rotation={-selectedElem.rotation}>
 
-                <ColliderRender />
+                <ColliderPreview />
                 <ColliderEditor />
                 <StarfieldRender />
 

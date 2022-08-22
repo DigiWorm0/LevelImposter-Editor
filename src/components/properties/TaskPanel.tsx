@@ -4,7 +4,7 @@ import React from "react";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { useSpriteType } from "../../hooks/useSprite";
 import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
 import LIElement from "../../types/li/LIElement";
@@ -17,7 +17,7 @@ export default function TaskPanel() {
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
-    const sprite = useSprite(selectedElem?.id, true);
+    const sprite = useSpriteType(selectedElem?.type);
     const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
