@@ -18,7 +18,7 @@ export default function AmbientSoundPanel() {
         console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = "audio/*";
+        input.accept = "audio/wav";
         input.onchange = () => {
             console.log("Uploaded File");
             if (input.files === null)
