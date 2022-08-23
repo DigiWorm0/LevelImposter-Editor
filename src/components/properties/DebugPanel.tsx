@@ -44,7 +44,7 @@ export default function DebugPanel() {
             <Menu>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    const stringValue = (value !== undefined && value !== null) ? value.toString() : "UNDEFINED";
+                    const stringValue = JSON.stringify(value);
                     return (
                         <>
                             <MenuItem2
@@ -58,7 +58,7 @@ export default function DebugPanel() {
                             {selectedKey === key && (
                                 <Card>
                                     <pre>{typeof value}</pre>
-                                    <pre>{stringValue.replaceAll(",", ",\n")}</pre>
+                                    <pre>{stringValue}</pre>
                                 </Card>
                             )}
                         </>

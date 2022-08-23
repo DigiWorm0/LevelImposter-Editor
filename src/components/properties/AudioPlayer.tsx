@@ -1,13 +1,18 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
+import useSelectedSound from "../../hooks/jotai/useSelectedSound";
+import { RESOURCE_PRESET_IDS } from "../../types/au/AUElementDB";
+import { DEFAULT_VOLUME } from "../../types/generic/Constants";
+import DevInfo from "../DevInfo";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
 
-export default function AudioPlayer(props: { audioData?: string, volume: number, onVolumeChange: (volume: number) => void }) {
+export default function AudioPlayer() {
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
+    const [sound, setSound] = useSelectedSound();
 
     React.useEffect(() => {
         const interval = setInterval(() => {
@@ -25,17 +30,23 @@ export default function AudioPlayer(props: { audioData?: string, volume: number,
     React.useEffect(() => {
         if (!audioRef.current)
             return;
-        audioRef.current.volume = props.volume;
-    }, [props.volume]);
+        audioRef.current.volume = sound?.volume ? sound.volume : DEFAULT_VOLUME;
+    }, [sound]);
+
+    const soundData = sound?.isPreset ? "/sounds/" + sound?.data : sound?.data;
 
     return (
         <div style={{ textAlign: "center", marginBottom: 10 }}>
 
-            {props.audioData ? (
+            {soundData ? (
                 <>
-                    <audio ref={audioRef} src={props.audioData} loop>
+                    <audio ref={audioRef} src={soundData} loop>
                         Your browser does not support the audio element.
                     </audio>
+
+                    <DevInfo>
+                        {soundData?.length} bytes
+                    </DevInfo>
 
                     <ButtonGroup large minimal>
                         <Button
@@ -89,9 +100,14 @@ export default function AudioPlayer(props: { audioData?: string, volume: number,
                         labelStepSize={1}
                         labelRenderer={(value) => `${Math.round(value * 100)}%`}
                         intent="success"
-                        value={props.volume}
+                        value={sound?.volume}
                         onChange={(value) => {
-                            props.onVolumeChange(value);
+                            if (!sound)
+                                return;
+                            setSound({
+                                ...sound,
+                                volume: value
+                            });
                         }}
                     />
                 </>

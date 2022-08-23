@@ -1,25 +1,26 @@
 import { Button, Card, H6 } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useResource from "../../hooks/useResource";
+import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
 
-export default function StepSoundEditorPanel(props: { soundID: string, onClose: () => void }) {
+export default function StepSoundEditorPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [sound, setSound] = useResource(props.soundID);
     const saveHistory = useSaveHistory();
+    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+    const [selectedSound, setSelectedSound] = useSelectedSound();
 
     const onDeleteClick = () => {
         if (!selectedElem)
             return;
-        selectedElem.properties.soundIDs = selectedElem.properties.soundIDs?.filter(id => id !== props.soundID);
+        const sounds = selectedElem.properties.sounds?.filter(sound => sound.id !== selectedSoundID);
         setSelectedElem({
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                soundIDs: selectedElem.properties.soundIDs
+                sounds
             }
         });
     }
@@ -37,11 +38,16 @@ export default function StepSoundEditorPanel(props: { soundID: string, onClose: 
             const reader = new FileReader();
             reader.onload = () => {
                 console.log("Loaded File");
-                if (!selectedElem)
+                if (!selectedSound)
                     return;
 
                 saveHistory();
-                setSound(reader.result as string);
+                setSelectedSound({
+                    ...selectedSound,
+                    data: reader.result as string,
+                    volume: DEFAULT_VOLUME,
+                    isPreset: false
+                });
             }
             reader.readAsDataURL(file);
         }
@@ -56,16 +62,10 @@ export default function StepSoundEditorPanel(props: { soundID: string, onClose: 
             <H6>Step Variant</H6>
 
             <DevInfo>
-                {props.soundID}
+                {selectedSound?.id}
             </DevInfo>
 
-            <AudioPlayer
-                audioData={sound}
-                volume={selectedElem.properties.soundVolume === undefined ? DEFAULT_VOLUME : selectedElem.properties.soundVolume}
-                onVolumeChange={(volume) => {
-                    selectedElem.properties.soundVolume = volume;
-                    setSelectedElem({ ...selectedElem });
-                }} />
+            <AudioPlayer />
 
 
             <div style={{ marginTop: 10 }}>
@@ -77,7 +77,7 @@ export default function StepSoundEditorPanel(props: { soundID: string, onClose: 
                 <Button
                     icon="tick"
                     intent="success"
-                    onClick={() => props.onClose()}
+                    onClick={() => setSelectedSoundID(undefined)}
                     style={{ marginRight: 5 }} />
                 <Button
                     icon="trash"

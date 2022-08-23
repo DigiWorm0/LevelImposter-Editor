@@ -10,7 +10,6 @@ import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 
 export default function useCombos() {
-    const [clipboard, setClipboard] = React.useState<MaybeLIElement>(undefined);
     const map = useMapValue();
     const undo = useUndo();
     const selectedElem = useSelectedElemValue();
@@ -56,7 +55,8 @@ export default function useCombos() {
             combo: "ctrl+c",
             description: "Copy selection",
             onKeyDown: () => {
-                setClipboard(selectedElem);
+                const elemData = JSON.stringify(selectedElem);
+                navigator.clipboard.writeText(elemData);
             },
             preventDefault: true,
         },
@@ -65,17 +65,28 @@ export default function useCombos() {
             label: "Paste",
             combo: "ctrl+v",
             description: "Paste selection",
-            onKeyDown: () => {
-                if (clipboard) {
-                    const id = generateGUID();
+            onKeyDown: async () => {
+                if (!window.isSecureContext) {
+                    toaster.danger("Paste is not allowed in insecure context");
+                    return;
+                }
+                if (!navigator.clipboard.read) {
+                    toaster.danger("Firefox does not support pasting for some reason", "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/read");
+                    return;
+                }
+
+                const clipboard = await navigator.clipboard.readText()
+                const elemData = JSON.parse(clipboard) as MaybeLIElement;
+                if (elemData) {
                     saveHistory();
+                    const id = generateGUID();
                     addElement({
-                        ...clipboard,
+                        ...elemData,
                         id,
                         properties: {
-                            ...clipboard.properties,
+                            ...elemData.properties,
                             colliders: [
-                                ...(clipboard.properties.colliders || []),
+                                ...(elemData.properties.colliders || []),
                             ]
                         }
                     });
@@ -148,7 +159,7 @@ export default function useCombos() {
             },
             preventDefault: true,
         }
-    ], [clipboard, selectedElem, map, addElement, removeElement, setSettings, setSelectedID]);
+    ], [selectedElem, map, addElement, removeElement, setSettings, setSelectedID]);
     const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
 
     return { handleKeyDown, handleKeyUp };

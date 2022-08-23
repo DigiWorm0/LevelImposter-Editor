@@ -1,8 +1,9 @@
+import React from "react";
 import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
-import { useID } from "../../hooks/generateGUID";
+import generateGUID from "../../hooks/generateGUID";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useResource from "../../hooks/useResource";
+import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
@@ -11,8 +12,15 @@ import PanelContainer from "./PanelContainer";
 export default function AmbientSoundPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
-    const soundID = useID(selectedElem?.properties.soundID);
-    const [sound, setSound] = useResource(soundID);
+    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+
+    React.useEffect(() => {
+        if (selectedSoundID === undefined && selectedElem?.type === "util-sound1") {
+            const sounds = selectedElem?.properties.sounds || [];
+            const sound = sounds.length > 0 ? sounds[0] : undefined;
+            setSelectedSoundID(sound?.id);
+        }
+    }, [selectedSoundID, selectedElem]);
 
     const onUploadClick = () => {
         console.log("Showing Upload Dialog");
@@ -35,10 +43,14 @@ export default function AmbientSoundPanel() {
                     ...selectedElem,
                     properties: {
                         ...selectedElem.properties,
-                        soundID
+                        sounds: [{
+                            id: selectedSoundID ? selectedSoundID : generateGUID(),
+                            data: reader.result as string,
+                            volume: DEFAULT_VOLUME,
+                            isPreset: false
+                        }]
                     }
                 });
-                setSound(reader.result as string);
             }
             reader.readAsDataURL(file);
         }
@@ -49,7 +61,13 @@ export default function AmbientSoundPanel() {
         if (!selectedElem)
             return;
         saveHistory();
-        setSound(undefined);
+        setSelectedElem({
+            ...selectedElem,
+            properties: {
+                ...selectedElem.properties,
+                sounds: []
+            }
+        });
     }
     if (!selectedElem || selectedElem.type !== "util-sound1")
         return null;
@@ -58,29 +76,10 @@ export default function AmbientSoundPanel() {
         <PanelContainer title="Ambient Sound">
             <FormGroup>
                 <DevInfo>
-                    {soundID}
-                </DevInfo>
-                <DevInfo>
-                    {sound?.length}
+                    {selectedElem.properties.sounds?.length}
                 </DevInfo>
 
-                <AudioPlayer
-                    audioData={sound}
-                    volume={selectedElem?.properties.soundVolume ? selectedElem.properties.soundVolume : DEFAULT_VOLUME}
-                    onVolumeChange={(value) => {
-                        if (!selectedElem)
-                            return;
-                        saveHistory();
-                        setSelectedElem({
-                            ...selectedElem,
-                            properties: {
-                                ...selectedElem.properties,
-                                soundVolume: value
-                            }
-                        }
-                        );
-                    }} />
-
+                <AudioPlayer />
 
                 <ButtonGroup minimal fill style={{ marginTop: 10, marginBottom: 10 }}>
                     <Button

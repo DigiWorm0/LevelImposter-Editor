@@ -26,40 +26,5 @@ export function MapSorter() {
         }
     }, [map]);
 
-    // Garbage Collection
-    React.useEffect(() => {
-        if (!map.properties.resources)
-            return;
-        const resourceIDs: string[] = [];
-        map.elements.forEach((e) => {
-            //if (e.properties.spriteID)
-            //    resourceIDs.push(e.properties.spriteID);
-            if (e.properties.soundID)
-                resourceIDs.push(e.properties.soundID);
-            if (e.properties.soundIDs)
-                resourceIDs.push(...e.properties.soundIDs);
-        });
-        const resourceKeys = Object.keys(map.properties.resources) as GUID[];
-        let hasGarbageResources = false;
-        for (const resourceID of resourceKeys) {
-            if (resourceIDs.includes(resourceID))
-                continue;
-            delete map.properties.resources[resourceID];
-            console.warn(`Garbage collected resource ${resourceID}`);
-            hasGarbageResources = true;
-        }
-        if (hasGarbageResources) {
-            setMap({
-                ...map,
-                properties: {
-                    ...map.properties,
-                    resources: {
-                        ...map.properties.resources
-                    }
-                }
-            });
-        }
-    }, [map]);
-
     return null;
 }

@@ -1,5 +1,6 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
+import LISound from "./LISound";
 
 export default interface LIElement {
     id: GUID;
@@ -17,9 +18,7 @@ export default interface LIElement {
         parent?: GUID;
 
         // Sound
-        soundID?: string;
-        soundIDs?: string[];
-        soundVolume?: number;
+        sounds?: LISound[];
         soundPriority?: number;
 
         // Sprite

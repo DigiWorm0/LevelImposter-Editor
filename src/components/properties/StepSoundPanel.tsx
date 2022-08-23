@@ -4,7 +4,10 @@ import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
+import { DEFAULT_VOLUME } from "../../types/generic/Constants";
+import GUID, { MaybeGUID } from "../../types/generic/GUID";
 import PanelContainer from "./PanelContainer";
 import StepSoundEditorPanel from "./StepSoundEditorPanel";
 
@@ -12,11 +15,11 @@ const SoundPresetSelect = Select2.ofType<string>();
 
 export default function StepSoundPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
+    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
 
-    const soundIDs = selectedElem?.properties.soundIDs || [];
+    const sounds = selectedElem?.properties.sounds || [];
 
-    const editSound = (soundID: string) => {
+    const editSound = (soundID: GUID) => {
         if (soundID === selectedSoundID)
             setSelectedSoundID(undefined);
         else
@@ -47,7 +50,18 @@ export default function StepSoundPanel() {
                 itemRenderer={soundPresetSelectRenderer}
                 onItemSelect={(soundPreset) => {
                     const resourceIDs = PRESET_RESOURCE_IDS[soundPreset];
-                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundIDs: resourceIDs } });
+                    setSelectedElem({
+                        ...selectedElem, properties: {
+                            ...selectedElem.properties, sounds: resourceIDs.map((resourceID) => {
+                                return {
+                                    id: generateGUID(),
+                                    data: resourceID,
+                                    volume: DEFAULT_VOLUME,
+                                    isPreset: true
+                                }
+                            })
+                        }
+                    });
                 }}>
 
                 <Button
@@ -72,38 +86,41 @@ export default function StepSoundPanel() {
                 <NumericInput
                     fill
                     min={0}
-                    value={soundIDs.length}
+                    value={sounds.length}
                     onValueChange={(value) => {
                         if (value < 0)
                             return;
                         for (let i = 0; i < value; i++) {
-                            if (soundIDs[i] == null)
-                                soundIDs[i] = generateGUID();
+                            if (sounds[i] == null)
+                                sounds[i] = {
+                                    id: generateGUID(),
+                                    data: undefined,
+                                    volume: DEFAULT_VOLUME,
+                                    isPreset: false
+                                };
                         }
-                        for (let i = soundIDs.length - 1; i >= value; i--) {
-                            soundIDs.splice(i, 1);
+                        for (let i = sounds.length - 1; i >= value; i--) {
+                            sounds.splice(i, 1);
                         }
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundIDs } });
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: sounds } });
                     }} />
             </FormGroup>
 
             <Menu>
-                {selectedElem.properties.soundIDs?.map((soundID, index) => {
-                    const isSelected = selectedSoundID === soundID;
+                {selectedElem.properties.sounds?.map((sound, index) => {
+                    const isSelected = sound.id === selectedSoundID;
 
                     return (
-                        <div key={soundID + + "-" + index}>
+                        <div key={index}>
                             <MenuItem2
                                 icon="volume-up"
                                 text={"Step Variant " + (index + 1)}
-                                onClick={() => editSound(soundID)}
+                                onClick={() => editSound(sound.id)}
                                 active={isSelected}
                             />
 
                             {isSelected && (
-                                <StepSoundEditorPanel
-                                    soundID={soundID}
-                                    onClose={() => setSelectedSoundID(undefined)} />
+                                <StepSoundEditorPanel />
                             )}
                         </div>
                     );

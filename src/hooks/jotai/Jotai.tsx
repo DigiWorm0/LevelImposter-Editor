@@ -7,6 +7,7 @@ import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import LIMap from "../../types/li/LIMap";
 import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 import LISettings from "../../types/li/LISettings";
+import { MaybeLISound } from "../../types/li/LISound";
 import { DEFAULT_GUID } from "../generateGUID";
 
 // Defaults
@@ -111,6 +112,33 @@ export const selectedColliderAtom = atom(
 export const isSelectedColliderAtom = atom(
     (get) => {
         return get(selectedColliderIDAtom) != undefined;
+    }
+);
+
+// Selected Sound
+export const selectedSoundIDAtom = atom<MaybeGUID>(undefined);
+export const selectedSoundAtom = atom(
+    (get) => {
+        const selectedElem = get(selectedElemAtom);
+        const selectedSoundID = get(selectedSoundIDAtom);
+        const selectedSound = selectedElem?.properties.sounds?.find(
+            (sound) => sound.id === selectedSoundID
+        );
+        return selectedSound;
+    },
+    (get, set, sound: MaybeLISound) => {
+        const selectedElem = get(selectedElemAtom);
+        const sounds = selectedElem?.properties.sounds;
+        const index = sounds?.findIndex((c) => c.id === sound?.id);
+        if (index != undefined && index >= 0 && sounds != undefined && sound != undefined) {
+            sounds[index] = sound;
+            set(selectedElemAtom, selectedElem);
+        }
+    }
+);
+export const isSelectedSoundAtom = atom(
+    (get) => {
+        return get(selectedSoundIDAtom) != undefined;
     }
 );
 
