@@ -20,6 +20,7 @@ export default interface LIElement {
         soundID?: string;
         soundIDs?: string[];
         soundVolume?: number;
+        soundPriority?: number;
 
         // Sprite
         spriteData?: string;
@@ -61,6 +62,9 @@ export default interface LIElement {
         // Task
         description?: string;
         taskLength?: string;
+
+        // Room
+        isRoomNameVisible?: boolean;
 
         // Editor
         isLocked?: boolean;

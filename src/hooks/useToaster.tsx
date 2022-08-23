@@ -1,6 +1,8 @@
 import { Intent, Toaster } from "@blueprintjs/core";
 
-const toaster = Toaster.create();
+const toaster = Toaster.create({
+    maxToasts: 5
+});
 
 export default function useToaster() {
     const success = (message: string, link?: string) => {

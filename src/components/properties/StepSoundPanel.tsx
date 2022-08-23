@@ -56,8 +56,16 @@ export default function StepSoundPanel() {
                     fill
                 />
             </SoundPresetSelect>
-
-            <FormGroup label="Step Variants" style={{ marginTop: 10 }}>
+            <FormGroup label="Priority" style={{ marginTop: 10 }}>
+                <NumericInput
+                    fill
+                    min={0}
+                    value={selectedElem?.properties.soundPriority === undefined ? 0 : selectedElem.properties.soundPriority}
+                    onValueChange={(value) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundPriority: value } });
+                    }} />
+            </FormGroup>
+            <FormGroup label="Step Variants" style={{ marginTop: 5 }}>
                 <NumericInput
                     fill
                     min={0}

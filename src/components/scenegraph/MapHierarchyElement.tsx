@@ -70,9 +70,10 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
 
     return (
         <MenuItem2
+            id={element.id}
             icon={icon}
             text={element.name}
-            selected={element.id === selectedID}
+            active={element.id === selectedID}
             intent={intent}
             onClick={() => setSelectedID(element.id)}
             labelElement={

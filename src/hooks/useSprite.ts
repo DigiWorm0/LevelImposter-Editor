@@ -5,8 +5,6 @@ import { useElementValue } from "./jotai/useElement";
 
 const DEFAULT_URL = "/sprites/util-unknown.png";
 
-const spriteCache: Record<string, HTMLImageElement> = {};
-
 export function useSpriteSrc(elementID: MaybeGUID) {
     const elem = useElementValue(elementID);
     const [spriteURL, setSpriteURL] = React.useState<string>(DEFAULT_URL);
@@ -39,14 +37,10 @@ export default function useSprite(elementID: MaybeGUID) {
     const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
 
     React.useEffect(() => {
-        if (spriteURL in spriteCache) {
-            setSprite(spriteCache[spriteURL]);
-        }
         const img = new window.Image();
         img.src = spriteURL;
         img.onload = () => {
             setSprite(img);
-            spriteCache[spriteURL] = img;
         };
     }, [spriteURL]);
 

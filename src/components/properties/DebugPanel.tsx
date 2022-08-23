@@ -58,7 +58,7 @@ export default function DebugPanel() {
                             {selectedKey === key && (
                                 <Card>
                                     <pre>{typeof value}</pre>
-                                    <pre>{stringValue}</pre>
+                                    <pre>{stringValue.replaceAll(",", ",\n")}</pre>
                                 </Card>
                             )}
                         </>

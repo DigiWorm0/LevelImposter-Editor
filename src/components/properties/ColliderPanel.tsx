@@ -72,6 +72,7 @@ export default function ColliderPanel() {
                                 text={"Collider " + (index + 1)}
                                 onClick={() => editCollider(collider)}
                                 active={selectedColliderID === collider.id}
+                                intent={collider.blocksLight ? "danger" : "success"}
                             />
 
                             {selectedColliderID === collider.id && (
