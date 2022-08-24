@@ -64,6 +64,7 @@ export default interface LIElement {
 
         // Room
         isRoomNameVisible?: boolean;
+        isRoomAdminVisible?: boolean;
 
         // Editor
         isLocked?: boolean;
