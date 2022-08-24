@@ -3,7 +3,7 @@ import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import generateGUID from "../../hooks/generateGUID";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
+import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
@@ -13,14 +13,17 @@ export default function AmbientSoundPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+    const selectedSound = useSelectedSoundValue();
+
+    console.log(selectedSoundID);
 
     React.useEffect(() => {
-        if (selectedSoundID === undefined && selectedElem?.type === "util-sound1") {
+        if (selectedSound === undefined && selectedElem?.type === "util-sound1") {
             const sounds = selectedElem?.properties.sounds || [];
             const sound = sounds.length > 0 ? sounds[0] : undefined;
             setSelectedSoundID(sound?.id);
         }
-    }, [selectedSoundID, selectedElem]);
+    }, [selectedSound, selectedElem]);
 
     const onUploadClick = () => {
         console.log("Showing Upload Dialog");
@@ -76,7 +79,7 @@ export default function AmbientSoundPanel() {
         <PanelContainer title="Ambient Sound">
             <FormGroup>
                 <DevInfo>
-                    {selectedElem.properties.sounds?.length}
+                    {selectedElem.properties.sounds?.length} sounds
                 </DevInfo>
 
                 <AudioPlayer />
