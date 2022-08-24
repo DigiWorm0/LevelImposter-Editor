@@ -1,4 +1,5 @@
-import { Menu, MenuItem } from "@blueprintjs/core";
+import { Menu } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -10,6 +11,8 @@ export default function ColliderPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
 
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2";
+
     const addCollider = () => {
         if (!selectedElem)
             return;
@@ -18,8 +21,8 @@ export default function ColliderPanel() {
 
         const collider = {
             id: generateGUID(),
-            blocksLight: selectedElem.type !== "util-room",
-            isSolid: selectedElem.type === "util-room",
+            blocksLight: !isRestricted,
+            isSolid: isRestricted,
             points: [
                 { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 },
@@ -55,7 +58,7 @@ export default function ColliderPanel() {
     return (
         <PanelContainer title="Colliders">
             <Menu>
-                <MenuItem
+                <MenuItem2
                     icon="add"
                     text="Add Collider"
                     disabled={selectedElem.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0}
@@ -64,11 +67,12 @@ export default function ColliderPanel() {
                 {selectedElem.properties.colliders?.map((collider, index) => {
                     return (
                         <div key={collider.id + + "-" + index}>
-                            <MenuItem
+                            <MenuItem2
                                 icon="edit"
                                 text={"Collider " + (index + 1)}
                                 onClick={() => editCollider(collider)}
                                 active={selectedColliderID === collider.id}
+                                intent={collider.blocksLight ? "danger" : "success"}
                             />
 
                             {selectedColliderID === collider.id && (

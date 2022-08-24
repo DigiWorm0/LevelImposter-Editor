@@ -3,10 +3,12 @@ import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
-import ColliderRender from "./ColliderRender";
+import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
 import PlatformRange from "./PlatformRange";
+import SpawnRange from "./SpawnRange";
+import StarfieldRender from "./StarfieldRender";
 import TaskParent from "./TaskParent";
 import VentConnections from "./VentConnections";
 
@@ -19,6 +21,7 @@ export default function SelectedMapElement() {
         <>
             <VentConnections />
             <ConsoleRange />
+            <SpawnRange />
             <LadderRange />
             <TaskParent />
             <CameraRender />
@@ -31,8 +34,9 @@ export default function SelectedMapElement() {
                 scaleY={selectedElem.yScale}
                 rotation={-selectedElem.rotation}>
 
-                <ColliderRender />
+                <ColliderPreview />
                 <ColliderEditor />
+                <StarfieldRender />
 
             </Group>
         </>

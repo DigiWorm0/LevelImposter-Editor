@@ -1,6 +1,8 @@
 import { Intent, Toaster } from "@blueprintjs/core";
 
-const toaster = Toaster.create();
+const toaster = Toaster.create({
+    maxToasts: 5
+});
 
 export default function useToaster() {
     const success = (message: string, link?: string) => {
@@ -19,11 +21,18 @@ export default function useToaster() {
         });
     }
 
-    const danger = (message: string) => {
+    const danger = (message: string, link?: string) => {
         toaster.show({
             intent: Intent.DANGER,
             message,
             icon: "error",
+            action: link ? {
+                icon: "share",
+                onClick: () => {
+                    if (link)
+                        window.open(link, "_blank");
+                }
+            } : undefined
         });
     }
 

@@ -30,8 +30,7 @@ export default function App() {
     }, []);
 
     return (
-        <div className={"app" + (settings.isDarkMode ? " bp4-dark" : "")}>
-            <Debug />
+        <div className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
             <HotkeysProvider>
                 <Provider scope={PROVIDER_SCOPE}>
                     {!isEmbeded && (<>

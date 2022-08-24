@@ -28,9 +28,9 @@ export default function OpenButton() {
                 toaser.success(`Loaded ${mapData.name}`);
                 // 50mb limit
                 if (data.length > 1024 * 1024 * 50) {
-                    toaser.danger("Map is over the 50MB limit for uploads. It is reccommended you remove or compress large sprites or gifs before proceeding.");
-                } else if (data.length > 1024 * 1024 * 30) {
-                    toaser.warning("Map is near the 50MB limit for uploads. It is reccommended you remove or compress large sprites or gifs before proceeding.");
+                    toaser.danger("Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.");
+                } else if (data.length > 1024 * 1024 * 40) {
+                    toaser.warning("Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.");
                 }
             }
             reader.readAsText(file);

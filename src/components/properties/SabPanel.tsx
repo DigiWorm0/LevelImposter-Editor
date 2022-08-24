@@ -1,9 +1,11 @@
-import { Button, ControlGroup, H5, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, H5 } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { useSpriteType } from "../../hooks/useSprite";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
@@ -14,7 +16,8 @@ export default function SabPanel() {
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [sabName, setSabName] = React.useState("");
-    const sprite = useSprite(selectedElem?.id, true);
+    const sprite = useSpriteType(selectedElem?.type);
+    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
@@ -24,7 +27,7 @@ export default function SabPanel() {
     }, [selectedElem]);
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem
+        <MenuItem2
             key={elem.type + props.index}
             text={elem.name}
             label={elem.type}
@@ -59,6 +62,7 @@ export default function SabPanel() {
                     items={roomElems}
                     itemRenderer={roomSelectRenderer}
                     onItemSelect={(room) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
                     }}>
 
@@ -72,6 +76,7 @@ export default function SabPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                     }}
                 />

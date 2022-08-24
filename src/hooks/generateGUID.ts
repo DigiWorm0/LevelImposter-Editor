@@ -1,3 +1,4 @@
+import React from "react";
 import GUID from "../types/generic/GUID";
 
 /**
@@ -11,5 +12,4 @@ export default function generateGUID(): GUID {
     }) as GUID;
 }
 
-const DEFAULT_GUID = "00000000-0000-0000-0000-000000000000" as GUID;
-export { DEFAULT_GUID };
+export const DEFAULT_GUID = "00000000-0000-0000-0000-000000000000" as GUID;

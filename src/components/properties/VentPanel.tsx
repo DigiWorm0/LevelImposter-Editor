@@ -1,5 +1,7 @@
-import { Button, ControlGroup, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useVents } from "../../hooks/jotai/useVents";
 import LIElement from "../../types/li/LIElement";
@@ -10,6 +12,7 @@ const VentSelect = Select2.ofType<LIElement>();
 export default function VentPanel() {
     const ventElems = useVents();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const saveHistory = useSaveHistory();
 
     const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id);
 
@@ -18,7 +21,7 @@ export default function VentPanel() {
     const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
 
     const ventSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem
+        <MenuItem2
             key={elem.type + props.index}
             text={elem.name}
             label={elem.type}
@@ -44,6 +47,7 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: vent.id } });
                     }}>
 
@@ -57,6 +61,7 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: undefined } });
                     }}
                 />
@@ -70,6 +75,7 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: vent.id } });
                     }}>
 
@@ -83,6 +89,7 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: undefined } });
                     }}
                 />
@@ -96,6 +103,7 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: vent.id } });
                     }}>
 
@@ -109,6 +117,7 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
+                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: undefined } });
                     }}
                 />

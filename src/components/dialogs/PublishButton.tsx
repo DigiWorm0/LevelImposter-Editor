@@ -15,11 +15,13 @@ import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import SignIn from "../SignIn";
 import AgreementDialog from "./AgreementDialog";
+import PublishInfoDialog from "./PublishInfoDialog";
 
 export default function PublishButton() {
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
+    const [isInfoOpen, setIsInfoOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
@@ -106,7 +108,7 @@ export default function PublishButton() {
     return (
         <>
             <Tooltip2
-                content={"Upload Map"}
+                content={"Publish Map"}
                 position="bottom">
 
                 <Button
@@ -122,7 +124,7 @@ export default function PublishButton() {
                 isOpen={isOpen && !isLoggedIn}
                 onClose={() => { setIsOpen(false) }}
                 title="Login"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <SignIn />
 
@@ -134,7 +136,7 @@ export default function PublishButton() {
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
                 title="Publish"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 
@@ -190,7 +192,7 @@ export default function PublishButton() {
                         <Button
                             disabled={isPublishing}
                             icon={"saved"}
-                            text={"Update Existing"}
+                            text={"Replace Existing"}
                             intent={"danger"}
                             onClick={() => {
                                 publishMap();
@@ -213,12 +215,23 @@ export default function PublishButton() {
                 isOpen={isAgreementOpen}
                 onAgree={() => {
                     setIsAgreementOpen(false);
-                    publishMap(generateGUID());
+                    setIsInfoOpen(true);
                 }}
                 onCancel={() => {
                     setIsAgreementOpen(false);
                 }}
             />
+            <PublishInfoDialog
+                isOpen={isInfoOpen}
+                onAgree={() => {
+                    setIsInfoOpen(false);
+                    publishMap(generateGUID());
+                }}
+                onCancel={() => {
+                    setIsInfoOpen(false);
+                }}
+            />
+
         </>
     );
 }

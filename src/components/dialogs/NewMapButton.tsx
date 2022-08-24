@@ -37,7 +37,7 @@ export default function NewMapButton() {
                 isOpen={isVisible}
                 onClose={() => { setIsVisible(false); }}
                 title="New Map"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }}>
                     <p>Are you sure you want to create a new map?</p>

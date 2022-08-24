@@ -1,9 +1,11 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import PanelContainer from "./PanelContainer";
 
 export default function CamPanel() {
     const [element, setElement] = useSelectedElem();
+    const saveHistory = useSaveHistory();
 
     if (!element
         || element.type !== "util-cam")
@@ -21,6 +23,7 @@ export default function CamPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
+                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camXOffset: val } });
                         }} />
                     <NumericInput
@@ -31,6 +34,7 @@ export default function CamPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
+                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camYOffset: val } });
                         }} />
                 </ControlGroup>
@@ -44,6 +48,7 @@ export default function CamPanel() {
                     stepSize={0.5}
                     majorStepSize={1}
                     onValueChange={(val) => {
+                        saveHistory();
                         !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camZoom: val } });
                     }} />
             </FormGroup>

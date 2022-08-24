@@ -6,9 +6,11 @@ import { GRID_SIZE, GRID_SPACING } from "../../types/generic/Constants";
 export default function CanvasGrid() {
     const settings = useSettingsValue();
 
+    const isVisible = settings.isGridVisible === undefined ? true : settings.isGridVisible;
+
     return (
         <Group name="canvas-grid" listening={false}>
-            {settings.isGridVisible && (
+            {isVisible && (
                 <>
                     <Shape
                         sceneFunc={(ctx, shape) => {

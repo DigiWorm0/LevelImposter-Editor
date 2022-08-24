@@ -1,24 +1,31 @@
-import { Button, ButtonGroup } from "@blueprintjs/core";
+import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { useSpriteSrc } from "../../hooks/useSprite";
+import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
 export default function SpritePanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const sprite = useSprite(selectedElem?.id);
+    const spriteURL = useSpriteSrc(selectedElem?.id);
+    const saveHistory = useSaveHistory();
 
     const onUploadClick = () => {
+        console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
         input.onchange = () => {
+            console.log("Uploaded File");
             if (input.files === null)
                 return;
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = () => {
+                console.log("Loaded File");
                 if (!selectedElem)
                     return;
+                saveHistory();
                 setSelectedElem({
                     ...selectedElem,
                     properties: {
@@ -35,6 +42,7 @@ export default function SpritePanel() {
     const onResetClick = () => {
         if (!selectedElem)
             return;
+        saveHistory();
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -48,16 +56,22 @@ export default function SpritePanel() {
         || selectedElem.type === "util-player"
         || selectedElem.type === "util-room"
         || selectedElem.type === "util-spawn1"
-        || selectedElem.type === "util-spawn2")
+        || selectedElem.type === "util-spawn2"
+        || selectedElem.type === "util-sound1"
+        || selectedElem.type === "util-sound2")
 
         return null;
 
     return (
         <PanelContainer title="Sprite">
+            <DevInfo>
+                {spriteURL.length}
+            </DevInfo>
+
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={sprite?.src}
+                    src={spriteURL}
                     alt={selectedElem.name}
                 />
 
@@ -77,6 +91,30 @@ export default function SpritePanel() {
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
+            {(selectedElem.type.startsWith("dec-") || selectedElem.type === "util-blank") && (
+                <Switch
+                    key={selectedElem.id + "-noShadows"}
+                    checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
+                    label="No Shadows"
+                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                    onChange={(e) => {
+                        saveHistory();
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
+                    }}
+                />
+            )}
+            {(selectedElem.properties.noShadows === true) && (
+                <Switch
+                    key={selectedElem.id + "-noShadowsBehaviour"}
+                    checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
+                    label="Shadow Behaviour"
+                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                    onChange={(e) => {
+                        saveHistory();
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
+                    }}
+                />
+            )}
         </PanelContainer>
     );
 }

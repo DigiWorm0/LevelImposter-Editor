@@ -7,7 +7,7 @@
     left: 0;
     overflow-x: hidden;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     overflow-y: scroll;
 }
 
@@ -20,6 +20,7 @@
     right: 0;
     overflow-x: hidden;
     padding: 20px;
+    padding-bottom: 400px;
     overflow-y: scroll;
 }
 
@@ -48,5 +49,4 @@
     top: 10px;
     right: 10px;
     z-index: 1;
-    background-color: red;
 }

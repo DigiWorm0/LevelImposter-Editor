@@ -10,7 +10,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
                 title="LevelImposter API Policy"
-                portalClassName={settings.isDarkMode ? "bp4-dark" : ""}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 
@@ -28,6 +28,9 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                         </li>
                         <li style={{ margin: 5 }}>
                             Maps cannot state or suggest that your mod is official, licensed, or otherwise authorized by Innersloth.
+                        </li>
+                        <li style={{ margin: 5 }}>
+                            Maps cannot be in a broken or unusable state at time of publish.
                         </li>
                         <li style={{ margin: 5 }}>
                             You cannot hack, flood, DoS, or break the LevelImposter API in any way.
@@ -50,7 +53,7 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
                             text="I Agree"
-                            intent="primary"
+                            intent="success"
                         />
                         <Button
                             onClick={props.onCancel}

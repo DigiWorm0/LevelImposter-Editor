@@ -1,11 +1,13 @@
-import { Button, Classes, MenuItem } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Button, Classes } from "@blueprintjs/core";
+import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
@@ -16,9 +18,12 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
+    const saveHistory = useSaveHistory();
+    const settings = useSettingsValue();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
+        saveHistory();
         addElement({
             name: elem.name,
             type: elem.type,
@@ -58,9 +63,10 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 onClose={() => { setIsOpen(false) }}
                 items={AUElementDB}
                 onItemSelect={(elem) => { handleClick(elem) }}
+                className={settings.isDarkMode === false ? "" : "bp4-dark"}
                 itemRenderer={(elem, props) => {
                     return (
-                        <MenuItem
+                        <MenuItem2
                             key={elem.type}
                             text={elem.name}
                             label={elem.type}
@@ -85,7 +91,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 }}
                 createNewItemRenderer={(query, isActive, onClick) => {
                     return (
-                        <MenuItem
+                        <MenuItem2
                             icon="add"
                             text={"Create '" + query + "'"}
                             label={"util-blank"}

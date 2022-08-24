@@ -1,5 +1,6 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
+import LISound from "./LISound";
 
 export default interface LIElement {
     id: GUID;
@@ -13,9 +14,17 @@ export default interface LIElement {
     rotation: number;
     properties: {
         // Generic
-        spriteData?: string;
         colliders?: LICollider[];
         parent?: GUID;
+
+        // Sound
+        sounds?: LISound[];
+        soundPriority?: number;
+
+        // Sprite
+        spriteData?: string;
+        noShadows?: boolean;
+        noShadowsBehaviour?: boolean;
 
         // Vent
         leftVent?: GUID;
@@ -42,12 +51,24 @@ export default interface LIElement {
         platformXExitOffset?: number;
         platformYExitOffset?: number;
 
+        // Star Field
+        starfieldMinSpeed?: number;
+        starfieldMaxSpeed?: number;
+        starfieldCount?: number;
+        starfieldHeight?: number;
+        starfieldLength?: number;
+
         // Task
         description?: string;
         taskLength?: string;
 
+        // Room
+        isRoomNameVisible?: boolean;
+        isRoomAdminVisible?: boolean;
+
         // Editor
         isLocked?: boolean;
+        isVisible?: boolean;
     };
 }
 
