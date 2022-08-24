@@ -35,6 +35,15 @@ export default function AudioPlayer() {
 
     const soundData = sound?.isPreset ? "/sounds/" + sound?.data : sound?.data;
 
+    const downloadSound = () => {
+        if (!soundData)
+            return;
+        const link = document.createElement("a");
+        link.href = soundData;
+        link.download = "";
+        link.click();
+    }
+
     return (
         <div style={{ textAlign: "center", marginBottom: 10 }}>
 
@@ -70,6 +79,12 @@ export default function AudioPlayer() {
                             onClick={() => {
                                 if (audioRef.current)
                                     audioRef.current.pause();
+                            }}
+                        />
+                        <Button
+                            icon="download"
+                            onClick={() => {
+                                downloadSound();
                             }}
                         />
                     </ButtonGroup>
