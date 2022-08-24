@@ -15,8 +15,6 @@ export default function AmbientSoundPanel() {
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
     const selectedSound = useSelectedSoundValue();
 
-    console.log(selectedSoundID);
-
     React.useEffect(() => {
         if (selectedSound === undefined && selectedElem?.type === "util-sound1") {
             const sounds = selectedElem?.properties.sounds || [];
