@@ -66,6 +66,9 @@ export default interface LIElement {
         isRoomNameVisible?: boolean;
         isRoomAdminVisible?: boolean;
 
+        // Minimap
+        minimapScale?: number;
+
         // Editor
         isLocked?: boolean;
         isVisible?: boolean;

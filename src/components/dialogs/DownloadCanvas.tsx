@@ -1,22 +1,22 @@
 import { Button, Dialog } from '@blueprintjs/core';
-import { Provider, useAtom } from 'jotai';
+import { Provider } from 'jotai';
 import Konva from 'konva';
 import React from 'react';
 import { Layer, Stage } from 'react-konva';
-import MapElement from '../canvas/MapElement';
 import { PROVIDER_SCOPE } from '../../hooks/jotai/Jotai';
 import { useElementIDs } from '../../hooks/jotai/useMap';
+import { useSelectedElemValue } from '../../hooks/jotai/useSelectedElem';
 import { useSettingsValue } from '../../hooks/jotai/useSettings';
-
-const DOWNLOAD_SIZE = {
-    width: 5000,
-    height: 5000
-};
+import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
+import MapElement from '../canvas/MapElement';
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {
+    const minimap = useSelectedElemValue();
     const settings = useSettingsValue();
     const elementIDs = useElementIDs();
     const stageRef = React.useRef() as React.MutableRefObject<Konva.Stage>;
+
+    const scale = minimap?.properties.minimapScale === undefined ? 1 : minimap.properties.minimapScale;
 
     const onDownload = () => {
         const stage = stageRef.current;
@@ -26,7 +26,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
         link.download = 'map.png';
         link.href = stage.toDataURL();
         link.click();
-    }
+    };
 
     return (
         <>
@@ -36,14 +36,14 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                 title="Download Map Image"
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
-                {props.isVisible && (
+                {(props.isVisible && minimap !== undefined) && (
                     <Stage
                         ref={stageRef}
                         id="download-canvas"
-                        width={DOWNLOAD_SIZE.width}
-                        height={DOWNLOAD_SIZE.height}
-                        x={DOWNLOAD_SIZE.width / 2}
-                        y={DOWNLOAD_SIZE.height / 2}
+                        x={-(minimap.x - MINIMAP_WIDTH * scale * 0.5) * UNITY_SCALE}
+                        y={(minimap.y + MINIMAP_HEIGHT * scale * 0.5) * UNITY_SCALE}
+                        width={MINIMAP_WIDTH * scale * UNITY_SCALE}
+                        height={MINIMAP_HEIGHT * scale * UNITY_SCALE}
                         className="download-canvas"
                         style={{
                             display: 'flex',
