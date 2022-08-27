@@ -51,6 +51,7 @@ export default function PublishButton() {
             authorID: user?.uid ? user.uid : "",
             authorName: user?.displayName ? user.displayName : "",
             createdAt: new Date().getTime(),
+            likeCount: 0,
             elements: map.elements,
             properties: map.properties
         };
@@ -87,6 +88,7 @@ export default function PublishButton() {
                 authorID: mapData.authorID,
                 authorName: mapData.authorName,
                 createdAt: mapData.createdAt,
+                likeCount: mapData.likeCount
             };
 
             setDoc(docRef, metadata).then(() => {

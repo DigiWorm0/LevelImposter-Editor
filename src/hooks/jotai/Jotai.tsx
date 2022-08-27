@@ -21,6 +21,7 @@ export const DEFAULT_MAP: LIMap = {
     authorID: "",
     authorName: "",
     createdAt: -1,
+    likeCount: 0,
     elements: [],
     properties: {},
 };
