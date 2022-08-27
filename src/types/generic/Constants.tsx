@@ -38,3 +38,6 @@ export const MAX_DECIMAL_PLACES = 4;
 export const DEFAULT_VOLUME = 1;
 
 export const RESOURCE_URL = "/resources/";
+
+export const THUMBNAIL_WIDTH = 256;
+export const THUMBNAIL_HEIGHT = 144;

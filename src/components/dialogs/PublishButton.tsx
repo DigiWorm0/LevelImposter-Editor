@@ -1,15 +1,16 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea, Toaster } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { signInWithEmailAndPassword, signInWithPopup, signOut, UserCredential } from "firebase/auth";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { signOut } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
+import { auth, db, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
+import { THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
@@ -25,6 +26,7 @@ export default function PublishButton() {
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
+    const [thumbnail, setThumbnail] = React.useState<string | undefined>(undefined);
     const [isPublishing, setIsPublishing] = React.useState(false);
     const [uploadProgress, setProgress] = React.useState(0);
 
@@ -56,24 +58,26 @@ export default function PublishButton() {
             properties: map.properties
         };
         const mapJSON = JSON.stringify(mapData);
-        const storageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
+        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
+        const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.png`);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, mapData.id);
 
-        const uploadToStorage = () => {
-            const byteData = new TextEncoder().encode(mapJSON);
-            const uploadTask = uploadBytesResumable(storageRef, byteData);
-            uploadTask.on("state_changed", (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log(`Upload is ${progress}% done`);
-                setProgress(progress / 100);
-            }, (err) => {
-                console.error(err);
-                toaster.danger(err.message);
-                setIsPublishing(false);
-            }, () => {
-                console.log(`Map uploaded to firebase storage: ${storageRef.fullPath}`);
-                uploadToFirestore();
+        const uploadToStorage = (name: string, data: string, ref: StorageReference) => {
+            const byteData = new TextEncoder().encode(data);
+            const uploadTask = uploadBytesResumable(ref, byteData);
+
+            return new Promise<void>((resolve, reject) => {
+                uploadTask.on("state_changed", (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`${name} upload is ${progress}% done`);
+                    setProgress(progress / 100);
+                }, (err) => {
+                    reject(err);
+                }, () => {
+                    console.log(`${name} is uploaded to firebase storage: ${ref.fullPath}`);
+                    resolve();
+                });
             });
         }
 
@@ -91,21 +95,74 @@ export default function PublishButton() {
                 likeCount: mapData.likeCount
             };
 
-            setDoc(docRef, metadata).then(() => {
-                console.log(`Map published to firestore: ${docRef.path}`);
-                toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
-                setIsPublishing(false);
-                setIsOpen(false);
-                setMap(mapData);
-            }).catch((err) => {
-                console.error(err);
-                toaster.danger(err.message);
-                setIsPublishing(false);
+            return new Promise<void>((resolve, reject) => {
+                setDoc(docRef, metadata).then(() => {
+                    console.log(`Map published to firestore: ${docRef.path}`);
+                    toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
+                    resolve();
+                }).catch((err) => {
+                    reject(err);
+                });
             });
         }
 
-        uploadToStorage();
+        uploadToStorage("LIM", mapJSON, mapStorageRef).then(async () => {
+            if (thumbnail)
+                return uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
+        }).then(() => {
+            return uploadToFirestore();
+        }).then(() => {
+            setIsPublishing(false);
+            setIsOpen(false);
+            setMap(mapData);
+        }).catch((err) => {
+            console.error(err);
+            toaster.danger(err.message);
+            setIsPublishing(false);
+        });
     }
+
+    const resizeImage = (img: string, width: number, height: number) => {
+        return new Promise((resolve, reject) => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const image = new Image();
+            image.src = img;
+            image.onload = () => {
+                canvas.width = width;
+                canvas.height = height;
+                ctx?.drawImage(image, 0, 0, width, height);
+                resolve(canvas.toDataURL());
+            }
+            image.onerror = (err) => {
+                reject(err);
+            }
+        });
+    }
+
+    const uploadThumbnail = () => {
+        console.log("Showing Upload Dialog");
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => {
+            console.log("Uploaded File");
+            if (input.files === null)
+                return;
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (reader.result === null)
+                    return;
+                resizeImage(reader.result.toString(), THUMBNAIL_WIDTH, THUMBNAIL_WIDTH).then((img) => {
+                    setThumbnail(img as string);
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+        input.click();
+    }
+
 
     return (
         <>
@@ -153,6 +210,29 @@ export default function PublishButton() {
                             }} />
                     </FormGroup>
 
+                    <FormGroup disabled={isPublishing} style={{ textAlign: "center" }} label={"Thumbnail"}>
+                        <img
+                            src={thumbnail}
+                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_WIDTH, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }} />
+                        <ButtonGroup minimal fill>
+                            <Button
+                                fill
+                                minimal
+                                disabled={isPublishing}
+                                icon={"refresh"}
+                                text={"Reset"}
+                                onClick={() => {
+                                    setThumbnail(undefined);
+                                }} />
+                            <Button
+                                fill
+                                minimal
+                                disabled={isPublishing}
+                                icon={"upload"}
+                                text={"Upload"}
+                                onClick={uploadThumbnail} />
+                        </ButtonGroup>
+                    </FormGroup>
                     <FormGroup label="Map Name" disabled={isPublishing}>
                         <InputGroup
                             large
