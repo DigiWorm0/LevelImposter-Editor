@@ -39,5 +39,5 @@ export const DEFAULT_VOLUME = 1;
 
 export const RESOURCE_URL = "/resources/";
 
-export const THUMBNAIL_WIDTH = 256;
+export const THUMBNAIL_WIDTH = 412;
 export const THUMBNAIL_HEIGHT = 144;

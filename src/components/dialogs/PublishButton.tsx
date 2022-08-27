@@ -10,7 +10,7 @@ import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
-import { THUMBNAIL_WIDTH } from "../../types/generic/Constants";
+import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
@@ -26,7 +26,7 @@ export default function PublishButton() {
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
-    const [thumbnail, setThumbnail] = React.useState<string | undefined>(undefined);
+    const [thumbnail, setThumbnail] = React.useState<Blob | undefined>(undefined);
     const [isPublishing, setIsPublishing] = React.useState(false);
     const [uploadProgress, setProgress] = React.useState(0);
 
@@ -58,14 +58,14 @@ export default function PublishButton() {
             properties: map.properties
         };
         const mapJSON = JSON.stringify(mapData);
+        const mapBytes = new TextEncoder().encode(mapJSON);
         const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
         const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.png`);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, mapData.id);
 
-        const uploadToStorage = (name: string, data: string, ref: StorageReference) => {
-            const byteData = new TextEncoder().encode(data);
-            const uploadTask = uploadBytesResumable(ref, byteData);
+        const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
+            const uploadTask = uploadBytesResumable(ref, data);
 
             return new Promise<void>((resolve, reject) => {
                 uploadTask.on("state_changed", (snapshot) => {
@@ -106,9 +106,11 @@ export default function PublishButton() {
             });
         }
 
-        uploadToStorage("LIM", mapJSON, mapStorageRef).then(async () => {
-            if (thumbnail)
-                return uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
+
+        uploadToStorage("LIM", mapBytes, mapStorageRef).then(async () => {
+            if (thumbnail) {
+                await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
+            }
         }).then(() => {
             return uploadToFirestore();
         }).then(() => {
@@ -123,7 +125,7 @@ export default function PublishButton() {
     }
 
     const resizeImage = (img: string, width: number, height: number) => {
-        return new Promise((resolve, reject) => {
+        return new Promise<Blob>((resolve, reject) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             const image = new Image();
@@ -132,7 +134,13 @@ export default function PublishButton() {
                 canvas.width = width;
                 canvas.height = height;
                 ctx?.drawImage(image, 0, 0, width, height);
-                resolve(canvas.toDataURL());
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject("Failed to convert image to blob");
+                    }
+                }, "image/png");
             }
             image.onerror = (err) => {
                 reject(err);
@@ -154,8 +162,8 @@ export default function PublishButton() {
             reader.onload = () => {
                 if (reader.result === null)
                     return;
-                resizeImage(reader.result.toString(), THUMBNAIL_WIDTH, THUMBNAIL_WIDTH).then((img) => {
-                    setThumbnail(img as string);
+                resizeImage(reader.result.toString(), THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT).then((img) => {
+                    setThumbnail(img);
                 });
             }
             reader.readAsDataURL(file);
@@ -210,10 +218,14 @@ export default function PublishButton() {
                             }} />
                     </FormGroup>
 
-                    <FormGroup disabled={isPublishing} style={{ textAlign: "center" }} label={"Thumbnail"}>
+                    <FormGroup
+                        disabled={isPublishing}
+                        style={{ textAlign: "center" }}
+                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} Thumbnail`}>
+
                         <img
-                            src={thumbnail}
-                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_WIDTH, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }} />
+                            src={thumbnail ? URL.createObjectURL(thumbnail) : ""}
+                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }} />
                         <ButtonGroup minimal fill>
                             <Button
                                 fill
