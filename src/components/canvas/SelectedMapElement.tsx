@@ -6,6 +6,7 @@ import ColliderEditor from "./ColliderEditor";
 import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
 import LadderRange from "./LadderRange";
+import MinimapPreview from "./MinimapPreview";
 import PlatformRange from "./PlatformRange";
 import SpawnRange from "./SpawnRange";
 import StarfieldRender from "./StarfieldRender";
@@ -26,6 +27,7 @@ export default function SelectedMapElement() {
             <TaskParent />
             <CameraRender />
             <PlatformRange />
+            <MinimapPreview />
 
             <Group
                 x={selectedElem.x * UNITY_SCALE}

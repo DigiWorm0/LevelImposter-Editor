@@ -35,7 +35,7 @@
 
 .download-canvas .konvajs-content,
 .download-canvas canvas {
-    width: 300px !important;
+    width: 500px !important;
     height: 300px !important;
 }
 

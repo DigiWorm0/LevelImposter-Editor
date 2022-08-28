@@ -49,17 +49,19 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                     </p>
 
                     <ButtonGroup>
+
                         <Button
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
                             text="I Agree"
                             intent="success"
-                        />
+                            icon="tick" />
                         <Button
                             onClick={props.onCancel}
                             text="Cancel"
                             intent="danger"
-                        />
+                            icon="cross" />
+
                     </ButtonGroup>
                 </div>
             </Dialog>

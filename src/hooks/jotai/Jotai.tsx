@@ -21,8 +21,10 @@ export const DEFAULT_MAP: LIMap = {
     authorID: "",
     authorName: "",
     createdAt: -1,
+    likeCount: 0,
     elements: [],
     properties: {},
+    thumbnailURL: undefined,
 };
 export const PROVIDER_SCOPE = "main";
 export const MAX_HISTORY_LENGTH = 20;

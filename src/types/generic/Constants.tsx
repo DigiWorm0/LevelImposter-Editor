@@ -24,6 +24,12 @@ export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;
 export const GRID_SIZE = 25;
 export const COLLIDER_RECT_SIZE = 8;
+export const MINIMAP_BASE_SCALE = 1 / 4.975;
+export const MINIMAP_WIDTH = 10 / MINIMAP_BASE_SCALE;
+export const MINIMAP_HEIGHT = 6 / MINIMAP_BASE_SCALE;
+export const MINIMAP_BUTTON_SIZE = 1;
+export const MINIMAP_BUTTON_X = -17.5;
+export const MINIMAP_BUTTON_Y = 11;
 
 export const DEFAULT_GRID_SNAP_RESOLUTION = 0.1;
 export const DEFAULT_INVISIBLE_OPACITY = 0.2;
@@ -32,3 +38,6 @@ export const MAX_DECIMAL_PLACES = 4;
 export const DEFAULT_VOLUME = 1;
 
 export const RESOURCE_URL = "/resources/";
+
+export const THUMBNAIL_WIDTH = 412;
+export const THUMBNAIL_HEIGHT = 144;

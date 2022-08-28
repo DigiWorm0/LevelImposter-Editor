@@ -1,15 +1,16 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea, Toaster } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, EditableText, FormGroup, H1, H3, H6, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { signInWithEmailAndPassword, signInWithPopup, signOut, UserCredential } from "firebase/auth";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { signOut } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db, githubProvider, googleProvider, storage } from "../../hooks/Firebase";
+import { auth, db, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
+import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
@@ -25,12 +26,11 @@ export default function PublishButton() {
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
+    const [thumbnail, setThumbnail] = React.useState<Blob | undefined>(undefined);
     const [isPublishing, setIsPublishing] = React.useState(false);
     const [uploadProgress, setProgress] = React.useState(0);
 
     const isLoggedIn = user !== null;
-    const isUploaded = map.id !== "" && user?.uid === map.authorID;
-
 
     const publishMap = (id?: GUID) => {
         if (!user?.emailVerified) {
@@ -51,28 +51,32 @@ export default function PublishButton() {
             authorID: user?.uid ? user.uid : "",
             authorName: user?.displayName ? user.displayName : "",
             createdAt: new Date().getTime(),
+            likeCount: 0,
             elements: map.elements,
-            properties: map.properties
+            properties: map.properties,
+            thumbnailURL: undefined,
         };
         const mapJSON = JSON.stringify(mapData);
-        const storageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
+        const mapBytes = new TextEncoder().encode(mapJSON);
+        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
+        const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.png`);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, mapData.id);
 
-        const uploadToStorage = () => {
-            const byteData = new TextEncoder().encode(mapJSON);
-            const uploadTask = uploadBytesResumable(storageRef, byteData);
-            uploadTask.on("state_changed", (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log(`Upload is ${progress}% done`);
-                setProgress(progress / 100);
-            }, (err) => {
-                console.error(err);
-                toaster.danger(err.message);
-                setIsPublishing(false);
-            }, () => {
-                console.log(`Map uploaded to firebase storage: ${storageRef.fullPath}`);
-                uploadToFirestore();
+        const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
+            const uploadTask = uploadBytesResumable(ref, data);
+
+            return new Promise<void>((resolve, reject) => {
+                uploadTask.on("state_changed", (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`${name} upload is ${progress}% done`);
+                    setProgress(progress / 100);
+                }, (err) => {
+                    reject(err);
+                }, () => {
+                    console.log(`${name} is uploaded to firebase storage: ${ref.fullPath}`);
+                    resolve();
+                });
             });
         }
 
@@ -87,23 +91,88 @@ export default function PublishButton() {
                 authorID: mapData.authorID,
                 authorName: mapData.authorName,
                 createdAt: mapData.createdAt,
+                likeCount: mapData.likeCount,
+                thumbnailURL: mapData.thumbnailURL,
             };
 
-            setDoc(docRef, metadata).then(() => {
-                console.log(`Map published to firestore: ${docRef.path}`);
-                toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
-                setIsPublishing(false);
-                setIsOpen(false);
-                setMap(mapData);
-            }).catch((err) => {
-                console.error(err);
-                toaster.danger(err.message);
-                setIsPublishing(false);
+            return new Promise<void>((resolve, reject) => {
+                setDoc(docRef, metadata).then(() => {
+                    console.log(`Map published to firestore: ${docRef.path}`);
+                    toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
+                    resolve();
+                }).catch((err) => {
+                    reject(err);
+                });
             });
         }
 
-        uploadToStorage();
+
+        uploadToStorage("LIM", mapBytes, mapStorageRef).then(async () => {
+            if (thumbnail)
+                await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
+        }).then(() => {
+            return getDownloadURL(imgStorageRef);
+        }).then((url) => {
+            mapData.thumbnailURL = url;
+            return uploadToFirestore();
+        }).then(() => {
+            setIsPublishing(false);
+            setIsOpen(false);
+            setMap(mapData);
+        }).catch((err) => {
+            console.error(err);
+            toaster.danger(err.message);
+            setIsPublishing(false);
+        });
     }
+
+    const resizeImage = (img: string, width: number, height: number) => {
+        return new Promise<Blob>((resolve, reject) => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const image = new Image();
+            image.src = img;
+            image.onload = () => {
+                canvas.width = width;
+                canvas.height = height;
+                ctx?.drawImage(image, 0, 0, width, height);
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject("Failed to convert image to blob");
+                    }
+                }, "image/png");
+            }
+            image.onerror = (err) => {
+                reject(err);
+            }
+        });
+    }
+
+    const uploadThumbnail = () => {
+        console.log("Showing Upload Dialog");
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => {
+            console.log("Uploaded File");
+            if (input.files === null)
+                return;
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (reader.result === null)
+                    return;
+                resizeImage(reader.result.toString(), THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT).then((img) => {
+                    setThumbnail(img);
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+        input.click();
+    }
+
 
     return (
         <>
@@ -151,54 +220,98 @@ export default function PublishButton() {
                             }} />
                     </FormGroup>
 
-                    <FormGroup label="Map Name" disabled={isPublishing}>
-                        <InputGroup
-                            large
-                            disabled={isPublishing}
-                            placeholder="Title"
-                            value={map.name}
-                            onChange={(e) => { setMap({ ...map, name: e.target.value }) }} />
-                    </FormGroup>
-                    <FormGroup label="Map Description" disabled={isPublishing}>
-                        <TextArea
-                            fill
-                            growVertically
-                            large
-                            disabled={isPublishing}
-                            placeholder="Description"
-                            value={map.description}
-                            onChange={(e) => { setMap({ ...map, description: e.target.value }) }} />
-                    </FormGroup>
-                    <FormGroup label="Public" disabled={isPublishing}>
-                        <Switch
-                            large
-                            disabled={isPublishing}
-                            checked={map.isPublic}
-                            onChange={(e) => { setMap({ ...map, isPublic: e.currentTarget.checked }) }} />
-                    </FormGroup>
-
-                    <Button
-                        style={{ marginRight: 10 }}
+                    <FormGroup
                         disabled={isPublishing}
-                        icon={"cloud-upload"}
-                        text={"Upload New"}
-                        intent={"primary"}
-                        onClick={() => {
-                            setIsAgreementOpen(true);
-                        }}
-                    />
+                        style={{ textAlign: "center" }}
+                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} Thumbnail`}>
 
-                    {isUploaded && (
+                        <img
+                            src={thumbnail ? URL.createObjectURL(thumbnail) : ""}
+                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }} />
+                        <ButtonGroup minimal fill>
+                            <Button
+                                fill
+                                minimal
+                                disabled={isPublishing}
+                                icon={"refresh"}
+                                text={"Reset"}
+                                onClick={() => {
+                                    setThumbnail(undefined);
+                                }} />
+                            <Button
+                                fill
+                                minimal
+                                disabled={isPublishing}
+                                icon={"upload"}
+                                text={"Upload"}
+                                onClick={uploadThumbnail} />
+                        </ButtonGroup>
+                    </FormGroup>
+                    <div style={{ padding: 15 }}>
+                        <H1>
+                            <EditableText
+                                selectAllOnFocus
+                                disabled={isPublishing}
+                                value={map.name}
+                                placeholder={"Map Name"}
+                                onChange={(value) => {
+                                    setMap({
+                                        ...map,
+                                        name: value,
+                                    })
+                                }} />
+                        </H1>
+                        <p>
+                            <EditableText
+                                multiline
+                                maxLines={12}
+                                minLines={3}
+                                selectAllOnFocus
+                                disabled={isPublishing}
+                                value={map.description}
+                                placeholder={"Map Description"}
+                                onChange={(value) => {
+                                    setMap({
+                                        ...map,
+                                        description: value,
+                                    })
+                                }} />
+                        </p>
+                    </div>
+
+                    <ButtonGroup fill>
                         <Button
+                            fill
+                            style={{ marginRight: 10 }}
                             disabled={isPublishing}
-                            icon={"saved"}
-                            text={"Replace Existing"}
-                            intent={"danger"}
+                            icon={"cloud-upload"}
+                            text={"Share Publicly"}
+                            intent={"primary"}
                             onClick={() => {
-                                publishMap();
+                                setMap({
+                                    ...map,
+                                    isPublic: true,
+                                });
+                                setIsAgreementOpen(true);
                             }}
                         />
-                    )}
+                        <Button
+                            fill
+                            style={{ marginRight: 10 }}
+                            disabled={isPublishing}
+                            icon={"eye-off"}
+                            text={"Share Privately"}
+                            intent={"danger"}
+                            onClick={() => {
+                                setMap({
+                                    ...map,
+                                    isPublic: false,
+                                });
+                                setIsAgreementOpen(true);
+                            }}
+                        />
+
+                    </ButtonGroup>
 
                     {isPublishing &&
                         <div style={{ marginTop: 15 }}>

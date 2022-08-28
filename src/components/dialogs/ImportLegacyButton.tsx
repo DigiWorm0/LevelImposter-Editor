@@ -96,8 +96,10 @@ export default function ImportLegacyButton() {
                     authorID: "",
                     authorName: "",
                     createdAt: -1,
+                    likeCount: 0,
                     elements,
-                    properties: {}
+                    properties: {},
+                    thumbnailURL: undefined,
                 });
             }
             reader.readAsText(file);

@@ -18,28 +18,34 @@ export default function PublishInfoDialog(props: { isOpen: boolean, onAgree: () 
                         Publishing a map allows you shares it to other users on the LevelImposter website and mod.
                     </p>
                     <p>
-                        You should <b>ONLY</b> publish a map that is fully functional and playable by others.
+                        In order to play your map online, it must either be:
                     </p>
+                    <ul>
+                        <li>Published (Publicly or Privately)</li>
+                        Or...
+                        <li>Installed locally via LIM</li>
+                    </ul>
                     <p>
-                        If you are just testing your map, <b>DO NOT</b> publish it.
-                        Instead, save the LIM file to your maps folder.
+                        Map publishing is currently in beta, and is subject to change.
                     </p>
                     <p>
                         For more information, see the <a href="https://docs.levelimposter.net/">documentation</a>.
                     </p>
 
                     <ButtonGroup>
+
                         <Button
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
-                            text="Map is 100% Functional"
+                            text="Okey Dokey"
                             intent="success"
-                        />
+                            icon="tick" />
                         <Button
                             onClick={props.onCancel}
-                            text="Map is NOT Functional"
+                            text="Cancel"
                             intent="danger"
-                        />
+                            icon="cross" />
+
                     </ButtonGroup>
                 </div>
             </Dialog>

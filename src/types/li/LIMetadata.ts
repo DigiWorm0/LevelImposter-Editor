@@ -12,4 +12,6 @@ export default interface LIMetadata {
     authorID: string;
     authorName: string;
     createdAt: number;
+    likeCount: number;
+    thumbnailURL?: string;
 }
