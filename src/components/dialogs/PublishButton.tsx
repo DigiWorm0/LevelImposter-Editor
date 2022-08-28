@@ -1,8 +1,8 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, EditableText, FormGroup, H1, H3, H6, InputGroup, ProgressBar, Switch, TextArea } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { ref, StorageReference, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, storage } from "../../hooks/Firebase";
@@ -31,8 +31,6 @@ export default function PublishButton() {
     const [uploadProgress, setProgress] = React.useState(0);
 
     const isLoggedIn = user !== null;
-    const isUploaded = map.id !== "" && user?.uid === map.authorID;
-
 
     const publishMap = (id?: GUID) => {
         if (!user?.emailVerified) {
@@ -55,7 +53,8 @@ export default function PublishButton() {
             createdAt: new Date().getTime(),
             likeCount: 0,
             elements: map.elements,
-            properties: map.properties
+            properties: map.properties,
+            thumbnailURL: undefined,
         };
         const mapJSON = JSON.stringify(mapData);
         const mapBytes = new TextEncoder().encode(mapJSON);
@@ -92,7 +91,8 @@ export default function PublishButton() {
                 authorID: mapData.authorID,
                 authorName: mapData.authorName,
                 createdAt: mapData.createdAt,
-                likeCount: mapData.likeCount
+                likeCount: mapData.likeCount,
+                thumbnailURL: mapData.thumbnailURL,
             };
 
             return new Promise<void>((resolve, reject) => {
@@ -108,10 +108,12 @@ export default function PublishButton() {
 
 
         uploadToStorage("LIM", mapBytes, mapStorageRef).then(async () => {
-            if (thumbnail) {
+            if (thumbnail)
                 await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
-            }
         }).then(() => {
+            return getDownloadURL(imgStorageRef);
+        }).then((url) => {
+            mapData.thumbnailURL = url;
             return uploadToFirestore();
         }).then(() => {
             setIsPublishing(false);
@@ -245,54 +247,71 @@ export default function PublishButton() {
                                 onClick={uploadThumbnail} />
                         </ButtonGroup>
                     </FormGroup>
-                    <FormGroup label="Map Name" disabled={isPublishing}>
-                        <InputGroup
-                            large
-                            disabled={isPublishing}
-                            placeholder="Title"
-                            value={map.name}
-                            onChange={(e) => { setMap({ ...map, name: e.target.value }) }} />
-                    </FormGroup>
-                    <FormGroup label="Map Description" disabled={isPublishing}>
-                        <TextArea
-                            fill
-                            growVertically
-                            large
-                            disabled={isPublishing}
-                            placeholder="Description"
-                            value={map.description}
-                            onChange={(e) => { setMap({ ...map, description: e.target.value }) }} />
-                    </FormGroup>
-                    <FormGroup label="Public" disabled={isPublishing}>
-                        <Switch
-                            large
-                            disabled={isPublishing}
-                            checked={map.isPublic}
-                            onChange={(e) => { setMap({ ...map, isPublic: e.currentTarget.checked }) }} />
-                    </FormGroup>
+                    <div style={{ padding: 15 }}>
+                        <H1>
+                            <EditableText
+                                selectAllOnFocus
+                                disabled={isPublishing}
+                                value={map.name}
+                                placeholder={"Map Name"}
+                                onChange={(value) => {
+                                    setMap({
+                                        ...map,
+                                        name: value,
+                                    })
+                                }} />
+                        </H1>
+                        <p>
+                            <EditableText
+                                multiline
+                                maxLines={12}
+                                minLines={3}
+                                selectAllOnFocus
+                                disabled={isPublishing}
+                                value={map.description}
+                                placeholder={"Map Description"}
+                                onChange={(value) => {
+                                    setMap({
+                                        ...map,
+                                        description: value,
+                                    })
+                                }} />
+                        </p>
+                    </div>
 
-                    <Button
-                        style={{ marginRight: 10 }}
-                        disabled={isPublishing}
-                        icon={"cloud-upload"}
-                        text={"Upload New"}
-                        intent={"primary"}
-                        onClick={() => {
-                            setIsAgreementOpen(true);
-                        }}
-                    />
-
-                    {isUploaded && (
+                    <ButtonGroup fill>
                         <Button
+                            fill
+                            style={{ marginRight: 10 }}
                             disabled={isPublishing}
-                            icon={"saved"}
-                            text={"Replace Existing"}
-                            intent={"danger"}
+                            icon={"cloud-upload"}
+                            text={"Share Publicly"}
+                            intent={"primary"}
                             onClick={() => {
-                                publishMap();
+                                setMap({
+                                    ...map,
+                                    isPublic: true,
+                                });
+                                setIsAgreementOpen(true);
                             }}
                         />
-                    )}
+                        <Button
+                            fill
+                            style={{ marginRight: 10 }}
+                            disabled={isPublishing}
+                            icon={"eye-off"}
+                            text={"Share Privately"}
+                            intent={"danger"}
+                            onClick={() => {
+                                setMap({
+                                    ...map,
+                                    isPublic: false,
+                                });
+                                setIsAgreementOpen(true);
+                            }}
+                        />
+
+                    </ButtonGroup>
 
                     {isPublishing &&
                         <div style={{ marginTop: 15 }}>

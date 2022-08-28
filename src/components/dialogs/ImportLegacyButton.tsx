@@ -98,7 +98,8 @@ export default function ImportLegacyButton() {
                     createdAt: -1,
                     likeCount: 0,
                     elements,
-                    properties: {}
+                    properties: {},
+                    thumbnailURL: undefined,
                 });
             }
             reader.readAsText(file);
