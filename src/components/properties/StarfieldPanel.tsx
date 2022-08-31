@@ -12,7 +12,7 @@ export default function StarfieldPanel() {
         return null;
 
     return (
-        <PanelContainer title="Star Field">
+        <PanelContainer title={translation.Starfield}>
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-count"}

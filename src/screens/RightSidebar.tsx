@@ -4,6 +4,7 @@ import CamPanel from "../components/properties/CamPanel";
 import ColliderPanel from "../components/properties/ColliderPanel";
 import ConsolePanel from "../components/properties/ConsolePanel";
 import DebugPanel from "../components/properties/DebugPanel";
+import FloatingPanel from '../components/properties/FloatingPanel';
 import LadderPanel from "../components/properties/LadderPanel";
 import MinimapPanel from "../components/properties/MinimapPanel";
 import PlatformPanel from "../components/properties/PlatformPanel";
@@ -41,6 +42,7 @@ export default function RightSidebar() {
             <SabPanel />
             <ConsolePanel />
             <StarfieldPanel />
+            <FloatingPanel />
             <LadderPanel />
             <VentPanel />
             <CamPanel />

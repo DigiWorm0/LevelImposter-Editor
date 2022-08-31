@@ -147,6 +147,10 @@ const AUElementDB: AUElement[] = [
         name: "Footstep Sound",
         type: "util-sound2"
     },
+    {
+        name: "Floating Sprite",
+        type: "util-blankfloat"
+    },
     // Tasks
     {
         name: "Card Swipe",

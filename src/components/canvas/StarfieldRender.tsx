@@ -47,18 +47,6 @@ export default function StarfieldRender() {
         return null;
     return (
         <>
-            <Rect
-                x={-length * UNITY_SCALE}
-                y={(-height / 2) * UNITY_SCALE}
-                width={length * UNITY_SCALE}
-                height={height * UNITY_SCALE}
-                stroke="#ffaa00"
-                strokeWidth={4}
-                dashEnabled={true}
-                dash={[10, 10]}
-                listening={false}
-            />
-
             {starPositions.map((star, i) => {
                 const x = -star.x * UNITY_SCALE;
                 const y = star.y * UNITY_SCALE;
@@ -77,6 +65,18 @@ export default function StarfieldRender() {
                     />
                 );
             })}
+
+            <Rect
+                x={-length * UNITY_SCALE}
+                y={(-height / 2) * UNITY_SCALE}
+                width={length * UNITY_SCALE}
+                height={height * UNITY_SCALE}
+                stroke="#ffaa00"
+                strokeWidth={4}
+                dashEnabled={true}
+                dash={[10, 10]}
+                listening={false}
+            />
         </>
     );
 }

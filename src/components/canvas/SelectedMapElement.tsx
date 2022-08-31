@@ -5,6 +5,7 @@ import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
 import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
+import FloatingRender from "./FloatingRender";
 import LadderRange from "./LadderRange";
 import MinimapPreview from "./MinimapPreview";
 import PlatformRange from "./PlatformRange";
@@ -39,6 +40,7 @@ export default function SelectedMapElement() {
                 <ColliderPreview />
                 <ColliderEditor />
                 <StarfieldRender />
+                <FloatingRender />
 
             </Group>
         </>

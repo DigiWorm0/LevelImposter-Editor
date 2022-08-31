@@ -12,6 +12,10 @@ import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 
+const HIDE_ON_SELECT = [
+    "util-blankfloat",
+    "util-starfield"
+]
 
 export default function MapElement(props: { elementID: GUID }) {
     const isEmbeded = useEmbed();
@@ -85,7 +89,7 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
-                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity)}
+                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity) * ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}

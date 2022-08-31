@@ -58,6 +58,10 @@ export default interface LIElement {
         starfieldHeight?: number;
         starfieldLength?: number;
 
+        // Floaing
+        floatingHeight?: number;
+        floatingSpeed?: number;
+
         // Task
         description?: string;
         taskLength?: string;

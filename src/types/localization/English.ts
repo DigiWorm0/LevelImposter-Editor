@@ -75,7 +75,9 @@ const EnglishLocalization: LITranslation = {
     StepSounds: "Step Sounds",
     Task: "Task",
     Transform: "Transform",
-    Vent: "Vent"
+    Vent: "Vent",
+    Speed: "Speed",
+    FloatingSprite: "Floating Sprite",
 };
 
 export default EnglishLocalization;

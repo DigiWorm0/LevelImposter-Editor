@@ -84,6 +84,10 @@ type LITranslation = {
     MaxSpeed?: string;
     MinSpeed?: string;
 
+    // Floating
+    FloatingSprite?: string;
+    Speed?: string;
+
     // Sounds
     AmbientSound?: string;
     StepSound?: string;
