@@ -2,8 +2,10 @@ import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useRemoveElement } from "../../hooks/jotai/useElement";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function DeleteObjectButton() {
+    const translation = useTranslation();
     const removeElement = useRemoveElement();
     const [selectedID, setSelectedID] = useSelectedElemID();
 
@@ -15,7 +17,7 @@ export default function DeleteObjectButton() {
     return (
         <>
             <Tooltip2
-                content="Remove the object"
+                content={translation.DeleteObject}
                 position="bottom">
 
                 <AnchorButton

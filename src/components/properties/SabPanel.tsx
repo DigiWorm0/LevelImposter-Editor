@@ -6,6 +6,7 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteType } from "../../hooks/useSprite";
+import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
@@ -13,6 +14,7 @@ import PanelContainer from "./PanelContainer";
 const RoomSelect = Select2.ofType<LIElement>();
 
 export default function SabPanel() {
+    const translation = useTranslation();
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [sabName, setSabName] = React.useState("");
@@ -44,7 +46,7 @@ export default function SabPanel() {
         return null;
 
     return (
-        <PanelContainer title="Sabotage">
+        <PanelContainer title={translation.Sabotage}>
             <div style={{ textAlign: "center", margin: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
@@ -68,7 +70,7 @@ export default function SabPanel() {
 
                     <Button
                         rightIcon="caret-down"
-                        text={parentRoom ? parentRoom.name : "(Default Room)"}
+                        text={parentRoom ? parentRoom.name : translation.Default}
                         fill
                     />
                 </RoomSelect>

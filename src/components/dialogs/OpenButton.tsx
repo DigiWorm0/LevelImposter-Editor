@@ -3,10 +3,12 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { DEFAULT_GUID } from "../../hooks/generateGUID";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import useToaster from "../../hooks/useToaster";
+import useTranslation from "../../hooks/useTranslation";
 import LIMap from "../../types/li/LIMap";
 import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 
 export default function OpenButton() {
+    const translation = useTranslation();
     const setMap = useSetMap();
     const toaser = useToaster();
 
@@ -56,7 +58,7 @@ export default function OpenButton() {
     return (
         <>
             <Tooltip2
-                content="Open an LIM file"
+                content={translation.OpenFile}
                 position="bottom">
 
                 <Button

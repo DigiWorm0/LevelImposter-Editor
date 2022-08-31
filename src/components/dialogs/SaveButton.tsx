@@ -1,8 +1,10 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useMapValue } from "../../hooks/jotai/useMap";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function SaveButton() {
+    const translation = useTranslation();
     const map = useMapValue();
 
     const onSave = () => {
@@ -18,7 +20,7 @@ export default function SaveButton() {
     return (
         <>
             <Tooltip2
-                content="Save to an LIM file"
+                content={translation.SaveFile}
                 position="bottom">
 
                 <Button

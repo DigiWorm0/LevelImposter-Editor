@@ -10,6 +10,7 @@ import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
+import useTranslation from "../../hooks/useTranslation";
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
@@ -19,6 +20,7 @@ import AgreementDialog from "./AgreementDialog";
 import PublishInfoDialog from "./PublishInfoDialog";
 
 export default function PublishButton() {
+    const tranlation = useTranslation();
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
@@ -177,7 +179,7 @@ export default function PublishButton() {
     return (
         <>
             <Tooltip2
-                content={"Publish Map"}
+                content={tranlation.Publish}
                 position="bottom">
 
                 <Button
@@ -204,7 +206,7 @@ export default function PublishButton() {
             <Dialog
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
-                title="Publish"
+                title={tranlation.Publish}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >

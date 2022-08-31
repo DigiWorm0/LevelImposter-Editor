@@ -1,10 +1,12 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function PlatformPanel() {
+    const translation = useTranslation();
     const [element, setElement] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -13,8 +15,8 @@ export default function PlatformPanel() {
         return null;
 
     return (
-        <PanelContainer title="Moving Platform">
-            <FormGroup label="Movement">
+        <PanelContainer title={translation.Platform}>
+            <FormGroup label={translation.Movement}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXOffset"}
@@ -40,7 +42,7 @@ export default function PlatformPanel() {
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label="Entrance Offset">
+            <FormGroup label={translation.EntranceOffset}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXEnterOffset"}
@@ -66,7 +68,7 @@ export default function PlatformPanel() {
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label="Exit Offset">
+            <FormGroup label={translation.ExitOffset}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXExitOffset"}

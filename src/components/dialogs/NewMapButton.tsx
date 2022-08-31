@@ -5,8 +5,10 @@ import { useMapReset } from "../../hooks/jotai/useMap";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function NewMapButton() {
+    const translation = useTranslation();
     const settings = useSettingsValue();
     const resetMap = useMapReset();
     const setSelectedID = useSetSelectedElemID();
@@ -23,7 +25,7 @@ export default function NewMapButton() {
     return (
         <>
             <Tooltip2
-                content="Create a new map"
+                content={translation.NewFile}
                 position="bottom">
 
                 <Button

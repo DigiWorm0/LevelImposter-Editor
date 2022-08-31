@@ -3,7 +3,7 @@ import React from "react";
 
 interface PanelContainerProps {
     children: React.ReactNode;
-    title: string;
+    title?: string;
 }
 
 export default function PanelContainer(props: PanelContainerProps) {

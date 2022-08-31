@@ -5,6 +5,7 @@ import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
+import useTranslation from "../../hooks/useTranslation";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID, { MaybeGUID } from "../../types/generic/GUID";
@@ -14,6 +15,7 @@ import StepSoundEditorPanel from "./StepSoundEditorPanel";
 const SoundPresetSelect = Select2.ofType<string>();
 
 export default function StepSoundPanel() {
+    const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
 
@@ -41,7 +43,7 @@ export default function StepSoundPanel() {
         return null;
 
     return (
-        <PanelContainer title="Step Sounds">
+        <PanelContainer title={translation.StepSounds}>
 
             <SoundPresetSelect
                 fill
@@ -66,11 +68,11 @@ export default function StepSoundPanel() {
 
                 <Button
                     rightIcon="caret-down"
-                    text={"Sound Presets"}
+                    text={translation.StepPresets}
                     fill
                 />
             </SoundPresetSelect>
-            <FormGroup label="Priority" style={{ marginTop: 10 }}>
+            <FormGroup label={translation.Priority} style={{ marginTop: 10 }}>
                 <NumericInput
                     fill
                     minorStepSize={1}
@@ -82,7 +84,7 @@ export default function StepSoundPanel() {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundPriority: value } });
                     }} />
             </FormGroup>
-            <FormGroup label="Step Variants" style={{ marginTop: 5 }}>
+            <FormGroup label={translation.StepVariants} style={{ marginTop: 5 }}>
                 <NumericInput
                     fill
                     min={0}
@@ -114,7 +116,7 @@ export default function StepSoundPanel() {
                         <div key={index}>
                             <MenuItem2
                                 icon="volume-up"
-                                text={"Step Variant " + (index + 1)}
+                                text={translation.StepVariants + " " + (index + 1)}
                                 onClick={() => editSound(sound.id)}
                                 active={isSelected}
                             />

@@ -6,6 +6,7 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteType } from "../../hooks/useSprite";
+import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
 import LIElement from "../../types/li/LIElement";
@@ -15,6 +16,7 @@ const RoomSelect = Select2.ofType<LIElement>();
 const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
+    const translation = useTranslation();
     const roomElems = useRooms();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
@@ -55,7 +57,7 @@ export default function TaskPanel() {
         return null;
 
     return (
-        <PanelContainer title="Task">
+        <PanelContainer title={translation.Task}>
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
                     style={{ maxHeight: 100, maxWidth: 100 }}
@@ -80,7 +82,7 @@ export default function TaskPanel() {
 
                         <Button
                             rightIcon="caret-down"
-                            text={parentRoom ? parentRoom.name : "(Default Room)"}
+                            text={parentRoom ? parentRoom.name : translation.DefaultRoom}
                             style={{ fontStyle: parentRoom !== undefined ? "normal" : "italic" }}
                             fill
                         />
@@ -107,7 +109,7 @@ export default function TaskPanel() {
 
                         <Button
                             rightIcon="caret-down"
-                            text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " Task" : "(Default Length)"}
+                            text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " " + translation.Task : translation.DefaultLength}
                             style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
                             fill
                         />
@@ -126,7 +128,7 @@ export default function TaskPanel() {
                         key={selectedElem.id + "-description"}
                         fill
                         leftIcon="info-sign"
-                        placeholder={"(Default Description)"}
+                        placeholder={translation.DefaultDescription}
                         defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                         onChange={(e) => {
                             saveHistory();

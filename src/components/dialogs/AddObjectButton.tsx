@@ -8,12 +8,14 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { isSidePanel?: boolean }) {
+    const translation = useTranslation();
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -45,7 +47,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
         <>
             <Tooltip2
                 fill
-                content="Add an object"
+                content={translation.AddObject}
                 position="bottom">
 
                 <Button
@@ -53,7 +55,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     large={props.isSidePanel}
                     className={Classes.MINIMAL}
                     icon={props.isSidePanel ? "plus" : "cube-add"}
-                    text={props.isSidePanel ? "Add Object" : undefined}
+                    text={props.isSidePanel ? translation.AddObject : undefined}
                     onClick={() => { setIsOpen(true) }} />
 
             </Tooltip2>
@@ -93,7 +95,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     return (
                         <MenuItem2
                             icon="add"
-                            text={"Create '" + query + "'"}
+                            text={translation.Create?.replaceAll("%name%", query)}
                             label={"util-blank"}
                             active={isActive}
                             onClick={onClick} />

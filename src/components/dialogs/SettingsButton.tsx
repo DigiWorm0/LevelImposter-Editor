@@ -1,19 +1,36 @@
 import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
+import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY } from "../../types/generic/Constants";
+import LITranslations from "../../types/localization/LITranslations";
+
+const LanguageSelect = Select2.ofType<string>();
 
 export default function SettingsButton() {
+    const translation = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
     const [settings, setSettings] = useSettings();
     const [properties, setProperties] = useMapProperties();
 
+    const languageSelectRenderer: ItemRenderer<string> = (language, props) => (
+        <MenuItem2
+            key={language}
+            text={LITranslations[language].LanguageName}
+            label={language}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus} />
+    );
+
     return (
         <>
             <Tooltip2
-                content="Open Settings"
+                content={translation.Settings}
                 position="bottom">
 
                 <Button
@@ -26,7 +43,7 @@ export default function SettingsButton() {
             <Dialog
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
-                title="Settings"
+                title={translation.Settings}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
@@ -94,6 +111,24 @@ export default function SettingsButton() {
                                     setSettings({ ...settings, invisibleOpacity: value });
                                 }} />
                             <Label>Invisible Opacity</Label>
+                        </ControlGroup>
+
+                        <ControlGroup fill={true} style={{textAlign: "center", marginTop: 10}}>
+                            <LanguageSelect
+                                filterable={false}
+                                items={Object.keys(LITranslations)}
+                                itemRenderer={languageSelectRenderer}
+                                onItemSelect={(language) => {
+                                    setSettings({ ...settings, language });
+                                }}>
+
+                                <Button
+                                    rightIcon="caret-down"
+                                    text={settings.language ? LITranslations[settings.language].LanguageName : "Default"}
+                                    fill
+                                />
+                            </LanguageSelect>
+                            <Label>Localization</Label>
                         </ControlGroup>
                     </FormGroup>
 

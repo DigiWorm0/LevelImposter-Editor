@@ -1,6 +1,7 @@
 import { HotkeysProvider } from '@blueprintjs/core';
 import { Provider } from 'jotai';
 import React from 'react';
+import CheckLanguage from '../components/dialogs/CheckLanguage';
 import CheckMobile from '../components/dialogs/CheckMobile';
 import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
@@ -43,6 +44,7 @@ export default function App() {
                     {!isEmbeded && (<>
                         <RightSidebar />
                         <CheckMobile />
+                        <CheckLanguage />
                     </>)}
 
                     {isEmbeded && (<>

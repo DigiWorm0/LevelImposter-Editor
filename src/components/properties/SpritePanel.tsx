@@ -2,10 +2,12 @@ import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
+import useTranslation from "../../hooks/useTranslation";
 import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
 export default function SpritePanel() {
+    const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const spriteURL = useSpriteSrc(selectedElem?.id);
     const saveHistory = useSaveHistory();
@@ -63,7 +65,7 @@ export default function SpritePanel() {
         return null;
 
     return (
-        <PanelContainer title="Sprite">
+        <PanelContainer title={translation.Sprite}>
             <DevInfo>
                 {spriteURL.length}
             </DevInfo>
@@ -81,13 +83,13 @@ export default function SpritePanel() {
                 <Button
                     fill
                     icon="refresh"
-                    text="Reset"
+                    text={translation.Reset}
                     onClick={onResetClick}
                 />
                 <Button
                     fill
                     icon="upload"
-                    text="Upload"
+                    text={translation.Upload}
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
@@ -95,7 +97,7 @@ export default function SpritePanel() {
                 <Switch
                     key={selectedElem.id + "-noShadows"}
                     checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
-                    label="No Shadows"
+                    label={translation.NoShadows}
                     style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
                     onChange={(e) => {
                         saveHistory();
@@ -107,7 +109,7 @@ export default function SpritePanel() {
                 <Switch
                     key={selectedElem.id + "-noShadowsBehaviour"}
                     checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
-                    label="Shadow Behaviour"
+                    label={translation.NoShadowBehavior}
                     style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
                     onChange={(e) => {
                         saveHistory();

@@ -4,12 +4,14 @@ import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useVents } from "../../hooks/jotai/useVents";
+import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
 
 const VentSelect = Select2.ofType<LIElement>();
 
 export default function VentPanel() {
+    const translation = useTranslation();
     const ventElems = useVents();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
@@ -38,7 +40,7 @@ export default function VentPanel() {
         return null;
 
     return (
-        <PanelContainer title="Vent">
+        <PanelContainer title={translation.Vent}>
             <ControlGroup fill>
                 <VentSelect
                     fill
