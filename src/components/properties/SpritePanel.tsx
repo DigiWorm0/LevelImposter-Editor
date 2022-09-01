@@ -93,7 +93,7 @@ export default function SpritePanel() {
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
-            {(selectedElem.type.startsWith("dec-") || selectedElem.type === "util-blank") && (
+            {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
                 <Switch
                     key={selectedElem.id + "-noShadows"}
                     checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}

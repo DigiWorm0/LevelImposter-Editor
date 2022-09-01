@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, Line, Rect } from "react-konva";
+import { Image, Line } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE } from "../../types/generic/Constants";
 
-const REFRESH_RATE = 1000 / 60;
+const REFRESH_RATE = 1000 / 60; // ms
 
 export default function FloatingRender() {
     const selectedElem = useSelectedElemValue();
@@ -16,12 +16,12 @@ export default function FloatingRender() {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            setT(t => t + REFRESH_RATE);
+            setT(new Date().getTime() / 1000);
         }, REFRESH_RATE);
         return () => clearInterval(interval);
-    }, [speed]);
+    }, []);
 
-    const y = (Math.sin(t / 1000 * speed) + 1) * height / 2;
+    const y = (Math.sin(t * speed) + 1) * height / 2;
 
     if (!selectedElem || selectedElem.type !== "util-blankfloat" || !sprite)
         return null;
