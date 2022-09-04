@@ -66,12 +66,13 @@ type LITranslation = {
     Room?: string;
     ShowName?: string;
     ShowAdminTable?: string;
-    
+
     // Task
     Task?: string;
     DefaultDescription?: string;
     DefaultLength?: string;
     DefaultRoom?: string;
+    NoRoom?: string;
 
     // Sprite
     Sprite?: string;
@@ -96,7 +97,7 @@ type LITranslation = {
     StepVariants?: string;
     Priority?: string;
     NothingUploaded?: string;
-    
+
     // Panel Names
     Camera?: string;
     Console?: string;

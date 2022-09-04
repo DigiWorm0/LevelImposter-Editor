@@ -49,6 +49,7 @@ const PirateLocalization: LITranslation = {
     DefaultDescription: "Default Description",
     DefaultLength: "Default Length",
     DefaultRoom: "Default Room",
+    NoRoom: "No Room",
     NoShadows: "No Shadows",
     NoShadowBehavior: "Shadow Behavior",
     Count: "Count",

@@ -1,45 +1,22 @@
-import { Button, ControlGroup, H5 } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { H5 } from "@blueprintjs/core";
 import React from "react";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useRooms } from "../../hooks/jotai/useMap";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSpriteType } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
-import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
-
-const RoomSelect = Select2.ofType<LIElement>();
+import RoomSelect from "./RoomSelect";
 
 export default function SabPanel() {
     const translation = useTranslation();
-    const roomElems = useRooms();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
-    const saveHistory = useSaveHistory();
-
-    const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
         const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
         setSabName(auElement ? auElement.name : "Unknown");
     }, [selectedElem]);
-
-    const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem2
-            key={elem.type + props.index}
-            text={elem.name}
-            label={elem.type}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
-
-    const hasRooms = roomElems.length > 0;
 
     if (!selectedElem
         || !selectedElem.type.startsWith("sab-"))
@@ -56,33 +33,7 @@ export default function SabPanel() {
                 <H5 style={{ marginBottom: 3 }}>{sabName}</H5>
                 <p className="bp4-text-muted">{selectedElem.type}</p>
             </div>
-            <ControlGroup fill>
-                <RoomSelect
-                    fill
-                    filterable={false}
-                    disabled={!hasRooms}
-                    items={roomElems}
-                    itemRenderer={roomSelectRenderer}
-                    onItemSelect={(room) => {
-                        saveHistory();
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
-                    }}>
-
-                    <Button
-                        rightIcon="caret-down"
-                        text={parentRoom ? parentRoom.name : translation.Default}
-                        fill
-                    />
-                </RoomSelect>
-                <Button
-                    minimal
-                    rightIcon="cross"
-                    onClick={() => {
-                        saveHistory();
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
-                    }}
-                />
-            </ControlGroup>
+            <RoomSelect useDefault={true} />
         </PanelContainer>
     );
 }

@@ -9,10 +9,9 @@ import { useSpriteType } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
-import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
+import RoomSelect from "./RoomSelect";
 
-const RoomSelect = Select2.ofType<LIElement>();
 const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
@@ -30,16 +29,6 @@ export default function TaskPanel() {
         setTaskName(auElement ? auElement.name : "Unknown");
     }, [selectedElem]);
 
-    const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem2
-            key={elem.type + props.index + "-room"}
-            text={elem.name}
-            label={elem.type}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
     const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (
         <MenuItem2
             key={props.index + "-length"}
@@ -68,34 +57,7 @@ export default function TaskPanel() {
                 <p className="bp4-text-muted">{selectedElem.type}</p>
             </div>
             <FormGroup>
-                <ControlGroup fill>
-                    <RoomSelect
-                        fill
-                        filterable={false}
-                        disabled={!hasRooms}
-                        items={roomElems}
-                        itemRenderer={roomSelectRenderer}
-                        onItemSelect={(room) => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
-                        }}>
-
-                        <Button
-                            rightIcon="caret-down"
-                            text={parentRoom ? parentRoom.name : translation.DefaultRoom}
-                            style={{ fontStyle: parentRoom !== undefined ? "normal" : "italic" }}
-                            fill
-                        />
-                    </RoomSelect>
-                    <Button
-                        minimal
-                        rightIcon="cross"
-                        onClick={() => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
-                        }}
-                    />
-                </ControlGroup>
+                <RoomSelect useDefault={true} />
                 <ControlGroup fill>
                     <LengthSelect
                         fill
