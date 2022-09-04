@@ -13,9 +13,11 @@ export default interface LIElement {
     yScale: number;
     rotation: number;
     properties: {
+
         // Generic
         colliders?: LICollider[];
         parent?: GUID;
+        layer?: GUID;
 
         // Sound
         sounds?: LISound[];

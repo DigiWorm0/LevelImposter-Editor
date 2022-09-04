@@ -7,11 +7,13 @@ type LITranslation = {
     NewFile?: string;
     ImportLegacy?: string;
     AddObject?: string;
+    AddLayer?: string;
     DeleteObject?: string;
     Undo?: string;
     Redo?: string;
     Publish?: string;
     Settings?: string;
+    OpenInEditor?: string;
 
     // Generic
     Delete?: string;

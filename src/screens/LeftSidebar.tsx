@@ -1,12 +1,14 @@
-import AddObjectButton from "../components/dialogs/AddObjectButton";
+import LayerHierarchy from "../components/scenegraph/LayerHierarchy";
 import MapHierarchy from "../components/scenegraph/MapHierarchy";
+import SceneScroller from "../components/scenegraph/SceneScroller";
 
 export default function LeftSidebar() {
+
     return (
         <div className="left-sidebar">
-            <AddObjectButton isSidePanel={true} />
-            <div style={{ margin: 8 }} />
+            <LayerHierarchy />
             <MapHierarchy />
+            <SceneScroller />
         </div>
     );
 }

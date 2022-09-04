@@ -8,4 +8,5 @@ export default interface LISettings {
     invisibleOpacity?: number;
     colliderPreview?: boolean;
     language?: string;
+    scrollToSelection?: boolean;
 }

@@ -2,6 +2,7 @@ import { Button, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import useElement from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 
@@ -29,6 +30,7 @@ const ICON_DB: Record<string, IconName> = {
 
 export default function MapHierarchyElement(props: { elementID: GUID }) {
     const [element, setElement] = useElement(props.elementID);
+    const selectedLayerID = useSelectedLayerIDValue();
     const [selectedID, setSelectedID] = useSelectedElemID();
     const saveHistory = useSaveHistory();
 
@@ -61,7 +63,7 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
         return "none";
     }
 
-    if (element === undefined)
+    if (element === undefined || (selectedLayerID !== undefined && element.properties.layer !== selectedLayerID))
         return null;
 
     const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
@@ -70,6 +72,7 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
 
     return (
         <MenuItem2
+            style={{ outline: 0 }}
             id={element.id}
             icon={icon}
             text={element.name}

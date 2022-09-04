@@ -5,6 +5,7 @@ import React from "react";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -22,6 +23,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const [isOpen, setIsOpen] = React.useState(false);
     const saveHistory = useSaveHistory();
     const settings = useSettingsValue();
+    const selectedLayerID = useSelectedLayerIDValue();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
@@ -36,7 +38,9 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
             xScale: 1,
             yScale: 1,
             rotation: 0,
-            properties: {}
+            properties: {
+                layer: selectedLayerID,
+            }
         });
         setIsOpen(false);
         setSelectedID(id);
@@ -52,7 +56,6 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
 
                 <Button
                     fill
-                    large={props.isSidePanel}
                     className={Classes.MINIMAL}
                     icon={props.isSidePanel ? "plus" : "cube-add"}
                     text={props.isSidePanel ? translation.AddObject : undefined}

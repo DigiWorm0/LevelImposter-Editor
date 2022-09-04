@@ -71,6 +71,13 @@ export default function SettingsButton() {
                             }} />
 
                         <Switch
+                            label="Scroll to Selection"
+                            checked={settings.scrollToSelection === undefined ? false : settings.scrollToSelection}
+                            onChange={(e) => {
+                                setSettings({ ...settings, scrollToSelection: e.currentTarget.checked });
+                            }} />
+
+                        <Switch
                             label="Grid"
                             checked={settings.isGridVisible === undefined ? true : settings.isGridVisible}
                             onChange={(e) => {
@@ -113,7 +120,7 @@ export default function SettingsButton() {
                             <Label>Invisible Opacity</Label>
                         </ControlGroup>
 
-                        <ControlGroup fill={true} style={{textAlign: "center", marginTop: 10}}>
+                        <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>
                             <LanguageSelect
                                 filterable={false}
                                 items={Object.keys(LITranslations)}

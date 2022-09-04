@@ -1,9 +1,10 @@
 import { atom } from "jotai";
 import { focusAtom } from "jotai/optics";
 import { atomFamily, atomWithReset, atomWithStorage } from 'jotai/utils';
-import { MaybeGUID } from "../../types/generic/GUID";
+import GUID, { MaybeGUID } from "../../types/generic/GUID";
 import { MaybeLICollider } from "../../types/li/LICollider";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
+import LILayer, { MaybeLILayer } from "../../types/li/LILayer";
 import LIMap from "../../types/li/LIMap";
 import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 import LISettings from "../../types/li/LISettings";
@@ -33,6 +34,7 @@ export const MAX_HISTORY_LENGTH = 20;
 export const mapAtom = atomWithReset(DEFAULT_MAP);
 export const mapNameAtom = focusAtom(mapAtom, (optic) => optic.prop("name"));
 export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
+export const layersAtom = focusAtom(mapPropsAtom, (optic) => optic.prop("layers"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
 export const elementIDsAtom = atom((get) => {
     return get(elementsAtom).map((e) => e.id);
@@ -90,6 +92,30 @@ export const selectedElemAtom = atom(
     }
 );
 
+// Selected Layer
+export const selectedLayerIDAtom = atom<MaybeGUID>(undefined);
+export const selectedLayerAtom = atom(
+    (get) => {
+        const id = get(selectedLayerIDAtom);
+        const layer = get(mapAtom).properties.layers?.find((layer) => layer.id === id);
+        return layer;
+    },
+    (get, set, layer: MaybeLILayer) => {
+        const layers = get(mapAtom).properties.layers;
+        if (layers === undefined)
+            return;
+        const index = layers.findIndex((l) => l.id === layer?.id);
+        if (index >= 0 && layer) {
+            layers[index] = { ...layer };
+            set(mapAtom, { ...get(mapAtom), layers });
+        }
+    }
+);
+export const isSelectedLayerAtom = atom(
+    (get) => {
+        return get(selectedLayerIDAtom) != undefined;
+    }
+);
 // Selected Collider
 export const selectedColliderIDAtom = atom<MaybeGUID>(undefined);
 export const selectedColliderAtom = atom(
