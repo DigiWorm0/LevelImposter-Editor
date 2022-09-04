@@ -57,8 +57,8 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 <Button
                     fill
                     className={Classes.MINIMAL}
-                    icon={props.isSidePanel ? "plus" : "cube-add"}
-                    text={props.isSidePanel ? translation.AddObject : undefined}
+                    icon={"cube-add"}
+                    intent={props.isSidePanel ? "success" : undefined}
                     onClick={() => { setIsOpen(true) }} />
 
             </Tooltip2>

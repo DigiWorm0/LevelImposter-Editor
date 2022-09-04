@@ -4,7 +4,7 @@ import { useRemoveElement } from "../../hooks/jotai/useElement";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import useTranslation from "../../hooks/useTranslation";
 
-export default function DeleteObjectButton() {
+export default function DeleteObjectButton(props: { isSidePanel?: boolean }) {
     const translation = useTranslation();
     const removeElement = useRemoveElement();
     const [selectedID, setSelectedID] = useSelectedElemID();
@@ -24,6 +24,7 @@ export default function DeleteObjectButton() {
                     className={Classes.MINIMAL}
                     icon="cube-remove"
                     disabled={!selectedID}
+                    intent={props.isSidePanel ? "danger" : undefined}
                     onClick={handleClick} />
 
             </Tooltip2>

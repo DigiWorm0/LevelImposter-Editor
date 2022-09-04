@@ -205,6 +205,7 @@ export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     const mouseY = get(mouseYAtom);
     elem.x = mouseX;
     elem.y = mouseY;
+    elem.properties.layer = get(selectedLayerIDAtom);
     set(elementsAtom, [...get(elementsAtom), elem]);
 });
 export const insertPointAtMouseAtom = atom(null, (get, set, index: number) => {

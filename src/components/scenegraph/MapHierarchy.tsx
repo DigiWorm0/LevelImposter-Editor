@@ -1,6 +1,7 @@
 import { Menu, MenuDivider } from "@blueprintjs/core";
 import { useElementIDs } from "../../hooks/jotai/useMap";
 import AddObjectButton from "../dialogs/AddObjectButton";
+import MapButtons from "../dialogs/MapButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
 
 export default function MapHierarchy() {
@@ -13,7 +14,7 @@ export default function MapHierarchy() {
             {elementIDs.map((elemID) => (
                 <MapHierarchyElement key={elemID} elementID={elemID} />
             ))}
-            <AddObjectButton isSidePanel={true} />
+            <MapButtons />
         </Menu>
     );
 }

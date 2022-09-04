@@ -1,6 +1,7 @@
 import { HotkeyConfig, useHotkeys } from "@blueprintjs/core";
 import React from "react";
-import { MaybeLIElement } from "../types/li/LIElement";
+import LIClipboard from "../types/li/LIClipboard";
+import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
 import { useSaveHistory, useUndo } from "./jotai/useHistory";
@@ -34,10 +35,14 @@ export default function useCombos() {
     const copyElement = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const elemData = JSON.stringify(selectedElem);
-        setLocalClipboard(elemData);
+        const clipboardData: LIClipboard = {
+            type: "single element",
+            data: selectedElem
+        };
+        const clipboardJSON = JSON.stringify(clipboardData);
+        setLocalClipboard(clipboardJSON);
         if (navigator.clipboard.writeText)
-            navigator.clipboard.writeText(elemData);
+            navigator.clipboard.writeText(clipboardJSON);
     }, [selectedElem]);
 
     const pasteElement = React.useCallback(async () => {
@@ -57,21 +62,41 @@ export default function useCombos() {
             toaster.danger("Nothing to paste");
             return;
         }
-        const elemData = JSON.parse(clipboard) as MaybeLIElement;
-        if (elemData) {
-            saveHistory();
-            const id = generateGUID();
-            addElement({
-                ...elemData,
-                id,
-                properties: {
-                    ...elemData.properties,
-                    colliders: [
-                        ...(elemData.properties.colliders || []),
-                    ]
-                }
-            });
-            setSelectedID(id);
+        const clipboardData = JSON.parse(clipboard) as LIClipboard | undefined;
+        if (clipboardData) {
+            if (clipboardData.type === "single element") {
+                saveHistory();
+                const id = generateGUID();
+                const elemData = clipboardData.data as LIElement;
+                addElement({
+                    ...elemData,
+                    id,
+                    properties: {
+                        ...elemData.properties,
+                        colliders: [
+                            ...(elemData.properties.colliders || []),
+                        ]
+                    }
+                });
+                setSelectedID(id);
+            }
+            else if (clipboardData.type === "multiple elements") {
+                saveHistory();
+                const elements = clipboardData.data as LIElement[];
+                elements.forEach(elem => {
+                    const id = generateGUID();
+                    addElement({
+                        ...elem,
+                        id,
+                        properties: {
+                            ...elem.properties,
+                            colliders: [
+                                ...(elem.properties.colliders || []),
+                            ]
+                        }
+                    });
+                });
+            }
         }
     }, [localClipboard, addElement, setSelectedID, saveHistory]);
 
@@ -95,7 +120,6 @@ export default function useCombos() {
 
     const deleteElement = React.useCallback(() => {
         if (selectedElem) {
-            toaster.danger("Deleted " + selectedElem.name);
             saveHistory();
             removeElement(selectedElem.id);
         }
@@ -147,6 +171,17 @@ export default function useCombos() {
             description: "Paste selection",
             onKeyDown: async () => {
                 pasteElement();
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Selection",
+            label: "Cut",
+            combo: "ctrl+x",
+            description: "Cut selection",
+            onKeyDown: () => {
+                copyElement();
+                deleteElement();
             },
             preventDefault: true,
         },
