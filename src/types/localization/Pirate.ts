@@ -78,7 +78,14 @@ const PirateLocalization: LITranslation = {
     StepSounds: "Peg Sounds",
     Task: "Task",
     Transform: "Transform",
-    Vent: "Bilge"
+    Vent: "Bilge",
+    DeleteLayerDialogTitle: "Delete Layer",
+    DeleteLayerDialogText: "Would you like the objects in this layer to be deleted or demoted to the default layer?",
+    DeleteLayerDeleteObjects: "Delete Objects",
+    DeleteLayerDemoteObjects: "Demote Objects",
+    Cancel: "Cancel",
+    Elements: "Sea Creatures",
+    Layers: "Leagues Under the Sea",
 
 };
 

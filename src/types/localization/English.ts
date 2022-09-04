@@ -81,6 +81,13 @@ const EnglishLocalization: LITranslation = {
     Vent: "Vent",
     Speed: "Speed",
     FloatingSprite: "Floating Sprite",
+    DeleteLayerDialogTitle: "Delete Layer",
+    DeleteLayerDialogText: "Would you like the objects in this layer to be deleted or demoted to the default layer?",
+    DeleteLayerDeleteObjects: "Delete Objects",
+    DeleteLayerDemoteObjects: "Demote Objects",
+    Cancel: "Cancel",
+    Elements: "Elements",
+    Layers: "Layers",
 };
 
 export default EnglishLocalization;

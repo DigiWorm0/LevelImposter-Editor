@@ -4,6 +4,7 @@ import generateGUID from '../../hooks/generateGUID';
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedLayerID, useSetLayers, useSetSelectedLayerID } from "../../hooks/jotai/useLayer";
 import useTranslation from "../../hooks/useTranslation";
+import DeleteLayerButton from './DeleteLayerButton';
 
 export default function LayerButtons(props: { isEditing: boolean, setIsEditing: (isEditing: boolean) => void }) {
     const translation = useTranslation();
@@ -26,15 +27,6 @@ export default function LayerButtons(props: { isEditing: boolean, setIsEditing: 
         setSelectedID(id);
     }
 
-    const deleteLayer = () => {
-        saveHistory();
-        setLayers((layers) => {
-            const layerList = layers === undefined ? [] : layers;
-            return layerList.filter((layer) => layer.id !== selectedLayerID);
-        });
-        setSelectedID(undefined);
-    }
-
     const editLayer = () => {
         props.setIsEditing(!props.isEditing);
     }
@@ -55,13 +47,8 @@ export default function LayerButtons(props: { isEditing: boolean, setIsEditing: 
                 intent={"primary"}
                 onClick={editLayer} />
 
-            <Button
-                fill
-                icon={"trash"}
-                disabled={selectedLayerID === undefined}
-                intent={"danger"}
-                onClick={deleteLayer} />
-
+            <DeleteLayerButton
+                isSidePanel={true} />
 
         </ButtonGroup>
     );

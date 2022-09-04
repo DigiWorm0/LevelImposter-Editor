@@ -7,15 +7,16 @@ type LITranslation = {
     NewFile?: string;
     ImportLegacy?: string;
     AddObject?: string;
-    AddLayer?: string;
     DeleteObject?: string;
     Undo?: string;
     Redo?: string;
     Publish?: string;
     Settings?: string;
     OpenInEditor?: string;
+    Cancel?: string;
 
     // Generic
+    Elements?: string;
     Delete?: string;
     Reset?: string;
     Add?: string;
@@ -99,6 +100,14 @@ type LITranslation = {
     StepVariants?: string;
     Priority?: string;
     NothingUploaded?: string;
+
+    // Layer
+    Layers?: string;
+    DeleteLayerDialogTitle?: string;
+    DeleteLayerDialogText?: string;
+    DeleteLayerDeleteObjects?: string;
+    DeleteLayerDemoteObjects?: string;
+    AddLayer?: string;
 
     // Panel Names
     Camera?: string;

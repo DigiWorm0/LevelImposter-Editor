@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button, EditableText, InputGroup, Menu } from "@blueprintjs/core";
+import { InputGroup, Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import React from 'react';
 import { useLayers, useSelectedLayerID } from "../../hooks/jotai/useLayer";
+import useTranslation from '../../hooks/useTranslation';
 import { MaybeGUID } from "../../types/generic/GUID";
 import LayerButtons from "../dialogs/LayerButtons";
 
@@ -10,18 +10,7 @@ export default function LayerHierarchy() {
     const [isEditing, setIsEditing] = React.useState(false);
     const [layers, setLayers] = useLayers();
     const [selectedLayerID, setSelectedLayerID] = useSelectedLayerID();
-    const saveHistory = useSaveHistory();
-
-    const deleteLayer = (layerID: MaybeGUID) => {
-        saveHistory();
-        if (selectedLayerID === layerID) {
-            setSelectedLayerID(undefined);
-        }
-        setLayers((layers) => {
-            const layerList = layers === undefined ? [] : layers;
-            return layerList.filter((layer) => layer.id !== layerID);
-        });
-    }
+    const translation = useTranslation();
 
     const selectLayer = (layerID: MaybeGUID) => {
         setSelectedLayerID(selectedLayerID != layerID ? layerID : undefined);
@@ -29,7 +18,7 @@ export default function LayerHierarchy() {
 
     return (
         <Menu>
-            <h3 style={{ textAlign: "center" }}>Layers</h3>
+            <h3 style={{ textAlign: "center" }}>{translation.Layers}</h3>
             {layers?.map((layer) => {
                 if (selectedLayerID == layer.id && isEditing) {
                     return (
@@ -79,7 +68,7 @@ export default function LayerHierarchy() {
                         text={layer.name}
                         active={layer.id === selectedLayerID}
                         onClick={() => selectLayer(layer.id)}
-                        intent={layer.id === selectedLayerID ? "success" : "none"} />
+                        intent={layer.id === selectedLayerID ? "primary" : "none"} />
                 );
             })}
 
