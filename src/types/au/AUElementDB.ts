@@ -356,6 +356,9 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Calibrate Distributer",
         type: "task-distributor"
+    }, {
+        name: "Wires",
+        type: "task-wires"
     },
     // Decoration
     {
