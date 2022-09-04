@@ -21,7 +21,7 @@ export default function RoomSelect(props: { useDefault: boolean }) {
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2
             key={elem.type + props.index + "-room"}
-            text={elem.name}
+            text={elem.name.replace("\\n", " ")}
             label={elem.type}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
@@ -47,7 +47,7 @@ export default function RoomSelect(props: { useDefault: boolean }) {
 
                 <Button
                     rightIcon="caret-down"
-                    text={parentRoom ? parentRoom.name : (props.useDefault ? translation.DefaultRoom : translation.NoRoom)}
+                    text={parentRoom ? parentRoom.name.replace("\\n", " ") : (props.useDefault ? translation.DefaultRoom : translation.NoRoom)}
                     style={{ fontStyle: parentRoom !== undefined ? "normal" : "italic" }}
                     fill
                 />
