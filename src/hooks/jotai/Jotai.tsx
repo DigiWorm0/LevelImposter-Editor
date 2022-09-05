@@ -25,7 +25,7 @@ export const DEFAULT_MAP: LIMap = {
     likeCount: 0,
     elements: [],
     properties: {},
-    thumbnailURL: undefined,
+    thumbnailURL: null,
 };
 export const PROVIDER_SCOPE = "main";
 export const MAX_HISTORY_LENGTH = 20;
@@ -179,20 +179,39 @@ export const selectElemAtom = atom(null, (get, set, elem: MaybeLIElement) => {
         set(selectedElemIDAtom, undefined);
 });
 
-// Vents
+// Connections
+export const teleportersAtom = atom<LIElement[]>((get) => {
+    const elements = get(elementsAtom);
+    return elements.filter(element => element.type.startsWith("util-tele"));
+});
 export const ventsAtom = atom<LIElement[]>((get) => {
     const elements = get(elementsAtom);
     return elements.filter(element => element.type.startsWith("util-vent"));
 });
-export const selectedVentConnectionsAtom = atom((get) => {
+export const selectedConnectionsAtom = atom((get) => {
     const selectedElem = get(selectedElemAtom);
-    const vents = get(ventsAtom);
+
+    const mapElements = get(elementsAtom);
+
     if (!selectedElem)
         return [];
-    const leftVent = vents.find(e => e.id === selectedElem.properties.leftVent);
-    const middleVent = vents.find(e => e.id === selectedElem.properties.middleVent);
-    const rightVent = vents.find(e => e.id === selectedElem.properties.rightVent);
-    return [leftVent, middleVent, rightVent];
+
+    const leftVent = mapElements.find(e => e.id === selectedElem.properties.leftVent);
+    const middleVent = mapElements.find(e => e.id === selectedElem.properties.middleVent);
+    const rightVent = mapElements.find(e => e.id === selectedElem.properties.rightVent);
+    const teleporter = mapElements.find(e => e.id === selectedElem.properties.teleporter);
+    const roomParent = mapElements.find(e => e.id === selectedElem.properties.parent);
+    const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent].filter(e => e != undefined) as LIElement[];
+
+    const sourceConnections = mapElements.filter(e => {
+        return e.properties.leftVent === selectedElem.id ||
+            e.properties.middleVent === selectedElem.id ||
+            e.properties.rightVent === selectedElem.id ||
+            e.properties.teleporter === selectedElem.id ||
+            e.properties.parent === selectedElem.id;
+    });
+
+    return [targetConnections, sourceConnections];
 });
 export const settingsAtom = atomWithStorage<LISettings>("settings", {});
 
@@ -268,7 +287,7 @@ selectedColliderAtom.debugLabel = "selectedCollider";
 isSelectedColliderAtom.debugLabel = "isSelectedCollider";
 selectElemAtom.debugLabel = "selectElem";
 ventsAtom.debugLabel = "vents";
-selectedVentConnectionsAtom.debugLabel = "selectedVentConnections";
+selectedConnectionsAtom.debugLabel = "selectedVentConnections";
 settingsAtom.debugLabel = "settings";
 mouseXAtom.debugLabel = "mouseX";
 mouseYAtom.debugLabel = "mouseY";

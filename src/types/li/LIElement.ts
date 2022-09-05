@@ -33,6 +33,9 @@ export default interface LIElement {
         middleVent?: GUID;
         rightVent?: GUID;
 
+        // Teleporter
+        teleporter?: GUID;
+
         // Camera
         camXOffset?: number;
         camYOffset?: number;

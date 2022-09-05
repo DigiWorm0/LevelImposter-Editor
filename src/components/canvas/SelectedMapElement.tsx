@@ -11,8 +11,7 @@ import MinimapPreview from "./MinimapPreview";
 import PlatformRange from "./PlatformRange";
 import SpawnRange from "./SpawnRange";
 import StarfieldRender from "./StarfieldRender";
-import TaskParent from "./TaskParent";
-import VentConnections from "./VentConnections";
+import ElemConnections from "./ElemConnections";
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -21,11 +20,9 @@ export default function SelectedMapElement() {
         return null;
     return (
         <>
-            <VentConnections />
             <ConsoleRange />
             <SpawnRange />
             <LadderRange />
-            <TaskParent />
             <CameraRender />
             <PlatformRange />
             <MinimapPreview />
@@ -43,6 +40,8 @@ export default function SelectedMapElement() {
                 <FloatingRender />
 
             </Group>
+
+            <ElemConnections />
         </>
     );
 }

@@ -150,6 +150,9 @@ const AUElementDB: AUElement[] = [
     {
         name: "Floating Sprite",
         type: "util-blankfloat"
+    }, {
+        name: "Teleporter",
+        type: "util-tele"
     },
     // Tasks
     {

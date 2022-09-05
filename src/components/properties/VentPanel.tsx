@@ -16,11 +16,12 @@ export default function VentPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
-    const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id);
 
     const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
     const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);
     const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
+
+    const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id && leftVent?.id !== elem.id && middleVent?.id !== elem.id && rightVent?.id !== elem.id);
 
     const ventSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2

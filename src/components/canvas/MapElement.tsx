@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Image, Rect } from "react-konva";
+import { Group, Image, Line, Rect } from "react-konva";
 import useMouseButtons from "../../hooks/input/useMouse";
 import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useElement from "../../hooks/jotai/useElement";
@@ -101,16 +101,17 @@ export default function MapElement(props: { elementID: GUID }) {
             />
 
             {isSelected || isHovering ? (
-                <Rect
-                    x={-w / 2}
-                    y={-h / 2}
-                    width={w}
-                    height={h}
-                    stroke={isSelected ? "red" : "#aaaaaa"}
-                    strokeWidth={1}
-                />
+                <>
+                    <Rect
+                        x={-w / 2}
+                        y={-h / 2}
+                        width={w}
+                        height={h}
+                        stroke={isSelected ? "#CD4246" : "#C5CBD3"}
+                        strokeWidth={2}
+                    />
+                </>
             ) : null}
-
         </Group>
     );
 }

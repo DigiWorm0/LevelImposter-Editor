@@ -6,6 +6,16 @@ import useTranslation from "../../hooks/useTranslation";
 import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
+const TYPE_BLACKLIST = [
+    "util-player",
+    "util-room",
+    "util-spawn1",
+    "util-spawn2",
+    "util-sound1",
+    "util-sound2",
+    "util-tele",
+];
+
 export default function SpritePanel() {
     const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -54,13 +64,7 @@ export default function SpritePanel() {
         });
     }
 
-    if (!selectedElem
-        || selectedElem.type === "util-player"
-        || selectedElem.type === "util-room"
-        || selectedElem.type === "util-spawn1"
-        || selectedElem.type === "util-spawn2"
-        || selectedElem.type === "util-sound1"
-        || selectedElem.type === "util-sound2")
+    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
 
         return null;
 

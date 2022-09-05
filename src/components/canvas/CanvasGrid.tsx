@@ -25,17 +25,17 @@ export default function CanvasGrid() {
                             }
                             ctx.fillStrokeShape(shape);
                         }}
-                        stroke="gray"
+                        stroke="#5F6B7C"
                         strokeWidth={1}
                     />
                     <Line
                         points={[0, -GRID_SIZE * GRID_SPACING, 0, (GRID_SIZE * GRID_SPACING)]}
-                        stroke="red"
+                        stroke="#B83211"
                         strokeWidth={2} />
 
                     <Line
                         points={[-(GRID_SIZE * GRID_SPACING), 0, (GRID_SIZE * GRID_SPACING), 0]}
-                        stroke="blue"
+                        stroke="#215DB0"
                         strokeWidth={2} />
                 </>
             )}

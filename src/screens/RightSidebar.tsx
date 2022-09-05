@@ -13,6 +13,7 @@ import SpritePanel from "../components/properties/SpritePanel";
 import StarfieldPanel from "../components/properties/StarfieldPanel";
 import StepSoundPanel from "../components/properties/StepSoundPanel";
 import TaskPanel from "../components/properties/TaskPanel";
+import TelePanel from "../components/properties/TelePanel";
 import TransformPanel from "../components/properties/TransformPanel";
 import VentPanel from "../components/properties/VentPanel";
 
@@ -31,6 +32,7 @@ export default function RightSidebar() {
             <FloatingPanel />
             <LadderPanel />
             <VentPanel />
+            <TelePanel />
             <CamPanel />
             <PlatformPanel />
             <AmbientSoundPanel />

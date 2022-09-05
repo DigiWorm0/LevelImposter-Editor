@@ -56,7 +56,7 @@ export default function PublishButton() {
             likeCount: 0,
             elements: map.elements,
             properties: map.properties,
-            thumbnailURL: undefined,
+            thumbnailURL: null,
         };
         const mapJSON = JSON.stringify(mapData);
         const mapBytes = new TextEncoder().encode(mapJSON);
@@ -113,9 +113,11 @@ export default function PublishButton() {
             if (thumbnail)
                 await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
         }).then(() => {
-            return getDownloadURL(imgStorageRef);
+            if (thumbnail)
+                return getDownloadURL(imgStorageRef);
         }).then((url) => {
-            mapData.thumbnailURL = url;
+            if (url)
+                mapData.thumbnailURL = url;
             return uploadToFirestore();
         }).then(() => {
             setIsPublishing(false);

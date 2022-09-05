@@ -118,6 +118,7 @@ type LITranslation = {
     Sabotage?: string;
     Transform?: string;
     Vent?: string;
+    Teleporter?: string;
 }
 
 export default LITranslation;
