@@ -5,7 +5,7 @@ import { useSetMap } from "../../hooks/jotai/useMap";
 import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import LILegacyFile from "../../types/li/LILegacyFile";
-import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
+import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 
 const legacyPorts: Record<string, string> = {
     "util-player": "util-dummy",

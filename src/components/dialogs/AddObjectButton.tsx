@@ -3,7 +3,7 @@ import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
-import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
+import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";

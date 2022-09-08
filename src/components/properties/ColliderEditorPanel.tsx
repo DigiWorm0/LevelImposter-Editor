@@ -1,5 +1,5 @@
 import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
-import useSelectedCollider, { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
+import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useTranslation from "../../hooks/useTranslation";
 import LICollider from "../../types/li/LICollider";

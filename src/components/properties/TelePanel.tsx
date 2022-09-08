@@ -3,7 +3,7 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useTeleporters } from "../../hooks/jotai/useTeleporters";
+import { useElementType } from "../../hooks/jotai/useTypes";
 import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
@@ -12,7 +12,7 @@ const TeleSelect = Select2.ofType<LIElement>();
 
 export default function TelePanel() {
     const translation = useTranslation();
-    const teleElems = useTeleporters();
+    const teleElems = useElementType("util-tele");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 

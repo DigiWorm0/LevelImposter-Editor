@@ -4,8 +4,8 @@ import { DEFAULT_GUID } from "../../hooks/generateGUID";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import useToaster from "../../hooks/useToaster";
 import useTranslation from "../../hooks/useTranslation";
+import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import LIMap from "../../types/li/LIMap";
-import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
 
 export default function OpenButton() {
     const translation = useTranslation();

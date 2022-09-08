@@ -1,7 +1,7 @@
-import { ControlGroup, FormGroup, NumericInput, Switch } from "@blueprintjs/core";
+import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useTranslation from "../../hooks/useTranslation";
-import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED, DEFAULT_STARFIELD_HEIGHT, UNITY_SCALE } from "../../types/generic/Constants";
+import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function StarfieldPanel() {

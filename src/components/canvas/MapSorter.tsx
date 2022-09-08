@@ -1,6 +1,5 @@
 import React from "react";
 import useMap from "../../hooks/jotai/useMap";
-import GUID from "../../types/generic/GUID";
 import LIElement from "../../types/li/LIElement";
 
 export function MapSorter() {

@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import React from "react";
-import { camZAtom } from "./jotai/Jotai";
+import { camZAtom } from "./jotai/useCamera";
 
 export default function useEmbed() {
     const setZoom = useSetAtom(camZAtom);

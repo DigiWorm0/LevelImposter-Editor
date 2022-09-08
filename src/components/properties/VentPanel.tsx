@@ -3,7 +3,7 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useVents } from "../../hooks/jotai/useVents";
+import { useElementType } from "../../hooks/jotai/useTypes";
 import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
@@ -12,7 +12,7 @@ const VentSelect = Select2.ofType<LIElement>();
 
 export default function VentPanel() {
     const translation = useTranslation();
-    const ventElems = useVents();
+    const ventElems = useElementType("util-vent");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import AUElementDB from "../types/au/AUElementDB";
 import { MaybeGUID } from "../types/generic/GUID";
-import { useElementValue } from "./jotai/useElement";
+import { useElementValue } from "./jotai/useElements";
 
 const DEFAULT_URL = "/sprites/util-unknown.png";
 

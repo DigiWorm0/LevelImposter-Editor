@@ -1,6 +1,6 @@
 import { Button, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
-import useElement from "../../hooks/jotai/useElement";
+import useElement from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";

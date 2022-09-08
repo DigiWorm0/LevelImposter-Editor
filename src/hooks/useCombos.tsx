@@ -3,10 +3,10 @@ import React from "react";
 import LIClipboard from "../types/li/LIClipboard";
 import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
-import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
+import { useAddElementAtMouse } from "./jotai/useElements";
 import { useSaveHistory, useUndo } from "./jotai/useHistory";
 import { useMapValue } from "./jotai/useMap";
-import { useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
+import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 

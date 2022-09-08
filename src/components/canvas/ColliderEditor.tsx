@@ -1,5 +1,5 @@
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";

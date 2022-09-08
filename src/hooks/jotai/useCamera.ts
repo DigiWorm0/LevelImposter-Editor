@@ -1,11 +1,19 @@
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import React from "react";
-import { useSetMousePos } from "./input/useMousePos";
-import { camXAtom, camYAtom, camZAtom } from "./jotai/Jotai";
+import { UI_ZOOM_SPEED, UNITY_SCALE } from "../../types/generic/Constants";
+import { useSetMousePos } from "./useMouse";
 
-const ZOOM_SPEED = 1.1;
-const UNITY_SCALE = 100;
+// Atoms
+export const camXAtom = atom(-window.innerWidth / 2);
+export const camYAtom = atom(-window.innerHeight / 2);
+export const camZAtom = atom(1);
 
+// Debug
+camXAtom.debugLabel = "camXAtom";
+camYAtom.debugLabel = "camYAtom";
+camZAtom.debugLabel = "camZAtom";
+
+// Hooks
 export default function useCamera(w: number, h: number) {
     const setMousePos = useSetMousePos();
     const [x, setX] = useAtom(camXAtom);
@@ -15,7 +23,7 @@ export default function useCamera(w: number, h: number) {
     const onMouseScroll = (e: WheelEvent) => {
         if ((e.target as HTMLElement).tagName.toLowerCase() !== "canvas")
             return;
-        const zoomDelta = e.deltaY < 0 ? ZOOM_SPEED : 1 / ZOOM_SPEED;
+        const zoomDelta = e.deltaY < 0 ? UI_ZOOM_SPEED : 1 / UI_ZOOM_SPEED;
         setZoom(z => z * zoomDelta);
         setX(x => ((x + (w / 2)) * zoomDelta) - (w / 2));
         setY(y => ((y + (h / 2)) * zoomDelta) - (h / 2));

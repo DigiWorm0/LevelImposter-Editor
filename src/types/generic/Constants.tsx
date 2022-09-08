@@ -44,3 +44,9 @@ export const RESOURCE_URL = "/resources/";
 
 export const THUMBNAIL_WIDTH = 412;
 export const THUMBNAIL_HEIGHT = 144;
+
+export const UI_ZOOM_SPEED = 1.1;
+
+export const MAP_FORMAT_VER = 0;
+export const PROVIDER_SCOPE = "main";
+export const MAX_HISTORY_LENGTH = 20;

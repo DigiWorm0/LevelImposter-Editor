@@ -1,7 +1,6 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
-import { useRemoveElement } from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
 import GUID from "../../types/generic/GUID";

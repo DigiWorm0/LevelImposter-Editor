@@ -1,14 +1,13 @@
 import { Button, FormGroup, Menu, NumericInput } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
+import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import useTranslation from "../../hooks/useTranslation";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import GUID from "../../types/generic/GUID";
 import PanelContainer from "./PanelContainer";
 import StepSoundEditorPanel from "./StepSoundEditorPanel";
 

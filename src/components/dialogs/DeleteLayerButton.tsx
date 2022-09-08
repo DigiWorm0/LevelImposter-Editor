@@ -1,12 +1,12 @@
 import { AnchorButton, Classes, Dialog } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
 import React from 'react';
-import { useSelectedLayerID, useSetLayers } from "../../hooks/jotai/useLayer";
+import { useLayerElementIDs, useSelectedLayerID, useSetLayers } from "../../hooks/jotai/useLayer";
 import { useSetMap } from '../../hooks/jotai/useMap';
 import { useSettingsValue } from '../../hooks/jotai/useSettings';
 import useTranslation from "../../hooks/useTranslation";
 
 export default function DeleteLayerButton(props: { isSidePanel?: boolean }) {
+    const layerElementIDs = useLayerElementIDs();
     const translation = useTranslation();
     const setMap = useSetMap();
     const setLayers = useSetLayers();
@@ -50,7 +50,7 @@ export default function DeleteLayerButton(props: { isSidePanel?: boolean }) {
                 icon="cube-remove"
                 disabled={selectedLayerID === undefined}
                 intent={props.isSidePanel ? "danger" : undefined}
-                onClick={() => setIsDialogOpen(true)} />
+                onClick={() => layerElementIDs.length > 0 ? setIsDialogOpen(true) : deleteLayer()} />
 
             <Dialog
                 isOpen={isDialogOpen}

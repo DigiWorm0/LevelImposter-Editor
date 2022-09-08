@@ -1,7 +1,7 @@
 import { Button, Card, Intent, Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
-import useSelectedElem, { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";

@@ -2,8 +2,8 @@ import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import { useElementType } from "../../hooks/jotai/useTypes";
 import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 
@@ -11,7 +11,7 @@ const RoomSelecter = Select2.ofType<LIElement>();
 
 export default function RoomSelect(props: { useDefault: boolean }) {
     const translation = useTranslation();
-    const roomElems = useRooms();
+    const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 

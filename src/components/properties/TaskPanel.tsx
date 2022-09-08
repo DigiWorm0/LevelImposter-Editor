@@ -3,8 +3,8 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useRooms } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
@@ -16,7 +16,7 @@ const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
     const translation = useTranslation();
-    const roomElems = useRooms();
+    const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);

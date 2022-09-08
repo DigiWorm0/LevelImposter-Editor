@@ -3,11 +3,10 @@ import { Provider } from 'jotai';
 import Konva from 'konva';
 import React from 'react';
 import { Layer, Stage } from 'react-konva';
-import { PROVIDER_SCOPE } from '../../hooks/jotai/Jotai';
 import { useElementIDs } from '../../hooks/jotai/useMap';
 import { useSelectedElemValue } from '../../hooks/jotai/useSelectedElem';
 import { useSettingsValue } from '../../hooks/jotai/useSettings';
-import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
+import { MINIMAP_HEIGHT, MINIMAP_WIDTH, PROVIDER_SCOPE, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {
