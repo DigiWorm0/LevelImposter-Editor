@@ -3,7 +3,6 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import React from 'react';
 import { useLayers, useSelectedLayerID } from "../../hooks/jotai/useLayer";
 import useTranslation from '../../hooks/useTranslation';
-import { MaybeGUID } from "../../types/generic/GUID";
 import LayerButtons from "../dialogs/LayerButtons";
 
 export default function LayerHierarchy() {
@@ -12,13 +11,21 @@ export default function LayerHierarchy() {
     const [selectedLayerID, setSelectedLayerID] = useSelectedLayerID();
     const translation = useTranslation();
 
-    const selectLayer = (layerID: MaybeGUID) => {
-        setSelectedLayerID(selectedLayerID != layerID ? layerID : undefined);
-    }
-
     return (
         <Menu>
             <h3 style={{ textAlign: "center" }}>{translation.Layers}</h3>
+
+            <MenuItem2
+                disabled={isEditing}
+                text={translation.AllElements}
+                active={selectedLayerID === undefined}
+                style={{ outline: 0 }}
+                intent={"warning"}
+                icon={selectedLayerID === undefined ? "layer" : "layer-outline"}
+                onClick={() => setSelectedLayerID(undefined)}
+
+            />
+
             {layers?.map((layer) => {
                 if (selectedLayerID == layer.id && isEditing) {
                     return (
@@ -26,22 +33,19 @@ export default function LayerHierarchy() {
                             key={layer.id}
                             text={
                                 <InputGroup
+                                    intent="danger"
                                     small
                                     autoFocus
                                     value={layer.name}
                                     maxLength={20}
                                     onChange={(e) => {
                                         setLayers((layers) => {
-                                            const layerList = layers === undefined ? [] : layers;
-                                            return layerList.map((layer) => {
-                                                if (layer.id === selectedLayerID) {
-                                                    return {
-                                                        ...layer,
-                                                        name: e.target.value
-                                                    }
-                                                }
-                                                return layer;
-                                            });
+                                            if (layers) {
+                                                const newLayers = [...layers];
+                                                const index = newLayers.findIndex((l) => l.id === layer.id);
+                                                newLayers[index] = { ...layer, name: e.target.value };
+                                                return [...newLayers];
+                                            }
                                         });
                                     }}
                                     onBlur={() => setIsEditing(false)}
@@ -53,7 +57,7 @@ export default function LayerHierarchy() {
                                 />
                             }
                             icon={"edit"}
-                            intent={"primary"}
+                            intent={"danger"}
                             active={selectedLayerID === layer.id}
                         />
                     );
@@ -62,13 +66,12 @@ export default function LayerHierarchy() {
                     <MenuItem2
                         disabled={isEditing}
                         style={{ outline: 0 }}
-                        roleStructure="listoption"
-                        icon={"layers"}
+                        icon={selectedLayerID === layer.id ? "layer" : "layer-outline"}
                         key={layer.id}
                         text={layer.name}
                         active={layer.id === selectedLayerID}
-                        onClick={() => selectLayer(layer.id)}
-                        intent={layer.id === selectedLayerID ? "primary" : "none"} />
+                        onClick={() => setSelectedLayerID(layer.id)}
+                        intent={"primary"} />
                 );
             })}
 

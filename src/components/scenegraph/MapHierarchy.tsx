@@ -12,7 +12,7 @@ export default function MapHierarchy() {
     return (
         <Menu>
             <MenuDivider />
-            <h3 style={{ textAlign: "center" }}>{selectedLayer ? selectedLayer.name : translation.Elements}</h3>
+            <h3 style={{ textAlign: "center" }}>{selectedLayer ? selectedLayer.name : translation.AllElements}</h3>
             {elementIDs.map((elemID) => (
                 <MapHierarchyElement key={elemID} elementID={elemID} />
             ))}

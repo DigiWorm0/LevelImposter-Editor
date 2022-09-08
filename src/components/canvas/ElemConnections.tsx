@@ -61,9 +61,9 @@ export default function ElemConnections() {
                         ctx.fillStrokeShape(shape);
                     });
                 }}
-                stroke="#215DB0"
+                stroke="#AC2F33"
                 strokeWidth={4}
-                fill="#215DB0"
+                fill="#AC2F33"
 
                 shadowColor="black"
                 shadowBlur={10}
@@ -82,9 +82,9 @@ export default function ElemConnections() {
                         ctx.fillStrokeShape(shape);
                     });
                 }}
-                stroke="#AC2F33"
+                stroke="#215DB0"
                 strokeWidth={4}
-                fill="#AC2F33"
+                fill="#215DB0"
 
                 shadowColor="black"
                 shadowBlur={10}

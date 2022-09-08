@@ -17,6 +17,7 @@ type LITranslation = {
 
     // Generic
     Elements?: string;
+    AllElements?: string;
     Delete?: string;
     Reset?: string;
     Add?: string;

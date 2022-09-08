@@ -12,10 +12,13 @@ const VentSelect = Select2.ofType<LIElement>();
 
 export default function VentPanel() {
     const translation = useTranslation();
-    const ventElems = useElementType("util-vent");
+    const ventElemsA = useElementType("util-vent1");
+    const ventElemsB = useElementType("util-vent2");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
+    const ventElems = ventElemsA.concat(ventElemsB);
+    console.log("ventElems", ventElems);
 
     const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
     const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);

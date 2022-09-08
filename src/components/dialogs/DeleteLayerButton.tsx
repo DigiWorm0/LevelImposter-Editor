@@ -47,7 +47,7 @@ export default function DeleteLayerButton(props: { isSidePanel?: boolean }) {
             <AnchorButton
                 fill={props.isSidePanel}
                 className={Classes.MINIMAL}
-                icon="cube-remove"
+                icon="trash"
                 disabled={selectedLayerID === undefined}
                 intent={props.isSidePanel ? "danger" : undefined}
                 onClick={() => layerElementIDs.length > 0 ? setIsDialogOpen(true) : deleteLayer()} />
@@ -66,7 +66,7 @@ export default function DeleteLayerButton(props: { isSidePanel?: boolean }) {
                     <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                         <AnchorButton
                             intent="danger"
-                            icon="cube-remove"
+                            icon="trash"
                             onClick={() => {
                                 deleteLayerElements();
                                 deleteLayer();
@@ -76,7 +76,7 @@ export default function DeleteLayerButton(props: { isSidePanel?: boolean }) {
                         </AnchorButton>
                         <AnchorButton
                             intent="warning"
-                            icon={"cube"}
+                            icon={"arrow-down"}
                             onClick={() => {
                                 demoteLayerElements();
                                 deleteLayer();

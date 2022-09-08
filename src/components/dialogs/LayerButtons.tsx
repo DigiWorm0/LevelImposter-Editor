@@ -1,13 +1,11 @@
 import { Button, ButtonGroup } from "@blueprintjs/core";
 import generateGUID from '../../hooks/generateGUID';
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useSelectedLayerID, useSetLayers, useSetSelectedLayerID } from "../../hooks/jotai/useLayer";
-import useTranslation from "../../hooks/useTranslation";
+import { useSelectedLayerIDValue, useSetLayers, useSetSelectedLayerID } from "../../hooks/jotai/useLayer";
 import DeleteLayerButton from './DeleteLayerButton';
 
 export default function LayerButtons(props: { isEditing: boolean, setIsEditing: (isEditing: boolean) => void }) {
-    const translation = useTranslation();
-    const [selectedLayerID, setSelectedLayerID] = useSelectedLayerID();
+    const selectedLayerID = useSelectedLayerIDValue();
     const setLayers = useSetLayers();
     const setSelectedID = useSetSelectedLayerID();
     const saveHistory = useSaveHistory();
@@ -19,11 +17,13 @@ export default function LayerButtons(props: { isEditing: boolean, setIsEditing: 
             const layerList = layers === undefined ? [] : layers;
             const newLayer = {
                 name: `Layer ${layerList.length + 1}`,
-                id
+                id,
+                properties: {},
             };
             return [...layerList, newLayer];
         });
         setSelectedID(id);
+        props.setIsEditing(true);
     }
 
     const editLayer = () => {

@@ -89,6 +89,7 @@ const EnglishLocalization: LITranslation = {
     Elements: "Elements",
     Layers: "Layers",
     Teleporter: "Teleporter",
+    AllElements: "All Elements",
 };
 
 export default EnglishLocalization;
