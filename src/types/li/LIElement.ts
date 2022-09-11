@@ -4,6 +4,7 @@ import LISound from "./LISound";
 
 export default interface LIElement {
     id: GUID;
+    parentID?: GUID;
     name: string;
     type: string;
     x: number;
@@ -81,6 +82,7 @@ export default interface LIElement {
         // Editor
         isLocked?: boolean;
         isVisible?: boolean;
+        isExpanded?: boolean;
     };
 }
 

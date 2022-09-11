@@ -59,7 +59,7 @@ export default function ColliderPanel() {
 
     return (
         <PanelContainer title={translation.Colliders}>
-            <Menu>
+            <Menu style={{ backgroundColor: "revert" }}>
                 <MenuItem2
                     icon="add"
                     text={translation.AddCollider}

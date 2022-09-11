@@ -58,6 +58,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={leftVent ? leftVent.name : "(No connection)"}
                         fill
@@ -86,6 +87,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={middleVent ? middleVent.name : "(No connection)"}
                         fill
@@ -114,6 +116,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={rightVent ? rightVent.name : "(No connection)"}
                         fill

@@ -4,9 +4,10 @@
 
 .bp4-dark .left-sidebar,
 .bp4-dark .right-sidebar {
-    background-color: #2f343c !important;
+    background-color: #252A31 !important;
 }
 
 .bp4-dark .topbar-navbar {
-    background-color: #2f343c !important;
+    background-color: #252A31 !important;
+    box-shadow: 0 3px 6px #1C2127 !important;
 }

@@ -2,10 +2,8 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { MaybeGUID } from "../../types/generic/GUID";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
-import { selectedLayerIDAtom } from "./useLayer";
 import { elementsAtom } from "./useMap";
 import { mouseXAtom, mouseYAtom } from "./useMouse";
-import { selectedColliderIDAtom } from "./useSelectedCollider";
 
 // Atoms
 export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
@@ -31,12 +29,45 @@ export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     const mouseY = get(mouseYAtom);
     elem.x = mouseX;
     elem.y = mouseY;
-    elem.properties.layer = get(selectedLayerIDAtom);
     set(elementsAtom, [...get(elementsAtom), elem]);
 });
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
     set(elementsAtom, [...get(elementsAtom), elem]);
 });
+export const elementChildrenFamilyAtom = atomFamily((id: MaybeGUID) => {
+    const elemChildrenAtom = atom(
+        (get) => {
+            const elements = get(elementsAtom);
+            return elements.filter((elem) => elem.parentID === id).map((elem) => elem.id);
+        }
+    );
+    elemChildrenAtom.debugLabel = `elementChildrenFamilyAtom(${id})`;
+    return elemChildrenAtom;
+}, (a, b) => a === b);
+export const draggingElementIDAtom = atom<MaybeGUID>(undefined);
+export const isDroppableAtomFamily = atomFamily((id: MaybeGUID) => {
+    const isDroppableAtom = atom(
+        (get) => {
+            const blacklist: MaybeGUID[] = [];
+            const blacklistChildren = (parentID: MaybeGUID, childID: MaybeGUID) => {
+                if (childID === undefined)
+                    return;
+                const children = get(elementChildrenFamilyAtom(childID));
+                children.forEach((child) => {
+                    blacklistChildren(childID, child);
+                });
+                blacklist.push(childID);
+            };
+
+            const draggingElementID = get(draggingElementIDAtom);
+            blacklistChildren(undefined, draggingElementID);
+
+            return !blacklist.includes(id);
+        }
+    );
+    isDroppableAtom.debugLabel = `isDroppableAtomFamily(${id})`;
+    return isDroppableAtom;
+}, (a, b) => a === b);
 
 // Debug
 addElementAtMouseAtom.debugLabel = "addElementAtMouseAtom";
@@ -62,4 +93,14 @@ export function useAddElement() {
 
 export function useAddElementAtMouse() {
     return useSetAtom(addElementAtMouseAtom);
+}
+
+export function useElementChildren(id: MaybeGUID) {
+    return useAtomValue(elementChildrenFamilyAtom(id));
+}
+export function useDraggingElementID() {
+    return useAtom(draggingElementIDAtom);
+}
+export function useIsDroppable(id: MaybeGUID) {
+    return useAtomValue(isDroppableAtomFamily(id));
 }

@@ -61,3 +61,6 @@ export function useMapReset() {
 export function useElementIDs() {
     return useAtomValue(elementIDsAtom);
 }
+export function useElements() {
+    return useAtom(elementsAtom);
+}

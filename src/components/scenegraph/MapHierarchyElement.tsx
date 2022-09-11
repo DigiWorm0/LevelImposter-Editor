@@ -1,8 +1,8 @@
+import React from "react";
 import { Button, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
-import useElement from "../../hooks/jotai/useElements";
+import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import GUID from "../../types/generic/GUID";
 
@@ -29,10 +29,14 @@ const ICON_DB: Record<string, IconName> = {
 }
 
 export default function MapHierarchyElement(props: { elementID: GUID }) {
-    const [element, setElement] = useElement(props.elementID);
-    const selectedLayerID = useSelectedLayerIDValue();
+    const [draggingID, setDraggingID] = useDraggingElementID();
     const [selectedID, setSelectedID] = useSelectedElemID();
+    const [element, setElement] = useElement(props.elementID);
+    const [draggingElement, setDraggingElement] = useElement(draggingID);
+    const isDroppable = useIsDroppable(props.elementID);
+    const childIDs = useElementChildren(props.elementID);
     const saveHistory = useSaveHistory();
+    const [isDragOver, setDragOver] = React.useState(false);
 
     const getIcon = (type: string): IconName => {
         let icon = ICON_DB[type];
@@ -63,7 +67,7 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
         return "none";
     }
 
-    if (element === undefined || (selectedLayerID !== undefined && element.properties.layer !== selectedLayerID))
+    if (element === undefined)
         return null;
 
     const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
@@ -71,25 +75,73 @@ export default function MapHierarchyElement(props: { elementID: GUID }) {
     const icon = getIcon(element.type);
 
     return (
-        <MenuItem2
-            style={{ outline: 0 }}
-            id={element.id}
-            icon={icon}
-            text={element.name}
-            active={element.id === selectedID}
-            intent={intent}
-            onClick={() => setSelectedID(element.id)}
-            labelElement={
-                <Button
-                    icon={isVisible ? "eye-open" : "eye-off"}
-                    minimal={true}
-                    intent={intent}
-                    small
-                    onClick={() => {
-                        saveHistory();
-                        setElement({ ...element, properties: { ...element.properties, isVisible: !isVisible } });
-                    }}
-                />
-            } />
+        <div
+            id={props.elementID}
+            draggable
+            onDragStart={(e) => {
+                if (e.dataTransfer.getData("text/plain") !== "")
+                    return;
+
+                setDraggingID(element.id);
+                e.dataTransfer.setData("text/plain", element.id);
+            }}
+            onDragEnd={(e) => {
+                setDragOver(false);
+                setDraggingID(undefined);
+            }}
+            onDragOver={(e) => {
+                e.preventDefault();
+                setDragOver(true);
+                e.stopPropagation();
+            }}
+            onDragLeave={(e) => {
+                e.preventDefault();
+                setDragOver(false);
+                e.stopPropagation();
+            }}
+            onDrop={(e) => {
+                e.preventDefault();
+                const data = e.dataTransfer.getData("text/plain");
+                if (!(data === element.id || draggingElement === undefined || !isDroppable)) {
+                    saveHistory();
+                    setDraggingElement({ ...draggingElement, parentID: element.id });
+                }
+                setDragOver(false);
+                setDraggingID(undefined);
+                e.stopPropagation();
+            }}
+        >
+            <MenuItem2
+                style={{ outline: 0 }}
+                id={element.id}
+                icon={icon}
+                text={element.name}
+                active={element.id === selectedID || isDragOver}
+                disabled={!isDroppable}
+                intent={intent}
+                onClick={() => setSelectedID(element.id)}
+                labelElement={
+                    <Button
+                        icon={isVisible ? "eye-open" : "eye-off"}
+                        disabled={!isDroppable}
+                        minimal={true}
+                        intent={intent}
+                        small
+                        onClick={() => {
+                            saveHistory();
+                            setElement({ ...element, properties: { ...element.properties, isVisible: !isVisible } });
+                        }}
+                    />
+                }
+
+            />
+
+            {childIDs.map((childID) => (
+                <div key={childID} style={{ marginLeft: 15 }}>
+                    <MapHierarchyElement elementID={childID} />
+                </div>
+            ))}
+
+        </div>
     );
 }

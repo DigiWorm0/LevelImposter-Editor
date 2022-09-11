@@ -1,4 +1,4 @@
-import { Button, Collapse, Divider } from "@blueprintjs/core";
+import { Button, Card, Collapse, Divider } from "@blueprintjs/core";
 import React from "react";
 
 interface PanelContainerProps {
@@ -10,25 +10,25 @@ export default function PanelContainer(props: PanelContainerProps) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
-        <div className="panel-container">
+        <Card style={{ padding: 0, marginTop: 10, boxShadow: "none" }}>
             <Button
                 fill
-                minimal
                 large
+                minimal
                 rightIcon={isOpen ? "chevron-up" : "chevron-down"}
                 onClick={() => setIsOpen(!isOpen)}
                 text={props.title}
                 alignText="left"
-                style={{ marginTop: 5, marginBottom: 5, fontWeight: 600 }}
+                style={{ fontWeight: 600 }}
             />
             <Collapse
                 isOpen={isOpen}
                 keepChildrenMounted={true}>
 
-                {props.children}
+                <div style={{ padding: 10 }}>
+                    {props.children}
+                </div>
             </Collapse>
-
-            <Divider style={{ marginTop: 10 }} />
-        </div>
+        </Card>
     );
 }

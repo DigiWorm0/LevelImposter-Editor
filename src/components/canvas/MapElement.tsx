@@ -3,7 +3,6 @@ import { Group, Image, Rect } from "react-konva";
 import useMouseButtons from "../../hooks/useMouseButtons";
 import useElement from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useSelectedLayerIDValue } from "../../hooks/jotai/useLayer";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -19,7 +18,6 @@ const HIDE_ON_SELECT = [
 ]
 
 export default function MapElement(props: { elementID: GUID }) {
-    const selectedLayerID = useSelectedLayerIDValue();
     const isEmbeded = useEmbed();
     const [elem, setElement] = useElement(props.elementID);
     const sprite = useSprite(props.elementID);
@@ -40,7 +38,6 @@ export default function MapElement(props: { elementID: GUID }) {
     const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
     const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
     const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
-    const invalidLayer = selectedLayerID !== undefined && elem.properties.layer !== selectedLayerID;
 
     return (
         <Group
@@ -88,11 +85,11 @@ export default function MapElement(props: { elementID: GUID }) {
                 setHovering(false);
                 setMouseCursor("default");
             }}
-            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded && isVisible && !invalidLayer}
-            listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible && !invalidLayer}>
+            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded && isVisible}
+            listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
-                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity) * ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1) * (invalidLayer ? invisibleOpacity : 1)}
+                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity) * ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}

@@ -26,7 +26,7 @@ export default function ColliderEditorPanel() {
         return null;
 
     return (
-        <Card>
+        <Card style={{ boxShadow: "none" }}>
             <H6>Edit Collider:</H6>
 
             <DevInfo>
