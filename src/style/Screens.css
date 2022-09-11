@@ -1,5 +1,5 @@
 .left-sidebar {
-    width: 200px;
+    width: 250px;
     height: 100%;
     background-color: #f1f1f1;
     position: fixed;
@@ -19,7 +19,7 @@
     top: 50px;
     right: 0;
     overflow-x: hidden;
-    padding: 20px;
+    padding: 10px;
     padding-bottom: 400px;
     overflow-y: scroll;
 }

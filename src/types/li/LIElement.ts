@@ -18,7 +18,6 @@ export default interface LIElement {
         // Generic
         colliders?: LICollider[];
         parent?: GUID;
-        layer?: GUID;
 
         // Sound
         sounds?: LISound[];

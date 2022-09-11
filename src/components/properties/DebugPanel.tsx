@@ -48,9 +48,8 @@ export default function DebugPanel() {
                     const value = values[index];
                     const stringValue = JSON.stringify(value);
                     return (
-                        <>
+                        <div key={`debug-${key}-${index}`}>
                             <MenuItem2
-                                key={key}
                                 text={key}
                                 intent={TYPE_INTENTS[typeof value]}
                                 onClick={() => {
@@ -58,12 +57,12 @@ export default function DebugPanel() {
                                 }}
                             />
                             {selectedKey === key && (
-                                <Card>
+                                <Card style={{ overflowX: "scroll" }}>
                                     <pre>{typeof value}</pre>
                                     <pre>{stringValue}</pre>
                                 </Card>
                             )}
-                        </>
+                        </div>
                     );
                 })}
             </Menu>

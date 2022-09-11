@@ -10,7 +10,7 @@ export default function SceneScroller() {
         if (!selectedID)
             return;
         const elem = document.getElementById(selectedID);
-        if (elem && settings.scrollToSelection === true) {
+        if (elem && settings.scrollToSelection !== false) {
             elem.scrollIntoView({
                 behavior: "smooth",
             });

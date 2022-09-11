@@ -18,7 +18,7 @@ export default function AddLayerButton(props: { isSidePanel?: boolean }) {
             type: "util-layer",
             x: 0,
             y: 0,
-            z: 0,
+            z: Number.MAX_SAFE_INTEGER,
             xScale: 1,
             yScale: 1,
             rotation: 0,
