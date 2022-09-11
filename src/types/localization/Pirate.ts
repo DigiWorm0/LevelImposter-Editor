@@ -88,6 +88,7 @@ const PirateLocalization: LITranslation = {
     Layers: "Leagues Under the Sea",
     Teleporter: "Teleporter",
     AllElements: "All Sea Creatures",
+    SignIn: "Climb Abord",
 
 };
 

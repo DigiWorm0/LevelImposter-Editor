@@ -76,7 +76,6 @@ export default function Canvas() {
 
                         <CanvasGrid />
                         <SelectedMapElement />
-
                         <MapSorter />
 
                     </Layer>

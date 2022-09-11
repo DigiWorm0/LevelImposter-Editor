@@ -29,6 +29,7 @@ type LITranslation = {
     Upload?: string;
     Download?: string;
     Size?: string;
+    SignIn?: string;
 
     // Transform
     Name?: string;

@@ -3,7 +3,7 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { useMapValue } from "../../hooks/jotai/useMap";
 import useTranslation from "../../hooks/useTranslation";
 
-export default function SaveButton() {
+export default function SaveButton(props: { isButton?: boolean }) {
     const translation = useTranslation();
     const map = useMapValue();
 
@@ -24,8 +24,11 @@ export default function SaveButton() {
                 position="bottom">
 
                 <Button
-                    className={Classes.MINIMAL}
+                    minimal={props.isButton != true}
                     icon="floppy-disk"
+                    intent={props.isButton ? "success" : undefined}
+                    text={props.isButton ? translation.SaveFile : undefined}
+                    style={{ margin: props.isButton ? 10 : 0 }}
                     onClick={onSave} />
 
             </Tooltip2>

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Classes, Dialog, EditableText, FormGroup, H1, ProgressBar } from "@blueprintjs/core";
+import { AnchorButton, Button, ButtonGroup, Dialog, EditableText, FormGroup, H1, ProgressBar } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -15,7 +15,6 @@ import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
-import SignIn from "../SignIn";
 import AgreementDialog from "./AgreementDialog";
 import PublishInfoDialog from "./PublishInfoDialog";
 
@@ -177,31 +176,26 @@ export default function PublishButton() {
         input.click();
     }
 
+    const canUpload = map.authorID === user?.uid || map.authorID === "";
 
     return (
         <>
             <Tooltip2
-                content={tranlation.Publish}
+                fill
+                content={canUpload ? tranlation.Publish : "You don't own this map"}
                 position="bottom">
 
-                <Button
-                    className={Classes.MINIMAL}
+                <AnchorButton
+                    fill
+                    disabled={!canUpload}
+                    text={tranlation.Publish}
                     icon="cloud-upload"
-                    onClick={() => { setIsOpen(true) }} />
+                    intent="success"
+                    onClick={() => { setIsOpen(true) }}
+                    style={{ marginTop: 15 }}
+                />
 
             </Tooltip2>
-
-            {/*  Login  */}
-
-            <Dialog
-                isOpen={isOpen && !isLoggedIn}
-                onClose={() => { setIsOpen(false) }}
-                title="Login"
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
-                <SignIn />
-
-            </Dialog>
 
             {/*  Publish  */}
 

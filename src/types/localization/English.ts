@@ -12,7 +12,7 @@ const EnglishLocalization: LITranslation = {
     OpenInEditor: "Open in Editor",
     Undo: "Undo",
     Redo: "Redo",
-    Publish: "Publish",
+    Publish: "Publish Map",
     Settings: "Settings",
     Name: "Name",
     Type: "Type",
@@ -90,6 +90,7 @@ const EnglishLocalization: LITranslation = {
     Layers: "Layers",
     Teleporter: "Teleporter",
     AllElements: "All Elements",
+    SignIn: "Sign In",
 };
 
 export default EnglishLocalization;
