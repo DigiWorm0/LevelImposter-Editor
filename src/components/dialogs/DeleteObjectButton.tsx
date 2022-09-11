@@ -16,12 +16,14 @@ export default function DeleteObjectButton(props: { isSidePanel?: boolean }) {
     return (
         <>
             <Tooltip2
+                fill
                 content={translation.DeleteObject}
                 position="bottom">
 
                 <AnchorButton
+                    fill
                     className={Classes.MINIMAL}
-                    icon="cube-remove"
+                    icon={props.isSidePanel ? "trash" : "cube-remove"}
                     disabled={!selectedID}
                     intent={props.isSidePanel ? "danger" : undefined}
                     onClick={handleClick} />

@@ -14,6 +14,7 @@ const TYPE_BLACKLIST = [
     "util-sound1",
     "util-sound2",
     "util-tele",
+    "util-layer",
 ];
 
 export default function SpritePanel() {

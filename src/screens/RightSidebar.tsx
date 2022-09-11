@@ -40,7 +40,6 @@ export default function RightSidebar() {
             <ColliderPanel />
             <MinimapPanel />
 
-
             <div style={{ height: 40 }} />
         </div>
     );

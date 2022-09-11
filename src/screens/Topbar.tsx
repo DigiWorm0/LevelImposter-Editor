@@ -1,5 +1,6 @@
 import { Button, Classes, Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
 import ImportLegacyButton from "../components/dialogs/ImportLegacyButton";
@@ -27,8 +28,9 @@ export default function Topbar() {
                     <NavbarDivider />
                     <SaveButton />
                     <NavbarDivider />
-                    <DeleteObjectButton />
                     <AddObjectButton />
+                    <AddLayerButton />
+                    <DeleteObjectButton />
                     <NavbarDivider />
                     <UndoButton />
 

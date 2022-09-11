@@ -1,4 +1,4 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Button, Classes } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
@@ -50,7 +50,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 content={translation.AddObject}
                 position="bottom">
 
-                <Button
+                <AnchorButton
                     fill
                     className={Classes.MINIMAL}
                     icon={"cube-add"}

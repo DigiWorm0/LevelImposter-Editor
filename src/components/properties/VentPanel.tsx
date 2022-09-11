@@ -18,7 +18,6 @@ export default function VentPanel() {
     const saveHistory = useSaveHistory();
 
     const ventElems = ventElemsA.concat(ventElemsB);
-    console.log("ventElems", ventElems);
 
     const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
     const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);

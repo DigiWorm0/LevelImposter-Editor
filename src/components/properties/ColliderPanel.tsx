@@ -53,8 +53,7 @@ export default function ColliderPanel() {
             setSelectedColliderID(collider?.id);
     }
 
-    if (!selectedElem
-        || selectedElem.type === "util-minimap")
+    if (!selectedElem || selectedElem.type === "util-minimap" || selectedElem.type === "util-layer")
         return null;
 
     return (

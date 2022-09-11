@@ -30,7 +30,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    if (!elem)
+    if (!elem || elem.type === "util-layer")
         return null;
 
     const w = sprite ? sprite.width : 0;

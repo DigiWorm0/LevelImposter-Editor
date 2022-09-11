@@ -15,7 +15,7 @@ export default function TransformPanel() {
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    if (!selectedElem)
+    if (!selectedElem || selectedElem.type === "util-layer")
         return null;
 
     return (
@@ -27,7 +27,7 @@ export default function TransformPanel() {
             <InputGroup
                 style={{ marginBottom: 5 }}
                 key={selectedElem.id + "-name"}
-                defaultValue={selectedElem.name}
+                value={selectedElem.name}
                 placeholder={translation.Name}
                 large
                 onChange={(e) => {
