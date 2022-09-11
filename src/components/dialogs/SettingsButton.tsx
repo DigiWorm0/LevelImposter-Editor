@@ -72,9 +72,16 @@ export default function SettingsButton() {
 
                         <Switch
                             label="Scroll to Selection"
-                            checked={settings.scrollToSelection === undefined ? false : settings.scrollToSelection}
+                            checked={settings.scrollToSelection === undefined ? true : settings.scrollToSelection}
                             onChange={(e) => {
                                 setSettings({ ...settings, scrollToSelection: e.currentTarget.checked });
+                            }} />
+
+                        <Switch
+                            label="Object Nesting"
+                            checked={settings.elementNesting === undefined ? false : settings.elementNesting}
+                            onChange={(e) => {
+                                setSettings({ ...settings, elementNesting: e.currentTarget.checked });
                             }} />
 
                         <Switch

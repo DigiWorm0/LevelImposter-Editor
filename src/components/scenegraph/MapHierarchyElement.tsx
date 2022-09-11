@@ -1,10 +1,11 @@
-import React from "react";
-import { Button, Collapse, Expander, IconName, InputGroup, Intent } from "@blueprintjs/core";
+import { Button, Collapse, IconName, InputGroup, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
+import React from "react";
 import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { MaybeGUID } from "../../types/generic/GUID";
 
 const ICON_DB: Record<string, IconName> = {
     "util-blank": "media",
@@ -38,6 +39,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
     const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildren(props.elementID);
     const saveHistory = useSaveHistory();
+    const settings = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
 
     const getIcon = (type: string): IconName => {
@@ -56,22 +58,18 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
     }
 
     const getIntent = (type: string): Intent => {
-        if (!isDroppable)
-            return "none";
-        else if (type === "util-layer")
+        if (type === "util-layer")
             return "primary";
-        else if (type.startsWith("util-"))
-            return "success";
-
         return "success";
     }
 
     if (element === undefined)
         return null;
 
+    const isDisabled = !((element?.type === "util-layer" || settings.elementNesting === true) && isDroppable) && draggingID !== undefined;
     const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
     const isExpanded = element.properties.isExpanded === undefined ? true : element.properties.isExpanded;
-    const intent = getIntent(element.type);
+    const intent = isDisabled ? "none" : getIntent(element.type);
 
     return (
         <div
@@ -102,7 +100,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
             onDrop={(e) => {
                 e.preventDefault();
                 const data = e.dataTransfer.getData("text/plain");
-                if (!(data === element.id || draggingElement === undefined || !isDroppable)) {
+                if (!(data === element.id || draggingElement === undefined || isDisabled)) {
                     saveHistory();
                     setDraggingElement({ ...draggingElement, parentID: element.id });
                 }
@@ -139,7 +137,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
                     element.name
                 }
                 active={element.id === selectedID || isDragOver}
-                disabled={!isDroppable}
+                disabled={isDisabled}
                 intent={intent}
                 onClick={() => setSelectedID(element.id)}
                 onDoubleClick={() => {
@@ -149,7 +147,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
                     element.type === "util-layer" ? (
                         <Button
                             icon={isExpanded ? "caret-down" : "caret-right"}
-                            disabled={!isDroppable}
+                            disabled={isDisabled}
                             minimal
                             intent={intent}
                             small
@@ -164,7 +162,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
                     ) : (
                         <Button
                             icon={isVisible ? "eye-open" : "eye-off"}
-                            disabled={!isDroppable}
+                            disabled={isDisabled}
                             minimal
                             intent={intent}
                             small

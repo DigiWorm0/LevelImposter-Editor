@@ -1,4 +1,4 @@
-import { AnchorButton, Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Classes } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";

@@ -14,6 +14,7 @@ export default function MapHierarchy() {
             {elementIDs.map((elemID) => (
                 <MapHierarchyElement key={elemID} elementID={elemID} />
             ))}
+            <MenuDivider />
             <MapButtons />
         </Menu>
     );

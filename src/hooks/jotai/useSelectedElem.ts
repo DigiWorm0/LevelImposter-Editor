@@ -2,13 +2,12 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { MaybeLIElement } from "../../types/li/LIElement";
-import { elementFamilyAtom } from "./useElements";
+import { elementChildrenFamilyAtom, elementFamilyAtom } from "./useElements";
 import { elementsAtom } from "./useMap";
 import { selectedColliderIDAtom } from "./useSelectedCollider";
 
 // Atoms
 export const selectedElementIDAtom = atom<MaybeGUID>(undefined);
-export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => atom((get) => get(selectedElementIDAtom) === id));
 export const selectedElementAtom = atom(
     (get) => {
         const id = get(selectedElementIDAtom);
@@ -25,11 +24,36 @@ export const selectedElementAtom = atom(
         }
     }
 );
+export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
+    const selectedAtom = atom((get) => {
+        const selectedID = get(selectedElementIDAtom);
+        const searchParent = (childID: MaybeGUID): boolean => {
+            if (childID === undefined)
+                return false;
+            if (childID === selectedID)
+                return true;
+            const parentID = get(elementFamilyAtom(childID))?.parentID;
+            return searchParent(parentID);
+        }
+        return searchParent(id);
+    });
+    selectedAtom.debugLabel = `isSelectedElemFamily(${id})`;
+    return selectedAtom;
+});
 export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
-    elementFamilyAtom.remove(id);
-    set(selectedElementAtom, undefined);
-    set(selectedColliderIDAtom, undefined);
-    set(elementsAtom, get(elementsAtom).filter((elem) => elem.id !== id));
+    const removeElement = (id: MaybeGUID) => {
+        console.log("Removed " + id);
+        elementFamilyAtom.remove(id);
+        set(selectedElementAtom, undefined);
+        set(selectedColliderIDAtom, undefined);
+        set(elementsAtom, get(elementsAtom).filter((elem) => elem.id !== id));
+
+        const childIDs = get(elementChildrenFamilyAtom(id));
+        childIDs.forEach((childID) => {
+            removeElement(childID);
+        });
+    };
+    removeElement(id);
 });
 
 // Debug

@@ -59,11 +59,10 @@ export const isDroppableAtomFamily = atomFamily((id: MaybeGUID) => {
                 blacklist.push(childID);
             };
 
-            const targetElement = get(elementFamilyAtom(id));
             const draggingElementID = get(draggingElementIDAtom);
             blacklistChildren(undefined, draggingElementID);
 
-            return !blacklist.includes(id) && (targetElement?.type === "util-layer" || draggingElementID === undefined);
+            return !blacklist.includes(id);
         }
     );
     isDroppableAtom.debugLabel = `isDroppableAtomFamily(${id})`;

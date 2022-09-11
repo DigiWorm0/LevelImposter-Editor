@@ -9,4 +9,5 @@ export default interface LISettings {
     colliderPreview?: boolean;
     language?: string;
     scrollToSelection?: boolean;
+    elementNesting?: boolean;
 }
