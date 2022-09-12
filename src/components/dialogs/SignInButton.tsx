@@ -29,6 +29,7 @@ export default function SignInButton() {
                     icon={
                         isLoggedIn ?
                             <img
+                                referrerPolicy="no-referrer"
                                 alt="avatar"
                                 className="avatar"
                                 src={user?.photoURL || ""}
@@ -62,6 +63,7 @@ export default function SignInButton() {
 
                 <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
                     <img
+                        referrerPolicy="no-referrer"
                         alt="profile"
                         src={user?.photoURL || ""}
                         style={{ width: 100, height: 100, borderRadius: 50, objectFit: "cover", marginRight: 20 }} />

@@ -126,7 +126,7 @@ export default function SettingsButton() {
                                 }} />
                             <Label>Invisible Opacity</Label>
                         </ControlGroup>
-
+                        {/*
                         <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>
                             <LanguageSelect
                                 filterable={false}
@@ -144,6 +144,7 @@ export default function SettingsButton() {
                             </LanguageSelect>
                             <Label>Localization</Label>
                         </ControlGroup>
+                        */}
                     </FormGroup>
 
                     <FormGroup label="Map">
