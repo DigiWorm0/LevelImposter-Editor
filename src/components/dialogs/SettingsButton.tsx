@@ -138,7 +138,7 @@ export default function SettingsButton() {
 
                                 <Button
                                     rightIcon="caret-down"
-                                    text={settings.language ? LITranslations[settings.language].LanguageName : "Default"}
+                                    text={settings.language ? LITranslations[settings.language]?.LanguageName : "Default"}
                                     fill
                                 />
                             </LanguageSelect>

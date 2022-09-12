@@ -9,6 +9,10 @@ export function useUserMaps(userID?: string) {
     const [mapList, setMapList] = React.useState<LIMetadata[]>([]);
 
     React.useEffect(() => {
+        if (userID === undefined) {
+            setMapList([]);
+            return;
+        }
         const mapQueries = [];
         mapQueries.push(
             where("authorID", "==", userID),

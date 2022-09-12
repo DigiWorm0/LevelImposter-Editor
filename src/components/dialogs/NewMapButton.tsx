@@ -38,15 +38,15 @@ export default function NewMapButton() {
             <Dialog
                 isOpen={isVisible}
                 onClose={() => { setIsVisible(false); }}
-                title="New Map"
+                title={translation.NewFile}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }}>
                     <p>Are you sure you want to create a new map?</p>
                     <p>This will delete all elements and reset the map.</p>
 
-                    <Button onClick={() => { onClear(); }} text="Yes" intent="danger" style={{ marginRight: 10 }} />
-                    <Button onClick={() => { setIsVisible(false); }} text="Cancel" />
+                    <Button onClick={() => { onClear(); }} text={translation.Yes} intent="danger" style={{ marginRight: 10 }} />
+                    <Button onClick={() => { setIsVisible(false); }} text={translation.Cancel} />
                 </div>
             </Dialog>
         </>

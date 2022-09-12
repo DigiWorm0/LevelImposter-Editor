@@ -11,7 +11,7 @@ export default function useTranslation() {
     React.useEffect(() => {
         if (settings.language === undefined)
             return;
-        
+
         if (settings.language in LITranslations) {
             setTranslation(LITranslations[settings.language]);
         }

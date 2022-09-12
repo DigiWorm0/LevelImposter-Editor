@@ -1,10 +1,8 @@
 import EnglishLocalization from "./English";
 import LITranslation from "./LITranslation";
-import PirateLocalization from "./Pirate";
 
 const LITranslations: Record<string, LITranslation> = {
-    "en-US": EnglishLocalization,
-    "pirate": PirateLocalization
+    "en-US": EnglishLocalization
 };
 
 export default LITranslations;

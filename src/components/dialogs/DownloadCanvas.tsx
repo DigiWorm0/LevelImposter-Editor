@@ -6,6 +6,7 @@ import { Layer, Stage } from 'react-konva';
 import { useElementIDs } from '../../hooks/jotai/useMap';
 import { useSelectedElemValue } from '../../hooks/jotai/useSelectedElem';
 import { useSettingsValue } from '../../hooks/jotai/useSettings';
+import useTranslation from '../../hooks/useTranslation';
 import { MINIMAP_HEIGHT, MINIMAP_WIDTH, PROVIDER_SCOPE, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
 
@@ -14,6 +15,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
     const settings = useSettingsValue();
     const elementIDs = useElementIDs();
     const stageRef = React.useRef() as React.MutableRefObject<Konva.Stage>;
+    const translation = useTranslation();
 
     const scale = minimap?.properties.minimapScale === undefined ? 1 : minimap.properties.minimapScale;
 
@@ -32,7 +34,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
             <Dialog
                 isOpen={props.isVisible}
                 onClose={() => props.setVisible(false)}
-                title="Download Map Image"
+                title={translation.DownloadMapImage}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 {(props.isVisible && minimap !== undefined) && (

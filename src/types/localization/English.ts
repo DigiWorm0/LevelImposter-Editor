@@ -91,6 +91,20 @@ const EnglishLocalization: LITranslation = {
     Teleporter: "Teleporter",
     AllElements: "All Elements",
     SignIn: "Sign In",
+    SignOut: "Sign Out",
+    LIAPIPolicy: "LevelImposter API Policy",
+    Warning: "Warning",
+    MobileWarning: "The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.",
+    ChromeWarning: "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
+    OK: "OK",
+    OpenDocs: "Open Documentation",
+    DownloadMapImage: "Download Map Image",
+    Yes: "Yes",
+    VerifyEmailError: "Your email address has not been verified. Please check your email for a verification link.",
+    PublishSuccess: "Your map has been published successfully!",
+    SignedInAs: "Signed in as %name%",
+    LaunchMap: "Launch Map",
+    PublishInfo: "Publishing Info",
 };
 
 export default EnglishLocalization;

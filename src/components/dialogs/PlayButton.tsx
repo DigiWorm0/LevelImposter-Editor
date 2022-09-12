@@ -4,7 +4,6 @@ import React from "react";
 import { useMapName } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
-import DocsButton from "./DocsButton";
 import SaveButton from "./SaveButton";
 
 export default function PlayButton() {
@@ -16,7 +15,7 @@ export default function PlayButton() {
     return (
         <>
             <Tooltip2
-                content={"Launch Map"}
+                content={tranlation.LaunchMap}
                 position="bottom">
 
                 <Button
@@ -53,7 +52,7 @@ export default function PlayButton() {
                     <h3>Freeplay</h3>
                     <ol>
                         <li>Open Among Us</li>
-                        <li><code>Go to Maps {">>>"} {mapName}</code></li>
+                        <li>Go to <code>Maps {">>>"} {mapName}</code></li>
                         <li>Select the map's play button</li>
                     </ol>
 

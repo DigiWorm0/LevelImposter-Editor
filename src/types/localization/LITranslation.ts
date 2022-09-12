@@ -30,6 +30,8 @@ type LITranslation = {
     Download?: string;
     Size?: string;
     SignIn?: string;
+    SignOut?: string;
+    Yes?: string;
 
     // Transform
     Name?: string;
@@ -111,6 +113,19 @@ type LITranslation = {
     DeleteLayerDemoteObjects?: string;
     AddLayer?: string;
 
+    // Popups
+    Warning?: string;
+    OK?: string;
+    OpenDocs?: string;
+    MobileWarning?: string;
+    ChromeWarning?: string;
+    DownloadMapImage?: string;
+    VerifyEmailError?: string;
+    PublishSuccess?: string;
+    SignedInAs?: string;
+    LaunchMap?: string;
+    PublishInfo?: string;
+
     // Panel Names
     Camera?: string;
     Console?: string;
@@ -121,6 +136,7 @@ type LITranslation = {
     Transform?: string;
     Vent?: string;
     Teleporter?: string;
+    LIAPIPolicy?: string;
 }
 
 export default LITranslation;

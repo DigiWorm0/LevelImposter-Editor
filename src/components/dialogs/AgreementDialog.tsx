@@ -1,19 +1,20 @@
 import { Button, ButtonGroup, Dialog } from "@blueprintjs/core";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function AgreementDialog(props: { isOpen: boolean, onAgree: () => void, onCancel: () => void }) {
     const settings = useSettingsValue();
+    const translation = useTranslation();
 
     return (
         <>
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
-                title="LevelImposter API Policy"
+                title={translation.LIAPIPolicy}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
-
                     <p>
                         In order to abide by local laws and regulations as well as InnerSloth's <a href="https://www.innersloth.com/among-us-mod-policy/" target={"_blank"} rel="noreferrer">Among Us Mod Policy</a>,
                         you must agree upon a few rules before uploading...

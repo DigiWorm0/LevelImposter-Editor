@@ -19,7 +19,7 @@ import AgreementDialog from "./AgreementDialog";
 import PublishInfoDialog from "./PublishInfoDialog";
 
 export default function PublishButton() {
-    const tranlation = useTranslation();
+    const translation = useTranslation();
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
@@ -35,7 +35,7 @@ export default function PublishButton() {
 
     const publishMap = (id?: GUID) => {
         if (!user?.emailVerified) {
-            toaster.danger("You must verify your email before you can publish a map.");
+            toaster.danger(translation.VerifyEmailError || "");
             return;
         }
 
@@ -99,7 +99,7 @@ export default function PublishButton() {
             return new Promise<void>((resolve, reject) => {
                 setDoc(docRef, metadata).then(() => {
                     console.log(`Map published to firestore: ${docRef.path}`);
-                    toaster.success("Map published successfully!", "https://levelimposter.net/#/map/" + mapData.id);
+                    toaster.success(translation.PublishSuccess || "", "https://levelimposter.net/#/map/" + mapData.id);
                     resolve();
                 }).catch((err) => {
                     reject(err);
@@ -182,13 +182,13 @@ export default function PublishButton() {
         <>
             <Tooltip2
                 fill
-                content={canUpload ? tranlation.Publish : "You don't own this map"}
+                content={canUpload ? translation.Publish : "You don't own this map"}
                 position="bottom">
 
                 <AnchorButton
                     fill
                     disabled={!canUpload}
-                    text={tranlation.Publish}
+                    text={translation.Publish}
                     icon="cloud-upload"
                     intent="success"
                     onClick={() => { setIsOpen(true) }}
@@ -202,16 +202,16 @@ export default function PublishButton() {
             <Dialog
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
-                title={tranlation.Publish}
+                title={translation.Publish}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 
-                    <FormGroup label={"Signed in as " + user?.displayName} disabled={isPublishing}>
+                    <FormGroup label={translation.SignedInAs?.replace("%name%", user?.displayName || "")} disabled={isPublishing}>
                         <Button
                             disabled={isPublishing}
                             icon={"user"}
-                            text={"Sign Out"}
+                            text={translation.SignOut}
                             intent={"danger"}
                             onClick={() => {
                                 signOut(auth);
@@ -232,7 +232,7 @@ export default function PublishButton() {
                                 minimal
                                 disabled={isPublishing}
                                 icon={"refresh"}
-                                text={"Reset"}
+                                text={translation.Reset}
                                 onClick={() => {
                                     setThumbnail(undefined);
                                 }} />
@@ -241,7 +241,7 @@ export default function PublishButton() {
                                 minimal
                                 disabled={isPublishing}
                                 icon={"upload"}
-                                text={"Upload"}
+                                text={translation.Upload}
                                 onClick={uploadThumbnail} />
                         </ButtonGroup>
                     </FormGroup>

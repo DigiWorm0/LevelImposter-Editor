@@ -104,7 +104,7 @@ export default function SignInButton() {
                         </p>
                     ) : maps.map((map) => {
                         return (
-                            <Card style={{ marginTop: 5 }}>
+                            <Card style={{ marginTop: 5 }} key={map.id}>
                                 {!map.isPublic && (
                                     <Tag
                                         intent="danger">
