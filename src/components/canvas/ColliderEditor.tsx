@@ -72,7 +72,7 @@ export default function ColliderEditor() {
                     fill={"blue"}
                     stroke={"white"}
                     onMouseDown={(e) => {
-                        if (e.evt.button === 2) {
+                        if (e.evt.button === 2 && collider.points.length > 2) {
                             collider.points.splice(index, 1);
                             setCollider({ ...collider });
                         }
