@@ -3,6 +3,7 @@ import Point from "../generic/Point";
 
 export default interface LICollider {
     id: GUID;
+    name?: string;
     blocksLight: boolean;
     isSolid: boolean;
     points: Point[];

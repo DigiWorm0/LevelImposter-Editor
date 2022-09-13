@@ -3,22 +3,27 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useVents } from "../../hooks/jotai/useVents";
+import { useElementType } from "../../hooks/jotai/useTypes";
+import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
 
 const VentSelect = Select2.ofType<LIElement>();
 
 export default function VentPanel() {
-    const ventElems = useVents();
+    const translation = useTranslation();
+    const ventElemsA = useElementType("util-vent1");
+    const ventElemsB = useElementType("util-vent2");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
-    const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id);
+    const ventElems = ventElemsA.concat(ventElemsB);
 
     const leftVent = ventElems.find((e) => e.id === selectedElem?.properties.leftVent);
     const middleVent = ventElems.find((e) => e.id === selectedElem?.properties.middleVent);
     const rightVent = ventElems.find((e) => e.id === selectedElem?.properties.rightVent);
+
+    const filteredVents = ventElems.filter((elem) => elem.id !== selectedElem?.id && leftVent?.id !== elem.id && middleVent?.id !== elem.id && rightVent?.id !== elem.id);
 
     const ventSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2
@@ -38,7 +43,7 @@ export default function VentPanel() {
         return null;
 
     return (
-        <PanelContainer title="Vent">
+        <PanelContainer title={translation.Vent}>
             <ControlGroup fill>
                 <VentSelect
                     fill
@@ -52,6 +57,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={leftVent ? leftVent.name : "(No connection)"}
                         fill
@@ -80,6 +86,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={middleVent ? middleVent.name : "(No connection)"}
                         fill
@@ -108,6 +115,7 @@ export default function VentPanel() {
                     }}>
 
                     <Button
+                        minimal
                         rightIcon="caret-down"
                         text={rightVent ? rightVent.name : "(No connection)"}
                         fill

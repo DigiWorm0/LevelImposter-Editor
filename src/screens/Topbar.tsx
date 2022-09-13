@@ -1,13 +1,16 @@
 import { Button, Classes, Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
+import DocsButton from "../components/dialogs/DocsButton";
 import ImportLegacyButton from "../components/dialogs/ImportLegacyButton";
 import NewMapButton from "../components/dialogs/NewMapButton";
 import OpenButton from "../components/dialogs/OpenButton";
-import PublishButton from "../components/dialogs/PublishButton";
+import PlayButton from "../components/dialogs/PlayButton";
 import SaveButton from "../components/dialogs/SaveButton";
 import SettingsButton from "../components/dialogs/SettingsButton";
+import SignInButton from "../components/dialogs/SignInButton";
 import UndoButton from "../components/dialogs/UndoButton";
 import MapName from "../components/scenegraph/MapName";
 
@@ -27,24 +30,18 @@ export default function Topbar() {
                     <NavbarDivider />
                     <SaveButton />
                     <NavbarDivider />
-                    <DeleteObjectButton />
                     <AddObjectButton />
+                    <AddLayerButton />
+                    <DeleteObjectButton />
                     <NavbarDivider />
                     <UndoButton />
-
-
+                    <NavbarDivider />
+                    <PlayButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">
-                    <PublishButton />
+                    <SignInButton />
                     <SettingsButton />
-                    <Tooltip2
-                        content="Open Documentation"
-                        position="bottom">
-                        <Button
-                            className={Classes.MINIMAL}
-                            icon="help"
-                            onClick={() => { window.open("https://docs.levelimposter.net/"); }} />
-                    </Tooltip2>
+                    <DocsButton />
                 </NavbarGroup>
             </Navbar>
         </div>

@@ -5,13 +5,13 @@ import CameraRender from "./CameraRender";
 import ColliderEditor from "./ColliderEditor";
 import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
+import FloatingRender from "./FloatingRender";
 import LadderRange from "./LadderRange";
 import MinimapPreview from "./MinimapPreview";
 import PlatformRange from "./PlatformRange";
 import SpawnRange from "./SpawnRange";
 import StarfieldRender from "./StarfieldRender";
-import TaskParent from "./TaskParent";
-import VentConnections from "./VentConnections";
+import ElemConnections from "./ElemConnections";
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -20,11 +20,9 @@ export default function SelectedMapElement() {
         return null;
     return (
         <>
-            <VentConnections />
             <ConsoleRange />
             <SpawnRange />
             <LadderRange />
-            <TaskParent />
             <CameraRender />
             <PlatformRange />
             <MinimapPreview />
@@ -39,8 +37,11 @@ export default function SelectedMapElement() {
                 <ColliderPreview />
                 <ColliderEditor />
                 <StarfieldRender />
+                <FloatingRender />
 
             </Group>
+
+            <ElemConnections />
         </>
     );
 }

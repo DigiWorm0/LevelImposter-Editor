@@ -1,17 +1,23 @@
-import { Menu } from "@blueprintjs/core";
-import { useElementIDs } from "../../hooks/jotai/useMap";
+import { Menu, MenuDivider } from "@blueprintjs/core";
+import { useElementChildren } from "../../hooks/jotai/useElements";
+import MapButtons from "../dialogs/MapButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
+import RootHierarchyElement from "./RootHierarchyElement";
 
 export default function MapHierarchy() {
-    const elementIDs = useElementIDs();
+    const elementIDs = useElementChildren(undefined);
 
     return (
-        <div className="map-hierarchy">
-            <Menu>
-                {elementIDs.map((elemID) => (
-                    <MapHierarchyElement key={elemID} elementID={elemID} />
-                ))}
-            </Menu>
-        </div>
+        <Menu
+            style={{ backgroundColor: "transparent" }}>
+
+            <RootHierarchyElement />
+
+            {elementIDs.map((elemID) => (
+                <MapHierarchyElement key={elemID} elementID={elemID} />
+            ))}
+            <MenuDivider />
+            <MapButtons />
+        </Menu>
     );
 }

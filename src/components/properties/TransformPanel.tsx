@@ -1,24 +1,25 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
-import { useRemoveElement } from "../../hooks/jotai/useElement";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import useSelectedElem, { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 import GUID from "../../types/generic/GUID";
 import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
 
 export default function TransformPanel() {
+    const translation = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    if (!selectedElem)
+    if (!selectedElem || selectedElem.type === "util-layer")
         return null;
 
     return (
-        <PanelContainer title="Transform">
+        <PanelContainer title={translation.Transform}>
             <DevInfo>
                 {selectedElem.id}
             </DevInfo>
@@ -26,8 +27,8 @@ export default function TransformPanel() {
             <InputGroup
                 style={{ marginBottom: 5 }}
                 key={selectedElem.id + "-name"}
-                defaultValue={selectedElem.name}
-                placeholder="Name"
+                value={selectedElem.name}
+                placeholder={translation.Name}
                 large
                 onChange={(e) => {
                     saveHistory();
@@ -39,7 +40,7 @@ export default function TransformPanel() {
                     style={{ marginBottom: 5 }}
                     key={selectedElem.id + "-type"}
                     defaultValue={selectedElem.type}
-                    placeholder="Type"
+                    placeholder={translation.Type}
                     large
                     onChange={(e) => {
                         saveHistory();
@@ -56,7 +57,7 @@ export default function TransformPanel() {
                         !isNaN(val) && setSelectedElem({ ...selectedElem, x: val });
                     }}
                     fill
-                    placeholder="X"
+                    placeholder={translation.X}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
@@ -69,7 +70,7 @@ export default function TransformPanel() {
                         !isNaN(val) && setSelectedElem({ ...selectedElem, y: val });
                     }}
                     fill
-                    placeholder="Y"
+                    placeholder={translation.Y}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
@@ -82,7 +83,7 @@ export default function TransformPanel() {
                         !isNaN(val) && setSelectedElem({ ...selectedElem, z: val });
                     }}
                     fill
-                    placeholder="Z"
+                    placeholder={translation.Z}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
@@ -98,7 +99,7 @@ export default function TransformPanel() {
                     }}
                     fill
                     leftIcon="arrows-horizontal"
-                    placeholder="X Scale"
+                    placeholder={translation.XScale}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
@@ -112,7 +113,7 @@ export default function TransformPanel() {
                     }}
                     fill
                     leftIcon="arrows-vertical"
-                    placeholder="Y Scale"
+                    placeholder={translation.YScale}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
@@ -128,7 +129,7 @@ export default function TransformPanel() {
                     }}
                     fill
                     leftIcon="refresh"
-                    placeholder="Rotation"
+                    placeholder={translation.Rotation}
                     minorStepSize={1}
                     stepSize={45}
                     majorStepSize={90}
@@ -147,7 +148,7 @@ export default function TransformPanel() {
                 <Button
                     fill
                     icon="trash"
-                    text="Remove"
+                    text={translation.Delete}
                     onClick={() => {
                         saveHistory();
                         removeElement(selectedElem.id);

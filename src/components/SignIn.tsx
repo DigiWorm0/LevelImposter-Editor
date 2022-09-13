@@ -9,7 +9,6 @@ export default function SignIn() {
     const toaster = useToaster();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [isSigningIn, setIsSigningIn] = React.useState(false);
 
     const googleIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-google" viewBox="0 0 16 16">
@@ -22,11 +21,7 @@ export default function SignIn() {
         </svg>
     );
 
-
-
     const onSignIn = (credentials: UserCredential) => {
-        setIsSigningIn(false);
-
         const { displayName, photoURL, uid } = credentials.user;
         const usersRef = collection(db, 'users');
         const docRef = doc(usersRef, uid);
@@ -43,37 +38,29 @@ export default function SignIn() {
     }
 
     const signInWithGithub = () => {
-        setIsSigningIn(true);
         signInWithPopup(auth, githubProvider).then(onSignIn).catch((e) => {
             toaster.danger(e.message);
-            setIsSigningIn(false);
         });
     }
 
     const signInWithGoogle = () => {
-        setIsSigningIn(true);
         signInWithPopup(auth, googleProvider).then(onSignIn).catch((e) => {
             toaster.danger(e.message);
-            setIsSigningIn(false);
         });
     }
 
     const signInWithEmail = () => {
-        setIsSigningIn(true);
         signInWithEmailAndPassword(auth, email, password).then(onSignIn).catch((e) => {
             toaster.danger(e.message);
-            setIsSigningIn(false);
         });
     }
 
     const signUpWithEmail = () => {
-        setIsSigningIn(true);
         createUserWithEmailAndPassword(auth, email, password).then((cred) => {
             sendEmailVerification(cred.user);
             onSignIn(cred);
         }).catch((e) => {
             toaster.danger(e.message);
-            setIsSigningIn(false);
         });
     }
 

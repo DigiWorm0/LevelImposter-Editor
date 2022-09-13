@@ -19,6 +19,9 @@ export const DEFAULT_STARFIELD_COUNT = 20;
 export const DEFAULT_STARFIELD_HEIGHT = 10;
 export const DEFAULT_STARFIELD_LENGTH = 10;
 
+export const DEFAULT_FLOATING_HEIGHT = 0.2;
+export const DEFAULT_FLOATING_SPEED = 2;
+
 export const LADDER_Y_OFFSET = -0.4;
 export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;
@@ -41,3 +44,11 @@ export const RESOURCE_URL = "/resources/";
 
 export const THUMBNAIL_WIDTH = 412;
 export const THUMBNAIL_HEIGHT = 144;
+
+export const UI_ZOOM_SPEED = 1.1;
+
+export const MAP_FORMAT_VER = 0;
+export const PROVIDER_SCOPE = "main";
+export const MAX_HISTORY_LENGTH = 20;
+
+export const CAM_SPEED = 20;

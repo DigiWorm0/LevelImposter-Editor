@@ -1,15 +1,17 @@
 import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
-import useSelectedCollider, { useSelectedColliderID, useSelectedColliderValue } from "../../hooks/jotai/useSelectedCollider";
+import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useTranslation from "../../hooks/useTranslation";
 import LICollider from "../../types/li/LICollider";
 import DevInfo from "../DevInfo";
 
 export default function ColliderEditorPanel() {
+    const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const [selectedCollider, setSelectedCollider] = useSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2";
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele";
 
     const delCollider = (collider: LICollider) => {
         if (!selectedElem)
@@ -24,7 +26,7 @@ export default function ColliderEditorPanel() {
         return null;
 
     return (
-        <Card>
+        <Card style={{ boxShadow: "none" }}>
             <H6>Edit Collider:</H6>
 
             <DevInfo>
@@ -32,7 +34,7 @@ export default function ColliderEditorPanel() {
             </DevInfo>
 
             <Switch
-                label="Is Solid"
+                label={translation.Solid}
                 checked={selectedCollider.isSolid}
                 disabled={isRestricted}
                 onChange={(e) => {
@@ -40,14 +42,14 @@ export default function ColliderEditorPanel() {
                     setSelectedElem({ ...selectedElem });
                 }} />
             <Switch
-                label="Blocks Light"
+                label={translation.BlocksLight}
                 checked={selectedCollider.blocksLight}
                 disabled={isRestricted}
                 onChange={(e) => {
                     selectedCollider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
                 }} />
-            <FormGroup label="Points">
+            <FormGroup label={translation.Points}>
                 <NumericInput
                     fill
                     disabled={!selectedCollider}

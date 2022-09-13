@@ -1,8 +1,7 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useMouseButtons from "../../hooks/input/useMouse";
-import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
-import useElement from "../../hooks/jotai/useElement";
+import useMouseButtons from "../../hooks/useMouseButtons";
+import useElement from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
@@ -11,7 +10,12 @@ import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 
+const HIDE_ON_SELECT = [
+    "util-blankfloat",
+    "util-starfield"
+]
 
 export default function MapElement(props: { elementID: GUID }) {
     const isEmbeded = useEmbed();
@@ -26,7 +30,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    if (!elem)
+    if (!elem || elem.type === "util-layer")
         return null;
 
     const w = sprite ? sprite.width : 0;
@@ -85,7 +89,7 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
-                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity)}
+                opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity) * ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1)}
                 x={-w / 2}
                 y={-h / 2}
                 width={w}
@@ -94,16 +98,17 @@ export default function MapElement(props: { elementID: GUID }) {
             />
 
             {isSelected || isHovering ? (
-                <Rect
-                    x={-w / 2}
-                    y={-h / 2}
-                    width={w}
-                    height={h}
-                    stroke={isSelected ? "red" : "#aaaaaa"}
-                    strokeWidth={1}
-                />
+                <>
+                    <Rect
+                        x={-w / 2}
+                        y={-h / 2}
+                        width={w}
+                        height={h}
+                        stroke={isSelected ? "#CD4246" : "#C5CBD3"}
+                        strokeWidth={2}
+                    />
+                </>
             ) : null}
-
         </Group>
     );
 }

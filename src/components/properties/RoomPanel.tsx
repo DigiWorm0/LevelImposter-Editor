@@ -1,8 +1,10 @@
-import { H2, H3, H4, Switch } from "@blueprintjs/core";
+import { Switch } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";
 
 export default function RoomPanel() {
+    const translation = useTranslation();
     const [element, setElement] = useSelectedElem();
 
     if (!element
@@ -10,10 +12,10 @@ export default function RoomPanel() {
         return null;
 
     return (
-        <PanelContainer title="Room">
+        <PanelContainer title={translation.Room}>
             <Switch
                 checked={element.properties.isRoomNameVisible !== false}
-                label="Show Room Name"
+                label={translation.ShowName}
                 style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
                 onChange={(e) => {
                     setElement({
@@ -27,7 +29,7 @@ export default function RoomPanel() {
             />
             <Switch
                 checked={element.properties.isRoomAdminVisible !== false}
-                label="Show on Admin Table"
+                label={translation.ShowAdminTable}
                 style={{ textAlign: "center", marginTop: 5, marginBottom: 15 }}
                 onChange={(e) => {
                     setElement({

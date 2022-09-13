@@ -1,11 +1,16 @@
 import { HotkeyConfig, useHotkeys } from "@blueprintjs/core";
+import { useSetAtom } from "jotai";
 import React from "react";
-import { MaybeLIElement } from "../types/li/LIElement";
+import { CAM_SPEED } from "../types/generic/Constants";
+import GUID, { MaybeGUID } from "../types/generic/GUID";
+import LIClipboard from "../types/li/LIClipboard";
+import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
-import { useAddElementAtMouse, useRemoveElement } from "./jotai/useElement";
+import { camXAtom, camYAtom } from "./jotai/useCamera";
+import { useAddElement, useAddElementAtMouse } from "./jotai/useElements";
 import { useSaveHistory, useUndo } from "./jotai/useHistory";
 import { useMapValue } from "./jotai/useMap";
-import { useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
+import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 
@@ -14,12 +19,15 @@ export default function useCombos() {
     const map = useMapValue();
     const undo = useUndo();
     const selectedElem = useSelectedElemValue();
-    const addElement = useAddElementAtMouse();
+    const addElementAtMouse = useAddElementAtMouse();
+    const addElement = useAddElement();
     const removeElement = useRemoveElement();
     const setSettings = useSetSettings();
     const setSelectedID = useSetSelectedElemID();
     const toaster = useToaster();
     const saveHistory = useSaveHistory();
+    const setCamX = useSetAtom(camXAtom);
+    const setCamY = useSetAtom(camYAtom);
 
     const saveMap = React.useCallback(() => {
         const mapJSON = JSON.stringify(map);
@@ -34,10 +42,24 @@ export default function useCombos() {
     const copyElement = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const elemData = JSON.stringify(selectedElem);
-        setLocalClipboard(elemData);
+        const clipboardData: LIClipboard = {
+            data: [selectedElem]
+        };
+
+        const addChildren = (elem: LIElement) => {
+            map.elements.forEach(e => {
+                if (e.parentID === elem.id) {
+                    clipboardData.data.push(e);
+                    addChildren(e);
+                }
+            });
+        };
+        addChildren(selectedElem);
+
+        const clipboardJSON = JSON.stringify(clipboardData);
+        setLocalClipboard(clipboardJSON);
         if (navigator.clipboard.writeText)
-            navigator.clipboard.writeText(elemData);
+            navigator.clipboard.writeText(clipboardJSON);
     }, [selectedElem]);
 
     const pasteElement = React.useCallback(async () => {
@@ -57,21 +79,46 @@ export default function useCombos() {
             toaster.danger("Nothing to paste");
             return;
         }
-        const elemData = JSON.parse(clipboard) as MaybeLIElement;
-        if (elemData) {
+        const clipboardData = JSON.parse(clipboard) as LIClipboard | undefined;
+        if (clipboardData) {
             saveHistory();
-            const id = generateGUID();
-            addElement({
-                ...elemData,
-                id,
-                properties: {
-                    ...elemData.properties,
-                    colliders: [
-                        ...(elemData.properties.colliders || []),
-                    ]
+            const elements = clipboardData.data as LIElement[];
+            const newIDs = new Map<GUID, GUID>();
+            const getID = (id: MaybeGUID) => {
+                if (id === undefined)
+                    return undefined;
+                if (newIDs.has(id))
+                    return newIDs.get(id);
+                if (elements.find(e => e.id === id)) {
+                    const newID = generateGUID();
+                    newIDs.set(id, newID);
+                    return newID;
                 }
+                return id;
+            };
+
+            elements.forEach(elem => {
+                const newID = generateGUID();
+                newIDs.set(elem.id, newID);
+                addElement({
+                    ...elem,
+                    id: newID,
+                    parentID: getID(elem.parentID),
+                    properties: {
+                        ...elem.properties,
+                        parent: getID(elem.properties.parent),
+                        leftVent: getID(elem.properties.leftVent),
+                        rightVent: getID(elem.properties.rightVent),
+                        middleVent: getID(elem.properties.middleVent),
+                        teleporter: getID(elem.properties.teleporter),
+
+                        colliders: [
+                            ...(elem.properties.colliders || []),
+                        ]
+                    }
+                });
             });
-            setSelectedID(id);
+            setSelectedID(elements[0].id);
         }
     }, [localClipboard, addElement, setSelectedID, saveHistory]);
 
@@ -79,7 +126,7 @@ export default function useCombos() {
         if (selectedElem) {
             const id = generateGUID();
             saveHistory();
-            addElement({
+            addElementAtMouse({
                 ...selectedElem,
                 id,
                 properties: {
@@ -91,11 +138,10 @@ export default function useCombos() {
             });
             setSelectedID(id);
         }
-    }, [selectedElem, addElement, saveHistory, setSelectedID]);
+    }, [selectedElem, addElementAtMouse, saveHistory, setSelectedID]);
 
     const deleteElement = React.useCallback(() => {
         if (selectedElem) {
-            toaster.danger("Deleted " + selectedElem.name);
             saveHistory();
             removeElement(selectedElem.id);
         }
@@ -152,6 +198,17 @@ export default function useCombos() {
         },
         {
             group: "Selection",
+            label: "Cut",
+            combo: "ctrl+x",
+            description: "Cut selection",
+            onKeyDown: () => {
+                copyElement();
+                deleteElement();
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Selection",
             label: "Duplicate",
             combo: "ctrl+d",
             description: "Duplicate selection",
@@ -187,6 +244,46 @@ export default function useCombos() {
             description: "Undo",
             onKeyDown: () => {
                 undo();
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Camera",
+            label: "Move Up",
+            combo: "up",
+            description: "Move camera up",
+            onKeyDown: () => {
+                setCamY(y => y + CAM_SPEED);
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Camera",
+            label: "Move Down",
+            combo: "down",
+            description: "Move camera down",
+            onKeyDown: () => {
+                setCamY(y => y - CAM_SPEED);
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Camera",
+            label: "Move Left",
+            combo: "left",
+            description: "Move camera left",
+            onKeyDown: () => {
+                setCamX(x => x + CAM_SPEED);
+            },
+            preventDefault: true,
+        },
+        {
+            group: "Camera",
+            label: "Move Right",
+            combo: "right",
+            description: "Move camera right",
+            onKeyDown: () => {
+                setCamX(x => x - CAM_SPEED);
             },
             preventDefault: true,
         }

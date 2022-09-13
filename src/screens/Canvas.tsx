@@ -7,12 +7,12 @@ import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
-import useMouseButtons from '../hooks/input/useMouse';
-import { useMouseCursorValue } from '../hooks/input/useMouseCursor';
-import { PROVIDER_SCOPE } from '../hooks/jotai/Jotai';
+import useMouseButtons from '../hooks/useMouseButtons';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
-import useCamera from '../hooks/useCamera';
+import useCamera from '../hooks/jotai/useCamera';
 import useCombos from '../hooks/useCombos';
+import { PROVIDER_SCOPE } from '../types/generic/Constants';
+import { useMouseCursorValue } from '../hooks/jotai/useMouse';
 
 export default function Canvas() {
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
@@ -76,7 +76,6 @@ export default function Canvas() {
 
                         <CanvasGrid />
                         <SelectedMapElement />
-
                         <MapSorter />
 
                     </Layer>

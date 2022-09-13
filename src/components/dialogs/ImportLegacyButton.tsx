@@ -2,9 +2,10 @@ import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import generateGUID, { DEFAULT_GUID } from '../../hooks/generateGUID';
 import { useSetMap } from "../../hooks/jotai/useMap";
+import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import LILegacyFile from "../../types/li/LILegacyFile";
-import { MAP_FORMAT_VER } from "../../types/li/LIMetadata";
+import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 
 const legacyPorts: Record<string, string> = {
     "util-player": "util-dummy",
@@ -15,6 +16,7 @@ const legacyPorts: Record<string, string> = {
 }
 
 export default function ImportLegacyButton() {
+    const translation = useTranslation();
     const setMap = useSetMap();
 
     const onImport = () => {
@@ -99,7 +101,7 @@ export default function ImportLegacyButton() {
                     likeCount: 0,
                     elements,
                     properties: {},
-                    thumbnailURL: undefined,
+                    thumbnailURL: null,
                 });
             }
             reader.readAsText(file);
@@ -111,7 +113,7 @@ export default function ImportLegacyButton() {
         <>
 
             <Tooltip2
-                content="Import from legacy JSON"
+                content={translation.ImportLegacy}
                 position="bottom">
 
                 <Button

@@ -1,19 +1,21 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Classes } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import generateGUID from '../../hooks/generateGUID';
-import { useAddElementAtMouse } from "../../hooks/jotai/useElement";
+import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useTranslation from "../../hooks/useTranslation";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { isSidePanel?: boolean }) {
+    const translation = useTranslation();
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -45,15 +47,14 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
         <>
             <Tooltip2
                 fill
-                content="Add an object"
+                content={translation.AddObject}
                 position="bottom">
 
-                <Button
+                <AnchorButton
                     fill
-                    large={props.isSidePanel}
                     className={Classes.MINIMAL}
-                    icon={props.isSidePanel ? "plus" : "cube-add"}
-                    text={props.isSidePanel ? "Add Object" : undefined}
+                    icon={"cube-add"}
+                    intent={props.isSidePanel ? "success" : undefined}
                     onClick={() => { setIsOpen(true) }} />
 
             </Tooltip2>
@@ -93,7 +94,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     return (
                         <MenuItem2
                             icon="add"
-                            text={"Create '" + query + "'"}
+                            text={translation.Create?.replaceAll("%name%", query)}
                             label={"util-blank"}
                             active={isActive}
                             onClick={onClick} />

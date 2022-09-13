@@ -1,10 +1,12 @@
 import { Button, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
+import useTranslation from "../../hooks/useTranslation";
 import DownloadCanvasDialog from "../dialogs/DownloadCanvas";
 import PanelContainer from "./PanelContainer";
 
 export default function MinimapPanel() {
+    const translation = useTranslation();
     const [isVisible, setVisible] = React.useState(false);
     const [element, setElement] = useSelectedElem();
 
@@ -18,11 +20,11 @@ export default function MinimapPanel() {
                 isVisible={isVisible}
                 setVisible={setVisible}
             />
-            <PanelContainer title="Minimap">
+            <PanelContainer title={translation.Minimap}>
                 <NumericInput
                     fill
                     leftIcon="maximize"
-                    placeholder="Scale"
+                    placeholder={translation.Size}
                     value={element.properties.minimapScale === undefined ? 1 : element.properties.minimapScale}
                     onValueChange={(value) => {
                         setElement({
@@ -42,7 +44,7 @@ export default function MinimapPanel() {
                     fill
                     minimal
                     icon="download"
-                    text="Download Map Image"
+                    text={translation.Download}
                     disabled={isVisible}
                     onClick={() => setVisible(true)}
                 />

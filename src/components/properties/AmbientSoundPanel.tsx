@@ -8,8 +8,10 @@ import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
 import PanelContainer from "./PanelContainer";
+import useTranslation from "../../hooks/useTranslation";
 
 export default function AmbientSoundPanel() {
+    const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
@@ -74,7 +76,7 @@ export default function AmbientSoundPanel() {
         return null;
 
     return (
-        <PanelContainer title="Ambient Sound">
+        <PanelContainer title={translation.AmbientSound}>
             <FormGroup>
                 <DevInfo>
                     {selectedElem.properties.sounds?.length} sounds
@@ -86,13 +88,13 @@ export default function AmbientSoundPanel() {
                     <Button
                         fill
                         icon="refresh"
-                        text="Reset"
+                        text={translation.Reset}
                         onClick={onResetClick}
                     />
                     <Button
                         fill
                         icon="upload"
-                        text="Upload"
+                        text={translation.Upload}
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>

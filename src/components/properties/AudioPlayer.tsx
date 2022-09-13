@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
 import useSelectedSound from "../../hooks/jotai/useSelectedSound";
-import { RESOURCE_PRESET_IDS } from "../../types/au/AUElementDB";
+import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 
@@ -9,6 +9,7 @@ const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
 
 export default function AudioPlayer() {
+    const translation = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
@@ -127,7 +128,9 @@ export default function AudioPlayer() {
                     />
                 </>
             ) : (
-                <p>(No Audio Uploaded)</p>
+                <p>
+                    {translation.NothingUploaded}
+                </p>
             )}
         </div>
     );

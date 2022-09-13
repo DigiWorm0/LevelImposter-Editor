@@ -1,21 +1,23 @@
-import { ControlGroup, FormGroup, NumericInput, Switch } from "@blueprintjs/core";
+import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED, DEFAULT_STARFIELD_HEIGHT, UNITY_SCALE } from "../../types/generic/Constants";
+import useTranslation from "../../hooks/useTranslation";
+import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function StarfieldPanel() {
+    const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
     if (!selectedElem || selectedElem.type !== "util-starfield")
         return null;
 
     return (
-        <PanelContainer title="Star Field">
+        <PanelContainer title={translation.Starfield}>
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-count"}
                     fill
-                    placeholder="Count"
+                    placeholder={translation.Count}
                     defaultValue={selectedElem?.properties.starfieldCount !== undefined ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT}
                     min={1}
                     minorStepSize={1}
@@ -32,7 +34,7 @@ export default function StarfieldPanel() {
                     <NumericInput
                         key={selectedElem.id + "-length"}
                         fill
-                        placeholder="Length"
+                        placeholder={translation.Length}
                         defaultValue={selectedElem?.properties.starfieldLength !== undefined ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH}
                         min={0}
                         minorStepSize={0.1}
@@ -46,7 +48,7 @@ export default function StarfieldPanel() {
                     <NumericInput
                         key={selectedElem.id + "-height"}
                         fill
-                        placeholder="Height"
+                        placeholder={translation.Height}
                         defaultValue={selectedElem?.properties.starfieldHeight !== undefined ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT}
                         min={0}
                         minorStepSize={0.1}
@@ -63,7 +65,7 @@ export default function StarfieldPanel() {
                     <NumericInput
                         key={selectedElem.id + "-maxspeed"}
                         fill
-                        placeholder="Max Speed"
+                        placeholder={translation.MaxSpeed}
                         defaultValue={selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
                         min={selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
                         minorStepSize={0.1}
@@ -77,7 +79,7 @@ export default function StarfieldPanel() {
                     <NumericInput
                         key={selectedElem.id + "-minspeed"}
                         fill
-                        placeholder="Min Speed"
+                        placeholder={translation.MinSpeed}
                         defaultValue={selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
                         max={selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
                         minorStepSize={0.1}

@@ -1,5 +1,5 @@
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -72,7 +72,7 @@ export default function ColliderEditor() {
                     fill={"blue"}
                     stroke={"white"}
                     onMouseDown={(e) => {
-                        if (e.evt.button === 2) {
+                        if (e.evt.button === 2 && collider.points.length > 2) {
                             collider.points.splice(index, 1);
                             setCollider({ ...collider });
                         }

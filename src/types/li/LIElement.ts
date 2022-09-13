@@ -4,6 +4,7 @@ import LISound from "./LISound";
 
 export default interface LIElement {
     id: GUID;
+    parentID?: GUID;
     name: string;
     type: string;
     x: number;
@@ -13,6 +14,7 @@ export default interface LIElement {
     yScale: number;
     rotation: number;
     properties: {
+
         // Generic
         colliders?: LICollider[];
         parent?: GUID;
@@ -30,6 +32,9 @@ export default interface LIElement {
         leftVent?: GUID;
         middleVent?: GUID;
         rightVent?: GUID;
+
+        // Teleporter
+        teleporter?: GUID;
 
         // Camera
         camXOffset?: number;
@@ -58,6 +63,10 @@ export default interface LIElement {
         starfieldHeight?: number;
         starfieldLength?: number;
 
+        // Floaing
+        floatingHeight?: number;
+        floatingSpeed?: number;
+
         // Task
         description?: string;
         taskLength?: string;
@@ -72,6 +81,7 @@ export default interface LIElement {
         // Editor
         isLocked?: boolean;
         isVisible?: boolean;
+        isExpanded?: boolean;
     };
 }
 

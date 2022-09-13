@@ -21,6 +21,9 @@ export default function ColliderPreview() {
                     <Shape
                         key={collider.id}
                         sceneFunc={(ctx, shape) => {
+                            if (collider.points.length <= 0)
+                                return;
+
                             ctx.beginPath();
 
                             const initialPoint = collider.points[0];

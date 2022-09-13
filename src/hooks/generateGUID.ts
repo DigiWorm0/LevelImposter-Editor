@@ -1,4 +1,3 @@
-import React from "react";
 import GUID from "../types/generic/GUID";
 
 /**
