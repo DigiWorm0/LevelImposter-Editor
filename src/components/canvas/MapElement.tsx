@@ -14,7 +14,7 @@ import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 
 const HIDE_ON_SELECT = [
     "util-blankfloat",
-    "util-starfield"
+    "util-starfield",
 ]
 
 export default function MapElement(props: { elementID: GUID }) {

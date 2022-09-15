@@ -153,6 +153,12 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Teleporter",
         type: "util-tele"
+    }, {
+        name: "Exile Controller",
+        type: "util-exile"
+    }, {
+        name: "Exile Actor",
+        type: "util-exileactor"
     },
     // Tasks
     {
@@ -267,7 +273,7 @@ const AUElementDB: AUElement[] = [
         name: "Run Diagnostics",
         type: "task-diagnostics"
     }, {
-        name: "Align Engine 1",
+        name: "Align Engine",
         type: "task-align1"
     }, {
         name: "Stabilize Steering",
@@ -719,6 +725,18 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Comms Panel",
         type: "sab-comms"
+    }, {
+        name: "Reator Button",
+        type: "sab-btnreactor"
+    }, {
+        name: "O2 Button",
+        type: "sab-btnoxygen"
+    }, {
+        name: "Lights Button",
+        type: "sab-btnlights"
+    }, {
+        name: "Comms Button",
+        type: "sab-btncomms"
     }
 ]
 

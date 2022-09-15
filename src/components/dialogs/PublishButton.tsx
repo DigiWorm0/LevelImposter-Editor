@@ -65,7 +65,7 @@ export default function PublishButton() {
         const docRef = doc(storeRef, mapData.id);
 
         const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
-            const uploadTask = uploadBytesResumable(ref, data);
+            const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=31536000, immutable" });
 
             return new Promise<void>((resolve, reject) => {
                 uploadTask.on("state_changed", (snapshot) => {

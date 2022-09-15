@@ -11,7 +11,7 @@ export default function ConsolePanel() {
     const saveHistory = useSaveHistory();
 
     const isConsole = selectedElem?.type.startsWith("task-")
-        || selectedElem?.type.startsWith("sab-")
+        || (selectedElem?.type.startsWith("sab-") && !selectedElem?.type.startsWith("sab-btn"))
         || selectedElem?.type.startsWith("util-button")
         || selectedElem?.type.startsWith("util-cams")
         || selectedElem?.type === "util-admin"
