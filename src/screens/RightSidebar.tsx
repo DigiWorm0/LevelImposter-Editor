@@ -15,6 +15,7 @@ import StepSoundPanel from "../components/properties/StepSoundPanel";
 import TaskPanel from "../components/properties/TaskPanel";
 import TelePanel from "../components/properties/TelePanel";
 import TransformPanel from "../components/properties/TransformPanel";
+import TriggerPanel from "../components/properties/TriggerPanel";
 import VentPanel from "../components/properties/VentPanel";
 
 export default function RightSidebar() {
@@ -39,6 +40,7 @@ export default function RightSidebar() {
             <StepSoundPanel />
             <ColliderPanel />
             <MinimapPanel />
+            <TriggerPanel />
 
             <div style={{ height: 40 }} />
         </div>

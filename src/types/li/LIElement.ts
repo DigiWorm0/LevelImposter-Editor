@@ -1,6 +1,7 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
 import LISound from "./LISound";
+import LITrigger from "./LITrigger";
 
 export default interface LIElement {
     id: GUID;
@@ -18,6 +19,9 @@ export default interface LIElement {
         // Generic
         colliders?: LICollider[];
         parent?: GUID;
+
+        // Trigger
+        triggers?: LITrigger[];
 
         // Sound
         sounds?: LISound[];
