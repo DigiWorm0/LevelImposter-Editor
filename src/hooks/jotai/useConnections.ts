@@ -15,28 +15,26 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
             return [];
 
         const mapElements = get(elementsAtom);
+        const selectedElemID = get(selectedElementIDAtom);
+
         const leftVent = mapElements.find(e => e.id === elem.properties.leftVent);
         const middleVent = mapElements.find(e => e.id === elem.properties.middleVent);
         const rightVent = mapElements.find(e => e.id === elem.properties.rightVent);
         const teleporter = mapElements.find(e => e.id === elem.properties.teleporter);
         const roomParent = mapElements.find(e => e.id === elem.properties.parent);
-        const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent].filter(e => e != undefined) as LIElement[];
+        const triggers = mapElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
+        const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent, ...triggers].filter(e => e != undefined) as LIElement[];
 
-    const leftVent = mapElements.find(e => e.id === selectedElem.properties.leftVent);
-    const middleVent = mapElements.find(e => e.id === selectedElem.properties.middleVent);
-    const rightVent = mapElements.find(e => e.id === selectedElem.properties.rightVent);
-    const teleporter = mapElements.find(e => e.id === selectedElem.properties.teleporter);
-    const roomParent = mapElements.find(e => e.id === selectedElem.properties.parent);
-    const triggers = mapElements.filter(e => selectedElem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
-    const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent, ...triggers].filter(e => e != undefined) as LIElement[];
+        const sourceConnections = mapElements.filter(e => {
+            return e.properties.leftVent === elem.id ||
+                e.properties.middleVent === elem.id ||
+                e.properties.rightVent === elem.id ||
+                e.properties.teleporter === elem.id ||
+                e.properties.parent === elem.id ||
+                e.properties.triggers?.some(t => t.elemID === elem.id);
+        });
 
-    const sourceConnections = mapElements.filter(e => {
-        return e.properties.leftVent === selectedElem.id ||
-            e.properties.middleVent === selectedElem.id ||
-            e.properties.rightVent === selectedElem.id ||
-            e.properties.teleporter === selectedElem.id ||
-            e.properties.parent === selectedElem.id ||
-            e.properties.triggers?.some(t => t.elemID === selectedElem.id);
+        return [targetConnections, sourceConnections];
     });
     connectionsAtom.debugLabel = `connectionsAtomFamily(${elemID})`;
     return connectionsAtom;
