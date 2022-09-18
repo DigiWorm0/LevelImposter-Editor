@@ -2,7 +2,8 @@ import { Button, Card, ControlGroup, H6 } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";
-import { useElementValue } from "../../hooks/jotai/useElements";
+import React from "react";
+import useElement, { useElementValue } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { elementsAtom } from "../../hooks/jotai/useMap";
 import { selectedElementIDAtom, useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
@@ -29,7 +30,7 @@ export default function TriggerEditorPanel() {
     const [selectedTrigger, setSelectedTrigger] = useSelectedTrigger();
     const saveHistory = useSaveHistory();
     const inputableTargets = useAtomValue(triggerInputsAtom);
-    const triggerTarget = useElementValue(selectedTrigger?.elemID);
+    const [triggerTarget, setTriggerTarget] = useElement(selectedTrigger?.elemID);
 
     const targetInputs = triggerTarget && triggerTarget.type in InputTriggerDB ? InputTriggerDB[triggerTarget.type] : [];
     const selectedTriggerDef: LITrigger = selectedTrigger || {
@@ -38,6 +39,22 @@ export default function TriggerEditorPanel() {
         elemID: undefined,
     }
     const isTriggerSelected = targetInputs.includes(selectedTriggerDef.triggerID || "");
+
+    React.useEffect(() => {
+        if (selectedTriggerDef.elemID && selectedTriggerDef.triggerID && triggerTarget) {
+            setTriggerTarget({
+                ...triggerTarget,
+                properties: {
+                    ...triggerTarget.properties,
+                    triggers: [{
+                        id: selectedTriggerDef.triggerID,
+                        triggerID: undefined,
+                        elemID: undefined,
+                    }]
+                }
+            });
+        }
+    }, [selectedTriggerDef.elemID, selectedTriggerDef.triggerID]);
 
     const elemSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2

@@ -15,7 +15,6 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
             return [];
 
         const mapElements = get(elementsAtom);
-        const selectedElemID = get(selectedElementIDAtom);
 
         const leftVent = mapElements.find(e => e.id === elem.properties.leftVent);
         const middleVent = mapElements.find(e => e.id === elem.properties.middleVent);
