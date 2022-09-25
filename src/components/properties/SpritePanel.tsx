@@ -1,10 +1,14 @@
-import { Button, ButtonGroup, Switch } from "@blueprintjs/core";
+import React from 'react';
+import { Button, ButtonGroup, ControlGroup, FormGroup, Label, Switch } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
 import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
+import { AlphaPicker, Color, ColorResult, HuePicker, SketchPicker } from 'react-color';
+import ColorPicker from '../ColorPicker';
+import LIColor from '../../types/li/LIColor';
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -66,7 +70,6 @@ export default function SpritePanel() {
     }
 
     if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
-
         return null;
 
     return (
@@ -98,6 +101,24 @@ export default function SpritePanel() {
                     onClick={onUploadClick}
                 />
             </ButtonGroup>
+            <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
+                <ColorPicker
+                    title={"Color"}
+                    color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
+                    onChange={(color: LIColor) => {
+                        if (!selectedElem)
+                            return;
+                        saveHistory();
+                        setSelectedElem({
+                            ...selectedElem,
+                            properties: {
+                                ...selectedElem.properties,
+                                color
+                            }
+                        });
+                    }}
+                />
+            </ControlGroup>
             {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
                 <Switch
                     key={selectedElem.id + "-noShadows"}

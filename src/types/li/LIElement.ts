@@ -1,5 +1,6 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
+import LIColor from "./LIColor";
 import LISound from "./LISound";
 import LITrigger from "./LITrigger";
 
@@ -29,6 +30,7 @@ export default interface LIElement {
 
         // Sprite
         spriteData?: string;
+        color?: LIColor;
         noShadows?: boolean;
         noShadowsBehaviour?: boolean;
 

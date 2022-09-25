@@ -1,16 +1,17 @@
+import Konva from "konva";
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useMouseButtons from "../../hooks/useMouseButtons";
 import useElement from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useEmbed from "../../hooks/useEmbed";
+import useMouseButtons from "../../hooks/useMouseButtons";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 
 const HIDE_ON_SELECT = [
     "util-blankfloat",
@@ -29,6 +30,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const setMouseCursor = useSetMouseCursor();
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
+    const imageRef = React.useRef<Konva.Image>(null);
 
     if (!elem || elem.type === "util-layer")
         return null;
@@ -38,6 +40,29 @@ export default function MapElement(props: { elementID: GUID }) {
     const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
     const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
     const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
+
+    React.useEffect(() => {
+        if (imageRef.current && sprite && elem.properties.color) {
+            const color = elem.properties.color;
+            const canvas = document.createElement("canvas");
+            canvas.width = sprite.width as number;
+            canvas.height = sprite.height as number;
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+                ctx.drawImage(sprite, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < imageData.data.length; i += 4) {
+                    imageData.data[i] *= color.r / 255;
+                    imageData.data[i + 1] *= color.g / 255;
+                    imageData.data[i + 2] *= color.b / 255;
+                    imageData.data[i + 3] *= color.a;
+                }
+                ctx.putImageData(imageData, 0, 0);
+                imageRef.current.image(canvas);
+            }
+            canvas.remove();
+        }
+    }, [elem.properties.color, sprite]);
 
     return (
         <Group
@@ -95,6 +120,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 width={w}
                 height={h}
                 image={sprite as CanvasImageSource}
+                ref={imageRef}
             />
 
             {isSelected || isHovering ? (
