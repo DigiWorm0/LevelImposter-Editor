@@ -105,10 +105,12 @@ export default function SpritePanel() {
                 <ColorPicker
                     title={"Color"}
                     color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
+                    onOpen={() => {
+                        saveHistory();
+                    }}
                     onChange={(color: LIColor) => {
                         if (!selectedElem)
                             return;
-                        saveHistory();
                         setSelectedElem({
                             ...selectedElem,
                             properties: {

@@ -32,17 +32,8 @@ export default function MapElement(props: { elementID: GUID }) {
     const saveHistory = useSaveHistory();
     const imageRef = React.useRef<Konva.Image>(null);
 
-    if (!elem || elem.type === "util-layer")
-        return null;
-
-    const w = sprite ? sprite.width : 0;
-    const h = sprite ? sprite.height : 0;
-    const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
-    const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
-    const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
-
     React.useEffect(() => {
-        if (imageRef.current && sprite && elem.properties.color) {
+        if (imageRef.current && sprite && elem?.properties.color) {
             const color = elem.properties.color;
             const canvas = document.createElement("canvas");
             canvas.width = sprite.width as number;
@@ -62,7 +53,16 @@ export default function MapElement(props: { elementID: GUID }) {
             }
             canvas.remove();
         }
-    }, [elem.properties.color, sprite]);
+    }, [elem?.properties.color, sprite]);
+
+    if (!elem || elem.type === "util-layer")
+        return null;
+
+    const w = sprite ? sprite.width : 0;
+    const h = sprite ? sprite.height : 0;
+    const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
+    const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
+    const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
 
     return (
         <Group

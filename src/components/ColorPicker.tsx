@@ -4,7 +4,7 @@ import React from "react";
 import { ChromePicker, Color, SketchPicker } from "react-color";
 import LIColor from "../types/li/LIColor";
 
-export default function ColorPicker(props: { title: string, onChange: (color: LIColor) => void, color: LIColor }) {
+export default function ColorPicker(props: { title: string, onChange: (color: LIColor) => void, color: LIColor, onOpen?: () => void, onClose?: () => void }) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [color, setColor] = React.useState(props.color);
 
@@ -16,10 +16,20 @@ export default function ColorPicker(props: { title: string, onChange: (color: LI
         <div>
             <Popover2
                 fill
+                hasBackdrop={true}
                 isOpen={isOpen}
                 onInteraction={(nextOpenState) => setIsOpen(nextOpenState)}
+                onOpened={props.onOpen}
+                onClosed={props.onClose}
                 content={
-                    <SketchPicker
+                    <ChromePicker
+                        styles={{
+                            default: {
+                                body: {
+                                    backgroundColor: "#2f343c"
+                                }
+                            }
+                        } as any}
                         color={color}
                         onChange={(color) => {
                             setColor(color.rgb as LIColor);
