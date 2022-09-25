@@ -42,17 +42,24 @@ export default function TriggerEditorPanel() {
 
     React.useEffect(() => {
         if (selectedTriggerDef.elemID && selectedTriggerDef.triggerID && triggerTarget) {
-            setTriggerTarget({
-                ...triggerTarget,
-                properties: {
-                    ...triggerTarget.properties,
-                    triggers: [{
-                        id: selectedTriggerDef.triggerID,
-                        triggerID: undefined,
-                        elemID: undefined,
-                    }]
-                }
-            });
+            const triggerID = selectedTriggerDef.triggerID;
+            const hasTrigger = triggerTarget.properties.triggers?.some((trigger) => trigger.id === triggerID);
+            if (!hasTrigger) {
+                setTriggerTarget({
+                    ...triggerTarget,
+                    properties: {
+                        ...triggerTarget.properties,
+                        triggers: [
+                            ...(triggerTarget.properties.triggers || []),
+                            {
+                                id: triggerID,
+                                triggerID: undefined,
+                                elemID: undefined,
+                            }
+                        ]
+                    }
+                });
+            }
         }
     }, [selectedTriggerDef.elemID, selectedTriggerDef.triggerID]);
 

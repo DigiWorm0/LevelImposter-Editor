@@ -1,5 +1,6 @@
 import { Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
+import { useElementIDs } from "../../hooks/jotai/useMap";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSelectedTriggerID } from "../../hooks/jotai/useSelectedTrigger";
 import useTranslation from "../../hooks/useTranslation";
@@ -12,13 +13,14 @@ export default function TriggerPanel() {
     const translation = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
+    const elementIDs = useElementIDs();
 
     const triggerOutputs = (selectedElem && selectedElem.type in OutputTriggerDB) ? OutputTriggerDB[selectedElem.type] : [];
     const isTriggerable = triggerOutputs.length > 0;
 
     const isTriggerActive = (triggerID: string) => {
         const triggerObj = selectedElem?.properties?.triggers?.find((trigger) => trigger.id === triggerID);
-        return triggerObj !== undefined && triggerObj.elemID !== undefined && triggerObj.triggerID !== undefined;
+        return triggerObj !== undefined && triggerObj.elemID !== undefined && triggerObj.triggerID !== undefined && elementIDs.includes(triggerObj.elemID);
     }
 
     if (!selectedElem || !isTriggerable)

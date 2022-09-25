@@ -146,8 +146,7 @@ const AUElementDB: AUElement[] = [
     {
         name: "Footstep Sound",
         type: "util-sound2"
-    },
-    {
+    }, {
         name: "Floating Sprite",
         type: "util-blankfloat"
     }, {
@@ -159,6 +158,15 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Exile Actor",
         type: "util-exileactor"
+    }, {
+        name: "Trigger Sprite",
+        type: "util-blanktrigger"
+    }, {
+        name: "Trigger Area",
+        type: "util-triggerarea"
+    }, {
+        name: "Trigger Console",
+        type: "util-triggerconsole"
     },
     // Tasks
     {

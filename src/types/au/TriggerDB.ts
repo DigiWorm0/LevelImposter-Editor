@@ -1,27 +1,17 @@
 const OutputTriggerDB: Record<string, string[]> = {
-    "util-button1": [
+    "util-triggerarea": [
+        "onEnter",
+        "onExit",
+    ],
+    "util-triggerconsole": [
         "onUse",
     ],
-    "util-button2": [
-        "onUse",
-    ],
-    "util-computer": [
-        "onUse",
-    ]
 };
 
 const InputTriggerDB: Record<string, string[]> = {
-    "util-admin": [
-        "Enable",
-        "Disable"
-    ],
-    "util-cam": [
-        "Enable",
-        "Disable"
-    ],
-    "util-vitals": [
-        "Enable",
-        "Disable"
+    "util-blanktrigger": [
+        "Show",
+        "Hide"
     ]
 };
 

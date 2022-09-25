@@ -19,6 +19,7 @@ const TYPE_BLACKLIST = [
     "util-sound2",
     "util-tele",
     "util-layer",
+    "util-triggerarea",
 ];
 
 export default function SpritePanel() {

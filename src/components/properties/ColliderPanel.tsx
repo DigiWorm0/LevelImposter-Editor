@@ -15,7 +15,7 @@ export default function ColliderPanel() {
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const setSelectedCollider = useSetSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele";
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
 
     const addCollider = () => {
         if (!selectedElem)
