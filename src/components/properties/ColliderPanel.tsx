@@ -9,13 +9,20 @@ import LICollider from "../../types/li/LICollider";
 import ColliderEditorPanel from "./ColliderEditorPanel";
 import PanelContainer from "./PanelContainer";
 
+const TYPE_BLACKLIST = [
+    "util-dummy",
+    "util-triggerrepeat",
+    "util-minimap",
+    "util-layer"
+];
+
 export default function ColliderPanel() {
     const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const setSelectedCollider = useSetSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele";
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
 
     const addCollider = () => {
         if (!selectedElem)
@@ -49,7 +56,7 @@ export default function ColliderPanel() {
         setSelectedColliderID(collider?.id);
     }
 
-    if (!selectedElem || selectedElem.type === "util-minimap" || selectedElem.type === "util-layer")
+    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
 
     return (

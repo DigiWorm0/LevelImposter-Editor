@@ -1,5 +1,12 @@
 import AUElement from "./AUElement";
 
+export const EXILE_IDS: string[] = [
+    "Skeld",
+    "MiraHQ",
+    "Polus",
+    "Airship"
+];
+
 export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
     "Carpet": [
         "FootstepCarpet01.wav",
@@ -138,21 +145,33 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Star Field",
         type: "util-starfield"
-    },
-    {
+    }, {
         name: "Ambient Sound",
         type: "util-sound1"
-    },
-    {
+    }, {
         name: "Footstep Sound",
         type: "util-sound2"
-    },
-    {
+    }, {
         name: "Floating Sprite",
         type: "util-blankfloat"
     }, {
         name: "Teleporter",
         type: "util-tele"
+    }, {
+        name: "Trigger Sprite",
+        type: "util-blanktrigger"
+    }, {
+        name: "Trigger Area",
+        type: "util-triggerarea"
+    }, /*{
+        name: "Trigger Console",
+        type: "util-triggerconsole"
+    }, */{
+        name: "Trigger Repeater",
+        type: "util-triggerrepeat"
+    }, {
+        name: "Trigger Timer",
+        type: "util-triggertimer"
     },
     // Tasks
     {
@@ -267,7 +286,7 @@ const AUElementDB: AUElement[] = [
         name: "Run Diagnostics",
         type: "task-diagnostics"
     }, {
-        name: "Align Engine 1",
+        name: "Align Engine",
         type: "task-align1"
     }, {
         name: "Stabilize Steering",
@@ -719,6 +738,18 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Comms Panel",
         type: "sab-comms"
+    }, {
+        name: "Reator Button",
+        type: "sab-btnreactor"
+    }, {
+        name: "O2 Button",
+        type: "sab-btnoxygen"
+    }, {
+        name: "Lights Button",
+        type: "sab-btnlights"
+    }, {
+        name: "Comms Button",
+        type: "sab-btncomms"
     }
 ]
 

@@ -12,6 +12,7 @@ import PlatformRange from "./PlatformRange";
 import SpawnRange from "./SpawnRange";
 import StarfieldRender from "./StarfieldRender";
 import ElemConnections from "./ElemConnections";
+import SabotageButton from "./SabotageButton";
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -26,6 +27,7 @@ export default function SelectedMapElement() {
             <CameraRender />
             <PlatformRange />
             <MinimapPreview />
+            <SabotageButton />
 
             <Group
                 x={selectedElem.x * UNITY_SCALE}

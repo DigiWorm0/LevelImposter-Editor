@@ -11,7 +11,7 @@ export default function ColliderEditorPanel() {
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const [selectedCollider, setSelectedCollider] = useSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele";
+    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
 
     const delCollider = (collider: LICollider) => {
         if (!selectedElem)

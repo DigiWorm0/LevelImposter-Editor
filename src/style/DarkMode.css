@@ -11,3 +11,7 @@
     background-color: #252A31 !important;
     box-shadow: 0 3px 6px #1C2127 !important;
 }
+
+.bp4-dark input {
+    color: #fff !important;
+}

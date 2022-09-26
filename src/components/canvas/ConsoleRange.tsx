@@ -8,7 +8,7 @@ export default function ConsoleRange() {
     const radius = selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_CONSOLE_RANGE;
     const angle = selectedElem?.properties.onlyFromBelow ? Math.PI : Math.PI * 2;
     const isConsole = selectedElem?.type.startsWith("task-")
-        || selectedElem?.type.startsWith("sab-")
+        || (selectedElem?.type.startsWith("sab-") && !selectedElem?.type.startsWith("sab-btn"))
         || selectedElem?.type.startsWith("util-button")
         || selectedElem?.type.startsWith("util-cams")
         || selectedElem?.type === "util-admin"

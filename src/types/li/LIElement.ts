@@ -1,6 +1,8 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
+import LIColor from "./LIColor";
 import LISound from "./LISound";
+import LITrigger from "./LITrigger";
 
 export default interface LIElement {
     id: GUID;
@@ -19,12 +21,17 @@ export default interface LIElement {
         colliders?: LICollider[];
         parent?: GUID;
 
+        // Trigger
+        triggers?: LITrigger[];
+        triggerTime?: number;
+
         // Sound
         sounds?: LISound[];
         soundPriority?: number;
 
         // Sprite
         spriteData?: string;
+        color?: LIColor;
         noShadows?: boolean;
         noShadowsBehaviour?: boolean;
 
