@@ -738,7 +738,7 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Comms Panel",
         type: "sab-comms"
-    }, {
+    }, /*{
         name: "Reator Button",
         type: "sab-btnreactor"
     }, {
@@ -750,7 +750,7 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Comms Button",
         type: "sab-btncomms"
-    }
+    }*/
 ]
 
 export default AUElementDB;
