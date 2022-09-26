@@ -145,12 +145,10 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Star Field",
         type: "util-starfield"
-    },
-    {
+    }, {
         name: "Ambient Sound",
         type: "util-sound1"
-    },
-    {
+    }, {
         name: "Footstep Sound",
         type: "util-sound2"
     }, {
@@ -168,6 +166,12 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Trigger Console",
         type: "util-triggerconsole"
+    }, {
+        name: "Trigger Repeater",
+        type: "util-triggerrepeat"
+    }, {
+        name: "Trigger Timer",
+        type: "util-triggertimer"
     },
     // Tasks
     {

@@ -20,6 +20,8 @@ const TYPE_BLACKLIST = [
     "util-tele",
     "util-layer",
     "util-triggerarea",
+    "util-triggerrepeat",
+    "util-dummy"
 ];
 
 export default function SpritePanel() {

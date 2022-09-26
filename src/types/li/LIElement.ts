@@ -23,6 +23,7 @@ export default interface LIElement {
 
         // Trigger
         triggers?: LITrigger[];
+        triggerTime?: number;
 
         // Sound
         sounds?: LISound[];

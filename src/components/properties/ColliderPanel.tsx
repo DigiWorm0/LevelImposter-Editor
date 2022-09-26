@@ -9,6 +9,13 @@ import LICollider from "../../types/li/LICollider";
 import ColliderEditorPanel from "./ColliderEditorPanel";
 import PanelContainer from "./PanelContainer";
 
+const TYPE_BLACKLIST = [
+    "util-dummy",
+    "util-triggerrepeat",
+    "util-minimap",
+    "util-layer"
+];
+
 export default function ColliderPanel() {
     const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -49,7 +56,7 @@ export default function ColliderPanel() {
         setSelectedColliderID(collider?.id);
     }
 
-    if (!selectedElem || selectedElem.type === "util-minimap" || selectedElem.type === "util-layer")
+    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
 
     return (
