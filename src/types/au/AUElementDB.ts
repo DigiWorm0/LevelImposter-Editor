@@ -1,5 +1,12 @@
 import AUElement from "./AUElement";
 
+export const EXILE_IDS: string[] = [
+    "Skeld",
+    "MiraHQ",
+    "Polus",
+    "Airship"
+];
+
 export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
     "Carpet": [
         "FootstepCarpet01.wav",
@@ -152,12 +159,6 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Teleporter",
         type: "util-tele"
-    }, {
-        name: "Exile Controller",
-        type: "util-exile"
-    }, {
-        name: "Exile Actor",
-        type: "util-exileactor"
     }, {
         name: "Trigger Sprite",
         type: "util-blanktrigger"

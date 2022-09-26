@@ -5,10 +5,14 @@ import React from "react";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
+import { EXILE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY } from "../../types/generic/Constants";
+import LIColor from "../../types/li/LIColor";
 import LITranslations from "../../types/localization/LITranslations";
+import ColorPicker from "../ColorPicker";
 
 const LanguageSelect = Select2.ofType<string>();
+const ExileSelect = Select2.ofType<string>();
 
 export default function SettingsButton() {
     const translation = useTranslation();
@@ -26,6 +30,30 @@ export default function SettingsButton() {
             onClick={props.handleClick}
             onFocus={props.handleFocus} />
     );
+
+    const exileSelectRenderer: ItemRenderer<string> = (exileID, props) => (
+        <MenuItem2
+            key={exileID}
+            text={exileID}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus} />
+    );
+
+    const hexToColor = (hex: string): LIColor => {
+        const r = parseInt(hex.substring(1, 3), 16);
+        const g = parseInt(hex.substring(3, 5), 16);
+        const b = parseInt(hex.substring(5, 7), 16);
+        return { r, g, b, a: 0 };
+    }
+
+    const colorToHex = (color: LIColor): string => {
+        const r = Math.round(color.r).toString(16).padStart(2, "0");
+        const g = Math.round(color.g).toString(16).padStart(2, "0");
+        const b = Math.round(color.b).toString(16).padStart(2, "0");
+        return `#${r}${g}${b}`;
+    }
 
     return (
         <>
@@ -149,11 +177,29 @@ export default function SettingsButton() {
 
                     <FormGroup label="Map">
 
-                        <Label className="bp4-inline">
-                            <input type="color" value={properties.bgColor} className="bp4-input" onChange={(e) => {
-                                setProperties({ ...properties, bgColor: e.target.value });
+                        <ColorPicker
+                            disableAlpha
+                            title="Background Color"
+                            color={hexToColor(properties.bgColor || "#000000")}
+                            onChange={(color) => {
+                                setProperties({ ...properties, bgColor: colorToHex(color) });
                             }} />
-                        </Label>
+                        <ExileSelect
+                            fill
+                            filterable={false}
+                            items={EXILE_IDS}
+                            itemRenderer={exileSelectRenderer}
+                            onItemSelect={(exileID) => {
+                                setProperties({ ...properties, exileID });
+                            }}>
+
+                            <Button
+                                rightIcon="caret-down"
+                                text={properties.exileID || "Exile Animation"}
+                                fill
+                            />
+
+                        </ExileSelect>
 
                     </FormGroup>
                 </div>

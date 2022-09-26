@@ -4,7 +4,16 @@ import React from "react";
 import { ChromePicker, Color, SketchPicker } from "react-color";
 import LIColor from "../types/li/LIColor";
 
-export default function ColorPicker(props: { title: string, onChange: (color: LIColor) => void, color: LIColor, onOpen?: () => void, onClose?: () => void }) {
+interface ColorPickerProps {
+    title: string,
+    color: LIColor,
+    disableAlpha?: boolean,
+    onChange: (color: LIColor) => void,
+    onOpen?: () => void,
+    onClose?: () => void
+}
+
+export default function ColorPicker(props: ColorPickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [color, setColor] = React.useState(props.color);
 
@@ -31,6 +40,7 @@ export default function ColorPicker(props: { title: string, onChange: (color: LI
                             }
                         } as any}
                         color={color}
+                        disableAlpha={props.disableAlpha}
                         onChange={(color) => {
                             setColor(color.rgb as LIColor);
                         }}
