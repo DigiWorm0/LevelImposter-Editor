@@ -19,6 +19,8 @@ export default function StarfieldRender() {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
+            if (selectedElem?.type !== "util-starfield")
+                return;
             const newStarPositions = starPositions.map(star => {
                 star.x += (star.speed * REFRESH_RATE) / 1000;
                 if (star.x > length) {
