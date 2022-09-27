@@ -7,12 +7,11 @@ import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
-import useMouseButtons from '../hooks/useMouseButtons';
-import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import useCamera from '../hooks/jotai/useCamera';
+import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
+import { useMouseCursorValue } from '../hooks/jotai/useMouse';
 import useCombos from '../hooks/useCombos';
 import { PROVIDER_SCOPE } from '../types/generic/Constants';
-import { useMouseCursorValue } from '../hooks/jotai/useMouse';
 
 export default function Canvas() {
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
@@ -21,7 +20,6 @@ export default function Canvas() {
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
     const camera = useCamera(canvasWidth, canvasHeight);
-    const [leftMouse] = useMouseButtons();
     const { handleKeyDown, handleKeyUp } = useCombos();
 
     const onWindowResize = () => {
@@ -54,7 +52,11 @@ export default function Canvas() {
                 y={camera.y}
                 width={camera.width}
                 height={camera.height}
-                draggable={!leftMouse}
+                onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
+                    if (e.evt.button === 2) {
+                        e.target.getStage()?.startDrag();
+                    }
+                }}
                 onDragEnd={(e: KonvaEventObject<DragEvent>) => {
                     if (e.target === e.target.getStage()) {
                         camera.setX(e.target.x());

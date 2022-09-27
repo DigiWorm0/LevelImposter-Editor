@@ -8,7 +8,6 @@ import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useEmbed from "../../hooks/useEmbed";
-import useMouseButtons from "../../hooks/useMouseButtons";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
@@ -19,17 +18,16 @@ const HIDE_ON_SELECT = [
 ]
 
 export default function MapElement(props: { elementID: GUID }) {
-    const isEmbeded = useEmbed();
-    const [elem, setElement] = useElement(props.elementID);
-    const sprite = useSprite(props.elementID);
-    const setSelectedID = useSetSelectedElemID();
-    const isSelected = useIsSelectedElem(props.elementID);
-    const isColliderSelected = useIsSelectedCollider();
-    const [isHovering, setHovering] = React.useState(false);
-    const [, , rightMouse, onMouseDown, onMouseUp] = useMouseButtons();
-    const setMouseCursor = useSetMouseCursor();
-    const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
+    const setSelectedID = useSetSelectedElemID();
+    const setMouseCursor = useSetMouseCursor();
+    const isEmbeded = useEmbed();
+    const sprite = useSprite(props.elementID);
+    const isColliderSelected = useIsSelectedCollider();
+    const isSelected = useIsSelectedElem(props.elementID);
+    const settings = useSettingsValue();
+    const [elem, setElement] = useElement(props.elementID);
+    const [isHovering, setHovering] = React.useState(false);
     const imageRef = React.useRef<Konva.Image>(null);
 
     React.useEffect(() => {
@@ -72,10 +70,9 @@ export default function MapElement(props: { elementID: GUID }) {
             scaleY={elem.yScale}
             rotation={-elem.rotation}
             onMouseDown={(e) => {
-                onMouseDown(e.evt);
-            }}
-            onMouseUp={(e) => {
-                onMouseUp(e.evt);
+                if (e.evt.button === 0 && !elem.properties.isLocked) {
+                    e.target.getParent().startDrag();
+                }
             }}
             onDragStart={(e) => {
                 setSelectedID(props.elementID);
@@ -92,12 +89,15 @@ export default function MapElement(props: { elementID: GUID }) {
                 //elem.y = -e.target.y() / UNITY_SCALE;
             }}
             onDragEnd={(e) => {
+                console.log(`X: ${e.target.x()}, Y: ${e.target.y()}`);
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 setElement({ ...elem, x, y });
             }}
             onClick={(e) => {
+                e.target.getParent().stopDrag();
                 setSelectedID(props.elementID);
+                console.log("A");
             }}
             onMouseEnter={(e) => {
                 setHovering(true);
@@ -110,8 +110,8 @@ export default function MapElement(props: { elementID: GUID }) {
                 setHovering(false);
                 setMouseCursor("default");
             }}
-            draggable={!rightMouse && !elem.properties.isLocked && !isEmbeded && isVisible}
-            listening={!rightMouse && !isColliderSelected && !isEmbeded && isVisible}>
+            draggable={false}
+            listening={!isColliderSelected && !isEmbeded && isVisible}>
 
             <Image
                 opacity={(isColliderSelected ? 0.5 : 1) * (isVisible ? 1 : invisibleOpacity) * ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1)}
@@ -124,16 +124,14 @@ export default function MapElement(props: { elementID: GUID }) {
             />
 
             {isSelected || isHovering ? (
-                <>
-                    <Rect
-                        x={-w / 2}
-                        y={-h / 2}
-                        width={w}
-                        height={h}
-                        stroke={isSelected ? "#CD4246" : "#C5CBD3"}
-                        strokeWidth={2}
-                    />
-                </>
+                <Rect
+                    x={-w / 2}
+                    y={-h / 2}
+                    width={w}
+                    height={h}
+                    stroke={isSelected ? "#CD4246" : "#C5CBD3"}
+                    strokeWidth={2}
+                />
             ) : null}
         </Group>
     );

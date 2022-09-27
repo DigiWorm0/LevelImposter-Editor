@@ -16,10 +16,12 @@ export default function FloatingRender() {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
+            if (selectedElem?.type !== "util-blankfloat")
+                return;
             setT(new Date().getTime() / 1000);
         }, REFRESH_RATE);
         return () => clearInterval(interval);
-    }, []);
+    }, [selectedElem]);
 
     const y = (Math.sin(t * speed) + 1) * height / 2;
 
@@ -35,7 +37,7 @@ export default function FloatingRender() {
                 height={sprite.height}
                 listening={false}
             />
-            
+
             <Line
                 points={[0, 0, 0, -height * UNITY_SCALE]}
                 stroke="#ffaa00"
