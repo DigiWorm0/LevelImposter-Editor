@@ -9,6 +9,7 @@ import { useSpriteType } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
+import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
 
@@ -46,67 +47,72 @@ export default function TaskPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Task}>
-            <div style={{ textAlign: "center", padding: 15 }}>
-                <img
-                    style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={sprite?.src}
-                    alt={selectedElem.name}
-                />
-                <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
-                <p className="bp4-text-muted">{selectedElem.type}</p>
-            </div>
-            <FormGroup>
-                <RoomSelect useDefault={true} />
-                <ControlGroup fill>
-                    <LengthSelect
-                        fill
-                        filterable={false}
-                        items={TaskLength}
-                        itemRenderer={lengthSelectRenderer}
-                        onItemSelect={(length) => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
-                        }}>
-
-                        <Button
-                            rightIcon="caret-down"
-                            text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " " + translation.Task : translation.DefaultLength}
-                            style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
+        <>
+            <PanelContainer title={translation.Task}>
+                <div style={{ textAlign: "center", padding: 15 }}>
+                    <img
+                        style={{ maxHeight: 100, maxWidth: 100 }}
+                        src={sprite?.src}
+                        alt={selectedElem.name}
+                    />
+                    <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
+                    <p className="bp4-text-muted">{selectedElem.type}</p>
+                </div>
+                <FormGroup>
+                    <RoomSelect useDefault={true} />
+                    <ControlGroup fill>
+                        <LengthSelect
                             fill
+                            filterable={false}
+                            items={TaskLength}
+                            itemRenderer={lengthSelectRenderer}
+                            onItemSelect={(length) => {
+                                saveHistory();
+                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
+                            }}>
+
+                            <Button
+                                rightIcon="caret-down"
+                                text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " " + translation.Task : translation.DefaultLength}
+                                style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
+                                fill
+                            />
+                        </LengthSelect>
+                        <Button
+                            minimal
+                            rightIcon="cross"
+                            onClick={() => {
+                                saveHistory();
+                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
+                            }}
                         />
-                    </LengthSelect>
-                    <Button
-                        minimal
-                        rightIcon="cross"
-                        onClick={() => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
-                        }}
-                    />
-                </ControlGroup>
-                <ControlGroup fill style={{ marginTop: 5 }}>
-                    <InputGroup
-                        key={selectedElem.id + "-description"}
-                        fill
-                        leftIcon="info-sign"
-                        placeholder={translation.DefaultDescription}
-                        defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
-                        onChange={(e) => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
-                        }}
-                    />
-                    <Button
-                        minimal
-                        rightIcon="cross"
-                        onClick={() => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
-                        }}
-                    />
-                </ControlGroup>
-            </FormGroup>
-        </PanelContainer>
+                    </ControlGroup>
+                    <ControlGroup fill style={{ marginTop: 5 }}>
+                        <InputGroup
+                            key={selectedElem.id + "-description"}
+                            fill
+                            leftIcon="info-sign"
+                            placeholder={translation.DefaultDescription}
+                            defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
+                            onChange={(e) => {
+                                saveHistory();
+                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
+                            }}
+                        />
+                        <Button
+                            minimal
+                            rightIcon="cross"
+                            onClick={() => {
+                                saveHistory();
+                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
+                            }}
+                        />
+                    </ControlGroup>
+                </FormGroup>
+            </PanelContainer>
+            <MapError isVisible={parentRoom === undefined}>
+                This task is not attached to a room.
+            </MapError>
+        </>
     );
 }

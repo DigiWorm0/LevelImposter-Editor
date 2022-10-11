@@ -23,7 +23,9 @@ export default function ConsolePanel() {
 
     return (
         <PanelContainer title={translation.Console}>
-            <FormGroup>
+            <FormGroup style={{
+                marginBottom: 0
+            }}>
                 <NumericInput
                     key={selectedElem.id + "-range"}
                     fill

@@ -10,7 +10,12 @@ export default function PanelContainer(props: PanelContainerProps) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
-        <Card style={{ padding: 0, marginTop: 10, boxShadow: "none" }}>
+        <Card style={{
+            padding: 0,
+            marginTop: 10,
+            boxShadow: "none",
+            borderRadius: 0
+        }}>
             <Button
                 fill
                 large

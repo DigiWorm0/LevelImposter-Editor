@@ -1,12 +1,13 @@
-import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Classes, ControlGroup, Dialog, FileInput, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import generateGUID from "../../hooks/generateGUID";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY } from "../../types/generic/Constants";
+import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import LITranslations from "../../types/localization/LITranslations";
 import ColorPicker from "../ColorPicker";
@@ -184,22 +185,70 @@ export default function SettingsButton() {
                             onChange={(color) => {
                                 setProperties({ ...properties, bgColor: colorToHex(color) });
                             }} />
-                        <ExileSelect
-                            fill
-                            filterable={false}
-                            items={EXILE_IDS}
-                            itemRenderer={exileSelectRenderer}
-                            onItemSelect={(exileID) => {
-                                setProperties({ ...properties, exileID });
+
+
+                        <ControlGroup fill>
+                            <ExileSelect
+                                filterable={false}
+                                items={EXILE_IDS}
+                                itemRenderer={exileSelectRenderer}
+                                onItemSelect={(exileID) => {
+                                    setProperties({ ...properties, exileID });
+                                }}>
+
+                                <Button
+                                    fill
+                                    rightIcon="caret-down"
+                                    text={properties.exileID || "Exile Animation"}
+                                />
+
+                            </ExileSelect>
+                        </ControlGroup>
+
+                        <ControlGroup fill>
+
+                            <ControlGroup>
+                                <FileInput
+                                    inputProps={{
+                                        accept: ".wav",
+                                        type: "file"
+                                    }}
+                                    hasSelection={!!properties.sabotageSound}
+                                    text={properties.sabotageSound ? properties.sabotageSound.name : "Upload Sabotage Sound"}
+                                    onInputChange={(e) => {
+                                        const file = e.currentTarget.files?.[0];
+                                        if (file == null) return;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            setProperties({
+                                                ...properties, sabotageSound: {
+                                                    id: generateGUID(),
+                                                    name: file.name,
+                                                    data: e.target?.result as string,
+                                                    volume: DEFAULT_VOLUME,
+                                                    isPreset: false,
+                                                }
+                                            });
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }} />
+
+                                <Button
+                                    minimal
+                                    icon="refresh"
+                                    disabled={!properties.sabotageSound}
+                                    onClick={() => {
+                                        setProperties({ ...properties, sabotageSound: undefined });
+                                    }} />
+                            </ControlGroup>
+
+
+                            <Label style={{
+                                paddingTop: 5,
                             }}>
-
-                            <Button
-                                rightIcon="caret-down"
-                                text={properties.exileID || "Exile Animation"}
-                                fill
-                            />
-
-                        </ExileSelect>
+                                Sabotage Sound
+                            </Label>
+                        </ControlGroup>
 
                     </FormGroup>
                 </div>
