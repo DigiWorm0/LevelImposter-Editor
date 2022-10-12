@@ -24,10 +24,10 @@ export default function SabotageButton() {
         <>
             <Image
                 image={btnSprite}
-                x={(elem.x - (MINIMAP_BUTTON_SIZE * scale)) * UNITY_SCALE}
-                y={-(elem.y + (MINIMAP_BUTTON_SIZE * scale)) * UNITY_SCALE}
-                width={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2}
-                height={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2}
+                x={(elem.x - (MINIMAP_BUTTON_SIZE * scale * elem.xScale)) * UNITY_SCALE}
+                y={-(elem.y + (MINIMAP_BUTTON_SIZE * scale * elem.yScale)) * UNITY_SCALE}
+                width={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2 * elem.xScale}
+                height={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2 * elem.yScale}
                 opacity={0.3}
                 listening={false}
             />

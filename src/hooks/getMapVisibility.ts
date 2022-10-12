@@ -29,11 +29,10 @@ export enum MapVisibility {
     Invisible,
     InvisibleNoSprite,
     InvisibleMinimap,
-    InvisibleRoom,
     InvisibleFreeplay
 }
 
-export default function checkMapVisibility(elem: LIElement): MapVisibility {
+export default function getMapVisibility(elem: LIElement): MapVisibility {
     if (INVISIBLE_TYPES.includes(elem.type)) {
         return MapVisibility.Invisible;
     }
@@ -50,7 +49,7 @@ export default function checkMapVisibility(elem: LIElement): MapVisibility {
         if (elem.properties.isRoomNameVisible === false)
             return MapVisibility.Invisible;
         else
-            return MapVisibility.InvisibleRoom;
+            return MapVisibility.InvisibleMinimap;
     }
     if (elem.type === "util-dummy") {
         return MapVisibility.InvisibleFreeplay;

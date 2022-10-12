@@ -31,7 +31,11 @@ const HIDE_ON_DESELECT = [
     "util-spawn1",
     "util-spawn2",
     "util-blank",
-    "util-minimap"
+    "util-minimap",
+    "sab-btnreactor",
+    "sab-btnlights",
+    "sab-btncomms",
+    "sab-btnoxygen",
 ];
 
 export default function MapElement(props: { elementID: GUID }) {

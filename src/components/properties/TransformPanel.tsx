@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
-import checkMapVisibility, { MapVisibility } from "../../hooks/checkMapVisibility";
+import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -17,7 +17,7 @@ export default function TransformPanel() {
     const settings = useSettingsValue();
     const saveHistory = useSaveHistory();
 
-    const elemVisibility = selectedElem && checkMapVisibility(selectedElem);
+    const elemVisibility = selectedElem && getMapVisibility(selectedElem);
 
     if (!selectedElem || selectedElem.type === "util-layer")
         return null;
@@ -165,13 +165,11 @@ export default function TransformPanel() {
             <MapError
                 isVisible={elemVisibility !== MapVisibility.Visible}
                 info
-                icon={"eye-off"}
-            >
-                {elemVisibility === MapVisibility.Invisible ? <>This object will not be visible in-game.</> : null}
-                {elemVisibility === MapVisibility.InvisibleNoSprite ? <>This object will not be visible in-game unless you attatch a sprite.</> : null}
-                {elemVisibility === MapVisibility.InvisibleMinimap ? <>This object will only be visible from within the minimap.</> : null}
-                {elemVisibility === MapVisibility.InvisibleRoom ? <>This object will not be visible in-game except for it's name in the minimap.</> : null}
-                {elemVisibility === MapVisibility.InvisibleFreeplay ? <>This object will only be visible within freeplay mode.</> : null}
+                icon={elemVisibility == MapVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}>
+                {elemVisibility === MapVisibility.Invisible ? "This object will not be visible in-game." : null}
+                {elemVisibility === MapVisibility.InvisibleNoSprite ? "This object will not be visible in-game unless you attatch a sprite." : null}
+                {elemVisibility === MapVisibility.InvisibleMinimap ? "This object will only be visible in the minimap." : null}
+                {elemVisibility === MapVisibility.InvisibleFreeplay ? "This object will only be visible in freeplay mode." : null}
             </MapError>
         </>
     );

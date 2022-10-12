@@ -57,6 +57,11 @@ export default function Canvas() {
                         e.target.getStage()?.startDrag();
                     }
                 }}
+                onMouseUp={(e: KonvaEventObject<MouseEvent>) => {
+                    if (e.evt.button === 2) {
+                        e.target.getStage()?.stopDrag();
+                    }
+                }}
                 onDragEnd={(e: KonvaEventObject<DragEvent>) => {
                     if (e.target === e.target.getStage()) {
                         camera.setX(e.target.x());
