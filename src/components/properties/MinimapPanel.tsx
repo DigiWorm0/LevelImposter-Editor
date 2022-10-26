@@ -3,6 +3,7 @@ import React from "react";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useTranslation from "../../hooks/useTranslation";
 import DownloadCanvasDialog from "../dialogs/DownloadCanvas";
+import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 export default function MinimapPanel() {
@@ -49,6 +50,9 @@ export default function MinimapPanel() {
                     onClick={() => setVisible(true)}
                 />
             </PanelContainer>
+            <MapError isVisible={element.properties.spriteData === undefined}>
+                The object does not have a sprite attached to it. Minimap will not be visible in-game.
+            </MapError>
         </>
     );
 }

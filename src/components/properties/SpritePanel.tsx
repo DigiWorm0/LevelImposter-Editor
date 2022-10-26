@@ -9,6 +9,7 @@ import PanelContainer from "./PanelContainer";
 import { AlphaPicker, Color, ColorResult, HuePicker, SketchPicker } from 'react-color';
 import ColorPicker from '../ColorPicker';
 import LIColor from '../../types/li/LIColor';
+import MapError from './MapError';
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -76,80 +77,82 @@ export default function SpritePanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Sprite}>
-            <DevInfo>
-                {spriteURL.length}
-            </DevInfo>
+        <>
+            <PanelContainer title={translation.Sprite}>
+                <DevInfo>
+                    {spriteURL.length}
+                </DevInfo>
 
-            <div style={{ textAlign: "center", padding: 15 }}>
-                <img
-                    style={{ maxHeight: 100, maxWidth: 100 }}
-                    src={spriteURL}
-                    alt={selectedElem.name}
-                />
+                <div style={{ textAlign: "center", padding: 15 }}>
+                    <img
+                        style={{ maxHeight: 100, maxWidth: 100 }}
+                        src={spriteURL}
+                        alt={selectedElem.name}
+                    />
 
-            </div>
+                </div>
 
-            <ButtonGroup minimal fill>
-                <Button
-                    fill
-                    icon="refresh"
-                    text={translation.Reset}
-                    onClick={onResetClick}
-                />
-                <Button
-                    fill
-                    icon="upload"
-                    text={translation.Upload}
-                    onClick={onUploadClick}
-                />
-            </ButtonGroup>
-            {selectedElem.properties.noShadows !== true && (
-                <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
-                    <ColorPicker
-                        title={"Set Color"}
-                        color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
-                        onOpen={() => {
+                <ButtonGroup minimal fill>
+                    <Button
+                        fill
+                        icon="refresh"
+                        text={translation.Reset}
+                        onClick={onResetClick}
+                    />
+                    <Button
+                        fill
+                        icon="upload"
+                        text={translation.Upload}
+                        onClick={onUploadClick}
+                    />
+                </ButtonGroup>
+                {selectedElem.properties.noShadows !== true && (
+                    <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
+                        <ColorPicker
+                            title={"Set Color"}
+                            color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
+                            onOpen={() => {
+                                saveHistory();
+                            }}
+                            onChange={(color: LIColor) => {
+                                if (!selectedElem)
+                                    return;
+                                setSelectedElem({
+                                    ...selectedElem,
+                                    properties: {
+                                        ...selectedElem.properties,
+                                        color
+                                    }
+                                });
+                            }}
+                        />
+                    </ControlGroup>
+                )}
+                {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
+                    <Switch
+                        key={selectedElem.id + "-noShadows"}
+                        checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
+                        label={translation.NoShadows}
+                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                        onChange={(e) => {
                             saveHistory();
-                        }}
-                        onChange={(color: LIColor) => {
-                            if (!selectedElem)
-                                return;
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: {
-                                    ...selectedElem.properties,
-                                    color
-                                }
-                            });
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
                         }}
                     />
-                </ControlGroup>
-            )}
-            {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
-                <Switch
-                    key={selectedElem.id + "-noShadows"}
-                    checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
-                    label={translation.NoShadows}
-                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                    onChange={(e) => {
-                        saveHistory();
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
-                    }}
-                />
-            )}
-            {(selectedElem.properties.noShadows === true) && (
-                <Switch
-                    key={selectedElem.id + "-noShadowsBehaviour"}
-                    checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
-                    label={translation.NoShadowBehavior}
-                    style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                    onChange={(e) => {
-                        saveHistory();
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
-                    }}
-                />
-            )}
-        </PanelContainer>
+                )}
+                {(selectedElem.properties.noShadows === true) && (
+                    <Switch
+                        key={selectedElem.id + "-noShadowsBehaviour"}
+                        checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
+                        label={translation.NoShadowBehavior}
+                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
+                        onChange={(e) => {
+                            saveHistory();
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
+                        }}
+                    />
+                )}
+            </PanelContainer>
+        </>
     );
 }

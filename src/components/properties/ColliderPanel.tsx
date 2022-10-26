@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, InputGroup, Menu } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSetSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -23,6 +23,7 @@ export default function ColliderPanel() {
     const setSelectedCollider = useSetSelectedCollider();
 
     const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
+    const disableAddCollider = selectedElem?.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0;
 
     const addCollider = () => {
         if (!selectedElem)
@@ -62,11 +63,18 @@ export default function ColliderPanel() {
     return (
         <PanelContainer title={translation.Colliders}>
             <Menu style={{ backgroundColor: "revert" }}>
-                <MenuItem2
-                    icon="add"
-                    text={translation.AddCollider}
-                    disabled={selectedElem.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0}
-                    onClick={addCollider} />
+                <Tooltip2
+                    fill
+                    content={"This object can only have 1 collider"}
+                    disabled={!disableAddCollider}
+                >
+                    <MenuItem2
+                        icon="add"
+                        text={translation.AddCollider}
+                        disabled={disableAddCollider}
+                        onClick={addCollider} />
+
+                </Tooltip2>
 
                 {selectedElem.properties.colliders?.map((collider, index) => {
                     const colliderName = collider.name !== undefined ? collider.name : translation.Collider + " " + (index + 1);

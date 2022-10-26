@@ -9,6 +9,7 @@ import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
 import PanelContainer from "./PanelContainer";
 import useTranslation from "../../hooks/useTranslation";
+import MapError from "./MapError";
 
 export default function AmbientSoundPanel() {
     const translation = useTranslation();
@@ -75,30 +76,39 @@ export default function AmbientSoundPanel() {
     if (!selectedElem || selectedElem.type !== "util-sound1")
         return null;
 
+    const hasCollider = selectedElem.properties.colliders !== undefined && selectedElem.properties.colliders.length > 0;
+
     return (
-        <PanelContainer title={translation.AmbientSound}>
-            <FormGroup>
-                <DevInfo>
-                    {selectedElem.properties.sounds?.length} sounds
-                </DevInfo>
+        <>
+            <PanelContainer title={translation.AmbientSound}>
+                <FormGroup style={{
+                    marginBottom: 0
+                }}>
+                    <DevInfo>
+                        {selectedElem.properties.sounds?.length} sounds
+                    </DevInfo>
 
-                <AudioPlayer />
+                    <AudioPlayer />
 
-                <ButtonGroup minimal fill style={{ marginTop: 10, marginBottom: 10 }}>
-                    <Button
-                        fill
-                        icon="refresh"
-                        text={translation.Reset}
-                        onClick={onResetClick}
-                    />
-                    <Button
-                        fill
-                        icon="upload"
-                        text={translation.Upload}
-                        onClick={onUploadClick}
-                    />
-                </ButtonGroup>
-            </FormGroup>
-        </PanelContainer>
+                    <ButtonGroup minimal fill style={{ marginTop: 10, marginBottom: 10 }}>
+                        <Button
+                            fill
+                            icon="refresh"
+                            text={translation.Reset}
+                            onClick={onResetClick}
+                        />
+                        <Button
+                            fill
+                            icon="upload"
+                            text={translation.Upload}
+                            onClick={onUploadClick}
+                        />
+                    </ButtonGroup>
+                </FormGroup>
+            </PanelContainer>
+            <MapError isVisible={!hasCollider} >
+                This object is missing a collider. Audio will not play without a collider.
+            </MapError>
+        </>
     );
 }
