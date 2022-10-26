@@ -13,7 +13,8 @@ const INVISIBLE_TYPES = [
 
 const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blank",
-    "util-blankfloat"
+    "util-blankfloat",
+    "util-starfield"
 ]
 
 const INVISIBLE_TYPES_MINIMAP = [

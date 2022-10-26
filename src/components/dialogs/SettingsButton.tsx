@@ -204,7 +204,7 @@ export default function SettingsButton() {
 
                             </ExileSelect>
                         </ControlGroup>
-
+                        {/*
                         <ControlGroup fill>
 
                             <ControlGroup>
@@ -249,6 +249,7 @@ export default function SettingsButton() {
                                 Sabotage Sound
                             </Label>
                         </ControlGroup>
+                        */}
 
                     </FormGroup>
                 </div>
