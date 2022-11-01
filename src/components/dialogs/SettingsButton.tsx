@@ -77,7 +77,6 @@ export default function SettingsButton() {
 
                 <div style={{ margin: 15 }} >
                     <FormGroup label="Interface">
-
                         <Switch
                             label="Developer Mode"
                             checked={settings.isDevMode === undefined ? false : settings.isDevMode}
@@ -128,7 +127,6 @@ export default function SettingsButton() {
                             }} />
 
                         <ControlGroup fill={true}>
-
                             <NumericInput
                                 defaultValue={settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution}
                                 min={0}
@@ -178,6 +176,13 @@ export default function SettingsButton() {
 
                     <FormGroup label="Map">
 
+                        <Switch
+                            label="Show Author in Ping Tracker"
+                            checked={properties.showPingIndicator === undefined ? true : properties.showPingIndicator}
+                            onChange={(e) => {
+                                setProperties({ ...properties, showPingIndicator: e.currentTarget.checked });
+                            }} />
+
                         <ColorPicker
                             disableAlpha
                             title="Background Color"
@@ -185,7 +190,6 @@ export default function SettingsButton() {
                             onChange={(color) => {
                                 setProperties({ ...properties, bgColor: colorToHex(color) });
                             }} />
-
 
                         <ControlGroup fill>
                             <ExileSelect

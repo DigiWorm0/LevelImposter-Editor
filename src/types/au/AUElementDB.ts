@@ -739,7 +739,7 @@ const AUElementDB: AUElement[] = [
         name: "Comms Panel",
         type: "sab-comms"
     }, {
-        name: "Reator Button",
+        name: "Reactor Button",
         type: "sab-btnreactor"
     }, {
         name: "O2 Button",
