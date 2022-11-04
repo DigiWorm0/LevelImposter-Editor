@@ -3,7 +3,7 @@ import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import { COLLIDER_RECT_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, MAX_DECIMAL_PLACES, UNITY_SCALE } from "../../types/generic/Constants";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, MAX_DECIMAL_PLACES, UNITY_SCALE } from "../../types/generic/Constants";
 
 
 export default function ColliderEditor() {
@@ -18,18 +18,19 @@ export default function ColliderEditor() {
         return null;
 
     const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
+    const handleSize = settings.colliderHandleSize || DEFAULT_COLLIDER_HANDLE_SIZE;
     const snapOffset = (px: number, py: number) => {
         if (!elem)
             return { x: px, y: py };
 
-        const pointX = (px + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;
-        const pointY = (py + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE;
+        const pointX = (px + handleSize / 2) / UNITY_SCALE;
+        const pointY = (py + handleSize / 2) / UNITY_SCALE;
         const snappedX = Math.round((elem.x + pointX) / gridSnapResolution) * gridSnapResolution;
         const snappedY = Math.round((elem.y - pointY) / gridSnapResolution) * gridSnapResolution;
 
         return {
-            x: (snappedX - elem.x) * UNITY_SCALE - COLLIDER_RECT_SIZE / 2,
-            y: (elem.y - snappedY) * UNITY_SCALE - COLLIDER_RECT_SIZE / 2
+            x: (snappedX - elem.x) * UNITY_SCALE - handleSize / 2,
+            y: (elem.y - snappedY) * UNITY_SCALE - handleSize / 2
         }
     }
 
@@ -64,11 +65,11 @@ export default function ColliderEditor() {
             {collider.points.map((p, index) => (
                 <Rect
                     key={collider.id + "-" + index}
-                    x={p.x * UNITY_SCALE - COLLIDER_RECT_SIZE / 2}
-                    y={p.y * UNITY_SCALE - COLLIDER_RECT_SIZE / 2}
-                    width={COLLIDER_RECT_SIZE}
-                    height={COLLIDER_RECT_SIZE}
-                    strokeWidth={1}
+                    x={p.x * UNITY_SCALE - handleSize / 2}
+                    y={p.y * UNITY_SCALE - handleSize / 2}
+                    width={handleSize}
+                    height={handleSize}
+                    strokeWidth={handleSize / 8}
                     fill={"blue"}
                     stroke={"white"}
                     onMouseDown={(e) => {
@@ -87,8 +88,8 @@ export default function ColliderEditor() {
                         if (settings.isGridSnapEnabled != false) {
                             e.target.position(snapOffset(e.target.x(), e.target.y()));
                         }
-                        p.x = +((e.target.x() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE).toFixed(MAX_DECIMAL_PLACES);
-                        p.y = +((e.target.y() + COLLIDER_RECT_SIZE / 2) / UNITY_SCALE).toFixed(MAX_DECIMAL_PLACES);
+                        p.x = +((e.target.x() + handleSize / 2) / UNITY_SCALE).toFixed(MAX_DECIMAL_PLACES);
+                        p.y = +((e.target.y() + handleSize / 2) / UNITY_SCALE).toFixed(MAX_DECIMAL_PLACES);
                     }}
                     onDragEnd={() => {
                         setCollider({ ...collider, points: collider.points.map((p) => ({ ...p })) });

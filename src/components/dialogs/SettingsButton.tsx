@@ -7,7 +7,7 @@ import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import LITranslations from "../../types/localization/LITranslations";
 import ColorPicker from "../ColorPicker";
@@ -152,6 +152,19 @@ export default function SettingsButton() {
                                     setSettings({ ...settings, invisibleOpacity: value });
                                 }} />
                             <Label>Invisible Opacity</Label>
+                        </ControlGroup>
+
+                        <ControlGroup fill={true}>
+                            <NumericInput
+                                defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
+                                min={0}
+                                minorStepSize={0.01}
+                                stepSize={0.1}
+                                majorStepSize={1}
+                                onValueChange={(value) => {
+                                    setSettings({ ...settings, colliderHandleSize: value });
+                                }} />
+                            <Label>Collider Handle Size</Label>
                         </ControlGroup>
                         {/*
                         <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>

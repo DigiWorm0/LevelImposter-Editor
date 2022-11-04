@@ -6,6 +6,7 @@ export default interface LISettings {
     isGridSnapEnabled?: boolean;
     gridSnapResolution?: number;
     invisibleOpacity?: number;
+    colliderHandleSize?: number;
     colliderPreview?: boolean;
     language?: string;
     scrollToSelection?: boolean;
