@@ -61,7 +61,7 @@ const EnglishLocalization: LITranslation = {
     StepVariants: "Step Variants",
     Priority: "Priority",
     Create: "Create %name%",
-    AmbientSound: "Ambient Sound",
+    SoundPlayer: "Sound Player",
     Camera: "Camera",
     Collider: "Collider",
     Colliders: "Colliders",

@@ -1,4 +1,4 @@
-import AmbientSoundPanel from "../components/properties/AmbientSoundPanel";
+import SoundPanel from "../components/properties/SoundPanel";
 import CamPanel from "../components/properties/CamPanel";
 import ColliderPanel from "../components/properties/ColliderPanel";
 import ConsolePanel from "../components/properties/ConsolePanel";
@@ -37,12 +37,12 @@ export default function RightSidebar() {
             <TelePanel />
             <CamPanel />
             <PlatformPanel />
-            <AmbientSoundPanel />
+            <SoundPanel />
             <StepSoundPanel />
-            <ColliderPanel />
-            <MinimapPanel />
             <TimerPanel />
             <TriggerPanel />
+            <ColliderPanel />
+            <MinimapPanel />
 
             <div style={{ height: 40 }} />
         </div>

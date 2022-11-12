@@ -1,15 +1,12 @@
-import React from 'react';
-import { Button, ButtonGroup, ControlGroup, FormGroup, Label, Switch } from "@blueprintjs/core";
+import { Button, ButtonGroup, ControlGroup, Switch } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
+import LIColor from '../../types/li/LIColor';
+import ColorPicker from '../ColorPicker';
 import DevInfo from "../DevInfo";
 import PanelContainer from "./PanelContainer";
-import { AlphaPicker, Color, ColorResult, HuePicker, SketchPicker } from 'react-color';
-import ColorPicker from '../ColorPicker';
-import LIColor from '../../types/li/LIColor';
-import MapError from './MapError';
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -22,7 +19,8 @@ const TYPE_BLACKLIST = [
     "util-layer",
     "util-triggerarea",
     "util-triggerrepeat",
-    "util-dummy"
+    "util-triggersound",
+    "util-dummy",
 ];
 
 export default function SpritePanel() {

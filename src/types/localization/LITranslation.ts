@@ -97,7 +97,7 @@ type LITranslation = {
     Speed?: string;
 
     // Sounds
-    AmbientSound?: string;
+    SoundPlayer?: string;
     StepSound?: string;
     StepSounds?: string;
     StepPresets?: string;

@@ -1,19 +1,27 @@
-import React from "react";
 import { Button, InputGroup, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSetSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useTranslation from "../../hooks/useTranslation";
-import LICollider from "../../types/li/LICollider";
 import ColliderEditorPanel from "./ColliderEditorPanel";
 import PanelContainer from "./PanelContainer";
 
-const TYPE_BLACKLIST = [
+const BLACKLISTED_TYPES = [
     "util-dummy",
     "util-triggerrepeat",
+    "util-triggerconsole",
     "util-minimap",
     "util-layer"
+];
+
+const RESTRICTED_TYPES = [
+    "util-room",
+    "util-sound1",
+    "util-sound2",
+    "util-tele",
+    "util-triggerarea",
+    "util-triggersound",
 ];
 
 export default function ColliderPanel() {
@@ -22,7 +30,7 @@ export default function ColliderPanel() {
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const setSelectedCollider = useSetSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
+    const isRestricted = RESTRICTED_TYPES.includes(selectedElem?.type || "");
     const disableAddCollider = selectedElem?.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0;
 
     const addCollider = () => {
@@ -57,7 +65,7 @@ export default function ColliderPanel() {
         setSelectedColliderID(collider?.id);
     }
 
-    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
+    if (!selectedElem || BLACKLISTED_TYPES.includes(selectedElem.type))
         return null;
 
     return (

@@ -163,10 +163,13 @@ const AUElementDB: AUElement[] = [
     }, {
         name: "Trigger Area",
         type: "util-triggerarea"
-    }, /*{
+    }, {
         name: "Trigger Console",
         type: "util-triggerconsole"
-    }, */{
+    }, {
+        name: "Trigger Sound",
+        type: "util-triggersound"
+    }, {
         name: "Trigger Repeater",
         type: "util-triggerrepeat"
     }, {
