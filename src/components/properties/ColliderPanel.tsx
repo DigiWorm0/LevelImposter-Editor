@@ -10,7 +10,6 @@ import PanelContainer from "./PanelContainer";
 const BLACKLISTED_TYPES = [
     "util-dummy",
     "util-triggerrepeat",
-    "util-triggerconsole",
     "util-minimap",
     "util-layer"
 ];

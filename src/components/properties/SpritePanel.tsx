@@ -104,52 +104,26 @@ export default function SpritePanel() {
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>
-                {selectedElem.properties.noShadows !== true && (
-                    <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
-                        <ColorPicker
-                            title={"Set Color"}
-                            color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
-                            onOpen={() => {
-                                saveHistory();
-                            }}
-                            onChange={(color: LIColor) => {
-                                if (!selectedElem)
-                                    return;
-                                setSelectedElem({
-                                    ...selectedElem,
-                                    properties: {
-                                        ...selectedElem.properties,
-                                        color
-                                    }
-                                });
-                            }}
-                        />
-                    </ControlGroup>
-                )}
-                {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
-                    <Switch
-                        key={selectedElem.id + "-noShadows"}
-                        checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
-                        label={translation.NoShadows}
-                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                        onChange={(e) => {
+                <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
+                    <ColorPicker
+                        title={"Set Color"}
+                        color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
+                        onOpen={() => {
                             saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
+                        }}
+                        onChange={(color: LIColor) => {
+                            if (!selectedElem)
+                                return;
+                            setSelectedElem({
+                                ...selectedElem,
+                                properties: {
+                                    ...selectedElem.properties,
+                                    color
+                                }
+                            });
                         }}
                     />
-                )}
-                {(selectedElem.properties.noShadows === true) && (
-                    <Switch
-                        key={selectedElem.id + "-noShadowsBehaviour"}
-                        checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
-                        label={translation.NoShadowBehavior}
-                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                        onChange={(e) => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
-                        }}
-                    />
-                )}
+                </ControlGroup>
             </PanelContainer>
         </>
     );

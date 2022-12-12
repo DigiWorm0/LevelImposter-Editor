@@ -40,8 +40,12 @@ const InputTriggerDB: Record<string, string[]> = {
         "Trigger",
     ],
     "util-triggersound": [
-        "Play Sounds",
-        "Stop Sounds",
+        "Enable",
+        "Disable",
+    ],
+    "util-triggerconsole": [
+        "Show",
+        "Hide",
     ],
 };
 
