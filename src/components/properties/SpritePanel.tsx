@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, ControlGroup, Switch } from "@blueprintjs/core";
+import { Button, ButtonGroup, ControlGroup, Icon, Switch, Tag } from "@blueprintjs/core";
+import { Popover2, Tooltip2 } from "@blueprintjs/popover2";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
@@ -71,6 +72,21 @@ export default function SpritePanel() {
         });
     }
 
+    const imgSize = spriteURL.length;
+    const isOverSize = imgSize > 1000 * 1000;
+
+    const getImgSizeString = () => {
+        const imgSizeKB = imgSize / 1000;
+        const imgSizeMB = imgSizeKB / 1000;
+
+        if (imgSizeMB > 1)
+            return `${imgSizeMB.toFixed(2)} MB`;
+        else if (imgSizeKB > 1)
+            return `${imgSizeKB.toFixed(2)} KB`;
+        else
+            return `${imgSize} Bytes`;
+    }
+
     if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
 
@@ -87,7 +103,23 @@ export default function SpritePanel() {
                         src={spriteURL}
                         alt={selectedElem.name}
                     />
+                </div>
 
+                <div style={{ textAlign: "center", marginBottom: 10 }}>
+                    <Tooltip2
+                        content={isOverSize ? "Larger images can freeze or crash the game. Try downscaling or splitting your sprite into multiple objects." : "Your image is small enough to not cause any issues."}
+                        position="top"
+                        intent={isOverSize ? "danger" : "success"}
+                    >
+                        <Tag
+                            minimal
+                            large
+                            intent={isOverSize ? "danger" : "success"}
+                        >
+                            {isOverSize && <Icon icon="warning-sign" style={{ marginRight: 5 }} />}
+                            {getImgSizeString()}
+                        </Tag>
+                    </Tooltip2>
                 </div>
 
                 <ButtonGroup minimal fill>
@@ -104,7 +136,7 @@ export default function SpritePanel() {
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>
-                <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
+                <ControlGroup fill style={{ padding: 5, marginTop: 5 }}>
                     <ColorPicker
                         title={"Set Color"}
                         color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}

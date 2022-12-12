@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button, Icon } from "@blueprintjs/core";
 import { Popover2 } from "@blueprintjs/popover2";
 import React from "react";
 import { ChromePicker, Color, SketchPicker } from "react-color";
@@ -52,7 +52,14 @@ export default function ColorPicker(props: ColorPickerProps) {
                 <Button
                     onClick={() => setIsOpen(!isOpen)}
                     fill
-                    icon="tint"
+                    icon={
+                        <Icon
+                            icon="tint"
+                            style={{
+                                color: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`
+                            }}
+                        />
+                    }
                     text={props.title}
                 />
             </Popover2>
