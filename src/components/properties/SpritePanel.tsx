@@ -74,6 +74,8 @@ export default function SpritePanel() {
 
     const imgSize = spriteURL.length;
     const isOverSize = imgSize > 1000 * 1000;
+    const isSuperOverSize = imgSize > 1000 * 1000 * 10;
+    const sizeIntent = isSuperOverSize ? "danger" : (isOverSize ? "warning" : "success");
 
     const getImgSizeString = () => {
         const imgSizeKB = imgSize / 1000;
@@ -109,12 +111,12 @@ export default function SpritePanel() {
                     <Tooltip2
                         content={isOverSize ? "Larger images can freeze or crash the game. Try downscaling or splitting your sprite into multiple objects." : "Your image is small enough to not cause any issues."}
                         position="top"
-                        intent={isOverSize ? "danger" : "success"}
+                        intent={sizeIntent}
                     >
                         <Tag
                             minimal
                             large
-                            intent={isOverSize ? "danger" : "success"}
+                            intent={sizeIntent}
                         >
                             {isOverSize && <Icon icon="warning-sign" style={{ marginRight: 5 }} />}
                             {getImgSizeString()}
