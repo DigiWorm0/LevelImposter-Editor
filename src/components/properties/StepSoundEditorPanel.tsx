@@ -67,7 +67,6 @@ export default function StepSoundEditorPanel() {
 
             <AudioPlayer />
 
-
             <div style={{ marginTop: 10 }}>
                 <Button
                     icon="cloud-upload"

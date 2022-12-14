@@ -1,15 +1,16 @@
-import React from "react";
 import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
+import React from "react";
 import generateGUID from "../../hooks/generateGUID";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/useSelectedSound";
+import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
+import SizeTag from "../SizeTag";
 import AudioPlayer from "./AudioPlayer";
-import PanelContainer from "./PanelContainer";
-import useTranslation from "../../hooks/useTranslation";
 import MapError from "./MapError";
+import PanelContainer from "./PanelContainer";
 
 export default function SoundPanel() {
     const translation = useTranslation();
@@ -78,6 +79,7 @@ export default function SoundPanel() {
 
     const hasCollider = selectedElem.properties.colliders !== undefined && selectedElem.properties.colliders.length > 0;
     const hasSound = selectedElem.properties.sounds !== undefined && selectedElem.properties.sounds.length > 0;
+    const soundSize = selectedElem.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
 
     return (
         <>
@@ -90,6 +92,14 @@ export default function SoundPanel() {
                     </DevInfo>
 
                     <AudioPlayer />
+
+                    <div style={{ textAlign: "center", marginBottom: 10 }}>
+                        <SizeTag
+                            sizeBytes={soundSize}
+                            warningMsg={"Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."}
+                            okMsg={"Your audio is small enough to not cause any issues."}
+                        />
+                    </div>
 
                     <ButtonGroup minimal fill style={{ marginTop: 10, marginBottom: 10 }}>
                         <Button

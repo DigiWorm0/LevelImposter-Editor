@@ -1,5 +1,4 @@
-import { Button, ButtonGroup, ControlGroup, Icon, Switch, Tag } from "@blueprintjs/core";
-import { Popover2, Tooltip2 } from "@blueprintjs/popover2";
+import { Button, ButtonGroup, ControlGroup } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
@@ -7,6 +6,7 @@ import useTranslation from "../../hooks/useTranslation";
 import LIColor from '../../types/li/LIColor';
 import ColorPicker from '../ColorPicker';
 import DevInfo from "../DevInfo";
+import SizeTag from "../SizeTag";
 import PanelContainer from "./PanelContainer";
 
 const TYPE_BLACKLIST = [
@@ -73,21 +73,6 @@ export default function SpritePanel() {
     }
 
     const imgSize = spriteURL.length;
-    const isOverSize = imgSize > 1000 * 1000;
-    const isSuperOverSize = imgSize > 1000 * 1000 * 10;
-    const sizeIntent = isSuperOverSize ? "danger" : (isOverSize ? "warning" : "success");
-
-    const getImgSizeString = () => {
-        const imgSizeKB = imgSize / 1000;
-        const imgSizeMB = imgSizeKB / 1000;
-
-        if (imgSizeMB > 1)
-            return `${imgSizeMB.toFixed(2)} MB`;
-        else if (imgSizeKB > 1)
-            return `${imgSizeKB.toFixed(2)} KB`;
-        else
-            return `${imgSize} Bytes`;
-    }
 
     if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
@@ -108,20 +93,11 @@ export default function SpritePanel() {
                 </div>
 
                 <div style={{ textAlign: "center", marginBottom: 10 }}>
-                    <Tooltip2
-                        content={isOverSize ? "Larger images can freeze or crash the game. Try downscaling or splitting your sprite into multiple objects." : "Your image is small enough to not cause any issues."}
-                        position="top"
-                        intent={sizeIntent}
-                    >
-                        <Tag
-                            minimal
-                            large
-                            intent={sizeIntent}
-                        >
-                            {isOverSize && <Icon icon="warning-sign" style={{ marginRight: 5 }} />}
-                            {getImgSizeString()}
-                        </Tag>
-                    </Tooltip2>
+                    <SizeTag
+                        sizeBytes={imgSize}
+                        warningMsg={"Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."}
+                        okMsg={"Your image is small enough to not cause any issues."}
+                    />
                 </div>
 
                 <ButtonGroup minimal fill>
