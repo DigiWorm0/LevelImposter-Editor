@@ -54,9 +54,15 @@ npm start
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X7DXBEC)
 
 ## Credits
-- [Blueprint](https://blueprintjs.com/)
-- [Konva](https://konvajs.org/)
-- [React](https://reactjs.org/)
+
+### Contributors
+[DigiWorm0#0069](https://github.com/DigiWorm0) - Lead Developer\
+[PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese Translation
+
+### Dependencies
+[Blueprint](https://blueprintjs.com/) - UI Components\
+[Konva](https://konvajs.org/) - Canvas Rendering\
+[React](https://reactjs.org/) - UI Rendering
 
 
 ## Disclaimer

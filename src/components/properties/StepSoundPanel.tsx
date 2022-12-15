@@ -8,6 +8,7 @@ import useTranslation from "../../hooks/useTranslation";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
+import SizeTag from "../SizeTag";
 import PanelContainer from "./PanelContainer";
 import StepSoundEditorPanel from "./StepSoundEditorPanel";
 
@@ -40,6 +41,8 @@ export default function StepSoundPanel() {
     if (!selectedElem
         || selectedElem.type !== "util-sound2")
         return null;
+
+    const soundSize = selectedElem.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
 
     return (
         <PanelContainer title={translation.StepSounds}>
@@ -106,6 +109,14 @@ export default function StepSoundPanel() {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: sounds } });
                     }} />
             </FormGroup>
+
+            <div style={{ textAlign: "center", marginBottom: 5, marginTop: 10 }}>
+                <SizeTag
+                    sizeBytes={soundSize}
+                    warningMsg={"Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."}
+                    okMsg={"Your audio is small enough to not cause any issues."}
+                />
+            </div>
 
             <Menu>
                 {selectedElem.properties.sounds?.map((sound, index) => {

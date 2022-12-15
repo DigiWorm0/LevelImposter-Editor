@@ -32,8 +32,6 @@ export default interface LIElement {
         // Sprite
         spriteData?: string;
         color?: LIColor;
-        noShadows?: boolean;
-        noShadowsBehaviour?: boolean;
 
         // Vent
         leftVent?: GUID;

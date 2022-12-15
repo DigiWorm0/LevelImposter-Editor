@@ -28,6 +28,8 @@ const HIDE_ON_DESELECT = [
     "util-triggerarea",
     "util-triggerrepeat",
     "util-triggertimer",
+    "util-triggerconsole",
+    "util-triggersound",
     "util-spawn1",
     "util-spawn2",
     "util-blank",

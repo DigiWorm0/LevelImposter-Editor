@@ -20,6 +20,9 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onRepeat 7",
         "onRepeat 8",
     ],
+    "util-triggeronce": [
+        "onTrigger",
+    ],
 };
 
 const InputTriggerDB: Record<string, string[]> = {
@@ -32,6 +35,17 @@ const InputTriggerDB: Record<string, string[]> = {
     ],
     "util-triggertimer": [
         "Start Timer",
+    ],
+    "util-triggeronce": [
+        "Trigger",
+    ],
+    "util-triggersound": [
+        "Enable",
+        "Disable",
+    ],
+    "util-triggerconsole": [
+        "Show",
+        "Hide",
     ],
 };
 

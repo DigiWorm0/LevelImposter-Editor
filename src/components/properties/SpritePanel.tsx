@@ -1,15 +1,13 @@
-import React from 'react';
-import { Button, ButtonGroup, ControlGroup, FormGroup, Label, Switch } from "@blueprintjs/core";
+import { Button, ButtonGroup, ControlGroup } from "@blueprintjs/core";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
 import useTranslation from "../../hooks/useTranslation";
-import DevInfo from "../DevInfo";
-import PanelContainer from "./PanelContainer";
-import { AlphaPicker, Color, ColorResult, HuePicker, SketchPicker } from 'react-color';
-import ColorPicker from '../ColorPicker';
 import LIColor from '../../types/li/LIColor';
-import MapError from './MapError';
+import ColorPicker from '../ColorPicker';
+import DevInfo from "../DevInfo";
+import SizeTag from "../SizeTag";
+import PanelContainer from "./PanelContainer";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -22,7 +20,8 @@ const TYPE_BLACKLIST = [
     "util-layer",
     "util-triggerarea",
     "util-triggerrepeat",
-    "util-dummy"
+    "util-triggersound",
+    "util-dummy",
 ];
 
 export default function SpritePanel() {
@@ -73,6 +72,8 @@ export default function SpritePanel() {
         });
     }
 
+    const imgSize = spriteURL.length;
+
     if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
 
@@ -89,7 +90,14 @@ export default function SpritePanel() {
                         src={spriteURL}
                         alt={selectedElem.name}
                     />
+                </div>
 
+                <div style={{ textAlign: "center", marginBottom: 10 }}>
+                    <SizeTag
+                        sizeBytes={imgSize}
+                        warningMsg={"Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."}
+                        okMsg={"Your image is small enough to not cause any issues."}
+                    />
                 </div>
 
                 <ButtonGroup minimal fill>
@@ -106,52 +114,26 @@ export default function SpritePanel() {
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>
-                {selectedElem.properties.noShadows !== true && (
-                    <ControlGroup fill style={{ padding: 5, marginTop: 15 }}>
-                        <ColorPicker
-                            title={"Set Color"}
-                            color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
-                            onOpen={() => {
-                                saveHistory();
-                            }}
-                            onChange={(color: LIColor) => {
-                                if (!selectedElem)
-                                    return;
-                                setSelectedElem({
-                                    ...selectedElem,
-                                    properties: {
-                                        ...selectedElem.properties,
-                                        color
-                                    }
-                                });
-                            }}
-                        />
-                    </ControlGroup>
-                )}
-                {(selectedElem.type.startsWith("dec-") || selectedElem.type.startsWith("util-blank")) && (
-                    <Switch
-                        key={selectedElem.id + "-noShadows"}
-                        checked={selectedElem.properties.noShadows === undefined ? false : selectedElem.properties.noShadows}
-                        label={translation.NoShadows}
-                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                        onChange={(e) => {
+                <ControlGroup fill style={{ padding: 5, marginTop: 5 }}>
+                    <ColorPicker
+                        title={"Set Color"}
+                        color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
+                        onOpen={() => {
                             saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadows: e.currentTarget.checked } });
+                        }}
+                        onChange={(color: LIColor) => {
+                            if (!selectedElem)
+                                return;
+                            setSelectedElem({
+                                ...selectedElem,
+                                properties: {
+                                    ...selectedElem.properties,
+                                    color
+                                }
+                            });
                         }}
                     />
-                )}
-                {(selectedElem.properties.noShadows === true) && (
-                    <Switch
-                        key={selectedElem.id + "-noShadowsBehaviour"}
-                        checked={selectedElem.properties.noShadowsBehaviour === undefined ? false : selectedElem.properties.noShadowsBehaviour}
-                        label={translation.NoShadowBehavior}
-                        style={{ textAlign: "center", marginTop: 10, marginBottom: 15 }}
-                        onChange={(e) => {
-                            saveHistory();
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, noShadowsBehaviour: e.currentTarget.checked } });
-                        }}
-                    />
-                )}
+                </ControlGroup>
             </PanelContainer>
         </>
     );

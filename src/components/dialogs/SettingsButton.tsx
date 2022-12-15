@@ -7,7 +7,7 @@ import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import useTranslation from "../../hooks/useTranslation";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import LITranslations from "../../types/localization/LITranslations";
 import ColorPicker from "../ColorPicker";
@@ -77,7 +77,6 @@ export default function SettingsButton() {
 
                 <div style={{ margin: 15 }} >
                     <FormGroup label="Interface">
-
                         <Switch
                             label="Developer Mode"
                             checked={settings.isDevMode === undefined ? false : settings.isDevMode}
@@ -128,7 +127,6 @@ export default function SettingsButton() {
                             }} />
 
                         <ControlGroup fill={true}>
-
                             <NumericInput
                                 defaultValue={settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution}
                                 min={0}
@@ -155,6 +153,19 @@ export default function SettingsButton() {
                                 }} />
                             <Label>Invisible Opacity</Label>
                         </ControlGroup>
+
+                        <ControlGroup fill={true}>
+                            <NumericInput
+                                defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
+                                min={0}
+                                minorStepSize={0.01}
+                                stepSize={0.1}
+                                majorStepSize={1}
+                                onValueChange={(value) => {
+                                    setSettings({ ...settings, colliderHandleSize: value });
+                                }} />
+                            <Label>Collider Handle Size</Label>
+                        </ControlGroup>
                         {/*
                         <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>
                             <LanguageSelect
@@ -178,6 +189,13 @@ export default function SettingsButton() {
 
                     <FormGroup label="Map">
 
+                        <Switch
+                            label="Show Author in Ping Tracker"
+                            checked={properties.showPingIndicator === undefined ? true : properties.showPingIndicator}
+                            onChange={(e) => {
+                                setProperties({ ...properties, showPingIndicator: e.currentTarget.checked });
+                            }} />
+
                         <ColorPicker
                             disableAlpha
                             title="Background Color"
@@ -185,7 +203,6 @@ export default function SettingsButton() {
                             onChange={(color) => {
                                 setProperties({ ...properties, bgColor: colorToHex(color) });
                             }} />
-
 
                         <ControlGroup fill>
                             <ExileSelect

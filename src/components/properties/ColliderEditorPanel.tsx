@@ -5,13 +5,22 @@ import useTranslation from "../../hooks/useTranslation";
 import LICollider from "../../types/li/LICollider";
 import DevInfo from "../DevInfo";
 
+const RESTRICTED_TYPES = [
+    "util-room",
+    "util-sound1",
+    "util-sound2",
+    "util-tele",
+    "util-triggerarea",
+    "util-triggersound",
+];
+
 export default function ColliderEditorPanel() {
     const translation = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const [selectedCollider, setSelectedCollider] = useSelectedCollider();
 
-    const isRestricted = selectedElem?.type === "util-room" || selectedElem?.type === "util-sound1" || selectedElem?.type === "util-sound2" || selectedElem?.type === "util-tele" || selectedElem?.type === "util-triggerarea";
+    const isRestricted = RESTRICTED_TYPES.includes(selectedElem?.type || "");
 
     const delCollider = (collider: LICollider) => {
         if (!selectedElem)

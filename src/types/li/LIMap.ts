@@ -7,6 +7,7 @@ export default interface LIMap extends LIMetadata {
     properties: {
         bgColor?: string;
         exileID?: string;
+        showPingIndicator?: boolean;
         sabotageSound?: LISound;
     }
 }
