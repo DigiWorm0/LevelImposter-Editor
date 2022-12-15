@@ -11,7 +11,9 @@ const BLACKLISTED_TYPES = [
     "util-dummy",
     "util-triggerrepeat",
     "util-minimap",
-    "util-layer"
+    "util-layer",
+    "util-spawn1",
+    "util-spawn2"
 ];
 
 const RESTRICTED_TYPES = [
