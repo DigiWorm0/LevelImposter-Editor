@@ -46,6 +46,7 @@ export default function CamPanel() {
                     key={element.id + "-camZoom"}
                     fill
                     defaultValue={element.properties.camZoom === undefined ? 3 : element.properties.camZoom}
+                    min={0}
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
