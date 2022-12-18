@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import useSelectedSound from "../../hooks/jotai/useSelectedSound";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 
@@ -9,7 +9,7 @@ const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
 
 export default function AudioPlayer() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
@@ -51,11 +51,11 @@ export default function AudioPlayer() {
             {soundData ? (
                 <>
                     <audio ref={audioRef} src={soundData} loop>
-                        Your browser does not support the audio element.
+                        {t("audio.errorNotSupported")}
                     </audio>
 
                     <DevInfo>
-                        {soundData?.length} bytes
+                        {soundData?.length}
                     </DevInfo>
 
                     <ButtonGroup large minimal>
@@ -129,7 +129,7 @@ export default function AudioPlayer() {
                 </>
             ) : (
                 <p>
-                    {translation.NothingUploaded}
+                    {t("audio.notUploaded")}
                 </p>
             )}
         </div>

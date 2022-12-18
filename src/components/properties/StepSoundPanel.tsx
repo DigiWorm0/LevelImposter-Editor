@@ -1,10 +1,10 @@
 import { Button, FormGroup, Menu, NumericInput } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { useTranslation } from "react-i18next";
 import generateGUID from "../../hooks/generateGUID";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
-import useTranslation from "../../hooks/useTranslation";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
@@ -15,7 +15,7 @@ import StepSoundEditorPanel from "./StepSoundEditorPanel";
 const SoundPresetSelect = Select2.ofType<string>();
 
 export default function StepSoundPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
 
@@ -45,7 +45,7 @@ export default function StepSoundPanel() {
     const soundSize = selectedElem.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
 
     return (
-        <PanelContainer title={translation.StepSounds}>
+        <PanelContainer title={t("stepSound.title") as string}>
 
             <SoundPresetSelect
                 fill
@@ -70,11 +70,11 @@ export default function StepSoundPanel() {
 
                 <Button
                     rightIcon="caret-down"
-                    text={translation.StepPresets}
+                    text={t("stepSound.presets") as string}
                     fill
                 />
             </SoundPresetSelect>
-            <FormGroup label={translation.Priority} style={{ marginTop: 10 }}>
+            <FormGroup label={t("stepSound.priority")} style={{ marginTop: 10 }}>
                 <NumericInput
                     fill
                     minorStepSize={1}
@@ -86,7 +86,7 @@ export default function StepSoundPanel() {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundPriority: value } });
                     }} />
             </FormGroup>
-            <FormGroup label={translation.StepVariants} style={{ marginTop: 5 }}>
+            <FormGroup label={t("stepSound.variants")} style={{ marginTop: 5 }}>
                 <NumericInput
                     fill
                     min={0}
@@ -113,8 +113,8 @@ export default function StepSoundPanel() {
             <div style={{ textAlign: "center", marginBottom: 5, marginTop: 10 }}>
                 <SizeTag
                     sizeBytes={soundSize}
-                    warningMsg={"Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."}
-                    okMsg={"Your audio is small enough to not cause any issues."}
+                    warningMsg={t("stepSound.errorSize") as string}
+                    okMsg={t("stepSound.okSize") as string}
                 />
             </div>
 
@@ -126,7 +126,7 @@ export default function StepSoundPanel() {
                         <div key={index}>
                             <MenuItem2
                                 icon="volume-up"
-                                text={translation.StepVariants + " " + (index + 1)}
+                                text={t("stepSound.default", { index: index + 1 }) as string}
                                 onClick={() => editSound(sound.id)}
                                 active={isSelected}
                             />

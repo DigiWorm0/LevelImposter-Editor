@@ -2,11 +2,11 @@ import { Button, ControlGroup, FormGroup, H5, InputGroup } from "@blueprintjs/co
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
-import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
 import MapError from "./MapError";
@@ -16,7 +16,7 @@ import RoomSelect from "./RoomSelect";
 const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
@@ -48,7 +48,7 @@ export default function TaskPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Task}>
+            <PanelContainer title={t("task.title") as string}>
                 <div style={{ textAlign: "center", padding: 15 }}>
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
@@ -73,7 +73,9 @@ export default function TaskPanel() {
 
                             <Button
                                 rightIcon="caret-down"
-                                text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " " + translation.Task : translation.DefaultLength}
+                                text={selectedElem.properties.taskLength !== undefined ?
+                                    selectedElem.properties.taskLength.toString() :
+                                    t("task.defaultLength")}
                                 style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
                                 fill
                             />
@@ -92,7 +94,7 @@ export default function TaskPanel() {
                             key={selectedElem.id + "-description"}
                             fill
                             leftIcon="info-sign"
-                            placeholder={translation.DefaultDescription}
+                            placeholder={t("task.defaultDescription") as string}
                             defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                             onChange={(e) => {
                                 saveHistory();
@@ -111,7 +113,7 @@ export default function TaskPanel() {
                 </FormGroup>
             </PanelContainer>
             <MapError isVisible={parentRoom === undefined}>
-                This task is not attached to a room.
+                {t("task.errorNoRoom")}
             </MapError>
         </>
     );

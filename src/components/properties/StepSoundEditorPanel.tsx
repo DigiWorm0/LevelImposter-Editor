@@ -1,4 +1,5 @@
 import { Button, Card, H6 } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
@@ -7,6 +8,7 @@ import DevInfo from "../DevInfo";
 import AudioPlayer from "./AudioPlayer";
 
 export default function StepSoundEditorPanel() {
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();

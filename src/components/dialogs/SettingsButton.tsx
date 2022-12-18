@@ -1,31 +1,30 @@
-import { Button, Classes, ControlGroup, Dialog, FileInput, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
-import generateGUID from "../../hooks/generateGUID";
+import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, DEFAULT_VOLUME } from "../../types/generic/Constants";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY } from "../../types/generic/Constants";
+import SelectableLanguages, { Language } from "../../types/generic/Language";
 import LIColor from "../../types/li/LIColor";
-import LITranslations from "../../types/localization/LITranslations";
 import ColorPicker from "../ColorPicker";
 
-const LanguageSelect = Select2.ofType<string>();
+const LanguageSelect = Select2.ofType<Language>();
 const ExileSelect = Select2.ofType<string>();
 
 export default function SettingsButton() {
-    const translation = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
     const [settings, setSettings] = useSettings();
     const [properties, setProperties] = useMapProperties();
 
-    const languageSelectRenderer: ItemRenderer<string> = (language, props) => (
+    const languageSelectRenderer: ItemRenderer<Language> = (language, props) => (
         <MenuItem2
-            key={language}
-            text={LITranslations[language].LanguageName}
-            label={language}
+            key={language.value}
+            text={language.label}
+            label={language.value}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
@@ -59,7 +58,7 @@ export default function SettingsButton() {
     return (
         <>
             <Tooltip2
-                content={translation.Settings}
+                content={t("settings.title") as string}
                 position="bottom">
 
                 <Button
@@ -72,55 +71,70 @@ export default function SettingsButton() {
             <Dialog
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
-                title={translation.Settings}
+                title={t("settings.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
-                    <FormGroup label="Interface">
+                    <FormGroup label={t("settings.interface.title")}>
                         <Switch
-                            label="Developer Mode"
+                            label={t("settings.interface.devMode") as string}
                             checked={settings.isDevMode === undefined ? false : settings.isDevMode}
                             onChange={(e) => {
                                 setSettings({ ...settings, isDevMode: e.currentTarget.checked });
                             }} />
 
                         <Switch
-                            label="Dark Mode"
+                            label={t("settings.interface.darkMode") as string}
                             checked={settings.isDarkMode === undefined ? true : settings.isDarkMode}
                             onChange={(e) => {
                                 setSettings({ ...settings, isDarkMode: e.currentTarget.checked });
                             }} />
 
                         <Switch
-                            label="Collider Preview"
+                            label={t("settings.interface.colliderPreview") as string}
                             checked={settings.colliderPreview === undefined ? true : settings.colliderPreview}
                             onChange={(e) => {
                                 setSettings({ ...settings, colliderPreview: e.currentTarget.checked });
                             }} />
 
+                        <ControlGroup fill={true}>
+                            <NumericInput
+                                defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
+                                min={0}
+                                minorStepSize={0.01}
+                                stepSize={0.1}
+                                majorStepSize={1}
+                                onValueChange={(value) => {
+                                    setSettings({ ...settings, colliderHandleSize: value });
+                                }} />
+                            <Label>
+                                {t("settings.interface.colliderHandleSize") as string}
+                            </Label>
+                        </ControlGroup>
+
                         <Switch
-                            label="Scroll to Selection"
+                            label={t("settings.interface.scrollToSelection") as string}
                             checked={settings.scrollToSelection === undefined ? true : settings.scrollToSelection}
                             onChange={(e) => {
                                 setSettings({ ...settings, scrollToSelection: e.currentTarget.checked });
                             }} />
 
                         <Switch
-                            label="Object Nesting"
+                            label={t("settings.interface.objNesting") as string}
                             checked={settings.elementNesting === undefined ? false : settings.elementNesting}
                             onChange={(e) => {
                                 setSettings({ ...settings, elementNesting: e.currentTarget.checked });
                             }} />
 
                         <Switch
-                            label="Grid"
+                            label={t("settings.interface.grid") as string}
                             checked={settings.isGridVisible === undefined ? true : settings.isGridVisible}
                             onChange={(e) => {
                                 setSettings({ ...settings, isGridVisible: e.currentTarget.checked });
                             }} />
 
                         <Switch
-                            label="Snap to Grid"
+                            label={t("settings.interface.snapToGrid") as string}
                             checked={settings.isGridSnapEnabled === undefined ? true : settings.isGridSnapEnabled}
                             onChange={(e) => {
                                 setSettings({ ...settings, isGridSnapEnabled: e.currentTarget.checked });
@@ -137,7 +151,9 @@ export default function SettingsButton() {
                                 onValueChange={(value) => {
                                     setSettings({ ...settings, gridSnapResolution: value });
                                 }} />
-                            <Label>Grid Snap Resolution</Label>
+                            <Label>
+                                {t("settings.interface.snapResolution") as string}
+                            </Label>
                         </ControlGroup>
 
                         <ControlGroup fill={true}>
@@ -151,46 +167,35 @@ export default function SettingsButton() {
                                 onValueChange={(value) => {
                                     setSettings({ ...settings, invisibleOpacity: value });
                                 }} />
-                            <Label>Invisible Opacity</Label>
+                            <Label>
+                                {t("settings.interface.invisibleOpacity") as string}
+                            </Label>
                         </ControlGroup>
 
-                        <ControlGroup fill={true}>
-                            <NumericInput
-                                defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
-                                min={0}
-                                minorStepSize={0.01}
-                                stepSize={0.1}
-                                majorStepSize={1}
-                                onValueChange={(value) => {
-                                    setSettings({ ...settings, colliderHandleSize: value });
-                                }} />
-                            <Label>Collider Handle Size</Label>
-                        </ControlGroup>
-                        {/*
                         <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>
                             <LanguageSelect
                                 filterable={false}
-                                items={Object.keys(LITranslations)}
+                                items={SelectableLanguages}
                                 itemRenderer={languageSelectRenderer}
                                 onItemSelect={(language) => {
-                                    setSettings({ ...settings, language });
+                                    setSettings({ ...settings, language: language.value });
                                 }}>
 
                                 <Button
                                     rightIcon="caret-down"
-                                    text={settings.language ? LITranslations[settings.language]?.LanguageName : "Default"}
+                                    text={settings.language ? SelectableLanguages.find(l => l.value === settings.language)?.label : "Auto"}
                                     fill
                                 />
                             </LanguageSelect>
                             <Label>Localization</Label>
                         </ControlGroup>
-                        */}
+
                     </FormGroup>
 
-                    <FormGroup label="Map">
+                    <FormGroup label={t("settings.map.title")}>
 
                         <Switch
-                            label="Show Author in Ping Tracker"
+                            label={t("settings.map.showPingTracker") as string}
                             checked={properties.showPingIndicator === undefined ? true : properties.showPingIndicator}
                             onChange={(e) => {
                                 setProperties({ ...properties, showPingIndicator: e.currentTarget.checked });
@@ -198,7 +203,7 @@ export default function SettingsButton() {
 
                         <ColorPicker
                             disableAlpha
-                            title="Background Color"
+                            title={t("settings.map.bgColor") as string}
                             color={hexToColor(properties.bgColor || "#000000")}
                             onChange={(color) => {
                                 setProperties({ ...properties, bgColor: colorToHex(color) });
@@ -216,7 +221,7 @@ export default function SettingsButton() {
                                 <Button
                                     fill
                                     rightIcon="caret-down"
-                                    text={properties.exileID || "Exile Animation"}
+                                    text={properties.exileID || t("settings.map.exileAnim") as string}
                                 />
 
                             </ExileSelect>

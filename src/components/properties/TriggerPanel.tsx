@@ -1,9 +1,9 @@
 import { Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import { useElementIDs } from "../../hooks/jotai/useMap";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSelectedTriggerID } from "../../hooks/jotai/useSelectedTrigger";
-import useTranslation from "../../hooks/useTranslation";
 import { OutputTriggerDB } from "../../types/au/TriggerDB";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
@@ -11,7 +11,7 @@ import TriggerEditorPanel from "./TriggerEditorPanel";
 
 
 export default function TriggerPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
     const elementIDs = useElementIDs();
@@ -49,7 +49,7 @@ export default function TriggerPanel() {
             </PanelContainer>
 
             <MapError isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}>
-                This object does not have a collider. <i>(Trigger is fired when a player enters/exit the collision area)</i>
+                {t("trigger.errorNoCollider")}
             </MapError>
         </>
     );

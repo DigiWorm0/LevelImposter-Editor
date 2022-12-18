@@ -1,7 +1,7 @@
 import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import LICollider from "../../types/li/LICollider";
 import DevInfo from "../DevInfo";
 
@@ -15,7 +15,7 @@ const RESTRICTED_TYPES = [
 ];
 
 export default function ColliderEditorPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const [selectedCollider, setSelectedCollider] = useSelectedCollider();
@@ -36,14 +36,16 @@ export default function ColliderEditorPanel() {
 
     return (
         <Card style={{ boxShadow: "none" }}>
-            <H6>Edit Collider:</H6>
+            <H6>
+                {t("collider.edit")}
+            </H6>
 
             <DevInfo>
                 {selectedCollider.id}
             </DevInfo>
 
             <Switch
-                label={translation.Solid}
+                label={t("collider.solid") as string}
                 checked={selectedCollider.isSolid}
                 disabled={isRestricted}
                 onChange={(e) => {
@@ -51,14 +53,14 @@ export default function ColliderEditorPanel() {
                     setSelectedElem({ ...selectedElem });
                 }} />
             <Switch
-                label={translation.BlocksLight}
+                label={t("collider.blocksLight") as string}
                 checked={selectedCollider.blocksLight}
                 disabled={isRestricted}
                 onChange={(e) => {
                     selectedCollider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
                 }} />
-            <FormGroup label={translation.Points}>
+            <FormGroup label={t("collider.points") as string}>
                 <NumericInput
                     fill
                     disabled={!selectedCollider}
@@ -117,8 +119,16 @@ export default function ColliderEditorPanel() {
                 ))}
             </div>
             <div style={{ marginTop: 10 }}>
-                <Button icon="tick" intent="success" onClick={() => setSelectedColliderID(undefined)} style={{ marginRight: 5 }} />
-                <Button icon="trash" intent="danger" onClick={() => delCollider(selectedCollider)} />
+                <Button
+                    icon="tick"
+                    intent="success"
+                    onClick={() => setSelectedColliderID(undefined)}
+                    style={{ marginRight: 5 }} />
+
+                <Button
+                    icon="trash"
+                    intent="danger"
+                    onClick={() => delCollider(selectedCollider)} />
             </div>
         </Card>
     )

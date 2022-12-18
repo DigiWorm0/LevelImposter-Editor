@@ -1,15 +1,17 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import { useUndo } from "../../hooks/jotai/useHistory";
 
 export default function UndoButton() {
+    const { t } = useTranslation();
     const undo = useUndo();
 
     return (
         <>
             <Tooltip2
                 fill
-                content="Undo"
+                content={t("edit.undo") as string}
                 position="bottom">
 
                 <Button

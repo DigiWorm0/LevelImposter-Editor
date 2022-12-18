@@ -3,15 +3,15 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from "react-i18next";
 import { auth } from "../../hooks/Firebase";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import { useUserMaps } from "../../hooks/useUserMaps";
 import SignIn from "../SignIn";
 import PublishButton from "./PublishButton";
 
 export default function SignInButton() {
-    const tranlation = useTranslation();
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [user] = useAuthState(auth);
@@ -21,7 +21,7 @@ export default function SignInButton() {
     return (
         <>
             <Tooltip2
-                content={(isLoggedIn && user?.displayName) ? user?.displayName : tranlation.SignIn}
+                content={(isLoggedIn && user?.displayName) ? user?.displayName : t("account.signIn") as string}
                 position="bottom">
 
                 <Button
@@ -30,7 +30,7 @@ export default function SignInButton() {
                         isLoggedIn ?
                             <img
                                 referrerPolicy="no-referrer"
-                                alt="avatar"
+                                alt={user?.displayName || ""}
                                 className="avatar"
                                 src={user?.photoURL || ""}
                                 style={{ height: 30, width: 30, borderRadius: 15 }} />
@@ -46,7 +46,7 @@ export default function SignInButton() {
             <Dialog
                 isOpen={isOpen && !isLoggedIn}
                 onClose={() => { setIsOpen(false) }}
-                title="Login"
+                title={t("account.signIn")}
                 style={{ paddingBottom: 0 }}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
@@ -57,14 +57,14 @@ export default function SignInButton() {
             <Dialog
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(false) }}
-                title={user?.displayName + "'s Profile"}
+                title={user?.displayName}
                 style={{ paddingBottom: 0 }}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
                     <img
                         referrerPolicy="no-referrer"
-                        alt="profile"
+                        alt={user?.displayName || ""}
                         src={user?.photoURL || ""}
                         style={{ width: 100, height: 100, borderRadius: 50, objectFit: "cover", marginRight: 20 }} />
                     <FormGroup>
@@ -73,11 +73,12 @@ export default function SignInButton() {
                         </h1>
                         <ButtonGroup>
                             <Tooltip2
-                                content={"View on LevelImposter.net"}
+                                content={t("account.viewProfile") as string}
                                 position="bottom">
+
                                 <Button
                                     icon={"share"}
-                                    text={"View Profile"}
+                                    text={t("account.viewProfile") as string}
                                     intent={"success"}
                                     onClick={() => {
                                         window.open("https://levelimposter.net/#/profile");
@@ -88,7 +89,7 @@ export default function SignInButton() {
 
                             <Button
                                 icon={"log-out"}
-                                text={"Sign Out"}
+                                text={t("account.signOut") as string}
                                 intent={"danger"}
                                 onClick={() => {
                                     signOut(auth);
@@ -98,11 +99,11 @@ export default function SignInButton() {
                 </div>
                 <div style={{ margin: 15 }}>
                     <h2 style={{ marginTop: 0, marginBottom: 5 }}>
-                        Your Maps:
+                        {t("account.yourMaps")}
                     </h2>
                     {maps.length <= 0 ? (
                         <p>
-                            You have no maps yet.
+                            {t("account.noMaps")}
                         </p>
                     ) : maps.map((map) => {
                         return (
@@ -110,29 +111,31 @@ export default function SignInButton() {
                                 {!map.isPublic && (
                                     <Tag
                                         intent="danger">
-                                        Private
+                                        {t("map.unlisted")}
                                     </Tag>
                                 )}
                                 {map.isVerified && (
                                     <Tag
                                         intent="warning">
-                                        Featured
+                                        {t("map.verified")}
                                     </Tag>
                                 )}
                                 <h3 style={{ marginTop: 5, marginBottom: 10 }}>
                                     {map.name}
                                 </h3>
                                 <p>
-                                    {map.description === "" ? (<i>(No Description)</i>) : map.description}
+                                    {map.description === "" ?
+                                        (<i>{t("map.noDescription")}</i>) :
+                                        map.description}
                                 </p>
 
                                 <Tooltip2
-                                    content={"Open in LevelImposter.net"}
+                                    content={t("map.viewExternal") as string}
                                     position="bottom">
 
                                     <Button
                                         icon={"share"}
-                                        text={"View"}
+                                        text={t("map.view") as string}
                                         intent={"primary"}
                                         onClick={() => {
                                             window.open(`https://levelimposter.net/#/map/${map.id}`);
@@ -142,11 +145,11 @@ export default function SignInButton() {
 
 
                                 <Tooltip2
-                                    content={"Open in Editor"}
+                                    content={t("map.edit") as string}
                                     position="bottom">
                                     <Button
                                         icon={"edit"}
-                                        text={"Edit"}
+                                        text={t("map.edit") as string}
                                         intent={"danger"}
                                         onClick={() => {
                                             const url = new URL(window.location.href);

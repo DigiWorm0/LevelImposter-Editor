@@ -1,11 +1,11 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";
 
 export default function CamPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [element, setElement] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -14,8 +14,8 @@ export default function CamPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Camera}>
-            <FormGroup label={translation.Offset}>
+        <PanelContainer title={t("cameras.title") as string}>
+            <FormGroup label={t("cameras.offset") as string}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-camXOffset"}
@@ -41,7 +41,7 @@ export default function CamPanel() {
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label={translation.Zoom}>
+            <FormGroup label={t("cameras.zoom") as string}>
                 <NumericInput
                     key={element.id + "-camZoom"}
                     fill

@@ -1,4 +1,4 @@
-import { Button, Card, Collapse, Divider } from "@blueprintjs/core";
+import { Button, Card, Collapse } from "@blueprintjs/core";
 import React from "react";
 
 interface PanelContainerProps {

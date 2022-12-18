@@ -1,9 +1,9 @@
 import { Button, Card, Intent, Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";
 
 const TYPE_INTENTS: Record<string, Intent> = {
@@ -15,7 +15,7 @@ const TYPE_INTENTS: Record<string, Intent> = {
 };
 
 export default function DebugPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const settings = useSettingsValue();
     const selectedElem = useSelectedElemValue();
     const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
@@ -34,10 +34,10 @@ export default function DebugPanel() {
     const values = Object.values(selectedElem.properties);
 
     return (
-        <PanelContainer title={translation.Debug}>
+        <PanelContainer title={t("debug.title") as string}>
             <Button
                 fill
-                text={translation.PrintToConsole}
+                text={t("debug.printToConsole") as string}
                 icon="console"
                 onClick={() => {
                     console.log(selectedElem);

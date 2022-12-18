@@ -1,12 +1,12 @@
 import { FormGroup, NumericInput } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_LADDER_HEIGHTS } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function LadderPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -14,12 +14,12 @@ export default function LadderPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Ladder}>
+        <PanelContainer title={t("ladder.title") as string}>
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-ladderheight"}
                     fill
-                    placeholder={translation.Height}
+                    placeholder={t("ladder.height") as string}
                     defaultValue={selectedElem?.properties.ladderHeight ? selectedElem.properties.ladderHeight : DEFAULT_LADDER_HEIGHTS[selectedElem.type]}
                     min={0}
                     minorStepSize={0.05}

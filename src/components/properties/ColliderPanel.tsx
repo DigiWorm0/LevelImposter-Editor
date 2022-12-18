@@ -1,9 +1,9 @@
 import { Button, InputGroup, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSetSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import ColliderEditorPanel from "./ColliderEditorPanel";
 import PanelContainer from "./PanelContainer";
 
@@ -26,7 +26,7 @@ const RESTRICTED_TYPES = [
 ];
 
 export default function ColliderPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const setSelectedCollider = useSetSelectedCollider();
@@ -70,23 +70,23 @@ export default function ColliderPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Colliders}>
+        <PanelContainer title={t("collider.title") as string}>
             <Menu style={{ backgroundColor: "revert" }}>
                 <Tooltip2
                     fill
-                    content={"This object can only have 1 collider"}
+                    content={t("collider.errorOneOnly") as string}
                     disabled={!disableAddCollider}
                 >
                     <MenuItem2
                         icon="add"
-                        text={translation.AddCollider}
+                        text={t("collider.add") as string}
                         disabled={disableAddCollider}
                         onClick={addCollider} />
 
                 </Tooltip2>
 
                 {selectedElem.properties.colliders?.map((collider, index) => {
-                    const colliderName = collider.name !== undefined ? collider.name : translation.Collider + " " + (index + 1);
+                    const colliderName = collider.name !== undefined ? collider.name : t("collider.defaultName", { index: index + 1 }) as string;
                     const intent = collider.blocksLight ? "danger" : "success";
 
                     return (

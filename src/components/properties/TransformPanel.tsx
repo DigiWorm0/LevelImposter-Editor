@@ -1,16 +1,16 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import GUID from "../../types/generic/GUID";
 import DevInfo from "../DevInfo";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 export default function TransformPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -24,7 +24,7 @@ export default function TransformPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Transform}>
+            <PanelContainer title={t("transform.title") as string}>
                 <DevInfo>
                     {selectedElem.id}
                 </DevInfo>
@@ -33,7 +33,7 @@ export default function TransformPanel() {
                     style={{ marginBottom: 5 }}
                     key={selectedElem.id + "-name"}
                     value={selectedElem.name}
-                    placeholder={translation.Name}
+                    placeholder={t("transform.name") as string}
                     large
                     onChange={(e) => {
                         saveHistory();
@@ -45,7 +45,7 @@ export default function TransformPanel() {
                         style={{ marginBottom: 5 }}
                         key={selectedElem.id + "-type"}
                         defaultValue={selectedElem.type}
-                        placeholder={translation.Type}
+                        placeholder={t("transform.type") as string}
                         large
                         onChange={(e) => {
                             saveHistory();
@@ -62,7 +62,7 @@ export default function TransformPanel() {
                             !isNaN(val) && setSelectedElem({ ...selectedElem, x: val });
                         }}
                         fill
-                        placeholder={translation.X}
+                        placeholder={t("transform.x") as string}
                         minorStepSize={0.01}
                         stepSize={0.1}
                         majorStepSize={1}
@@ -75,7 +75,7 @@ export default function TransformPanel() {
                             !isNaN(val) && setSelectedElem({ ...selectedElem, y: val });
                         }}
                         fill
-                        placeholder={translation.Y}
+                        placeholder={t("transform.y") as string}
                         minorStepSize={0.01}
                         stepSize={0.1}
                         majorStepSize={1}
@@ -88,7 +88,7 @@ export default function TransformPanel() {
                             !isNaN(val) && setSelectedElem({ ...selectedElem, z: val });
                         }}
                         fill
-                        placeholder={translation.Z}
+                        placeholder={t("transform.z") as string}
                         minorStepSize={0.01}
                         stepSize={0.1}
                         majorStepSize={1}
@@ -104,7 +104,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         leftIcon="arrows-horizontal"
-                        placeholder={translation.XScale}
+                        placeholder={t("transform.xScale") as string}
                         minorStepSize={0.01}
                         stepSize={0.1}
                         majorStepSize={1}
@@ -118,7 +118,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         leftIcon="arrows-vertical"
-                        placeholder={translation.YScale}
+                        placeholder={t("transform.yScale") as string}
                         minorStepSize={0.01}
                         stepSize={0.1}
                         majorStepSize={1}
@@ -134,7 +134,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         leftIcon="refresh"
-                        placeholder={translation.Rotation}
+                        placeholder={t("transform.rotation") as string}
                         minorStepSize={1}
                         stepSize={45}
                         majorStepSize={90}
@@ -144,7 +144,7 @@ export default function TransformPanel() {
                     <Button
                         fill
                         icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
-                        text={selectedElem.properties.isLocked ? "Unlock" : "Lock"}
+                        text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
                         onClick={() => {
                             saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } });
@@ -153,7 +153,7 @@ export default function TransformPanel() {
                     <Button
                         fill
                         icon="trash"
-                        text={translation.Delete}
+                        text={t("transform.delete") as string}
                         onClick={() => {
                             saveHistory();
                             removeElement(selectedElem.id);
@@ -166,10 +166,10 @@ export default function TransformPanel() {
                 isVisible={elemVisibility !== MapVisibility.Visible}
                 info
                 icon={elemVisibility == MapVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}>
-                {elemVisibility === MapVisibility.Invisible ? "This object will not be visible in-game." : null}
-                {elemVisibility === MapVisibility.InvisibleNoSprite ? "This object will not be visible in-game unless you attatch a sprite." : null}
-                {elemVisibility === MapVisibility.InvisibleMinimap ? "This object will only be visible in the minimap." : null}
-                {elemVisibility === MapVisibility.InvisibleFreeplay ? "This object will only be visible in freeplay mode." : null}
+                {elemVisibility === MapVisibility.Invisible ? t("transform.errorInvisible") : null}
+                {elemVisibility === MapVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
+                {elemVisibility === MapVisibility.InvisibleMinimap ? t("transform.errorMinimap") : null}
+                {elemVisibility === MapVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
             </MapError>
         </>
     );

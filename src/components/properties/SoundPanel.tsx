@@ -1,10 +1,10 @@
 import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import generateGUID from "../../hooks/generateGUID";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/useSelectedSound";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../DevInfo";
 import SizeTag from "../SizeTag";
@@ -13,7 +13,7 @@ import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 export default function SoundPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
@@ -83,7 +83,7 @@ export default function SoundPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.SoundPlayer}>
+            <PanelContainer title={t("audio.soundPlayer") as string}>
                 <FormGroup style={{
                     marginBottom: 0
                 }}>
@@ -96,8 +96,8 @@ export default function SoundPanel() {
                     <div style={{ textAlign: "center", marginBottom: 10 }}>
                         <SizeTag
                             sizeBytes={soundSize}
-                            warningMsg={"Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."}
-                            okMsg={"Your audio is small enough to not cause any issues."}
+                            warningMsg={t("audio.errorSize") as string}
+                            okMsg={t("audio.okSize") as string}
                         />
                     </div>
 
@@ -105,23 +105,23 @@ export default function SoundPanel() {
                         <Button
                             fill
                             icon="refresh"
-                            text={translation.Reset}
+                            text={t("audio.reset") as string}
                             onClick={onResetClick}
                         />
                         <Button
                             fill
                             icon="upload"
-                            text={translation.Upload}
+                            text={t("audio.upload") as string}
                             onClick={onUploadClick}
                         />
                     </ButtonGroup>
                 </FormGroup>
             </PanelContainer>
             <MapError isVisible={!hasCollider} >
-                This object is missing a collider. <i>(Audio only plays to players who are within the collider)</i>
+                {t("audio.errorNoCollider") as string}
             </MapError>
             <MapError isVisible={!hasSound} >
-                This object is missing a sound file. <i>(Unity will only support .wav files)</i>
+                {t("audio.errorNoSound") as string}
             </MapError>
         </>
     );

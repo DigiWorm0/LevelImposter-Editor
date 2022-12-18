@@ -5,12 +5,12 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useTranslation } from "react-i18next";
 import { auth, db, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
-import useTranslation from "../../hooks/useTranslation";
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
@@ -19,7 +19,7 @@ import AgreementDialog from "./AgreementDialog";
 import PublishInfoDialog from "./PublishInfoDialog";
 
 export default function PublishButton() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
@@ -35,7 +35,7 @@ export default function PublishButton() {
 
     const publishMap = (id?: GUID) => {
         if (!user?.emailVerified) {
-            toaster.danger(translation.VerifyEmailError || "");
+            toaster.danger(t("publish.errorEmailNotVerified"));
             return;
         }
 
@@ -99,7 +99,7 @@ export default function PublishButton() {
             return new Promise<void>((resolve, reject) => {
                 setDoc(docRef, metadata).then(() => {
                     console.log(`Map published to firestore: ${docRef.path}`);
-                    toaster.success(translation.PublishSuccess || "", "https://levelimposter.net/#/map/" + mapData.id);
+                    toaster.success(t("publish.success"), "https://levelimposter.net/#/map/" + mapData.id);
                     resolve();
                 }).catch((err) => {
                     reject(err);
@@ -182,13 +182,13 @@ export default function PublishButton() {
         <>
             <Tooltip2
                 fill
-                content={canUpload ? translation.Publish : "You don't own this map"}
+                content={(canUpload ? t("publish.title") : t("publish.errorNotAuthor")) as string}
                 position="bottom">
 
                 <AnchorButton
                     fill
                     disabled={!canUpload}
-                    text={translation.Publish}
+                    text={t("publish.title")}
                     icon="cloud-upload"
                     intent="success"
                     onClick={() => { setIsOpen(true) }}
@@ -202,16 +202,18 @@ export default function PublishButton() {
             <Dialog
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
-                title={translation.Publish}
+                title={t("publish.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
 
-                    <FormGroup label={translation.SignedInAs?.replace("%name%", user?.displayName || "")} disabled={isPublishing}>
+                    <FormGroup
+                        label={t("account.signedInAs", { name: user?.displayName })}
+                        disabled={isPublishing}>
                         <Button
                             disabled={isPublishing}
                             icon={"user"}
-                            text={translation.SignOut}
+                            text={t("account.signOut")}
                             intent={"danger"}
                             onClick={() => {
                                 signOut(auth);
@@ -232,7 +234,7 @@ export default function PublishButton() {
                                 minimal
                                 disabled={isPublishing}
                                 icon={"refresh"}
-                                text={translation.Reset}
+                                text={t("publish.resetThumbnail") as string}
                                 onClick={() => {
                                     setThumbnail(undefined);
                                 }} />
@@ -241,7 +243,7 @@ export default function PublishButton() {
                                 minimal
                                 disabled={isPublishing}
                                 icon={"upload"}
-                                text={translation.Upload}
+                                text={t("publish.uploadThumbnail") as string}
                                 onClick={uploadThumbnail} />
                         </ButtonGroup>
                     </FormGroup>
@@ -251,7 +253,7 @@ export default function PublishButton() {
                                 selectAllOnFocus
                                 disabled={isPublishing}
                                 value={map.name}
-                                placeholder={"Map Name"}
+                                placeholder={t("publish.mapName") as string}
                                 onChange={(value) => {
                                     setMap({
                                         ...map,
@@ -267,7 +269,7 @@ export default function PublishButton() {
                                 selectAllOnFocus
                                 disabled={isPublishing}
                                 value={map.description}
-                                placeholder={"Map Description"}
+                                placeholder={t("publish.mapDescription") as string}
                                 onChange={(value) => {
                                     setMap({
                                         ...map,
@@ -283,7 +285,7 @@ export default function PublishButton() {
                             style={{ marginRight: 10 }}
                             disabled={isPublishing}
                             icon={"cloud-upload"}
-                            text={"Share Publicly"}
+                            text={t("publish.publishPublic") as string}
                             intent={"primary"}
                             onClick={() => {
                                 setMap({
@@ -298,7 +300,7 @@ export default function PublishButton() {
                             style={{ marginRight: 10 }}
                             disabled={isPublishing}
                             icon={"eye-off"}
-                            text={"Share Privately"}
+                            text={t("publish.publishPrivate") as string}
                             intent={"danger"}
                             onClick={() => {
                                 setMap({

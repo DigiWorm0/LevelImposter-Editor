@@ -1,7 +1,7 @@
 import { Button, Icon } from "@blueprintjs/core";
 import { Popover2 } from "@blueprintjs/popover2";
 import React from "react";
-import { ChromePicker, Color, SketchPicker } from "react-color";
+import { ChromePicker } from "react-color";
 import LIColor from "../types/li/LIColor";
 
 interface ColorPickerProps {

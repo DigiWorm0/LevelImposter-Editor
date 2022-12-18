@@ -1,23 +1,23 @@
 import { FormGroup, NumericInput } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function FloatingPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
     if (!selectedElem || selectedElem.type !== "util-blankfloat")
         return null;
 
     return (
-        <PanelContainer title={translation.FloatingSprite}>
+        <PanelContainer title={t("floating.title") as string}>
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-height"}
                     fill
-                    placeholder={translation.Height}
+                    placeholder={t("floating.height") as string}
                     defaultValue={selectedElem?.properties.floatingHeight !== undefined ? selectedElem.properties.floatingHeight : DEFAULT_FLOATING_HEIGHT}
                     minorStepSize={0.01}
                     stepSize={0.1}
@@ -30,7 +30,7 @@ export default function FloatingPanel() {
                 <NumericInput
                     key={selectedElem.id + "-speed"}
                     fill
-                    placeholder={translation.Speed}
+                    placeholder={t("floating.speed") as string}
                     defaultValue={selectedElem?.properties.floatingSpeed !== undefined ? selectedElem.properties.floatingSpeed : DEFAULT_FLOATING_SPEED}
                     min={0}
                     minorStepSize={0.01}

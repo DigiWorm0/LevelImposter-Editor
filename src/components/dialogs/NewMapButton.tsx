@@ -1,14 +1,14 @@
 import { Button, Classes, Dialog } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useMapReset } from "../../hooks/jotai/useMap";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function NewMapButton() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const settings = useSettingsValue();
     const resetMap = useMapReset();
     const setSelectedID = useSetSelectedElemID();
@@ -25,7 +25,7 @@ export default function NewMapButton() {
     return (
         <>
             <Tooltip2
-                content={translation.NewFile}
+                content={t("map.new") as string}
                 position="bottom">
 
                 <Button
@@ -38,15 +38,23 @@ export default function NewMapButton() {
             <Dialog
                 isOpen={isVisible}
                 onClose={() => { setIsVisible(false); }}
-                title={translation.NewFile}
+                title={t("map.new") as string}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }}>
-                    <p>Are you sure you want to create a new map?</p>
-                    <p>This will delete all elements and reset the map.</p>
+                    <p>
+                        {t("map.newDialogText") as string}
+                    </p>
 
-                    <Button onClick={() => { onClear(); }} text={translation.Yes} intent="danger" style={{ marginRight: 10 }} />
-                    <Button onClick={() => { setIsVisible(false); }} text={translation.Cancel} />
+                    <Button
+                        onClick={() => { onClear(); }}
+                        text={t("map.new") as string}
+                        intent="danger"
+                        style={{ marginRight: 10 }} />
+                    <Button
+                        onClick={() => { setIsVisible(false); }}
+                        text={t("map.newDialogCancel") as string}
+                    />
                 </div>
             </Dialog>
         </>

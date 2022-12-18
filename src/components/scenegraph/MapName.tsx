@@ -1,8 +1,10 @@
 import { Button, InputGroup } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useMapName } from "../../hooks/jotai/useMap";
 
 export default function MapName() {
+    const { t, i18n } = useTranslation();
     const [mapName, setMapName] = useMapName()
     const [isEditingName, setIsEditingName] = React.useState(false);
     const [name, setName] = React.useState(mapName);
@@ -15,6 +17,13 @@ export default function MapName() {
         if (!isEditingName)
             setMapName(name);
     }, [isEditingName])
+
+    React.useEffect(() => {
+        if (name === "New Map") {
+            setName(t("map.new") as string);
+            setMapName(t("map.new") as string);
+        }
+    }, [i18n.language])
 
     if (!isEditingName) {
         return (

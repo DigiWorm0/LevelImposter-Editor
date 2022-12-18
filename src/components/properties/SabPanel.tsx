@@ -1,16 +1,16 @@
 import { H5 } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
-import useTranslation from "../../hooks/useTranslation";
 import AUElementDB from "../../types/au/AUElementDB";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
 
 export default function SabPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
@@ -29,7 +29,7 @@ export default function SabPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Sabotage}>
+            <PanelContainer title={t("sab.title") as string}>
                 <div style={{ textAlign: "center", margin: 15 }}>
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
@@ -43,7 +43,7 @@ export default function SabPanel() {
             </PanelContainer>
 
             <MapError isVisible={parentRoom === undefined}>
-                This sabotage is not attached to a room.
+                {t("sab.errorNoRoom") as string}
             </MapError>
         </>
     );

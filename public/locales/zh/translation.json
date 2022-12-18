@@ -1,0 +1,147 @@
+{
+    "language": "简体中文",
+    "embed": {
+        "openInEditor": "在编辑器中打开"
+    },
+    "warning": {
+        "title": "警告",
+        "mobile": "LevelImposter 编辑器不是为在移动设备上运行而设计的。 但是，您的里程可能会有所不同。",
+        "browser": "虽然 LevelImposter Editor 可以与任何现代浏览器一起使用，但基于 Chromium 的浏览器（Google Chrome、Microsoft Edge、Brave）在处理更大的地图时渲染速度会更快。",
+        "ok": "确定"
+    },
+    "edit": {
+        "undo": "撤销",
+        "redo": "重做"
+    },
+    "layer": {
+        "add": "新建图层"
+    },
+    "object": {
+        "add": "新建物体",
+        "delete": "删除物体"
+    },
+    "policy": {
+        "title": "LevelImposter API 政策"
+    },
+    "docs": {
+        "open": "打开文档"
+    },
+    "minimap": {
+        "title": "迷你地图",
+        "size": "尺寸",
+        "download": "下载地图图像"
+    },
+    "sprite": {
+        "title": "雪碧",
+        "upload": "上传",
+        "reset": "重置"
+    },
+    "starfield": {
+        "title": "星空",
+        "count": "计数",
+        "length": "长度",
+        "height": "高度",
+        "minSpeed": "最小速度",
+        "maxSpeed": "最大速度"
+    },
+    "audio": {
+        "reset": "重置",
+        "upload": "上传",
+        "notUploaded": "没有上传任何东西"
+    },
+    "task": {
+        "title": "任务",
+        "defaultLength": "默认长度",
+        "defaultDescription": "默认描述"
+    },
+    "tele": {
+        "title": "传送器"
+    },
+    "transform": {
+        "title": "转换",
+        "name": "名称",
+        "type": "类型",
+        "x": "X",
+        "y": "Y",
+        "z": "Z",
+        "xScale": "X轴长度",
+        "yScale": "Y轴长度",
+        "rotation": "旋转",
+        "delete": "删除"
+    },
+    "cameras": {
+        "title": "摄像机",
+        "offset": "移动",
+        "zoom": "缩放"
+    },
+    "platform": {
+        "title": "移动平台",
+        "movement": "移动",
+        "enterOffset": "移动入口",
+        "exitOffset": "移动出口"
+    },
+    "collider": {
+        "title": "碰撞体",
+        "add": "添加碰撞体",
+        "solid": "坚固",
+        "blocksLight": "挡光",
+        "points": "积分",
+        "defaultName": "碰撞 {0}"
+    },
+    "room": {
+        "title": "房间",
+        "showName": "显示名称",
+        "showOnAdmin": "显示在控制台上",
+        "none": "没有房间",
+        "default": "默认房间"
+    },
+    "sab": {
+        "title": "破坏"
+    },
+    "console": {
+        "title": "控制台",
+        "range": "范围",
+        "onlyFromBelow": "从下面看"
+    },
+    "floating": {
+        "title": "浮动精灵",
+        "height": "高度",
+        "speed": "速度"
+    },
+    "ladder": {
+        "title": "梯子",
+        "height": "高度"
+    },
+    "debug": {
+        "title": "调试",
+        "printToConsole": "输出到控制台"
+    },
+    "map": {
+        "importLegacy": "导入文件",
+        "open": "打开文件",
+        "opened": "打开 {0}",
+        "new": "新建文件",
+        "play": "发射地图",
+        "save": "保存文件",
+        "newDialogCancel": "取消"
+    },
+    "publish": {
+        "title": "发布地图",
+        "success": "您的地图发布成功！",
+        "publish": "Publish",
+        "publishInfo": "发布信息",
+        "ok": "确定",
+        "cancel": "取消",
+        "resetThumbnail": "重置",
+        "uploadThumbnail": "上传",
+        "errorEmailNotVerified": "您的电子邮件地址尚未经过验证。 请检查您的电子邮件以获取验证链接。"
+    },
+    "account": {
+        "signedInAs": "以{0}身份登录",
+        "signOut": "登出",
+        "signIn": "登入"
+    },
+    "settings": {
+        "title": "设置"
+    }
+}

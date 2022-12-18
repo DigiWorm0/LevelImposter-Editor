@@ -33,7 +33,7 @@ export default function RootHierarchyElement() {
                 }}
                 onDrop={(e) => {
                     e.preventDefault();
-                    const data = e.dataTransfer.getData("text/plain");
+                    //const data = e.dataTransfer.getData("text/plain");
                     if (!(draggingElement === undefined)) {
                         saveHistory();
                         setDraggingElement({ ...draggingElement, parentID: undefined });

@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, ControlGroup } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
-import useTranslation from "../../hooks/useTranslation";
 import LIColor from '../../types/li/LIColor';
 import ColorPicker from '../ColorPicker';
 import DevInfo from "../DevInfo";
@@ -25,7 +25,7 @@ const TYPE_BLACKLIST = [
 ];
 
 export default function SpritePanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const spriteURL = useSpriteSrc(selectedElem?.id);
     const saveHistory = useSaveHistory();
@@ -79,7 +79,7 @@ export default function SpritePanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Sprite}>
+            <PanelContainer title={t("sprite.title") as string}>
                 <DevInfo>
                     {spriteURL.length}
                 </DevInfo>
@@ -95,8 +95,8 @@ export default function SpritePanel() {
                 <div style={{ textAlign: "center", marginBottom: 10 }}>
                     <SizeTag
                         sizeBytes={imgSize}
-                        warningMsg={"Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."}
-                        okMsg={"Your image is small enough to not cause any issues."}
+                        warningMsg={t("sprite.errorSize") as string}
+                        okMsg={t("sprite.okSize") as string}
                     />
                 </div>
 
@@ -104,13 +104,13 @@ export default function SpritePanel() {
                     <Button
                         fill
                         icon="refresh"
-                        text={translation.Reset}
+                        text={t("sprite.reset") as string}
                         onClick={onResetClick}
                     />
                     <Button
                         fill
                         icon="upload"
-                        text={translation.Upload}
+                        text={t("sprite.upload") as string}
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>

@@ -1,12 +1,12 @@
 import { FormGroup, NumericInput, Switch } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_CONSOLE_RANGE } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function ConsolePanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -22,14 +22,14 @@ export default function ConsolePanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Console}>
+        <PanelContainer title={t("console.title") as string}>
             <FormGroup style={{
                 marginBottom: 0
             }}>
                 <NumericInput
                     key={selectedElem.id + "-range"}
                     fill
-                    placeholder={translation.Range}
+                    placeholder={t("console.range") as string}
                     defaultValue={selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_CONSOLE_RANGE}
                     min={0}
                     minorStepSize={0.05}
@@ -44,7 +44,7 @@ export default function ConsolePanel() {
                 <Switch
                     key={selectedElem.id + "-onlyfrombelow"}
                     checked={selectedElem.properties.onlyFromBelow === undefined ? false : selectedElem.properties.onlyFromBelow}
-                    label={translation.OnlyFromBelow}
+                    label={t("console.onlyFromBelow") as string}
                     onChange={(e) => {
                         saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, onlyFromBelow: e.currentTarget.checked } });

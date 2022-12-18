@@ -1,12 +1,11 @@
 import { Button, FormGroup, NumericInput } from "@blueprintjs/core";
-import { Label } from "react-konva";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";
 
 export default function TimerPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -14,12 +13,12 @@ export default function TimerPanel() {
         return null;
 
     return (
-        <PanelContainer title={"Timer Trigger"}>
+        <PanelContainer title={t("timer.title") as string}>
             <FormGroup>
                 <NumericInput
                     key={selectedElem.id + "-duration"}
                     fill
-                    placeholder={"Duration"}
+                    placeholder={t("timer.duration") as string}
                     defaultValue={selectedElem?.properties.triggerTime !== undefined ? selectedElem.properties.triggerTime : 1}
                     min={0}
                     minorStepSize={0.1}

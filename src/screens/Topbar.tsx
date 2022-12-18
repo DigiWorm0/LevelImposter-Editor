@@ -1,5 +1,4 @@
-import { Button, Classes, Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";

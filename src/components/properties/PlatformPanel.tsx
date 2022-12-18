@@ -1,12 +1,12 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
 
 export default function PlatformPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [element, setElement] = useSelectedElem();
     const saveHistory = useSaveHistory();
 
@@ -15,8 +15,8 @@ export default function PlatformPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Platform}>
-            <FormGroup label={translation.Movement}>
+        <PanelContainer title={t("platform.title") as string}>
+            <FormGroup label={t("platform.movement") as string}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXOffset"}
@@ -42,7 +42,7 @@ export default function PlatformPanel() {
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label={translation.EntranceOffset}>
+            <FormGroup label={t("platform.enterOffset") as string}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXEnterOffset"}
@@ -68,7 +68,7 @@ export default function PlatformPanel() {
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label={translation.ExitOffset}>
+            <FormGroup label={t("platform.exitOffset") as string}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-platformXExitOffset"}

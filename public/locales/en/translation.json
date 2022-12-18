@@ -1,0 +1,235 @@
+{
+    "language": "English",
+    "embed": {
+        "openInEditor": "Open in Editor"
+    },
+    "warning": {
+        "title": "Warning",
+        "mobile": "The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.",
+        "browser": "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
+        "ok": "OK"
+    },
+    "edit": {
+        "undo": "Undo",
+        "redo": "Redo"
+    },
+    "layer": {
+        "new": "New Layer",
+        "add": "Add Layer"
+    },
+    "object": {
+        "add": "Add Object",
+        "delete": "Delete Object",
+        "create": "Create '{0}'",
+        "search": "Search..."
+    },
+    "policy": {
+        "title": "LevelImposter API Policy",
+        "agree": "I agree",
+        "disagree": "Cancel"
+    },
+    "docs": {
+        "open": "Open Documentation"
+    },
+    "minimap": {
+        "title": "Minimap",
+        "size": "Scale",
+        "download": "Download Minimap",
+        "errorNoSprite": "The object does not have a sprite attached to it. Minimap will not be visible in-game."
+    },
+    "sprite": {
+        "title": "Sprite",
+        "upload": "Upload",
+        "reset": "Reset",
+        "okSize": "Your image is small enough to not cause any issues.",
+        "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."
+    },
+    "starfield": {
+        "title": "Starfield",
+        "count": "Count",
+        "length": "Length",
+        "height": "Height",
+        "minSpeed": "Min Speed",
+        "maxSpeed": "Max Speed"
+    },
+    "audio": {
+        "soundPlayer": "Sound Player",
+        "reset": "Reset",
+        "upload": "Upload",
+        "notUploaded": "Nothing uploaded yet.",
+        "okSize": "Your audio is small enough to not cause any issues.",
+        "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate.",
+        "errorNotSupported": "Your browser does not support the audio element.",
+        "errorNoCollider": "This object is missing a collider. Audio only plays to players who are within the collider.",
+        "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)"
+    },
+    "trigger": {
+        "selectTarget": "Select Target",
+        "selectTrigger": "Select Trigger",
+        "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
+    },
+    "vent": {
+        "title": "Vent",
+        "noConnection": "No Connection"
+    },
+    "stepSound": {
+        "title": "Step Sound",
+        "presets": "Presets",
+        "priority": "Priority",
+        "variants": "Variants",
+        "default": "Variant {0}",
+        "okSize": "Your audio is small enough to not cause any issues.",
+        "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."
+    },
+    "task": {
+        "title": "Task",
+        "defaultLength": "Default Length",
+        "defaultDescription": "Default Description",
+        "errorNoRoom": "This task is not attached to a room."
+    },
+    "tele": {
+        "title": "Teleporter"
+    },
+    "timer": {
+        "title": "Timer Trigger",
+        "duration": "Duration"
+    },
+    "transform": {
+        "title": "Transform",
+        "name": "Name",
+        "type": "Type",
+        "x": "X",
+        "y": "Y",
+        "z": "Z",
+        "xScale": "X Scale",
+        "yScale": "Y Scale",
+        "rotation": "Rotation",
+        "delete": "Delete",
+        "unlock": "Unlock",
+        "lock": "Lock",
+        "errorInvisible": "This object will not be visible in-game.",
+        "errorNoSprite": "This object will not be visible in-game unless you attatch a sprite.",
+        "errorMinimap": "This object will only be visible in the minimap.",
+        "errorFreeplay": "This object will only be visible in freeplay mode."
+    },
+    "cameras": {
+        "title": "Cameras",
+        "offset": "Offset",
+        "zoom": "Zoom"
+    },
+    "platform": {
+        "title": "Moving Platform",
+        "movement": "Movement",
+        "enterOffset": "Entrance Offset",
+        "exitOffset": "Exit Offset"
+    },
+    "collider": {
+        "title": "Colliders",
+        "edit": "Edit Collider",
+        "add": "Add Collider",
+        "solid": "Solid",
+        "blocksLight": "Blocks Light",
+        "points": "Points",
+        "defaultName": "Collider {0}",
+        "errorOneOnly": "This object can only have 1 collider"
+    },
+    "room": {
+        "title": "Room",
+        "showName": "Show Name",
+        "showOnAdmin": "Show on Admin Table",
+        "errorNoCollider": "This object does not have a collider. Admin Table will not function and name will not popup for players.",
+        "none": "No Room",
+        "default": "Default Room"
+    },
+    "sab": {
+        "title": "Sabotage",
+        "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
+    },
+    "console": {
+        "title": "Console",
+        "range": "Range",
+        "onlyFromBelow": "Only From Below"
+    },
+    "floating": {
+        "title": "Floating Sprite",
+        "height": "Height",
+        "speed": "Speed"
+    },
+    "ladder": {
+        "title": "Ladder",
+        "height": "Height"
+    },
+    "debug": {
+        "title": "Debug",
+        "printToConsole": "Print to Console"
+    },
+    "map": {
+        "importLegacy": "Import Legacy Map",
+        "open": "Open Map",
+        "opened": "Opened {0}",
+        "new": "New Map",
+        "play": "Play Map",
+        "save": "Save Map",
+        "edit": "Edit Map",
+        "unlisted": "Unlisted",
+        "verified": "Featured",
+        "view": "View",
+        "viewExternal": "View on LevelImposter.net",
+        "noDescription": "(No description)",
+        "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
+        "newDialogCancel": "Cancel",
+        "tooLargeError": "Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.",
+        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds."
+    },
+    "publish": {
+        "title": "Publish Map",
+        "success": "Successfully published map!",
+        "mapName": "Map Name",
+        "mapDescription": "Map Description",
+        "publishPublic": "Publish Publicly",
+        "publishPrivate": "Publish Privately",
+        "publish": "Publish",
+        "publishInfo": "Publish Info",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "resetThumbnail": "Reset Thumbnail",
+        "uploadThumbnail": "Upload Thumbnail",
+        "errorEmailNotVerified": "You must verify your email before publishing maps.",
+        "errorNotAuthor": "You must be the author of this map to publish it."
+    },
+    "account": {
+        "signedInAs": "Signed in as {0}",
+        "signOut": "Sign Out",
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "email": "Email",
+        "password": "Password",
+        "google": "Google",
+        "github": "GitHub",
+        "viewProfile": "View Profile",
+        "yourMaps": "Your Maps",
+        "noMaps": "You have not published any maps."
+    },
+    "settings": {
+        "title": "Settings",
+        "interface": {
+            "title": "Interface",
+            "devMode": "Developer Mode",
+            "darkMode": "Dark Mode",
+            "colliderPreview": "Collider Preview",
+            "colliderHandleSize": "Collider Handle Size",
+            "scrollToSelection": "Scroll to Selection",
+            "objNesting": "Object Nesting",
+            "grid": "Grid",
+            "snapToGrid": "Snap to Grid",
+            "snapResolution": "Snap Resolution",
+            "invisibleOpacity": "Invisible Opacity"
+        },
+        "map": {
+            "title": "Map",
+            "showPingTracker": "Show Ping Tracker",
+            "bgColor": "Background Color",
+            "exileAnim": "Exile Animation"
+        }
+    }
+}

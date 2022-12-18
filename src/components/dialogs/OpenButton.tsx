@@ -1,14 +1,14 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import { DEFAULT_GUID } from "../../hooks/generateGUID";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import useToaster from "../../hooks/useToaster";
-import useTranslation from "../../hooks/useTranslation";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import LIMap from "../../types/li/LIMap";
 
 export default function OpenButton() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const setMap = useSetMap();
     const toaser = useToaster();
 
@@ -27,12 +27,12 @@ export default function OpenButton() {
                 repairMap(mapData);
                 setMap(mapData);
 
-                toaser.success(`Loaded ${mapData.name}`);
+                toaser.success(t("map.opened", { name: mapData.name }));
                 // 50mb limit
                 if (data.length > 1024 * 1024 * 50) {
-                    toaser.danger("Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.");
+                    toaser.danger(t("map.tooLargeError"));
                 } else if (data.length > 1024 * 1024 * 40) {
-                    toaser.warning("Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.");
+                    toaser.warning(t("map.tooLargeWarn"));
                 }
             }
             reader.readAsText(file);
@@ -58,7 +58,7 @@ export default function OpenButton() {
     return (
         <>
             <Tooltip2
-                content={translation.OpenFile}
+                content={t("map.open") as string}
                 position="bottom">
 
                 <Button

@@ -2,20 +2,20 @@ import { AnchorButton, Classes } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { isSidePanel?: boolean }) {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -47,7 +47,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
         <>
             <Tooltip2
                 fill
-                content={translation.AddObject}
+                content={t("object.add") as string}
                 position="bottom">
 
                 <AnchorButton
@@ -60,6 +60,9 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
             </Tooltip2>
 
             <AUElementOmnibar
+                inputProps={{
+                    placeholder: t("object.search") as string
+                }}
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
                 items={AUElementDB}
@@ -94,7 +97,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     return (
                         <MenuItem2
                             icon="add"
-                            text={translation.Create?.replaceAll("%name%", query)}
+                            text={t("object.create", { name: query })}
                             label={"util-blank"}
                             active={isActive}
                             onClick={onClick} />

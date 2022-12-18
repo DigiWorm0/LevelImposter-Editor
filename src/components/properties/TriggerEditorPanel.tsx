@@ -3,12 +3,12 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import useElement from "../../hooks/jotai/useElements";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { elementsAtom } from "../../hooks/jotai/useMap";
 import { selectedElementIDAtom, useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import useSelectedTrigger, { useSelectedTriggerIDValue } from "../../hooks/jotai/useSelectedTrigger";
-import useTranslation from "../../hooks/useTranslation";
 import { InputTriggerDB } from "../../types/au/TriggerDB";
 import LIElement from "../../types/li/LIElement";
 import LITrigger from "../../types/li/LITrigger";
@@ -24,7 +24,7 @@ const triggerInputsAtom = atom((get) => {
 });
 
 export default function TriggerEditorPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
     const selectedTriggerID = useSelectedTriggerIDValue();
     const [selectedTrigger, setSelectedTrigger] = useSelectedTrigger();
@@ -113,7 +113,7 @@ export default function TriggerEditorPanel() {
                     <Button
                         rightIcon="caret-down"
                         disabled={inputableTargets.length === 0}
-                        text={triggerTarget?.name ?? "Select Target"}
+                        text={triggerTarget?.name ?? t("trigger.selectTarget")}
                         fill
                     />
                 </ElemSelect>
@@ -142,7 +142,7 @@ export default function TriggerEditorPanel() {
                     <Button
                         icon={isTriggerSelected && "send-message"}
                         rightIcon="caret-down"
-                        text={isTriggerSelected ? selectedTriggerDef.triggerID : "(Select Trigger)"}
+                        text={isTriggerSelected ? selectedTriggerDef.triggerID : t("trigger.selectTrigger")}
                         disabled={!triggerTarget}
                         fill
                     />
