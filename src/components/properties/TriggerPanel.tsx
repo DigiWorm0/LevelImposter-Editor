@@ -37,7 +37,7 @@ export default function TriggerPanel() {
                         <div key={selectedElem.id + triggerID}>
                             <MenuItem2
                                 icon={"antenna"}
-                                text={triggerID}
+                                text={t(`t.${triggerID}`)}
                                 onClick={() => setSelectedTriggerID(selectedTriggerID === triggerID ? undefined : triggerID)}
                                 active={selectedTriggerID === triggerID}
                                 intent={isTriggerActive(triggerID) ? "success" : "danger"}

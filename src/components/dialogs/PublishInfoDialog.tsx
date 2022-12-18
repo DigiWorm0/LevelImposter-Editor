@@ -11,7 +11,7 @@ export default function PublishInfoDialog(props: { isOpen: boolean, onAgree: () 
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
-                title={t("map.publishInfo") as string}
+                title={t("publish.publishInfo") as string}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >

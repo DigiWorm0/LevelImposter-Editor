@@ -72,11 +72,11 @@ export default function TriggerEditorPanel() {
             onFocus={props.handleFocus} />
     );
 
-    const triggerSelectRenderer: ItemRenderer<string> = (triggerName, props) => (
+    const triggerSelectRenderer: ItemRenderer<string> = (triggerType, props) => (
         <MenuItem2
             icon={"send-message"}
-            key={triggerName + props.index}
-            text={triggerName}
+            key={triggerType + props.index}
+            text={t(`t.${triggerType}`)}
             label={props.index?.toString()}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
@@ -137,7 +137,9 @@ export default function TriggerEditorPanel() {
                     <Button
                         icon={isTriggerSelected && "send-message"}
                         rightIcon="caret-down"
-                        text={isTriggerSelected ? selectedTriggerDef.triggerID : t("trigger.selectTrigger")}
+                        text={isTriggerSelected ?
+                            t(`t.${selectedTriggerDef.triggerID}`) :
+                            t("trigger.selectTrigger")}
                         disabled={!triggerTarget}
                         fill
                     />
