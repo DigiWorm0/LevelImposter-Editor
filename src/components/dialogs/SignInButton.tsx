@@ -72,20 +72,15 @@ export default function SignInButton() {
                             {user?.displayName}
                         </h1>
                         <ButtonGroup>
-                            <Tooltip2
-                                content={t("account.viewProfile") as string}
-                                position="bottom">
-
-                                <Button
-                                    icon={"share"}
-                                    text={t("account.viewProfile") as string}
-                                    intent={"success"}
-                                    onClick={() => {
-                                        window.open("https://levelimposter.net/#/profile");
-                                    }}
-                                    style={{ marginRight: 5 }}
-                                />
-                            </Tooltip2>
+                            <Button
+                                icon={"share"}
+                                text={t("account.viewProfile") as string}
+                                intent={"success"}
+                                onClick={() => {
+                                    window.open("https://levelimposter.net/#/profile");
+                                }}
+                                style={{ marginRight: 5 }}
+                            />
 
                             <Button
                                 icon={"log-out"}

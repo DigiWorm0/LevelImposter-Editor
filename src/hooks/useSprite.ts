@@ -11,12 +11,11 @@ export function useSpriteSrc(elementID: MaybeGUID) {
 
     React.useEffect(() => {
         if (elem) {
-            const dbIndex = AUElementDB.findIndex((e) => e.type === elem.type);
             const spriteURL = elem.properties.spriteData;
             const typeURL = "/sprites/" + elem.type + ".png";
 
             if (spriteURL === undefined) {
-                if (dbIndex !== -1)
+                if (AUElementDB.includes(elem.type))
                     setSpriteURL(typeURL);
                 else
                     setSpriteURL(DEFAULT_URL);

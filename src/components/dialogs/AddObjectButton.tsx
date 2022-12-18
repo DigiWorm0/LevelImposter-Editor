@@ -9,9 +9,12 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import AUElement from "../../types/au/AUElement";
 import AUElementDB from "../../types/au/AUElementDB";
 
+interface AUElement {
+    name: string;
+    type: string;
+}
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { isSidePanel?: boolean }) {
@@ -27,7 +30,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
         const id = generateGUID();
         saveHistory();
         addElement({
-            name: elem.name,
+            name: elem.name || t(`au.${elem.type}`) || elem.type,
             type: elem.type,
             id,
             x: 0,
@@ -61,11 +64,16 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
 
             <AUElementOmnibar
                 inputProps={{
-                    placeholder: t("object.search") as string
+                    placeholder: t("object.search") || "Search..."
                 }}
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
-                items={AUElementDB}
+                items={AUElementDB.map((elem) => {
+                    return {
+                        name: t(`au.${elem}`) as string,
+                        type: elem
+                    }
+                })}
                 onItemSelect={(elem) => { handleClick(elem) }}
                 className={settings.isDarkMode === false ? "" : "bp4-dark"}
                 itemRenderer={(elem, props) => {

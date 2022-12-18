@@ -7,7 +7,6 @@ import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
-import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
@@ -26,8 +25,7 @@ export default function TaskPanel() {
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
-        const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
-        setTaskName(auElement ? auElement.name : "Unknown");
+        setTaskName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
     }, [selectedElem]);
 
     const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (

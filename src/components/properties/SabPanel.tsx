@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
-import AUElementDB from "../../types/au/AUElementDB";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
@@ -19,8 +18,7 @@ export default function SabPanel() {
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
-        const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
-        setSabName(auElement ? auElement.name : "Unknown");
+        setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
     }, [selectedElem]);
 
     if (!selectedElem
