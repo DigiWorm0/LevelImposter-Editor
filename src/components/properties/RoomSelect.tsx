@@ -2,7 +2,6 @@ import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import LIElement from "../../types/li/LIElement";
@@ -13,7 +12,6 @@ export default function RoomSelect(props: { useDefault: boolean }) {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
     const hasRooms = roomElems.length > 0;
@@ -41,7 +39,6 @@ export default function RoomSelect(props: { useDefault: boolean }) {
                 items={roomElems}
                 itemRenderer={roomSelectRenderer}
                 onItemSelect={(room) => {
-                    saveHistory();
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
                 }}>
 
@@ -59,7 +56,6 @@ export default function RoomSelect(props: { useDefault: boolean }) {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                     }}
                 />

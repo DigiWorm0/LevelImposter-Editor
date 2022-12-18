@@ -3,7 +3,6 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
@@ -20,7 +19,6 @@ export default function TaskPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
-    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
@@ -65,7 +63,6 @@ export default function TaskPanel() {
                             items={TaskLength}
                             itemRenderer={lengthSelectRenderer}
                             onItemSelect={(length) => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
                             }}>
 
@@ -82,7 +79,6 @@ export default function TaskPanel() {
                             minimal
                             rightIcon="cross"
                             onClick={() => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
                             }}
                         />
@@ -95,7 +91,6 @@ export default function TaskPanel() {
                             placeholder={t("task.defaultDescription") as string}
                             defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                             onChange={(e) => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
                             }}
                         />
@@ -103,7 +98,6 @@ export default function TaskPanel() {
                             minimal
                             rightIcon="cross"
                             onClick={() => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
                             }}
                         />

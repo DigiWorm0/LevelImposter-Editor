@@ -2,7 +2,6 @@ import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../hooks/generateGUID";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
@@ -15,7 +14,6 @@ import PanelContainer from "./PanelContainer";
 export default function SoundPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
     const selectedSound = useSelectedSoundValue();
 
@@ -43,7 +41,6 @@ export default function SoundPanel() {
                 if (!selectedElem)
                     return;
 
-                saveHistory();
                 setSelectedElem({
                     ...selectedElem,
                     properties: {
@@ -65,7 +62,6 @@ export default function SoundPanel() {
     const onResetClick = () => {
         if (!selectedElem)
             return;
-        saveHistory();
         setSelectedElem({
             ...selectedElem,
             properties: {

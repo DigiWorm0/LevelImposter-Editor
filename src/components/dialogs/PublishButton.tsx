@@ -261,22 +261,20 @@ export default function PublishButton() {
                                     })
                                 }} />
                         </H1>
-                        <p>
-                            <EditableText
-                                multiline
-                                maxLines={12}
-                                minLines={3}
-                                selectAllOnFocus
-                                disabled={isPublishing}
-                                value={map.description}
-                                placeholder={t("publish.mapDescription") as string}
-                                onChange={(value) => {
-                                    setMap({
-                                        ...map,
-                                        description: value,
-                                    })
-                                }} />
-                        </p>
+                        <EditableText
+                            multiline
+                            maxLines={12}
+                            minLines={3}
+                            selectAllOnFocus
+                            disabled={isPublishing}
+                            value={map.description}
+                            placeholder={t("publish.mapDescription") as string}
+                            onChange={(value) => {
+                                setMap({
+                                    ...map,
+                                    description: value,
+                                })
+                            }} />
                     </div>
 
                     <ButtonGroup fill>

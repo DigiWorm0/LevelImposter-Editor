@@ -5,7 +5,6 @@ import { atom, useAtomValue } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useElement from "../../hooks/jotai/useElements";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { elementsAtom } from "../../hooks/jotai/useMap";
 import { selectedElementIDAtom, useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import useSelectedTrigger, { useSelectedTriggerIDValue } from "../../hooks/jotai/useSelectedTrigger";
@@ -28,7 +27,6 @@ export default function TriggerEditorPanel() {
     const selectedElem = useSelectedElemValue();
     const selectedTriggerID = useSelectedTriggerIDValue();
     const [selectedTrigger, setSelectedTrigger] = useSelectedTrigger();
-    const saveHistory = useSaveHistory();
     const inputableTargets = useAtomValue(triggerInputsAtom);
     const [triggerTarget, setTriggerTarget] = useElement(selectedTrigger?.elemID);
 
@@ -106,7 +104,6 @@ export default function TriggerEditorPanel() {
                     itemRenderer={elemSelectRenderer}
                     activeItem={triggerTarget}
                     onItemSelect={(elem) => {
-                        saveHistory();
                         setSelectedTrigger({ ...selectedTriggerDef, elemID: elem.id });
                     }}>
 
@@ -121,7 +118,6 @@ export default function TriggerEditorPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedTrigger({ ...selectedTriggerDef, elemID: undefined });
                     }}
                 />
@@ -135,7 +131,6 @@ export default function TriggerEditorPanel() {
                     disabled={!triggerTarget}
                     activeItem={selectedTriggerDef.triggerID}
                     onItemSelect={(triggerID) => {
-                        saveHistory();
                         setSelectedTrigger({ ...selectedTriggerDef, triggerID });
                     }}>
 

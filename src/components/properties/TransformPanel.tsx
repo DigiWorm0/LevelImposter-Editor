@@ -1,7 +1,6 @@
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
@@ -15,7 +14,6 @@ export default function TransformPanel() {
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
-    const saveHistory = useSaveHistory();
 
     const elemVisibility = selectedElem && getMapVisibility(selectedElem);
 
@@ -36,7 +34,6 @@ export default function TransformPanel() {
                     placeholder={t("transform.name") as string}
                     large
                     onChange={(e) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, name: e.target.value });
                     }}
                 />
@@ -48,7 +45,6 @@ export default function TransformPanel() {
                         placeholder={t("transform.type") as string}
                         large
                         onChange={(e) => {
-                            saveHistory();
                             setSelectedElem({ ...selectedElem, type: e.target.value });
                         }}
                     />
@@ -58,7 +54,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-x"}
                         defaultValue={selectedElem.x}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, x: val });
                         }}
                         fill
@@ -71,7 +66,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-y"}
                         defaultValue={selectedElem.y}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, y: val });
                         }}
                         fill
@@ -84,7 +78,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-z"}
                         defaultValue={selectedElem.z}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, z: val });
                         }}
                         fill
@@ -99,7 +92,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-xScale"}
                         defaultValue={selectedElem.xScale}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, xScale: val });
                         }}
                         fill
@@ -113,7 +105,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-yScale"}
                         defaultValue={selectedElem.yScale}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, yScale: val });
                         }}
                         fill
@@ -129,7 +120,6 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-rotation"}
                         defaultValue={selectedElem.rotation}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setSelectedElem({ ...selectedElem, rotation: val });
                         }}
                         fill
@@ -146,7 +136,6 @@ export default function TransformPanel() {
                         icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
                         text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
                         onClick={() => {
-                            saveHistory();
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } });
                         }}
                     />
@@ -155,7 +144,6 @@ export default function TransformPanel() {
                         icon="trash"
                         text={t("transform.delete") as string}
                         onClick={() => {
-                            saveHistory();
                             removeElement(selectedElem.id);
                             setSelectedID("" as GUID)
                         }}

@@ -1,6 +1,5 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../types/generic/Constants";
 import PanelContainer from "./PanelContainer";
@@ -8,7 +7,6 @@ import PanelContainer from "./PanelContainer";
 export default function PlatformPanel() {
     const { t } = useTranslation();
     const [element, setElement] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     if (!element
         || element.type !== "util-platform")
@@ -26,7 +24,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformXOffset: val } });
                         }} />
                     <NumericInput
@@ -37,7 +34,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformYOffset: val } });
                         }} />
                 </ControlGroup>
@@ -52,7 +48,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformXEntranceOffset: val } });
                         }} />
                     <NumericInput
@@ -63,7 +58,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformYEntranceOffset: val } });
                         }} />
                 </ControlGroup>
@@ -78,7 +72,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformXExitOffset: val } });
                         }} />
                     <NumericInput
@@ -89,7 +82,6 @@ export default function PlatformPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, platformYExitOffset: val } });
                         }} />
                 </ControlGroup>

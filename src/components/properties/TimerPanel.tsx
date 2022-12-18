@@ -1,13 +1,11 @@
 import { Button, FormGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import PanelContainer from "./PanelContainer";
 
 export default function TimerPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     if (!selectedElem || selectedElem.type !== "util-triggertimer")
         return null;
@@ -27,7 +25,6 @@ export default function TimerPanel() {
                     leftIcon="time"
                     rightElement={<Button minimal disabled>seconds</Button>}
                     onValueChange={(val) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, triggerTime: val } });
                     }}
                 />

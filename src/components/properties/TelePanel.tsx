@@ -2,7 +2,6 @@ import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import LIElement from "../../types/li/LIElement";
@@ -14,7 +13,6 @@ export default function TelePanel() {
     const { t } = useTranslation();
     const teleElems = useElementType("util-tele");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     const teleConnection = teleElems.find((e) => e.id === selectedElem?.properties.teleporter);
     const filteredTeles = teleElems.filter((elem) => elem.id !== selectedElem?.id && elem.properties.teleporter !== selectedElem?.id);
@@ -45,7 +43,6 @@ export default function TelePanel() {
                     items={filteredTeles}
                     itemRenderer={teleSelectRenderer}
                     onItemSelect={(tele) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: tele.id } });
                     }}>
 
@@ -59,7 +56,6 @@ export default function TelePanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
                     }}
                 />

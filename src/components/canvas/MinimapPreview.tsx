@@ -1,4 +1,4 @@
-import { Circle, Image, Rect } from "react-konva";
+import { Image, Rect } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSpriteType } from "../../hooks/useSprite";
 import { MINIMAP_BUTTON_SIZE, MINIMAP_BUTTON_X, MINIMAP_BUTTON_Y, MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";

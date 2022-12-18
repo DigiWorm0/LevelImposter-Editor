@@ -2,7 +2,6 @@ import { InputGroup, MenuDivider } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useElement, { useDraggingElementID } from "../../hooks/jotai/useElements";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useMapName } from "../../hooks/jotai/useMap";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 
@@ -12,7 +11,6 @@ export default function RootHierarchyElement() {
     const [draggingID, setDraggingID] = useDraggingElementID();
     const [selectedID, setSelectedID] = useSelectedElemID();
     const [draggingElement, setDraggingElement] = useElement(draggingID);
-    const saveHistory = useSaveHistory();
     const [isDragOver, setDragOver] = React.useState(false);
 
     return (
@@ -35,7 +33,6 @@ export default function RootHierarchyElement() {
                     e.preventDefault();
                     //const data = e.dataTransfer.getData("text/plain");
                     if (!(draggingElement === undefined)) {
-                        saveHistory();
                         setDraggingElement({ ...draggingElement, parentID: undefined });
                     }
                     setDragOver(false);

@@ -1,6 +1,5 @@
 import { Button, ButtonGroup, ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
 import LIColor from '../../types/li/LIColor';
@@ -28,7 +27,6 @@ export default function SpritePanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const spriteURL = useSpriteSrc(selectedElem?.id);
-    const saveHistory = useSaveHistory();
 
     const onUploadClick = () => {
         console.log("Showing Upload Dialog");
@@ -45,7 +43,6 @@ export default function SpritePanel() {
                 console.log("Loaded File");
                 if (!selectedElem)
                     return;
-                saveHistory();
                 setSelectedElem({
                     ...selectedElem,
                     properties: {
@@ -62,7 +59,6 @@ export default function SpritePanel() {
     const onResetClick = () => {
         if (!selectedElem)
             return;
-        saveHistory();
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -118,9 +114,6 @@ export default function SpritePanel() {
                     <ColorPicker
                         title={"Set Color"}
                         color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
-                        onOpen={() => {
-                            saveHistory();
-                        }}
                         onChange={(color: LIColor) => {
                             if (!selectedElem)
                                 return;

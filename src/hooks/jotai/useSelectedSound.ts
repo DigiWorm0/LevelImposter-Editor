@@ -1,6 +1,7 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { MaybeLISound } from "../../types/li/LISound";
+import { saveHistoryAtom } from "./useHistory";
 import { selectedElementAtom } from "./useSelectedElem";
 
 // Atoms
@@ -21,6 +22,7 @@ export const selectedSoundAtom = atom(
         if (index != undefined && index >= 0 && sounds != undefined && sound != undefined) {
             sounds[index] = sound;
             set(selectedElementAtom, selectedElem);
+            set(saveHistoryAtom);
         }
     }
 );

@@ -2,7 +2,6 @@ import Konva from "konva";
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useElement from "../../hooks/jotai/useElements";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
 import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
@@ -41,7 +40,6 @@ const HIDE_ON_DESELECT = [
 ];
 
 export default function MapElement(props: { elementID: GUID }) {
-    const saveHistory = useSaveHistory();
     const setSelectedID = useSetSelectedElemID();
     const setMouseCursor = useSetMouseCursor();
     const isEmbeded = useEmbed();
@@ -104,7 +102,6 @@ export default function MapElement(props: { elementID: GUID }) {
             }}
             onDragStart={(e) => {
                 setSelectedID(props.elementID);
-                saveHistory();
             }}
             onDragMove={(e) => {
                 if (settings.isGridSnapEnabled) {
@@ -117,7 +114,6 @@ export default function MapElement(props: { elementID: GUID }) {
                 //elem.y = -e.target.y() / UNITY_SCALE;
             }}
             onDragEnd={(e) => {
-                console.log(`X: ${e.target.x()}, Y: ${e.target.y()}`);
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 setElement({ ...elem, x, y });
@@ -125,7 +121,6 @@ export default function MapElement(props: { elementID: GUID }) {
             onClick={(e) => {
                 e.target.getParent().stopDrag();
                 setSelectedID(props.elementID);
-                console.log("A");
             }}
             onMouseEnter={(e) => {
                 setHovering(true);

@@ -5,7 +5,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from '../../hooks/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -23,12 +22,10 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
-    const saveHistory = useSaveHistory();
     const settings = useSettingsValue();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
-        saveHistory();
         addElement({
             name: elem.name || t(`au.${elem.type}`) || elem.type,
             type: elem.type,
