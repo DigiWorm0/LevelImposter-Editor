@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY } from "../../types/generic/Constants";
-import SelectableLanguages, { Language } from "../../types/generic/Language";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, LANGUAGES } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import ColorPicker from "../ColorPicker";
 
-const LanguageSelect = Select2.ofType<Language>();
+const LanguageSelect = Select2.ofType<string>();
 const ExileSelect = Select2.ofType<string>();
 
 export default function SettingsButton() {
@@ -20,11 +19,15 @@ export default function SettingsButton() {
     const [settings, setSettings] = useSettings();
     const [properties, setProperties] = useMapProperties();
 
-    const languageSelectRenderer: ItemRenderer<Language> = (language, props) => (
+    const getLanguageName = (i18nCode: string): string => {
+        return i18nCode === "auto" ? t("language.auto") : i18n.t(`language.${i18nCode}`) as string;
+    }
+
+    const languageSelectRenderer: ItemRenderer<string> = (i18nCode, props) => (
         <MenuItem2
-            key={language.value}
-            text={language.label}
-            label={language.value}
+            key={i18nCode}
+            text={getLanguageName(i18nCode)}
+            label={i18nCode}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
@@ -230,17 +233,17 @@ export default function SettingsButton() {
                         </Label>
                         <LanguageSelect
                             filterable={false}
-                            items={SelectableLanguages}
+                            items={LANGUAGES}
                             itemRenderer={languageSelectRenderer}
-                            onItemSelect={(language) => {
-                                setSettings({ ...settings, language: language.value });
+                            onItemSelect={(i18nCode) => {
+                                setSettings({ ...settings, language: i18nCode });
                             }}
                             popoverProps={{ minimal: true }}
                         >
 
                             <Button
                                 rightIcon="caret-down"
-                                text={settings.language ? SelectableLanguages.find(l => l.value === settings.language)?.label : "Auto"}
+                                text={getLanguageName(settings.language || "auto")}
                                 style={{ marginLeft: 10, marginTop: -5, width: 180 }}
                             />
                         </LanguageSelect>
@@ -288,7 +291,9 @@ export default function SettingsButton() {
                             itemRenderer={exileSelectRenderer}
                             onItemSelect={(exileID) => {
                                 setProperties({ ...properties, exileID });
-                            }}>
+                            }}
+                            popoverProps={{ minimal: true }}
+                        >
 
                             <Button
                                 rightIcon="caret-down"

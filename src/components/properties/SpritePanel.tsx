@@ -114,7 +114,7 @@ export default function SpritePanel() {
                     <ColorPicker
                         fill
                         minimal
-                        title={"Set Color"}
+                        title={t("sprite.setColor") as string}
                         color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
                         onChange={(color: LIColor) => {
                             if (!selectedElem)

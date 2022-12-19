@@ -36,8 +36,6 @@ export default function Topbar() {
                     <NavbarDivider />
                     <UndoButton />
                     <RedoButton />
-                    <NavbarDivider />
-                    <PlayButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />

@@ -1,5 +1,18 @@
 {
-    "language": "English",
+    "language": {
+        "name": "English",
+        "auto": "Auto",
+        "en": "English",
+        "de": "Deutsch",
+        "es": "Español",
+        "fr": "Français",
+        "it": "Italiano",
+        "ja": "日本語",
+        "ko": "한국어",
+        "pt": "Português",
+        "ru": "Русский",
+        "zh": "中文"
+    },
     "embed": {
         "openInEditor": "Open in Editor"
     },
@@ -7,7 +20,7 @@
         "title": "Warning",
         "mobile": "The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.",
         "browser": "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
-        "ok": "OK"
+        "ok": "Ok"
     },
     "edit": {
         "undo": "Undo",
@@ -191,11 +204,12 @@
         "success": "Successfully published map!",
         "mapName": "Map Name",
         "mapDescription": "Map Description",
+        "thumbnail": "Thumbnail",
         "publishPublic": "Publish Publicly",
         "publishPrivate": "Publish Privately",
         "publish": "Publish",
         "publishInfo": "Publish Info",
-        "ok": "OK",
+        "ok": "Ok",
         "cancel": "Cancel",
         "resetThumbnail": "Reset Thumbnail",
         "uploadThumbnail": "Upload Thumbnail",

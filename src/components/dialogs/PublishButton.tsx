@@ -223,7 +223,7 @@ export default function PublishButton() {
                     <FormGroup
                         disabled={isPublishing}
                         style={{ textAlign: "center" }}
-                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} Thumbnail`}>
+                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}>
 
                         <img
                             src={thumbnail ? URL.createObjectURL(thumbnail) : ""}
