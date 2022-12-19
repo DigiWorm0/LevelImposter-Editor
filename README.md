@@ -81,10 +81,10 @@ npm start
 ```
 
 ## Contributing
-1. Create a fork of the correct repository
-[Among Us Mod](https://github.com/DigiWorm0/LevelImposter) (DigiWorm0/LevelImposter)
-[Web Editor](https://github.com/DigiWorm0/LevelImposter-Editor) (DigiWorm0/LevelImposter-Editor)
-[Main Website](https://github.com/DigiWorm0/LevelImposter-Web) (DigiWorm0/LevelImposter-Web)
+1. Create a fork of the correct repository\
+[Among Us Mod](https://github.com/DigiWorm0/LevelImposter) (DigiWorm0/LevelImposter)\
+[Web Editor](https://github.com/DigiWorm0/LevelImposter-Editor) (DigiWorm0/LevelImposter-Editor)\
+[Main Website](https://github.com/DigiWorm0/LevelImposter-Web) (DigiWorm0/LevelImposter-Web)\
 [Documentation](https://github.com/DigiWorm0/LevelImposter-Docs) (DigiWorm0/LevelImposter-Docs)
 
 2. Create a feature branch
@@ -122,9 +122,5 @@ LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content
 This software is distributed under the GNU GPLv3 License
 
 <hr />
-<p align="center">
-LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC.
-</p>
-<p align="center">
-© Innersloth LLC.
-</p>
+
+LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
