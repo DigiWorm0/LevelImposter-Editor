@@ -169,7 +169,15 @@
     "account": {
         "signedInAs": "以{0}身份登录",
         "signOut": "退出",
-        "signIn": "登录"
+        "signIn": "登录",
+        "signUp": "注册",
+        "email": "邮箱",
+        "password": "密码",
+        "google": "Google",
+        "github": "GitHub",
+        "viewProfile": "查看简介",
+        "yourMaps": "你的地图",
+        "noMaps": "你没有制作任何地图。"
     },
     "settings": {
         "title": "设置",
