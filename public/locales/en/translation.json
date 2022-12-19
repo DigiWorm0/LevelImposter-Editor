@@ -226,15 +226,19 @@
             "scrollToSelection": "Scroll to Selection",
             "objNesting": "Object Nesting",
             "grid": "Grid",
+            "gridVisible": "Grid Visible",
             "snapToGrid": "Snap to Grid",
             "snapResolution": "Snap Resolution",
-            "invisibleOpacity": "Invisible Opacity"
+            "invisibleOpacity": "Invisible Opacity",
+            "localization": "Localization"
         },
         "map": {
             "title": "Map",
             "showPingTracker": "Show Ping Tracker",
-            "bgColor": "Background Color",
-            "exileAnim": "Exile Animation"
+            "skyboxColor": "Skybox Color",
+            "setColor": "Set Color",
+            "exileAnim": "Exile Animation",
+            "setAnim": "Set Animation"
         }
     },
     "t": {

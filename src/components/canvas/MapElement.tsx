@@ -52,8 +52,10 @@ export default function MapElement(props: { elementID: GUID }) {
     const imageRef = React.useRef<Konva.Image>(null);
 
     React.useEffect(() => {
-        if (imageRef.current && sprite && elem?.properties.color) {
-            const color = elem.properties.color;
+        const color = elem?.properties.color;
+        const isWhite = color && color.r === 255 && color.g === 255 && color.b === 255 && color.a === 1;
+
+        if (imageRef.current && sprite && color && !isWhite) {
             const canvas = document.createElement("canvas");
             canvas.width = sprite.width as number;
             canvas.height = sprite.height as number;
@@ -71,6 +73,8 @@ export default function MapElement(props: { elementID: GUID }) {
                 imageRef.current.image(canvas);
             }
             canvas.remove();
+        } else {
+            imageRef.current?.image(sprite as any);
         }
     }, [elem?.properties.color, sprite]);
 

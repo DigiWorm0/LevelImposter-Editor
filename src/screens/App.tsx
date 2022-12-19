@@ -20,13 +20,17 @@ export default function App() {
     useIDParam();
 
     React.useEffect(() => {
+
+        const onBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            e.returnValue = "";
+        };
+
         if (!isEmbeded)
-            window.onbeforeunload = () => {
-                return 'Are you sure you want to leave? Unsaved changes will be lost.';
-            }
+            window.addEventListener("beforeunload", onBeforeUnload);
 
         return () => {
-            window.onbeforeunload = null;
+            window.removeEventListener("beforeunload", onBeforeUnload);
         }
     }, []);
 

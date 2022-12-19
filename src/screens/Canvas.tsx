@@ -34,8 +34,10 @@ export default function Canvas() {
         }
     }, []);
 
-    Konva.dragButtons = [0, 1, 2];
-    Konva.hitOnDragEnabled = true;
+    React.useEffect(() => {
+        Konva.dragButtons = [0, 1, 2];
+        Konva.hitOnDragEnabled = true;
+    }, []);
 
     return (
         <div

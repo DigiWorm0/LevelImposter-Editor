@@ -10,7 +10,10 @@ interface ColorPickerProps {
     disableAlpha?: boolean,
     onChange: (color: LIColor) => void,
     onOpen?: () => void,
-    onClose?: () => void
+    onClose?: () => void,
+    fill?: boolean,
+    minimal?: boolean,
+    style?: React.CSSProperties
 }
 
 export default function ColorPicker(props: ColorPickerProps) {
@@ -24,7 +27,7 @@ export default function ColorPicker(props: ColorPickerProps) {
     return (
         <div>
             <Popover2
-                fill
+                fill={props.fill}
                 hasBackdrop={true}
                 isOpen={isOpen}
                 onInteraction={(nextOpenState) => setIsOpen(nextOpenState)}
@@ -51,7 +54,8 @@ export default function ColorPicker(props: ColorPickerProps) {
                 }>
                 <Button
                     onClick={() => setIsOpen(!isOpen)}
-                    fill
+                    fill={props.fill}
+                    minimal={props.minimal}
                     icon={
                         <Icon
                             icon="tint"
@@ -61,6 +65,7 @@ export default function ColorPicker(props: ColorPickerProps) {
                         />
                     }
                     text={props.title}
+                    style={props.style}
                 />
             </Popover2>
         </div>

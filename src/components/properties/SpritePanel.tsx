@@ -112,6 +112,8 @@ export default function SpritePanel() {
                 </ButtonGroup>
                 <ControlGroup fill style={{ padding: 5, marginTop: 5 }}>
                     <ColorPicker
+                        fill
+                        minimal
                         title={"Set Color"}
                         color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
                         onChange={(color: LIColor) => {

@@ -1,4 +1,4 @@
-import { Button, Classes, ControlGroup, Dialog, FormGroup, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Card, Classes, ControlGroup, Dialog, H5, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
@@ -45,7 +45,7 @@ export default function SettingsButton() {
         const r = parseInt(hex.substring(1, 3), 16);
         const g = parseInt(hex.substring(3, 5), 16);
         const b = parseInt(hex.substring(5, 7), 16);
-        return { r, g, b, a: 0 };
+        return { r, g, b, a: 1 };
     }
 
     const colorToHex = (color: LIColor): string => {
@@ -54,6 +54,13 @@ export default function SettingsButton() {
         const b = Math.round(color.b).toString(16).padStart(2, "0");
         return `#${r}${g}${b}`;
     }
+
+    const cardStyle: React.CSSProperties = {
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        padding: 15
+    };
 
     return (
         <>
@@ -74,159 +81,224 @@ export default function SettingsButton() {
                 title={t("settings.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
-                <div style={{ margin: 15 }} >
-                    <FormGroup label={t("settings.interface.title")}>
+                <Card style={cardStyle}>
+                    <H5>
+                        {t("settings.interface.title")}
+                    </H5>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.devMode") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.devMode") as string}
                             checked={settings.isDevMode === undefined ? false : settings.isDevMode}
                             onChange={(e) => {
                                 setSettings({ ...settings, isDevMode: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.darkMode") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.darkMode") as string}
                             checked={settings.isDarkMode === undefined ? true : settings.isDarkMode}
                             onChange={(e) => {
                                 setSettings({ ...settings, isDarkMode: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.colliderPreview") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.colliderPreview") as string}
                             checked={settings.colliderPreview === undefined ? true : settings.colliderPreview}
                             onChange={(e) => {
                                 setSettings({ ...settings, colliderPreview: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
-                        <ControlGroup fill={true}>
-                            <NumericInput
-                                defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
-                                min={0}
-                                minorStepSize={0.01}
-                                stepSize={0.1}
-                                majorStepSize={1}
-                                onValueChange={(value) => {
-                                    setSettings({ ...settings, colliderHandleSize: value });
-                                }} />
-                            <Label>
-                                {t("settings.interface.colliderHandleSize") as string}
-                            </Label>
-                        </ControlGroup>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.colliderHandleSize") as string}
+                        </Label>
+                        <NumericInput
+                            defaultValue={settings.colliderHandleSize === undefined ? DEFAULT_COLLIDER_HANDLE_SIZE : settings.colliderHandleSize}
+                            min={0}
+                            minorStepSize={0.01}
+                            stepSize={0.1}
+                            majorStepSize={1}
+                            onValueChange={(value) => {
+                                setSettings({ ...settings, colliderHandleSize: value });
+                            }}
+                            buttonPosition="none"
+                            style={{ marginLeft: 10, marginTop: -5, width: 180 }} />
 
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.scrollToSelection") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.scrollToSelection") as string}
                             checked={settings.scrollToSelection === undefined ? true : settings.scrollToSelection}
                             onChange={(e) => {
                                 setSettings({ ...settings, scrollToSelection: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.objNesting") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.objNesting") as string}
                             checked={settings.elementNesting === undefined ? false : settings.elementNesting}
                             onChange={(e) => {
                                 setSettings({ ...settings, elementNesting: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.grid") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.grid") as string}
                             checked={settings.isGridVisible === undefined ? true : settings.isGridVisible}
                             onChange={(e) => {
                                 setSettings({ ...settings, isGridVisible: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.snapToGrid") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.interface.snapToGrid") as string}
                             checked={settings.isGridSnapEnabled === undefined ? true : settings.isGridSnapEnabled}
                             onChange={(e) => {
                                 setSettings({ ...settings, isGridSnapEnabled: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
-                        <ControlGroup fill={true}>
-                            <NumericInput
-                                defaultValue={settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution}
-                                min={0}
-                                max={10}
-                                minorStepSize={0.01}
-                                stepSize={0.1}
-                                majorStepSize={1}
-                                onValueChange={(value) => {
-                                    setSettings({ ...settings, gridSnapResolution: value });
-                                }} />
-                            <Label>
-                                {t("settings.interface.snapResolution") as string}
-                            </Label>
-                        </ControlGroup>
 
-                        <ControlGroup fill={true}>
-                            <NumericInput
-                                defaultValue={settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity}
-                                min={0}
-                                max={1}
-                                minorStepSize={0.01}
-                                stepSize={0.1}
-                                majorStepSize={1}
-                                onValueChange={(value) => {
-                                    setSettings({ ...settings, invisibleOpacity: value });
-                                }} />
-                            <Label>
-                                {t("settings.interface.invisibleOpacity") as string}
-                            </Label>
-                        </ControlGroup>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.snapResolution") as string}
+                        </Label>
+                        <NumericInput
+                            defaultValue={settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution}
+                            min={0}
+                            max={10}
+                            minorStepSize={0.01}
+                            stepSize={0.1}
+                            majorStepSize={1}
+                            onValueChange={(value) => {
+                                setSettings({ ...settings, gridSnapResolution: value });
+                            }}
+                            buttonPosition="none"
+                            style={{ marginLeft: 10, marginTop: -5, width: 180 }} />
+                    </ControlGroup>
 
-                        <ControlGroup fill={true} style={{ textAlign: "center", marginTop: 10 }}>
-                            <LanguageSelect
-                                filterable={false}
-                                items={SelectableLanguages}
-                                itemRenderer={languageSelectRenderer}
-                                onItemSelect={(language) => {
-                                    setSettings({ ...settings, language: language.value });
-                                }}>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.invisibleOpacity") as string}
+                        </Label>
+                        <NumericInput
+                            defaultValue={settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity}
+                            min={0}
+                            max={1}
+                            minorStepSize={0.01}
+                            stepSize={0.1}
+                            majorStepSize={1}
+                            onValueChange={(value) => {
+                                setSettings({ ...settings, invisibleOpacity: value });
+                            }}
+                            buttonPosition="none"
+                            style={{ marginLeft: 10, marginTop: -5, width: 180 }} />
+                    </ControlGroup>
 
-                                <Button
-                                    rightIcon="caret-down"
-                                    text={settings.language ? SelectableLanguages.find(l => l.value === settings.language)?.label : "Auto"}
-                                    fill
-                                />
-                            </LanguageSelect>
-                            <Label>Localization</Label>
-                        </ControlGroup>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.localization") as string}
+                        </Label>
+                        <LanguageSelect
+                            filterable={false}
+                            items={SelectableLanguages}
+                            itemRenderer={languageSelectRenderer}
+                            onItemSelect={(language) => {
+                                setSettings({ ...settings, language: language.value });
+                            }}
+                            popoverProps={{ minimal: true }}
+                        >
 
-                    </FormGroup>
+                            <Button
+                                rightIcon="caret-down"
+                                text={settings.language ? SelectableLanguages.find(l => l.value === settings.language)?.label : "Auto"}
+                                style={{ marginLeft: 10, marginTop: -5, width: 180 }}
+                            />
+                        </LanguageSelect>
+                    </ControlGroup>
+                </Card>
+                <Card style={cardStyle}>
+                    <H5>
+                        {t("settings.map.title")}
+                    </H5>
 
-                    <FormGroup label={t("settings.map.title")}>
-
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.map.showPingTracker") as string}
+                        </Label>
                         <Switch
-                            label={t("settings.map.showPingTracker") as string}
                             checked={properties.showPingIndicator === undefined ? true : properties.showPingIndicator}
                             onChange={(e) => {
                                 setProperties({ ...properties, showPingIndicator: e.currentTarget.checked });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
 
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.map.skyboxColor") as string}
+                        </Label>
                         <ColorPicker
                             disableAlpha
-                            title={t("settings.map.bgColor") as string}
-                            color={hexToColor(properties.bgColor || "#000000")}
+                            title={t("settings.map.setColor") as string}
+                            color={hexToColor(properties.bgColor || "#ffffff")}
                             onChange={(color) => {
                                 setProperties({ ...properties, bgColor: colorToHex(color) });
-                            }} />
+                            }}
+                            style={{ marginLeft: 10, marginTop: -5, minWidth: 180 }}
+                        />
+                    </ControlGroup>
 
-                        <ControlGroup fill>
-                            <ExileSelect
-                                filterable={false}
-                                items={EXILE_IDS}
-                                itemRenderer={exileSelectRenderer}
-                                onItemSelect={(exileID) => {
-                                    setProperties({ ...properties, exileID });
-                                }}>
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.map.exileAnim") as string}
+                        </Label>
+                        <ExileSelect
+                            filterable={false}
+                            items={EXILE_IDS}
+                            itemRenderer={exileSelectRenderer}
+                            onItemSelect={(exileID) => {
+                                setProperties({ ...properties, exileID });
+                            }}>
 
-                                <Button
-                                    fill
-                                    rightIcon="caret-down"
-                                    text={properties.exileID || t("settings.map.exileAnim") as string}
-                                />
+                            <Button
+                                rightIcon="caret-down"
+                                text={properties.exileID || t("settings.map.setAnim") as string}
+                                style={{ marginLeft: 10, marginTop: -5, minWidth: 180 }}
+                            />
 
-                            </ExileSelect>
-                        </ControlGroup>
-                        {/*
+                        </ExileSelect>
+                    </ControlGroup>
+                    {/*
                         <ControlGroup fill>
 
                             <ControlGroup>
@@ -272,10 +344,7 @@ export default function SettingsButton() {
                             </Label>
                         </ControlGroup>
                         */}
-
-                    </FormGroup>
-                </div>
-
+                </Card>
             </Dialog>
         </>
     );
