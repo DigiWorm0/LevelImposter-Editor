@@ -30,6 +30,7 @@ export default function SettingsButton() {
             label={i18nCode}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
+            intent={i18nCode !== "auto" ? "success" : undefined}
             onClick={props.handleClick}
             onFocus={props.handleFocus} />
     );
