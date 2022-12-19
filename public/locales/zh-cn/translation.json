@@ -172,7 +172,30 @@
         "signIn": "登录"
     },
     "settings": {
-        "title": "设置"
+        "title": "设置",
+        "interface": {
+            "title": "界面",
+            "devMode": "开发模式",
+            "darkMode": "深色模式",
+            "colliderPreview": "碰撞预览",
+            "colliderHandleSize": "碰撞体尺寸",
+            "scrollToSelection": "滚动到选择",
+            "objNesting": "对象嵌套",
+            "grid": "网格",
+            "gridVisible": "网格可见",
+            "snapToGrid": "对齐网格",
+            "snapResolution": "对齐分辨率",
+            "invisibleOpacity": "不透明度",
+            "localization": "语言"
+        },
+        "map": {
+            "title": "地图",
+            "showPingTracker": "显示Ping",
+            "skyboxColor": "材质颜色",
+            "setColor": "设置颜色",
+            "exileAnim": "放逐动画",
+            "setAnim": "设置动画"
+        }
     },
     "t": {
         "undefined": "未知触发器",
