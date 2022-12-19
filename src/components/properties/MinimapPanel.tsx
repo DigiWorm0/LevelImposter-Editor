@@ -1,13 +1,13 @@
 import { Button, NumericInput } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import DownloadCanvasDialog from "../dialogs/DownloadCanvas";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 export default function MinimapPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [isVisible, setVisible] = React.useState(false);
     const [element, setElement] = useSelectedElem();
 
@@ -21,11 +21,11 @@ export default function MinimapPanel() {
                 isVisible={isVisible}
                 setVisible={setVisible}
             />
-            <PanelContainer title={translation.Minimap}>
+            <PanelContainer title={t("minimap.title") as string}>
                 <NumericInput
                     fill
                     leftIcon="maximize"
-                    placeholder={translation.Size}
+                    placeholder={t("minimap.scale") as string}
                     value={element.properties.minimapScale === undefined ? 1 : element.properties.minimapScale}
                     onValueChange={(value) => {
                         setElement({
@@ -45,13 +45,13 @@ export default function MinimapPanel() {
                     fill
                     minimal
                     icon="download"
-                    text={translation.Download}
+                    text={t("minimap.download") as string}
                     disabled={isVisible}
                     onClick={() => setVisible(true)}
                 />
             </PanelContainer>
             <MapError isVisible={element.properties.spriteData === undefined}>
-                The object does not have a sprite attached to it. Minimap will not be visible in-game.
+                {t("minimap.errorNoSprite") as string}
             </MapError>
         </>
     );

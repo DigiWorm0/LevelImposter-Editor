@@ -49,6 +49,17 @@ export const UI_ZOOM_SPEED = 1.1;
 
 export const MAP_FORMAT_VER = 0;
 export const PROVIDER_SCOPE = "main";
-export const MAX_HISTORY_LENGTH = 20;
+export const MAX_HISTORY_LENGTH = 30;
 
 export const CAM_SPEED = 20;
+
+export const VERSION = "0.9.2";
+
+export const LANGUAGES = [
+    "auto",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "zh",
+];

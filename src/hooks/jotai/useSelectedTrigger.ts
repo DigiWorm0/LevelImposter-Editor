@@ -1,6 +1,7 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { MaybeLITrigger } from "../../types/li/LITrigger";
+import { saveHistoryAtom } from "./useHistory";
 import { selectedElementAtom } from "./useSelectedElem";
 
 // Atoms
@@ -21,9 +22,11 @@ export const selectedTriggerAtom = atom(
         if (selectedElem && index != undefined && index >= 0 && trigger != undefined) {
             triggers[index] = trigger;
             set(selectedElementAtom, { ...selectedElem, properties: { ...selectedElem?.properties, triggers: [...triggers] } });
+            set(saveHistoryAtom);
         } else if (selectedElem && trigger != undefined) {
             triggers.push(trigger);
             set(selectedElementAtom, { ...selectedElem, properties: { ...selectedElem?.properties, triggers: [...triggers] } });
+            set(saveHistoryAtom);
         }
     }
 );

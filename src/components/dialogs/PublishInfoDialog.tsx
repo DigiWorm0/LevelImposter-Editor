@@ -1,17 +1,17 @@
 import { Button, ButtonGroup, Dialog } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function PublishInfoDialog(props: { isOpen: boolean, onAgree: () => void, onCancel: () => void }) {
     const settings = useSettingsValue();
-    const translation = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <>
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
-                title={translation.PublishInfo}
+                title={t("publish.publishInfo") as string}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
@@ -39,12 +39,12 @@ export default function PublishInfoDialog(props: { isOpen: boolean, onAgree: () 
                         <Button
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
-                            text={translation.OK}
+                            text={t("publish.ok") as string}
                             intent="success"
                             icon="tick" />
                         <Button
                             onClick={props.onCancel}
-                            text={translation.Cancel}
+                            text={t("publish.cancel") as string}
                             intent="danger"
                             icon="cross" />
 

@@ -1,21 +1,19 @@
 import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
-import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
 
 const VentSelect = Select2.ofType<LIElement>();
 
 export default function VentPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const ventElemsA = useElementType("util-vent1");
     const ventElemsB = useElementType("util-vent2");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     const ventElems = ventElemsA.concat(ventElemsB);
 
@@ -43,7 +41,7 @@ export default function VentPanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Vent}>
+        <PanelContainer title={t("vent.title") as string}>
             <ControlGroup fill>
                 <VentSelect
                     fill
@@ -52,14 +50,13 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: vent.id } });
                     }}>
 
                     <Button
                         minimal
                         rightIcon="caret-down"
-                        text={leftVent ? leftVent.name : "(No connection)"}
+                        text={leftVent ? leftVent.name : t("vent.noConnection") as string}
                         fill
                     />
                 </VentSelect>
@@ -67,7 +64,6 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: undefined } });
                     }}
                 />
@@ -81,14 +77,13 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: vent.id } });
                     }}>
 
                     <Button
                         minimal
                         rightIcon="caret-down"
-                        text={middleVent ? middleVent.name : "(No connection)"}
+                        text={middleVent ? middleVent.name : t("vent.noConnection") as string}
                         fill
                     />
                 </VentSelect>
@@ -96,7 +91,6 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, middleVent: undefined } });
                     }}
                 />
@@ -110,14 +104,13 @@ export default function VentPanel() {
                     items={filteredVents}
                     itemRenderer={ventSelectRenderer}
                     onItemSelect={(vent) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: vent.id } });
                     }}>
 
                     <Button
                         minimal
                         rightIcon="caret-down"
-                        text={rightVent ? rightVent.name : "(No connection)"}
+                        text={rightVent ? rightVent.name : t("vent.noConnection") as string}
                         fill
                     />
                 </VentSelect>
@@ -125,7 +118,6 @@ export default function VentPanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, rightVent: undefined } });
                     }}
                 />

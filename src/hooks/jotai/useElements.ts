@@ -2,6 +2,7 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { MaybeGUID } from "../../types/generic/GUID";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
+import { saveHistoryAtom } from "./useHistory";
 import { elementsAtom } from "./useMap";
 import { mouseXAtom, mouseYAtom } from "./useMouse";
 
@@ -19,6 +20,7 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
                 elements[index] = { ...elem };
                 set(elementsAtom, [...elements]);
             }
+            set(saveHistoryAtom);
         }
     );
     elemAtom.debugLabel = `elementFamilyAtom(${id})`;
@@ -30,9 +32,11 @@ export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     elem.x = mouseX;
     elem.y = mouseY;
     set(elementsAtom, [...get(elementsAtom), elem]);
+    set(saveHistoryAtom);
 });
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
     set(elementsAtom, [...get(elementsAtom), elem]);
+    set(saveHistoryAtom);
 });
 export const elementChildrenFamilyAtom = atomFamily((id: MaybeGUID) => {
     const elemChildrenAtom = atom(

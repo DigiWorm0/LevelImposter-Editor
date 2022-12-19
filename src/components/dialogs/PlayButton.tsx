@@ -1,13 +1,13 @@
 import { Button, Callout, Classes, Dialog, Icon, IconSize } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useMapName } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 import SaveButton from "./SaveButton";
 
 export default function PlayButton() {
-    const tranlation = useTranslation();
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [mapName] = useMapName();
@@ -15,7 +15,7 @@ export default function PlayButton() {
     return (
         <>
             <Tooltip2
-                content={tranlation.LaunchMap}
+                content={t("map.play") as string}
                 position="bottom">
 
                 <Button
@@ -71,14 +71,16 @@ export default function PlayButton() {
 
                     <Tooltip2
                         fill
-                        content="Open Documentation"
+                        content={t("docs.open") as string}
                         position="bottom">
+
                         <Button
                             fill
                             icon="share"
-                            text="More Details"
+                            text={t("docs.open") as string}
                             intent="primary"
                             onClick={() => { window.open("https://docs.levelimposter.net/en/latest/about/getting-started.html"); }} />
+
                     </Tooltip2>
                 </div>
             </Dialog>

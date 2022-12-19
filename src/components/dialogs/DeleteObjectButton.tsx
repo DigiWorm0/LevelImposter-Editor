@@ -1,10 +1,10 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import { useRemoveElement, useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function DeleteObjectButton(props: { isSidePanel?: boolean }) {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const removeElement = useRemoveElement();
     const [selectedID, setSelectedID] = useSelectedElemID();
 
@@ -17,7 +17,7 @@ export default function DeleteObjectButton(props: { isSidePanel?: boolean }) {
         <>
             <Tooltip2
                 fill
-                content={translation.DeleteObject}
+                content={t("object.delete") as string}
                 position="bottom">
 
                 <AnchorButton

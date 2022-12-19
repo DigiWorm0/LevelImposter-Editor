@@ -1,11 +1,11 @@
 import { Switch } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 export default function RoomPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [element, setElement] = useSelectedElem();
 
     if (!element
@@ -16,10 +16,10 @@ export default function RoomPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Room}>
+            <PanelContainer title={t("room.title") as string}>
                 <Switch
                     checked={element.properties.isRoomNameVisible !== false}
-                    label={translation.ShowName}
+                    label={t("room.showName") as string}
                     style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
                     onChange={(e) => {
                         setElement({
@@ -33,7 +33,7 @@ export default function RoomPanel() {
                 />
                 <Switch
                     checked={element.properties.isRoomAdminVisible !== false}
-                    label={translation.ShowAdminTable}
+                    label={t("room.showOnAdmin") as string}
                     style={{ textAlign: "center", marginTop: 5, marginBottom: 15 }}
                     onChange={(e) => {
                         setElement({
@@ -47,7 +47,7 @@ export default function RoomPanel() {
                 />
             </PanelContainer>
             <MapError isVisible={!hasCollider}>
-                This object does not have a collider. Admin Table will not function and name will not popup for players.
+                {t("room.errorNoCollider") as string}
             </MapError>
         </>
     );

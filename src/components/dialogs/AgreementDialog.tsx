@@ -1,17 +1,17 @@
 import { Button, ButtonGroup, Dialog } from "@blueprintjs/core";
+import { Trans, useTranslation } from "react-i18next";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function AgreementDialog(props: { isOpen: boolean, onAgree: () => void, onCancel: () => void }) {
     const settings = useSettingsValue();
-    const translation = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <>
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
-                title={translation.LIAPIPolicy}
+                title={t("policy.title") as string}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
@@ -54,12 +54,12 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                         <Button
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
-                            text="I Agree"
+                            text={t("policy.agree") as string}
                             intent="success"
                             icon="tick" />
                         <Button
                             onClick={props.onCancel}
-                            text="Cancel"
+                            text={t("policy.cancel") as string}
                             intent="danger"
                             icon="cross" />
 

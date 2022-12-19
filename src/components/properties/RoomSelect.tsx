@@ -1,19 +1,17 @@
 import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
-import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 
 const RoomSelecter = Select2.ofType<LIElement>();
 
 export default function RoomSelect(props: { useDefault: boolean }) {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
     const hasRooms = roomElems.length > 0;
@@ -41,13 +39,14 @@ export default function RoomSelect(props: { useDefault: boolean }) {
                 items={roomElems}
                 itemRenderer={roomSelectRenderer}
                 onItemSelect={(room) => {
-                    saveHistory();
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
                 }}>
 
                 <Button
                     rightIcon="caret-down"
-                    text={parentRoom ? parentRoom.name.replace("\\n", " ") : (props.useDefault ? translation.DefaultRoom : translation.NoRoom)}
+                    text={parentRoom ?
+                        parentRoom.name.replace("\\n", " ") :
+                        (props.useDefault ? t("room.default") : t("room.none"))}
                     style={{ fontStyle: parentRoom !== undefined ? "normal" : "italic" }}
                     fill
                 />
@@ -57,7 +56,6 @@ export default function RoomSelect(props: { useDefault: boolean }) {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                     }}
                 />

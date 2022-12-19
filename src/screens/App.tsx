@@ -1,7 +1,7 @@
 import { HotkeysProvider } from '@blueprintjs/core';
 import { Provider } from 'jotai';
 import React from 'react';
-import CheckLanguage from '../components/dialogs/CheckLanguage';
+import { useTranslation } from 'react-i18next';
 import CheckMobile from '../components/dialogs/CheckMobile';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useEmbed from '../hooks/useEmbed';
@@ -14,20 +14,32 @@ import RightSidebar from './RightSidebar';
 import Topbar from './Topbar';
 
 export default function App() {
+    const { i18n } = useTranslation();
     const settings = useSettingsValue();
     const isEmbeded = useEmbed();
     useIDParam();
 
     React.useEffect(() => {
+
+        const onBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            e.returnValue = "";
+        };
+
         if (!isEmbeded)
-            window.onbeforeunload = () => {
-                return 'Are you sure you want to leave? Unsaved changes will be lost.';
-            }
+            window.addEventListener("beforeunload", onBeforeUnload);
 
         return () => {
-            window.onbeforeunload = null;
+            window.removeEventListener("beforeunload", onBeforeUnload);
         }
     }, []);
+
+    React.useEffect(() => {
+        if (settings.language === "auto")
+            i18n.changeLanguage(navigator.language);
+        else
+            i18n.changeLanguage(settings.language);
+    }, [settings.language]);
 
     return (
         <div className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
@@ -43,7 +55,6 @@ export default function App() {
                     {!isEmbeded && (<>
                         <RightSidebar />
                         <CheckMobile />
-                        <CheckLanguage />
                     </>)}
 
                     {isEmbeded && (<>

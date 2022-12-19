@@ -1,21 +1,19 @@
 import { ControlGroup, FormGroup, NumericInput } from "@blueprintjs/core";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
 import PanelContainer from "./PanelContainer";
 
 export default function CamPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const [element, setElement] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     if (!element
         || element.type !== "util-cam")
         return null;
 
     return (
-        <PanelContainer title={translation.Camera}>
-            <FormGroup label={translation.Offset}>
+        <PanelContainer title={t("cameras.title") as string}>
+            <FormGroup label={t("cameras.offset") as string}>
                 <ControlGroup fill>
                     <NumericInput
                         key={element.id + "-camXOffset"}
@@ -25,7 +23,6 @@ export default function CamPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camXOffset: val } });
                         }} />
                     <NumericInput
@@ -36,12 +33,11 @@ export default function CamPanel() {
                         stepSize={0.5}
                         majorStepSize={1}
                         onValueChange={(val) => {
-                            saveHistory();
                             !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camYOffset: val } });
                         }} />
                 </ControlGroup>
             </FormGroup>
-            <FormGroup label={translation.Zoom}>
+            <FormGroup label={t("cameras.zoom") as string}>
                 <NumericInput
                     key={element.id + "-camZoom"}
                     fill
@@ -51,7 +47,6 @@ export default function CamPanel() {
                     stepSize={0.5}
                     majorStepSize={1}
                     onValueChange={(val) => {
-                        saveHistory();
                         !isNaN(val) && setElement({ ...element, properties: { ...element.properties, camZoom: val } });
                     }} />
             </FormGroup>

@@ -8,7 +8,7 @@ import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import { camXAtom, camYAtom } from "./jotai/useCamera";
 import { useAddElement, useAddElementAtMouse } from "./jotai/useElements";
-import { useSaveHistory, useUndo } from "./jotai/useHistory";
+import { useRedo, useUndo } from "./jotai/useHistory";
 import { useMapValue } from "./jotai/useMap";
 import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
@@ -18,6 +18,7 @@ export default function useCombos() {
     const [localClipboard, setLocalClipboard] = React.useState<string | undefined>(undefined);
     const map = useMapValue();
     const undo = useUndo();
+    const redo = useRedo();
     const selectedElem = useSelectedElemValue();
     const addElementAtMouse = useAddElementAtMouse();
     const addElement = useAddElement();
@@ -25,7 +26,6 @@ export default function useCombos() {
     const setSettings = useSetSettings();
     const setSelectedID = useSetSelectedElemID();
     const toaster = useToaster();
-    const saveHistory = useSaveHistory();
     const setCamX = useSetAtom(camXAtom);
     const setCamY = useSetAtom(camYAtom);
 
@@ -81,7 +81,6 @@ export default function useCombos() {
         }
         const clipboardData = JSON.parse(clipboard) as LIClipboard | undefined;
         if (clipboardData) {
-            saveHistory();
             const elements = clipboardData.data as LIElement[];
             const newIDs = new Map<GUID, GUID>();
             const getID = (id: MaybeGUID) => {
@@ -120,12 +119,11 @@ export default function useCombos() {
             });
             setSelectedID(elements[0].id);
         }
-    }, [localClipboard, addElement, setSelectedID, saveHistory]);
+    }, [localClipboard, addElement, setSelectedID]);
 
     const duplicateElement = React.useCallback(() => {
         if (selectedElem) {
             const id = generateGUID();
-            saveHistory();
             addElementAtMouse({
                 ...selectedElem,
                 id,
@@ -138,14 +136,13 @@ export default function useCombos() {
             });
             setSelectedID(id);
         }
-    }, [selectedElem, addElementAtMouse, saveHistory, setSelectedID]);
+    }, [selectedElem, addElementAtMouse, setSelectedID]);
 
     const deleteElement = React.useCallback(() => {
         if (selectedElem) {
-            saveHistory();
             removeElement(selectedElem.id);
         }
-    }, [selectedElem, removeElement, saveHistory]);
+    }, [selectedElem, removeElement]);
 
     const hotkeys = React.useMemo<HotkeyConfig[]>(() => [
         {
@@ -248,6 +245,16 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            group: "Map",
+            label: "Redo",
+            combo: "ctrl+y",
+            description: "Redo",
+            onKeyDown: () => {
+                redo();
+            },
+            preventDefault: true,
+        },
+        {
             group: "Camera",
             label: "Move Up",
             combo: "up",
@@ -287,7 +294,7 @@ export default function useCombos() {
             },
             preventDefault: true,
         }
-    ], [copyElement, duplicateElement, pasteElement, deleteElement, saveMap, undo]);
+    ], [copyElement, duplicateElement, pasteElement, deleteElement, saveMap, undo, redo]);
     const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
 
     return { handleKeyDown, handleKeyUp };

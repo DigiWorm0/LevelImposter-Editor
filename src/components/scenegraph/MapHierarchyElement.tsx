@@ -2,7 +2,6 @@ import { Button, Collapse, IconName, InputGroup, Intent } from "@blueprintjs/cor
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/jotai/useElements";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
@@ -38,7 +37,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
     const [draggingElement, setDraggingElement] = useElement(draggingID);
     const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildren(props.elementID);
-    const saveHistory = useSaveHistory();
     const settings = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
 
@@ -101,7 +99,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
                 e.preventDefault();
                 const data = e.dataTransfer.getData("text/plain");
                 if (!(data === element.id || draggingElement === undefined || isDisabled)) {
-                    saveHistory();
                     setDraggingElement({ ...draggingElement, parentID: element.id });
                 }
                 setDragOver(false);
@@ -168,7 +165,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
                             small
                             onClick={(e) => {
                                 e.stopPropagation();
-                                saveHistory();
                                 setElement({ ...element, properties: { ...element.properties, isVisible: !isVisible } });
                             }}
                             onDoubleClick={(e) => {

@@ -1,8 +1,10 @@
 import { Icon, Tag } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function SizeTag(props: { sizeBytes: number, okMsg: string, warningMsg: string }) {
+    const { t } = useTranslation();
     const { sizeBytes, okMsg, warningMsg } = props;
 
     const isOverSize = sizeBytes > 1000 * 1000 * 2; // 2 MB
@@ -14,11 +16,11 @@ export default function SizeTag(props: { sizeBytes: number, okMsg: string, warni
         const sizeMB = sizeKB / 1000;
 
         if (sizeMB > 1)
-            return `${sizeMB.toFixed(2)} MB`;
+            return t("size.megabytes", { size: sizeMB.toFixed(2) });
         else if (sizeKB > 1)
-            return `${sizeKB.toFixed(2)} KB`;
+            return t("size.kilobytes", { size: sizeKB.toFixed(2) });
         else
-            return `${sizeBytes} Bytes`;
+            return t("size.bytes", { size: sizeBytes });
     }, [sizeBytes]);
 
 

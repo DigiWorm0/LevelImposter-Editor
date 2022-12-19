@@ -1,22 +1,22 @@
 import { Button, Dialog } from "@blueprintjs/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/jotai/useSettings";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function CheckMobile() {
     const [settings, setSettings] = useSettings();
     const [dialogText, setDialogText] = React.useState<string | undefined>(undefined);
-    const translation = useTranslation();
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         if (isMobile) {
-            setDialogText(translation.MobileWarning);
+            setDialogText(t("warning.mobile") as string);
         }
 
         const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
         if (!isChrome && !settings.isBrowserAccepted) {
-            setDialogText(translation.ChromeWarning);
+            setDialogText(t("warning.browser") as string);
         }
     }, []);
 
@@ -25,7 +25,7 @@ export default function CheckMobile() {
             <Dialog
                 isOpen={dialogText !== undefined}
                 onClose={() => setDialogText(undefined)}
-                title={translation.Warning}
+                title={t("warning.title") as string}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
                 <div style={{ margin: 15 }} >
@@ -37,7 +37,7 @@ export default function CheckMobile() {
                             setDialogText(undefined);
                             setSettings({ ...settings, isBrowserAccepted: true });
                         }}
-                        text={translation.OK}
+                        text={t("warning.ok") as string}
                         intent="primary"
                     />
                 </div>

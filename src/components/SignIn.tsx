@@ -2,10 +2,12 @@ import { Button, ButtonGroup, FormGroup, InputGroup } from "@blueprintjs/core";
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, UserCredential } from "firebase/auth";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { auth, db, githubProvider, googleProvider } from "../hooks/Firebase";
 import useToaster from "../hooks/useToaster";
 
 export default function SignIn() {
+    const { t } = useTranslation();
     const toaster = useToaster();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -66,22 +68,22 @@ export default function SignIn() {
 
     return (
         <div style={{ margin: 15 }} >
-            <FormGroup label="Email" labelFor="email">
+            <FormGroup label={t("account.email")} labelFor="email">
                 <InputGroup
                     large
                     leftIcon={"envelope"}
                     id="email"
-                    placeholder="Email"
+                    placeholder={t("account.email") as string}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </FormGroup>
-            <FormGroup label="Password" labelFor="password">
+            <FormGroup label={t("account.password")} labelFor="password">
                 <InputGroup
                     large
                     leftIcon={"lock"}
                     id="password"
-                    placeholder="Password"
+                    placeholder={t("account.password") as string}
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -89,12 +91,12 @@ export default function SignIn() {
             </FormGroup>
             <ButtonGroup style={{ marginTop: 10 }}>
                 <Button
-                    text="Sign In"
+                    text={t("account.signIn") as string}
                     onClick={signInWithEmail}
                     disabled={!email || !password}
                 />
                 <Button
-                    text="Sign Up"
+                    text={t("account.signUp") as string}
                     onClick={signUpWithEmail}
                     disabled={!email || !password}
                 />
@@ -102,11 +104,11 @@ export default function SignIn() {
             <ButtonGroup style={{ marginLeft: 10 }}>
                 <Button
                     icon={googleIcon}
-                    text="Google"
+                    text={t("account.google") as string}
                     onClick={signInWithGoogle} />
                 <Button
                     icon={githubIcon}
-                    text="Github"
+                    text={t("account.github") as string}
                     onClick={signInWithGithub} />
             </ButtonGroup>
         </div>

@@ -2,12 +2,10 @@ import { Button, ControlGroup, FormGroup, H5, InputGroup } from "@blueprintjs/co
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
-import useTranslation from "../../hooks/useTranslation";
-import AUElementDB from "../../types/au/AUElementDB";
 import TaskLength from "../../types/generic/TaskLength";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
@@ -16,18 +14,16 @@ import RoomSelect from "./RoomSelect";
 const LengthSelect = Select2.ofType<string>();
 
 export default function TaskPanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [taskName, setTaskName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
-    const saveHistory = useSaveHistory();
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
 
     React.useEffect(() => {
-        const auElement = AUElementDB.find((elem) => elem.type === selectedElem?.type);
-        setTaskName(auElement ? auElement.name : "Unknown");
+        setTaskName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
     }, [selectedElem]);
 
     const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (
@@ -48,7 +44,7 @@ export default function TaskPanel() {
 
     return (
         <>
-            <PanelContainer title={translation.Task}>
+            <PanelContainer title={t("task.title") as string}>
                 <div style={{ textAlign: "center", padding: 15 }}>
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
@@ -67,13 +63,14 @@ export default function TaskPanel() {
                             items={TaskLength}
                             itemRenderer={lengthSelectRenderer}
                             onItemSelect={(length) => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
                             }}>
 
                             <Button
                                 rightIcon="caret-down"
-                                text={selectedElem.properties.taskLength !== undefined ? selectedElem.properties.taskLength.toString() + " " + translation.Task : translation.DefaultLength}
+                                text={selectedElem.properties.taskLength !== undefined ?
+                                    selectedElem.properties.taskLength.toString() :
+                                    t("task.defaultLength")}
                                 style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
                                 fill
                             />
@@ -82,7 +79,6 @@ export default function TaskPanel() {
                             minimal
                             rightIcon="cross"
                             onClick={() => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
                             }}
                         />
@@ -92,10 +88,9 @@ export default function TaskPanel() {
                             key={selectedElem.id + "-description"}
                             fill
                             leftIcon="info-sign"
-                            placeholder={translation.DefaultDescription}
+                            placeholder={t("task.defaultDescription") as string}
                             defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
                             onChange={(e) => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
                             }}
                         />
@@ -103,7 +98,6 @@ export default function TaskPanel() {
                             minimal
                             rightIcon="cross"
                             onClick={() => {
-                                saveHistory();
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
                             }}
                         />
@@ -111,7 +105,7 @@ export default function TaskPanel() {
                 </FormGroup>
             </PanelContainer>
             <MapError isVisible={parentRoom === undefined}>
-                This task is not attached to a room.
+                {t("task.errorNoRoom")}
             </MapError>
         </>
     );

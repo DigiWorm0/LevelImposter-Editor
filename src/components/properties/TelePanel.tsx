@@ -1,20 +1,18 @@
 import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
+import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
-import useTranslation from "../../hooks/useTranslation";
 import LIElement from "../../types/li/LIElement";
 import PanelContainer from "./PanelContainer";
 
 const TeleSelect = Select2.ofType<LIElement>();
 
 export default function TelePanel() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const teleElems = useElementType("util-tele");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const saveHistory = useSaveHistory();
 
     const teleConnection = teleElems.find((e) => e.id === selectedElem?.properties.teleporter);
     const filteredTeles = teleElems.filter((elem) => elem.id !== selectedElem?.id && elem.properties.teleporter !== selectedElem?.id);
@@ -36,7 +34,7 @@ export default function TelePanel() {
         return null;
 
     return (
-        <PanelContainer title={translation.Teleporter}>
+        <PanelContainer title={t("tele.title") as string}>
             <ControlGroup fill>
                 <TeleSelect
                     fill
@@ -45,7 +43,6 @@ export default function TelePanel() {
                     items={filteredTeles}
                     itemRenderer={teleSelectRenderer}
                     onItemSelect={(tele) => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: tele.id } });
                     }}>
 
@@ -59,7 +56,6 @@ export default function TelePanel() {
                     minimal
                     rightIcon="cross"
                     onClick={() => {
-                        saveHistory();
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
                     }}
                 />

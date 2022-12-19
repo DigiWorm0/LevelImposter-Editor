@@ -1,10 +1,10 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { Button } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/jotai/useMap";
-import useTranslation from "../../hooks/useTranslation";
 
 export default function SaveButton(props: { isButton?: boolean }) {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const map = useMapValue();
 
     const onSave = () => {
@@ -20,14 +20,14 @@ export default function SaveButton(props: { isButton?: boolean }) {
     return (
         <>
             <Tooltip2
-                content={translation.SaveFile}
+                content={t("map.save") as string}
                 position="bottom">
 
                 <Button
                     minimal={props.isButton != true}
                     icon="floppy-disk"
                     intent={props.isButton ? "success" : undefined}
-                    text={props.isButton ? translation.SaveFile : undefined}
+                    text={props.isButton ? t("map.save") : undefined}
                     style={{ margin: props.isButton ? 10 : 0 }}
                     onClick={onSave} />
 

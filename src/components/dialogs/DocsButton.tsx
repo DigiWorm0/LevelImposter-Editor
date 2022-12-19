@@ -1,13 +1,13 @@
 import { Button } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import useTranslation from "../../hooks/useTranslation";
+import { useTranslation } from "react-i18next";
 
 export default function DocsButton() {
-    const translation = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <Tooltip2
-            content={translation.OpenDocs}
+            content={t("docs.open") as string}
             position="bottom">
             <Button
                 minimal

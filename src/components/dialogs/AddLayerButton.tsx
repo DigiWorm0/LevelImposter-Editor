@@ -3,10 +3,10 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import generateGUID from "../../hooks/generateGUID";
 import { useAddElement } from "../../hooks/jotai/useElements";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import useTranslation from "../../hooks/useTranslation";
+import { useTranslation } from "react-i18next";
 
 export default function AddLayerButton(props: { isSidePanel?: boolean }) {
-    const translation = useTranslation();
+    const { t } = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const addElement = useAddElement();
 
@@ -14,7 +14,7 @@ export default function AddLayerButton(props: { isSidePanel?: boolean }) {
         const id = generateGUID();
         addElement({
             id,
-            name: "New Layer",
+            name: t("layer.new"),
             type: "util-layer",
             x: 0,
             y: 0,
@@ -31,7 +31,7 @@ export default function AddLayerButton(props: { isSidePanel?: boolean }) {
         <>
             <Tooltip2
                 fill
-                content={translation.AddLayer}
+                content={t("layer.add") as string}
                 position="bottom">
 
                 <AnchorButton

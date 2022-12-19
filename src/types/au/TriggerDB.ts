@@ -27,25 +27,25 @@ const OutputTriggerDB: Record<string, string[]> = {
 
 const InputTriggerDB: Record<string, string[]> = {
     "util-blanktrigger": [
-        "Show",
-        "Hide"
+        "show",
+        "hide"
     ],
     "util-triggerrepeat": [
-        "Repeat",
+        "repeat",
     ],
     "util-triggertimer": [
-        "Start Timer",
+        "startTimer",
     ],
     "util-triggeronce": [
-        "Trigger",
+        "trigger",
     ],
     "util-triggersound": [
-        "Enable",
-        "Disable",
+        "enable",
+        "disable",
     ],
     "util-triggerconsole": [
-        "Show",
-        "Hide",
+        "show",
+        "hide",
     ],
 };
 
