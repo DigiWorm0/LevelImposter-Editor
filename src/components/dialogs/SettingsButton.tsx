@@ -1,4 +1,4 @@
-import { Button, Card, Classes, ControlGroup, Dialog, H5, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Card, Classes, ControlGroup, Dialog, H5, Icon, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
@@ -59,13 +59,6 @@ export default function SettingsButton() {
         return `#${r}${g}${b}`;
     }
 
-    const cardStyle: React.CSSProperties = {
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 10,
-        padding: 15
-    };
-
     return (
         <>
             <Tooltip2
@@ -85,8 +78,16 @@ export default function SettingsButton() {
                 title={t("settings.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
-                <Card style={cardStyle}>
+                <div style={{
+                    marginLeft: 10,
+                    marginRight: 10,
+                    marginTop: 10,
+                    padding: 15
+                }}>
                     <H5>
+                        <Icon
+                            icon="modal"
+                            style={{ marginRight: 8, marginBottom: 2 }} />
                         {t("settings.interface.title")}
                     </H5>
                     <ControlGroup fill>
@@ -267,9 +268,11 @@ export default function SettingsButton() {
                             />
                         </LanguageSelect>
                     </ControlGroup>
-                </Card>
-                <Card style={cardStyle}>
-                    <H5>
+
+                    <H5 style={{ marginTop: 10 }}>
+                        <Icon
+                            icon="map"
+                            style={{ marginRight: 8, marginBottom: 2 }} />
                         {t("settings.map.title")}
                     </H5>
 
@@ -368,7 +371,7 @@ export default function SettingsButton() {
                             </Label>
                         </ControlGroup>
                         */}
-                </Card>
+                </div>
             </Dialog>
         </>
     );
