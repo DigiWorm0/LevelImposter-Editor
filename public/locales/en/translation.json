@@ -127,7 +127,7 @@
         "unlock": "Unlock",
         "lock": "Lock",
         "errorInvisible": "This object will not be visible in-game.",
-        "errorNoSprite": "This object will not be visible in-game unless you attatch a sprite.",
+        "errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",
         "errorMinimap": "This object will only be visible in the minimap.",
         "errorFreeplay": "This object will only be visible in freeplay mode."
     },
