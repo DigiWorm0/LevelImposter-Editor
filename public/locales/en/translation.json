@@ -317,6 +317,7 @@
         "util-triggersound": "Trigger Sound",
         "util-triggerrepeat": "Trigger Repeater",
         "util-triggertimer": "Trigger Timer",
+        "util-triggerstart": "Trigger Start",
         "task-id": "Card Swipe",
         "task-keys": "Keys",
         "task-pass": "Scan Pass",

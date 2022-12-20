@@ -23,6 +23,9 @@ const OutputTriggerDB: Record<string, string[]> = {
     "util-triggeronce": [
         "onTrigger",
     ],
+    "util-triggerstart": [
+        "onStart",
+    ]
 };
 
 const InputTriggerDB: Record<string, string[]> = {

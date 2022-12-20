@@ -29,6 +29,7 @@ const HIDE_ON_DESELECT = [
     "util-triggertimer",
     "util-triggerconsole",
     "util-triggersound",
+    "util-triggerstart",
     "util-spawn1",
     "util-spawn2",
     "util-blank",
