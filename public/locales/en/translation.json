@@ -242,6 +242,7 @@
             "objNesting": "Object Nesting",
             "grid": "Grid",
             "gridVisible": "Grid Visible",
+            "gridSize": "Grid Size",
             "snapToGrid": "Snap to Grid",
             "snapResolution": "Snap Resolution",
             "invisibleOpacity": "Invisible Opacity",
