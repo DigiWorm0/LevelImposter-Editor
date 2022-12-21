@@ -61,5 +61,6 @@ export const LANGUAGES = [
     "en",
     "es",
     "fr",
+	"ru",
     "zh",
 ];
