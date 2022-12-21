@@ -1,23 +1,54 @@
-import { Menu, MenuDivider } from "@blueprintjs/core";
+import React from "react";
+import { EditableText, H3, InputGroup, Menu, MenuDivider } from "@blueprintjs/core";
 import { useElementChildren } from "../../hooks/jotai/useElements";
 import MapButtons from "../dialogs/MapButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
 import RootHierarchyElement from "./RootHierarchyElement";
+import { useTranslation } from "react-i18next";
 
 export default function MapHierarchy() {
+    const { t } = useTranslation();
     const elementIDs = useElementChildren(undefined);
+    const [searchQuery, setSearchQuery] = React.useState<string>("");
 
     return (
-        <Menu
-            style={{ backgroundColor: "transparent" }}>
-
-            <RootHierarchyElement />
-
-            {elementIDs.map((elemID) => (
-                <MapHierarchyElement key={elemID} elementID={elemID} />
-            ))}
+        <>
+            <InputGroup
+                placeholder={t("edit.search") as string}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                leftIcon="search"
+                intent={searchQuery.length > 0 ? "warning" : "none"}
+                small
+                style={{
+                    border: "none",
+                    outline: 0,
+                    backgroundColor: "transparent",
+                    boxShadow: "none",
+                }}
+            />
             <MenuDivider />
-            <MapButtons />
-        </Menu>
+            <div style={{
+                overflowY: "auto",
+                height: "100%",
+                width: "100%",
+                backgroundColor: "transparent",
+                paddingBottom: 100
+            }}>
+                <Menu
+                    style={{ backgroundColor: "transparent" }}>
+
+                    {elementIDs.map((elemID) => (
+                        <MapHierarchyElement
+                            key={elemID}
+                            elementID={elemID}
+                            searchQuery={searchQuery}
+                        />
+                    ))}
+                    <MenuDivider />
+                    <MapButtons />
+                </Menu>
+            </div>
+        </>
     );
 }

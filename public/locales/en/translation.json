@@ -25,6 +25,7 @@
     "edit": {
         "undo": "Undo",
         "redo": "Redo",
+        "search": "Search...",
         "errorNoClipboard": "Nothing to paste",
         "errorExternalClipboard": "External pasting is unsupported by Firefox",
         "errorInsecureContext": "Paste is not allowed in HTTP mode"

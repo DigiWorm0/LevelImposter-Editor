@@ -1,4 +1,4 @@
-import { InputGroup, MenuDivider } from "@blueprintjs/core";
+import { InputGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useElement, { useDraggingElementID } from "../../hooks/jotai/useElements";

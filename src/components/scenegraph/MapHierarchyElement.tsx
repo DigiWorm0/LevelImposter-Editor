@@ -29,7 +29,7 @@ const ICON_DB: Record<string, IconName> = {
     "util-layer": "folder-close"
 }
 
-export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
+export default function MapHierarchyElement(props: { elementID: MaybeGUID, searchQuery: string }) {
     const [isEditingName, setIsEditingName] = React.useState(false);
     const [draggingID, setDraggingID] = useDraggingElementID();
     const [selectedID, setSelectedID] = useSelectedElemID();
@@ -64,10 +64,15 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
     if (element === undefined)
         return null;
 
-    const isDisabled = !((element?.type === "util-layer" || settings.elementNesting === true) && isDroppable) && draggingID !== undefined;
+    const isDisabled = !((element.type === "util-layer" || settings.elementNesting === true) && isDroppable) && draggingID !== undefined;
     const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
-    const isExpanded = element.properties.isExpanded === undefined ? true : element.properties.isExpanded;
+    const isExpanded = (element.properties.isExpanded === undefined ? true : element.properties.isExpanded) || props.searchQuery !== "";
     const intent = isDisabled ? "none" : getIntent(element.type);
+    const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
+    const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
+
+    if (!isMatchName && !isMatchType && element.type !== "util-layer")
+        return null;
 
     return (
         <div
@@ -177,7 +182,11 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID }) {
             />
             <Collapse isOpen={isExpanded} keepChildrenMounted>
                 {childIDs.map((childID) => (
-                    <MapHierarchyElement elementID={childID} key={childID} />
+                    <MapHierarchyElement
+                        elementID={childID}
+                        key={childID}
+                        searchQuery={props.searchQuery}
+                    />
                 ))}
             </Collapse>
 
