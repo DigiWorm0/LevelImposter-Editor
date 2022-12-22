@@ -40,7 +40,8 @@ export default function RoomSelect(props: { useDefault: boolean }) {
                 itemRenderer={roomSelectRenderer}
                 onItemSelect={(room) => {
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
-                }}>
+                }}
+                popoverProps={{ minimal: true }}>
 
                 <Button
                     rightIcon="caret-down"

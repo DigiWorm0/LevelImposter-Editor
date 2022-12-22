@@ -7,6 +7,7 @@ import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
 import TaskLength from "../../types/generic/TaskLength";
+import DescriptionInput from "./DescriptionInput";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
@@ -83,25 +84,7 @@ export default function TaskPanel() {
                             }}
                         />
                     </ControlGroup>
-                    <ControlGroup fill style={{ marginTop: 5 }}>
-                        <InputGroup
-                            key={selectedElem.id + "-description"}
-                            fill
-                            leftIcon="info-sign"
-                            placeholder={t("task.defaultDescription") as string}
-                            defaultValue={selectedElem.properties.description ? selectedElem.properties.description : ""}
-                            onChange={(e) => {
-                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
-                            }}
-                        />
-                        <Button
-                            minimal
-                            rightIcon="cross"
-                            onClick={() => {
-                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
-                            }}
-                        />
-                    </ControlGroup>
+                    <DescriptionInput />
                 </FormGroup>
             </PanelContainer>
             <MapError isVisible={parentRoom === undefined}>

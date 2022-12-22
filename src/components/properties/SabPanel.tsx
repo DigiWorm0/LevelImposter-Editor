@@ -1,16 +1,17 @@
-import { H5 } from "@blueprintjs/core";
+import { Button, ControlGroup, H5, InputGroup } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
+import DescriptionInput from "./DescriptionInput";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
 
 export default function SabPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const [selectedElem, setSelectedElem] = useSelectedElem();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
     const roomElems = useElementType("util-room");
@@ -38,6 +39,9 @@ export default function SabPanel() {
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
+                {selectedElem.type.startsWith("sab-btn") && (
+                    <DescriptionInput />
+                )}
             </PanelContainer>
 
             <MapError isVisible={parentRoom === undefined}>
