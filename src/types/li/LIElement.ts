@@ -53,6 +53,9 @@ export default interface LIElement {
         // Ladder
         ladderHeight?: number;
 
+        // Door
+        doorType?: string;
+
         // Platform
         platformXOffset?: number;
         platformYOffset?: number;

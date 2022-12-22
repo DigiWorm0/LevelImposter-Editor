@@ -23,7 +23,8 @@ export default function SabPanel() {
     }, [selectedElem]);
 
     if (!selectedElem
-        || !selectedElem.type.startsWith("sab-"))
+        || !selectedElem.type.startsWith("sab-")
+        || selectedElem.type.startsWith("sab-door"))
         return null;
 
     return (
@@ -39,9 +40,6 @@ export default function SabPanel() {
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
-                {selectedElem.type.startsWith("sab-btn") && (
-                    <DescriptionInput />
-                )}
             </PanelContainer>
 
             <MapError isVisible={parentRoom === undefined}>

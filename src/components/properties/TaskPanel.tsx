@@ -37,8 +37,6 @@ export default function TaskPanel() {
             onFocus={props.handleFocus} />
     );
 
-    const hasRooms = roomElems.length > 0;
-
     if (!selectedElem
         || !selectedElem.type.startsWith("task-"))
         return null;
