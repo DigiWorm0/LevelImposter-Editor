@@ -30,25 +30,28 @@ export default function MapHierarchy() {
             <MenuDivider />
             <div style={{
                 overflowY: "auto",
-                height: "100%",
+                height: "calc(100vh - 150px)",
                 width: "100%",
                 backgroundColor: "transparent",
-                paddingBottom: 100
             }}>
                 <Menu
-                    style={{ backgroundColor: "transparent" }}>
+                    style={{
+                        backgroundColor: "transparent"
+                    }}>
 
                     {elementIDs.map((elemID) => (
                         <MapHierarchyElement
                             key={elemID}
                             elementID={elemID}
                             searchQuery={searchQuery}
+                            isRoot={true}
                         />
                     ))}
-                    <MenuDivider />
-                    <MapButtons />
                 </Menu>
             </div>
+
+            <MenuDivider />
+            <MapButtons />
         </>
     );
 }

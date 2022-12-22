@@ -29,7 +29,7 @@ const ICON_DB: Record<string, IconName> = {
     "util-layer": "folder-close"
 }
 
-export default function MapHierarchyElement(props: { elementID: MaybeGUID, searchQuery: string }) {
+export default function MapHierarchyElement(props: { elementID: MaybeGUID, searchQuery: string, isRoot: boolean }) {
     const [isEditingName, setIsEditingName] = React.useState(false);
     const [draggingID, setDraggingID] = useDraggingElementID();
     const [selectedID, setSelectedID] = useSelectedElemID();
@@ -78,7 +78,9 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
         <div
             id={props.elementID}
             draggable
-            style={{ marginLeft: 15 }}
+            style={{
+                marginLeft: props.isRoot ? 5 : 15,
+            }}
             onDragStart={(e) => {
                 if (e.dataTransfer.getData("text/plain") !== "")
                     return;
@@ -180,12 +182,16 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                 }
 
             />
-            <Collapse isOpen={isExpanded} keepChildrenMounted>
+            <Collapse
+                isOpen={isExpanded}
+                keepChildrenMounted>
+
                 {childIDs.map((childID) => (
                     <MapHierarchyElement
                         elementID={childID}
                         key={childID}
                         searchQuery={props.searchQuery}
+                        isRoot={false}
                     />
                 ))}
             </Collapse>
