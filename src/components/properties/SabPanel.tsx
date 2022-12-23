@@ -45,6 +45,9 @@ export default function SabPanel() {
             <MapError isVisible={parentRoom === undefined}>
                 {t("sab.errorNoRoom") as string}
             </MapError>
+            <MapError isVisible={selectedElem.type === "sab-btndoors"} info>
+                {t("sab.doorInfo") as string}
+            </MapError>
         </>
     );
 }

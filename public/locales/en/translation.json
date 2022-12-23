@@ -162,6 +162,11 @@
         "blocksLight": "Blocks Light",
         "points": "Points",
         "defaultName": "Collider {{index}}",
+        "doorInfo": "Doors will toggle this collider when they are opened/closed.",
+        "roomInfo": "Collider is used to calculate room boundaries.",
+        "soundInfo": "Player will only hear audio if they are within this collider.",
+        "teleInfo": "Player will teleport once they enter this collider.",
+        "triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
         "errorOneOnly": "This object can only have 1 collider"
     },
     "room": {
@@ -174,6 +179,7 @@
     },
     "sab": {
         "title": "Sabotage",
+        "doorInfo": "Any door attatched to room will close when this button is pressed.",
         "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
     },
     "console": {
