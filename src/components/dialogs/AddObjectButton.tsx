@@ -8,6 +8,7 @@ import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useHiddenTypes from "../../hooks/jotai/useSingleTypes";
 import AUElementDB from "../../types/au/AUElementDB";
 
 interface AUElement {
@@ -23,6 +24,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
     const settings = useSettingsValue();
+    const hiddenTypes = useHiddenTypes();
 
     const handleClick = (elem: AUElement) => {
         const id = generateGUID();
@@ -81,9 +83,10 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                             label={elem.type}
                             icon={<div style={{ width: 20, textAlign: "center" }}><img src={"/sprites/" + elem.type + ".png"} style={{ maxWidth: 20, maxHeight: 20 }} /></div>}
                             active={props.modifiers.active}
-                            disabled={props.modifiers.disabled}
+                            disabled={props.modifiers.disabled || hiddenTypes.includes(elem.type)}
                             onClick={props.handleClick}
-                            onFocus={props.handleFocus} />
+                            onFocus={props.handleFocus}
+                        />
                     )
                 }}
                 itemPredicate={(query, elem) => {
