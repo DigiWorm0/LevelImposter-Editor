@@ -1,11 +1,10 @@
-import { Button, ControlGroup, FormGroup } from "@blueprintjs/core";
+import { Button, FormGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import DoorType from "../../types/generic/DoorType";
-import DescriptionInput from "./DescriptionInput";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
