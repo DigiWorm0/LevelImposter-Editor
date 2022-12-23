@@ -19,8 +19,8 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
             if (index >= 0 && elem) {
                 elements[index] = { ...elem };
                 set(elementsAtom, [...elements]);
+                set(saveHistoryAtom);
             }
-            set(saveHistoryAtom);
         }
     );
     elemAtom.debugLabel = `elementFamilyAtom(${id})`;
