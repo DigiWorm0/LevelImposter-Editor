@@ -290,6 +290,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.map.pixelArtMode") as string}
+                        </Label>
+                        <Switch
+                            checked={properties.pixelArtMode === undefined ? false : properties.pixelArtMode}
+                            onChange={(e) => {
+                                setProperties({ ...properties, pixelArtMode: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.map.skyboxColor") as string}
                         </Label>
                         <ColorPicker

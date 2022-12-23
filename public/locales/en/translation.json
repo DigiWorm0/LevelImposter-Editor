@@ -270,6 +270,7 @@
         "map": {
             "title": "Map",
             "showPingTracker": "Show Ping Tracker",
+            "pixelArtMode": "Pixel Art Mode",
             "skyboxColor": "Skybox Color",
             "setColor": "Set Color",
             "exileAnim": "Exile Animation",

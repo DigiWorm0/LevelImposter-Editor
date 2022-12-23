@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, ControlGroup, InputGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -5,6 +6,7 @@ import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 export default function DescriptionInput() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const input = React.useRef<HTMLInputElement>(null);
 
     if (!selectedElem)
         return null;
@@ -20,12 +22,15 @@ export default function DescriptionInput() {
                 onBlur={(e) => {
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: e.currentTarget.value } });
                 }}
+                inputRef={input}
             />
             <Button
                 minimal
                 rightIcon="cross"
                 onClick={() => {
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
+                    if (input.current)
+                        input.current.value = "";
                 }}
             />
         </ControlGroup>

@@ -10,6 +10,7 @@ import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useCamera from '../hooks/jotai/useCamera';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import { useMouseCursorValue } from '../hooks/jotai/useMouse';
+import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useCombos from '../hooks/useCombos';
 import { PROVIDER_SCOPE } from '../types/generic/Constants';
 
@@ -21,6 +22,7 @@ export default function Canvas() {
     const elementIDs = useElementIDs();
     const camera = useCamera(canvasWidth, canvasHeight);
     const { handleKeyDown, handleKeyUp } = useCombos();
+    const [mapProperties] = useMapProperties();
 
     const onWindowResize = () => {
         setCanvasWidth(window.innerWidth);
@@ -49,7 +51,9 @@ export default function Canvas() {
 
             <Stage
                 id="canvas"
-                style={{ cursor: cursor }}
+                style={{
+                    cursor: cursor,
+                }}
                 x={camera.x}
                 y={camera.y}
                 width={camera.width}
@@ -75,6 +79,7 @@ export default function Canvas() {
                 <Provider scope={PROVIDER_SCOPE}>
 
                     <Layer
+                        imageSmoothingEnabled={mapProperties.pixelArtMode !== true}
                         x={camera.width}
                         y={camera.height}
                         scale={{ x: camera.z, y: camera.z }}>
