@@ -37,7 +37,18 @@ export const undoHistoryAtom = atom(null, (get, set) => {
 
     if (headIndex > 0) {
         const current = history[headIndex - 1];
-        set(mapAtom, current);
+        set(mapAtom, {
+            ...current,
+            elements: current.elements.map(e => ({
+                ...e,
+                properties: {
+                    ...e.properties,
+                },
+            })),
+            properties: {
+                ...current.properties,
+            },
+        });
         set(headIndexAtom, headIndex - 1);
         set(historyAtom, [...history]);
 
@@ -58,7 +69,18 @@ export const redoHistoryAtom = atom(null, (get, set) => {
 
     if (headIndex < history.length - 1) {
         const current = history[headIndex + 1];
-        set(mapAtom, current);
+        set(mapAtom, {
+            ...current,
+            elements: current.elements.map(e => ({
+                ...e,
+                properties: {
+                    ...e.properties,
+                },
+            })),
+            properties: {
+                ...current.properties,
+            },
+        });
         set(headIndexAtom, headIndex + 1);
         set(historyAtom, [...history]);
 
