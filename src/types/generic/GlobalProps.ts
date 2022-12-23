@@ -14,7 +14,7 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         ]
     },
     {
-        prop: "parent",
+        prop: "description",
         types: [
             "sab-btnreactor",
             "sab-reactorleft",
@@ -22,14 +22,14 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         ]
     },
     {
-        prop: "parent",
+        prop: "description",
         types: [
             "sab-btnlights",
             "sab-electric",
         ]
     },
     {
-        prop: "parent",
+        prop: "description",
         types: [
             "sab-btnoxygen",
             "sab-oxygen1",
@@ -37,12 +37,42 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         ]
     },
     {
-        prop: "parent",
+        prop: "description",
         types: [
             "sab-btncomms",
             "sab-comms",
         ]
-    }
+    },
+    {
+        prop: "description",
+        types: [
+            "sab-btnreactor",
+            "sab-reactorleft",
+            "sab-reactorright",
+        ]
+    },
+    {
+        prop: "description",
+        types: [
+            "sab-btnlights",
+            "sab-electric",
+        ]
+    },
+    {
+        prop: "description",
+        types: [
+            "sab-btnoxygen",
+            "sab-oxygen1",
+            "sab-oxygen2",
+        ]
+    },
+    {
+        prop: "description",
+        types: [
+            "sab-btncomms",
+            "sab-comms",
+        ]
+    },
 ];
 
 export default GLOBAL_PROPERTIES;

@@ -40,6 +40,7 @@ export default function SabPanel() {
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
+                <DescriptionInput />
             </PanelContainer>
 
             <MapError isVisible={parentRoom === undefined}>
