@@ -101,6 +101,7 @@
         "skeld": "Timer (Skeld)",
         "polus": "Switch Panel (Polus)",
         "airship": "Card Swipe (Airship)",
+        "globalInfo": "Door type is global and can only be changed per-map.",
         "errorNoRoom": "This door is not attached to a room."
     },
     "stepSound": {

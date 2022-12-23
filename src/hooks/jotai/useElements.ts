@@ -1,5 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
+import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
 import { MaybeGUID } from "../../types/generic/GUID";
 import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import { saveHistoryAtom } from "./useHistory";
@@ -26,17 +27,30 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
     elemAtom.debugLabel = `elementFamilyAtom(${id})`;
     return elemAtom;
 }, (a, b) => a === b);
+export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
+    const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem.type));
+    globalProps.forEach((globalProp) => {
+        const prop = globalProp.prop as keyof LIElement["properties"];
+        get(elementsAtom).forEach((e) => {
+            if (globalProp.types.includes(e.type)) {
+                elem.properties = {
+                    ...elem.properties,
+                    [prop]: e.properties[prop],
+                };
+                return;
+            }
+        });
+    });
+
+    set(elementsAtom, [...get(elementsAtom), elem]);
+    set(saveHistoryAtom);
+});
 export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     const mouseX = get(mouseXAtom);
     const mouseY = get(mouseYAtom);
     elem.x = mouseX;
     elem.y = mouseY;
-    set(elementsAtom, [...get(elementsAtom), elem]);
-    set(saveHistoryAtom);
-});
-export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
-    set(elementsAtom, [...get(elementsAtom), elem]);
-    set(saveHistoryAtom);
+    set(addElementAtom, elem);
 });
 export const elementChildrenFamilyAtom = atomFamily((id: MaybeGUID) => {
     const elemChildrenAtom = atom(
