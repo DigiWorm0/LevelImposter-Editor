@@ -108,7 +108,8 @@ git push feature/cool-feature
 
 ### Contributors
 [Digi#0069](https://github.com/DigiWorm0) - Lead Developer\
-[PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese Translation
+[PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese Translation\
+[PalmForest#1404](https://github.com/RealPalmForest) - Russian Translation
 
 ### Dependencies
 [React](https://reactjs.org/) - UI Rendering\
