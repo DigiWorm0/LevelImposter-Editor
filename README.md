@@ -116,9 +116,6 @@ git push feature/cool-feature
 [Blueprint](https://blueprintjs.com/) - UI Components\
 [React-Konva](https://konvajs.org/) - Canvas Rendering
 
-### Disclaimer
-LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
-
 ### License
 This software is distributed under the GNU GPLv3 License
 
