@@ -5,7 +5,10 @@ import DeleteObjectButton from './DeleteObjectButton';
 
 export default function MapButtons() {
     return (
-        <ButtonGroup fill style={{ padding: 5 }} minimal>
+        <ButtonGroup
+            fill
+            style={{ padding: 5 }}
+            minimal>
 
             <AddObjectButton
                 isSidePanel={true} />

@@ -1,12 +1,13 @@
 import { Group, Line, Shape } from "react-konva";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import { GRID_SIZE, GRID_SPACING } from "../../types/generic/Constants";
+import { DEFAULT_GRID_SIZE, GRID_SPACING } from "../../types/generic/Constants";
 
 
 export default function CanvasGrid() {
     const settings = useSettingsValue();
 
     const isVisible = settings.isGridVisible === undefined ? true : settings.isGridVisible;
+    const gridSize = settings.gridSize === undefined ? DEFAULT_GRID_SIZE : settings.gridSize;
 
     return (
         <Group name="canvas-grid" listening={false}>
@@ -15,13 +16,13 @@ export default function CanvasGrid() {
                     <Shape
                         sceneFunc={(ctx, shape) => {
                             ctx.beginPath();
-                            for (let x = -(GRID_SIZE * GRID_SPACING); x < (GRID_SIZE * GRID_SPACING); x += GRID_SPACING) {
-                                ctx.moveTo(x, -(GRID_SIZE * GRID_SPACING));
-                                ctx.lineTo(x, (GRID_SIZE * GRID_SPACING));
+                            for (let x = -(gridSize * GRID_SPACING); x < (gridSize * GRID_SPACING); x += GRID_SPACING) {
+                                ctx.moveTo(x, -(gridSize * GRID_SPACING));
+                                ctx.lineTo(x, (gridSize * GRID_SPACING));
                             }
-                            for (let y = -(GRID_SIZE * GRID_SPACING); y < (GRID_SIZE * GRID_SPACING); y += GRID_SPACING) {
-                                ctx.moveTo(-(GRID_SIZE * GRID_SPACING), y);
-                                ctx.lineTo((GRID_SIZE * GRID_SPACING), y);
+                            for (let y = -(gridSize * GRID_SPACING); y < (gridSize * GRID_SPACING); y += GRID_SPACING) {
+                                ctx.moveTo(-(gridSize * GRID_SPACING), y);
+                                ctx.lineTo((gridSize * GRID_SPACING), y);
                             }
                             ctx.fillStrokeShape(shape);
                         }}
@@ -29,12 +30,12 @@ export default function CanvasGrid() {
                         strokeWidth={1}
                     />
                     <Line
-                        points={[0, -GRID_SIZE * GRID_SPACING, 0, (GRID_SIZE * GRID_SPACING)]}
+                        points={[0, -gridSize * GRID_SPACING, 0, (gridSize * GRID_SPACING)]}
                         stroke="#B83211"
                         strokeWidth={2} />
 
                     <Line
-                        points={[-(GRID_SIZE * GRID_SPACING), 0, (GRID_SIZE * GRID_SPACING), 0]}
+                        points={[-(gridSize * GRID_SPACING), 0, (gridSize * GRID_SPACING), 0]}
                         stroke="#215DB0"
                         strokeWidth={2} />
                 </>

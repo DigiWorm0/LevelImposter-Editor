@@ -7,6 +7,7 @@ const INVISIBLE_TYPES = [
     "util-triggerarea",
     "util-triggerrepeat",
     "util-triggertimer",
+    "util-triggerstart",
     "util-sound1",
     "util-sound2",
 ]

@@ -112,6 +112,9 @@ const AUElementDB: string[] = [
     "util-triggersound",
     "util-triggerrepeat",
     "util-triggertimer",
+    "util-triggerstart",
+    "sab-doorv",
+    "sab-doorh",
     "task-id",
     "task-keys",
     "task-pass",
@@ -301,7 +304,8 @@ const AUElementDB: string[] = [
     "sab-btnreactor",
     "sab-btnoxygen",
     "sab-btnlights",
-    "sab-btncomms"
+    "sab-btncomms",
+    "sab-btndoors"
 ];
 
 export default AUElementDB;

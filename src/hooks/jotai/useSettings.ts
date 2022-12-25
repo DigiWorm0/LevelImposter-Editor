@@ -1,7 +1,6 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import LISettings from "../../types/li/LISettings";
-import { saveHistoryAtom } from "./useHistory";
 
 // Atoms
 export const settingsAtom = atomWithStorage<LISettings>("settings", {});

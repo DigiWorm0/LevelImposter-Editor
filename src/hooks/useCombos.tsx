@@ -1,6 +1,7 @@
 import { HotkeyConfig, useHotkeys } from "@blueprintjs/core";
 import { useSetAtom } from "jotai";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { CAM_SPEED } from "../types/generic/Constants";
 import GUID, { MaybeGUID } from "../types/generic/GUID";
 import LIClipboard from "../types/li/LIClipboard";
@@ -15,6 +16,7 @@ import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 
 export default function useCombos() {
+    const { t } = useTranslation();
     const [localClipboard, setLocalClipboard] = React.useState<string | undefined>(undefined);
     const map = useMapValue();
     const undo = useUndo();
@@ -66,17 +68,17 @@ export default function useCombos() {
         let clipboard = localClipboard;
         if (!clipboard) {
             if (!window.isSecureContext) {
-                toaster.danger("Paste is not allowed in insecure context");
+                toaster.danger(t("edit.errorInsecureContext"));
                 return;
             }
             if (!navigator.clipboard.read) {
-                toaster.danger("External pasting is unsupported by Firefox", "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/read");
+                toaster.danger(t("edit.errorExternalClipboard"), "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/read");
                 return;
             }
             clipboard = await navigator.clipboard.readText();
         }
         if (!clipboard) {
-            toaster.danger("Nothing to paste");
+            toaster.danger(t("edit.errorNoClipboard"));
             return;
         }
         const clipboardData = JSON.parse(clipboard) as LIClipboard | undefined;

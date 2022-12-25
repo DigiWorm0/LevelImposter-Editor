@@ -37,8 +37,8 @@ export const insertColliderPointAtMouseAtom = atom(null, (get, set, index: numbe
         const mouseX = get(mouseXAtom);
         const mouseY = get(mouseYAtom);
         selectedCollider.points.splice(index, 0, {
-            x: mouseX - selectedElem.x,
-            y: -mouseY + selectedElem.y
+            x: (mouseX - selectedElem.x) / selectedElem.xScale,
+            y: (-mouseY + selectedElem.y) / selectedElem.yScale
         });
         set(selectedColliderAtom, { ...selectedCollider });
     }

@@ -24,7 +24,11 @@
     },
     "edit": {
         "undo": "Undo",
-        "redo": "Redo"
+        "redo": "Redo",
+        "search": "Search...",
+        "errorNoClipboard": "Nothing to paste",
+        "errorExternalClipboard": "External pasting is unsupported by Firefox",
+        "errorInsecureContext": "Paste is not allowed in HTTP mode"
     },
     "size": {
         "bytes": "{{size}} bytes",
@@ -91,6 +95,15 @@
         "title": "Vent",
         "noConnection": "No Connection"
     },
+    "door": {
+        "title": "Door",
+        "type": "Open Type",
+        "skeld": "Timer (Skeld)",
+        "polus": "Switch Panel (Polus)",
+        "airship": "Card Swipe (Airship)",
+        "globalInfo": "Door type is global and can only be changed per-map.",
+        "errorNoRoom": "This door is not attached to a room."
+    },
     "stepSound": {
         "title": "Step Sound",
         "presets": "Presets",
@@ -127,7 +140,7 @@
         "unlock": "Unlock",
         "lock": "Lock",
         "errorInvisible": "This object will not be visible in-game.",
-        "errorNoSprite": "This object will not be visible in-game unless you attatch a sprite.",
+        "errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",
         "errorMinimap": "This object will only be visible in the minimap.",
         "errorFreeplay": "This object will only be visible in freeplay mode."
     },
@@ -150,6 +163,11 @@
         "blocksLight": "Blocks Light",
         "points": "Points",
         "defaultName": "Collider {{index}}",
+        "doorInfo": "Doors will toggle this collider when they are opened/closed.",
+        "roomInfo": "Collider is used to calculate room boundaries.",
+        "soundInfo": "Player will only hear audio if they are within this collider.",
+        "teleInfo": "Player will teleport once they enter this collider.",
+        "triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
         "errorOneOnly": "This object can only have 1 collider"
     },
     "room": {
@@ -162,6 +180,7 @@
     },
     "sab": {
         "title": "Sabotage",
+        "doorInfo": "Any door attatched to room will close when this button is pressed.",
         "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
     },
     "console": {
@@ -242,6 +261,7 @@
             "objNesting": "Object Nesting",
             "grid": "Grid",
             "gridVisible": "Grid Visible",
+            "gridSize": "Grid Size",
             "snapToGrid": "Snap to Grid",
             "snapResolution": "Snap Resolution",
             "invisibleOpacity": "Invisible Opacity",
@@ -250,6 +270,7 @@
         "map": {
             "title": "Map",
             "showPingTracker": "Show Ping Tracker",
+            "pixelArtMode": "Pixel Art Mode",
             "skyboxColor": "Skybox Color",
             "setColor": "Set Color",
             "exileAnim": "Exile Animation",
@@ -313,6 +334,7 @@
         "util-triggersound": "Trigger Sound",
         "util-triggerrepeat": "Trigger Repeater",
         "util-triggertimer": "Trigger Timer",
+        "util-triggerstart": "Trigger Start",
         "task-id": "Card Swipe",
         "task-keys": "Keys",
         "task-pass": "Scan Pass",
@@ -502,6 +524,9 @@
         "sab-btnreactor": "Reactor Button",
         "sab-btnoxygen": "O2 Button",
         "sab-btnlights": "Lights Button",
-        "sab-btncomms": "Comms Button"
+        "sab-btncomms": "Comms Button",
+        "sab-btndoors": "Doors Button",
+        "sab-doorv": "Vertical Door",
+        "sab-doorh": "Horizontal Door"
     }
 }

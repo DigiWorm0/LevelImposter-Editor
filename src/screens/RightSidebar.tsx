@@ -18,6 +18,7 @@ import TimerPanel from "../components/properties/TimerPanel";
 import TransformPanel from "../components/properties/TransformPanel";
 import TriggerPanel from "../components/properties/TriggerPanel";
 import VentPanel from "../components/properties/VentPanel";
+import DoorPanel from "../components/properties/DoorPanel";
 
 export default function RightSidebar() {
 
@@ -28,6 +29,7 @@ export default function RightSidebar() {
             <SpritePanel />
             <RoomPanel />
             <TaskPanel />
+            <DoorPanel />
             <SabPanel />
             <ConsolePanel />
             <StarfieldPanel />

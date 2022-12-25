@@ -29,6 +29,7 @@ const HIDE_ON_DESELECT = [
     "util-triggertimer",
     "util-triggerconsole",
     "util-triggersound",
+    "util-triggerstart",
     "util-spawn1",
     "util-spawn2",
     "util-blank",
@@ -120,7 +121,8 @@ export default function MapElement(props: { elementID: GUID }) {
             onDragEnd={(e) => {
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
-                setElement({ ...elem, x, y });
+                if (x !== elem.x || y !== elem.y)
+                    setElement({ ...elem, x, y });
             }}
             onClick={(e) => {
                 e.target.getParent().stopDrag();

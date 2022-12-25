@@ -1,4 +1,4 @@
-import { Button, Card, Classes, ControlGroup, Dialog, H5, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Card, Classes, ControlGroup, Dialog, H5, Icon, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, LANGUAGES } from "../../types/generic/Constants";
+import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, LANGUAGES } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import ColorPicker from "../ColorPicker";
 
@@ -59,13 +59,6 @@ export default function SettingsButton() {
         return `#${r}${g}${b}`;
     }
 
-    const cardStyle: React.CSSProperties = {
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 10,
-        padding: 15
-    };
-
     return (
         <>
             <Tooltip2
@@ -85,8 +78,16 @@ export default function SettingsButton() {
                 title={t("settings.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
-                <Card style={cardStyle}>
+                <div style={{
+                    marginLeft: 10,
+                    marginRight: 10,
+                    marginTop: 10,
+                    padding: 15
+                }}>
                     <H5>
+                        <Icon
+                            icon="modal"
+                            style={{ marginRight: 8, marginBottom: 2 }} />
                         {t("settings.interface.title")}
                     </H5>
                     <ControlGroup fill>
@@ -181,6 +182,24 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.interface.gridSize") as string}
+                        </Label>
+                        <NumericInput
+                            defaultValue={settings.gridSize === undefined ? DEFAULT_GRID_SIZE : settings.gridSize}
+                            min={0}
+                            max={1000}
+                            minorStepSize={1}
+                            stepSize={5}
+                            majorStepSize={10}
+                            onValueChange={(value) => {
+                                setSettings({ ...settings, gridSize: value });
+                            }}
+                            buttonPosition="none"
+                            style={{ marginLeft: 10, marginTop: -5, width: 180 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.interface.snapToGrid") as string}
                         </Label>
                         <Switch
@@ -249,9 +268,11 @@ export default function SettingsButton() {
                             />
                         </LanguageSelect>
                     </ControlGroup>
-                </Card>
-                <Card style={cardStyle}>
-                    <H5>
+
+                    <H5 style={{ marginTop: 10 }}>
+                        <Icon
+                            icon="map"
+                            style={{ marginRight: 8, marginBottom: 2 }} />
                         {t("settings.map.title")}
                     </H5>
 
@@ -263,6 +284,18 @@ export default function SettingsButton() {
                             checked={properties.showPingIndicator === undefined ? true : properties.showPingIndicator}
                             onChange={(e) => {
                                 setProperties({ ...properties, showPingIndicator: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.map.pixelArtMode") as string}
+                        </Label>
+                        <Switch
+                            checked={properties.pixelArtMode === undefined ? false : properties.pixelArtMode}
+                            onChange={(e) => {
+                                setProperties({ ...properties, pixelArtMode: e.currentTarget.checked });
                             }}
                             style={{ marginLeft: 10 }} />
                     </ControlGroup>
@@ -350,7 +383,7 @@ export default function SettingsButton() {
                             </Label>
                         </ControlGroup>
                         */}
-                </Card>
+                </div>
             </Dialog>
         </>
     );
