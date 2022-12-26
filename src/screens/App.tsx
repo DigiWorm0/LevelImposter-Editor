@@ -1,9 +1,9 @@
-import { HotkeysProvider } from '@blueprintjs/core';
 import { Provider } from 'jotai';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CheckMobile from '../components/dialogs/CheckMobile';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
+import useCombos from '../hooks/useCombos';
 import useEmbed from '../hooks/useEmbed';
 import useIDParam from '../hooks/useIDParam';
 import { PROVIDER_SCOPE } from '../types/generic/Constants';
@@ -17,10 +17,10 @@ export default function App() {
     const { i18n } = useTranslation();
     const settings = useSettingsValue();
     const isEmbeded = useEmbed();
+    useCombos();
     useIDParam();
 
     React.useEffect(() => {
-
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
             e.preventDefault();
             e.returnValue = "";
@@ -42,26 +42,26 @@ export default function App() {
     }, [settings.language]);
 
     return (
-        <div className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
-            <HotkeysProvider>
-                <Provider scope={PROVIDER_SCOPE}>
-                    {!isEmbeded && (<>
-                        <Topbar />
-                        <LeftSidebar />
-                    </>)}
+        <div
+            className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
 
-                    <Canvas />
+            <Provider scope={PROVIDER_SCOPE}>
+                {!isEmbeded && (<>
+                    <Topbar />
+                    <LeftSidebar />
+                </>)}
 
-                    {!isEmbeded && (<>
-                        <RightSidebar />
-                        <CheckMobile />
-                    </>)}
+                <Canvas />
 
-                    {isEmbeded && (<>
-                        <OpenInEditor />
-                    </>)}
-                </Provider>
-            </HotkeysProvider>
+                {!isEmbeded && (<>
+                    <RightSidebar />
+                    <CheckMobile />
+                </>)}
+
+                {isEmbeded && (<>
+                    <OpenInEditor />
+                </>)}
+            </Provider>
         </div>
     );
 }
