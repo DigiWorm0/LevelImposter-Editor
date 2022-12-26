@@ -4,12 +4,14 @@ import React from "react";
 import GUID from "../types/generic/GUID";
 import LIMetadata from "../types/li/LIMetadata";
 import { db, storage } from "./Firebase";
+import { useSaveHistory } from "./jotai/useHistory";
 import { useSetMap } from "./jotai/useMap";
 import useToaster from "./useToaster";
 
 export default function useIDParam() {
     const setMap = useSetMap();
     const toaster = useToaster();
+    const saveHistory = useSaveHistory();
 
     React.useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -35,6 +37,7 @@ export default function useIDParam() {
                     const mapJSON = decoder.decode(new Uint8Array(mapBytes));
                     const mapData = JSON.parse(mapJSON);
                     setMap(mapData);
+                    saveHistory();
 
                     toaster.success(`Loaded ${metadata.name} by ${metadata.authorName}`);
                     params.delete("id");

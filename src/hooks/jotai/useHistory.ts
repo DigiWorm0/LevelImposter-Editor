@@ -95,6 +95,9 @@ export const redoHistoryAtom = atom(null, (get, set) => {
     }
 });
 
+export const canUndoAtom = atom(get => get(headIndexAtom) > 0);
+export const canRedoAtom = atom(get => get(headIndexAtom) < get(historyAtom).length - 1);
+
 // Debug
 historyAtom.debugLabel = "history";
 saveHistoryAtom.debugLabel = "saveHistory";
@@ -117,4 +120,15 @@ export function useUndo() {
 }
 export function useRedo() {
     return useSetAtom(redoHistoryAtom);
+}
+
+export function useSaveHistory() {
+    return useSetAtom(saveHistoryAtom);
+}
+
+export function useCanUndo() {
+    return useAtomValue(canUndoAtom);
+}
+export function useCanRedo() {
+    return useAtomValue(canRedoAtom);
 }

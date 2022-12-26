@@ -1,11 +1,12 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import { useUndo } from "../../hooks/jotai/useHistory";
+import { useCanUndo, useUndo } from "../../hooks/jotai/useHistory";
 
 export default function UndoButton() {
     const { t } = useTranslation();
     const undo = useUndo();
+    const canUndo = useCanUndo();
 
     return (
         <>
@@ -14,7 +15,8 @@ export default function UndoButton() {
                 content={t("edit.undo") as string}
                 position="bottom">
 
-                <Button
+                <AnchorButton
+                    disabled={!canUndo}
                     fill
                     className={Classes.MINIMAL}
                     icon={"undo"}
