@@ -286,6 +286,8 @@
         "trigger": "Trigger",
         "enable": "Enable",
         "disable": "Disable",
+        "open": "Open",
+        "close": "Close",
         "onEnter": "On Enter",
         "onExit": "On Exit",
         "onUse": "On Use",
@@ -299,7 +301,9 @@
         "onRepeat 6": "Repeat 6",
         "onRepeat 7": "Repeat 7",
         "onRepeat 8": "Repeat 8",
-        "onTrigger": "On Trigger"
+        "onTrigger": "On Trigger",
+        "onOpen": "On Open",
+        "onClose": "On Close"
     },
     "au": {
         "undefined": "Unknown Object",

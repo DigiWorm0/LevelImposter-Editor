@@ -11,7 +11,7 @@ export default function DocsButton() {
             position="bottom">
             <Button
                 minimal
-                icon="help"
+                icon="manual"
                 onClick={() => { window.open("https://docs.levelimposter.net/"); }} />
         </Tooltip2>
     );

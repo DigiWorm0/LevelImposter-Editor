@@ -38,6 +38,7 @@ const HIDE_ON_DESELECT = [
     "sab-btnlights",
     "sab-btncomms",
     "sab-btnoxygen",
+    "sab-btndoors"
 ];
 
 export default function MapElement(props: { elementID: GUID }) {
