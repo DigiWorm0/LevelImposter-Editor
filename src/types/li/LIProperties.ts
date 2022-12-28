@@ -75,6 +75,7 @@ export default interface LIProperties {
 
     // Minimap
     minimapScale?: number;
+    imposterOnly?: boolean;
 
     // Editor
     isLocked?: boolean;

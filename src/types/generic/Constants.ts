@@ -29,7 +29,7 @@ export const DEFAULT_GRID_SIZE = 25;
 export const MINIMAP_BASE_SCALE = 1 / 4.975;
 export const MINIMAP_WIDTH = 10 / MINIMAP_BASE_SCALE;
 export const MINIMAP_HEIGHT = 6 / MINIMAP_BASE_SCALE;
-export const MINIMAP_BUTTON_SIZE = 1;
+export const MINIMAP_BUTTON_SIZE = 5;
 export const MINIMAP_BUTTON_X = -17.5;
 export const MINIMAP_BUTTON_Y = 11;
 

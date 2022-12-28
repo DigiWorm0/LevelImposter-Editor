@@ -57,6 +57,8 @@
         "title": "Minimap",
         "scale": "Scale",
         "download": "Download Minimap",
+        "minimapSprite": "Minimap Sprite",
+        "imposterOnly": "Imposter Only",
         "errorNoSprite": "The object does not have a sprite attached to it. Minimap will not be visible in-game."
     },
     "sprite": {
@@ -327,6 +329,7 @@
         "util-spawn1": "Initial Spawnpoint",
         "util-spawn2": "Meeting Spawnpoint",
         "util-minimap": "Minimap",
+        "util-minimapsprite": "Minimap Sprite",
         "util-platform": "Moving Platform",
         "util-starfield": "Star Field",
         "util-sound1": "Ambient Sound",

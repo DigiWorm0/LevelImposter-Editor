@@ -66,6 +66,10 @@ const InputTriggerDB: Record<string, string[]> = {
         "open",
         "close",
     ],
+    "util-minimapsprite": [
+        "show",
+        "hide",
+    ],
 };
 
 export { InputTriggerDB, OutputTriggerDB };

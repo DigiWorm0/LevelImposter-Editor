@@ -14,6 +14,7 @@ const BLACKLISTED_TYPES = [
     "util-triggertimer",
     "util-triggerstart",
     "util-minimap",
+    "util-minimapsprite",
     "util-layer",
     "util-spawn1",
     "util-spawn2"

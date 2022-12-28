@@ -12,22 +12,25 @@ const minimapScaleAtom = atom((get) => {
     return scale;
 });
 
-export default function SabotageButton() {
+export default function MinimapElement() {
     const elem = useSelectedElemValue();
-    const btnSprite = useSprite(elem?.id);
+    const sprite = useSprite(elem?.id);
     const scale = useAtomValue(minimapScaleAtom);
 
-    if (!elem || !elem.type.startsWith("sab-btn") || !btnSprite)
+    if (!elem || (!elem.type.startsWith("sab-btn") && elem.type != "util-minimapsprite") || !sprite)
         return null;
+
+    const w = sprite ? sprite.width * scale * MINIMAP_BUTTON_SIZE * elem.xScale : 0;
+    const h = sprite ? sprite.height * scale * MINIMAP_BUTTON_SIZE * elem.yScale : 0;
 
     return (
         <>
             <Image
-                image={btnSprite}
-                x={(elem.x - (MINIMAP_BUTTON_SIZE * scale * elem.xScale)) * UNITY_SCALE}
-                y={-(elem.y + (MINIMAP_BUTTON_SIZE * scale * elem.yScale)) * UNITY_SCALE}
-                width={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2 * elem.xScale}
-                height={MINIMAP_BUTTON_SIZE * scale * UNITY_SCALE * 2 * elem.yScale}
+                image={sprite}
+                x={elem.x * UNITY_SCALE - (w / 2)}
+                y={-elem.y * UNITY_SCALE - (h / 2)}
+                width={w}
+                height={h}
                 opacity={0.3}
                 listening={false}
             />

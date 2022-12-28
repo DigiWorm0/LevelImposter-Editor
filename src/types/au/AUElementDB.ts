@@ -100,6 +100,7 @@ const AUElementDB: string[] = [
     "util-spawn1",
     "util-spawn2",
     "util-minimap",
+    "util-minimapsprite",
     "util-platform",
     "util-starfield",
     "util-sound1",
