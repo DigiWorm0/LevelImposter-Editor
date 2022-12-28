@@ -1,4 +1,4 @@
-import { Button, Card, ControlGroup } from "@blueprintjs/core";
+import { Button, Card, ControlGroup, Switch } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";

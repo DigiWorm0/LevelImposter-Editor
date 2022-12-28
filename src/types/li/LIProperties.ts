@@ -13,6 +13,7 @@ export default interface LIProperties {
     // Trigger
     triggers?: LITrigger[];
     triggerTime?: number;
+    triggerClientSide?: boolean;
 
     // Sound
     sounds?: LISound[];

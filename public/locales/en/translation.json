@@ -89,6 +89,7 @@
     "trigger": {
         "selectTarget": "Select Target",
         "selectTrigger": "Select Trigger",
+        "isClientSide": "Client Side",
         "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
     },
     "vent": {
