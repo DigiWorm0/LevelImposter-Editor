@@ -52,7 +52,7 @@
         "title": "Спрайт",
         "upload": "Загрузить",
         "reset": "Сбросить",
-        "setColor": "Выстовить Цвет",
+        "setColor": "Выставить Цвет",
         "okSize": "Ваше изображение достаточно маленькое, чтобы не вызывать никаких проблем.",
         "errorSize": "Большие изображения иногда могут привести к зависанию или сбою игры. Попробуйте уменьшить масштаб или разделить спрайт на несколько объектов."
     },
@@ -73,7 +73,7 @@
         "errorSize": "Звуковые файлы большего размера иногда могут привести к зависанию или сбою игры. Попробуйте уменьшить количество каналов или битрейт.",
         "errorNotSupported": "Ваш браузер не поддерживает аудио элемент.",
         "errorNoCollider": "У этого объекта нет коллайдера. Звук играет только для игроков, находящихся внутри коллайдера.",
-        "errorNoSound": "У этого объекта нет звуковово файла. (Unity поддерживает только файлы формата .wav)"
+        "errorNoSound": "У этого объекта нет звукового файла. (Unity поддерживает только файлы формата .wav)"
     },
     "trigger": {
         "selectTarget": "Выберите Цель",
@@ -190,25 +190,25 @@
         "noDescription": "(Без описания)",
         "newDialogText": "Вы уверены, что хотите создать новую карту? Это удалит все элементы и сбросит карту.",
         "newDialogCancel": "Отмена",
-        "tooLargeError": "Карта превышает лимит 50МБ для загрузки. Вы все-равно можете играть локально, но не сможете загружать файлы, пока не удалите или не сожмете все вашы спрайты, GIF-файлы и аудио.",
-        "tooLargeWarn": "Карта приближается к пределу 50МБ для загрузки. Рекомендуется удалить или сжать вашы спрайты, GIF-файлы и аудио."
+        "tooLargeError": "Карта превышает лимит 50МБ для загрузки. Вы все-равно можете играть локально, но не сможете загружать файлы, пока не удалите или не сожмете все ваши спрайты, GIF-файлы и аудио.",
+        "tooLargeWarn": "Карта приближается к пределу 50МБ для загрузки. Рекомендуется удалить или сжать ваши спрайты, GIF-файлы и аудио."
     },
     "publish": {
-        "title": "Выложыть Карту",
+        "title": "Выложить Карту",
         "success": "Карта успешно выложена!",
         "mapName": "Название Карты",
         "mapDescription": "Описание Карты",
         "thumbnail": "Картина",
-        "publishPublic": "Выложыть Публично",
-        "publishPrivate": "Выложыть Лично",
-        "publish": "Выложыть",
+        "publishPublic": "Выложить Публично",
+        "publishPrivate": "Выложить Лично",
+        "publish": "Выложить",
         "publishInfo": "Информацыя",
         "ok": "Ok",
         "cancel": "Отмена",
         "resetThumbnail": "Сбросить Картину",
         "uploadThumbnail": "Добавить Картину",
         "errorEmailNotVerified": "Вы должны подтвердить свою электронную почту перед публикацией карт.",
-        "errorNotAuthor": "Вы должны быть автором этой карты, чтобы выложыть ее."
+        "errorNotAuthor": "Вы должны быть автором этой карты, чтобы выложить ее."
     },
     "account": {
         "signedInAs": "Вы вошли как {{name}}",
@@ -238,14 +238,14 @@
             "gridSize": "Размер Сетки",
             "snapToGrid": "Привязки к Сетке",
             "snapResolution": "Разрешение Привязки",
-            "invisibleOpacity": "Уровинь Невидимости",
+            "invisibleOpacity": "Уровень Невидимости",
             "localization": "Локализация"
         },
         "map": {
             "title": "Карта",
             "showPingTracker": "Показать Пинг-Трекер",
             "skyboxColor": "Цвет Скайбокса",
-            "setColor": "Выстовить Цвет",
+            "setColor": "Выставить Цвет",
             "exileAnim": "Анимация Изгнания",
             "setAnim": "Выставить Анимацию"
         }
@@ -325,7 +325,7 @@
         "task-artifacts": "Отсортировать Артефакты",
         "task-oxygen": "O2 Канистры",
         "task-garbage": "Вынеси Мусор",
-        "task-chart": "Выстовить Курс",
+        "task-chart": "Выставить Курс",
         "task-medscan": "Медскан",
         "task-weapons": "Оружия",
         "task-telescope": "Телескоп",
@@ -356,7 +356,7 @@
         "task-pistols2": "Пистолеты 2",
         "task-records1": "Папка Записей",
         "task-records2": "Полка для Даписей",
-        "task-mannequin": "Наредить Манекен",
+        "task-mannequin": "Нарядить Манекен",
         "task-toilet": "Почистить Туалет",
         "task-towels1": "Корзина для Полотенец",
         "task-towels2": "Мокрое Полотенце",
@@ -436,7 +436,7 @@
         "room-polusadmin": "Polus Админ",
         "room-poluscomms": "Polus Коммуникации",
         "room-poluselectric": "Polus Электрическая",
-        "room-polusmedbay": "Polus Медбай",
+        "room-polusmedbay": "Polus Медбэй",
         "room-poluso2": "Polus O2",
         "room-polusspecimen": "Polus Образцы",
         "room-polusspecimenhallway1": "Polus Коридор 1",
@@ -447,7 +447,7 @@
         "room-skeldelectric": "Skeld Электрическая",
         "room-skeldengine1": "Skeld Двигатель 1",
         "room-skeldengine2": "Skeld Двигатель 2",
-        "room-skeldmedbay": "Skeld Медбай",
+        "room-skeldmedbay": "Skeld Медбэй",
         "room-skeldadminhallway": "Skeld Админ Коридор",
         "room-skeldnavhallway": "Skeld Нав Коридор",
         "room-skeldo2": "Skeld O2",
@@ -455,7 +455,7 @@
         "room-skeldsecurity": "Skeld Безопасность",
         "room-skeldstorage": "Skeld Хранение",
         "room-skeldshieldhall": "Skeld Щиты Коридор",
-        "room-miramedbaycomms": "Mira Медбай / Коммуникации",
+        "room-miramedbaycomms": "Mira Медбэй / Коммуникации",
         "room-mirayhall": "Mira Y Коридор",
         "room-mirareactor": "Mira Реактор",
         "room-miralaunchpad": "Mira Панель Запуска",
@@ -477,7 +477,7 @@
         "room-airshipkitchen": "Airship Кухня",
         "room-airshiplounge": "Airship Салон",
         "room-airshipmainhall": "Airship Коридор 2",
-        "room-airshipmedbay": "Airship Медбай",
+        "room-airshipmedbay": "Airship Медбэй",
         "room-airshipmeeting": "Airship Комната для Совещаний 1",
         "room-airshipmeeting2": "Airship Комната для Совещаний 2",
         "room-airshipoutside": "Airship Балкон",
