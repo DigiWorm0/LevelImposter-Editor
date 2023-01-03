@@ -6,6 +6,7 @@ import LIColor from '../../types/li/LIColor';
 import ColorPicker from '../ColorPicker';
 import DevInfo from "../DevInfo";
 import SizeTag from "../SizeTag";
+import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 
 const TYPE_BLACKLIST = [
@@ -130,6 +131,15 @@ export default function SpritePanel() {
                     />
                 </ControlGroup>
             </PanelContainer>
+            <MapError info isVisible={selectedElem.type.startsWith("util-vent")} icon="play">
+                {t("sprite.ventInfo") as string}
+            </MapError>
+            <MapError info isVisible={selectedElem.type.startsWith("sab-door")} icon="play">
+                {t("sprite.doorInfo") as string}
+            </MapError>
+            <MapError info isVisible={selectedElem.type === "util-cam"} icon="play">
+                {t("sprite.camInfo") as string}
+            </MapError>
         </>
     );
 }

@@ -66,6 +66,9 @@
         "upload": "Upload",
         "reset": "Reset",
         "setColor": "Set Color",
+        "ventInfo": "Any GIF animation will play when the vent is used.",
+        "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
+        "camInfo": "Any GIF animation will play when the cameras are active.",
         "okSize": "Your image is small enough to not cause any issues.",
         "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."
     },
