@@ -4,6 +4,7 @@ import React from "react";
 interface PanelContainerProps {
     children: React.ReactNode;
     title?: string;
+    style?: React.CSSProperties;
 }
 
 export default function PanelContainer(props: PanelContainerProps) {
@@ -30,7 +31,10 @@ export default function PanelContainer(props: PanelContainerProps) {
                 isOpen={isOpen}
                 keepChildrenMounted={true}>
 
-                <div style={{ padding: 10 }}>
+                <div style={{
+                    padding: 10,
+                    ...props.style
+                }}>
                     {props.children}
                 </div>
             </Collapse>
