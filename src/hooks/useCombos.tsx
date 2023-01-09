@@ -98,12 +98,14 @@ export default function useCombos() {
                 return id;
             };
 
-            elements.forEach(elem => {
+            elements.forEach((elem, index) => {
                 const newID = generateGUID();
+                const newName = elem.name + " (copy)";
                 newIDs.set(elem.id, newID);
                 addElement({
                     ...elem,
                     id: newID,
+                    name: newName,
                     parentID: getID(elem.parentID),
                     properties: {
                         ...elem.properties,
@@ -118,8 +120,9 @@ export default function useCombos() {
                         ]
                     }
                 });
+                if (index == 0)
+                    setSelectedID(newID);
             });
-            setSelectedID(elements[0].id);
         }
     }, [localClipboard, addElement, setSelectedID]);
 
