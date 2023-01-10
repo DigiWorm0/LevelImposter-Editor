@@ -186,6 +186,7 @@
     },
     "sab": {
         "title": "Sabotage",
+        "duration": "Duration",
         "doorInfo": "Any door attatched to room will close when this button is pressed.",
         "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
     },

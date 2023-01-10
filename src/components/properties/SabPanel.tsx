@@ -1,4 +1,4 @@
-import { Button, ControlGroup, H5, InputGroup } from "@blueprintjs/core";
+import { Button, ControlGroup, H5, InputGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -9,6 +9,15 @@ import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import RoomSelect from "./RoomSelect";
 
+const timerElems = [
+    "sab-reactorleft",
+    "sab-reactorright",
+    "sab-btnreactor",
+    "sab-oxygen1",
+    "sab-oxygen2",
+    "sab-btnoxygen",
+]
+
 export default function SabPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -17,6 +26,7 @@ export default function SabPanel() {
     const roomElems = useElementType("util-room");
 
     const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
+    const showTimer = timerElems.includes(selectedElem?.type ?? "");
 
     React.useEffect(() => {
         setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
@@ -41,6 +51,23 @@ export default function SabPanel() {
                 </div>
                 <RoomSelect useDefault={true} />
                 <DescriptionInput />
+                {showTimer && (
+                    <NumericInput
+                        key={selectedElem.id + "-duration"}
+                        fill
+                        placeholder={t("sab.duration") as string}
+                        defaultValue={selectedElem.properties.sabDuration ?? 45}
+                        min={0}
+                        minorStepSize={1}
+                        stepSize={5}
+                        majorStepSize={15}
+                        leftIcon="time"
+                        rightElement={<Button minimal disabled>seconds</Button>}
+                        onValueChange={(val) => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sabDuration: val } });
+                        }}
+                    />
+                )}
             </PanelContainer>
 
             <MapError isVisible={parentRoom === undefined}>
