@@ -77,7 +77,7 @@ export default function TriggerEditorPanel() {
             icon={"send-message"}
             key={triggerType + props.index}
             text={t(`t.${triggerType}`)}
-            label={props.index?.toString()}
+            label={triggerType}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
