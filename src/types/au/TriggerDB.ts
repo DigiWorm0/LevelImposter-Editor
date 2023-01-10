@@ -25,7 +25,15 @@ const OutputTriggerDB: Record<string, string[]> = {
     ],
     "util-triggerstart": [
         "onStart",
-    ]
+    ],
+    "sab-doorv": [
+        "onOpen",
+        "onClose",
+    ],
+    "sab-doorh": [
+        "onOpen",
+        "onClose",
+    ],
 };
 
 const InputTriggerDB: Record<string, string[]> = {
@@ -47,6 +55,18 @@ const InputTriggerDB: Record<string, string[]> = {
         "disable",
     ],
     "util-triggerconsole": [
+        "show",
+        "hide",
+    ],
+    "sab-doorv": [
+        "open",
+        "close",
+    ],
+    "sab-doorh": [
+        "open",
+        "close",
+    ],
+    "util-minimapsprite": [
         "show",
         "hide",
     ],

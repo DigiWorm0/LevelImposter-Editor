@@ -13,7 +13,7 @@ export default function MapError(props: {
         <Callout
             intent={props.info ? "primary" : "warning"}
             style={{
-                marginBottom: 10,
+                borderBottom: `3px solid ${props.info ? "rgb(37, 93, 128)" : "rgb(146, 100, 53)"}`,
                 borderRadius: 0
             }}
             icon={props.icon}

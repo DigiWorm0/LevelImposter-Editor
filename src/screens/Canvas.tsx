@@ -21,7 +21,6 @@ export default function Canvas() {
     const [properties] = useMapProperties();
     const elementIDs = useElementIDs();
     const camera = useCamera(canvasWidth, canvasHeight);
-    const { handleKeyDown, handleKeyUp } = useCombos();
     const [mapProperties] = useMapProperties();
 
     const onWindowResize = () => {
@@ -43,9 +42,6 @@ export default function Canvas() {
 
     return (
         <div
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-            onKeyUp={handleKeyUp}
             className="canvas"
             style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}>
 

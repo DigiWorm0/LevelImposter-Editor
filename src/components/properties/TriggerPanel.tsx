@@ -1,18 +1,22 @@
-import { Menu } from "@blueprintjs/core";
+import { ControlGroup, Menu, Switch } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import { useElementIDs } from "../../hooks/jotai/useMap";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSelectedTriggerID } from "../../hooks/jotai/useSelectedTrigger";
 import { OutputTriggerDB } from "../../types/au/TriggerDB";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 import TriggerEditorPanel from "./TriggerEditorPanel";
 
+const CLIENT_SIDE_TYPES = [
+    "util-triggerarea",
+    "util-triggerconsole",
+];
 
 export default function TriggerPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
     const elementIDs = useElementIDs();
 
@@ -46,6 +50,23 @@ export default function TriggerPanel() {
                         </div>
                     ))}
                 </Menu>
+                {CLIENT_SIDE_TYPES.includes(selectedElem.type) && (
+                    <ControlGroup fill style={{ textAlign: "center" }}>
+                        <Switch
+                            label={t("trigger.isClientSide") as string}
+                            checked={selectedElem.properties.triggerClientSide !== false}
+                            onChange={(e) => {
+                                setSelectedElem({
+                                    ...selectedElem,
+                                    properties: {
+                                        ...selectedElem.properties,
+                                        triggerClientSide: e.currentTarget.checked,
+                                    },
+                                });
+                            }}
+                        />
+                    </ControlGroup>
+                )}
             </PanelContainer>
 
             <MapError isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}>

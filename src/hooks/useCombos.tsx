@@ -98,12 +98,14 @@ export default function useCombos() {
                 return id;
             };
 
-            elements.forEach(elem => {
+            elements.forEach((elem, index) => {
                 const newID = generateGUID();
+                const newName = elem.name + " (copy)";
                 newIDs.set(elem.id, newID);
                 addElement({
                     ...elem,
                     id: newID,
+                    name: newName,
                     parentID: getID(elem.parentID),
                     properties: {
                         ...elem.properties,
@@ -118,8 +120,9 @@ export default function useCombos() {
                         ]
                     }
                 });
+                if (index == 0)
+                    setSelectedID(newID);
             });
-            setSelectedID(elements[0].id);
         }
     }, [localClipboard, addElement, setSelectedID]);
 
@@ -176,6 +179,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Selection",
             label: "Copy",
             combo: "ctrl+c",
@@ -186,6 +190,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Selection",
             label: "Paste",
             combo: "ctrl+v",
@@ -196,6 +201,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Selection",
             label: "Cut",
             combo: "ctrl+x",
@@ -207,6 +213,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Selection",
             label: "Duplicate",
             combo: "ctrl+d",
@@ -217,6 +224,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Selection",
             label: "Delete",
             combo: "del",
@@ -227,6 +235,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Map",
             label: "Save",
             combo: "ctrl+s",
@@ -237,6 +246,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Map",
             label: "Undo",
             combo: "ctrl+z",
@@ -247,6 +257,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Map",
             label: "Redo",
             combo: "ctrl+y",
@@ -257,6 +268,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Camera",
             label: "Move Up",
             combo: "up",
@@ -267,6 +279,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Camera",
             label: "Move Down",
             combo: "down",
@@ -277,6 +290,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Camera",
             label: "Move Left",
             combo: "left",
@@ -287,6 +301,7 @@ export default function useCombos() {
             preventDefault: true,
         },
         {
+            global: true,
             group: "Camera",
             label: "Move Right",
             combo: "right",
@@ -297,7 +312,7 @@ export default function useCombos() {
             preventDefault: true,
         }
     ], [copyElement, duplicateElement, pasteElement, deleteElement, saveMap, undo, redo]);
-    const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
 
+    const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
     return { handleKeyDown, handleKeyUp };
 }

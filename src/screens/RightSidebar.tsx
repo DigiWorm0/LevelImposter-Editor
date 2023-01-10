@@ -19,6 +19,7 @@ import TransformPanel from "../components/properties/TransformPanel";
 import TriggerPanel from "../components/properties/TriggerPanel";
 import VentPanel from "../components/properties/VentPanel";
 import DoorPanel from "../components/properties/DoorPanel";
+import MinimapSpritePanel from "../components/properties/MinimapSpritePanel";
 
 export default function RightSidebar() {
 
@@ -45,6 +46,7 @@ export default function RightSidebar() {
             <TriggerPanel />
             <ColliderPanel />
             <MinimapPanel />
+            <MinimapSpritePanel />
 
             <div style={{ height: 40 }} />
         </div>

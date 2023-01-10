@@ -16,17 +16,36 @@ export default function TransformPanel() {
     const settings = useSettingsValue();
 
     const elemVisibility = selectedElem && getMapVisibility(selectedElem);
+    const typeName = t(`au.${selectedElem?.type}`) as string;
 
     if (!selectedElem || selectedElem.type === "util-layer")
         return null;
 
     return (
         <>
-            <PanelContainer title={t("transform.title") as string}>
-                <DevInfo>
-                    {selectedElem.id}
-                </DevInfo>
-
+            <PanelContainer title={t("transform.title") as string} style={{ paddingTop: 0 }}>
+                {settings.isDevMode && (
+                    <InputGroup
+                        key={selectedElem.id + "-type-dev"}
+                        defaultValue={selectedElem.type}
+                        placeholder={t("transform.type") as string}
+                        leftElement={<Button minimal disabled>{t("transform.type")}</Button>}
+                        onChange={(e) => {
+                            setSelectedElem({ ...selectedElem, type: e.target.value });
+                        }}
+                    />
+                )}
+                {!settings.isDevMode && (
+                    <InputGroup
+                        style={{ backgroundColor: "var(--color-bg-2)" }}
+                        key={selectedElem.id + "-type"}
+                        defaultValue={typeName}
+                        placeholder={t("transform.type") as string}
+                        leftElement={<Button minimal disabled>{t("transform.type")}:</Button>}
+                        rightElement={<Button minimal disabled>{selectedElem.type}</Button>}
+                        disabled
+                    />
+                )}
                 <InputGroup
                     style={{ marginBottom: 5 }}
                     key={selectedElem.id + "-name"}
@@ -37,18 +56,6 @@ export default function TransformPanel() {
                         setSelectedElem({ ...selectedElem, name: e.target.value });
                     }}
                 />
-                {settings.isDevMode && (
-                    <InputGroup
-                        style={{ marginBottom: 5 }}
-                        key={selectedElem.id + "-type"}
-                        defaultValue={selectedElem.type}
-                        placeholder={t("transform.type") as string}
-                        large
-                        onChange={(e) => {
-                            setSelectedElem({ ...selectedElem, type: e.target.value });
-                        }}
-                    />
-                )}
                 <ControlGroup fill>
                     <NumericInput
                         key={selectedElem.id + "-x"}

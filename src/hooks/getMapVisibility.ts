@@ -20,6 +20,7 @@ const INVISIBLE_TYPES_NO_SPRITE = [
 
 const INVISIBLE_TYPES_MINIMAP = [
     "util-minimap",
+    "util-minimapsprite",
     "sab-btnreactor",
     "sab-btnoxygen",
     "sab-btnlights",

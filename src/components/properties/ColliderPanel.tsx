@@ -14,6 +14,7 @@ const BLACKLISTED_TYPES = [
     "util-triggertimer",
     "util-triggerstart",
     "util-minimap",
+    "util-minimapsprite",
     "util-layer",
     "util-spawn1",
     "util-spawn2"
@@ -28,6 +29,11 @@ const RESTRICTED_TYPES = [
     "util-triggersound",
 ];
 
+const SINGULAR_TYPES = [
+    "util-room",
+    "util-sound1",
+];
+
 export default function ColliderPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -35,7 +41,7 @@ export default function ColliderPanel() {
     const setSelectedCollider = useSetSelectedCollider();
 
     const isRestricted = RESTRICTED_TYPES.includes(selectedElem?.type || "");
-    const disableAddCollider = selectedElem?.type === "util-room" && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0;
+    const disableAddCollider = selectedElem && SINGULAR_TYPES.includes(selectedElem?.type) && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0;
 
     const addCollider = () => {
         if (!selectedElem)

@@ -57,6 +57,8 @@
         "title": "Minimap",
         "scale": "Scale",
         "download": "Download Minimap",
+        "minimapSprite": "Minimap Sprite",
+        "imposterOnly": "Imposter Only",
         "errorNoSprite": "The object does not have a sprite attached to it. Minimap will not be visible in-game."
     },
     "sprite": {
@@ -64,6 +66,9 @@
         "upload": "Upload",
         "reset": "Reset",
         "setColor": "Set Color",
+        "ventInfo": "Any GIF animation will play when the vent is used.",
+        "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
+        "camInfo": "Any GIF animation will play when the cameras are active.",
         "okSize": "Your image is small enough to not cause any issues.",
         "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."
     },
@@ -89,6 +94,7 @@
     "trigger": {
         "selectTarget": "Select Target",
         "selectTrigger": "Select Trigger",
+        "isClientSide": "Client Side",
         "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
     },
     "vent": {
@@ -286,6 +292,8 @@
         "trigger": "Trigger",
         "enable": "Enable",
         "disable": "Disable",
+        "open": "Open",
+        "close": "Close",
         "onEnter": "On Enter",
         "onExit": "On Exit",
         "onUse": "On Use",
@@ -299,7 +307,9 @@
         "onRepeat 6": "Repeat 6",
         "onRepeat 7": "Repeat 7",
         "onRepeat 8": "Repeat 8",
-        "onTrigger": "On Trigger"
+        "onTrigger": "On Trigger",
+        "onOpen": "On Open",
+        "onClose": "On Close"
     },
     "au": {
         "undefined": "Unknown Object",
@@ -322,6 +332,7 @@
         "util-spawn1": "Initial Spawnpoint",
         "util-spawn2": "Meeting Spawnpoint",
         "util-minimap": "Minimap",
+        "util-minimapsprite": "Minimap Sprite",
         "util-platform": "Moving Platform",
         "util-starfield": "Star Field",
         "util-sound1": "Ambient Sound",

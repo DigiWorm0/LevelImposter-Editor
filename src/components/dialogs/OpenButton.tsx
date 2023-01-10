@@ -1,9 +1,8 @@
 import { Button, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_GUID } from "../../hooks/generateGUID";
-import { saveHistoryAtom } from "../../hooks/jotai/useHistory";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import useToaster from "../../hooks/useToaster";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
@@ -12,7 +11,7 @@ import LIMap from "../../types/li/LIMap";
 export default function OpenButton() {
     const { t } = useTranslation();
     const setMap = useSetMap();
-    const saveHistory = useSetAtom(saveHistoryAtom);
+    const saveHistory = useSaveHistory();
     const toaser = useToaster();
 
     const onOpen = () => {

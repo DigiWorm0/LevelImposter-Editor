@@ -7,8 +7,8 @@ export default function SizeTag(props: { sizeBytes: number, okMsg: string, warni
     const { t } = useTranslation();
     const { sizeBytes, okMsg, warningMsg } = props;
 
-    const isOverSize = sizeBytes > 1000 * 1000 * 2; // 2 MB
-    const isSuperOverSize = sizeBytes > 1000 * 1000 * 5; // 5 MB
+    const isOverSize = sizeBytes > 1000 * 1000 * 4; // 4 MB
+    const isSuperOverSize = sizeBytes > 1000 * 1000 * 6; // 6 MB
     const sizeIntent = isSuperOverSize ? "danger" : (isOverSize ? "warning" : "success");
 
     const sizeString = React.useMemo(() => {
