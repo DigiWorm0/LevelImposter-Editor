@@ -18,6 +18,7 @@ export default function TaskPanel() {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const typeElems = useElementType(selectedElem?.type ?? "");
     const [taskName, setTaskName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
 
@@ -85,6 +86,9 @@ export default function TaskPanel() {
                     <DescriptionInput />
                 </FormGroup>
             </PanelContainer>
+            <MapError isVisible={selectedElem.type === "task-fuel2" && typeElems.length === 1}>
+                {t("task.errorNoFuel")}
+            </MapError>
             <MapError isVisible={parentRoom === undefined}>
                 {t("task.errorNoRoom")}
             </MapError>

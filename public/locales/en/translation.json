@@ -125,6 +125,7 @@
         "title": "Task",
         "defaultLength": "Default Length",
         "defaultDescription": "Default Description",
+        "errorNoFuel": "The multi-step gas task requires atleast 2 Gas Outputs (util-fuel2).",
         "errorNoRoom": "This task is not attached to a room."
     },
     "tele": {
