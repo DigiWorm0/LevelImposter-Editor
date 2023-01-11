@@ -69,6 +69,12 @@ export default function TriggerPanel() {
                 )}
             </PanelContainer>
 
+            <MapError isVisible={selectedElem.type === "util-triggerrand"} info>
+                {t("trigger.randomInfo")}
+            </MapError>
+            <MapError isVisible={selectedElem.type === "util-triggerrepeat"} info>
+                {t("trigger.repeatInfo")}
+            </MapError>
             <MapError isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}>
                 {t("trigger.errorNoCollider")}
             </MapError>

@@ -114,6 +114,7 @@ const AUElementDB: string[] = [
     "util-triggerrepeat",
     "util-triggertimer",
     "util-triggerstart",
+    "util-triggerrand",
     "task-id",
     "task-keys",
     "task-pass",

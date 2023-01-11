@@ -95,6 +95,8 @@
         "selectTarget": "Select Target",
         "selectTrigger": "Select Trigger",
         "isClientSide": "Client Side",
+        "randomInfo": "Trigger will randomly choose between either the first or second target.",
+        "repeatInfo": "Trigger will repeat to all connected targets.",
         "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
     },
     "vent": {
@@ -289,6 +291,7 @@
         "show": "Show",
         "hide": "Hide",
         "repeat": "Repeat",
+        "random": "Random",
         "startTimer": "Start Timer",
         "trigger": "Trigger",
         "enable": "Enable",
@@ -308,6 +311,8 @@
         "onRepeat 6": "Repeat 6",
         "onRepeat 7": "Repeat 7",
         "onRepeat 8": "Repeat 8",
+        "onRandom 1": "Random 1",
+        "onRandom 2": "Random 2",
         "onTrigger": "On Trigger",
         "onOpen": "On Open",
         "onClose": "On Close"
@@ -347,6 +352,7 @@
         "util-triggerrepeat": "Trigger Repeater",
         "util-triggertimer": "Trigger Timer",
         "util-triggerstart": "Trigger Start",
+        "util-triggerrand": "Trigger Randomizer",
         "task-id": "Card Swipe",
         "task-keys": "Keys",
         "task-pass": "Scan Pass",

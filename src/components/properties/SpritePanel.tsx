@@ -21,6 +21,7 @@ const TYPE_BLACKLIST = [
     "util-triggerarea",
     "util-triggerrepeat",
     "util-triggersound",
+    "util-triggerrand",
     "util-dummy",
 ];
 
