@@ -39,31 +39,35 @@ export default function PublishButton() {
             return;
         }
 
-        setIsPublishing(true);
-        setProgress(0);
-
-        const mapData: LIMap = {
-            id: id || map.id,
-            v: map.v,
-            name: map.name,
-            description: map.description,
-            isPublic: map.isPublic,
-            isVerified: false,
-            authorID: user?.uid ? user.uid : "",
-            authorName: user?.displayName ? user.displayName : "",
-            createdAt: new Date().getTime(),
-            likeCount: 0,
-            elements: map.elements,
-            properties: map.properties,
-            thumbnailURL: null,
-        };
-        const mapJSON = JSON.stringify(mapData);
-        const mapBytes = new TextEncoder().encode(mapJSON);
-        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.lim`);
-        const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapData.id}.png`);
+        const mapID = id || map.id;
+        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim`);
+        const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.png`);
         const storeRef = collection(db, "maps");
-        const docRef = doc(storeRef, mapData.id);
+        const docRef = doc(storeRef, mapID);
 
+        const serializeMap = (thumbnailURL: string | null) => {
+            const mapData: LIMap = {
+                id: mapID,
+                v: map.v,
+                name: map.name,
+                description: map.description,
+                isPublic: map.isPublic,
+                isVerified: false,
+                authorID: user?.uid ? user.uid : "",
+                authorName: user?.displayName ? user.displayName : "",
+                createdAt: new Date().getTime(),
+                likeCount: 0,
+                elements: map.elements,
+                properties: map.properties,
+                thumbnailURL: thumbnailURL,
+            };
+            const mapJSON = JSON.stringify(mapData);
+            const mapBytes = new TextEncoder().encode(mapJSON);
+            return {
+                mapBytes,
+                mapData,
+            };
+        }
         const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
             const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=31536000, immutable" });
 
@@ -80,8 +84,7 @@ export default function PublishButton() {
                 });
             });
         }
-
-        const uploadToFirestore = () => {
+        const uploadToFirestore = (mapData: LIMap) => {
             const metadata: LIMetadata = {
                 v: mapData.v,
                 id: mapData.id,
@@ -106,19 +109,22 @@ export default function PublishButton() {
                 });
             });
         }
-
-
-        uploadToStorage("LIM", mapBytes, mapStorageRef).then(async () => {
-            if (thumbnail)
+        const uploadTask = async () => {
+            let thumbnailURL: string | null = null;
+            if (thumbnail) {
                 await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
-        }).then(() => {
-            if (thumbnail)
-                return getDownloadURL(imgStorageRef);
-        }).then((url) => {
-            if (url)
-                mapData.thumbnailURL = url;
-            return uploadToFirestore();
-        }).then(() => {
+                thumbnailURL = await getDownloadURL(imgStorageRef);
+            }
+
+            const { mapBytes, mapData } = serializeMap(thumbnailURL);
+            await uploadToStorage("LIM", mapBytes, mapStorageRef);
+            await uploadToFirestore(mapData);
+            return mapData;
+        }
+
+        setIsPublishing(true);
+        setProgress(0);
+        uploadTask().then((mapData) => {
             setIsPublishing(false);
             setIsOpen(false);
             setMap(mapData);
