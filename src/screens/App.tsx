@@ -32,7 +32,7 @@ export default function App() {
         return () => {
             window.removeEventListener("beforeunload", onBeforeUnload);
         }
-    }, []);
+    }, [isEmbeded]);
 
     React.useEffect(() => {
         if (settings.language === "auto")
