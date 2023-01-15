@@ -8,7 +8,7 @@ import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import SizeTag from "../SizeTag";
+import SizeTag from "../utils/SizeTag";
 import PanelContainer from "./PanelContainer";
 import StepSoundEditorPanel from "./StepSoundEditorPanel";
 

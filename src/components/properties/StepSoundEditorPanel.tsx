@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import DevInfo from "../DevInfo";
+import DevInfo from "../utils/DevInfo";
 import AudioPlayer from "./AudioPlayer";
 
 export default function StepSoundEditorPanel() {

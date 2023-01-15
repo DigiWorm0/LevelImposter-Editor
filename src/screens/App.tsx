@@ -2,6 +2,7 @@ import { Provider } from 'jotai';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CheckMobile from '../components/dialogs/CheckMobile';
+import MapHelmet from '../components/utils/MapHelmet';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useCombos from '../hooks/useCombos';
 import useEmbed from '../hooks/useEmbed';
@@ -47,6 +48,7 @@ export default function App() {
 
             <Provider scope={PROVIDER_SCOPE}>
                 {!isEmbeded && (<>
+                    <MapHelmet />
                     <Topbar />
                     <LeftSidebar />
                 </>)}

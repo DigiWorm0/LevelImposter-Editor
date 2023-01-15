@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { auth } from "../../hooks/Firebase";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { useUserMaps } from "../../hooks/useUserMaps";
-import SignIn from "../SignIn";
+import SignIn from "../utils/SignIn";
 import PublishButton from "./PublishButton";
 
 export default function SignInButton() {

@@ -10,8 +10,6 @@ import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import useCamera from '../hooks/jotai/useCamera';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import { useMouseCursorValue } from '../hooks/jotai/useMouse';
-import { useSettingsValue } from '../hooks/jotai/useSettings';
-import useCombos from '../hooks/useCombos';
 import { PROVIDER_SCOPE } from '../types/generic/Constants';
 
 export default function Canvas() {

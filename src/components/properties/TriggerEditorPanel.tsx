@@ -11,7 +11,7 @@ import useSelectedTrigger, { useSelectedTriggerIDValue } from "../../hooks/jotai
 import { InputTriggerDB } from "../../types/au/TriggerDB";
 import LIElement from "../../types/li/LIElement";
 import LITrigger from "../../types/li/LITrigger";
-import DevInfo from "../DevInfo";
+import DevInfo from "../utils/DevInfo";
 
 const ElemSelect = Select2.ofType<LIElement>();
 const TriggerSelect = Select2.ofType<string>();

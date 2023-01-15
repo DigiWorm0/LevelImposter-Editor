@@ -39,6 +39,7 @@
         "react-color": "^2.19.3",
         "react-dom": "^18.2.0",
         "react-firebase-hooks": "^5.0.3",
+        "react-helmet": "^6.1.0",
         "react-i18next": "^12.1.1",
         "react-konva": "^18.1.0",
         "react-scripts": "5.0.1",
@@ -59,6 +60,7 @@
     },
     "devDependencies": {
         "@types/react-color": "^3.0.6",
+        "@types/react-helmet": "^6.1.6",
         "gh-pages": "^4.0.0"
     }
 }

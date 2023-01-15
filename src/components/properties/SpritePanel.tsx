@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../hooks/useSprite";
 import LIColor from '../../types/li/LIColor';
-import ColorPicker from '../ColorPicker';
-import DevInfo from "../DevInfo";
-import SizeTag from "../SizeTag";
+import ColorPicker from '../utils/ColorPicker';
+import DevInfo from "../utils/DevInfo";
+import SizeTag from "../utils/SizeTag";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 

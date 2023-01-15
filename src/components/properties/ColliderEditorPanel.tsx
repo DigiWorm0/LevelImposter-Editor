@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import LICollider from "../../types/li/LICollider";
-import DevInfo from "../DevInfo";
+import DevInfo from "../utils/DevInfo";
 
 const RESTRICTED_TYPES = [
     "util-room",

@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedSound from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import DevInfo from "../DevInfo";
+import DevInfo from "../utils/DevInfo";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;

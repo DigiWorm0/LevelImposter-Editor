@@ -3,8 +3,8 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailA
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { auth, db, githubProvider, googleProvider } from "../hooks/Firebase";
-import useToaster from "../hooks/useToaster";
+import { auth, db, githubProvider, googleProvider } from "../../hooks/Firebase";
+import useToaster from "../../hooks/useToaster";
 
 export default function SignIn() {
     const { t } = useTranslation();

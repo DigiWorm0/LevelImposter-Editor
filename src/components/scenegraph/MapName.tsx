@@ -1,6 +1,8 @@
 import { Button, InputGroup } from "@blueprintjs/core";
+import i18next from "i18next";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import isDefaultName from "../../hooks/isDefaultMapName";
 import { useMapName } from "../../hooks/jotai/useMap";
 import { LANGUAGES } from "../../types/generic/Constants";
 
@@ -20,8 +22,7 @@ export default function MapName() {
     }, [isEditingName])
 
     React.useEffect(() => {
-        const isNewMapName = LANGUAGES.map((i18nCode) => t("map.new", { lng: i18nCode })).includes(name);
-        if (isNewMapName) {
+        if (isDefaultName(name)) {
             setName(t("map.new") as string);
             setMapName(t("map.new") as string);
         }

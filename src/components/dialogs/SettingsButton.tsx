@@ -8,7 +8,7 @@ import useSettings from "../../hooks/jotai/useSettings";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, LANGUAGES } from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../utils/ColorPicker";
 
 const LanguageSelect = Select2.ofType<string>();
 const ExileSelect = Select2.ofType<string>();
