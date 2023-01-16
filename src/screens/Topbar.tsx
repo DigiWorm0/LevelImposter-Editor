@@ -4,7 +4,6 @@ import AddObjectButton from "../components/dialogs/AddObjectButton";
 import AutoSaveButton from "../components/dialogs/AutoSaveButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
 import DocsButton from "../components/dialogs/DocsButton";
-import ImportLegacyButton from "../components/dialogs/ImportLegacyButton";
 import NewMapButton from "../components/dialogs/NewMapButton";
 import OpenButton from "../components/dialogs/OpenButton";
 import RedoButton from "../components/dialogs/RedoButton";
@@ -26,7 +25,6 @@ export default function Topbar() {
                     <NavbarDivider />
                     <OpenButton />
                     <NewMapButton />
-                    <ImportLegacyButton />
                     <AutoSaveButton />
                     <NavbarDivider />
                     <SaveButton />

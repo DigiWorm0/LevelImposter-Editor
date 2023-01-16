@@ -1,7 +1,8 @@
-import React from "react";
 import { Button } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSetSaved } from "../../hooks/jotai/useIsSaved";
 import { useMapValue } from "../../hooks/jotai/useMap";
 import useToaster from "../../hooks/useToaster";
 
@@ -9,6 +10,7 @@ export default function SaveButton(props: { isButton?: boolean }) {
     const { t } = useTranslation();
     const map = useMapValue();
     const { danger } = useToaster();
+    const setIsSaved = useSetSaved();
 
     const onSave = React.useCallback(() => {
         try {
@@ -19,6 +21,7 @@ export default function SaveButton(props: { isButton?: boolean }) {
             link.href = url;
             link.download = map.name + ".lim";
             link.click();
+            setIsSaved(true);
         }
         catch (e: any) {
             danger(t("map.errorSave", { error: e.message }) as string);

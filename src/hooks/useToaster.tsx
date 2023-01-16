@@ -6,6 +6,7 @@ const toaster = Toaster.create({
 
 export default function useToaster() {
     const success = (message: string, link?: string) => {
+        console.log("Toast Success", message, link);
         toaster.show({
             intent: Intent.SUCCESS,
             message,
@@ -22,6 +23,7 @@ export default function useToaster() {
     }
 
     const danger = (message: string, link?: string) => {
+        console.log("Toast Danger", message, link);
         toaster.show({
             intent: Intent.DANGER,
             message,
@@ -37,6 +39,7 @@ export default function useToaster() {
     }
 
     const warning = (message: string) => {
+        console.log("Toast Warning", message);
         toaster.show({
             intent: Intent.WARNING,
             message,
@@ -45,6 +48,7 @@ export default function useToaster() {
     }
 
     const info = (message: string) => {
+        console.log("Toast Info", message);
         toaster.show({
             intent: Intent.PRIMARY,
             message,

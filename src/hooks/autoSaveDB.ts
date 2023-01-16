@@ -3,6 +3,7 @@ import Dexie, { Table } from 'dexie';
 import { useMapValue } from './jotai/useMap';
 import useToaster from './useToaster';
 import { useTranslation } from 'react-i18next';
+import useIsSaved from './jotai/useIsSaved';
 
 const MAX_SAVE_COUNT = 5;
 const MIN_SAVE_INTERVAL = 1000 * 60 * 5; // 5 minutes
@@ -31,6 +32,7 @@ export default function useAutoSave() {
     const [lastTime, setLastTime] = React.useState(0);
     const { danger } = useToaster();
     const { t } = useTranslation();
+    const [_, setIsSaved] = useIsSaved();
 
     const addSave = React.useCallback(() => {
         try {
@@ -60,12 +62,13 @@ export default function useAutoSave() {
     }, [map]);
 
     React.useEffect(() => {
+        setIsSaved(false);
         const time = Date.now();
         if (time - lastTime > MIN_SAVE_INTERVAL && map.elements.length > 0) {
             addSave();
             setLastTime(time);
         }
-    }, [map, lastTime, addSave]);
+    }, [map, lastTime, addSave, setIsSaved]);
 
     return null;
 }

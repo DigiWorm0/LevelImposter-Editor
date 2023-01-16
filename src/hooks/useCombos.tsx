@@ -10,6 +10,7 @@ import generateGUID from "./generateGUID";
 import { camXAtom, camYAtom } from "./jotai/useCamera";
 import { useAddElement, useAddElementAtMouse } from "./jotai/useElements";
 import { useRedo, useUndo } from "./jotai/useHistory";
+import { useSetSaved } from "./jotai/useIsSaved";
 import { useMapValue } from "./jotai/useMap";
 import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
@@ -30,6 +31,7 @@ export default function useCombos() {
     const toaster = useToaster();
     const setCamX = useSetAtom(camXAtom);
     const setCamY = useSetAtom(camYAtom);
+    const setIsSaved = useSetSaved();
 
     const saveMap = React.useCallback(() => {
         const mapJSON = JSON.stringify(map);
@@ -39,6 +41,7 @@ export default function useCombos() {
         link.href = url;
         link.download = map.name + ".lim";
         link.click();
+        setIsSaved(true);
     }, [map]);
 
     const copyElement = React.useCallback(() => {

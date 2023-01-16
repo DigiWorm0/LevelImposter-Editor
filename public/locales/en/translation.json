@@ -221,6 +221,7 @@
         "importLegacy": "Import Legacy Map",
         "open": "Open Map",
         "opened": "Opened {{name}}",
+        "imported": "Imported {{name}}",
         "new": "New Map",
         "play": "Play Map",
         "save": "Save Map",
