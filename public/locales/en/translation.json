@@ -30,6 +30,12 @@
         "errorExternalClipboard": "External pasting is unsupported by Firefox",
         "errorInsecureContext": "Paste is not allowed in HTTP mode"
     },
+    "autosave": {
+        "revert": "Revert Auto Save",
+        "noneFound": "No Auto Saves Found",
+        "reverted": "Reverted to Auto Save '{{name}}'",
+        "errorAutoSave": "Autosave failed:\n{{error}}"
+    },
     "size": {
         "bytes": "{{size}} bytes",
         "kilobytes": "{{size}} KB",
@@ -227,7 +233,8 @@
         "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
         "newDialogCancel": "Cancel",
         "tooLargeError": "Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.",
-        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds."
+        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.",
+        "errorSave": "Error saving map: {{error}}"
     },
     "publish": {
         "title": "Publish Map",
