@@ -117,6 +117,7 @@ export function useOpenMap() {
         repairMap(mapData);
         setMap(mapData);
         setSaved(true);
+        saveHistory();
 
         // Toast
         success(t("map.imported", { name: mapData.name }));

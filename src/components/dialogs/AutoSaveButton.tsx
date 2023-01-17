@@ -2,7 +2,8 @@ import { AnchorButton, Classes, Dialog, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AutoSaveData, autoSaveDB, useAutoSaves } from "../../hooks/autoSaveDB";
+import { AutoSaveData, autoSaveDB, useAutoSaves } from "../../hooks/useAutoSave";
+import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import useToaster from "../../hooks/useToaster";
@@ -14,12 +15,15 @@ export default function AutoSaveButton() {
     const autoSaves = useAutoSaves();
     const setMap = useSetMap();
     const { success } = useToaster();
+    const saveHistory = useSaveHistory();
 
     const revertAutoSave = React.useCallback((autoSave: AutoSaveData) => {
         console.log("Reverting to auto save", autoSave);
         const { mapJson } = autoSave;
         const mapData = JSON.parse(mapJson);
         setMap(mapData);
+        saveHistory();
+        setIsOpen(false);
         success(t("autosave.reverted", { name: autoSave.name }) as string);
     }, [setMap]);
 
@@ -43,7 +47,7 @@ export default function AutoSaveButton() {
                 isOpen={isOpen}
                 onClose={() => { setIsOpen(false) }}
                 icon={"history"}
-                title={t("autosave.noneFound") as string}
+                title={t("autosave.revert") as string}
                 style={{ paddingBottom: 0 }}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
 
@@ -63,7 +67,6 @@ export default function AutoSaveButton() {
                                 icon={"map"}
                                 text={autoSave.name}
                                 onClick={() => {
-                                    setIsOpen(false);
                                     revertAutoSave(autoSave);
                                 }}
                             />
@@ -71,7 +74,7 @@ export default function AutoSaveButton() {
 
                         {autoSaves.length === 0 && (
                             <MenuItem2
-                                text={t("edit.noAutoSaves") as string}
+                                text={t("autosave.noneFound") as string}
                                 disabled
                             />
                         )}

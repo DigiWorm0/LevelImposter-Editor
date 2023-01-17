@@ -9,8 +9,10 @@ export default function MapHelmet() {
 
     return (
         <Helmet>
-            {!isDefaultName(map.name) &&
-                <title>{map.name}{isSaved ? "" : " *"}</title>
+            {map.elements.length > 0 ?
+                (<title>{map.name}{isSaved ? "" : "*"}</title>)
+                :
+                (<title>LevelImposter Editor</title>)
             }
             <meta name="description" content={map.description} />
         </Helmet>

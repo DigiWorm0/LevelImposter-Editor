@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CheckMobile from '../components/dialogs/CheckMobile';
 import MapHelmet from '../components/utils/MapHelmet';
-import useAutoSave from '../hooks/autoSaveDB';
+import useAutoSave from '../hooks/useAutoSave';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useCombos from '../hooks/useCombos';
 import useEmbed from '../hooks/useEmbed';

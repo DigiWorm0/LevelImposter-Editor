@@ -33,7 +33,7 @@
     "autosave": {
         "revert": "Revert Auto Save",
         "noneFound": "No Auto Saves Found",
-        "reverted": "Reverted to Auto Save '{{name}}'",
+        "reverted": "Reverted {{name}} from auto save",
         "errorAutoSave": "Autosave failed:\n{{error}}"
     },
     "size": {
