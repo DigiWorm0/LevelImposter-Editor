@@ -12,4 +12,5 @@ export default interface LIMetadata {
     createdAt: number;
     likeCount: number;
     thumbnailURL: string | null;
+    remixOf: GUID | null;
 }

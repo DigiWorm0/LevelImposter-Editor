@@ -113,6 +113,7 @@ export function useOpenMap() {
             elements,
             properties: {},
             thumbnailURL: null,
+            remixOf: null,
         };
         repairMap(mapData);
         setMap(mapData);

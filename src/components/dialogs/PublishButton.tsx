@@ -32,6 +32,7 @@ export default function PublishButton() {
     const [uploadProgress, setProgress] = React.useState(0);
 
     const isLoggedIn = user !== null;
+    const isRemixed = !(map.authorID === user?.uid || map.authorID === "");
 
     const publishMap = (id?: GUID) => {
         if (!user?.emailVerified) {
@@ -39,6 +40,7 @@ export default function PublishButton() {
             return;
         }
 
+        const oldMapID = map.id;
         const mapID = id || map.id;
         const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim`);
         const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.png`);
@@ -60,6 +62,7 @@ export default function PublishButton() {
                 elements: map.elements,
                 properties: map.properties,
                 thumbnailURL: thumbnailURL,
+                remixOf: isRemixed ? oldMapID : map.remixOf,
             };
             const mapJSON = JSON.stringify(mapData);
             const mapBytes = new TextEncoder().encode(mapJSON);
@@ -97,6 +100,7 @@ export default function PublishButton() {
                 createdAt: mapData.createdAt,
                 likeCount: mapData.likeCount,
                 thumbnailURL: mapData.thumbnailURL,
+                remixOf: mapData.remixOf,
             };
 
             return new Promise<void>((resolve, reject) => {
@@ -182,20 +186,17 @@ export default function PublishButton() {
         input.click();
     }
 
-    const canUpload = map.authorID === user?.uid || map.authorID === "";
-
     return (
         <>
             <Tooltip2
                 fill
-                content={(canUpload ? t("publish.title") : t("publish.errorNotAuthor")) as string}
+                content={t("publish.title") as string}
                 position="bottom">
 
                 <AnchorButton
                     fill
-                    disabled={!canUpload}
-                    text={t("publish.title")}
-                    icon="cloud-upload"
+                    text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
+                    icon={isRemixed ? "duplicate" : "cloud-upload"}
                     intent="success"
                     onClick={() => { setIsOpen(true) }}
                     style={{ marginTop: 15 }}
