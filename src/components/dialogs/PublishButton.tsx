@@ -196,7 +196,7 @@ export default function PublishButton() {
                 <AnchorButton
                     fill
                     text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
-                    icon={isRemixed ? "duplicate" : "cloud-upload"}
+                    icon={isRemixed ? "random" : "cloud-upload"}
                     intent="success"
                     onClick={() => { setIsOpen(true) }}
                     style={{ marginTop: 15 }}
