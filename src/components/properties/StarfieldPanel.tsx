@@ -81,6 +81,7 @@ export default function StarfieldPanel() {
                         fill
                         placeholder={t("starfield.minSpeed") as string}
                         defaultValue={selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED}
+                        min={0}
                         max={selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED}
                         minorStepSize={0.1}
                         stepSize={1}

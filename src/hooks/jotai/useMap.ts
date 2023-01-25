@@ -19,6 +19,7 @@ const DEFAULT_MAP: LIMap = {
     elements: [],
     properties: {},
     thumbnailURL: null,
+    remixOf: null,
 };
 
 // Atoms

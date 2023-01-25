@@ -2,6 +2,8 @@ import { Provider } from 'jotai';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CheckMobile from '../components/dialogs/CheckMobile';
+import MapHelmet from '../components/utils/MapHelmet';
+import useAutoSave from '../hooks/useAutoSave';
 import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useCombos from '../hooks/useCombos';
 import useEmbed from '../hooks/useEmbed';
@@ -19,6 +21,7 @@ export default function App() {
     const isEmbeded = useEmbed();
     useCombos();
     useIDParam();
+    useAutoSave();
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -32,7 +35,7 @@ export default function App() {
         return () => {
             window.removeEventListener("beforeunload", onBeforeUnload);
         }
-    }, []);
+    }, [isEmbeded]);
 
     React.useEffect(() => {
         if (settings.language === "auto")
@@ -47,6 +50,7 @@ export default function App() {
 
             <Provider scope={PROVIDER_SCOPE}>
                 {!isEmbeded && (<>
+                    <MapHelmet />
                     <Topbar />
                     <LeftSidebar />
                 </>)}

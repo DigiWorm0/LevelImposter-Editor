@@ -4,7 +4,6 @@ import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
-import DevInfo from "../DevInfo";
 import MapError from "./MapError";
 import PanelContainer from "./PanelContainer";
 

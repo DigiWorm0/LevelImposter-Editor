@@ -2,7 +2,7 @@ import { ControlGroup, Menu, Switch } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import { useElementIDs } from "../../hooks/jotai/useMap";
-import useSelectedElem, { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedTriggerID } from "../../hooks/jotai/useSelectedTrigger";
 import { OutputTriggerDB } from "../../types/au/TriggerDB";
 import MapError from "./MapError";
@@ -69,6 +69,12 @@ export default function TriggerPanel() {
                 )}
             </PanelContainer>
 
+            <MapError isVisible={selectedElem.type === "util-triggerrand"} info>
+                {t("trigger.randomInfo")}
+            </MapError>
+            <MapError isVisible={selectedElem.type === "util-triggerrepeat"} info>
+                {t("trigger.repeatInfo")}
+            </MapError>
             <MapError isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}>
                 {t("trigger.errorNoCollider")}
             </MapError>

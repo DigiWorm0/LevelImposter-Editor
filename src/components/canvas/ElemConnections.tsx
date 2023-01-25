@@ -54,16 +54,16 @@ export default function ElemConnections() {
         <>
             <Shape
                 sceneFunc={(ctx, shape) => {
-                    targetConnections.forEach((elem) => {
+                    sourceConnections.forEach((elem) => {
                         if (!elem)
                             return;
-                        drawArrow(selectedElem, elem, 5, ctx);
+                        drawArrow(elem, selectedElem, 5, ctx,);
                         ctx.fillStrokeShape(shape);
                     });
                 }}
-                stroke="#AC2F33"
+                stroke="#215DB0"
                 strokeWidth={4}
-                fill="#AC2F33"
+                fill="#215DB0"
 
                 shadowColor="black"
                 shadowBlur={10}
@@ -75,16 +75,16 @@ export default function ElemConnections() {
             />
             <Shape
                 sceneFunc={(ctx, shape) => {
-                    sourceConnections.forEach((elem) => {
+                    targetConnections.forEach((elem) => {
                         if (!elem)
                             return;
-                        drawArrow(elem, selectedElem, 5, ctx,);
+                        drawArrow(selectedElem, elem, 5, ctx);
                         ctx.fillStrokeShape(shape);
                     });
                 }}
-                stroke="#215DB0"
+                stroke="#AC2F33"
                 strokeWidth={4}
-                fill="#215DB0"
+                fill="#AC2F33"
 
                 shadowColor="black"
                 shadowBlur={10}

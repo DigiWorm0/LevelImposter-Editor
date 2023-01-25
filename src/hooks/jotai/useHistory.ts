@@ -29,7 +29,7 @@ export const saveHistoryAtom = atom(null, (get, set) => {
     set(historyAtom, [...history]);
     set(headIndexAtom, history.length - 1);
 
-    console.log(`Saved history: (${history.length})`);
+    console.log(`Saved undo/redo history: ${history.length}`);
 });
 export const undoHistoryAtom = atom(null, (get, set) => {
     const history = get(historyAtom);

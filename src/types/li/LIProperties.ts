@@ -68,6 +68,7 @@ export default interface LIProperties {
     // Task
     description?: string;
     taskLength?: string;
+    sabDuration?: number;
 
     // Room
     isRoomNameVisible?: boolean;

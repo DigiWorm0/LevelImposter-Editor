@@ -46,20 +46,12 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
     {
         prop: "description",
         types: [
-            "sab-btnreactor",
-            "sab-reactorleft",
-            "sab-reactorright",
+            "sab-btncomms",
+            "sab-comms",
         ]
     },
     {
-        prop: "description",
-        types: [
-            "sab-btnlights",
-            "sab-electric",
-        ]
-    },
-    {
-        prop: "description",
+        prop: "sabDuration",
         types: [
             "sab-btnoxygen",
             "sab-oxygen1",
@@ -67,12 +59,13 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         ]
     },
     {
-        prop: "description",
+        prop: "sabDuration",
         types: [
-            "sab-btncomms",
-            "sab-comms",
+            "sab-btnreactor",
+            "sab-reactorleft",
+            "sab-reactorright",
         ]
-    },
+    }
 ];
 
 export default GLOBAL_PROPERTIES;
