@@ -64,7 +64,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         placeholder={t("transform.x") as string}
-                        minorStepSize={0.01}
+                        minorStepSize={0.001}
                         stepSize={0.1}
                         majorStepSize={1}
                     />
@@ -76,7 +76,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         placeholder={t("transform.y") as string}
-                        minorStepSize={0.01}
+                        minorStepSize={0.001}
                         stepSize={0.1}
                         majorStepSize={1}
                     />
@@ -88,7 +88,7 @@ export default function TransformPanel() {
                         }}
                         fill
                         placeholder={t("transform.z") as string}
-                        minorStepSize={0.01}
+                        minorStepSize={0.001}
                         stepSize={0.1}
                         majorStepSize={1}
                     />

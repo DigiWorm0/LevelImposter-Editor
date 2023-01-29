@@ -13,6 +13,7 @@ import SpawnRange from "./SpawnRange";
 import StarfieldRender from "./StarfieldRender";
 import ElemConnections from "./ElemConnections";
 import MinimapElement from "./MinimapElement";
+import PlayerZRender from "./PlayerZRender";
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -40,6 +41,7 @@ export default function SelectedMapElement() {
                 <ColliderEditor />
                 <StarfieldRender />
                 <FloatingRender />
+                <PlayerZRender />
 
             </Group>
 
