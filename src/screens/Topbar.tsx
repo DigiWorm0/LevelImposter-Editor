@@ -2,10 +2,12 @@ import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import AutoSaveButton from "../components/dialogs/AutoSaveButton";
+import CopyButton from "../components/dialogs/CopyButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
 import DocsButton from "../components/dialogs/DocsButton";
 import NewMapButton from "../components/dialogs/NewMapButton";
 import OpenButton from "../components/dialogs/OpenButton";
+import PasteButton from "../components/dialogs/PasteButton";
 import RedoButton from "../components/dialogs/RedoButton";
 import SaveButton from "../components/dialogs/SaveButton";
 import SettingsButton from "../components/dialogs/SettingsButton";
@@ -35,6 +37,9 @@ export default function Topbar() {
                     <NavbarDivider />
                     <UndoButton />
                     <RedoButton />
+                    <NavbarDivider />
+                    <CopyButton />
+                    <PasteButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />

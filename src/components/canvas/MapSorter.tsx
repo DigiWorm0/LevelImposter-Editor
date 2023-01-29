@@ -1,12 +1,13 @@
 import React from "react";
 import useMap from "../../hooks/jotai/useMap";
+import { PLAYER_POS } from "../../types/generic/Constants";
 import LIElement from "../../types/li/LIElement";
 
 export function MapSorter() {
     const [map, setMap] = useMap();
 
     const getZ = (elem: LIElement) => {
-        return elem.z - ((elem.y - 25) / 1000 + 5);
+        return elem.z - (elem.y / 1000 - PLAYER_POS);
     }
 
     React.useEffect(() => {

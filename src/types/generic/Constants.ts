@@ -54,6 +54,8 @@ export const MAX_HISTORY_LENGTH = 30;
 
 export const CAM_SPEED = 20;
 
+export const PLAYER_POS = -5;
+
 export const VERSION = "0.9.2";
 
 export const LANGUAGES = [
