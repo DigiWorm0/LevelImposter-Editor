@@ -37,6 +37,7 @@ export function useOpenMap() {
         map.createdAt = map.createdAt || -1;
         map.elements = map.elements || [];
         map.properties = map.properties || {};
+        map.remixOf = map.remixOf || null;
     }, []);
 
     const openLegacyMap = React.useCallback((reader: FileReader) => {
