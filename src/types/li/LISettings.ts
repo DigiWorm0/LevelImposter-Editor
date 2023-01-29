@@ -12,4 +12,5 @@ export default interface LISettings {
     language?: string;
     scrollToSelection?: boolean;
     elementNesting?: boolean;
+    autosave?: boolean;
 }

@@ -4,6 +4,7 @@ import { useMapValue } from './jotai/useMap';
 import useToaster from './useToaster';
 import { useTranslation } from 'react-i18next';
 import useIsSaved from './jotai/useIsSaved';
+import { useSettingsValue } from './jotai/useSettings';
 
 const MAX_SAVE_COUNT = 5;
 const MIN_SAVE_INTERVAL = 1000 * 60 * 5; // 5 minutes
@@ -33,6 +34,7 @@ export default function useAutoSave() {
     const { danger } = useToaster();
     const { t } = useTranslation();
     const [_, setIsSaved] = useIsSaved();
+    const settings = useSettingsValue();
 
     const addSave = React.useCallback(() => {
         try {
@@ -64,17 +66,26 @@ export default function useAutoSave() {
     React.useEffect(() => {
         setIsSaved(false);
         const time = Date.now();
-        if (time - lastTime > MIN_SAVE_INTERVAL && map.elements.length > 0) {
+        if (time - lastTime > MIN_SAVE_INTERVAL && map.elements.length > 0 && settings.autosave != false) {
             addSave();
             setLastTime(time);
         }
     }, [map, lastTime, addSave, setIsSaved]);
+
+    React.useEffect(() => {
+        if (settings.autosave == false) {
+            autoSaveDB.autoSaveData.clear().then(() => {
+                console.log('Cleared auto saves');
+            });
+        }
+    }, [settings.autosave]);
 
     return null;
 }
 
 export function useAutoSaves() {
     const [autoSaves, setAutoSaves] = React.useState<AutoSaveData[]>([]);
+    const settings = useSettingsValue();
 
     React.useEffect(() => {
         autoSaveDB.autoSaveData
@@ -84,7 +95,7 @@ export function useAutoSaves() {
             .then((data) => {
                 setAutoSaves(data);
             });
-    }, []);
+    }, [settings.autosave]);
 
     return autoSaves;
 }
