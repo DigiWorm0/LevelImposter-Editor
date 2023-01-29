@@ -276,6 +276,7 @@
             "title": "Interface",
             "devMode": "Developer Mode",
             "darkMode": "Dark Mode",
+            "autosave": "Auto Save",
             "colliderPreview": "Collider Preview",
             "colliderHandleSize": "Collider Handle Size",
             "scrollToSelection": "Scroll to Selection",

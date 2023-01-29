@@ -2,7 +2,7 @@ import { AnchorButton, Classes, Dialog, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AutoSaveData, autoSaveDB, useAutoSaves } from "../../hooks/useAutoSave";
+import { AutoSaveData, useAutoSaves } from "../../hooks/useAutoSave";
 import { useSaveHistory } from "../../hooks/jotai/useHistory";
 import { useSetMap } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
@@ -39,6 +39,7 @@ export default function AutoSaveButton() {
                     className={Classes.MINIMAL}
                     icon={"history"}
                     onClick={() => setIsOpen(true)}
+                    disabled={settings.autosave === false}
                 />
 
             </Tooltip2>

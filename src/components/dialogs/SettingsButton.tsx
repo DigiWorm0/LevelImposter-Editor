@@ -116,6 +116,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.interface.autosave") as string}
+                        </Label>
+                        <Switch
+                            checked={settings.autosave === undefined ? true : settings.autosave}
+                            onChange={(e) => {
+                                setSettings({ ...settings, autosave: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.interface.colliderPreview") as string}
                         </Label>
                         <Switch
