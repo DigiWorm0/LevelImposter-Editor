@@ -16,8 +16,7 @@ export default function PlayerZRender() {
     const w = sprite?.width || 0;
     const h = sprite?.height || 0;
     const elemW = elemSprite?.width || 0;
-    const elemH = elemSprite?.height || 0;
-    const y = (selectedElem.z - PLAYER_POS) * 1000;
+    const y = (selectedElem.z - PLAYER_POS) * -1000;
 
     return (
         <>
