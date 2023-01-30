@@ -2,30 +2,15 @@ import { AnchorButton, Classes, Dialog, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AutoSaveData, useAutoSaves } from "../../hooks/useAutoSave";
-import { useSaveHistory } from "../../hooks/jotai/useHistory";
-import { useSetMap } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useToaster from "../../hooks/useToaster";
+import { useAutoSaves, useRevertAutoSave } from "../../hooks/useAutoSave";
 
 export default function AutoSaveButton() {
     const { t } = useTranslation();
     const settings = useSettingsValue();
     const [isOpen, setIsOpen] = React.useState(false);
     const autoSaves = useAutoSaves();
-    const setMap = useSetMap();
-    const { success } = useToaster();
-    const saveHistory = useSaveHistory();
-
-    const revertAutoSave = React.useCallback((autoSave: AutoSaveData) => {
-        console.log("Reverting to auto save", autoSave);
-        const { mapJson } = autoSave;
-        const mapData = JSON.parse(mapJson);
-        setMap(mapData);
-        saveHistory();
-        setIsOpen(false);
-        success(t("autosave.reverted", { name: autoSave.name }) as string);
-    }, [setMap]);
+    const revertAutoSave = useRevertAutoSave();
 
     return (
         <>
@@ -69,6 +54,7 @@ export default function AutoSaveButton() {
                                 text={autoSave.name}
                                 onClick={() => {
                                     revertAutoSave(autoSave);
+                                    setIsOpen(false);
                                 }}
                             />
                         ))}
