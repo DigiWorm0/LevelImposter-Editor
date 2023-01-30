@@ -1,17 +1,21 @@
 import React from 'react';
 import Dexie, { Table } from 'dexie';
-import { useMapValue } from './jotai/useMap';
+import { useMapValue, useSetMap } from './jotai/useMap';
 import useToaster from './useToaster';
 import { useTranslation } from 'react-i18next';
 import useIsSaved from './jotai/useIsSaved';
 import { useSettingsValue } from './jotai/useSettings';
+import { useSaveHistory } from './jotai/useHistory';
 
-const MAX_SAVE_COUNT = 5;
-const MIN_SAVE_INTERVAL = 1000 * 60 * 5; // 5 minutes
+const MAX_SAVE_COUNT = 3;
+const MIN_SAVE_INTERVAL = 1000 * 60 * 10; // 10 minutes
 
-export interface AutoSaveData {
+export interface AutoSaveMetaData {
     id?: number;
     name: string;
+}
+
+export interface AutoSaveData extends AutoSaveMetaData {
     mapJson: string;
 }
 
@@ -84,18 +88,39 @@ export default function useAutoSave() {
 }
 
 export function useAutoSaves() {
-    const [autoSaves, setAutoSaves] = React.useState<AutoSaveData[]>([]);
+    const [autoSaves, setAutoSaves] = React.useState<AutoSaveMetaData[]>([]);
     const settings = useSettingsValue();
 
     React.useEffect(() => {
+        // Set Auto Saves without loading the map data into memory
         autoSaveDB.autoSaveData
             .orderBy('id')
             .reverse()
             .toArray()
-            .then((data) => {
-                setAutoSaves(data);
+            .then((saves) => {
+                setAutoSaves(saves.map((s) => ({ id: s.id, name: s.name })));
             });
     }, [settings.autosave]);
 
     return autoSaves;
+}
+
+export function useRevertAutoSave() {
+    const setMap = useSetMap();
+    const { success } = useToaster();
+    const saveHistory = useSaveHistory();
+    const { t } = useTranslation();
+
+    const revertAutoSave = React.useCallback((autoSave: AutoSaveMetaData) => {
+        console.log("Reverting to auto save", autoSave);
+        autoSaveDB.autoSaveData.get(autoSave.id ?? 0).then((save) => {
+            if (save) {
+                setMap(JSON.parse(save.mapJson));
+                saveHistory();
+                success(t("autosave.reverted", { name: autoSave.name }) as string);
+            }
+        });
+    }, [setMap]);
+
+    return revertAutoSave;
 }
