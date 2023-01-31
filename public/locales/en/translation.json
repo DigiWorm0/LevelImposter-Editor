@@ -237,7 +237,8 @@
         "newDialogCancel": "Cancel",
         "tooLargeError": "Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.",
         "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.",
-        "errorSave": "Error saving map: {{error}}"
+        "errorSave": "Error saving map: {{error}}",
+        "errorRemix": "Map author has disabled remixing"
     },
     "publish": {
         "title": "Publish Map",
@@ -293,6 +294,7 @@
             "title": "Map",
             "showPingTracker": "Show Ping Tracker",
             "pixelArtMode": "Pixel Art Mode",
+            "canRemix": "Allow Remix-ing",
             "skyboxColor": "Skybox Color",
             "setColor": "Set Color",
             "exileAnim": "Exile Animation",

@@ -314,6 +314,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.map.canRemix") as string}
+                        </Label>
+                        <Switch
+                            checked={properties.canRemix === undefined ? true : properties.canRemix}
+                            onChange={(e) => {
+                                setProperties({ ...properties, canRemix: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.map.skyboxColor") as string}
                         </Label>
                         <ColorPicker

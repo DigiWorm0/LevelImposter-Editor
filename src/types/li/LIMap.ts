@@ -10,5 +10,6 @@ export default interface LIMap extends LIMetadata {
         showPingIndicator?: boolean;
         pixelArtMode?: boolean;
         sabotageSound?: LISound;
+        canRemix?: boolean;
     }
 }
