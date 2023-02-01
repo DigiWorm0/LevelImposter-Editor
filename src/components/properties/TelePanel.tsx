@@ -1,5 +1,5 @@
-import { Button, ControlGroup } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import { Button, ControlGroup, Switch } from "@blueprintjs/core";
+import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -60,6 +60,20 @@ export default function TelePanel() {
                     }}
                 />
             </ControlGroup>
+            <Tooltip2
+                fill
+                content={t("tele.preserveOffsetTooltip") as string}>
+
+                <Switch
+                    label={t("tele.preserveOffset") as string}
+                    checked={selectedElem.properties.preserveOffset !== false}
+                    style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
+                    onChange={(e) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, preserveOffset: e.currentTarget.checked } });
+                    }}
+                />
+
+            </Tooltip2>
         </PanelContainer>
     );
 }
