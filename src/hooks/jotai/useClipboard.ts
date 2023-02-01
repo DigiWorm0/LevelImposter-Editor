@@ -1,5 +1,4 @@
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { atom, useAtom } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import GUID, { MaybeGUID } from "../../types/generic/GUID";
@@ -11,7 +10,7 @@ import { useAddElement } from "./useElements";
 import { useMapValue } from "./useMap";
 import { useSelectedElemValue, useSetSelectedElemID } from "./useSelectedElem";
 
-const clipboardAtom = atomWithStorage<string | undefined>("clipboard", undefined);
+const clipboardAtom = atom<string | undefined>(undefined);
 
 export default function useClipboard() {
     const map = useMapValue();

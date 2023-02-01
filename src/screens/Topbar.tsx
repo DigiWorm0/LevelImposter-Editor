@@ -1,7 +1,6 @@
 import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
-import AutoSaveButton from "../components/dialogs/AutoSaveButton";
 import CopyButton from "../components/dialogs/CopyButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
 import DocsButton from "../components/dialogs/DocsButton";
@@ -27,7 +26,6 @@ export default function Topbar() {
                     <NavbarDivider />
                     <OpenButton />
                     <NewMapButton />
-                    <AutoSaveButton />
                     <NavbarDivider />
                     <SaveButton />
                     <NavbarDivider />
