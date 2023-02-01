@@ -1,4 +1,4 @@
-import { Button, Card, Classes, ControlGroup, Dialog, H5, Icon, Label, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Classes, ControlGroup, Dialog, H5, Icon, Label, NumericInput, Switch } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
@@ -110,18 +110,6 @@ export default function SettingsButton() {
                             checked={settings.isDarkMode === undefined ? true : settings.isDarkMode}
                             onChange={(e) => {
                                 setSettings({ ...settings, isDarkMode: e.currentTarget.checked });
-                            }}
-                            style={{ marginLeft: 10 }} />
-                    </ControlGroup>
-
-                    <ControlGroup fill>
-                        <Label style={{ width: "100%" }}>
-                            {t("settings.interface.autosave") as string}
-                        </Label>
-                        <Switch
-                            checked={settings.autosave === undefined ? true : settings.autosave}
-                            onChange={(e) => {
-                                setSettings({ ...settings, autosave: e.currentTarget.checked });
                             }}
                             style={{ marginLeft: 10 }} />
                     </ControlGroup>
