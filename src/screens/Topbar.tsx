@@ -26,7 +26,6 @@ export default function Topbar() {
                     <NavbarDivider />
                     <OpenButton />
                     <NewMapButton />
-                    <NavbarDivider />
                     <SaveButton />
                     <NavbarDivider />
                     <AddObjectButton />
