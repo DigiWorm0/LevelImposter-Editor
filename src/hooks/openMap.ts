@@ -38,6 +38,8 @@ export function useOpenMap() {
         map.elements = map.elements || [];
         map.properties = map.properties || {};
         map.remixOf = map.remixOf || null;
+        if (map.remixOf === undefined)
+            map.remixOf = null;
     }, []);
 
     const openLegacyMap = React.useCallback((reader: FileReader) => {

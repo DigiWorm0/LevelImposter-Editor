@@ -1,4 +1,5 @@
-import { Button } from "@blueprintjs/core";
+import { AnchorButton, Button } from "@blueprintjs/core";
+import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_GUID } from "../hooks/generateGUID";
 import { useMapValue } from "../hooks/jotai/useMap";
@@ -17,16 +18,26 @@ export default function OpenInEditor() {
     url.searchParams.set("id", map.id);
     const urlString = url.toString();
 
+    const canRemix = map.properties.canRemix !== false;
+
     return (
         <div className="open-in-editor">
-            <Button
-                large
-                text={t("embed.openInEditor")}
-                onClick={() => {
-                    window.open(urlString, "_blank");
-                }}
-                icon="open-application"
-            />
+
+            <Tooltip2
+                content={!canRemix ? (t("map.errorRemix") as string) : undefined}
+                position="bottom">
+
+                <AnchorButton
+                    large
+                    text={t("embed.openInEditor")}
+                    onClick={() => {
+                        window.open(urlString, "_blank");
+                    }}
+                    icon="open-application"
+                    disabled={!canRemix}
+                />
+
+            </Tooltip2>
         </div>
     );
 }
