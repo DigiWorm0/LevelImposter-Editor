@@ -131,7 +131,9 @@
         "errorNoRoom": "This task is not attached to a room."
     },
     "tele": {
-        "title": "Teleporter"
+        "title": "Teleporter",
+        "preserveOffset": "Preserve Offset",
+        "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter."
     },
     "timer": {
         "title": "Timer Trigger",
