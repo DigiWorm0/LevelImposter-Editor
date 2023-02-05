@@ -7,7 +7,7 @@ export function MapSorter() {
     const [map, setMap] = useMap();
 
     const getZ = (elem: LIElement) => {
-        return elem.z - (elem.y / 1000 - PLAYER_POS);
+        return elem.z + (elem.y / 1000);
     }
 
     React.useEffect(() => {
