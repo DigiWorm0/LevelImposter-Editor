@@ -31,7 +31,7 @@ export default function DoorPanel() {
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
     const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
 
-    const editSound = (soundName: string) => {
+    const editSound = React.useCallback((soundName: string) => {
         if (!selectedElem)
             return;
 
@@ -51,7 +51,7 @@ export default function DoorPanel() {
             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: [...sounds, newSound] } });
             setSelectedSoundID(newSound.id);
         }
-    }
+    }, [selectedElem, selectedSoundID, setSelectedElem, setSelectedSoundID, sounds]);
 
     const typeSelectRenderer: ItemRenderer<string> = (type, props) => (
         <MenuItem2

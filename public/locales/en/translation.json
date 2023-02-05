@@ -103,7 +103,11 @@
     },
     "vent": {
         "title": "Vent",
-        "noConnection": "No Connection"
+        "noConnection": "No Connection",
+        "ventOpen": "Open Sound",
+        "ventMove": "Move Sound",
+        "globalInfo": "Vent sounds are global and can only be changed per-map.",
+        "ventSoundInfo": "Polus vents will not play any sounds when used."
     },
     "door": {
         "title": "Door",
