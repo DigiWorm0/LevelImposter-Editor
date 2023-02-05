@@ -1,3 +1,4 @@
+import React from "react";
 import { AnchorButton, Button, ControlGroup, FormGroup, Icon, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
@@ -24,15 +25,17 @@ export default function DoorPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
 
-    const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    const sounds = selectedElem?.properties.sounds || [];
-    const selectedSoundName = sounds.find((s) => s.id === selectedSoundID)?.name;
+    const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === selectedElem?.properties.parent), [selectedElem, roomElems]);
+    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
+    const selectedSoundName = React.useMemo(() => sounds.find((s) => s.id === selectedSoundID)?.type, [selectedSoundID, sounds]);
+    const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
+    const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
 
     const editSound = (soundName: string) => {
         if (!selectedElem)
             return;
 
-        const soundID = sounds.find((s) => s.name === soundName)?.id;
+        const soundID = sounds.find((s) => s.type === soundName)?.id;
         if (soundID === selectedSoundID && soundID)
             setSelectedSoundID(undefined);
         else if (soundID)
@@ -40,7 +43,7 @@ export default function DoorPanel() {
         else {
             const newSound: LISound = {
                 id: generateGUID(),
-                name: soundName,
+                type: soundName,
                 data: undefined,
                 volume: DEFAULT_VOLUME,
                 isPreset: false
@@ -104,7 +107,7 @@ export default function DoorPanel() {
                             onClick={() => editSound(DOOR_OPEN_SOUND)}
                             active={selectedSoundName === DOOR_OPEN_SOUND}
                             text={t(`door.${DOOR_OPEN_SOUND}`) as string}
-                            intent={sounds.find((s) => s.name === DOOR_OPEN_SOUND) ? "success" : "danger"}
+                            intent={hasOpenSound ? "success" : "danger"}
                         />
 
                         {selectedSoundName === DOOR_OPEN_SOUND && (
@@ -119,7 +122,7 @@ export default function DoorPanel() {
                             onClick={() => editSound(DOOR_CLOSE_SOUND)}
                             active={selectedSoundName === DOOR_CLOSE_SOUND}
                             text={t(`door.${DOOR_CLOSE_SOUND}`) as string}
-                            intent={sounds.find((s) => s.name === DOOR_CLOSE_SOUND) ? "success" : "danger"}
+                            intent={hasCloseSound ? "success" : "danger"}
                         />
 
                         {selectedSoundName === DOOR_CLOSE_SOUND && (
