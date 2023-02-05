@@ -14,7 +14,13 @@
     },
     "edit": {
         "undo": "撤销",
-        "redo": "重做"
+        "redo": "重做",
+        "copy": "复制",
+        "paste": "粘贴",
+        "search": "搜索",
+        "errorNoClipboard": "剪贴板无内容",
+        "errorExternalClipboard": "Firefox不支持外部复制粘贴",
+        "errorInsecureContext": "在HTTP模式下不允许复制粘贴"
     },
     "size": {
         "bytes": "{{size}} B",
@@ -22,27 +28,41 @@
         "megabytes": "{{size}} MB"
     },
     "layer": {
-        "add": "新建图层"
+        "new": "新建图层",
+        "add": "添加图层"
     },
     "object": {
         "add": "新建物体",
-        "delete": "删除物体"
+        "delete": "删除物体",
+        "create": "创建 '{{name}}'",
+        "search": "搜索"
     },
     "policy": {
-        "title": "LevelImposter API 政策"
+        "title": "LevelImposter API 政策",
+        "agree": "同意",
+        "cancel": "取消"
     },
     "docs": {
         "open": "打开文档"
     },
     "minimap": {
-        "title": "迷你地图",
+        "title": "小地图",
         "size": "尺寸",
-        "download": "下载地图"
+        "download": "下载小地图",
+        "minimapSprite": "小地图Sprite(画面)",
+        "imposterOnly": "只有Imposter",
+        "errorNoSprite": "该物体没有连接到他的Sprite(画面),小地图将不会在游戏中显示"
     },
     "sprite": {
         "title": "Sprite(画面)",
         "upload": "上传",
-        "reset": "重置"
+        "reset": "重置",
+        "setColor": "设定颜色",
+        "ventInfo": "当使用通风口时任何GIF动画都将会播放",
+        "doorInfo": "任何GIF动画都会在门关闭时播放，打开时将反转",
+        "camInfo": "任何GIF动画都会在监控使用时播放",
+        "okSize": "上传图片足够小，没有任何问题。",
+        "errorSize": "较大的图片会使编辑器或游戏崩溃。建议将其缩小或进行分割"
     },
     "starfield": {
         "title": "粒子效果",
@@ -55,16 +75,31 @@
     "audio": {
         "reset": "重置",
         "upload": "上传",
-        "notUploaded": "没有上传任何东西"
+        "notUploaded": "没有上传任何东西",
+        "okSize": "上传音频足够小，没有任何问题。",
+        "errorSize": "较大的音频会使编辑器或游戏崩溃。建议将其缩小。",
+        "errorNotSupported": "浏览器不支持音频。",
+        "errorNoCollider": "该物体缺少一个碰撞体。音频只会在碰撞时播放。",
+        "errorNoSound": "该物体缺少音频文件。(Unity只支持.wav格式文件)"
     },
     "trigger": {
         "selectTarget": "选择目标",
         "selectTrigger": "选择触发器",
-        "errorNoCollider": "该对象没有碰撞器。 "
+        "isClientSide": "客户端",
+        "randomInfo": "触发器将随机选择第一个或第二个目标。",
+        "repeatInfo": "触发器将对所有已连接的目标重复触发。",
+        "errorNoCollider": "该物体没有碰撞体。 "
     },
     "vent": {
         "title": "通风口",
         "noConnection": "无连接"
+    },
+    "door": {
+        "title": "门",
+        "type": "打开类型",
+        "skeld": "时间(Skeld)",
+        "polus": "开关面板(Polus)",
+        "airship": "刷卡(Airship)"
     },
     "stepSound": {
         "title": "踏步声",
@@ -81,7 +116,9 @@
         "defaultDescription": "默认描述"
     },
     "tele": {
-        "title": "传送器"
+        "title": "传送器",
+        "preserveOffset": "保存传送位置",
+        "preserveOffsetTooltip": "保存玩家和传送器之间的偏移位置。"
     },
     "timer": {
         "title": "定时器触发器",
@@ -97,26 +134,28 @@
         "xScale": "X轴长度",
         "yScale": "Y轴长度",
         "rotation": "旋转",
-        "delete": "删除"
+        "delete": "删除",
+        "unlock": "解锁",
+        "lock": "锁定"
     },
     "cameras": {
-        "title": "摄像机",
+        "title": "监控",
         "offset": "移动",
         "zoom": "缩放"
     },
     "platform": {
         "title": "移动平台",
         "movement": "移动",
-        "enterOffset": "移动入口",
-        "exitOffset": "移动出口"
+        "enterOffset": "开始移动地",
+        "exitOffset": "移动结束地"
     },
     "collider": {
         "title": "碰撞体",
         "add": "添加碰撞体",
-        "solid": "坚固",
-        "blocksLight": "挡光",
-        "points": "积分",
-        "defaultName": "碰撞 {0}"
+        "solid": "固体",
+        "blocksLight": "阴影",
+        "points": "目标",
+        "defaultName": "碰撞 {{index}}"
     },
     "room": {
         "title": "房间",
@@ -147,12 +186,20 @@
         "printToConsole": "输出到控制台"
     },
     "map": {
-        "importLegacy": "导入文件",
-        "open": "打开文件",
-        "opened": "打开 {0}",
-        "new": "新建文件",
-        "play": "发射地图",
-        "save": "保存文件",
+        "importLegacy": "导入地图文件",
+        "open": "打开地图",
+        "opened": "打开 {{name}}",
+        "imported": "导入 {{name}}",
+        "new": "新建地图",
+        "play": "使用地图",
+        "save": "保存地图",
+        "edit": "编辑地图",
+        "unlisted": "未发布",
+        "verified": "已发布",
+        "view": "预览",
+        "viewExternal": "在LevelImposter.net上预览",
+        "noDescription": "(没有描述)",
+        "newDialogText": "您确定要创建一个新地图吗?这将删除所有物体。",
         "newDialogCancel": "取消"
     },
     "publish": {
@@ -164,7 +211,8 @@
         "cancel": "取消",
         "resetThumbnail": "重置",
         "uploadThumbnail": "上传",
-        "errorEmailNotVerified": "您的电子邮件地址尚未经过验证。 请检查您的电子邮件以获取验证链接。"
+        "errorEmailNotVerified": "您的电子邮件地址尚未经过验证。 请检查您的电子邮件以获取验证链接。",
+        "errorNotAuthor": "你必须是这张地图的作者才能发布。"
     },
     "account": {
         "signedInAs": "以{0}身份登录",
@@ -188,9 +236,10 @@
             "colliderPreview": "碰撞预览",
             "colliderHandleSize": "碰撞体尺寸",
             "scrollToSelection": "滚动到选择",
-            "objNesting": "对象嵌套",
+            "objNesting": "物体嵌套",
             "grid": "网格",
             "gridVisible": "网格可见",
+            "gridSize": "网格尺寸",
             "snapToGrid": "对齐网格",
             "snapResolution": "对齐分辨率",
             "invisibleOpacity": "不透明度",
@@ -199,6 +248,8 @@
         "map": {
             "title": "地图",
             "showPingTracker": "显示Ping",
+            "pixelArtMode": "像素艺术模式",
+            "canRemix": "允许混音",
             "skyboxColor": "材质颜色",
             "setColor": "设置颜色",
             "exileAnim": "放逐动画",
@@ -210,15 +261,16 @@
         "show": "展示",
         "hide": "隐藏",
         "repeat": "重复",
-        "startTimer": "开始定时器",
-        "trigger": "扳机",
-        "enable": "使能够",
+        "random": "随机",
+        "startTimer": "启动式定时器",
+        "trigger": "触发",
+        "enable": "启用",
         "disable": "停用",
-        "onEnter": "输入时",
+        "onEnter": "进入时",
         "onExit": "退出时",
         "onUse": "使用时",
-        "onStart": "开始",
-        "onFinish": "结束",
+        "onStart": "开始时",
+        "onFinish": "结束时",
         "onRepeat 1": "重复 1",
         "onRepeat 2": "重复 2",
         "onRepeat 3": "重复 3",
@@ -227,7 +279,11 @@
         "onRepeat 6": "重复 6",
         "onRepeat 7": "重复 7",
         "onRepeat 8": "重复 8",
-        "onTrigger": "触发时"
+        "onRandom 1": "随机 1",
+        "onRandom 2": "随机 2",
+        "onTrigger": "触发时",
+        "onOpen": "开启时",
+        "onClose": "关闭时"
     },
     "au": {
         "undefined": "未知物体",
@@ -243,7 +299,7 @@
         "util-dummy": "假人",
         "util-vent1": "通风口(Mira HQ / Skeld)",
         "util-vent2": "通风口(Polus)",
-        "util-cam": "摄像机",
+        "util-cam": "监控",
         "util-cams": "监控面板(Polus)",
         "util-cams2": "监控面板(Skeld)",
         "util-cams3": "监控面板(Skeld)",
@@ -259,9 +315,11 @@
         "util-blanktrigger": "Sprite(精灵)触发器",
         "util-triggerarea": "触发区",
         "util-triggerconsole": "触发控制台",
-        "util-triggersound": "声音触发器",
-        "util-triggerrepeat": "中继触发器",
-        "util-triggertimer": "定时触发器",
+        "util-triggersound": "声音式触发器",
+        "util-triggerrepeat": "中继式触发器",
+        "util-triggertimer": "定时式触发器",
+        "util-triggerstart": "启动式触发器",
+        "util-triggerrand": "随机式触发器",
         "task-id": "刷卡",
         "task-keys": "钥匙",
         "task-pass": "扫描通行证",
@@ -451,6 +509,9 @@
         "sab-btnreactor": "反应堆按钮",
         "sab-btnoxygen": "氧气室按钮",
         "sab-btnlights": "灯按钮",
-        "sab-btncomms": "通讯按钮"
+        "sab-btncomms": "通讯按钮",
+        "sab-btndoors": "门按钮",
+        "sab-doorv": "垂直门",
+        "sab-doorh": "水平门"
     }
 }
