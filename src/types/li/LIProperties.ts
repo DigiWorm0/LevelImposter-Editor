@@ -39,6 +39,7 @@ export default interface LIProperties {
 
     // Console
     onlyFromBelow?: boolean;
+    checkCollision?: boolean;
     range?: number;
 
     // Ladder
