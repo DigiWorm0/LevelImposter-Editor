@@ -46,6 +46,16 @@ export default function ConsolePanel() {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, onlyFromBelow: e.currentTarget.checked } });
                     }}
                 />
+                {!selectedElem.type.startsWith("util-") && (
+                    <Switch
+                        key={selectedElem.id + "-checkcollision"}
+                        checked={selectedElem.properties.checkCollision === undefined ? false : selectedElem.properties.checkCollision}
+                        label={t("console.checkCollision") as string}
+                        onChange={(e) => {
+                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, checkCollision: e.currentTarget.checked } });
+                        }}
+                    />
+                )}
             </FormGroup>
         </PanelContainer>
     );

@@ -103,7 +103,11 @@
     },
     "vent": {
         "title": "Vent",
-        "noConnection": "No Connection"
+        "noConnection": "No Connection",
+        "ventOpen": "Open Sound",
+        "ventMove": "Move Sound",
+        "globalInfo": "Vent sounds are global and can only be changed per-map.",
+        "ventSoundInfo": "Polus vents will not play any sounds when used."
     },
     "door": {
         "title": "Door",
@@ -111,6 +115,8 @@
         "skeld": "Timer (Skeld)",
         "polus": "Switch Panel (Polus)",
         "airship": "Card Swipe (Airship)",
+        "doorOpen": "Open Sound",
+        "doorClose": "Close Sound",
         "globalInfo": "Door type is global and can only be changed per-map.",
         "errorNoRoom": "This door is not attached to a room."
     },
@@ -119,6 +125,7 @@
         "presets": "Presets",
         "priority": "Priority",
         "variants": "Variants",
+        "variant": "Step Variant",
         "default": "Variant {{index}}",
         "okSize": "Your audio is small enough to not cause any issues.",
         "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."
@@ -200,7 +207,8 @@
     "console": {
         "title": "Console",
         "range": "Range",
-        "onlyFromBelow": "Only From Below"
+        "onlyFromBelow": "Only From Below",
+        "checkCollision": "Check Collision"
     },
     "floating": {
         "title": "Floating Sprite",

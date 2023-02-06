@@ -10,7 +10,7 @@ import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import SizeTag from "../utils/SizeTag";
 import PanelContainer from "./PanelContainer";
-import StepSoundEditorPanel from "./StepSoundEditorPanel";
+import SoundEditorPanel from "./SoundEditorPanel";
 
 const SoundPresetSelect = Select2.ofType<string>();
 
@@ -132,7 +132,9 @@ export default function StepSoundPanel() {
                             />
 
                             {isSelected && (
-                                <StepSoundEditorPanel />
+                                <SoundEditorPanel
+                                    title={t("stepSound.variant")}
+                                />
                             )}
                         </div>
                     );

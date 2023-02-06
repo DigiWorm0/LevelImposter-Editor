@@ -65,6 +65,13 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
             "sab-reactorleft",
             "sab-reactorright",
         ]
+    },
+    {
+        prop: "sounds",
+        types: [
+            "util-vent1",
+            /*"util-vent2",*/ // Polus Vents don't have SpriteAnim so they don't play sounds
+        ]
     }
 ];
 
