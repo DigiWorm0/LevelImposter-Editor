@@ -7,10 +7,10 @@ import CanvasGrid from '../components/canvas/CanvasGrid';
 import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
+import primaryStore from '../hooks/jotai/primaryStore';
 import useCamera from '../hooks/jotai/useCamera';
 import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
 import { useMouseCursorValue } from '../hooks/jotai/useMouse';
-import { PROVIDER_SCOPE } from '../types/generic/Constants';
 
 export default function Canvas() {
     const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
@@ -70,7 +70,7 @@ export default function Canvas() {
                 }}
                 onContextMenu={(e) => e.evt.preventDefault()}>
 
-                <Provider scope={PROVIDER_SCOPE}>
+                <Provider store={primaryStore}>
 
                     <Layer
                         imageSmoothingEnabled={mapProperties.pixelArtMode !== true}

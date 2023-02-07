@@ -4,10 +4,11 @@ import Konva from 'konva';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Stage } from 'react-konva';
+import primaryStore from '../../hooks/jotai/primaryStore';
 import { useElementIDs } from '../../hooks/jotai/useMap';
 import { useSelectedElemValue } from '../../hooks/jotai/useSelectedElem';
 import { useSettingsValue } from '../../hooks/jotai/useSettings';
-import { MINIMAP_HEIGHT, MINIMAP_WIDTH, PROVIDER_SCOPE, UNITY_SCALE } from '../../types/generic/Constants';
+import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {
@@ -53,7 +54,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                         }}
                         listening={false}>
 
-                        <Provider scope={PROVIDER_SCOPE}>
+                        <Provider store={primaryStore}>
                             <Layer>
                                 {elementIDs.map(elementID => (
                                     <MapElement key={elementID} elementID={elementID} />

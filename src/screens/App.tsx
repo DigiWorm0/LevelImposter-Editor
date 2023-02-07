@@ -8,12 +8,12 @@ import { useSettingsValue } from '../hooks/jotai/useSettings';
 import useCombos from '../hooks/useCombos';
 import useEmbed from '../hooks/useEmbed';
 import useIDParam from '../hooks/useIDParam';
-import { PROVIDER_SCOPE } from '../types/generic/Constants';
 import Canvas from './Canvas';
 import LeftSidebar from './LeftSidebar';
 import OpenInEditor from './OpenInEditor';
 import RightSidebar from './RightSidebar';
 import Topbar from './Topbar';
+import primaryStore from '../hooks/jotai/primaryStore';
 
 export default function App() {
     const { i18n } = useTranslation();
@@ -48,7 +48,7 @@ export default function App() {
         <div
             className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
 
-            <Provider scope={PROVIDER_SCOPE}>
+            <Provider store={primaryStore}>
                 {!isEmbeded && (<>
                     <MapHelmet />
                     <Topbar />
