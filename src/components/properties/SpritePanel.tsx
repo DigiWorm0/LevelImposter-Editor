@@ -65,7 +65,8 @@ export default function SpritePanel() {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                spriteData: undefined
+                spriteData: undefined,
+                color: undefined
             }
         });
     }

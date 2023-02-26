@@ -26,7 +26,7 @@ export default function DescriptionInput() {
             />
             <Button
                 minimal
-                rightIcon="cross"
+                rightIcon="refresh"
                 onClick={() => {
                     setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, description: "" } });
                     if (input.current)

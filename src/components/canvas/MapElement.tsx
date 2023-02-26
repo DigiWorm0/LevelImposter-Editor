@@ -12,6 +12,7 @@ import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } 
 import GUID from "../../types/generic/GUID";
 
 const HIDE_ON_SELECT = [
+    "util-room",
     "util-blankfloat",
     "util-starfield",
 ];

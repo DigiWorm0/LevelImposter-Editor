@@ -77,7 +77,7 @@ export default function TaskPanel() {
                         </LengthSelect>
                         <Button
                             minimal
-                            rightIcon="cross"
+                            rightIcon="refresh"
                             onClick={() => {
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
                             }}

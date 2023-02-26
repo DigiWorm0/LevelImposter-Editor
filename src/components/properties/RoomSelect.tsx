@@ -55,7 +55,7 @@ export default function RoomSelect(props: { useDefault: boolean }) {
             {props.useDefault && (
                 <Button
                     minimal
-                    rightIcon="cross"
+                    rightIcon="refresh"
                     onClick={() => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
                     }}

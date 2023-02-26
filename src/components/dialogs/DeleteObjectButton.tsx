@@ -23,7 +23,7 @@ export default function DeleteObjectButton(props: { isSidePanel?: boolean }) {
                 <AnchorButton
                     fill
                     className={Classes.MINIMAL}
-                    icon={props.isSidePanel ? "trash" : "cube-remove"}
+                    icon={"trash"}
                     disabled={!selectedID}
                     intent={props.isSidePanel ? "danger" : undefined}
                     onClick={handleClick} />

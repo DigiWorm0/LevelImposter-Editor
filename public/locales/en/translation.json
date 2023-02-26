@@ -38,8 +38,8 @@
         "megabytes": "{{size}} MB"
     },
     "layer": {
-        "new": "New Layer",
-        "add": "Add Layer"
+        "new": "New Group",
+        "add": "Add Group"
     },
     "object": {
         "add": "Add Object",
@@ -188,6 +188,7 @@
         "soundInfo": "Player will only hear audio if they are within this collider.",
         "teleInfo": "Player will teleport once they enter this collider.",
         "triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
+        "colliderInfo": "Left click on the line to add a point. Right click on a point to remove it.",
         "errorOneOnly": "This object can only have 1 collider"
     },
     "room": {
@@ -291,7 +292,8 @@
             "snapToGrid": "Snap to Grid",
             "snapResolution": "Snap Resolution",
             "invisibleOpacity": "Invisible Opacity",
-            "localization": "Localization"
+            "localization": "Localization",
+            "showRoomName": "Show Room Name"
         },
         "map": {
             "title": "Map",

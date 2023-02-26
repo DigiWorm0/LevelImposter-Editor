@@ -30,13 +30,13 @@ export default function Topbar() {
                     <NavbarDivider />
                     <AddObjectButton />
                     <AddLayerButton />
-                    <DeleteObjectButton />
                     <NavbarDivider />
                     <UndoButton />
                     <RedoButton />
                     <NavbarDivider />
                     <CopyButton />
                     <PasteButton />
+                    <DeleteObjectButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />
