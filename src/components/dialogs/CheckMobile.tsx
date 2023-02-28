@@ -10,15 +10,17 @@ export default function CheckMobile() {
 
     React.useEffect(() => {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
         if (isMobile) {
             setDialogText(t("warning.mobile") as string);
         }
-
-        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        if (!isChrome && !settings.isBrowserAccepted) {
+        else if (!isChrome && !settings.isBrowserAccepted) {
             setDialogText(t("warning.browser") as string);
         }
-    }, []);
+        else {
+            setDialogText(undefined);
+        }
+    }, [settings.isBrowserAccepted]);
 
     return (
         <>

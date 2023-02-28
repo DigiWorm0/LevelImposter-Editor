@@ -24,7 +24,7 @@
         "i18next": "^22.4.5",
         "i18next-browser-languagedetector": "^7.0.1",
         "i18next-http-backend": "^2.1.0",
-        "jotai": "^2.0.0",
+        "jotai": "^2.0.2",
         "jotai-devtools": "^0.2.0",
         "jotai-optics": "^0.3.0",
         "konva": "^8.3.8",

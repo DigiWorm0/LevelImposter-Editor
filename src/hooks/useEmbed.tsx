@@ -3,8 +3,8 @@ import React from "react";
 import { camZAtom } from "./jotai/useCamera";
 
 export default function useEmbed() {
-    const setZoom = useSetAtom(camZAtom);
     const [isEmbeded, setIsEmbeded] = React.useState(false);
+    const setZoom = useSetAtom(camZAtom);
 
     React.useEffect(() => {
         const params = new URLSearchParams(window.location.search);
