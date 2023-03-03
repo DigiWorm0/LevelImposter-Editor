@@ -116,7 +116,7 @@ export default function TriggerEditorPanel() {
                 </ElemSelect>
                 <Button
                     minimal
-                    rightIcon="cross"
+                    rightIcon="refresh"
                     onClick={() => {
                         setSelectedTrigger({ ...selectedTriggerDef, elemID: undefined });
                     }}

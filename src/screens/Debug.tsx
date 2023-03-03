@@ -1,4 +1,4 @@
-import { useAtomsDebugValue } from 'jotai/devtools';
+import { useAtomsDebugValue } from 'jotai-devtools';
 
 export default function Debug() {
     useAtomsDebugValue();

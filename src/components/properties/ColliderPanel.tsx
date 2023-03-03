@@ -155,6 +155,9 @@ export default function ColliderPanel() {
 
             </PanelContainer>
 
+            <MapError isVisible={selectedColliderID !== undefined} info>
+                {t("collider.colliderInfo") as string}
+            </MapError>
             <MapError isVisible={selectedElem.type.startsWith("sab-door")} info>
                 {t("collider.doorInfo") as string}
             </MapError>

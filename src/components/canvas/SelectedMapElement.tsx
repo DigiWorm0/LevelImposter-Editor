@@ -14,6 +14,7 @@ import StarfieldRender from "./StarfieldRender";
 import ElemConnections from "./ElemConnections";
 import MinimapElement from "./MinimapElement";
 import PlayerZRender from "./PlayerZRender";
+import RoomText from "./RoomText";
 
 export default function SelectedMapElement() {
     const selectedElem = useSelectedElemValue();
@@ -46,6 +47,7 @@ export default function SelectedMapElement() {
             </Group>
 
             <ElemConnections />
+            <RoomText />
         </>
     );
 }

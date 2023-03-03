@@ -1,4 +1,5 @@
-import { Button, Card, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
+import React from "react";
+import { Button, Card, Collapse, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
@@ -19,6 +20,7 @@ export default function ColliderEditorPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const [selectedCollider, setSelectedCollider] = useSelectedCollider();
+    const [isCollapsed, setIsCollapsed] = React.useState(false);
 
     const isRestricted = RESTRICTED_TYPES.includes(selectedElem?.type || "");
 
@@ -60,29 +62,34 @@ export default function ColliderEditorPanel() {
                     selectedCollider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
                 }} />
-            <FormGroup label={t("collider.points") as string}>
-                <NumericInput
-                    fill
-                    disabled={!selectedCollider}
-                    min={2}
-                    value={selectedCollider?.points.length}
-                    onValueChange={(value) => {
-                        if (value < 0)
-                            return;
-                        const points = [];
-                        for (let i = 0; i < value; i++) {
-                            if (i < selectedCollider.points.length)
-                                points.push({
-                                    x: selectedCollider.points[i].x,
-                                    y: selectedCollider.points[i].y
-                                });
-                            else
-                                points.push({ x: 0, y: 0 });
-                        }
-                        setSelectedCollider({ ...selectedCollider, points: points });
-                    }} />
-            </FormGroup>
-            <div>
+            <Button
+                fill
+                text={t("collider.points") as string}
+                rightIcon={isCollapsed ? "chevron-down" : "chevron-up"}
+                onClick={() => setIsCollapsed(!isCollapsed)} />
+            <Collapse isOpen={isCollapsed}>
+                <FormGroup label={t("collider.points") as string}>
+                    <NumericInput
+                        fill
+                        disabled={!selectedCollider}
+                        min={2}
+                        value={selectedCollider?.points.length}
+                        onValueChange={(value) => {
+                            if (value < 0)
+                                return;
+                            const points = [];
+                            for (let i = 0; i < value; i++) {
+                                if (i < selectedCollider.points.length)
+                                    points.push({
+                                        x: selectedCollider.points[i].x,
+                                        y: selectedCollider.points[i].y
+                                    });
+                                else
+                                    points.push({ x: 0, y: 0 });
+                            }
+                            setSelectedCollider({ ...selectedCollider, points: points });
+                        }} />
+                </FormGroup>
                 {selectedCollider.points.map((point, index) => (
                     <ControlGroup fill key={index}>
                         <NumericInput
@@ -117,7 +124,7 @@ export default function ColliderEditorPanel() {
                             }} />
                     </ControlGroup>
                 ))}
-            </div>
+            </Collapse>
             <div style={{ marginTop: 10 }}>
                 <Button
                     icon="tick"

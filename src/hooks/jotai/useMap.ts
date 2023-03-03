@@ -1,5 +1,5 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { focusAtom } from "jotai/optics";
+import { focusAtom } from "jotai-optics";
 import { atomWithReset, useResetAtom } from "jotai/utils";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import LIMap from "../../types/li/LIMap";

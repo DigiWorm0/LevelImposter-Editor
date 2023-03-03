@@ -170,6 +170,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.interface.showRoomName") as string}
+                        </Label>
+                        <Switch
+                            checked={settings.isRoomNameVisible === undefined ? true : settings.isRoomNameVisible}
+                            onChange={(e) => {
+                                setSettings({ ...settings, isRoomNameVisible: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.interface.grid") as string}
                         </Label>
                         <Switch

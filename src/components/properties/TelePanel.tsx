@@ -54,7 +54,7 @@ export default function TelePanel() {
                 </TeleSelect>
                 <Button
                     minimal
-                    rightIcon="cross"
+                    rightIcon="refresh"
                     onClick={() => {
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
                     }}

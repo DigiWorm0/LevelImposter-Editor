@@ -13,7 +13,7 @@ import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./
 import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
 
-export default function useCombos() {
+export default function useKeyboardInput() {
     const { copyElement, pasteElement } = useClipboard();
     const map = useMapValue();
     const undo = useUndo();
@@ -149,6 +149,17 @@ export default function useCombos() {
         },
         {
             global: true,
+            group: "Selection",
+            label: "Delete (Mac)",
+            combo: "backspace",
+            description: "Delete selection",
+            onKeyDown: () => {
+                deleteElement();
+            },
+            preventDefault: true,
+        },
+        {
+            global: true,
             group: "Map",
             label: "Save",
             combo: "ctrl+s",
@@ -187,6 +198,7 @@ export default function useCombos() {
             combo: "up",
             description: "Move camera up",
             onKeyDown: () => {
+                console.log("move up", setCamY);
                 setCamY(y => y + CAM_SPEED);
             },
             preventDefault: true,

@@ -107,7 +107,7 @@ export default function VentPanel() {
                     </VentSelect>
                     <Button
                         minimal
-                        rightIcon="cross"
+                        rightIcon="refresh"
                         onClick={() => {
                             setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, leftVent: undefined } });
                         }}

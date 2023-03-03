@@ -34,6 +34,9 @@ export const MINIMAP_BUTTON_SIZE = 5;
 export const MINIMAP_BUTTON_X = -17.5;
 export const MINIMAP_BUTTON_Y = 11;
 
+export const ROOM_TEXT_WIDTH = 1000;
+export const ROOM_TEXT_HEIGHT = 1000;
+
 export const DEFAULT_GRID_SNAP_RESOLUTION = 0.1;
 export const DEFAULT_INVISIBLE_OPACITY = 0.2;
 export const DEFAULT_COLLIDER_HANDLE_SIZE = 8;
@@ -49,7 +52,6 @@ export const THUMBNAIL_HEIGHT = 144;
 export const UI_ZOOM_SPEED = 1.1;
 
 export const MAP_FORMAT_VER = 0;
-export const PROVIDER_SCOPE = "main";
 export const MAX_HISTORY_LENGTH = 30;
 
 export const CAM_SPEED = 20;
