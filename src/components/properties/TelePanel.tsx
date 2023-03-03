@@ -74,6 +74,20 @@ export default function TelePanel() {
                 />
 
             </Tooltip2>
+            <Tooltip2
+                fill
+                content={t("tele.ghostEnabledTooltip") as string}>
+
+                <Switch
+                    label={t("tele.ghostEnabled") as string}
+                    checked={selectedElem.properties.isGhostEnabled === true}
+                    style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
+                    onChange={(e) => {
+                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isGhostEnabled: e.currentTarget.checked } });
+                    }}
+                />
+
+            </Tooltip2>
         </PanelContainer>
     );
 }

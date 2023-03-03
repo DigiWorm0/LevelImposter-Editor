@@ -140,7 +140,9 @@
     "tele": {
         "title": "Teleporter",
         "preserveOffset": "Preserve Offset",
-        "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter."
+        "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter.",
+        "ghostEnabled": "Ghost Enabled",
+        "ghostEnabledTooltip": "Allow ghosts to use the teleporter."
     },
     "timer": {
         "title": "Timer Trigger",
