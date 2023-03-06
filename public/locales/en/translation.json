@@ -211,7 +211,8 @@
         "title": "Console",
         "range": "Range",
         "onlyFromBelow": "Only From Below",
-        "checkCollision": "Check Collision"
+        "checkCollision": "Check Collision",
+        "highlightColor": "Highlight Color"
     },
     "floating": {
         "title": "Floating Sprite",

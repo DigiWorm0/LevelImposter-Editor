@@ -15,6 +15,7 @@ export default function ConsoleRange() {
         || selectedElem?.type === "util-admin"
         || selectedElem?.type === "util-vitals"
         || selectedElem?.type === "util-computer"
+        || selectedElem?.type === "util-triggerconsole"
         || isVent;
 
     if (!selectedElem || !isConsole)
