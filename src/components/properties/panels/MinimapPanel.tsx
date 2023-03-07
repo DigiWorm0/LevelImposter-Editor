@@ -1,18 +1,18 @@
-import { Button, NumericInput } from "@blueprintjs/core";
+import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import DownloadCanvasDialog from "../dialogs/DownloadCanvas";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
+import DownloadCanvasDialog from "../../dialogs/DownloadCanvas";
+import NumericPanelInput from "../input/NumericPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function MinimapPanel() {
     const { t } = useTranslation();
     const [isVisible, setVisible] = React.useState(false);
-    const [element, setElement] = useSelectedElem();
+    const element = useSelectedElemValue();
 
-    if (!element
-        || element.type !== "util-minimap")
+    if (!element || element.type !== "util-minimap")
         return null;
 
     return (
@@ -21,25 +21,17 @@ export default function MinimapPanel() {
                 isVisible={isVisible}
                 setVisible={setVisible}
             />
+
             <PanelContainer title={t("minimap.title") as string}>
-                <NumericInput
-                    fill
-                    leftIcon="maximize"
-                    placeholder={t("minimap.scale") as string}
-                    value={element.properties.minimapScale === undefined ? 1 : element.properties.minimapScale}
-                    onValueChange={(value) => {
-                        setElement({
-                            ...element,
-                            properties: {
-                                ...element.properties,
-                                minimapScale: value
-                            }
-                        });
-                    }}
+                <NumericPanelInput
+                    name="minimap.scale"
+                    prop="minimapScale"
+                    defaultValue={1}
+                    icon="maximize"
+                    min={0.1}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
-                    min={0.1}
                 />
                 <Button
                     fill
@@ -50,6 +42,7 @@ export default function MinimapPanel() {
                     onClick={() => setVisible(true)}
                 />
             </PanelContainer>
+
             <MapError isVisible={element.properties.spriteData === undefined}>
                 {t("minimap.errorNoSprite") as string}
             </MapError>

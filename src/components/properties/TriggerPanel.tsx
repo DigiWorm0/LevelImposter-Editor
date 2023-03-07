@@ -5,8 +5,8 @@ import { useElementIDs } from "../../hooks/jotai/useMap";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useSelectedTriggerID } from "../../hooks/jotai/useSelectedTrigger";
 import { OutputTriggerDB } from "../../types/au/TriggerDB";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import MapError from "./util/MapError";
+import PanelContainer from "./util/PanelContainer";
 import TriggerEditorPanel from "./TriggerEditorPanel";
 
 const CLIENT_SIDE_TYPES = [

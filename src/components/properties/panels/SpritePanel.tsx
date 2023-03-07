@@ -1,13 +1,13 @@
-import { Button, ButtonGroup, ControlGroup } from "@blueprintjs/core";
+import { Button, ButtonGroup } from "@blueprintjs/core";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useSpriteSrc } from "../../hooks/useSprite";
-import LIColor from '../../types/li/LIColor';
-import ColorPicker from '../utils/ColorPicker';
-import DevInfo from "../utils/DevInfo";
-import SizeTag from "../utils/SizeTag";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSpriteSrc } from "../../../hooks/useSprite";
+import DevInfo from "../../utils/DevInfo";
+import SizeTag from "../../utils/SizeTag";
+import ColorPanelInput from "../input/ColorPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -30,7 +30,7 @@ export default function SpritePanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const spriteURL = useSpriteSrc(selectedElem?.id);
 
-    const onUploadClick = () => {
+    const onUploadClick = React.useCallback(() => {
         console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
@@ -56,9 +56,9 @@ export default function SpritePanel() {
             reader.readAsDataURL(file);
         }
         input.click();
-    }
+    }, [selectedElem, setSelectedElem]);
 
-    const onResetClick = () => {
+    const onResetClick = React.useCallback(() => {
         if (!selectedElem)
             return;
         setSelectedElem({
@@ -69,9 +69,7 @@ export default function SpritePanel() {
                 color: undefined
             }
         });
-    }
-
-    const imgSize = spriteURL.length;
+    }, [selectedElem, setSelectedElem]);
 
     if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
         return null;
@@ -93,7 +91,7 @@ export default function SpritePanel() {
 
                 <div style={{ textAlign: "center", marginBottom: 10 }}>
                     <SizeTag
-                        sizeBytes={imgSize}
+                        sizeBytes={spriteURL.length}
                         warningMsg={t("sprite.errorSize") as string}
                         okMsg={t("sprite.okSize") as string}
                     />
@@ -113,25 +111,11 @@ export default function SpritePanel() {
                         onClick={onUploadClick}
                     />
                 </ButtonGroup>
-                <ControlGroup fill style={{ padding: 5, marginTop: 5 }}>
-                    <ColorPicker
-                        fill
-                        minimal
-                        title={t("sprite.setColor") as string}
-                        color={selectedElem?.properties.color || { r: 255, g: 255, b: 255, a: 1 }}
-                        onChange={(color: LIColor) => {
-                            if (!selectedElem)
-                                return;
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: {
-                                    ...selectedElem.properties,
-                                    color
-                                }
-                            });
-                        }}
-                    />
-                </ControlGroup>
+                <ColorPanelInput
+                    name={"sprite.setColor"}
+                    prop="color"
+                    defaultValue={{ r: 255, g: 255, b: 255, a: 1 }}
+                />
             </PanelContainer>
             <MapError info isVisible={selectedElem.type.startsWith("util-vent")} icon="play">
                 {t("sprite.ventInfo") as string}

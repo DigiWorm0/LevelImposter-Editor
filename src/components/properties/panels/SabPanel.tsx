@@ -1,13 +1,14 @@
-import { Button, ControlGroup, H5, InputGroup, NumericInput } from "@blueprintjs/core";
+import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../hooks/jotai/useTypes";
-import { useSpriteType } from "../../hooks/useSprite";
-import DescriptionInput from "./DescriptionInput";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
-import RoomSelect from "./RoomSelect";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useElementType } from "../../../hooks/jotai/useTypes";
+import { useSpriteType } from "../../../hooks/useSprite";
+import NumericPanelInput from "../input/NumericPanelInput";
+import TextPanelInput from "../input/TextPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
+import RoomSelect from "../input/RoomSelect";
 
 const timerElems = [
     "sab-reactorleft",
@@ -50,22 +51,22 @@ export default function SabPanel() {
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
-                <DescriptionInput />
+                <TextPanelInput
+                    prop="description"
+                    name={"sab.description"}
+                    icon={"comment"}
+                />
                 {showTimer && (
-                    <NumericInput
-                        key={selectedElem.id + "-duration"}
-                        fill
-                        placeholder={t("sab.duration") as string}
-                        defaultValue={selectedElem.properties.sabDuration ?? 45}
+                    <NumericPanelInput
+                        prop="sabDuration"
+                        name={"sab.duration"}
+                        defaultValue={45}
                         min={0}
                         minorStepSize={1}
                         stepSize={5}
                         majorStepSize={15}
-                        leftIcon="time"
-                        rightElement={<Button minimal disabled>seconds</Button>}
-                        onValueChange={(val) => {
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sabDuration: val } });
-                        }}
+                        label={"seconds"}
+                        icon="time"
                     />
                 )}
             </PanelContainer>

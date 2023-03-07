@@ -5,8 +5,8 @@ import generateGUID from "../../hooks/generateGUID";
 import { useSelectedColliderID, useSetSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import ColliderEditorPanel from "./ColliderEditorPanel";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import MapError from "./util/MapError";
+import PanelContainer from "./util/PanelContainer";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",

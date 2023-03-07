@@ -32,7 +32,9 @@ export default function PanelContainer(props: PanelContainerProps) {
                 keepChildrenMounted={true}>
 
                 <div style={{
-                    padding: 10,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    paddingBottom: 10,
                     ...props.style
                 }}>
                     {props.children}

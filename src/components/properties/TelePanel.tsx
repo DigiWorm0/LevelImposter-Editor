@@ -1,13 +1,12 @@
-import { Button, ControlGroup, Switch } from "@blueprintjs/core";
-import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
+import { Button, ControlGroup } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import LIElement from "../../types/li/LIElement";
-import PanelContainer from "./PanelContainer";
-
-const TeleSelect = Select2.ofType<LIElement>();
+import SwitchPanelInput from "./input/SwitchPanelInput";
+import PanelContainer from "./util/PanelContainer";
 
 export default function TelePanel() {
     const { t } = useTranslation();
@@ -28,18 +27,16 @@ export default function TelePanel() {
             onFocus={props.handleFocus} />
     );
 
-    const hasTeles = filteredTeles.length >= 1;
-
     if (!selectedElem || selectedElem.type !== "util-tele")
         return null;
 
     return (
         <PanelContainer title={t("tele.title") as string}>
             <ControlGroup fill>
-                <TeleSelect
+                <Select2
                     fill
                     filterable={false}
-                    disabled={!hasTeles}
+                    disabled={filteredTeles.length <= 0}
                     items={filteredTeles}
                     itemRenderer={teleSelectRenderer}
                     onItemSelect={(tele) => {
@@ -51,7 +48,7 @@ export default function TelePanel() {
                         text={teleConnection ? teleConnection.name : "(No connection)"}
                         fill
                     />
-                </TeleSelect>
+                </Select2>
                 <Button
                     minimal
                     rightIcon="refresh"
@@ -60,34 +57,18 @@ export default function TelePanel() {
                     }}
                 />
             </ControlGroup>
-            <Tooltip2
-                fill
-                content={t("tele.preserveOffsetTooltip") as string}>
-
-                <Switch
-                    label={t("tele.preserveOffset") as string}
-                    checked={selectedElem.properties.preserveOffset !== false}
-                    style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
-                    onChange={(e) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, preserveOffset: e.currentTarget.checked } });
-                    }}
-                />
-
-            </Tooltip2>
-            <Tooltip2
-                fill
-                content={t("tele.ghostEnabledTooltip") as string}>
-
-                <Switch
-                    label={t("tele.ghostEnabled") as string}
-                    checked={selectedElem.properties.isGhostEnabled === true}
-                    style={{ textAlign: "center", marginTop: 5, marginBottom: 10 }}
-                    onChange={(e) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isGhostEnabled: e.currentTarget.checked } });
-                    }}
-                />
-
-            </Tooltip2>
+            <SwitchPanelInput
+                prop={"preserveOffset"}
+                name={"tele.preserveOffset"}
+                defaultValue={true}
+                tooltip={"tele.preserveOffsetTooltip"}
+            />
+            <SwitchPanelInput
+                prop={"isGhostEnabled"}
+                name={"tele.ghostEnabled"}
+                defaultValue={true}
+                tooltip={"tele.ghostEnabledTooltip"}
+            />
         </PanelContainer>
     );
 }

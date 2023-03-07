@@ -9,7 +9,7 @@ import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import SizeTag from "../utils/SizeTag";
-import PanelContainer from "./PanelContainer";
+import PanelContainer from "./util/PanelContainer";
 import SoundEditorPanel from "./SoundEditorPanel";
 
 const SoundPresetSelect = Select2.ofType<string>();

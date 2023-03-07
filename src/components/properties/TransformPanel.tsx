@@ -4,8 +4,8 @@ import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import MapError from "./util/MapError";
+import PanelContainer from "./util/PanelContainer";
 
 export default function TransformPanel() {
     const { t } = useTranslation();

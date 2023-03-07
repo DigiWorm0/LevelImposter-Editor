@@ -1,7 +1,7 @@
 import { ControlGroup, Switch } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import PanelContainer from "./PanelContainer";
+import PanelContainer from "./util/PanelContainer";
 
 export default function MinimapSpritePanel() {
     const { t } = useTranslation();

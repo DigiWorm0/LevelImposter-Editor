@@ -8,8 +8,8 @@ import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../utils/DevInfo";
 import SizeTag from "../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
+import MapError from "./util/MapError";
+import PanelContainer from "./util/PanelContainer";
 
 export default function SoundPanel() {
     const { t } = useTranslation();

@@ -7,12 +7,10 @@ import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../hooks/useSprite";
 import TaskLength from "../../types/generic/TaskLength";
-import DescriptionInput from "./DescriptionInput";
-import MapError from "./MapError";
-import PanelContainer from "./PanelContainer";
-import RoomSelect from "./RoomSelect";
-
-const LengthSelect = Select2.ofType<string>();
+import MapError from "./util/MapError";
+import PanelContainer from "./util/PanelContainer";
+import RoomSelect from "./input/RoomSelect";
+import TextPanelInput from "./input/TextPanelInput";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -57,7 +55,7 @@ export default function TaskPanel() {
                 <FormGroup>
                     <RoomSelect useDefault={true} />
                     <ControlGroup fill>
-                        <LengthSelect
+                        <Select2
                             fill
                             filterable={false}
                             items={TaskLength}
@@ -74,7 +72,7 @@ export default function TaskPanel() {
                                 style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
                                 fill
                             />
-                        </LengthSelect>
+                        </Select2>
                         <Button
                             minimal
                             rightIcon="refresh"
@@ -83,7 +81,11 @@ export default function TaskPanel() {
                             }}
                         />
                     </ControlGroup>
-                    <DescriptionInput />
+                    <TextPanelInput
+                        prop="description"
+                        name={"sab.description"}
+                        icon={"comment"}
+                    />
                 </FormGroup>
             </PanelContainer>
             <MapError isVisible={selectedElem.type === "task-fuel2" && typeElems.length === 1}>

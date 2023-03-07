@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../hooks/jotai/useTypes";
 import LIElement from "../../types/li/LIElement";
-import PanelContainer from "./PanelContainer";
+import PanelContainer from "./util/PanelContainer";
 import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import SoundEditorPanel from "./SoundEditorPanel";
 import LISound from "../../types/li/LISound";
 import generateGUID from "../../hooks/generateGUID";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import MapError from "./MapError";
+import MapError from "./util/MapError";
 
 const VentSelect = Select2.ofType<LIElement>();
 const VENT_OPEN_SOUND = "ventOpen";
