@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, ControlGroup, FormGroup, IconName, InputGroup, NumericInput } from "@blueprintjs/core";
+import { FormGroup, IconName, InputGroup } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";

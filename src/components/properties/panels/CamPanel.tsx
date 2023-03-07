@@ -8,8 +8,7 @@ export default function CamPanel() {
     const { t } = useTranslation();
     const element = useSelectedElemValue();
 
-    if (!element
-        || element.type !== "util-cam")
+    if (!element || element.type !== "util-cam")
         return null;
 
     return (

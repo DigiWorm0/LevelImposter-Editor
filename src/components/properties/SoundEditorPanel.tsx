@@ -1,16 +1,17 @@
+import React from "react";
 import { Button, Card, H6 } from "@blueprintjs/core";
 import useSelectedElem from "../../hooks/jotai/useSelectedElem";
 import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../utils/DevInfo";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "./util/AudioPlayer";
 
 export default function SoundEditorPanel(props: { title: string }) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
     const [selectedSound, setSelectedSound] = useSelectedSound();
 
-    const onDeleteClick = () => {
+    const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
             return;
         const sounds = selectedElem.properties.sounds?.filter(sound => sound.id !== selectedSoundID);
@@ -21,9 +22,9 @@ export default function SoundEditorPanel(props: { title: string }) {
                 sounds
             }
         });
-    }
+    }, [selectedElem, selectedSoundID, setSelectedElem]);
 
-    const onUploadClick = () => {
+    const onUploadClick = React.useCallback(() => {
         console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
@@ -49,7 +50,7 @@ export default function SoundEditorPanel(props: { title: string }) {
             reader.readAsDataURL(file);
         }
         input.click();
-    }
+    }, [selectedSound, setSelectedSound]);
 
     if (!selectedElem)
         return null;

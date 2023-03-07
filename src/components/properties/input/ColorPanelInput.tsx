@@ -8,7 +8,6 @@ import ColorPicker from "../../utils/ColorPicker";
 export interface ColorInputProps {
     name: string;
     prop: keyof LIProperties;
-
     defaultValue: LIColor;
 }
 

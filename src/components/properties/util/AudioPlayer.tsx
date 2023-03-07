@@ -1,9 +1,9 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedSound from "../../hooks/jotai/useSelectedSound";
-import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import DevInfo from "../utils/DevInfo";
+import useSelectedSound from "../../../hooks/jotai/useSelectedSound";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import DevInfo from "../../utils/DevInfo";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
@@ -34,16 +34,18 @@ export default function AudioPlayer() {
         audioRef.current.volume = sound?.volume ? sound.volume : DEFAULT_VOLUME;
     }, [sound]);
 
-    const soundData = sound?.isPreset ? "/sounds/" + sound?.data : sound?.data;
+    const soundData = React.useMemo(() => {
+        return sound?.isPreset ? "/sounds/" + sound?.data : sound?.data;
+    }, [sound]);
 
-    const downloadSound = () => {
+    const downloadSound = React.useCallback(() => {
         if (!soundData)
             return;
         const link = document.createElement("a");
         link.href = soundData;
         link.download = "";
         link.click();
-    }
+    }, [soundData]);
 
     return (
         <div style={{ textAlign: "center", marginBottom: 10 }}>

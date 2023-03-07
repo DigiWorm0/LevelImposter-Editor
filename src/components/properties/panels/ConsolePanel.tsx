@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { DEFAULT_CONSOLE_RANGE } from "../../../types/generic/Constants";
 import ColorPanelInput from "../input/ColorPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";
@@ -8,7 +8,7 @@ import PanelContainer from "../util/PanelContainer";
 
 export default function ConsolePanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const selectedElem = useSelectedElemValue();
 
     const isConsole = selectedElem?.type.startsWith("task-")
         || (selectedElem?.type.startsWith("sab-") && !selectedElem?.type.startsWith("sab-btn") && !selectedElem?.type.startsWith("sab-door"))
@@ -38,7 +38,7 @@ export default function ConsolePanel() {
                 <ColorPanelInput
                     name="console.highlightColor"
                     prop="highlightColor"
-                    defaultValue={{ r: 255, g: 255, b: 0, a: 1 }}
+                    defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow
                 />
             )}
             <SwitchPanelInput

@@ -20,18 +20,18 @@ export default function DebugPanel() {
     const selectedElem = useSelectedElemValue();
     const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
 
-    const editKey = (key: string) => {
+    const editKey = React.useCallback((key: string) => {
         if (selectedKey === key)
             setSelectedKey(undefined);
         else
             setSelectedKey(key);
-    }
+    }, [selectedKey]);
 
     if (!selectedElem || !settings.isDevMode)
         return null;
 
-    const keys = Object.keys(selectedElem.properties);
-    const values = Object.values(selectedElem.properties);
+    const keys = React.useMemo(() => Object.keys(selectedElem.properties), [selectedElem]);
+    const values = React.useMemo(() => Object.values(selectedElem.properties), [selectedElem]);
 
     return (
         <PanelContainer title={t("debug.title") as string}>

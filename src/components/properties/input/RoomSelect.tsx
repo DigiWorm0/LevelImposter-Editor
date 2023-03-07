@@ -1,4 +1,5 @@
-import { Button, ControlGroup, FormGroup } from "@blueprintjs/core";
+import React from "react";
+import { Button, FormGroup } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
@@ -12,8 +13,12 @@ export default function RoomSelect(props: { useDefault: boolean }) {
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
-    const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    const hasRooms = roomElems.length > 0;
+    const parentRoom = React.useMemo(() => {
+        return roomElems.find((e) => e.id === selectedElem?.properties.parent);
+    }, [roomElems, selectedElem]);
+    const hasRooms = React.useMemo(() => {
+        return roomElems.length > 0;
+    }, [roomElems]);
 
     const roomSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2

@@ -7,12 +7,10 @@ import LIProperties from "../../../types/li/LIProperties";
 export interface NumericInputProps {
     name: string;
     prop: keyof LIProperties;
-
     defaultValue: number;
 
     icon?: IconName;
     label?: string;
-
     min?: number;
     max?: number;
     minorStepSize?: number;

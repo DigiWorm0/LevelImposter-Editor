@@ -7,7 +7,7 @@ import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/use
 import { DEFAULT_VOLUME } from "../../types/generic/Constants";
 import DevInfo from "../utils/DevInfo";
 import SizeTag from "../utils/SizeTag";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "./util/AudioPlayer";
 import MapError from "./util/MapError";
 import PanelContainer from "./util/PanelContainer";
 
@@ -25,7 +25,7 @@ export default function SoundPanel() {
         }
     }, [selectedSound, selectedElem]);
 
-    const onUploadClick = () => {
+    const onUploadClick = React.useCallback(() => {
         console.log("Showing Upload Dialog");
         const input = document.createElement("input");
         input.type = "file";
@@ -57,9 +57,9 @@ export default function SoundPanel() {
             reader.readAsDataURL(file);
         }
         input.click();
-    }
+    }, [selectedElem, selectedSoundID, setSelectedElem]);
 
-    const onResetClick = () => {
+    const onResetClick = React.useCallback(() => {
         if (!selectedElem)
             return;
         setSelectedElem({
@@ -69,13 +69,23 @@ export default function SoundPanel() {
                 sounds: []
             }
         });
-    }
+    }, [selectedElem, setSelectedElem]);
+
+    const hasCollider = React.useMemo(() => {
+        return selectedElem?.properties.colliders !== undefined && selectedElem.properties.colliders.length > 0;
+    }, [selectedElem]);
+
+    const hasSound = React.useMemo(() => {
+        return selectedElem?.properties.sounds !== undefined && selectedElem.properties.sounds.length > 0;
+    }, [selectedElem]);
+
+    const soundSize = React.useMemo(() => {
+        return selectedElem?.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
+    }, [selectedElem]);
+
     if (!selectedElem || (selectedElem.type !== "util-sound1" && selectedElem.type !== "util-triggersound"))
         return null;
 
-    const hasCollider = selectedElem.properties.colliders !== undefined && selectedElem.properties.colliders.length > 0;
-    const hasSound = selectedElem.properties.sounds !== undefined && selectedElem.properties.sounds.length > 0;
-    const soundSize = selectedElem.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
 
     return (
         <>

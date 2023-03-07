@@ -1,14 +1,14 @@
 import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../../hooks/useSprite";
 import NumericPanelInput from "../input/NumericPanelInput";
+import RoomSelect from "../input/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import RoomSelect from "../input/RoomSelect";
 
 const timerElems = [
     "sab-reactorleft",
@@ -21,16 +21,20 @@ const timerElems = [
 
 export default function SabPanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
     const roomElems = useElementType("util-room");
 
-    const parentRoom = roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    const showTimer = timerElems.includes(selectedElem?.type ?? "");
-
     React.useEffect(() => {
         setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
+    }, [selectedElem]);
+
+    const parentRoom = React.useMemo(() => {
+        return roomElems.find((e) => e.id === selectedElem?.properties.parent);
+    }, [roomElems, selectedElem]);
+    const showTimer = React.useMemo(() => {
+        return timerElems.includes(selectedElem?.type ?? "");
     }, [selectedElem]);
 
     if (!selectedElem

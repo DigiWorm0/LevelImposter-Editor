@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, FormGroup, Menu, NumericInput } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
@@ -12,21 +13,19 @@ import SizeTag from "../utils/SizeTag";
 import PanelContainer from "./util/PanelContainer";
 import SoundEditorPanel from "./SoundEditorPanel";
 
-const SoundPresetSelect = Select2.ofType<string>();
-
 export default function StepSoundPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
 
-    const sounds = selectedElem?.properties.sounds || [];
+    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
 
-    const editSound = (soundID: GUID) => {
+    const editSound = React.useCallback((soundID: GUID) => {
         if (soundID === selectedSoundID)
             setSelectedSoundID(undefined);
         else
             setSelectedSoundID(soundID);
-    }
+    }, [selectedSoundID, setSelectedSoundID]);
 
     const soundPresetSelectRenderer: ItemRenderer<string> = (soundPreset, props) => (
         <MenuItem2
@@ -38,16 +37,18 @@ export default function StepSoundPanel() {
             onFocus={props.handleFocus} />
     );
 
+    const soundSize = React.useMemo(() => {
+        return selectedElem?.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
+    }, [selectedElem]);
+
     if (!selectedElem
         || selectedElem.type !== "util-sound2")
         return null;
 
-    const soundSize = selectedElem.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
-
     return (
         <PanelContainer title={t("stepSound.title") as string}>
 
-            <SoundPresetSelect
+            <Select2
                 fill
                 filterable={false}
                 items={Object.keys(PRESET_RESOURCE_IDS)}
@@ -73,7 +74,7 @@ export default function StepSoundPanel() {
                     text={t("stepSound.presets") as string}
                     fill
                 />
-            </SoundPresetSelect>
+            </Select2>
             <FormGroup label={t("stepSound.priority")} style={{ marginTop: 10 }}>
                 <NumericInput
                     fill
