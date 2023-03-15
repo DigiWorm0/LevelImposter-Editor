@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, InputGroup, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
@@ -41,10 +42,18 @@ export default function ColliderPanel() {
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
     const setSelectedCollider = useSetSelectedCollider();
 
-    const isRestricted = RESTRICTED_TYPES.includes(selectedElem?.type || "");
-    const disableAddCollider = selectedElem && SINGULAR_TYPES.includes(selectedElem?.type) && selectedElem.properties.colliders && selectedElem.properties.colliders.length > 0;
+    const isRestricted = React.useMemo(() => {
+        return RESTRICTED_TYPES.includes(selectedElem?.type || "");
+    }, [selectedElem?.type]);
 
-    const addCollider = () => {
+    const isAddDisabled = React.useMemo(() => {
+        return selectedElem
+            && SINGULAR_TYPES.includes(selectedElem?.type)
+            && selectedElem.properties.colliders
+            && selectedElem.properties.colliders.length > 0;
+    }, [selectedElem?.properties?.colliders]);
+
+    const addCollider = React.useCallback(() => {
         if (!selectedElem)
             return;
         if (selectedElem.properties.colliders === undefined)
@@ -74,7 +83,7 @@ export default function ColliderPanel() {
         };
         setSelectedElem(elem);
         setSelectedColliderID(collider?.id);
-    }
+    }, [selectedElem, setSelectedElem, setSelectedColliderID, isRestricted]);
 
     if (!selectedElem || BLACKLISTED_TYPES.includes(selectedElem.type))
         return null;
@@ -86,13 +95,14 @@ export default function ColliderPanel() {
                     <Tooltip2
                         fill
                         content={t("collider.errorOneOnly") as string}
-                        disabled={!disableAddCollider}
+                        disabled={!isAddDisabled}
                     >
                         <MenuItem2
                             icon="add"
                             text={t("collider.add") as string}
-                            disabled={disableAddCollider}
-                            onClick={addCollider} />
+                            disabled={isAddDisabled}
+                            onClick={addCollider}
+                        />
 
                     </Tooltip2>
 
@@ -105,6 +115,7 @@ export default function ColliderPanel() {
                                 <MenuItem2
                                     icon={selectedColliderID === collider.id ? (
                                         <Button
+                                            key={collider.id}
                                             intent={intent}
                                             small
                                             minimal
@@ -119,6 +130,7 @@ export default function ColliderPanel() {
                                     )}
                                     text={selectedColliderID === collider.id ? (
                                         <InputGroup
+                                            key={collider.id}
                                             small
                                             intent={intent}
                                             value={colliderName}

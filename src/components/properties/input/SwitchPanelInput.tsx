@@ -27,7 +27,7 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
         >
 
             <Tooltip2
-                content={t(props.tooltip ? props.tooltip : props.name) as string}
+                content={props.tooltip && (t(props.tooltip) as string)}
                 placement="top"
                 hoverOpenDelay={200}
                 hoverCloseDelay={0}

@@ -63,8 +63,7 @@ export default function DoorPanel() {
             onFocus={props.handleFocus} />
     );
 
-    if (!selectedElem
-        || !selectedElem.type.startsWith("sab-door"))
+    if (!selectedElem || !selectedElem.type.startsWith("sab-door"))
         return null;
 
     return (
@@ -81,8 +80,8 @@ export default function DoorPanel() {
                             itemRenderer={typeSelectRenderer}
                             onItemSelect={(length) => {
                                 setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, doorType: length } });
-                            }}>
-
+                            }}
+                        >
                             <Button
                                 rightIcon="caret-down"
                                 text={t(`door.${selectedElem.properties.doorType || "skeld"}`) as string}
@@ -91,7 +90,8 @@ export default function DoorPanel() {
                         </TypeSelect>
                         <Tooltip2
                             intent="primary"
-                            content={t("door.globalInfo") as string}>
+                            content={t("door.globalInfo") as string}
+                        >
                             <AnchorButton
                                 minimal
                                 rightIcon="globe-network"

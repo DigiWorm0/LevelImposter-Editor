@@ -1,6 +1,7 @@
+import React from "react";
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import getMapVisibility, { MapVisibility } from "../../hooks/getMapVisibility";
+import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import GUID from "../../types/generic/GUID";
@@ -14,8 +15,11 @@ export default function TransformPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
 
-    const elemVisibility = selectedElem && getMapVisibility(selectedElem);
-    const typeName = t(`au.${selectedElem?.type}`) as string;
+    const elemVisibility = React.useMemo(() => {
+        if (!selectedElem)
+            return undefined;
+        return getElemVisibility(selectedElem);
+    }, [selectedElem]);
 
     if (!selectedElem || selectedElem.type === "util-layer")
         return null;
@@ -23,7 +27,7 @@ export default function TransformPanel() {
     return (
         <>
             <PanelContainer title={t("transform.title") as string} style={{ paddingTop: 0 }}>
-                {settings.isDevMode && (
+                {settings.isDevMode ? (
                     <InputGroup
                         key={selectedElem.id + "-type-dev"}
                         defaultValue={selectedElem.type}
@@ -33,12 +37,11 @@ export default function TransformPanel() {
                             setSelectedElem({ ...selectedElem, type: e.target.value });
                         }}
                     />
-                )}
-                {!settings.isDevMode && (
+                ) : (
                     <InputGroup
                         style={{ backgroundColor: "var(--color-bg-2)" }}
                         key={selectedElem.id + "-type"}
-                        defaultValue={typeName}
+                        defaultValue={t(`au.${selectedElem?.type}`) as string}
                         placeholder={t("transform.type") as string}
                         leftElement={<Button minimal disabled>{t("transform.type")}:</Button>}
                         rightElement={<Button minimal disabled>{selectedElem.type}</Button>}
@@ -157,13 +160,14 @@ export default function TransformPanel() {
                 </ButtonGroup>
             </PanelContainer>
             <MapError
-                isVisible={elemVisibility !== MapVisibility.Visible}
+                isVisible={elemVisibility !== ElemVisibility.Visible}
                 info
-                icon={elemVisibility == MapVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}>
-                {elemVisibility === MapVisibility.Invisible ? t("transform.errorInvisible") : null}
-                {elemVisibility === MapVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
-                {elemVisibility === MapVisibility.InvisibleMinimap ? t("transform.errorMinimap") : null}
-                {elemVisibility === MapVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
+                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}
+            >
+                {elemVisibility === ElemVisibility.Invisible ? t("transform.errorInvisible") : null}
+                {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
+                {elemVisibility === ElemVisibility.InvisibleMinimap ? t("transform.errorMinimap") : null}
+                {elemVisibility === ElemVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
             </MapError>
         </>
     );

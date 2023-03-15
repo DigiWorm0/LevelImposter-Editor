@@ -20,6 +20,10 @@ export default function StepSoundPanel() {
 
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
 
+    const soundSize = React.useMemo(() => {
+        return sounds.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
+    }, [sounds]);
+
     const editSound = React.useCallback((soundID: GUID) => {
         if (soundID === selectedSoundID)
             setSelectedSoundID(undefined);
@@ -37,12 +41,8 @@ export default function StepSoundPanel() {
             onFocus={props.handleFocus} />
     );
 
-    const soundSize = React.useMemo(() => {
-        return selectedElem?.properties.sounds?.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
-    }, [selectedElem]);
 
-    if (!selectedElem
-        || selectedElem.type !== "util-sound2")
+    if (!selectedElem || selectedElem.type !== "util-sound2")
         return null;
 
     return (
@@ -67,8 +67,8 @@ export default function StepSoundPanel() {
                             })
                         }
                     });
-                }}>
-
+                }}
+            >
                 <Button
                     rightIcon="caret-down"
                     text={t("stepSound.presets") as string}
@@ -108,7 +108,8 @@ export default function StepSoundPanel() {
                             sounds.splice(i, 1);
                         }
                         setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: sounds } });
-                    }} />
+                    }}
+                />
             </FormGroup>
 
             <div style={{ textAlign: "center", marginBottom: 5, marginTop: 10 }}>

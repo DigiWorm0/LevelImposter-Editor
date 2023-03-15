@@ -1,3 +1,4 @@
+import React from "react";
 import { ControlGroup, Menu, Switch } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
@@ -20,18 +21,25 @@ export default function TriggerPanel() {
     const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
     const elementIDs = useElementIDs();
 
-    const triggerOutputs = (selectedElem && selectedElem.type in OutputTriggerDB) ? OutputTriggerDB[selectedElem.type] : [];
-    const isTriggerable = triggerOutputs.length > 0;
+    const triggerOutputs = React.useMemo(() => {
+        if (!selectedElem || !(selectedElem.type in OutputTriggerDB))
+            return [];
+        return OutputTriggerDB[selectedElem.type];
+    }, [selectedElem]);
 
-    const isTriggerActive = (triggerID: string) => {
+    const isTriggerable = React.useMemo(() => triggerOutputs.length > 0, [triggerOutputs]);
+
+    const hasCollider = React.useMemo(() => {
+        return selectedElem?.properties?.colliders !== undefined && selectedElem?.properties?.colliders.length > 0;
+    }, [selectedElem]);
+
+    const isTriggerActive = React.useCallback((triggerID: string) => {
         const triggerObj = selectedElem?.properties?.triggers?.find((trigger) => trigger.id === triggerID);
         return triggerObj !== undefined && triggerObj.elemID !== undefined && triggerObj.triggerID !== undefined && elementIDs.includes(triggerObj.elemID);
-    };
+    }, [selectedElem, elementIDs]);
 
     if (!selectedElem || !isTriggerable)
         return null;
-
-    const hasCollider = selectedElem.properties.colliders !== undefined && selectedElem.properties.colliders.length > 0;
 
     return (
         <>

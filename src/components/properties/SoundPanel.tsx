@@ -86,7 +86,6 @@ export default function SoundPanel() {
     if (!selectedElem || (selectedElem.type !== "util-sound1" && selectedElem.type !== "util-triggersound"))
         return null;
 
-
     return (
         <>
             <PanelContainer title={t("audio.soundPlayer") as string}>

@@ -13,9 +13,6 @@ import LIElement from "../../types/li/LIElement";
 import LITrigger from "../../types/li/LITrigger";
 import DevInfo from "../utils/DevInfo";
 
-const ElemSelect = Select2.ofType<LIElement>();
-const TriggerSelect = Select2.ofType<string>();
-
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);
     const selectedElemID = get(selectedElementIDAtom);
@@ -30,13 +27,21 @@ export default function TriggerEditorPanel() {
     const inputableTargets = useAtomValue(triggerInputsAtom);
     const [triggerTarget, setTriggerTarget] = useElement(selectedTrigger?.elemID);
 
-    const targetInputs = triggerTarget && triggerTarget.type in InputTriggerDB ? InputTriggerDB[triggerTarget.type] : [];
-    const selectedTriggerDef: LITrigger = selectedTrigger || {
-        id: selectedTriggerID || "",
-        triggerID: undefined,
-        elemID: undefined,
-    }
-    const isTriggerSelected = targetInputs.includes(selectedTriggerDef.triggerID || "");
+    const targetInputs = React.useMemo(() => {
+        return triggerTarget && triggerTarget.type in InputTriggerDB ? InputTriggerDB[triggerTarget.type] : [];
+    }, [triggerTarget]);
+
+    const selectedTriggerDef = React.useMemo(() => {
+        return selectedTrigger || {
+            id: selectedTriggerID || "",
+            triggerID: undefined,
+            elemID: undefined,
+        };
+    }, [selectedTrigger, selectedTriggerID]);
+
+    const isTriggerSelected = React.useMemo(() => {
+        return targetInputs.includes(selectedTriggerDef.triggerID || "");
+    }, [targetInputs, selectedTriggerDef.triggerID]);
 
     React.useEffect(() => {
         if (selectedTriggerDef.elemID && selectedTriggerDef.triggerID && triggerTarget) {
@@ -59,7 +64,7 @@ export default function TriggerEditorPanel() {
                 });
             }
         }
-    }, [selectedTriggerDef.elemID, selectedTriggerDef.triggerID]);
+    }, [selectedTriggerDef.elemID, selectedTriggerDef.triggerID, triggerTarget, setTriggerTarget]);
 
     const elemSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
         <MenuItem2
@@ -89,7 +94,6 @@ export default function TriggerEditorPanel() {
 
     return (
         <Card style={{ boxShadow: "none", padding: 10 }}>
-
             <DevInfo>
                 {selectedTriggerDef.id} <br />
                 {selectedTriggerDef.triggerID} <br />
@@ -97,7 +101,7 @@ export default function TriggerEditorPanel() {
             </DevInfo>
 
             <ControlGroup fill>
-                <ElemSelect
+                <Select2
                     fill
                     filterable={false}
                     items={inputableTargets}
@@ -113,7 +117,7 @@ export default function TriggerEditorPanel() {
                         text={triggerTarget?.name ?? t("trigger.selectTarget")}
                         fill
                     />
-                </ElemSelect>
+                </Select2>
                 <Button
                     minimal
                     rightIcon="refresh"
@@ -123,7 +127,7 @@ export default function TriggerEditorPanel() {
                 />
             </ControlGroup>
             <ControlGroup fill style={{ marginTop: 10 }}>
-                <TriggerSelect
+                <Select2
                     fill
                     filterable={false}
                     items={targetInputs}
@@ -144,7 +148,7 @@ export default function TriggerEditorPanel() {
                         fill
                     />
 
-                </TriggerSelect>
+                </Select2>
             </ControlGroup>
         </Card>
     )
