@@ -388,6 +388,7 @@
         "util-sound2": "Footstep Sound",
         "util-blankfloat": "Floating Sprite",
         "util-tele": "Teleporter",
+        "util-physics": "Physics Object",
         "util-blanktrigger": "Trigger Sprite",
         "util-triggerarea": "Trigger Area",
         "util-triggerconsole": "Trigger Console",
