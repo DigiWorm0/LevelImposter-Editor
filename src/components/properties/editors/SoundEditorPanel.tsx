@@ -1,10 +1,10 @@
+import { Button, H6 } from "@blueprintjs/core";
 import React from "react";
-import { Button, Card, H6 } from "@blueprintjs/core";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import useSelectedSound, { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
-import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import DevInfo from "../utils/DevInfo";
-import AudioPlayer from "./util/AudioPlayer";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedSound, { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import DevInfo from "../../utils/DevInfo";
+import AudioPlayer from "../util/AudioPlayer";
 
 export default function SoundEditorPanel(props: { title: string }) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
@@ -52,13 +52,14 @@ export default function SoundEditorPanel(props: { title: string }) {
         input.click();
     }, [selectedSound, setSelectedSound]);
 
-    if (!selectedElem)
+    if (!selectedSound || !selectedElem)
         return null;
 
     return (
-        <Card>
-            <H6>{props.title}</H6>
-
+        <div style={{ padding: 20 }}>
+            <H6>
+                {props.title}
+            </H6>
             <DevInfo>
                 {selectedSound?.id}
             </DevInfo>
@@ -81,6 +82,6 @@ export default function SoundEditorPanel(props: { title: string }) {
                     intent="danger"
                     onClick={() => onDeleteClick()} />
             </div>
-        </Card>
+        </div>
     )
 }

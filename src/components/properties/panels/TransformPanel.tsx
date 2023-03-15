@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
-import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import GUID from "../../types/generic/GUID";
-import MapError from "./util/MapError";
-import PanelContainer from "./util/PanelContainer";
+import getElemVisibility, { ElemVisibility } from "../../../hooks/getMapVisibility";
+import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../../hooks/jotai/useSelectedElem";
+import { useSettingsValue } from "../../../hooks/jotai/useSettings";
+import GUID from "../../../types/generic/GUID";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function TransformPanel() {
     const { t } = useTranslation();

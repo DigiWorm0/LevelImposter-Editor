@@ -1,6 +1,6 @@
-import SoundPanel from "../components/properties/SoundPanel";
+import SoundPanel from "../components/properties/panels/SoundPanel";
 import CamPanel from "../components/properties/panels/CamPanel";
-import ColliderPanel from "../components/properties/ColliderPanel";
+import ColliderPanel from "../components/properties/panels/ColliderPanel";
 import ConsolePanel from "../components/properties/panels/ConsolePanel";
 import DebugPanel from "../components/properties/panels/DebugPanel";
 import FloatingPanel from '../components/properties/panels/FloatingPanel';
@@ -11,15 +11,15 @@ import RoomPanel from "../components/properties/panels/RoomPanel";
 import SabPanel from "../components/properties/panels/SabPanel";
 import SpritePanel from "../components/properties/panels/SpritePanel";
 import StarfieldPanel from "../components/properties/panels/StarfieldPanel";
-import StepSoundPanel from "../components/properties/StepSoundPanel";
+import StepSoundPanel from "../components/properties/panels/StepSoundPanel";
 import TaskPanel from "../components/properties/panels/TaskPanel";
 import TelePanel from "../components/properties/panels/TelePanel";
 import TimerPanel from "../components/properties/panels/TimerPanel";
-import TransformPanel from "../components/properties/TransformPanel";
-import TriggerPanel from "../components/properties/TriggerPanel";
-import VentPanel from "../components/properties/VentPanel";
-import DoorPanel from "../components/properties/DoorPanel";
-import MinimapSpritePanel from "../components/properties/MinimapSpritePanel";
+import TransformPanel from "../components/properties/panels/TransformPanel";
+import TriggerPanel from "../components/properties/panels/TriggerPanel";
+import VentPanel from "../components/properties/panels/VentPanel";
+import DoorPanel from "../components/properties/panels/DoorPanel";
+import MinimapSpritePanel from "../components/properties/panels/MinimapSpritePanel";
 
 export default function RightSidebar() {
 

@@ -1,15 +1,15 @@
 import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../hooks/generateGUID";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID, useSelectedSoundValue } from "../../hooks/jotai/useSelectedSound";
-import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import DevInfo from "../utils/DevInfo";
-import SizeTag from "../utils/SizeTag";
-import AudioPlayer from "./util/AudioPlayer";
-import MapError from "./util/MapError";
-import PanelContainer from "./util/PanelContainer";
+import generateGUID from "../../../hooks/generateGUID";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedSoundID, useSelectedSoundValue } from "../../../hooks/jotai/useSelectedSound";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import DevInfo from "../../utils/DevInfo";
+import SizeTag from "../../utils/SizeTag";
+import AudioPlayer from "../util/AudioPlayer";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function SoundPanel() {
     const { t } = useTranslation();

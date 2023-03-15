@@ -1,17 +1,16 @@
-import { Button, Card, ControlGroup, Switch } from "@blueprintjs/core";
+import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useElement from "../../hooks/jotai/useElements";
-import { elementsAtom } from "../../hooks/jotai/useMap";
-import { selectedElementIDAtom, useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import useSelectedTrigger, { useSelectedTriggerIDValue } from "../../hooks/jotai/useSelectedTrigger";
-import { InputTriggerDB } from "../../types/au/TriggerDB";
-import LIElement from "../../types/li/LIElement";
-import LITrigger from "../../types/li/LITrigger";
-import DevInfo from "../utils/DevInfo";
+import useElement from "../../../hooks/jotai/useElements";
+import { elementsAtom } from "../../../hooks/jotai/useMap";
+import { selectedElementIDAtom, useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
+import useSelectedTrigger, { useSelectedTriggerIDValue } from "../../../hooks/jotai/useSelectedTrigger";
+import { InputTriggerDB } from "../../../types/au/TriggerDB";
+import LIElement from "../../../types/li/LIElement";
+import DevInfo from "../../utils/DevInfo";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);
@@ -93,7 +92,7 @@ export default function TriggerEditorPanel() {
         return null;
 
     return (
-        <Card style={{ boxShadow: "none", padding: 10 }}>
+        <div style={{ padding: 20 }}>
             <DevInfo>
                 {selectedTriggerDef.id} <br />
                 {selectedTriggerDef.triggerID} <br />
@@ -150,6 +149,6 @@ export default function TriggerEditorPanel() {
 
                 </Select2>
             </ControlGroup>
-        </Card>
+        </div>
     )
 }

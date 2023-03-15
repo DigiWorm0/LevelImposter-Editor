@@ -107,7 +107,8 @@
         "ventOpen": "Open Sound",
         "ventMove": "Move Sound",
         "globalInfo": "Vent sounds are global and can only be changed per-map.",
-        "ventSoundInfo": "Polus vents will not play any sounds when used."
+        "ventSoundInfo": "Polus vents will not play any sounds when used.",
+        "errorNoVents": "This map does not have any other vents."
     },
     "door": {
         "title": "Door",
@@ -193,6 +194,7 @@
         "blocksLight": "Blocks Light",
         "points": "Points",
         "defaultName": "Collider {{index}}",
+        "name": "Collider Name",
         "doorInfo": "Doors will toggle this collider when they are opened/closed.",
         "roomInfo": "Collider is used to calculate room boundaries.",
         "soundInfo": "Player will only hear audio if they are within this collider.",

@@ -1,21 +1,20 @@
-import React from "react";
-import { AnchorButton, Button, ControlGroup, FormGroup, Icon, Menu } from "@blueprintjs/core";
+import { AnchorButton, Button, ControlGroup, FormGroup, Menu } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../hooks/generateGUID";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../hooks/jotai/useTypes";
-import DoorType from "../../types/generic/DoorType";
-import MapError from "./util/MapError";
-import PanelContainer from "./util/PanelContainer";
-import RoomSelect from "./input/RoomSelect";
-import SoundEditorPanel from "./SoundEditorPanel";
-import LISound from "../../types/li/LISound";
-import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
+import generateGUID from "../../../hooks/generateGUID";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
+import { useElementType } from "../../../hooks/jotai/useTypes";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import DoorType from "../../../types/generic/DoorType";
+import LISound from "../../../types/li/LISound";
+import RoomSelect from "../input/RoomSelect";
+import SoundEditorPanel from "../editors/SoundEditorPanel";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
-const TypeSelect = Select2.ofType<string>();
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
 
@@ -73,7 +72,7 @@ export default function DoorPanel() {
                     <RoomSelect useDefault={true} />
 
                     <ControlGroup fill>
-                        <TypeSelect
+                        <Select2
                             fill
                             filterable={false}
                             items={DoorType}
@@ -87,7 +86,7 @@ export default function DoorPanel() {
                                 text={t(`door.${selectedElem.properties.doorType || "skeld"}`) as string}
                                 fill
                             />
-                        </TypeSelect>
+                        </Select2>
                         <Tooltip2
                             intent="primary"
                             content={t("door.globalInfo") as string}

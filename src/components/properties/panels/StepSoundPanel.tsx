@@ -1,17 +1,17 @@
-import React from "react";
-import { Button, FormGroup, Menu, NumericInput } from "@blueprintjs/core";
+import { Button, FormGroup, NumericInput } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../hooks/generateGUID";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID } from "../../hooks/jotai/useSelectedSound";
-import { PRESET_RESOURCE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_VOLUME } from "../../types/generic/Constants";
-import GUID from "../../types/generic/GUID";
-import SizeTag from "../utils/SizeTag";
-import PanelContainer from "./util/PanelContainer";
-import SoundEditorPanel from "./SoundEditorPanel";
+import generateGUID from "../../../hooks/generateGUID";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
+import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import SizeTag from "../../utils/SizeTag";
+import SoundEditorPanel from "../editors/SoundEditorPanel";
+import DropdownList from "../util/DropdownList";
+import PanelContainer from "../util/PanelContainer";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
@@ -23,13 +23,6 @@ export default function StepSoundPanel() {
     const soundSize = React.useMemo(() => {
         return sounds.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
     }, [sounds]);
-
-    const editSound = React.useCallback((soundID: GUID) => {
-        if (soundID === selectedSoundID)
-            setSelectedSoundID(undefined);
-        else
-            setSelectedSoundID(soundID);
-    }, [selectedSoundID, setSelectedSoundID]);
 
     const soundPresetSelectRenderer: ItemRenderer<string> = (soundPreset, props) => (
         <MenuItem2
@@ -120,28 +113,19 @@ export default function StepSoundPanel() {
                 />
             </div>
 
-            <Menu>
-                {selectedElem.properties.sounds?.map((sound, index) => {
-                    const isSelected = sound.id === selectedSoundID;
-
-                    return (
-                        <div key={index}>
-                            <MenuItem2
-                                icon="volume-up"
-                                text={t("stepSound.default", { index: index + 1 }) as string}
-                                onClick={() => editSound(sound.id)}
-                                active={isSelected}
-                            />
-
-                            {isSelected && (
-                                <SoundEditorPanel
-                                    title={t("stepSound.variant")}
-                                />
-                            )}
-                        </div>
-                    );
-                })}
-            </Menu>
+            <DropdownList
+                elements={selectedElem.properties.sounds?.map((sound, index) => ({
+                    id: sound.id,
+                    name: t("stepSound.default", { index: index + 1 }) as string,
+                    icon: "volume-up"
+                })) ?? []}
+                selectedID={selectedSoundID}
+                onSelectID={setSelectedSoundID}
+            >
+                <SoundEditorPanel
+                    title={t("stepSound.variant")}
+                />
+            </DropdownList>
         </PanelContainer>
     );
 }

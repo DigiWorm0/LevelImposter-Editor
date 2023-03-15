@@ -1,10 +1,10 @@
-import { Button, Card, Collapse, ControlGroup, FormGroup, H6, NumericInput, Switch } from "@blueprintjs/core";
+import { Button, Collapse, ControlGroup, FormGroup, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedCollider, { useSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
-import useSelectedElem from "../../hooks/jotai/useSelectedElem";
-import { MaybeGUID } from "../../types/generic/GUID";
-import DevInfo from "../utils/DevInfo";
+import useSelectedCollider, { useSelectedColliderID } from "../../../hooks/jotai/useSelectedCollider";
+import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import DevInfo from "../../utils/DevInfo";
 
 const RESTRICTED_TYPES = [
     "util-room",
@@ -39,15 +39,28 @@ export default function ColliderEditorPanel() {
         return null;
 
     return (
-        <Card style={{ boxShadow: "none" }}>
+        <div style={{ padding: 20 }}>
             <H6>
                 {t("collider.edit")}
             </H6>
-
             <DevInfo>
                 {selectedCollider.id}
             </DevInfo>
 
+            <InputGroup
+                small
+                fill
+                placeholder={t("collider.name") as string}
+                value={selectedCollider.name}
+                disabled={isRestricted}
+                onChange={(e) => {
+                    selectedCollider.name = e.currentTarget.value;
+                    setSelectedElem({ ...selectedElem });
+                }}
+                style={{
+                    marginBottom: 10
+                }}
+            />
             <Switch
                 label={t("collider.solid") as string}
                 checked={selectedCollider.isSolid}
@@ -72,6 +85,7 @@ export default function ColliderEditorPanel() {
                 rightIcon={isCollapsed ? "chevron-down" : "chevron-up"}
                 onClick={() => setIsCollapsed(!isCollapsed)}
             />
+
             <Collapse isOpen={isCollapsed}>
                 <FormGroup label={t("collider.points") as string}>
                     <NumericInput
@@ -96,6 +110,7 @@ export default function ColliderEditorPanel() {
                         }}
                     />
                 </FormGroup>
+
                 {selectedCollider.points.map((point, index) => (
                     <ControlGroup fill key={index}>
                         <NumericInput
@@ -133,6 +148,7 @@ export default function ColliderEditorPanel() {
                     </ControlGroup>
                 ))}
             </Collapse>
+
             <div style={{ marginTop: 10 }}>
                 <Button
                     icon="tick"
@@ -146,6 +162,6 @@ export default function ColliderEditorPanel() {
                     onClick={() => deleteCollider(selectedCollider?.id)}
                 />
             </div>
-        </Card>
+        </div>
     )
 }

@@ -46,7 +46,7 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
                                 ...selectedElem,
                                 properties: {
                                     ...selectedElem.properties,
-                                    onlyFromBelow: e.currentTarget.checked
+                                    [props.prop]: e.currentTarget.checked
                                 }
                             });
                         }
