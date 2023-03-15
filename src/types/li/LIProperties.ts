@@ -1,6 +1,7 @@
 import GUID from "../generic/GUID";
 import LICollider from "./LICollider";
 import LIColor from "./LIColor";
+import LIMinigame from "./LIMinigame";
 import LISound from "./LISound";
 import LITrigger from "./LITrigger";
 
@@ -19,6 +20,9 @@ export default interface LIProperties {
     // Sound
     sounds?: LISound[];
     soundPriority?: number;
+
+    // Minigame
+    minigames?: LIMinigame[];
 
     // Sprite
     spriteData?: string;

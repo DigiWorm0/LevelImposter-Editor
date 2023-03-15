@@ -20,6 +20,7 @@ import TriggerPanel from "../components/properties/panels/TriggerPanel";
 import VentPanel from "../components/properties/panels/VentPanel";
 import DoorPanel from "../components/properties/panels/DoorPanel";
 import MinimapSpritePanel from "../components/properties/panels/MinimapSpritePanel";
+import MinigamePanel from "../components/properties/panels/MinigamePanel";
 
 export default function RightSidebar() {
 
@@ -32,6 +33,7 @@ export default function RightSidebar() {
             <TaskPanel />
             <DoorPanel />
             <SabPanel />
+            <MinigamePanel />
             <ConsolePanel />
             <StarfieldPanel />
             <FloatingPanel />
@@ -48,7 +50,11 @@ export default function RightSidebar() {
             <MinimapPanel />
             <MinimapSpritePanel />
 
-            <div style={{ height: 40 }} />
+            <div
+                style={{
+                    height: 200
+                }}
+            />
         </div>
     );
 }
