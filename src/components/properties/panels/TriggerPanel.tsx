@@ -53,9 +53,13 @@ export default function TriggerPanel() {
                     }))}
                     selectedID={selectedTriggerID}
                     onSelectID={setSelectedTriggerID}
-                >
-                    <TriggerEditorPanel />
-                </DropdownList>
+                    renderElement={(e) => (
+                        <TriggerEditorPanel
+                            triggerID={e.id}
+                            onFinished={() => setSelectedTriggerID(undefined)}
+                        />
+                    )}
+                />
 
                 {CLIENT_SIDE_TYPES.includes(selectedElem.type) && (
                     <SwitchPanelInput

@@ -169,7 +169,8 @@
         "preserveOffset": "Preserve Offset",
         "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter.",
         "ghostEnabled": "Ghost Enabled",
-        "ghostEnabledTooltip": "Allow ghosts to use the teleporter."
+        "ghostEnabledTooltip": "Allow ghosts to use the teleporter.",
+        "errorNoTeles": "This map does not have any other teleporters."
     },
     "timer": {
         "title": "Timer Trigger",
