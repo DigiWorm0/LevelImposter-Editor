@@ -9,7 +9,7 @@ import PanelContainer from "../util/PanelContainer";
 export default function MinigamePanel() {
     const { t } = useTranslation();
     const element = useSelectedElemValue();
-    const [selectedMinigameID, setSelectedMinigameID] = React.useState<string | undefined>(undefined);
+    const [selectedMinigameType, setSelectedMinigameType] = React.useState<string | undefined>(undefined);
 
     const minigameSprites = React.useMemo(() => AUMinigameDB.filter((mg) => mg.split("_")[0] === element?.type), [element]);
 
@@ -25,13 +25,13 @@ export default function MinigamePanel() {
                     icon: 'code-block',
                     intent: element.properties.minigames?.find((m) => m.type === type)?.spriteData ? 'success' : 'danger'
                 }))}
-                selectedID={selectedMinigameID}
-                onSelectID={setSelectedMinigameID}
+                selectedID={selectedMinigameType}
+                onSelectID={setSelectedMinigameType}
                 renderElement={(mg) => (
                     <MinigameEditorPanel
                         key={mg.id}
                         minigameType={mg.id}
-                        setSelectedMinigameType={setSelectedMinigameID}
+                        setSelectedMinigameType={setSelectedMinigameType}
                     />
                 )}
             />

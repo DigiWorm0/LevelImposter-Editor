@@ -3,8 +3,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID, useSelectedSoundValue } from "../../../hooks/jotai/useSelectedSound";
+import openUploadDialog from "../../../hooks/openUploadDialog";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import LISound from "../../../types/li/LISound";
 import DevInfo from "../../utils/DevInfo";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "../util/AudioPlayer";
@@ -14,50 +15,33 @@ import PanelContainer from "../util/PanelContainer";
 export default function SoundPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
-    const selectedSound = useSelectedSoundValue();
 
-    React.useEffect(() => {
-        if (selectedSound === undefined && (selectedElem?.type === "util-sound1" || selectedElem?.type === "util-triggersound")) {
-            const sounds = selectedElem?.properties.sounds || [];
-            const sound = sounds.length > 0 ? sounds[0] : undefined;
-            setSelectedSoundID(sound?.id);
-        }
-    }, [selectedSound, selectedElem]);
+    const sound = React.useMemo(() => {
+        return selectedElem?.properties.sounds?.length === 1 ? selectedElem.properties.sounds[0] : undefined;
+    }, [selectedElem]);
+
+    const onSoundChange = React.useCallback((newSound: LISound) => {
+        if (!selectedElem)
+            return;
+        setSelectedElem({
+            ...selectedElem,
+            properties: {
+                ...selectedElem.properties,
+                sounds: [newSound]
+            }
+        });
+    }, [selectedElem, setSelectedElem]);
 
     const onUploadClick = React.useCallback(() => {
-        console.log("Showing Upload Dialog");
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "audio/wav";
-        input.onchange = () => {
-            console.log("Uploaded File");
-            if (input.files === null)
-                return;
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                console.log("Loaded File");
-                if (!selectedElem)
-                    return;
-
-                setSelectedElem({
-                    ...selectedElem,
-                    properties: {
-                        ...selectedElem.properties,
-                        sounds: [{
-                            id: selectedSoundID ? selectedSoundID : generateGUID(),
-                            data: reader.result as string,
-                            volume: DEFAULT_VOLUME,
-                            isPreset: false
-                        }]
-                    }
-                });
-            }
-            reader.readAsDataURL(file);
-        }
-        input.click();
-    }, [selectedElem, selectedSoundID, setSelectedElem]);
+        openUploadDialog("audio/wav").then((data) => {
+            onSoundChange({
+                id: sound?.id ?? generateGUID(),
+                data,
+                volume: DEFAULT_VOLUME,
+                isPreset: false
+            });
+        });
+    }, [onSoundChange, sound]);
 
     const onResetClick = React.useCallback(() => {
         if (!selectedElem)
@@ -66,7 +50,7 @@ export default function SoundPanel() {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                sounds: []
+                sounds: undefined
             }
         });
     }, [selectedElem, setSelectedElem]);
@@ -96,7 +80,10 @@ export default function SoundPanel() {
                         {selectedElem.properties.sounds?.length} sounds
                     </DevInfo>
 
-                    <AudioPlayer />
+                    <AudioPlayer
+                        sound={sound}
+                        onSoundChange={onSoundChange}
+                    />
 
                     <div style={{ textAlign: "center", marginBottom: 10 }}>
                         <SizeTag
@@ -106,18 +93,24 @@ export default function SoundPanel() {
                         />
                     </div>
 
-                    <ButtonGroup minimal fill style={{ marginTop: 10, marginBottom: 10 }}>
+                    <ButtonGroup fill>
                         <Button
-                            fill
-                            icon="refresh"
-                            text={t("audio.reset") as string}
-                            onClick={onResetClick}
+                            icon="cloud-upload"
+                            intent="primary"
+                            onClick={() => onUploadClick()}
+                            style={{ margin: 3 }}
                         />
                         <Button
-                            fill
-                            icon="upload"
-                            text={t("audio.upload") as string}
-                            onClick={onUploadClick}
+                            icon="tick"
+                            intent="success"
+                            disabled
+                            style={{ margin: 3 }}
+                        />
+                        <Button
+                            icon="refresh"
+                            intent="danger"
+                            onClick={() => onResetClick()}
+                            style={{ margin: 3 }}
                         />
                     </ButtonGroup>
                 </FormGroup>

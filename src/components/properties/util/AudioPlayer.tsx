@@ -1,19 +1,26 @@
 import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedSound from "../../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import LISound from "../../../types/li/LISound";
 import DevInfo from "../../utils/DevInfo";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
 
-export default function AudioPlayer() {
+interface AudioPlayerProps {
+    sound?: LISound;
+    onSoundChange: (sound: LISound) => void;
+}
+
+export default function AudioPlayer(props: AudioPlayerProps) {
     const { t } = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
-    const [sound, setSound] = useSelectedSound();
+
+    const sound = props.sound;
+
 
     React.useEffect(() => {
         const interval = setInterval(() => {
@@ -57,6 +64,9 @@ export default function AudioPlayer() {
                     </audio>
 
                     <DevInfo>
+                        {sound?.id}
+                        {sound?.type}
+                        {sound?.isPreset}
                         {soundData?.length}
                     </DevInfo>
 
@@ -85,7 +95,7 @@ export default function AudioPlayer() {
                             }}
                         />
                         <Button
-                            icon="download"
+                            icon="cloud-download"
                             onClick={() => {
                                 downloadSound();
                             }}
@@ -122,7 +132,7 @@ export default function AudioPlayer() {
                         onChange={(value) => {
                             if (!sound)
                                 return;
-                            setSound({
+                            props.onSoundChange({
                                 ...sound,
                                 volume: value
                             });
@@ -130,7 +140,7 @@ export default function AudioPlayer() {
                     />
                 </>
             ) : (
-                <p>
+                <p style={{ marginTop: 10 }}>
                     {t("audio.notUploaded")}
                 </p>
             )}

@@ -106,6 +106,8 @@
         "noConnection": "No Connection",
         "ventOpen": "Open Sound",
         "ventMove": "Move Sound",
+        "sounds": "Sounds",
+        "connections": "Connections",
         "globalInfo": "Vent sounds are global and can only be changed per-map.",
         "ventSoundInfo": "Polus vents will not play any sounds when used.",
         "errorNoVents": "This map does not have any other vents."
@@ -277,7 +279,7 @@
         "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
         "newDialogCancel": "Cancel",
         "tooLargeError": "Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.",
-        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.",
+        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is recommended you remove or compress any custom sprites, gifs, and sounds.",
         "errorSave": "Error saving map: {{error}}",
         "errorRemix": "Map author has disabled remixing"
     },

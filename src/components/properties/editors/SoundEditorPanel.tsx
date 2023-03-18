@@ -1,20 +1,33 @@
-import { Button, H6 } from "@blueprintjs/core";
+import { Button, ButtonGroup, H6, Tag } from "@blueprintjs/core";
 import React from "react";
+import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import useSelectedSound, { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
+import openUploadDialog from "../../../hooks/openUploadDialog";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
-import DevInfo from "../../utils/DevInfo";
+import LISound from "../../../types/li/LISound";
 import AudioPlayer from "../util/AudioPlayer";
 
-export default function SoundEditorPanel(props: { title: string }) {
+interface SoundEditorProps {
+    title: string;
+    soundType?: string;
+    soundID?: string;
+    onFinished: () => void;
+}
+
+export default function SoundEditorPanel(props: SoundEditorProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
-    const [selectedSound, setSelectedSound] = useSelectedSound();
+
+    const sound = React.useMemo(() => {
+        if (props.soundType)
+            return selectedElem?.properties.sounds?.find(sound => sound.type === props.soundType);
+        else
+            return selectedElem?.properties.sounds?.find(sound => sound.id === props.soundID);
+    }, [selectedElem, props.soundType]);
 
     const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const sounds = selectedElem.properties.sounds?.filter(sound => sound.id !== selectedSoundID);
+        const sounds = selectedElem.properties.sounds?.filter(sound => sound.id !== sound?.id) ?? [];
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -22,66 +35,84 @@ export default function SoundEditorPanel(props: { title: string }) {
                 sounds
             }
         });
-    }, [selectedElem, selectedSoundID, setSelectedElem]);
+    }, [selectedElem, setSelectedElem]);
+
+    const onSoundChange = React.useCallback((sound: LISound) => {
+        if (!selectedElem)
+            return;
+        const sounds = selectedElem.properties.sounds?.map(s => {
+            if (s.id === sound.id)
+                return sound;
+            return s;
+        }) ?? [];
+        if (!sounds.some(s => s.id === sound.id))
+            sounds.push(sound);
+        setSelectedElem({
+            ...selectedElem,
+            properties: {
+                ...selectedElem.properties,
+                sounds
+            }
+        });
+    }, [selectedElem, setSelectedElem]);
 
     const onUploadClick = React.useCallback(() => {
-        console.log("Showing Upload Dialog");
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "audio/wav";
-        input.onchange = () => {
-            console.log("Uploaded File");
-            if (input.files === null)
-                return;
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                console.log("Loaded File");
-                if (!selectedSound)
-                    return;
+        openUploadDialog("audio/wav").then((data) => {
+            onSoundChange({
+                id: sound?.id ?? generateGUID(),
+                type: props.soundType,
+                data,
+                volume: DEFAULT_VOLUME,
+                isPreset: false
+            });
+        });
+    }, [selectedElem, setSelectedElem, sound]);
 
-                setSelectedSound({
-                    ...selectedSound,
-                    data: reader.result as string,
-                    volume: DEFAULT_VOLUME,
-                    isPreset: false
-                });
-            }
-            reader.readAsDataURL(file);
-        }
-        input.click();
-    }, [selectedSound, setSelectedSound]);
-
-    if (!selectedSound || !selectedElem)
+    if (!selectedElem)
         return null;
 
     return (
         <div style={{ padding: 20 }}>
-            <H6>
-                {props.title}
-            </H6>
-            <DevInfo>
-                {selectedSound?.id}
-            </DevInfo>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <H6>
+                    {props.title}
+                </H6>
+                {sound?.isPreset && (
+                    <Tag
+                        intent="success"
+                        style={{
+                            marginBottom: 10,
+                        }}
+                    >
+                        {sound.data}
+                    </Tag>
+                )}
+            </div>
+            <AudioPlayer
+                sound={sound}
+                onSoundChange={onSoundChange}
+            />
 
-            <AudioPlayer />
-
-            <div style={{ marginTop: 10 }}>
+            <ButtonGroup fill>
                 <Button
                     icon="cloud-upload"
                     intent="primary"
                     onClick={() => onUploadClick()}
-                    style={{ marginRight: 5 }} />
+                    style={{ margin: 3 }}
+                />
                 <Button
                     icon="tick"
                     intent="success"
-                    onClick={() => setSelectedSoundID(undefined)}
-                    style={{ marginRight: 5 }} />
+                    onClick={() => props.onFinished()}
+                    style={{ margin: 3 }}
+                />
                 <Button
-                    icon="trash"
+                    icon="refresh"
                     intent="danger"
-                    onClick={() => onDeleteClick()} />
-            </div>
+                    onClick={() => onDeleteClick()}
+                    style={{ margin: 3 }}
+                />
+            </ButtonGroup>
         </div>
     )
 }

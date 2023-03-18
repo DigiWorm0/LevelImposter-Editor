@@ -1,17 +1,14 @@
-import { AnchorButton, Button, ControlGroup, FormGroup, Menu } from "@blueprintjs/core";
+import { AnchorButton, Button, ControlGroup, FormGroup } from "@blueprintjs/core";
 import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
 import { useElementType } from "../../../hooks/jotai/useTypes";
-import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import DoorType from "../../../types/generic/DoorType";
-import LISound from "../../../types/li/LISound";
-import RoomSelect from "../input/RoomSelect";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import RoomSelect from "../input/RoomSelect";
+import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 
@@ -22,35 +19,12 @@ export default function DoorPanel() {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+    const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
     const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === selectedElem?.properties.parent), [selectedElem, roomElems]);
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
-    const selectedSoundName = React.useMemo(() => sounds.find((s) => s.id === selectedSoundID)?.type, [selectedSoundID, sounds]);
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
     const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
-
-    const editSound = React.useCallback((soundName: string) => {
-        if (!selectedElem)
-            return;
-
-        const soundID = sounds.find((s) => s.type === soundName)?.id;
-        if (soundID === selectedSoundID && soundID)
-            setSelectedSoundID(undefined);
-        else if (soundID)
-            setSelectedSoundID(soundID);
-        else {
-            const newSound: LISound = {
-                id: generateGUID(),
-                type: soundName,
-                data: undefined,
-                volume: DEFAULT_VOLUME,
-                isPreset: false
-            };
-            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: [...sounds, newSound] } });
-            setSelectedSoundID(newSound.id);
-        }
-    }, [selectedElem, selectedSoundID, setSelectedElem, setSelectedSoundID, sounds]);
 
     const typeSelectRenderer: ItemRenderer<string> = (type, props) => (
         <MenuItem2
@@ -95,42 +69,38 @@ export default function DoorPanel() {
                                 minimal
                                 rightIcon="globe-network"
                                 intent="primary"
+                                style={{
+                                    cursor: "help",
+                                }}
                             />
                         </Tooltip2>
                     </ControlGroup>
                 </FormGroup>
-                <Menu>
-                    <div>
-                        <MenuItem2
-                            icon="volume-up"
-                            onClick={() => editSound(DOOR_OPEN_SOUND)}
-                            active={selectedSoundName === DOOR_OPEN_SOUND}
-                            text={t(`door.${DOOR_OPEN_SOUND}`) as string}
-                            intent={hasOpenSound ? "success" : "danger"}
+                <DropdownList
+                    elements={[
+                        {
+                            id: DOOR_OPEN_SOUND,
+                            name: t(`door.${DOOR_OPEN_SOUND}`) as string,
+                            icon: "volume-up",
+                            intent: hasOpenSound ? "success" : "danger",
+                        },
+                        {
+                            id: DOOR_CLOSE_SOUND,
+                            name: t(`door.${DOOR_CLOSE_SOUND}`) as string,
+                            icon: "volume-up",
+                            intent: hasCloseSound ? "success" : "danger",
+                        }
+                    ]}
+                    selectedID={selectedSoundType}
+                    onSelectID={setSelectedSoundType}
+                    renderElement={(e) => (
+                        <SoundEditorPanel
+                            title={e.name}
+                            soundType={e.id}
+                            onFinished={() => setSelectedSoundType(undefined)}
                         />
-
-                        {selectedSoundName === DOOR_OPEN_SOUND && (
-                            <SoundEditorPanel
-                                title={t(`door.${DOOR_OPEN_SOUND}`) as string}
-                            />
-                        )}
-                    </div>
-                    <div>
-                        <MenuItem2
-                            icon="volume-up"
-                            onClick={() => editSound(DOOR_CLOSE_SOUND)}
-                            active={selectedSoundName === DOOR_CLOSE_SOUND}
-                            text={t(`door.${DOOR_CLOSE_SOUND}`) as string}
-                            intent={hasCloseSound ? "success" : "danger"}
-                        />
-
-                        {selectedSoundName === DOOR_CLOSE_SOUND && (
-                            <SoundEditorPanel
-                                title={t(`door.${DOOR_CLOSE_SOUND}`) as string}
-                            />
-                        )}
-                    </div>
-                </Menu>
+                    )}
+                />
             </PanelContainer>
             <MapError isVisible={parentRoom === undefined}>
                 {t("door.errorNoRoom")}

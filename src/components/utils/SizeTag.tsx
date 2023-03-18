@@ -34,6 +34,10 @@ export default function SizeTag(props: { sizeBytes: number, okMsg: string, warni
                 minimal
                 large
                 intent={sizeIntent}
+                style={{
+                    minWidth: 100,
+                    cursor: "help",
+                }}
             >
                 {isOverSize && <Icon icon="warning-sign" style={{ marginRight: 5 }} />}
                 {sizeString}

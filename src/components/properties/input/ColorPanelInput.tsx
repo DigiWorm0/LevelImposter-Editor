@@ -19,7 +19,6 @@ export default function ColorPanelInput(props: ColorInputProps) {
 
     return (
         <ControlGroup
-            fill
             style={{
                 textAlign: "center",
             }}

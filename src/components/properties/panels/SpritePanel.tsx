@@ -3,9 +3,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { useSpriteSrc } from "../../../hooks/useSprite";
+import ColorPicker from "../../utils/ColorPicker";
 import DevInfo from "../../utils/DevInfo";
 import SizeTag from "../../utils/SizeTag";
-import ColorPanelInput from "../input/ColorPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 
@@ -97,25 +97,37 @@ export default function SpritePanel() {
                     />
                 </div>
 
-                <ButtonGroup minimal fill>
+                <ButtonGroup fill>
                     <Button
-                        fill
-                        icon="refresh"
-                        text={t("sprite.reset") as string}
-                        onClick={onResetClick}
+                        icon="cloud-upload"
+                        intent="primary"
+                        onClick={() => onUploadClick()}
+                        style={{ margin: 3 }}
+                    />
+                    <ColorPicker
+                        intent="success"
+                        color={selectedElem.properties.color ?? { r: 255, g: 255, b: 255, a: 1 }}
+                        style={{ margin: 3 }}
+                        onChange={(color) => {
+                            if (selectedElem) {
+                                setSelectedElem({
+                                    ...selectedElem,
+                                    properties: {
+                                        ...selectedElem.properties,
+                                        color
+                                    }
+                                });
+                            }
+                        }}
                     />
                     <Button
-                        fill
-                        icon="upload"
-                        text={t("sprite.upload") as string}
-                        onClick={onUploadClick}
+                        icon="refresh"
+                        intent="danger"
+                        onClick={() => onResetClick()}
+                        style={{ margin: 3 }}
+                        disabled={selectedElem.properties.color === undefined && selectedElem.properties.spriteData === undefined}
                     />
                 </ButtonGroup>
-                <ColorPanelInput
-                    name={"sprite.setColor"}
-                    prop="color"
-                    defaultValue={{ r: 255, g: 255, b: 255, a: 1 }}
-                />
             </PanelContainer>
             <MapError info isVisible={selectedElem.type.startsWith("util-vent")} icon="play">
                 {t("sprite.ventInfo") as string}

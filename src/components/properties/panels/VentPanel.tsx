@@ -1,9 +1,8 @@
-import { Divider } from "@blueprintjs/core";
+import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
@@ -18,34 +17,11 @@ const VENT_MOVE_SOUND = "ventMove";
 export default function VentPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+    const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
-    const selectedSoundType = React.useMemo(() => sounds.find((s) => s.id === selectedSoundID)?.type, [selectedSoundID, sounds]);
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === VENT_OPEN_SOUND), [sounds]);
     const hasMoveSound = React.useMemo(() => sounds.some((s) => s.type === VENT_MOVE_SOUND), [sounds]);
-
-    const selectSoundName = React.useCallback((soundName?: string) => {
-        if (!selectedElem)
-            return;
-
-        const soundID = sounds.find((s) => s.type === soundName)?.id;
-        if (soundID === selectedSoundID && soundID)
-            setSelectedSoundID(undefined);
-        else if (soundID)
-            setSelectedSoundID(soundID);
-        else {
-            const newSound: LISound = {
-                id: generateGUID(),
-                type: soundName,
-                data: undefined,
-                volume: DEFAULT_VOLUME,
-                isPreset: false
-            };
-            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: [...sounds, newSound] } });
-            setSelectedSoundID(newSound.id);
-        }
-    }, [selectedElem, selectedSoundID, setSelectedElem, setSelectedSoundID, sounds]);
 
     if (!selectedElem
         || !selectedElem.type.startsWith("util-vent"))
@@ -54,6 +30,9 @@ export default function VentPanel() {
     return (
         <>
             <PanelContainer title={t("vent.title") as string}>
+                <H6 style={{ marginTop: 5, marginLeft: 5 }}>
+                    {t("vent.connections")}
+                </H6>
                 <VentSelect
                     prop="leftVent"
                 />
@@ -65,7 +44,9 @@ export default function VentPanel() {
                 />
                 {selectedElem.type === "util-vent1" && (
                     <>
-                        <Divider />
+                        <H6 style={{ marginTop: 10, marginLeft: 5 }}>
+                            {t("vent.sounds")}
+                        </H6>
                         <DropdownList
                             elements={[
                                 {
@@ -82,12 +63,15 @@ export default function VentPanel() {
                                 },
                             ]}
                             selectedID={selectedSoundType}
-                            onSelectID={selectSoundName}
-                        >
-                            <SoundEditorPanel
-                                title={t(`vent.${selectedSoundType}`) as string}
-                            />
-                        </DropdownList>
+                            onSelectID={setSelectedSoundType}
+                            renderElement={(e) => (
+                                <SoundEditorPanel
+                                    title={t(`vent.${selectedSoundType}`) as string}
+                                    soundType={e.id}
+                                    onFinished={() => setSelectedSoundType(undefined)}
+                                />
+                            )}
+                        />
                     </>
                 )}
             </PanelContainer>

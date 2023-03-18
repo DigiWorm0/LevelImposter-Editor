@@ -5,7 +5,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedSoundID } from "../../../hooks/jotai/useSelectedSound";
 import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import SizeTag from "../../utils/SizeTag";
@@ -16,7 +15,7 @@ import PanelContainer from "../util/PanelContainer";
 export default function StepSoundPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedSoundID, setSelectedSoundID] = useSelectedSoundID();
+    const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
 
@@ -121,11 +120,14 @@ export default function StepSoundPanel() {
                 })) ?? []}
                 selectedID={selectedSoundID}
                 onSelectID={setSelectedSoundID}
-            >
-                <SoundEditorPanel
-                    title={t("stepSound.variant")}
-                />
-            </DropdownList>
+                renderElement={(e) => (
+                    <SoundEditorPanel
+                        title={e.name}
+                        soundID={e.id}
+                        onFinished={() => setSelectedSoundID(undefined)}
+                    />
+                )}
+            />
         </PanelContainer>
     );
 }
