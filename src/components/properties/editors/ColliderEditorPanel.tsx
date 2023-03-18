@@ -1,7 +1,6 @@
 import { Button, Collapse, ControlGroup, FormGroup, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedCollider, { useSelectedColliderID } from "../../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import DevInfo from "../../utils/DevInfo";
@@ -15,27 +14,34 @@ const RESTRICTED_TYPES = [
     "util-triggersound",
 ];
 
-export default function ColliderEditorPanel() {
+interface ColliderEditorProps {
+    colliderID: MaybeGUID;
+    setSelectedColliderID: (id: MaybeGUID) => void;
+}
+
+export default function ColliderEditorPanel(props: ColliderEditorProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
-    const [selectedCollider, setSelectedCollider] = useSelectedCollider();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
+
+    const colliderID = props.colliderID;
+    const collider = React.useMemo(() => {
+        return selectedElem?.properties.colliders?.find(c => c.id === colliderID);
+    }, [selectedElem, props.colliderID]);
 
     const isRestricted = React.useMemo(() => {
         return RESTRICTED_TYPES.includes(selectedElem?.type || "");
     }, [selectedElem?.type]);
 
-    const deleteCollider = React.useCallback((colliderID: MaybeGUID) => {
+    const deleteCollider = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const colliders = selectedElem.properties.colliders?.filter(c => c.id !== colliderID);
-        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, colliders } });
-        if (selectedColliderID === colliderID)
-            setSelectedColliderID(undefined);
-    }, [selectedElem, selectedColliderID, setSelectedElem, setSelectedColliderID]);
+        const filteredColliders = selectedElem.properties.colliders?.filter(c => c.id !== colliderID);
+        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, colliders: filteredColliders } });
+        props.setSelectedColliderID(undefined);
+    }, [selectedElem, colliderID, props.setSelectedColliderID]);
 
-    if (!selectedCollider || !selectedElem)
+    if (!selectedElem || !collider)
         return null;
 
     return (
@@ -44,17 +50,17 @@ export default function ColliderEditorPanel() {
                 {t("collider.edit")}
             </H6>
             <DevInfo>
-                {selectedCollider.id}
+                {colliderID}
             </DevInfo>
 
             <InputGroup
                 small
                 fill
                 placeholder={t("collider.name") as string}
-                value={selectedCollider.name}
+                value={collider.name}
                 disabled={isRestricted}
                 onChange={(e) => {
-                    selectedCollider.name = e.currentTarget.value;
+                    collider.name = e.currentTarget.value;
                     setSelectedElem({ ...selectedElem });
                 }}
                 style={{
@@ -63,19 +69,19 @@ export default function ColliderEditorPanel() {
             />
             <Switch
                 label={t("collider.solid") as string}
-                checked={selectedCollider.isSolid}
+                checked={collider.isSolid}
                 disabled={isRestricted}
                 onChange={(e) => {
-                    selectedCollider.isSolid = e.currentTarget.checked;
+                    collider.isSolid = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
                 }}
             />
             <Switch
                 label={t("collider.blocksLight") as string}
-                checked={selectedCollider.blocksLight}
+                checked={collider.blocksLight}
                 disabled={isRestricted}
                 onChange={(e) => {
-                    selectedCollider.blocksLight = e.currentTarget.checked;
+                    collider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
                 }}
             />
@@ -90,59 +96,62 @@ export default function ColliderEditorPanel() {
                 <FormGroup label={t("collider.points") as string}>
                     <NumericInput
                         fill
-                        disabled={!selectedCollider}
+                        disabled={!collider}
                         min={2}
-                        value={selectedCollider?.points.length}
+                        value={collider.points.length}
                         onValueChange={(value) => {
                             if (value < 0)
                                 return;
                             const points = [];
                             for (let i = 0; i < value; i++) {
-                                if (i < selectedCollider.points.length)
+                                if (i < collider.points.length)
                                     points.push({
-                                        x: selectedCollider.points[i].x,
-                                        y: selectedCollider.points[i].y
+                                        x: collider.points[i].x,
+                                        y: collider.points[i].y
                                     });
                                 else
                                     points.push({ x: 0, y: 0 });
                             }
-                            setSelectedCollider({ ...selectedCollider, points: points });
+                            collider.points = points;
+                            setSelectedElem({ ...selectedElem });
                         }}
                     />
                 </FormGroup>
 
-                {selectedCollider.points.map((point, index) => (
+                {collider.points.map((point, index) => (
                     <ControlGroup fill key={index}>
                         <NumericInput
                             fill
-                            disabled={!selectedCollider}
+                            disabled={!collider}
                             minorStepSize={0.001}
                             stepSize={0.01}
                             majorStepSize={0.1}
                             value={point.x.toString()}
                             onValueChange={(value) => {
-                                const points = selectedCollider.points.map((p, i) => {
+                                const points = collider.points.map((p, i) => {
                                     if (i === index)
                                         return { x: value, y: p.y };
                                     return p;
                                 });
-                                setSelectedCollider({ ...selectedCollider, points });
+                                collider.points = points;
+                                setSelectedElem({ ...selectedElem });
                             }}
                         />
                         <NumericInput
                             fill
-                            disabled={!selectedCollider}
+                            disabled={!collider}
                             minorStepSize={0.001}
                             stepSize={0.01}
                             majorStepSize={0.1}
                             value={point.y.toString()}
                             onValueChange={(value) => {
-                                const points = selectedCollider.points.map((p, i) => {
+                                const points = collider.points.map((p, i) => {
                                     if (i === index)
                                         return { x: p.x, y: value };
                                     return p;
                                 });
-                                setSelectedCollider({ ...selectedCollider, points });
+                                collider.points = points;
+                                setSelectedElem({ ...selectedElem });
                             }}
                         />
                     </ControlGroup>
@@ -153,13 +162,13 @@ export default function ColliderEditorPanel() {
                 <Button
                     icon="tick"
                     intent="success"
-                    onClick={() => setSelectedColliderID(undefined)}
+                    onClick={() => props.setSelectedColliderID(undefined)}
                     style={{ marginRight: 5 }}
                 />
                 <Button
                     icon="trash"
                     intent="danger"
-                    onClick={() => deleteCollider(selectedCollider?.id)}
+                    onClick={() => deleteCollider()}
                 />
             </div>
         </div>

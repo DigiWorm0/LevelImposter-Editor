@@ -2,54 +2,79 @@ import { Button, ButtonGroup, H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import useSelectedMinigame, { useSelectedMinigameID } from "../../../hooks/jotai/useSelectedMinigame";
 import openUploadDialog from "../../../hooks/openUploadDialog";
 import DevInfo from "../../utils/DevInfo";
 import SizeTag from "../../utils/SizeTag";
 
-export default function MinigameEditorPanel() {
+interface MinigameEditorPanelProps {
+    minigameID: string;
+    setSelectedMinigameID: (id: string | undefined) => void;
+}
+
+export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const [selectedMinigameID, setSelectedMinigameID] = useSelectedMinigameID();
-    const [selectedMinigame, setSelectedMinigame] = useSelectedMinigame();
+
+    const minigameID = props.minigameID;
+    const minigame = React.useMemo(() => {
+        return selectedElem?.properties.minigames?.find(mg => mg.id === minigameID);
+    }, [selectedElem, props.minigameID]);
 
     const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const minigames = selectedElem.properties.minigames?.filter(minigame => minigame.id !== selectedMinigameID);
+        const minigameList = selectedElem.properties.minigames?.filter(minigame => minigame.id !== minigame?.id);
         setSelectedElem({
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                minigames
+                minigames: minigameList
             }
         });
-    }, [selectedElem, selectedMinigameID, setSelectedElem]);
+    }, [selectedElem, minigame, setSelectedElem]);
 
     const onUploadClick = React.useCallback(() => {
         openUploadDialog("image/*").then((b64) => {
-            if (!selectedMinigame)
+            if (!selectedElem)
                 return;
-            setSelectedMinigame({
-                ...selectedMinigame,
-                spriteData: b64
+            const minigameList = selectedElem.properties.minigames?.map(mg => {
+                if (mg.id === minigameID)
+                    return {
+                        ...mg,
+                        spriteData: b64
+                    }
+                return mg;
+            }) ?? [];
+            // If the minigame is not in the list, add it
+            if (!minigameList?.find(mg => mg.id === minigameID)) {
+                minigameList?.push({
+                    id: minigameID,
+                    spriteData: b64
+                });
+            }
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    minigames: minigameList
+                }
             });
         })
-    }, [selectedMinigame, setSelectedMinigame]);
+    }, [selectedElem, minigame, setSelectedElem]);
 
-    const spriteURL = React.useMemo(() => selectedMinigame?.spriteData ?? `/minigames/${selectedMinigameID}.png`, [selectedMinigame]);
-    const spriteSize = React.useMemo(() => selectedMinigame?.spriteData ? spriteURL.length : 0, [spriteURL]);
+    const spriteURL = React.useMemo(() => minigame?.spriteData ?? `/minigames/${minigameID}.png`, [minigame]);
+    const spriteSize = React.useMemo(() => minigame?.spriteData ? spriteURL.length : 0, [spriteURL]);
 
-    if (!selectedMinigame || !selectedElem)
+    if (!selectedElem)
         return null;
 
     return (
         <div style={{ padding: 20 }}>
             <H6>
-                {t(`minigame.${selectedMinigameID?.split("_")[1]}`)}
+                {t(`minigame.${minigameID?.split("_")[1]}`)}
             </H6>
             <DevInfo>
-                {selectedMinigame?.id}
+                {minigame?.id}
             </DevInfo>
 
             <div style={{ textAlign: "center", padding: 15 }}>
@@ -77,7 +102,7 @@ export default function MinigameEditorPanel() {
                 <Button
                     icon="tick"
                     intent="success"
-                    onClick={() => setSelectedMinigameID(undefined)}
+                    onClick={() => props.setSelectedMinigameID(undefined)}
                     style={{ margin: 3 }}
                 />
                 <Button

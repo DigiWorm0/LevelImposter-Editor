@@ -110,9 +110,14 @@ export default function ColliderPanel() {
                     })) ?? []}
                     selectedID={selectedColliderID}
                     onSelectID={setSelectedColliderID}
-                >
-                    <ColliderEditorPanel />
-                </DropdownList>
+                    renderElement={(element) => (
+                        <ColliderEditorPanel
+                            key={element.id}
+                            colliderID={element.id}
+                            setSelectedColliderID={setSelectedColliderID}
+                        />
+                    )}
+                />
 
             </PanelContainer>
 

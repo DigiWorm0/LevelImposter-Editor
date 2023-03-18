@@ -1,17 +1,20 @@
 import { Collapse, Icon, IconName, Intent, Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 
+interface DropdownElement<T> {
+    id: T;
+    name: string;
+    icon?: IconName;
+    intent?: Intent;
+}
+
 interface DropdownListProps<T> {
-    elements: {
-        id: T;
-        name: string;
-        icon?: IconName;
-        intent?: Intent;
-    }[];
+    elements: DropdownElement<T>[];
+    onSelectID: (id?: T) => void;
+
     selectedID?: T;
     children?: React.ReactNode;
-
-    onSelectID: (id?: T) => void;
+    renderElement?: (element: DropdownElement<T>) => React.ReactNode;
 }
 
 export default function DropdownList<T>(props: DropdownListProps<T>) {
@@ -38,6 +41,7 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
 
                     <Collapse isOpen={props.selectedID == element.id}>
                         {props.children}
+                        {props.renderElement && props.renderElement(element)}
                     </Collapse>
                 </div>
             ))}
