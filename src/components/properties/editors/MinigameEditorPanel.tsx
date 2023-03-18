@@ -1,24 +1,25 @@
 import { Button, ButtonGroup, H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import openUploadDialog from "../../../hooks/openUploadDialog";
 import DevInfo from "../../utils/DevInfo";
 import SizeTag from "../../utils/SizeTag";
 
 interface MinigameEditorPanelProps {
-    minigameID: string;
-    setSelectedMinigameID: (id: string | undefined) => void;
+    minigameType: string;
+    setSelectedMinigameType: (type: string | undefined) => void;
 }
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
-    const minigameID = props.minigameID;
+    const minigameType = props.minigameType;
     const minigame = React.useMemo(() => {
-        return selectedElem?.properties.minigames?.find(mg => mg.id === minigameID);
-    }, [selectedElem, props.minigameID]);
+        return selectedElem?.properties.minigames?.find(mg => mg.type === minigameType);
+    }, [selectedElem, props.minigameType]);
 
     const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
@@ -38,7 +39,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
             if (!selectedElem)
                 return;
             const minigameList = selectedElem.properties.minigames?.map(mg => {
-                if (mg.id === minigameID)
+                if (mg.id === minigame?.id)
                     return {
                         ...mg,
                         spriteData: b64
@@ -46,9 +47,10 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 return mg;
             }) ?? [];
             // If the minigame is not in the list, add it
-            if (!minigameList?.find(mg => mg.id === minigameID)) {
+            if (!minigameList?.find(mg => mg.type === minigameType)) {
                 minigameList?.push({
-                    id: minigameID,
+                    id: generateGUID(),
+                    type: minigameType,
                     spriteData: b64
                 });
             }
@@ -62,7 +64,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         })
     }, [selectedElem, minigame, setSelectedElem]);
 
-    const spriteURL = React.useMemo(() => minigame?.spriteData ?? `/minigames/${minigameID}.png`, [minigame]);
+    const spriteURL = React.useMemo(() => minigame?.spriteData ?? `/minigames/${minigameType}.png`, [minigame]);
     const spriteSize = React.useMemo(() => minigame?.spriteData ? spriteURL.length : 0, [spriteURL]);
 
     if (!selectedElem)
@@ -71,10 +73,11 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     return (
         <div style={{ padding: 20 }}>
             <H6>
-                {t(`minigame.${minigameID?.split("_")[1]}`)}
+                {t(`minigame.${minigameType?.split("_")[1]}`)}
             </H6>
             <DevInfo>
                 {minigame?.id}
+                {minigame?.type}
             </DevInfo>
 
             <div style={{ textAlign: "center", padding: 15 }}>
@@ -84,7 +87,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                     alt={selectedElem.name}
                 />
             </div>
-            <div style={{ textAlign: "center", marginBottom: 10 }}>
+            <div style={{ textAlign: "center", paddingBottom: 10 }}>
                 <SizeTag
                     sizeBytes={spriteSize}
                     warningMsg={t("sprite.errorSize") as string}
@@ -102,14 +105,15 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 <Button
                     icon="tick"
                     intent="success"
-                    onClick={() => props.setSelectedMinigameID(undefined)}
+                    onClick={() => props.setSelectedMinigameType(undefined)}
                     style={{ margin: 3 }}
                 />
                 <Button
-                    icon="trash"
+                    icon="refresh"
                     intent="danger"
                     onClick={() => onDeleteClick()}
                     style={{ margin: 3 }}
+                    disabled={!minigame}
                 />
             </ButtonGroup>
         </div>

@@ -19,19 +19,19 @@ export default function MinigamePanel() {
     return (
         <PanelContainer title={t("minigame.title") as string}>
             <DropdownList
-                elements={minigameSprites.map((mg) => ({
-                    id: mg,
-                    name: t(`minigame.${mg.split("_")[1]}`) as string,
+                elements={minigameSprites.map((type) => ({
+                    id: type,
+                    name: t(`minigame.${type.split("_")[1]}`) as string,
                     icon: 'code-block',
-                    intent: element.properties.minigames?.find((m) => m.id === mg)?.spriteData ? 'success' : 'danger'
+                    intent: element.properties.minigames?.find((m) => m.type === type)?.spriteData ? 'success' : 'danger'
                 }))}
                 selectedID={selectedMinigameID}
                 onSelectID={setSelectedMinigameID}
                 renderElement={(mg) => (
                     <MinigameEditorPanel
                         key={mg.id}
-                        minigameID={mg.id}
-                        setSelectedMinigameID={setSelectedMinigameID}
+                        minigameType={mg.id}
+                        setSelectedMinigameType={setSelectedMinigameID}
                     />
                 )}
             />

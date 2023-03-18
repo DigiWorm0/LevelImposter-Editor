@@ -1,5 +1,6 @@
 export default interface LIMinigame {
     id: string;
+    type: string;
     spriteData?: string;
 }
 

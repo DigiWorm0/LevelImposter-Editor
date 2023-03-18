@@ -137,7 +137,20 @@
         "dial": "Dial",
         "glasspanel": "Glass Panel",
         "bgwires": "Background Wires",
-        "switch": "Switch"
+        "switch": "Switch",
+        "0": "0 Button",
+        "1": "1 Button",
+        "2": "2 Button",
+        "3": "3 Button",
+        "4": "4 Button",
+        "5": "5 Button",
+        "6": "6 Button",
+        "7": "7 Button",
+        "8": "8 Button",
+        "9": "9 Button",
+        "x": "X Button",
+        "check": "Check Button",
+        "note": "Post-It Note"
     },
     "task": {
         "title": "Task",
