@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import ElementSelect from "./ElementSelect";
 
-export default function RoomSelect(props: { useDefault: boolean }) {
+export default function TeleSelect() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
@@ -18,15 +18,15 @@ export default function RoomSelect(props: { useDefault: boolean }) {
             }}
         >
             <ElementSelect
-                typeFilter="util-room"
-                noElementsText={t("room.errorNoRooms")}
-                defaultText={props.useDefault ? t("room.default") : t("room.none")}
-                selectedID={selectedElem.properties.parent}
-                onPick={(room) => {
-                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: room.id } });
+                typeFilter="util-tele"
+                noElementsText={t("tele.errorNoTeles") as string}
+                defaultText={t("tele.noConnection")}
+                selectedID={selectedElem.properties.teleporter}
+                onPick={(vent) => {
+                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: vent.id } });
                 }}
                 onReset={() => {
-                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, parent: undefined } });
+                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
                 }}
             />
         </FormGroup>

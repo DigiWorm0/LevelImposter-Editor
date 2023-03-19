@@ -1,78 +1,19 @@
-import { Button } from "@blueprintjs/core";
-import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
-import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../../hooks/jotai/useTypes";
-import LIElement from "../../../types/li/LIElement";
-import ResettablePanelInput from "../input/ResettablePanelInput";
+import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import TeleSelect from "../input/TeleSelect";
 import PanelContainer from "../util/PanelContainer";
 
 export default function TelePanel() {
     const { t } = useTranslation();
-    const teleElems = useElementType("util-tele");
-    const [selectedElem, setSelectedElem] = useSelectedElem();
-
-    const teleConnection = React.useMemo(() => {
-        return teleElems.find((e) => e.id === selectedElem?.properties.teleporter);
-    }, [teleElems, selectedElem]);
-
-    const filteredTeles = React.useMemo(() => {
-        return teleElems.filter((elem) => elem.id !== selectedElem?.id && elem.properties.teleporter !== selectedElem?.id);
-    }, [teleElems, selectedElem]);
-
-    const teleSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem2
-            key={elem.type + props.index}
-            text={elem.name}
-            label={elem.type}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
-
-    const hasTeles = React.useMemo(() => {
-        return filteredTeles.length > 0;
-    }, [filteredTeles]);
+    const selectedElem = useSelectedElemValue();
 
     if (!selectedElem || selectedElem.type !== "util-tele")
         return null;
 
     return (
         <PanelContainer title={t("tele.title") as string}>
-            <Tooltip2
-                content={!hasTeles ? t("tele.errorNoTeles") as string : undefined}
-                disabled={hasTeles}
-                fill
-                intent="danger"
-            >
-                <ResettablePanelInput
-                    onReset={() => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
-                    }}
-                >
-                    <Select2
-                        fill
-                        filterable={false}
-                        disabled={filteredTeles.length <= 0}
-                        items={filteredTeles}
-                        itemRenderer={teleSelectRenderer}
-                        onItemSelect={(tele) => {
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: tele.id } });
-                        }}
-                    >
-                        <Button
-                            rightIcon="caret-down"
-                            text={teleConnection ? teleConnection.name : "(No connection)"}
-                            fill
-                            disabled={!hasTeles}
-                        />
-                    </Select2>
-                </ResettablePanelInput>
-            </Tooltip2>
+            <TeleSelect />
             <SwitchPanelInput
                 prop={"preserveOffset"}
                 name={"tele.preserveOffset"}

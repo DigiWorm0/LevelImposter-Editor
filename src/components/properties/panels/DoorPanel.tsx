@@ -5,8 +5,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../../hooks/jotai/useTypes";
-import DoorType from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import DoorTypeSelect from "../input/DoorTypeSelect";
 import RoomSelect from "../input/RoomSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -42,40 +42,8 @@ export default function DoorPanel() {
     return (
         <>
             <PanelContainer title={t("door.title") as string}>
-                <FormGroup>
-                    <RoomSelect useDefault={true} />
-
-                    <ControlGroup fill>
-                        <Select2
-                            fill
-                            filterable={false}
-                            items={DoorType}
-                            itemRenderer={typeSelectRenderer}
-                            onItemSelect={(length) => {
-                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, doorType: length } });
-                            }}
-                        >
-                            <Button
-                                rightIcon="caret-down"
-                                text={t(`door.${selectedElem.properties.doorType || "skeld"}`) as string}
-                                fill
-                            />
-                        </Select2>
-                        <Tooltip2
-                            intent="primary"
-                            content={t("door.globalInfo") as string}
-                        >
-                            <AnchorButton
-                                minimal
-                                rightIcon="globe-network"
-                                intent="primary"
-                                style={{
-                                    cursor: "help",
-                                }}
-                            />
-                        </Tooltip2>
-                    </ControlGroup>
-                </FormGroup>
+                <RoomSelect useDefault={true} />
+                <DoorTypeSelect />
                 <DropdownList
                     elements={[
                         {

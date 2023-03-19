@@ -1,14 +1,11 @@
-import { Button, H5 } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../../hooks/useSprite";
-import TaskLength from "../../../types/generic/TaskLength";
-import ResettablePanelInput from "../input/ResettablePanelInput";
 import RoomSelect from "../input/RoomSelect";
+import TaskTypeSelect from "../input/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
@@ -16,7 +13,7 @@ import PanelContainer from "../util/PanelContainer";
 export default function TaskPanel() {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const selectedElem = useSelectedElemValue();
     const typeElems = useElementType(selectedElem?.type ?? "");
     const sprite = useSpriteType(selectedElem?.type);
 
@@ -28,15 +25,6 @@ export default function TaskPanel() {
         return t(`au.${selectedElem?.type}`) || selectedElem?.name || "";
     }, [selectedElem]);
 
-    const lengthSelectRenderer: ItemRenderer<string> = (length, props) => (
-        <MenuItem2
-            key={props.index + "-length"}
-            text={t(`task.${length}`) as string}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
 
     if (!selectedElem || !selectedElem.type.startsWith("task-"))
         return null;
@@ -54,30 +42,7 @@ export default function TaskPanel() {
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
-                <ResettablePanelInput
-                    onReset={() => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: undefined } });
-                    }}
-                >
-                    <Select2
-                        fill
-                        filterable={false}
-                        items={TaskLength}
-                        itemRenderer={lengthSelectRenderer}
-                        onItemSelect={(length) => {
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, taskLength: length } });
-                        }}
-                    >
-                        <Button
-                            rightIcon="caret-down"
-                            text={selectedElem.properties.taskLength !== undefined ?
-                                selectedElem.properties.taskLength.toString() :
-                                t("task.defaultLength")}    // TODO: Find and display the default task lengths
-                            style={{ fontStyle: selectedElem.properties.taskLength !== undefined ? "normal" : "italic" }}
-                            fill
-                        />
-                    </Select2>
-                </ResettablePanelInput>
+                <TaskTypeSelect />
                 <TextPanelInput
                     prop="description"
                     name={"task.description"}

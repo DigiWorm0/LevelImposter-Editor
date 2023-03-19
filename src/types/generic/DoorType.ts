@@ -1,7 +1,5 @@
-const DoorType = [
-    "skeld",
-    "polus",
-    "airship"
-];
-
-export default DoorType;
+export enum DoorType {
+    Skeld = "skeld",
+    Polus = "polus",
+    Airship = "airship"
+}

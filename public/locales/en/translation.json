@@ -170,6 +170,7 @@
         "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter.",
         "ghostEnabled": "Ghost Enabled",
         "ghostEnabledTooltip": "Allow ghosts to use the teleporter.",
+        "noConnection": "No Connection",
         "errorNoTeles": "This map does not have any other teleporters."
     },
     "timer": {
