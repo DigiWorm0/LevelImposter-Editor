@@ -33,10 +33,12 @@ const OutputTriggerDB: Record<string, string[]> = {
     "sab-doorv": [
         "onOpen",
         "onClose",
+        "onUse",
     ],
     "sab-doorh": [
         "onOpen",
         "onClose",
+        "onUse",
     ],
 };
 

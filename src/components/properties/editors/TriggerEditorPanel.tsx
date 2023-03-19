@@ -73,7 +73,7 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
     React.useEffect(() => {
         if (!trigger.elemID || !trigger.triggerID || !targetElem)
             return;
-        const hasTrigger = targetElem.properties.triggers?.some((t) => t.id === trigger.id);
+        const hasTrigger = targetElem.properties.triggers?.some((t) => t.id === trigger.triggerID);
         if (hasTrigger)
             return;
 
@@ -84,7 +84,7 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                 triggers: [
                     ...(targetElem.properties.triggers || []),
                     {
-                        id: trigger.id,
+                        id: trigger.triggerID,
                         triggerID: undefined,
                         elemID: undefined,
                     }
