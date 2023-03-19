@@ -1,17 +1,16 @@
-import React from "react";
 import { Button, ControlGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import useElement from "../../../hooks/jotai/useElements";
 import { elementsAtom } from "../../../hooks/jotai/useMap";
-import useSelectedElem, { selectedElementIDAtom, useSetSelectedElem } from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem, { selectedElementIDAtom } from "../../../hooks/jotai/useSelectedElem";
 import { InputTriggerDB } from "../../../types/au/TriggerDB";
-import LIElement from "../../../types/li/LIElement";
-import DevInfo from "../../utils/DevInfo";
-import ResettablePanelInput from "../input/ResettablePanelInput";
 import LITrigger from "../../../types/li/LITrigger";
+import DevInfo from "../../utils/DevInfo";
+import ElementSelect from "../input/ElementSelect";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);
@@ -35,16 +34,20 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
             elemID: undefined,
         };
     }, [selectedElem, props.triggerID]);
-    const [triggerTarget, setTriggerTarget] = useElement(trigger?.elemID);
+    const [targetElem, setTargetElem] = useElement(trigger?.elemID);
 
+    // All Inputs that the selected element can trigger
     const targetInputs = React.useMemo(() => {
-        return triggerTarget && triggerTarget.type in InputTriggerDB ? InputTriggerDB[triggerTarget.type] : [];
-    }, [triggerTarget]);
+        if ((targetElem?.type ?? "") in InputTriggerDB)
+            return InputTriggerDB[(targetElem?.type ?? "") as keyof typeof InputTriggerDB];
+    }, [targetElem]);
 
+    // Checks if a trigger is active
     const isTriggerSelected = React.useMemo(() => {
-        return targetInputs.includes(trigger.triggerID || "");
+        return targetInputs?.includes(trigger.triggerID || "") ?? false;
     }, [targetInputs, trigger.triggerID]);
 
+    // Sets the trigger target
     const setTrigger = React.useCallback((trigger: LITrigger) => {
         if (!selectedElem)
             return;
@@ -53,7 +56,9 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
             if (t.id === trigger.id)
                 return trigger;
             return t;
-        }) || [];
+        }) ?? [];
+        if (!newTriggers.some((t) => t.id === trigger.id))
+            newTriggers.push(trigger);
 
         setSelectedElem({
             ...selectedElem,
@@ -64,40 +69,31 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
         });
     }, [selectedElem, setSelectedElem]);
 
+    // Adds the trigger to the target if it doesn't exist
     React.useEffect(() => {
-        if (trigger.elemID && trigger.triggerID && triggerTarget) {
-            const hasTrigger = triggerTarget.properties.triggers?.some((t) => t.id === trigger.id);
-            if (!hasTrigger) {
-                setTriggerTarget({
-                    ...triggerTarget,
-                    properties: {
-                        ...triggerTarget.properties,
-                        triggers: [
-                            ...(triggerTarget.properties.triggers || []),
-                            {
-                                id: trigger.id,
-                                triggerID: undefined,
-                                elemID: undefined,
-                            }
-                        ]
+        if (!trigger.elemID || !trigger.triggerID || !targetElem)
+            return;
+        const hasTrigger = targetElem.properties.triggers?.some((t) => t.id === trigger.id);
+        if (hasTrigger)
+            return;
+
+        setTargetElem({
+            ...targetElem,
+            properties: {
+                ...targetElem.properties,
+                triggers: [
+                    ...(targetElem.properties.triggers || []),
+                    {
+                        id: trigger.id,
+                        triggerID: undefined,
+                        elemID: undefined,
                     }
-                });
+                ]
             }
-        }
-    }, [trigger, triggerTarget, setTriggerTarget]);
+        });
+    }, [trigger, targetElem, setTargetElem]);
 
-    const elemSelectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem2
-            key={elem.type + props.index}
-            text={elem.name}
-            label={elem.type}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
-
-    const triggerSelectRenderer: ItemRenderer<string> = (triggerType, props) => (
+    const selectRenderer: ItemRenderer<string> = (triggerType, props) => (
         <MenuItem2
             icon={"send-message"}
             key={triggerType + props.index}
@@ -120,7 +116,15 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                 {trigger.triggerID}
             </DevInfo>
 
-            <ResettablePanelInput
+            <ElementSelect
+                whitelistedIDs={inputableTargets.map(elem => elem.id)}
+                noElementsText={t("trigger.errorNoTargets")}
+                defaultText={t("trigger.selectTarget")}
+                selectedID={trigger.elemID}
+                onPick={(elem) => {
+                    console.log(elem);
+                    setTrigger({ ...trigger, elemID: elem.id });
+                }}
                 onReset={() => {
                     setTrigger({
                         id: trigger.id,
@@ -128,48 +132,28 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                         elemID: undefined,
                     });
                 }}
-            >
-
-                <Select2
-                    fill
-                    filterable={false}
-                    items={inputableTargets}
-                    itemRenderer={elemSelectRenderer}
-                    activeItem={triggerTarget}
-                    onItemSelect={(elem) => {
-                        setTrigger({ ...trigger, elemID: elem.id });
-                    }}>
-
-                    <Button
-                        rightIcon="caret-down"
-                        disabled={inputableTargets.length === 0}
-                        text={triggerTarget?.name ?? t("trigger.selectTarget")}
-                        fill
-                    />
-                </Select2>
-            </ResettablePanelInput>
+            />
             <ControlGroup fill style={{ marginTop: 5 }}>
                 <Select2
                     fill
                     filterable={false}
-                    items={targetInputs}
-                    itemRenderer={triggerSelectRenderer}
-                    disabled={!triggerTarget}
+                    items={targetInputs ?? []}
+                    itemRenderer={selectRenderer}
+                    disabled={!targetElem}
                     activeItem={trigger.triggerID}
                     onItemSelect={(triggerID) => {
                         setTrigger({ ...trigger, triggerID });
-                    }}>
-
+                    }}
+                >
                     <Button
                         icon={isTriggerSelected && "send-message"}
                         rightIcon="caret-down"
                         text={isTriggerSelected ?
                             t(`t.${trigger.triggerID}`) :
                             t("trigger.selectTrigger")}
-                        disabled={!triggerTarget}
+                        disabled={!targetElem}
                         fill
                     />
-
                 </Select2>
             </ControlGroup>
         </div>

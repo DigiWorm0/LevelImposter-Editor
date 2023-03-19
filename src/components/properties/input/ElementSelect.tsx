@@ -14,6 +14,7 @@ export interface ElementSelectProps {
     typeFilter?: string;
     allowSelected?: boolean;
     blacklistedIDs?: MaybeGUID[];
+    whitelistedIDs?: MaybeGUID[];
 
     noElementsText: string;
     defaultText: string;
@@ -27,9 +28,12 @@ export default function ElementSelect(props: ElementSelectProps) {
     const currentElem = useElementValue(props.selectedID);
     const elems = useElementType(props.typeFilter ?? "");
     const filteredElems = React.useMemo(() => {
-        return elems.filter((e) => e.name.includes(props.nameFilter ?? "")
-            && (props.allowSelected || e.id !== selectedElem?.id)
-            && !props.blacklistedIDs?.includes(e.id));
+        return props.whitelistedIDs ?
+            elems.filter((e) => props.whitelistedIDs?.includes(e.id))
+            :
+            elems.filter((e) => e.name.includes(props.nameFilter ?? "")
+                && (props.allowSelected || e.id !== selectedElem?.id)
+                && !props.blacklistedIDs?.includes(e.id));
     }, [elems, props.nameFilter, props.allowSelected, selectedElem, props.blacklistedIDs]);
 
     const selectRenderer: ItemRenderer<LIElement> = (elem, props) => (

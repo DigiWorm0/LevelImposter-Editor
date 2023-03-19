@@ -99,7 +99,8 @@
         "isClientSide": "Client Side",
         "randomInfo": "Trigger will randomly choose between either the first or second target.",
         "repeatInfo": "Trigger will repeat to all connected targets.",
-        "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
+        "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)",
+        "errorNoTargets": "This map does not have any other objects that can be triggered."
     },
     "vent": {
         "title": "Vent",
