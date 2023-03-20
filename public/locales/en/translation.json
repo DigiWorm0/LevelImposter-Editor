@@ -136,6 +136,7 @@
     },
     "minigame": {
         "title": "Minigame",
+        "saveInfo": "Right-click the image and 'Save Image As...' to edit the sprite directly.",
         "bg": "Background",
         "dial": "Dial",
         "glasspanel": "Glass Panel",

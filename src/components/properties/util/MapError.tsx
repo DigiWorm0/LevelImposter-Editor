@@ -10,7 +10,7 @@ export interface MapErrorProps {
 
 export default function MapError(props: MapErrorProps) {
     return (
-        <Collapse isOpen={props.isVisible}>
+        <Collapse isOpen={props.isVisible ?? true}>
             <Callout
                 intent={props.info ? "primary" : "warning"}
                 icon={props.icon}
