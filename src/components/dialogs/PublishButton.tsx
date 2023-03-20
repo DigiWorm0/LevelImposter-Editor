@@ -10,6 +10,7 @@ import { auth, db, storage } from "../../hooks/Firebase";
 import generateGUID from "../../hooks/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import openUploadDialog from "../../hooks/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
@@ -34,7 +35,7 @@ export default function PublishButton() {
     const isLoggedIn = user !== null;
     const isRemixed = !(map.authorID === user?.uid || map.authorID === "");
 
-    const publishMap = (id?: GUID) => {
+    const publishMap = React.useCallback(async (id?: GUID) => {
         if (!user?.emailVerified) {
             toaster.danger(t("publish.errorEmailNotVerified"));
             return;
@@ -106,7 +107,12 @@ export default function PublishButton() {
             return new Promise<void>((resolve, reject) => {
                 setDoc(docRef, metadata).then(() => {
                     console.log(`Map published to firestore: ${docRef.path}`);
-                    toaster.success(t("publish.success"), "https://levelimposter.net/#/map/" + mapData.id);
+
+                    const link = `https://levelimposter.net/#/map/${mapData.id}`;
+                    toaster.success(t("publish.success"), link);
+                    const win = window.open(link, "_blank");
+                    win?.focus();
+
                     resolve();
                 }).catch((err) => {
                     reject(err);
@@ -137,9 +143,9 @@ export default function PublishButton() {
             toaster.danger(err.message);
             setIsPublishing(false);
         });
-    }
+    }, [map, user, isRemixed, setMap, toaster, t]);
 
-    const resizeImage = (img: string, width: number, height: number) => {
+    const resizeImage = React.useCallback((img: string, width: number, height: number) => {
         return new Promise<Blob>((resolve, reject) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
@@ -161,30 +167,18 @@ export default function PublishButton() {
                 reject(err);
             }
         });
-    }
+    }, []);
 
-    const uploadThumbnail = () => {
-        console.log("Showing Upload Dialog");
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = () => {
-            console.log("Uploaded File");
-            if (input.files === null)
-                return;
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (reader.result === null)
-                    return;
-                resizeImage(reader.result.toString(), THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT).then((img) => {
-                    setThumbnail(img);
-                });
-            }
-            reader.readAsDataURL(file);
-        }
-        input.click();
-    }
+    const uploadThumbnail = React.useCallback(() => {
+        openUploadDialog("image/*").then((img) => {
+            return resizeImage(img, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+        }).then((img) => {
+            setThumbnail(img);
+        }).catch((err) => {
+            console.error(err);
+            toaster.danger(err.message);
+        });
+    }, [resizeImage, toaster]);
 
     return (
         <>

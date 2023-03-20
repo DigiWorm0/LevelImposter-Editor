@@ -27,7 +27,7 @@ const INVISIBLE_TYPES_MINIMAP = [
     "sab-btncomms",
 ]
 
-export enum MapVisibility {
+export enum ElemVisibility {
     Visible,
     Invisible,
     InvisibleNoSprite,
@@ -35,28 +35,28 @@ export enum MapVisibility {
     InvisibleFreeplay
 }
 
-export default function getMapVisibility(elem: LIElement): MapVisibility {
+export default function getElemVisibility(elem: LIElement): ElemVisibility {
     if (INVISIBLE_TYPES.includes(elem.type)) {
-        return MapVisibility.Invisible;
+        return ElemVisibility.Invisible;
     }
 
     if (INVISIBLE_TYPES_NO_SPRITE.includes(elem.type) && !elem.properties.spriteData) {
-        return MapVisibility.InvisibleNoSprite;
+        return ElemVisibility.InvisibleNoSprite;
     }
 
     if (INVISIBLE_TYPES_MINIMAP.includes(elem.type)) {
-        return MapVisibility.InvisibleMinimap;
+        return ElemVisibility.InvisibleMinimap;
     }
 
     if (elem.type === "util-room") {
         if (elem.properties.isRoomNameVisible === false)
-            return MapVisibility.Invisible;
+            return ElemVisibility.Invisible;
         else
-            return MapVisibility.InvisibleMinimap;
+            return ElemVisibility.InvisibleMinimap;
     }
     if (elem.type === "util-dummy") {
-        return MapVisibility.InvisibleFreeplay;
+        return ElemVisibility.InvisibleFreeplay;
     }
 
-    return MapVisibility.Visible;
+    return ElemVisibility.Visible;
 }

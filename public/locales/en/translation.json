@@ -76,11 +76,11 @@
     },
     "starfield": {
         "title": "Starfield",
-        "count": "Count",
-        "length": "Length",
-        "height": "Height",
-        "minSpeed": "Min Speed",
-        "maxSpeed": "Max Speed"
+        "count": "Patricle Count",
+        "length": "Area Length",
+        "height": "Area Height",
+        "minSpeed": "Minimum Particle Speed",
+        "maxSpeed": "Maximum Particle Speed"
     },
     "audio": {
         "soundPlayer": "Sound Player",
@@ -99,15 +99,19 @@
         "isClientSide": "Client Side",
         "randomInfo": "Trigger will randomly choose between either the first or second target.",
         "repeatInfo": "Trigger will repeat to all connected targets.",
-        "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)"
+        "errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)",
+        "errorNoTargets": "This map does not have any other objects that can be triggered."
     },
     "vent": {
         "title": "Vent",
         "noConnection": "No Connection",
         "ventOpen": "Open Sound",
         "ventMove": "Move Sound",
+        "sounds": "Sounds",
+        "connections": "Connections",
         "globalInfo": "Vent sounds are global and can only be changed per-map.",
-        "ventSoundInfo": "Polus vents will not play any sounds when used."
+        "ventSoundInfo": "Polus vents will not play any sounds when used.",
+        "errorNoVents": "This map does not have any other vents."
     },
     "door": {
         "title": "Door",
@@ -130,17 +134,46 @@
         "okSize": "Your audio is small enough to not cause any issues.",
         "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."
     },
+    "minigame": {
+        "title": "Minigame",
+        "saveInfo": "Right-click the image and 'Save Image As...' to edit the sprite directly.",
+        "bg": "Background",
+        "dial": "Dial",
+        "glasspanel": "Glass Panel",
+        "bgwires": "Background Wires",
+        "switch": "Switch",
+        "0": "0 Button",
+        "1": "1 Button",
+        "2": "2 Button",
+        "3": "3 Button",
+        "4": "4 Button",
+        "5": "5 Button",
+        "6": "6 Button",
+        "7": "7 Button",
+        "8": "8 Button",
+        "9": "9 Button",
+        "x": "X Button",
+        "check": "Check Button",
+        "note": "Post-It Note"
+    },
     "task": {
         "title": "Task",
         "defaultLength": "Default Length",
-        "defaultDescription": "Default Description",
+        "description": "Task Description",
+        "Short": "Short",
+        "Long": "Long",
+        "Common": "Common",
         "errorNoFuel": "The multi-step gas task requires atleast 2 Gas Outputs (util-fuel2).",
         "errorNoRoom": "This task is not attached to a room."
     },
     "tele": {
         "title": "Teleporter",
         "preserveOffset": "Preserve Offset",
-        "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter."
+        "preserveOffsetTooltip": "Preserve the offset between the player and the teleporter.",
+        "ghostEnabled": "Ghost Enabled",
+        "ghostEnabledTooltip": "Allow ghosts to use the teleporter.",
+        "noConnection": "No Connection",
+        "errorNoTeles": "This map does not have any other teleporters."
     },
     "timer": {
         "title": "Timer Trigger",
@@ -167,13 +200,18 @@
     "cameras": {
         "title": "Cameras",
         "offset": "Offset",
+        "offsetx": "Offset X",
+        "offsety": "Offset Y",
         "zoom": "Zoom"
     },
     "platform": {
         "title": "Moving Platform",
-        "movement": "Movement",
-        "enterOffset": "Entrance Offset",
-        "exitOffset": "Exit Offset"
+        "translationX": "Translation X",
+        "translationY": "Translation Y",
+        "enterOffsetX": "Entrance Offset X",
+        "enterOffsetY": "Entrance Offset Y",
+        "exitOffsetX": "Exit Offset X",
+        "exitOffsetY": "Exit Offset Y"
     },
     "collider": {
         "title": "Colliders",
@@ -183,6 +221,7 @@
         "blocksLight": "Blocks Light",
         "points": "Points",
         "defaultName": "Collider {{index}}",
+        "name": "Collider Name",
         "doorInfo": "Doors will toggle this collider when they are opened/closed.",
         "roomInfo": "Collider is used to calculate room boundaries.",
         "soundInfo": "Player will only hear audio if they are within this collider.",
@@ -196,12 +235,14 @@
         "showName": "Show Name",
         "showOnAdmin": "Show on Admin Table",
         "errorNoCollider": "This object does not have a collider. Admin Table will not function and name will not popup for players.",
+        "errorNoRooms": "This map does not have any rooms. Add a room to the map to connect to this object.",
         "none": "No Room",
         "default": "Default Room"
     },
     "sab": {
         "title": "Sabotage",
-        "duration": "Duration",
+        "duration": "Sabotage Duration",
+        "description": "Sabotage Description",
         "doorInfo": "Any door attatched to room will close when this button is pressed.",
         "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
     },
@@ -209,16 +250,17 @@
         "title": "Console",
         "range": "Range",
         "onlyFromBelow": "Only From Below",
-        "checkCollision": "Check Collision"
+        "checkCollision": "Check Collision",
+        "highlightColor": "Highlight Color"
     },
     "floating": {
         "title": "Floating Sprite",
-        "height": "Height",
-        "speed": "Speed"
+        "height": "Movement Height",
+        "speed": "Movement Speed"
     },
     "ladder": {
         "title": "Ladder",
-        "height": "Height"
+        "height": "Ladder Height"
     },
     "debug": {
         "title": "Debug",
@@ -241,7 +283,7 @@
         "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
         "newDialogCancel": "Cancel",
         "tooLargeError": "Map is over the 50MB limit for uploads. You may still play locally, but you cannot upload until you remove or compress any custom sprites, gifs, and sounds.",
-        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is reccommended you remove or compress any custom sprites, gifs, and sounds.",
+        "tooLargeWarn": "Map is near the 50MB limit for uploads. It is recommended you remove or compress any custom sprites, gifs, and sounds.",
         "errorSave": "Error saving map: {{error}}",
         "errorRemix": "Map author has disabled remixing"
     },
@@ -339,6 +381,7 @@
     },
     "au": {
         "undefined": "Unknown Object",
+        "util-layer": "Group",
         "util-blank": "Blank Object",
         "util-button1": "Skeld / Polus Button",
         "util-button2": "Mira Button",
@@ -365,6 +408,7 @@
         "util-sound2": "Footstep Sound",
         "util-blankfloat": "Floating Sprite",
         "util-tele": "Teleporter",
+        "util-physics": "Physics Object",
         "util-blanktrigger": "Trigger Sprite",
         "util-triggerarea": "Trigger Area",
         "util-triggerconsole": "Trigger Console",
