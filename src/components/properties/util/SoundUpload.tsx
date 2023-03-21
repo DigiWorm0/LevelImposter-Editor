@@ -1,40 +1,41 @@
 import { Button, ButtonGroup, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import generateGUID from "../../../hooks/generateGUID";
 import openUploadDialog from "../../../hooks/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
-import LIColor from "../../../types/li/LIColor";
-import ColorPicker from "../../utils/ColorPicker";
+import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import LISound from "../../../types/li/LISound";
 import SizeTag from "../../utils/SizeTag";
+import AudioPlayer from "./AudioPlayer";
 
-interface ImageUploadProps {
-    name: string;
-    defaultSpriteURL: string;
-    spriteURL?: string;
-    onUpload: (spriteURL: string) => void;
+interface SoundUploadProps {
+    sound?: LISound;
+    onChange: (soundURL: LISound) => void;
     onReset: () => void;
 
-    color?: LIColor;
-    defaultColor?: LIColor;
-    onColorChange?: (color: LIColor) => void;
     onFinish?: () => void;
 }
 
-export default function ImageUpload(props: ImageUploadProps) {
+export default function SoundUpload(props: SoundUploadProps) {
     const { t } = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
 
-    const spriteSize = React.useMemo(() => {
-        return props.spriteURL?.length ?? 0;
-    }, [props.spriteURL]);
+    const soundSize = React.useMemo(() => {
+        return props.sound?.data?.length ?? 0;
+    }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("image/*").then((result) => {
-            if (result)
-                props.onUpload(result);
+        openUploadDialog("audio/wav").then((data) => {
+            props.onChange({
+                id: props.sound?.id ?? generateGUID(),
+                data,
+                volume: DEFAULT_VOLUME,
+                isPreset: false
+            });
         });
-    }, [props.onUpload]);
+    }, [props.onChange]);
 
     const onFileDrop = React.useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -42,18 +43,24 @@ export default function ImageUpload(props: ImageUploadProps) {
         const files = e.dataTransfer.files;
         if (files.length > 0) {
             const file = files[0];
-            if (file.type.startsWith("image/")) {
+            if (file.type === "audio/wav") {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    if (e.target?.result)
-                        props.onUpload(e.target.result as string);
+                    if (e.target?.result) {
+                        props.onChange({
+                            id: props.sound?.id ?? generateGUID(),
+                            data: e.target.result as string,
+                            volume: DEFAULT_VOLUME,
+                            isPreset: false
+                        });
+                    }
                 };
                 reader.readAsDataURL(file);
             } else {
-                toaster.danger(t("sprite.errorInvalidType"));
+                toaster.danger(t("audio.errorInvalidType"));
             }
         }
-    }, [props.onUpload]);
+    }, [props.onChange]);
 
     return (
         <div
@@ -67,25 +74,29 @@ export default function ImageUpload(props: ImageUploadProps) {
             }}
             onDrop={onFileDrop}
         >
-            {/* Image Preview */}
-            <div style={{ textAlign: "center", padding: 15 }}>
-                <img
-                    style={{
-                        maxHeight: 100,
-                        maxWidth: 100
-                    }}
-                    src={props.spriteURL ?? props.defaultSpriteURL}
-                    alt={props.name}
-
+            {/* Sound Preview */}
+            {props.sound ? (
+                <AudioPlayer
+                    sound={props.sound}
+                    onSoundChange={props.onChange}
                 />
-            </div>
+            ) : (
+                <p
+                    style={{
+                        textAlign: "center",
+                        paddingTop: 10
+                    }}
+                >
+                    {t("audio.notUploaded")}
+                </p>
+            )}
 
             {/* Size Tag */}
             <div style={{ textAlign: "center", marginBottom: 10 }}>
                 <SizeTag
-                    sizeBytes={spriteSize}
-                    warningMsg={t("sprite.errorSize") as string}
-                    okMsg={t("sprite.okSize") as string}
+                    sizeBytes={soundSize}
+                    warningMsg={t("audio.errorSize") as string}
+                    okMsg={t("audio.okSize") as string}
                 />
             </div>
 
@@ -97,29 +108,20 @@ export default function ImageUpload(props: ImageUploadProps) {
                     onClick={() => onUploadClick()}
                     style={{ margin: 3 }}
                 />
-                {props.onColorChange ? (
-                    <ColorPicker
-                        intent="success"
-                        color={props.color ?? props.defaultColor ?? { r: 255, g: 255, b: 255, a: 255 }}
-                        style={{ margin: 3 }}
-                        onChange={props.onColorChange}
-                    />
-                ) : (
-                    <Button
-                        icon="tick"
-                        intent="success"
-                        style={{ margin: 3 }}
-                        disabled={!props.onFinish}
-                        onClick={props.onFinish}
-                    />
-                )}
+                <Button
+                    icon="tick"
+                    intent="success"
+                    style={{ margin: 3 }}
+                    disabled={!props.onFinish}
+                    onClick={props.onFinish}
+                />
 
                 <Button
                     icon="refresh"
                     intent="danger"
                     onClick={props.onReset}
                     style={{ margin: 3 }}
-                    disabled={props.color === undefined && props.spriteURL === undefined}
+                    disabled={props.sound === undefined}
                 />
             </ButtonGroup>
 
@@ -148,7 +150,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                     icon="cloud-upload"
                     style={{ marginRight: 10 }}
                 />
-                {t("sprite.upload")}
+                {t("audio.upload")}
             </div>
         </div>
     );

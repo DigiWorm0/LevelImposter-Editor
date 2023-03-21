@@ -54,96 +54,97 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         link.click();
     }, [soundData]);
 
+    if (!sound)
+        return null;
+
     return (
-        <div style={{ textAlign: "center", marginBottom: 10 }}>
+        <div
+            style={{
+                textAlign: "center",
+                marginBottom: 10,
+                paddingLeft: 10,
+                paddingRight: 10
+            }}
+        >
+            <audio ref={audioRef} src={soundData} loop>
+                {t("audio.errorNotSupported")}
+            </audio>
 
-            {soundData ? (
-                <>
-                    <audio ref={audioRef} src={soundData} loop>
-                        {t("audio.errorNotSupported")}
-                    </audio>
+            <DevInfo>
+                {sound?.id}
+                {sound?.type}
+                {sound?.isPreset}
+                {soundData?.length}
+            </DevInfo>
 
-                    <DevInfo>
-                        {sound?.id}
-                        {sound?.type}
-                        {sound?.isPreset}
-                        {soundData?.length}
-                    </DevInfo>
+            <ButtonGroup large minimal>
+                <Button
+                    icon="stop"
+                    onClick={() => {
+                        if (audioRef.current) {
+                            audioRef.current.pause();
+                            audioRef.current.currentTime = 0;
+                        }
+                    }}
+                />
+                <Button
+                    icon="play"
+                    onClick={() => {
+                        if (audioRef.current)
+                            audioRef.current.play();
+                    }}
+                />
+                <Button
+                    icon="pause"
+                    onClick={() => {
+                        if (audioRef.current)
+                            audioRef.current.pause();
+                    }}
+                />
+                <Button
+                    icon="cloud-download"
+                    onClick={() => {
+                        downloadSound();
+                    }}
+                />
+            </ButtonGroup>
 
-                    <ButtonGroup large minimal>
-                        <Button
-                            icon="stop"
-                            onClick={() => {
-                                if (audioRef.current) {
-                                    audioRef.current.pause();
-                                    audioRef.current.currentTime = 0;
-                                }
-                            }}
-                        />
-                        <Button
-                            icon="play"
-                            onClick={() => {
-                                if (audioRef.current)
-                                    audioRef.current.play();
-                            }}
-                        />
-                        <Button
-                            icon="pause"
-                            onClick={() => {
-                                if (audioRef.current)
-                                    audioRef.current.pause();
-                            }}
-                        />
-                        <Button
-                            icon="cloud-download"
-                            onClick={() => {
-                                downloadSound();
-                            }}
-                        />
-                    </ButtonGroup>
+            <Slider
+                min={0}
+                max={duration}
+                stepSize={0.001}
+                labelStepSize={duration <= 0 ? undefined : duration}
+                labelRenderer={(value) => {
+                    const seconds = Math.floor(value);
+                    const minutes = Math.floor(seconds / 60);
+                    const secondsRemainder = seconds % 60;
+                    return `${minutes}:${secondsRemainder < 10 ? "0" : ""}${secondsRemainder}`;
+                }}
+                onChange={(value) => {
+                    setProgress(value);
+                    if (audioRef.current)
+                        audioRef.current.currentTime = value;
+                }}
+                value={progress}
+            />
 
-                    <Slider
-                        min={0}
-                        max={duration}
-                        stepSize={0.001}
-                        labelStepSize={duration <= 0 ? undefined : duration}
-                        labelRenderer={(value) => {
-                            const seconds = Math.floor(value);
-                            const minutes = Math.floor(seconds / 60);
-                            const secondsRemainder = seconds % 60;
-                            return `${minutes}:${secondsRemainder < 10 ? "0" : ""}${secondsRemainder}`;
-                        }}
-                        onChange={(value) => {
-                            setProgress(value);
-                            if (audioRef.current)
-                                audioRef.current.currentTime = value;
-                        }}
-                        value={progress}
-                    />
-
-                    <Slider
-                        min={0}
-                        max={1}
-                        stepSize={0.01}
-                        labelStepSize={1}
-                        labelRenderer={(value) => `${Math.round(value * 100)}%`}
-                        intent="success"
-                        value={sound?.volume}
-                        onChange={(value) => {
-                            if (!sound)
-                                return;
-                            props.onSoundChange({
-                                ...sound,
-                                volume: value
-                            });
-                        }}
-                    />
-                </>
-            ) : (
-                <p style={{ marginTop: 10 }}>
-                    {t("audio.notUploaded")}
-                </p>
-            )}
+            <Slider
+                min={0}
+                max={1}
+                stepSize={0.01}
+                labelStepSize={1}
+                labelRenderer={(value) => `${Math.round(value * 100)}%`}
+                intent="success"
+                value={sound?.volume}
+                onChange={(value) => {
+                    if (!sound)
+                        return;
+                    props.onSoundChange({
+                        ...sound,
+                        volume: value
+                    });
+                }}
+            />
         </div>
     );
 }

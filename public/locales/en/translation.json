@@ -72,7 +72,8 @@
         "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
         "camInfo": "Any GIF animation will play when the cameras are active.",
         "okSize": "Your image is small enough to not cause any issues.",
-        "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."
+        "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects.",
+        "errorInvalidType": "This image file is in invalid format."
     },
     "starfield": {
         "title": "Starfield",
@@ -91,7 +92,8 @@
         "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate.",
         "errorNotSupported": "Your browser does not support the audio element.",
         "errorNoCollider": "This object is missing a collider. Audio only plays to players who are within the collider.",
-        "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)"
+        "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)",
+        "errorInvalidType": "This sound file is in invalid format."
     },
     "trigger": {
         "selectTarget": "Select Target",

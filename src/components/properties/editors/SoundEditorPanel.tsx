@@ -1,17 +1,14 @@
-import { Button, ButtonGroup, H6, Tag } from "@blueprintjs/core";
+import { H6, Tag } from "@blueprintjs/core";
 import React from "react";
-import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import openUploadDialog from "../../../hooks/openUploadDialog";
-import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
-import AudioPlayer from "../util/AudioPlayer";
+import SoundUpload from "../util/SoundUpload";
 
 interface SoundEditorProps {
     title: string;
     soundType?: string;
     soundID?: string;
-    onFinished: () => void;
+    onFinish: () => void;
 }
 
 export default function SoundEditorPanel(props: SoundEditorProps) {
@@ -56,25 +53,15 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
         });
     }, [selectedElem, setSelectedElem]);
 
-    const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/wav").then((data) => {
-            onSoundChange({
-                id: sound?.id ?? generateGUID(),
-                type: props.soundType,
-                data,
-                volume: DEFAULT_VOLUME,
-                isPreset: false
-            });
-        });
-    }, [selectedElem, setSelectedElem, sound]);
-
     if (!selectedElem)
         return null;
 
     return (
         <div style={{ padding: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <H6>
+                <H6 style={{
+                    marginTop: 2
+                }}>
                     {props.title}
                 </H6>
                 {sound?.isPreset && (
@@ -88,31 +75,13 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
                     </Tag>
                 )}
             </div>
-            <AudioPlayer
-                sound={sound}
-                onSoundChange={onSoundChange}
-            />
 
-            <ButtonGroup fill>
-                <Button
-                    icon="cloud-upload"
-                    intent="primary"
-                    onClick={() => onUploadClick()}
-                    style={{ margin: 3 }}
-                />
-                <Button
-                    icon="tick"
-                    intent="success"
-                    onClick={() => props.onFinished()}
-                    style={{ margin: 3 }}
-                />
-                <Button
-                    icon="refresh"
-                    intent="danger"
-                    onClick={() => onDeleteClick()}
-                    style={{ margin: 3 }}
-                />
-            </ButtonGroup>
+            <SoundUpload
+                sound={sound}
+                onChange={onSoundChange}
+                onReset={onDeleteClick}
+                onFinish={props.onFinish}
+            />
         </div>
     )
 }
