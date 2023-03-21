@@ -14,6 +14,7 @@ interface SoundUploadProps {
     onChange: (soundURL: LISound) => void;
     onReset: () => void;
 
+    title?: string;
     onFinish?: () => void;
 }
 
@@ -77,6 +78,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             {/* Sound Preview */}
             {props.sound ? (
                 <AudioPlayer
+                    title={props.title}
                     sound={props.sound}
                     onSoundChange={props.onChange}
                 />

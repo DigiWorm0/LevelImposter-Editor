@@ -53,6 +53,7 @@ export default function SoundPanel() {
         <>
             <PanelContainer title={t("audio.soundPlayer") as string}>
                 <SoundUpload
+                    title={selectedElem?.name}
                     sound={sound}
                     onChange={onChange}
                     onReset={onReset}

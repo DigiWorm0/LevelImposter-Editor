@@ -8,6 +8,8 @@ import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import NumericPanelInput from "../input/NumericPanelInput";
+import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
 
@@ -33,47 +35,19 @@ export default function StepSoundPanel() {
 
     return (
         <PanelContainer title={t("stepSound.title") as string}>
-
-            <Select2
-                fill
-                filterable={false}
-                items={Object.keys(PRESET_RESOURCE_IDS)}
-                itemRenderer={presetRenderer}
-                onItemSelect={(soundPreset) => {
-                    const resourceIDs = PRESET_RESOURCE_IDS[soundPreset];
-                    setSelectedElem({
-                        ...selectedElem, properties: {
-                            ...selectedElem.properties, sounds: resourceIDs.map((resourceID) => {
-                                return {
-                                    id: generateGUID(),
-                                    data: resourceID,
-                                    volume: DEFAULT_VOLUME,
-                                    isPreset: true
-                                }
-                            })
-                        }
-                    });
-                }}
-            >
-                <Button
-                    rightIcon="caret-down"
-                    text={t("stepSound.presets") as string}
-                    fill
-                />
-            </Select2>
-            <FormGroup label={t("stepSound.priority")} style={{ marginTop: 10 }}>
-                <NumericInput
-                    fill
-                    minorStepSize={1}
-                    stepSize={10}
-                    majorStepSize={100}
-                    step={1}
-                    value={selectedElem?.properties.soundPriority === undefined ? 0 : selectedElem.properties.soundPriority}
-                    onValueChange={(value) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundPriority: value } });
-                    }} />
-            </FormGroup>
-            <FormGroup label={t("stepSound.variants")} style={{ marginTop: 5 }}>
+            <NumericPanelInput
+                name={t("stepSound.priority")}
+                prop={"soundPriority"}
+                icon="sort"
+                defaultValue={0}
+                min={0}
+                max={1000}
+                minorStepSize={1}
+                stepSize={10}
+                majorStepSize={100}
+            />
+            <FormGroup label={t("stepSound.variants")} style={{ marginTop: 10 }}>
+                <SoundPresetSelect />
                 <NumericInput
                     fill
                     min={0}

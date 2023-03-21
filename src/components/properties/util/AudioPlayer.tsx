@@ -9,6 +9,7 @@ const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
 
 interface AudioPlayerProps {
+    title?: string;
     sound?: LISound;
     onSoundChange: (sound: LISound) => void;
 }
@@ -50,9 +51,9 @@ export default function AudioPlayer(props: AudioPlayerProps) {
             return;
         const link = document.createElement("a");
         link.href = soundData;
-        link.download = "";
+        link.download = props.title ?? "sound";
         link.click();
-    }, [soundData]);
+    }, [soundData, props.title]);
 
     if (!sound)
         return null;

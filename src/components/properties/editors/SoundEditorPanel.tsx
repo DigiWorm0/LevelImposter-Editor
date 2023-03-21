@@ -77,6 +77,7 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
             </div>
 
             <SoundUpload
+                title={props.title}
                 sound={sound}
                 onChange={onSoundChange}
                 onReset={onDeleteClick}
