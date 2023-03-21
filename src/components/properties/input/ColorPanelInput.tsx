@@ -1,21 +1,55 @@
 import { ControlGroup } from "@blueprintjs/core";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
+import LIMinigameProps from "../../../types/li/LIMinigameProps";
 import LIProperties from "../../../types/li/LIProperties";
 import ColorPicker from "../../utils/ColorPicker";
 
 export interface ColorInputProps {
     name: string;
-    prop: keyof LIProperties;
+    prop?: keyof LIProperties;
+    minigameProp?: keyof LIMinigameProps;
     defaultValue: LIColor;
+    disableAlpha?: boolean;
 }
 
 export default function ColorPanelInput(props: ColorInputProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const { t } = useTranslation();
 
-    const defaultValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+    const defaultValue = React.useMemo(() => {
+        if (props.prop && selectedElem?.properties[props.prop]) {
+            return selectedElem.properties[props.prop];
+        } else if (props.minigameProp && selectedElem?.properties.minigameProps?.[props.minigameProp]) {
+            return selectedElem.properties.minigameProps[props.minigameProp];
+        } else {
+            return props.defaultValue;
+        }
+    }, [selectedElem, props.prop, props.minigameProp, props.defaultValue]);
+
+    const onChange = React.useCallback((color: LIColor) => {
+        if (props.prop && selectedElem) {
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    [props.prop]: color
+                }
+            });
+        } else if (props.minigameProp && selectedElem) {
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    minigameProps: {
+                        ...selectedElem.properties.minigameProps,
+                        [props.minigameProp]: color
+                    }
+                }
+            });
+        }
+    }, [selectedElem, props.prop, props.minigameProp, setSelectedElem]);
 
     return (
         <ControlGroup
@@ -26,19 +60,10 @@ export default function ColorPanelInput(props: ColorInputProps) {
             <ColorPicker
                 fill
                 minimal
-                title={t(props.name) as string}
+                title={props.name}
                 color={defaultValue as LIColor}
-                onChange={(color: LIColor) => {
-                    if (selectedElem) {
-                        setSelectedElem({
-                            ...selectedElem,
-                            properties: {
-                                ...selectedElem.properties,
-                                [props.prop]: color
-                            }
-                        });
-                    }
-                }}
+                onChange={onChange}
+                disableAlpha={props.disableAlpha}
             />
         </ControlGroup>
     )

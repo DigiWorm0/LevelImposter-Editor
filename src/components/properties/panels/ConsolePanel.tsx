@@ -36,7 +36,7 @@ export default function ConsolePanel() {
             />
             {selectedElem.type === "util-triggerconsole" && (
                 <ColorPanelInput
-                    name="console.highlightColor"
+                    name={t("console.highlightColor") as string}
                     prop="highlightColor"
                     defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow
                 />

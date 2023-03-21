@@ -34,6 +34,8 @@ const AUMinigameDB: string[] = [
     "sab-oxygen2_x",
     "sab-oxygen2_check",
     "sab-reactorleft_bg",
-    "sab-reactorright_bg"
+    "sab-reactorleft_sweep",
+    "sab-reactorright_bg",
+    "sab-reactorright_sweep"
 ];
 export default AUMinigameDB;

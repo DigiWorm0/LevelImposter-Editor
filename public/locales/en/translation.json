@@ -138,8 +138,13 @@
     },
     "minigame": {
         "title": "Minigame",
+        "reactorColorBad": "Bad Color",
+        "reactorColorGood": "Good Color",
+        "lightsColorOn": "On Color",
+        "lightsColorOff": "Off Color",
         "saveInfo": "Right-click the image and 'Save Image As...' to edit the sprite directly.",
         "bg": "Background",
+        "sweep": "Sweep",
         "dial": "Dial",
         "glasspanel": "Glass Panel",
         "bgwires": "Background Wires",
