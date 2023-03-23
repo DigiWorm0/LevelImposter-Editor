@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import getIsConsole from "../../../hooks/getIsConsole";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import ImageUpload from "../util/ImageUpload";
@@ -25,6 +26,10 @@ const TYPE_BLACKLIST = [
 export default function SpritePanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+
+    const isConsole = React.useMemo(() => {
+        return getIsConsole(selectedElem?.type || "");
+    }, [selectedElem]);
 
     const onUpload = React.useCallback((spriteURL: string) => {
         if (!selectedElem)
@@ -88,6 +93,9 @@ export default function SpritePanel() {
             </MapError>
             <MapError info isVisible={selectedElem.type === "util-cam"} icon="play">
                 {t("sprite.camInfo") as string}
+            </MapError>
+            <MapError info isVisible={selectedElem.properties.spriteData !== undefined && isConsole} icon="vertical-inbetween">
+                {t("sprite.paddingInfo") as string}
             </MapError>
         </>
     );

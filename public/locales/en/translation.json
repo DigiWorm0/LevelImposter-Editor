@@ -61,6 +61,7 @@
         "download": "Download Minimap",
         "minimapSprite": "Minimap Sprite",
         "imposterOnly": "Imposter Only",
+        "infoSprite": "Minimap sprite should be red to ensure its rendered correctly.",
         "errorNoSprite": "The object does not have a sprite attached to it. Minimap will not be visible in-game."
     },
     "sprite": {
@@ -72,6 +73,7 @@
         "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
         "camInfo": "Any GIF animation will play when the cameras are active.",
         "okSize": "Your image is small enough to not cause any issues.",
+        "paddingInfo": "To ensure highlight is visible on console, sprite requires atleast 10px of padding on all sides.",
         "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects.",
         "errorInvalidType": "This image file is in invalid format."
     },
@@ -210,7 +212,8 @@
         "errorInvisible": "This object will not be visible in-game.",
         "errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",
         "errorMinimap": "This object will only be visible in the minimap.",
-        "errorFreeplay": "This object will only be visible in freeplay mode."
+        "errorFreeplay": "This object will only be visible in freeplay mode.",
+        "errorScale": "Scaling the object instead of the sprite will cause visual anomalies on console objects."
     },
     "cameras": {
         "title": "Cameras",
@@ -350,7 +353,8 @@
             "snapResolution": "Snap Resolution",
             "invisibleOpacity": "Invisible Opacity",
             "localization": "Localization",
-            "showRoomName": "Show Room Name"
+            "showRoomName": "Show Room Name",
+            "showInfo": "Show Inspector Info"
         },
         "map": {
             "title": "Map",

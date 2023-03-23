@@ -1,13 +1,12 @@
 import { Shape } from "react-konva";
-import { useSelectedColliderIDValue } from "../../hooks/jotai/useSelectedCollider";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import { UNITY_SCALE } from "../../types/generic/Constants";
+import useAdjustPoint from "../../hooks/useAdjustPoint";
 
 export default function ColliderPreview() {
     const elem = useSelectedElemValue();
-    const selectedColliderID = useSelectedColliderIDValue();
     const settings = useSettingsValue();
+    const { relativeToAbsolute } = useAdjustPoint();
 
     if (!elem
         || !elem.properties.colliders
@@ -26,10 +25,11 @@ export default function ColliderPreview() {
 
                             ctx.beginPath();
 
-                            const initialPoint = collider.points[0];
-                            ctx.moveTo(initialPoint.x * UNITY_SCALE, initialPoint.y * UNITY_SCALE);
+                            const initialPoint = relativeToAbsolute(collider.points[0]);
+                            ctx.moveTo(initialPoint.x, initialPoint.y);
                             collider.points.forEach((p, _) => {
-                                ctx.lineTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE);
+                                const point = relativeToAbsolute(p);
+                                ctx.lineTo(point.x, point.y);
                             })
 
                             if (collider.isSolid)
@@ -38,7 +38,7 @@ export default function ColliderPreview() {
                         }}
                         fill={collider.isSolid ? (collider.blocksLight ? "#ff000022" : "#00ff0022") : "transparent"}
                         stroke={collider.blocksLight ? "red" : "green"}
-                        strokeWidth={selectedColliderID === undefined ? 2 : 1}
+                        strokeWidth={1}
                         listening={false}
                     />
                 )
