@@ -262,7 +262,8 @@
         "duration": "Sabotage Duration",
         "description": "Sabotage Description",
         "doorInfo": "Any door attatched to room will close when this button is pressed.",
-        "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
+        "errorNoRoom": "This object does not have a room. Sabotage will not function properly.",
+        "errorMultipleSabs": "{{name}} is already attached to this room."
     },
     "console": {
         "title": "Console",
