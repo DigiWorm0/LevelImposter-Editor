@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, Rect } from "react-konva";
+import { Image, Line } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useAdjustPoint from "../../hooks/useAdjustPoint";
 import useSprite from "../../hooks/useSprite";
-import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED, DEFAULT_STARFIELD_HEIGHT, UNITY_SCALE } from "../../types/generic/Constants";
+import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED } from "../../types/generic/Constants";
 
 const REFRESH_RATE = 1000 / 60;
 
@@ -10,12 +11,41 @@ export default function StarfieldRender() {
     const selectedElem = useSelectedElemValue();
     const sprite = useSprite(selectedElem?.id);
     const [starPositions, setStarPositions] = React.useState<Array<{ x: number, y: number, speed: number }>>([]);
+    const { relativeToAbsolute } = useAdjustPoint();
 
-    const height = selectedElem?.properties.starfieldHeight !== undefined ? selectedElem.properties.starfieldHeight : DEFAULT_STARFIELD_HEIGHT;
-    const minSpeed = selectedElem?.properties.starfieldMinSpeed !== undefined ? selectedElem.properties.starfieldMinSpeed : DEFAULT_STARFIELD_MINSPEED;
-    const maxSpeed = selectedElem?.properties.starfieldMaxSpeed !== undefined ? selectedElem.properties.starfieldMaxSpeed : DEFAULT_STARFIELD_MAXSPEED;
-    const count = selectedElem?.properties.starfieldCount !== undefined ? selectedElem.properties.starfieldCount : DEFAULT_STARFIELD_COUNT;
-    const length = selectedElem?.properties.starfieldLength !== undefined ? selectedElem.properties.starfieldLength : DEFAULT_STARFIELD_LENGTH;
+    const height = React.useMemo(() => {
+        return selectedElem?.properties.starfieldHeight ?? DEFAULT_STARFIELD_HEIGHT;
+    }, [selectedElem]);
+
+    const minSpeed = React.useMemo(() => {
+        return selectedElem?.properties.starfieldMinSpeed ?? DEFAULT_STARFIELD_MINSPEED;
+    }, [selectedElem]);
+
+    const maxSpeed = React.useMemo(() => {
+        return selectedElem?.properties.starfieldMaxSpeed ?? DEFAULT_STARFIELD_MAXSPEED;
+    }, [selectedElem]);
+
+    const count = React.useMemo(() => {
+        return selectedElem?.properties.starfieldCount ?? DEFAULT_STARFIELD_COUNT;
+    }, [selectedElem]);
+
+    const length = React.useMemo(() => {
+        return selectedElem?.properties.starfieldLength ?? DEFAULT_STARFIELD_LENGTH;
+    }, [selectedElem]);
+
+    const rectPoints = React.useMemo(() => {
+        const topLeftPoint = relativeToAbsolute({ x: -length, y: -height / 2 });
+        const topRightPoint = relativeToAbsolute({ x: 0, y: -height / 2 });
+        const bottomLeftPoint = relativeToAbsolute({ x: -length, y: height / 2 });
+        const bottomRightPoint = relativeToAbsolute({ x: 0, y: height / 2 });
+
+        return [
+            topLeftPoint.x, topLeftPoint.y,
+            topRightPoint.x, topRightPoint.y,
+            bottomRightPoint.x, bottomRightPoint.y,
+            bottomLeftPoint.x, bottomLeftPoint.y,
+        ];
+    }, [relativeToAbsolute]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
@@ -50,29 +80,27 @@ export default function StarfieldRender() {
     return (
         <>
             {starPositions.map((star, i) => {
-                const x = -star.x * UNITY_SCALE;
-                const y = star.y * UNITY_SCALE;
+                const p = relativeToAbsolute({ x: -star.x, y: star.y })
                 const w = sprite.width;
                 const h = sprite.height;
 
                 return (
                     <Image
                         key={i}
-                        x={x - w / 2}
-                        y={y - h / 2}
+                        x={p.x - w / 2}
+                        y={p.y - h / 2}
+                        width={selectedElem.xScale * w}
+                        height={selectedElem.yScale * h}
+                        rotation={-selectedElem.rotation}
                         image={sprite}
-                        width={w}
-                        height={h}
                         listening={false}
                     />
                 );
             })}
 
-            <Rect
-                x={-length * UNITY_SCALE}
-                y={(-height / 2) * UNITY_SCALE}
-                width={length * UNITY_SCALE}
-                height={height * UNITY_SCALE}
+            <Line
+                points={rectPoints}
+                closed
                 stroke="#ffaa00"
                 strokeWidth={4}
                 dashEnabled={true}

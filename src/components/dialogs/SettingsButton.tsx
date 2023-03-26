@@ -182,6 +182,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.interface.showInfo") as string}
+                        </Label>
+                        <Switch
+                            checked={settings.isInfoVisible === undefined ? true : settings.isInfoVisible}
+                            onChange={(e) => {
+                                setSettings({ ...settings, isInfoVisible: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.interface.grid") as string}
                         </Label>
                         <Switch

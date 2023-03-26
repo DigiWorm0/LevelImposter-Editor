@@ -7,6 +7,7 @@ import { useSettingsValue } from "../../../hooks/jotai/useSettings";
 import GUID from "../../../types/generic/GUID";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import getIsConsole from "../../../hooks/getIsConsole";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -14,6 +15,10 @@ export default function TransformPanel() {
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
+
+    const isConsole = React.useMemo(() => {
+        return getIsConsole(selectedElem?.type || "");
+    }, [selectedElem]);
 
     const elemVisibility = React.useMemo(() => {
         if (!selectedElem)
@@ -172,6 +177,11 @@ export default function TransformPanel() {
                 {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
                 {elemVisibility === ElemVisibility.InvisibleMinimap ? t("transform.errorMinimap") : null}
                 {elemVisibility === ElemVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
+            </MapError>
+            <MapError
+                isVisible={isConsole && (selectedElem.xScale != 1 || selectedElem.yScale != 1)}
+            >
+                {t("transform.errorScale")}
             </MapError>
         </>
     );

@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, Line } from "react-konva";
+import { Group, Image, Line, Rect } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE } from "../../types/generic/Constants";
 
-const REFRESH_RATE = 1000 / 60; // ms
+const REFRESH_RATE = 1000 / 30; // ms
 
 export default function FloatingRender() {
     const selectedElem = useSelectedElemValue();
@@ -29,21 +29,41 @@ export default function FloatingRender() {
         return null;
     return (
         <>
-            <Image
-                x={-sprite.width / 2}
-                y={-sprite.height / 2 - (y * UNITY_SCALE)}
-                image={sprite}
-                width={sprite.width}
-                height={sprite.height}
+            <Group
+                x={selectedElem.x * UNITY_SCALE}
+                y={-selectedElem.y * UNITY_SCALE}
+                scaleX={selectedElem.xScale}
+                scaleY={selectedElem.yScale}
+                rotation={-selectedElem.rotation}
                 listening={false}
-            />
+            >
+                <Image
+                    x={-sprite.width / 2}
+                    y={-sprite.height / 2 - (y * UNITY_SCALE)}
+                    image={sprite}
+                    width={sprite.width}
+                    height={sprite.height}
+                    listening={false}
+                />
+                <Rect
+                    x={-sprite.width / 2}
+                    y={-sprite.height / 2 - (y * UNITY_SCALE)}
+                    width={sprite.width}
+                    height={sprite.height}
+                    stroke="#ffaa00"
+                    opacity={0.5}
+                    listening={false}
+                />
+            </Group>
 
             <Line
-                points={[0, 0, 0, -height * UNITY_SCALE]}
+                points={[
+                    selectedElem.x * UNITY_SCALE, -selectedElem.y * UNITY_SCALE,
+                    selectedElem.x * UNITY_SCALE, -selectedElem.y * UNITY_SCALE - (height * UNITY_SCALE),
+                ]}
                 stroke="#ffaa00"
                 strokeWidth={4}
-                dashEnabled={true}
-                dash={[10, 10]}
+                lineCap="round"
                 listening={false}
             />
         </>

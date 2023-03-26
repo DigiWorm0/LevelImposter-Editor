@@ -61,6 +61,7 @@
         "download": "Download Minimap",
         "minimapSprite": "Minimap Sprite",
         "imposterOnly": "Imposter Only",
+        "infoSprite": "Minimap sprite should be red to ensure its rendered correctly.",
         "errorNoSprite": "The object does not have a sprite attached to it. Minimap will not be visible in-game."
     },
     "sprite": {
@@ -72,7 +73,9 @@
         "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
         "camInfo": "Any GIF animation will play when the cameras are active.",
         "okSize": "Your image is small enough to not cause any issues.",
-        "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects."
+        "paddingInfo": "To ensure highlight is visible around consoles, sprites requires atleast 10px of padding on all sides.",
+        "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects.",
+        "errorInvalidType": "This image file is in invalid format."
     },
     "starfield": {
         "title": "Starfield",
@@ -91,7 +94,8 @@
         "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate.",
         "errorNotSupported": "Your browser does not support the audio element.",
         "errorNoCollider": "This object is missing a collider. Audio only plays to players who are within the collider.",
-        "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)"
+        "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)",
+        "errorInvalidType": "This sound file is in invalid format."
     },
     "trigger": {
         "selectTarget": "Select Target",
@@ -126,18 +130,31 @@
     },
     "stepSound": {
         "title": "Step Sound",
-        "presets": "Presets",
+        "presets": "Sound Presets",
         "priority": "Priority",
         "variants": "Variants",
         "variant": "Step Variant",
         "default": "Variant {{index}}",
+        "Carpet": "Carpet",
+        "Dirt": "Dirt",
+        "Glass": "Glass",
+        "Metal": "Metal",
+        "Plastic": "Plastic",
+        "Snow": "Snow",
+        "Tile": "Tile",
+        "Wood": "Wood",
         "okSize": "Your audio is small enough to not cause any issues.",
         "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."
     },
     "minigame": {
         "title": "Minigame",
+        "reactorColorBad": "Bad Color",
+        "reactorColorGood": "Good Color",
+        "lightsColorOn": "On Color",
+        "lightsColorOff": "Off Color",
         "saveInfo": "Right-click the image and 'Save Image As...' to edit the sprite directly.",
         "bg": "Background",
+        "sweep": "Sweep",
         "dial": "Dial",
         "glasspanel": "Glass Panel",
         "bgwires": "Background Wires",
@@ -195,7 +212,8 @@
         "errorInvisible": "This object will not be visible in-game.",
         "errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",
         "errorMinimap": "This object will only be visible in the minimap.",
-        "errorFreeplay": "This object will only be visible in freeplay mode."
+        "errorFreeplay": "This object will only be visible in freeplay mode.",
+        "errorScale": "Scaling the object will also scale console highlight."
     },
     "cameras": {
         "title": "Cameras",
@@ -244,7 +262,8 @@
         "duration": "Sabotage Duration",
         "description": "Sabotage Description",
         "doorInfo": "Any door attatched to room will close when this button is pressed.",
-        "errorNoRoom": "This object does not have a room. Sabotage will not function properly."
+        "errorNoRoom": "This object does not have a room. Sabotage will not function properly.",
+        "errorMultipleSabs": "{{name}} is already attached to this room."
     },
     "console": {
         "title": "Console",
@@ -335,7 +354,8 @@
             "snapResolution": "Snap Resolution",
             "invisibleOpacity": "Invisible Opacity",
             "localization": "Localization",
-            "showRoomName": "Show Room Name"
+            "showRoomName": "Show Room Name",
+            "showInfo": "Show Inspector Info"
         },
         "map": {
             "title": "Map",

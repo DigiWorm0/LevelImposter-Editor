@@ -1,6 +1,7 @@
 import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useConnections } from "../../../hooks/jotai/useConnections";
 import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { useElementType } from "../../../hooks/jotai/useTypes";
 import { useSpriteType } from "../../../hooks/useSprite";
@@ -25,6 +26,11 @@ export default function SabPanel() {
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
     const roomElems = useElementType("util-room");
+    const [targetConnections, sourceConnections] = useConnections(selectedElem?.properties.parent);
+
+    const otherSab = React.useMemo(() => {
+        return sourceConnections?.find((c) => c.type.startsWith("sab-") && c.id !== selectedElem?.id && !c.type.startsWith("sab-btn"));
+    }, [sourceConnections, selectedElem]);
 
     React.useEffect(() => {
         setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
@@ -80,6 +86,9 @@ export default function SabPanel() {
             </MapError>
             <MapError isVisible={selectedElem.type === "sab-btndoors"} info>
                 {t("sab.doorInfo") as string}
+            </MapError>
+            <MapError isVisible={otherSab !== undefined}>
+                {t("sab.errorMultipleSabs", { name: otherSab?.name }) as string}
             </MapError>
         </>
     );

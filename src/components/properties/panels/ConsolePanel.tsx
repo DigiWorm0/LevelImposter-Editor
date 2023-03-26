@@ -4,6 +4,7 @@ import { DEFAULT_CONSOLE_RANGE } from "../../../types/generic/Constants";
 import ColorPanelInput from "../input/ColorPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 
 export default function ConsolePanel() {
@@ -23,34 +24,36 @@ export default function ConsolePanel() {
         return null;
 
     return (
-        <PanelContainer title={t("console.title") as string}>
-            <NumericPanelInput
-                name="console.range"
-                prop="range"
-                defaultValue={DEFAULT_CONSOLE_RANGE}
-                icon="ring"
-                min={0}
-                minorStepSize={0.05}
-                stepSize={0.1}
-                majorStepSize={0.5}
-            />
-            {selectedElem.type === "util-triggerconsole" && (
-                <ColorPanelInput
-                    name="console.highlightColor"
-                    prop="highlightColor"
-                    defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow
+        <>
+            <PanelContainer title={t("console.title") as string}>
+                <NumericPanelInput
+                    name="console.range"
+                    prop="range"
+                    defaultValue={DEFAULT_CONSOLE_RANGE}
+                    icon="ring"
+                    min={0}
+                    minorStepSize={0.05}
+                    stepSize={0.1}
+                    majorStepSize={0.5}
                 />
-            )}
-            <SwitchPanelInput
-                name="console.onlyFromBelow"
-                prop="onlyFromBelow"
-                defaultValue={false}
-            />
-            <SwitchPanelInput
-                name="console.checkCollision"
-                prop="checkCollision"
-                defaultValue={false}
-            />
-        </PanelContainer>
+                {selectedElem.type === "util-triggerconsole" && (
+                    <ColorPanelInput
+                        name={t("console.highlightColor") as string}
+                        prop="highlightColor"
+                        defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow
+                    />
+                )}
+                <SwitchPanelInput
+                    name="console.onlyFromBelow"
+                    prop="onlyFromBelow"
+                    defaultValue={false}
+                />
+                <SwitchPanelInput
+                    name="console.checkCollision"
+                    prop="checkCollision"
+                    defaultValue={false}
+                />
+            </PanelContainer>
+        </>
     );
 }

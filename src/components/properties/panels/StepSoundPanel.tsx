@@ -7,8 +7,9 @@ import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
-import SizeTag from "../../utils/SizeTag";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import NumericPanelInput from "../input/NumericPanelInput";
+import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
 
@@ -19,11 +20,7 @@ export default function StepSoundPanel() {
 
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
 
-    const soundSize = React.useMemo(() => {
-        return sounds.reduce((acc, cur) => acc + (cur.data?.length || 0), 0) || 0;
-    }, [sounds]);
-
-    const soundPresetSelectRenderer: ItemRenderer<string> = (soundPreset, props) => (
+    const presetRenderer: ItemRenderer<string> = (soundPreset, props) => (
         <MenuItem2
             key={soundPreset + props.index + "-soundPreset"}
             text={soundPreset}
@@ -33,53 +30,24 @@ export default function StepSoundPanel() {
             onFocus={props.handleFocus} />
     );
 
-
     if (!selectedElem || selectedElem.type !== "util-sound2")
         return null;
 
     return (
         <PanelContainer title={t("stepSound.title") as string}>
-
-            <Select2
-                fill
-                filterable={false}
-                items={Object.keys(PRESET_RESOURCE_IDS)}
-                itemRenderer={soundPresetSelectRenderer}
-                onItemSelect={(soundPreset) => {
-                    const resourceIDs = PRESET_RESOURCE_IDS[soundPreset];
-                    setSelectedElem({
-                        ...selectedElem, properties: {
-                            ...selectedElem.properties, sounds: resourceIDs.map((resourceID) => {
-                                return {
-                                    id: generateGUID(),
-                                    data: resourceID,
-                                    volume: DEFAULT_VOLUME,
-                                    isPreset: true
-                                }
-                            })
-                        }
-                    });
-                }}
-            >
-                <Button
-                    rightIcon="caret-down"
-                    text={t("stepSound.presets") as string}
-                    fill
-                />
-            </Select2>
-            <FormGroup label={t("stepSound.priority")} style={{ marginTop: 10 }}>
-                <NumericInput
-                    fill
-                    minorStepSize={1}
-                    stepSize={10}
-                    majorStepSize={100}
-                    step={1}
-                    value={selectedElem?.properties.soundPriority === undefined ? 0 : selectedElem.properties.soundPriority}
-                    onValueChange={(value) => {
-                        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, soundPriority: value } });
-                    }} />
-            </FormGroup>
-            <FormGroup label={t("stepSound.variants")} style={{ marginTop: 5 }}>
+            <NumericPanelInput
+                name={t("stepSound.priority")}
+                prop={"soundPriority"}
+                icon="sort"
+                defaultValue={0}
+                min={0}
+                max={1000}
+                minorStepSize={1}
+                stepSize={10}
+                majorStepSize={100}
+            />
+            <FormGroup label={t("stepSound.variants")} style={{ marginTop: 10 }}>
+                <SoundPresetSelect />
                 <NumericInput
                     fill
                     min={0}
@@ -104,14 +72,6 @@ export default function StepSoundPanel() {
                 />
             </FormGroup>
 
-            <div style={{ textAlign: "center", marginBottom: 5, marginTop: 10 }}>
-                <SizeTag
-                    sizeBytes={soundSize}
-                    warningMsg={t("stepSound.errorSize") as string}
-                    okMsg={t("stepSound.okSize") as string}
-                />
-            </div>
-
             <DropdownList
                 elements={selectedElem.properties.sounds?.map((sound, index) => ({
                     id: sound.id,
@@ -124,7 +84,7 @@ export default function StepSoundPanel() {
                     <SoundEditorPanel
                         title={e.name}
                         soundID={e.id}
-                        onFinished={() => setSelectedSoundID(undefined)}
+                        onFinish={() => setSelectedSoundID(undefined)}
                     />
                 )}
             />

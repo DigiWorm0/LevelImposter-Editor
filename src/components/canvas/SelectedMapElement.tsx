@@ -30,22 +30,11 @@ export default function SelectedMapElement() {
             <PlatformRange />
             <MinimapPreview />
             <MinimapElement />
-
-            <Group
-                x={selectedElem.x * UNITY_SCALE}
-                y={-selectedElem.y * UNITY_SCALE}
-                scaleX={selectedElem.xScale}
-                scaleY={selectedElem.yScale}
-                rotation={-selectedElem.rotation}>
-
-                <ColliderPreview />
-                <ColliderEditor />
-                <StarfieldRender />
-                <FloatingRender />
-                <PlayerZRender />
-
-            </Group>
-
+            <ColliderPreview />
+            <ColliderEditor />
+            <PlayerZRender />
+            <FloatingRender />
+            <StarfieldRender />
             <ElemConnections />
             <RoomText />
         </>

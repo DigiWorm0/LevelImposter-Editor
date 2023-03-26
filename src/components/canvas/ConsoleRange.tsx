@@ -1,4 +1,5 @@
 import { Shape } from "react-konva";
+import getIsConsole from "../../hooks/getIsConsole";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import { DEFAULT_CONSOLE_RANGE, UNITY_SCALE, VENT_CONSOLE_RANGE } from "../../types/generic/Constants";
 
@@ -8,15 +9,7 @@ export default function ConsoleRange() {
     const isVent = selectedElem?.type.startsWith("util-vent");
     const radius = isVent ? VENT_CONSOLE_RANGE : (selectedElem?.properties.range ?? DEFAULT_CONSOLE_RANGE);
     const angle = selectedElem?.properties.onlyFromBelow ? Math.PI : Math.PI * 2;
-    const isConsole = selectedElem?.type.startsWith("task-")
-        || (selectedElem?.type.startsWith("sab-") && !selectedElem?.type.startsWith("sab-btn"))
-        || selectedElem?.type.startsWith("util-button")
-        || selectedElem?.type.startsWith("util-cams")
-        || selectedElem?.type === "util-admin"
-        || selectedElem?.type === "util-vitals"
-        || selectedElem?.type === "util-computer"
-        || selectedElem?.type === "util-triggerconsole"
-        || isVent;
+    const isConsole = getIsConsole(selectedElem?.type || "");
 
     if (!selectedElem || !isConsole)
         return null;

@@ -65,7 +65,7 @@ export default function DoorPanel() {
                         <SoundEditorPanel
                             title={e.name}
                             soundType={e.id}
-                            onFinished={() => setSelectedSoundType(undefined)}
+                            onFinish={() => setSelectedSoundType(undefined)}
                         />
                     )}
                 />

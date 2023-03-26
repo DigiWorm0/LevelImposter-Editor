@@ -5,33 +5,42 @@ import { PLAYER_POS, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function PlayerZRender() {
     const selectedElem = useSelectedElemValue();
-    const sprite = useSpriteType("util-dummy");
+    const dummySprite = useSpriteType("util-dummy");
     const elemSprite = useSprite(selectedElem?.id);
 
     const inRange = Math.abs((selectedElem?.z || 0) - PLAYER_POS) <= 0.1;
 
-    if (!selectedElem || !inRange || !sprite || !elemSprite)
+    if (!selectedElem || !inRange || !dummySprite || !elemSprite)
         return null;
 
-    const w = sprite?.width || 0;
-    const h = sprite?.height || 0;
-    const elemW = elemSprite?.width || 0;
-    const y = (selectedElem.z - PLAYER_POS) * -1000;
+    // Get Line Size
+    const lineWidth = (elemSprite.width * selectedElem.xScale) ?? 0;
+    const lineY = (selectedElem.z - PLAYER_POS) * -1000;
+
+    // Calculate Points
+    const centerPoint = { x: selectedElem.x * UNITY_SCALE, y: (lineY - selectedElem.y) * UNITY_SCALE };
+    const leftPoint = { x: centerPoint.x - lineWidth / 2, y: centerPoint.y + 30 };
+    const rightPoint = { x: centerPoint.x + lineWidth / 2, y: centerPoint.y + 30 };
 
     return (
         <>
-            <Image
-                opacity={0.3}
-                x={-w / 2}
-                y={y * UNITY_SCALE - h / 2}
-                image={sprite}
-                width={w}
-                height={h}
-                listening={false}
-            />
+            {dummySprite && (
+                <Image
+                    opacity={0.3}
+                    x={centerPoint.x - dummySprite.width / 2}
+                    y={centerPoint.y - dummySprite.height / 2}
+                    image={dummySprite}
+                    width={dummySprite.width}
+                    height={dummySprite.height}
+                    listening={false}
+                />
+            )}
 
             <Line
-                points={[-elemW / 2, y * UNITY_SCALE, elemW / 2, y * UNITY_SCALE]}
+                points={[
+                    leftPoint.x, leftPoint.y,
+                    rightPoint.x, rightPoint.y,
+                ]}
                 stroke="#ffaa00ff"
                 strokeWidth={4}
                 dash={[10, 10]}

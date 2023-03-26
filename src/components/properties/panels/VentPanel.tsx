@@ -65,7 +65,7 @@ export default function VentPanel() {
                                 <SoundEditorPanel
                                     title={t(`vent.${e.id}`) as string}
                                     soundType={e.id}
-                                    onFinished={() => setSelectedSoundType(undefined)}
+                                    onFinish={() => setSelectedSoundType(undefined)}
                                 />
                             )}
                         />
