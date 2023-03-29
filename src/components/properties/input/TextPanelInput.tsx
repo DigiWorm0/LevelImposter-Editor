@@ -21,6 +21,18 @@ export default function TextPanelInput(props: TextInputProps) {
 
     const defaultValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
 
+    const updateValue = React.useCallback((val?: string) => {
+        if (selectedElem) {
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    [props.prop]: val ? val : props.defaultValue
+                }
+            });
+        }
+    }, [selectedElem, props.prop, props.defaultValue, setSelectedElem]);
+
     return (
         <FormGroup
             style={{
@@ -36,17 +48,9 @@ export default function TextPanelInput(props: TextInputProps) {
             >
                 <ResettablePanelInput
                     onReset={() => {
-                        if (selectedElem) {
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: {
-                                    ...selectedElem.properties,
-                                    [props.prop]: props.defaultValue
-                                }
-                            });
-                            if (input.current)
-                                input.current.value = "";
-                        }
+                        updateValue();
+                        if (input.current)
+                            input.current.value = "";
                     }}
                 >
                     <InputGroup
@@ -57,16 +61,10 @@ export default function TextPanelInput(props: TextInputProps) {
                         defaultValue={defaultValue as string}
                         leftIcon={props.icon}
                         onBlur={(e) => {
-                            const val = e.currentTarget.value;
-                            if (selectedElem) {
-                                setSelectedElem({
-                                    ...selectedElem,
-                                    properties: {
-                                        ...selectedElem.properties,
-                                        [props.prop]: val === "" ? props.defaultValue : val
-                                    }
-                                });
-                            }
+                            updateValue(e.target.value);
+                        }}
+                        onChange={(e) => {
+                            updateValue(e.target.value);
                         }}
                     />
                 </ResettablePanelInput>
