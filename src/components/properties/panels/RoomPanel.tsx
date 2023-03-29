@@ -27,7 +27,10 @@ export default function RoomPanel() {
                     defaultValue={true}
                 />
             </PanelContainer>
-            <MapError isVisible={!hasCollider}>
+            <MapError
+                isVisible={!hasCollider}
+                icon="polygon-filter"
+            >
                 {t("room.errorNoCollider") as string}
             </MapError>
         </>

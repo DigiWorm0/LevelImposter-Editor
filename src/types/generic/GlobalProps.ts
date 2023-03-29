@@ -51,6 +51,13 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         ]
     },
     {
+        prop: "description",
+        types: [
+            "task-temp1",
+            "task-temp2",
+        ]
+    },
+    {
         prop: "sabDuration",
         types: [
             "sab-btnoxygen",

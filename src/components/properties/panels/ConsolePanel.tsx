@@ -4,7 +4,6 @@ import { DEFAULT_CONSOLE_RANGE } from "../../../types/generic/Constants";
 import ColorPanelInput from "../input/ColorPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";
 import SwitchPanelInput from "../input/SwitchPanelInput";
-import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 
 export default function ConsolePanel() {
