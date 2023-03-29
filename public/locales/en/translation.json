@@ -181,7 +181,8 @@
         "Long": "Long",
         "Common": "Common",
         "errorNoFuel": "The multi-step gas task requires atleast 2 Gas Outputs (util-fuel2).",
-        "errorNoRoom": "This task is not attached to a room."
+        "errorNoRoom": "This task is not attached to a room.",
+        "errorTemp": "Different temperature tasks cannot be connected to the same room."
     },
     "tele": {
         "title": "Teleporter",
@@ -261,7 +262,7 @@
         "title": "Sabotage",
         "duration": "Sabotage Duration",
         "description": "Sabotage Description",
-        "doorInfo": "Any door attatched to room will close when this button is pressed.",
+        "doorInfo": "Any door attached to room will close when this button is pressed.",
         "errorNoRoom": "This object does not have a room. Sabotage will not function properly.",
         "errorMultipleSabs": "{{name}} is already attached to this room."
     },

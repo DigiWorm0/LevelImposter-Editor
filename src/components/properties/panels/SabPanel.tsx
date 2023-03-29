@@ -81,13 +81,22 @@ export default function SabPanel() {
                 )}
             </PanelContainer>
 
-            <MapError isVisible={parentRoom === undefined}>
+            <MapError
+                isVisible={parentRoom === undefined}
+                icon="map-marker"
+            >
                 {t("sab.errorNoRoom") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type === "sab-btndoors"} info>
+            <MapError
+                isVisible={selectedElem.type === "sab-btndoors"}
+                info
+                icon="map-marker"
+            >
                 {t("sab.doorInfo") as string}
             </MapError>
-            <MapError isVisible={otherSab !== undefined}>
+            <MapError
+                isVisible={otherSab !== undefined}
+            >
                 {t("sab.errorMultipleSabs", { name: otherSab?.name }) as string}
             </MapError>
         </>

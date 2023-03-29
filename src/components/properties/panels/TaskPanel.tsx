@@ -13,6 +13,7 @@ import PanelContainer from "../util/PanelContainer";
 export default function TaskPanel() {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
+    const taskElems = useElementType("task-");
     const selectedElem = useSelectedElemValue();
     const typeElems = useElementType(selectedElem?.type ?? "");
     const sprite = useSpriteType(selectedElem?.type);
@@ -24,6 +25,13 @@ export default function TaskPanel() {
     const taskName = React.useMemo(() => {
         return t(`au.${selectedElem?.type}`) || selectedElem?.name || "";
     }, [selectedElem]);
+
+    const hasDuplicateTempTask = React.useMemo(() => {
+        const tempTasks = taskElems.filter((e) => e.type.startsWith("task-temp"));
+        const filteredTempTasks = tempTasks.filter((e) => e.properties.parent === selectedElem?.properties.parent);
+        console.log(filteredTempTasks);
+        return filteredTempTasks.length > 1 && selectedElem?.type.startsWith("task-temp");
+    }, [taskElems, selectedElem]);
 
 
     if (!selectedElem || !selectedElem.type.startsWith("task-"))
@@ -50,11 +58,22 @@ export default function TaskPanel() {
                 />
             </PanelContainer>
 
-            <MapError isVisible={selectedElem.type === "task-fuel2" && typeElems.length === 1}>
+            <MapError
+                isVisible={selectedElem.type === "task-fuel2" && typeElems.length === 1}
+            >
                 {t("task.errorNoFuel")}
             </MapError>
-            <MapError isVisible={parentRoom === undefined}>
+            <MapError
+                isVisible={parentRoom === undefined}
+                icon="map-marker"
+            >
                 {t("task.errorNoRoom")}
+            </MapError>
+            <MapError
+                isVisible={hasDuplicateTempTask}
+                icon="map-marker"
+            >
+                {t("task.errorTemp")}
             </MapError>
         </>
     );

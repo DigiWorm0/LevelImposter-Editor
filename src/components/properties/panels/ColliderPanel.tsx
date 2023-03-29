@@ -121,22 +121,46 @@ export default function ColliderPanel() {
 
             </PanelContainer>
 
-            <MapError isVisible={selectedColliderID !== undefined} info>
+            <MapError
+                isVisible={selectedColliderID !== undefined}
+                info
+                icon="hand-up"
+            >
                 {t("collider.colliderInfo") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type.startsWith("sab-door")} info>
+            <MapError
+                isVisible={selectedElem.type.startsWith("sab-door")}
+                info
+                icon="polygon-filter"
+            >
                 {t("collider.doorInfo") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type === "util-room"} info>
+            <MapError
+                isVisible={selectedElem.type === "util-room"}
+                info
+                icon="area-of-interest"
+            >
                 {t("collider.roomInfo") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type.startsWith("util-sound") || selectedElem.type === "util-triggersound"} info>
+            <MapError
+                isVisible={selectedElem.type.startsWith("util-sound") || selectedElem.type === "util-triggersound"}
+                info
+                icon="volume-up"
+            >
                 {t("collider.soundInfo") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type === "util-triggerarea"} info>
+            <MapError
+                isVisible={selectedElem.type === "util-triggerarea"}
+                info
+                icon="polygon-filter"
+            >
                 {t("collider.triggerAreaInfo") as string}
             </MapError>
-            <MapError isVisible={selectedElem.type === "util-tele"} info>
+            <MapError
+                isVisible={selectedElem.type === "util-tele"}
+                info
+                icon="polygon-filter"
+            >
                 {t("collider.teleInfo") as string}
             </MapError>
         </>

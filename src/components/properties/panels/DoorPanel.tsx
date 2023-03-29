@@ -70,7 +70,10 @@ export default function DoorPanel() {
                     )}
                 />
             </PanelContainer>
-            <MapError isVisible={parentRoom === undefined}>
+            <MapError
+                isVisible={parentRoom === undefined}
+                icon="map-marker"
+            >
                 {t("door.errorNoRoom")}
             </MapError>
         </>

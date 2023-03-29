@@ -72,7 +72,11 @@ export default function VentPanel() {
                     </>
                 )}
             </PanelContainer>
-            <MapError isVisible={selectedElem.type === "util-vent2"} info icon="volume-up">
+            <MapError
+                isVisible={selectedElem.type === "util-vent2"}
+                info
+                icon="volume-up"
+            >
                 {t("vent.ventSoundInfo")}
             </MapError>
         </>

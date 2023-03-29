@@ -85,16 +85,32 @@ export default function SpritePanel() {
                     onColorChange={onColorChange}
                 />
             </PanelContainer>
-            <MapError info isVisible={selectedElem.type.startsWith("util-vent")} icon="play">
+            <MapError
+                info
+                isVisible={selectedElem.type.startsWith("util-vent")}
+                icon="play"
+            >
                 {t("sprite.ventInfo") as string}
             </MapError>
-            <MapError info isVisible={selectedElem.type.startsWith("sab-door")} icon="play">
+            <MapError
+                info
+                isVisible={selectedElem.type.startsWith("sab-door")}
+                icon="play"
+            >
                 {t("sprite.doorInfo") as string}
             </MapError>
-            <MapError info isVisible={selectedElem.type === "util-cam"} icon="play">
+            <MapError
+                info
+                isVisible={selectedElem.type === "util-cam"}
+                icon="play"
+            >
                 {t("sprite.camInfo") as string}
             </MapError>
-            <MapError info isVisible={selectedElem.properties.spriteData !== undefined && isConsole} icon="vertical-inbetween">
+            <MapError
+                info
+                isVisible={selectedElem.properties.spriteData !== undefined && isConsole}
+                icon="vertical-inbetween"
+            >
                 {t("sprite.paddingInfo") as string}
             </MapError>
         </>

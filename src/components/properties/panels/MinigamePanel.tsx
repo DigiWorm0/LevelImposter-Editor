@@ -70,7 +70,10 @@ export default function MinigamePanel() {
                     />
                 )}
             </PanelContainer>
-            <MapError info>
+            <MapError
+                info
+                icon="media"
+            >
                 {t("minigame.saveInfo")}
             </MapError>
         </>

@@ -59,10 +59,16 @@ export default function SoundPanel() {
                     onReset={onReset}
                 />
             </PanelContainer>
-            <MapError isVisible={!hasCollider} >
+            <MapError
+                isVisible={!hasCollider}
+                icon="polygon-filter"
+            >
                 {t("audio.errorNoCollider") as string}
             </MapError>
-            <MapError isVisible={!hasSound} >
+            <MapError
+                isVisible={!hasSound}
+                icon="volume-off"
+            >
                 {t("audio.errorNoSound") as string}
             </MapError>
         </>
