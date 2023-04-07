@@ -6,6 +6,7 @@ import GUID, { MaybeGUID } from "../types/generic/GUID";
 import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import useMap from "./jotai/useMap";
+import { UNITY_SCALE } from "../types/generic/Constants";
 
 const TASK_TYPES = AUElementDB.filter((type) => type.startsWith("task-"));
 const UTIL_TYPES = AUElementDB.filter((type) => type.startsWith("util-"));
@@ -21,19 +22,44 @@ export default function useTestMapGenerator() {
     const [map, setMap] = useMap();
     const { t } = useTranslation();
 
-    const generateTestSprite = React.useCallback(() => {
-        const color = `hsla(${Math.random() * 360}, 100%, 50%, 50%)`;
+    const generateTestSprite = React.useCallback((color?: string, size?: number) => {
         const canvas = document.createElement("canvas");
-        canvas.width = 100;
-        canvas.height = 100;
+        canvas.width = size ?? 100;
+        canvas.height = size ?? 100;
         const ctx = canvas.getContext("2d");
         if (!ctx) {
             return "";
         }
-        ctx.fillStyle = color;
-        ctx.fillRect(0, 0, 100, 100);
+        ctx.fillStyle = color ?? `hsla(${Math.random() * 360}, 100%, 50%, 50%)`;
+        ctx.fillRect(0, 0, size ?? 100, size ?? 100);
         return canvas.toDataURL("image/png");
     }, []);
+
+    const generateDotGridSprite = React.useCallback(() => {
+        const width = 150;
+        const height = 30;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = UNITY_SCALE * width;
+        canvas.height = UNITY_SCALE * height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+            return "";
+        }
+        ctx.fillStyle = "white";
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                ctx.fillRect(
+                    x * UNITY_SCALE - 2.5,
+                    y * UNITY_SCALE - 2.5,
+                    5,
+                    5
+                );
+            }
+        }
+        return canvas.toDataURL("image/png");
+    }, []);
+
 
     const generateMap = React.useCallback(() => {
         const elemList: LIElement[] = [];
@@ -69,7 +95,7 @@ export default function useTestMapGenerator() {
             }
 
             const task = addElement(type, index * CONSOLE_SPACING, 0, 0, taskParent.id);
-            const taskMinigames: string[] = []; //AUMinigameDB.filter((mgType) => mgType.startsWith(`${type}_`));
+            const taskMinigames: string[] = AUMinigameDB.filter((mgType) => mgType.startsWith(`${type}_`));
             task.properties = {
                 minigames: taskMinigames.map((mgType) => ({
                     id: generateGUID(),
@@ -86,6 +112,7 @@ export default function useTestMapGenerator() {
         UTIL_TYPES.forEach((type, index) => {
             addElement(type, index * CONSOLE_SPACING, 4, 0, utilParent.id);
         });
+        addElement("util-dummy", -CONSOLE_SPACING, 4, 0, utilParent.id);
 
         // Sabotage
         const sabRooms: Record<string, GUID> = {};
@@ -141,11 +168,24 @@ export default function useTestMapGenerator() {
             addElement(type, index * ROOM_SPACING, 20, 5, roomParent.id);
         });
 
+        // Grid Dot
+        const gridParent = addElement("util-layer", 0, 0, 0);
+        gridParent.name = "Grid Dots";
+        const gridDotSprite = generateDotGridSprite();
+        const gridDot = addElement("util-blank", 75, 15, 10, gridParent.id);
+        gridDot.properties = {
+            spriteData: gridDotSprite,
+        };
+
         setMap({
             ...map,
             name: "Test Map",
             description: `Test map generated at ${new Date().toLocaleString()}`,
             elements: elemList,
+            properties: {
+                ...map.properties,
+                bgColor: "#1C2127"
+            }
         });
     }, [map, setMap]);
 
