@@ -21,8 +21,6 @@ export default function TransformPanel() {
     }, [selectedElem]);
 
     const elemVisibility = React.useMemo(() => {
-        if (!selectedElem)
-            return undefined;
         return getElemVisibility(selectedElem);
     }, [selectedElem]);
 

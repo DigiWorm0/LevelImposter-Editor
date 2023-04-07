@@ -121,6 +121,7 @@ const AUMinigameDB: string[] = [
     "task-id_walletmask",
     "task-keys_bg",
     "task-keys_key",
+    "task-keys_keyinsert",
     "task-keys_keychain",
     "task-keys_keychainmask",
     "task-keys_keyslot",

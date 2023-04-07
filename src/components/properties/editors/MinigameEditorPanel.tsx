@@ -23,7 +23,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const onReset = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const minigameList = selectedElem.properties.minigames?.filter(minigame => minigame.id !== minigame?.id);
+        const minigameList = selectedElem.properties.minigames?.filter(minigame => minigame.type !== minigameType) ?? [];
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -31,7 +31,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 minigames: minigameList
             }
         });
-    }, [selectedElem, minigame, setSelectedElem]);
+    }, [selectedElem, minigameType, setSelectedElem]);
 
     const onUpload = React.useCallback((spriteData: string) => {
         if (!selectedElem)

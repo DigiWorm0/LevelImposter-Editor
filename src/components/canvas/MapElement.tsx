@@ -10,38 +10,7 @@ import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-
-const HIDE_ON_SELECT = [
-    "util-room",
-    "util-blankfloat",
-    "util-starfield",
-];
-
-const HIDE_ON_DESELECT = [
-    "util-room",
-    "util-blankfloat",
-    "util-starfield",
-    "util-sound1",
-    "util-sound2",
-    "util-tele",
-    "util-blanktrigger",
-    "util-triggerarea",
-    "util-triggerrepeat",
-    "util-triggertimer",
-    "util-triggerconsole",
-    "util-triggersound",
-    "util-triggerstart",
-    "util-triggerrand",
-    "util-spawn1",
-    "util-spawn2",
-    "util-blank",
-    "util-minimap",
-    "sab-btnreactor",
-    "sab-btnlights",
-    "sab-btncomms",
-    "sab-btnoxygen",
-    "sab-btndoors"
-];
+import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
 
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
@@ -54,6 +23,10 @@ export default function MapElement(props: { elementID: GUID }) {
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
     const imageRef = React.useRef<Konva.Image>(null);
+
+    const elemVisibility = React.useMemo(() => {
+        return getElemVisibility(elem);
+    }, [elem]);
 
     React.useEffect(() => {
         const color = elem?.properties.color;
@@ -92,9 +65,8 @@ export default function MapElement(props: { elementID: GUID }) {
     const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
-        (isVisible ? 1 : invisibleOpacity) * // If Element is Visible
-        ((HIDE_ON_SELECT.includes(elem.type) && isSelected) ? invisibleOpacity : 1) * // If Element is Selected
-        ((HIDE_ON_DESELECT.includes(elem.type) && !isSelected && elem.properties.spriteData === undefined) ? Math.sqrt(invisibleOpacity) : 1); // If Element is Deselected
+        (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
+        (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity); // If Element is Visible in Current Layer
 
     return (
         <Group
