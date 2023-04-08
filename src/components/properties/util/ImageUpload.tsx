@@ -134,7 +134,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                     borderRadius: 5,
                     backgroundColor: "rgba(0, 0, 0, 0.7)",
                     opacity: isHovering ? 1 : 0,
-                    transition: "opacity 0.2s",
+                    transition: "opacity 0.1s",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",

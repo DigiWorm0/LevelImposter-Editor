@@ -15,6 +15,7 @@ interface SoundUploadProps {
     onReset: () => void;
 
     title?: string;
+    soundType?: string;
     onFinish?: () => void;
 }
 
@@ -31,6 +32,7 @@ export default function SoundUpload(props: SoundUploadProps) {
         openUploadDialog("audio/wav").then((data) => {
             props.onChange({
                 id: props.sound?.id ?? generateGUID(),
+                type: props.soundType,
                 data,
                 volume: DEFAULT_VOLUME,
                 isPreset: false
