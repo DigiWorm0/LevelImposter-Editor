@@ -20,6 +20,8 @@ const TYPE_BLACKLIST = [
     "util-triggerrepeat",
     "util-triggersound",
     "util-triggerrand",
+    "util-triggertimer",
+    "util-triggerstart",
     "util-dummy",
 ];
 

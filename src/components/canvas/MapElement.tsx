@@ -60,9 +60,9 @@ export default function MapElement(props: { elementID: GUID }) {
 
     const w = sprite ? sprite.width : 0;
     const h = sprite ? sprite.height : 0;
-    const isVisible = elem.properties.isVisible === undefined ? true : elem.properties.isVisible;
-    const gridSnapResolution = settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
-    const invisibleOpacity = settings.invisibleOpacity === undefined ? DEFAULT_INVISIBLE_OPACITY : settings.invisibleOpacity;
+    const isVisible = elem.properties.isVisible ?? true;
+    const gridSnapResolution = settings.gridSnapResolution ?? DEFAULT_GRID_SNAP_RESOLUTION;
+    const invisibleOpacity = settings.invisibleOpacity ?? DEFAULT_INVISIBLE_OPACITY;
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible

@@ -7,6 +7,7 @@ import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import useMap from "./jotai/useMap";
 import { UNITY_SCALE } from "../types/generic/Constants";
+import LICollider from "../types/li/LICollider";
 
 const TASK_TYPES = AUElementDB.filter((type) => type.startsWith("task-"));
 const UTIL_TYPES = AUElementDB.filter((type) => type.startsWith("util-"));
@@ -60,11 +61,10 @@ export default function useTestMapGenerator() {
         return canvas.toDataURL("image/png");
     }, []);
 
-
     const generateMap = React.useCallback(() => {
         const elemList: LIElement[] = [];
         const addElement = (type: string, x: number, y: number, z: number, parentID?: GUID) => {
-            const elem = {
+            const elem: LIElement = {
                 id: generateGUID(),
                 parentID,
                 name: t(`au.${type}`),
@@ -75,7 +75,19 @@ export default function useTestMapGenerator() {
                 xScale: 1,
                 yScale: 1,
                 rotation: 0,
-                properties: {}
+                properties: {
+                    colliders: type === "util-room" ? [{
+                        id: generateGUID(),
+                        blocksLight: false,
+                        isSolid: true,
+                        points: [
+                            { x: -0.5, y: -0.5 },
+                            { x: 0.5, y: -0.5 },
+                            { x: 0.5, y: 0.5 },
+                            { x: -0.5, y: 0.5 },
+                        ]
+                    }] : undefined
+                }
             };
             elemList.push(elem);
             return elem;
