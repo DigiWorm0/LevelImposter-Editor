@@ -29,7 +29,6 @@ export default function TaskPanel() {
     const hasDuplicateTempTask = React.useMemo(() => {
         const tempTasks = taskElems.filter((e) => e.type.startsWith("task-temp"));
         const filteredTempTasks = tempTasks.filter((e) => e.properties.parent === selectedElem?.properties.parent);
-        console.log(filteredTempTasks);
         return filteredTempTasks.length > 1 && selectedElem?.type.startsWith("task-temp");
     }, [taskElems, selectedElem]);
 

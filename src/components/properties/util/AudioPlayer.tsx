@@ -72,9 +72,9 @@ export default function AudioPlayer(props: AudioPlayerProps) {
             </audio>
 
             <DevInfo>
-                {sound?.id}
-                {sound?.type}
-                {sound?.isPreset}
+                {sound?.id} <br />
+                {sound?.type} <br />
+                {sound?.isPreset} <br />
                 {soundData?.length}
             </DevInfo>
 

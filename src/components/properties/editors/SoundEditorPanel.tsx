@@ -24,7 +24,7 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
     const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
             return;
-        const sounds = selectedElem.properties.sounds?.filter(sound => sound.id !== sound?.id) ?? [];
+        const sounds = selectedElem.properties.sounds?.filter(s => s.id !== sound?.id) ?? [];
         setSelectedElem({
             ...selectedElem,
             properties: {
@@ -79,6 +79,7 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
             <SoundUpload
                 title={props.title}
                 sound={sound}
+                soundType={props.soundType}
                 onChange={onSoundChange}
                 onReset={onDeleteClick}
                 onFinish={props.onFinish}

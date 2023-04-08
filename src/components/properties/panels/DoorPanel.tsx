@@ -1,6 +1,5 @@
-import { AnchorButton, Button, ControlGroup, FormGroup } from "@blueprintjs/core";
-import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { MenuItem2 } from "@blueprintjs/popover2";
+import { ItemRenderer } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
@@ -25,16 +24,6 @@ export default function DoorPanel() {
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
     const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
-
-    const typeSelectRenderer: ItemRenderer<string> = (type, props) => (
-        <MenuItem2
-            key={props.index + "-type"}
-            text={t(`door.${type}`) as string}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
 
     if (!selectedElem || !selectedElem.type.startsWith("sab-door"))
         return null;

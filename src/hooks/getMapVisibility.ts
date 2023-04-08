@@ -8,6 +8,8 @@ const INVISIBLE_TYPES = [
     "util-triggerrepeat",
     "util-triggertimer",
     "util-triggerstart",
+    "util-triggersound",
+    "util-triggerrand",
     "util-sound1",
     "util-sound2",
 ]
@@ -15,7 +17,9 @@ const INVISIBLE_TYPES = [
 const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blank",
     "util-blankfloat",
-    "util-starfield"
+    "util-starfield",
+    "util-triggerconsole",
+    "util-blanktrigger"
 ]
 
 const INVISIBLE_TYPES_MINIMAP = [
@@ -25,6 +29,7 @@ const INVISIBLE_TYPES_MINIMAP = [
     "sab-btnoxygen",
     "sab-btnlights",
     "sab-btncomms",
+    "sab-btndoors",
 ]
 
 export enum ElemVisibility {
@@ -35,7 +40,11 @@ export enum ElemVisibility {
     InvisibleFreeplay
 }
 
-export default function getElemVisibility(elem: LIElement): ElemVisibility {
+export default function getElemVisibility(elem?: LIElement): ElemVisibility {
+    if (!elem) {
+        return ElemVisibility.Invisible;
+    }
+
     if (INVISIBLE_TYPES.includes(elem.type)) {
         return ElemVisibility.Invisible;
     }
