@@ -1,14 +1,14 @@
 import { Collapse, Icon, IconName, Intent, Menu } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 
-interface DropdownElement<T> {
+export interface DropdownElement<T> {
     id: T;
     name: string;
     icon?: IconName;
     intent?: Intent;
 }
 
-interface DropdownListProps<T> {
+export interface DropdownListProps<T> {
     elements: DropdownElement<T>[];
     onSelectID: (id?: T) => void;
 

@@ -8,6 +8,8 @@ import ColorPanelInput from "../input/ColorPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import MinigameListEditorPanel from "../editors/MinigameListEditorPanel";
+import { DEFAULT_ASTEROID_COUNT, DEFAULT_FANS_COUNT, DEFAULT_VENDING_COUNT } from "../../../types/generic/Constants";
 
 export default function MinigamePanel() {
     const { t } = useTranslation();
@@ -15,8 +17,12 @@ export default function MinigamePanel() {
     const [selectedMinigameType, setSelectedMinigameType] = React.useState<string | undefined>(undefined);
 
     const minigameSprites = React.useMemo(() => AUMinigameDB.filter((mg) => mg.split("_")[0] === element?.type), [element]);
+
     const isReactor = React.useMemo(() => element?.type.startsWith("sab-reactor"), [element]);
     const isLights = React.useMemo(() => element?.type === "sab-electric", [element]);
+    const isVending = React.useMemo(() => element?.type === "task-vending", [element]);
+    const isWeapons = React.useMemo(() => element?.type === "task-weapons", [element]);
+    const isFans = React.useMemo(() => element?.type.startsWith("task-fans"), [element]);
 
     if (!element || minigameSprites.length === 0)
         return null;
@@ -69,6 +75,55 @@ export default function MinigamePanel() {
                         defaultValue={{ r: 26, g: 77, b: 26, a: 255 }}
                     />
                 )}
+                {isVending && (
+                    <MinigameListEditorPanel
+                        name={t("minigame.vendingItems") as string}
+                        defaultCount={DEFAULT_VENDING_COUNT}
+                        typePrefix="task-vending_item"
+                        selectedMinigameType={selectedMinigameType}
+                        setSelectedMinigameType={setSelectedMinigameType}
+                    />
+                )}
+                {isVending && (
+                    <MinigameListEditorPanel
+                        name={t("minigame.vendingDrawings") as string}
+                        defaultCount={DEFAULT_VENDING_COUNT}
+                        typePrefix="task-vending_drawnitem"
+                        selectedMinigameType={selectedMinigameType}
+                        setSelectedMinigameType={setSelectedMinigameType}
+                        hideCount
+                    />
+                )}
+                {isWeapons && (
+                    <MinigameListEditorPanel
+                        name={t("minigame.weaponAsteroids") as string}
+                        defaultCount={DEFAULT_ASTEROID_COUNT}
+                        typePrefix="task-weapons_asteroid"
+                        selectedMinigameType={selectedMinigameType}
+                        setSelectedMinigameType={setSelectedMinigameType}
+                    />
+                )}
+                {isWeapons && (
+                    <MinigameListEditorPanel
+                        name={t("minigame.weaponBrokenAsteroids") as string}
+                        defaultCount={DEFAULT_ASTEROID_COUNT}
+                        typePrefix="task-weapons_broken"
+                        selectedMinigameType={selectedMinigameType}
+                        setSelectedMinigameType={setSelectedMinigameType}
+                        hideCount
+                    />
+                )}
+                {isFans && (
+                    <MinigameListEditorPanel
+                        name={t("minigame.fanSymbols") as string}
+                        defaultCount={DEFAULT_FANS_COUNT}
+                        typePrefix={element.type + "_symbol"}
+                        selectedMinigameType={selectedMinigameType}
+                        setSelectedMinigameType={setSelectedMinigameType}
+                    />
+                )}
+
+
             </PanelContainer>
             <MapError
                 info

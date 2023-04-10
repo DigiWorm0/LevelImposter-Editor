@@ -9,6 +9,7 @@ import ImageUpload from "../util/ImageUpload";
 interface MinigameEditorPanelProps {
     minigameType: string;
     onFinish: () => void;
+    hideName?: boolean;
 }
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
@@ -66,9 +67,11 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
 
     return (
         <div style={{ padding: 20 }}>
-            <H6>
-                {t(`minigame.${minigameType?.split("_")[1]}`)}
-            </H6>
+            {!props.hideName && (
+                <H6>
+                    {t(`minigame.${minigameType?.split("_")[1]}`)}
+                </H6>
+            )}
             <DevInfo>
                 {minigame?.id}
                 {minigame?.type}
