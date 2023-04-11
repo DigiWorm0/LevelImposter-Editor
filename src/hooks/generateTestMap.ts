@@ -7,7 +7,7 @@ import LIElement from "../types/li/LIElement";
 import generateGUID from "./generateGUID";
 import useMap from "./jotai/useMap";
 import { UNITY_SCALE } from "../types/generic/Constants";
-import LICollider from "../types/li/LICollider";
+import useToaster from "./useToaster";
 
 const TASK_TYPES = AUElementDB.filter((type) => type.startsWith("task-"));
 const UTIL_TYPES = AUElementDB.filter((type) => type.startsWith("util-"));
@@ -22,6 +22,7 @@ const DEC_SPACING = 2;
 export default function useTestMapGenerator() {
     const [map, setMap] = useMap();
     const { t } = useTranslation();
+    const toast = useToaster();
 
     const generateTestSprite = React.useCallback((color?: string, size?: number) => {
         const canvas = document.createElement("canvas");
@@ -116,6 +117,18 @@ export default function useTestMapGenerator() {
                 })),
                 parent: roomID,
             };
+
+            if (type === "task-fuel2") {
+                const fuelTask = addElement(type, index * CONSOLE_SPACING, -2, 0, taskParent.id);
+                fuelTask.properties = {
+                    minigames: taskMinigames.map((mgType) => ({
+                        id: generateGUID(),
+                        type: mgType,
+                        spriteData: generateTestSprite(),
+                    })),
+                    parent: roomID,
+                };
+            }
         });
 
         // Utilities
@@ -199,6 +212,8 @@ export default function useTestMapGenerator() {
                 bgColor: "#1C2127"
             }
         });
+
+        toast.success("Test map generated!");
     }, [map, setMap]);
 
     return generateMap;

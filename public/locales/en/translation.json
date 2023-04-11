@@ -152,6 +152,8 @@
         "reactorColorGood": "Good Color",
         "lightsColorOn": "On Color",
         "lightsColorOff": "Off Color",
+        "fuelColor": "Fuel Color",
+        "bgColor": "Background Color",
         "vendingItems": "Vending Items",
         "vendingDrawings": "Vending Drawings",
         "weaponAsteroids": "Asteroids",
@@ -360,7 +362,9 @@
         "leftbg": "Left Background",
         "rightbg": "Right Background",
         "btndown": "Button Down",
-        "btnup": "Button Up"
+        "btnup": "Button Up",
+        "leftwaterfill": "Left Water Fill",
+        "rightwaterfill": "Right Water Fill"
     },
     "task": {
         "title": "Task",

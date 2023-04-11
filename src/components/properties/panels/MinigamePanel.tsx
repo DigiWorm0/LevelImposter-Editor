@@ -17,6 +17,7 @@ export default function MinigamePanel() {
 
     const isReactor = React.useMemo(() => element?.type.startsWith("sab-reactor"), [element]);
     const isLights = React.useMemo(() => element?.type === "sab-electric", [element]);
+    const isFuel = React.useMemo(() => element?.type.startsWith("task-fuel"), [element]);
 
     if (!element || minigameSprites.length === 0)
         return null;
@@ -69,6 +70,21 @@ export default function MinigamePanel() {
                         defaultValue={{ r: 26, g: 77, b: 26, a: 255 }}
                     />
                 )}
+                {isFuel && (
+                    <ColorPanelInput
+                        name={t("minigame.fuelColor") as string}
+                        minigameProp={"fuelColor"}
+                        defaultValue={{ r: 197, g: 170, b: 20, a: 255 }}
+                    />
+                )}
+                {isFuel && (
+                    <ColorPanelInput
+                        name={t("minigame.bgColor") as string}
+                        minigameProp={"fuelBgColor"}
+                        defaultValue={{ r: 0, g: 0, b: 0, a: 255 }}
+                    />
+                )}
+
             </PanelContainer>
             <MapError
                 info
