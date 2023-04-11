@@ -351,7 +351,16 @@
         "wiretip2": "Wire Tip 2",
         "wiretip3": "Wire Tip 3",
         "items": "Items",
-        "drawnitems": "Drawn Items"
+        "drawnitems": "Drawn Items",
+        "redlight": "Red Light",
+        "greenlight": "Green Light",
+        "btnbg": "Button Background",
+        "leftoutline": "Left Outline",
+        "rightoutline": "Right Outline",
+        "leftbg": "Left Background",
+        "rightbg": "Right Background",
+        "btndown": "Button Down",
+        "btnup": "Button Up"
     },
     "task": {
         "title": "Task",
