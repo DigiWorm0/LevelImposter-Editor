@@ -25,7 +25,6 @@ export default interface LIProperties {
     // Minigame
     minigames?: LIMinigameSprite[];
     minigameProps?: LIMinigameProps;
-    minigameItemCount?: number;
 
     // Sprite
     spriteData?: string;

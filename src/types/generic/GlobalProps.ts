@@ -77,7 +77,7 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
         prop: "sounds",
         types: [
             "util-vent1",
-            /*"util-vent2",*/ // Polus Vents don't have SpriteAnim so they don't play sounds
+            //"util-vent2", // Polus Vents don't have SpriteAnim so they don't play sounds
         ]
     }
 ];

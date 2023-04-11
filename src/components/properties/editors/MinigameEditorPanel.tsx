@@ -17,6 +17,8 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
     const minigameType = props.minigameType;
+    const splitMinigameType = minigameType.split("_");
+
     const minigame = React.useMemo(() => {
         return selectedElem?.properties.minigames?.find(mg => mg.type === minigameType);
     }, [selectedElem, props.minigameType]);
@@ -62,6 +64,9 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         });
     }, [selectedElem, minigame, setSelectedElem]);
 
+
+    console.log(splitMinigameType);
+
     if (!selectedElem)
         return null;
 
@@ -69,7 +74,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         <div style={{ padding: 20 }}>
             {!props.hideName && (
                 <H6>
-                    {t(`minigame.${minigameType?.split("_")[1]}`)}
+                    {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
                 </H6>
             )}
             <DevInfo>
