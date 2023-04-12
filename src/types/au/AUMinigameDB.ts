@@ -189,6 +189,13 @@ const AUMinigameDB: string[] = [
 
     "task-node_bg",
 
+    "task-nodeswitch_bg",
+    "task-nodeswitch_switch",
+    "task-nodeswitch_lighton",
+    "task-nodeswitch_lightoff",
+    "task-nodeswitch_screendark",
+    "task-nodeswitch_screenlight",
+
     "task-oxygen_bg",
     "task-oxygen_cannister",
     "task-oxygen_fillbar",

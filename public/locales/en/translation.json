@@ -364,7 +364,11 @@
         "btndown": "Button Down",
         "btnup": "Button Up",
         "leftwaterfill": "Left Water Fill",
-        "rightwaterfill": "Right Water Fill"
+        "rightwaterfill": "Right Water Fill",
+        "lighton": "Light On",
+        "lightoff": "Light Off",
+        "screendark": "Screen Dark",
+        "screenlight": "Screen Light"
     },
     "task": {
         "title": "Task",
