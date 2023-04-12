@@ -117,6 +117,12 @@ const AUMinigameDB: string[] = [
     "task-distributor_spin2",
     "task-distributor_spin3",
 
+    "task-divert1_bg",
+    "task-divert1_slider",
+
+    "task-divert2_bg",
+    "task-divert2_switch",
+
     "task-download_bg",
     "task-download_file",
 
