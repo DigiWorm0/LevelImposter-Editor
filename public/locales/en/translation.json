@@ -422,7 +422,8 @@
     },
     "spawn": {
         "title": "Spawn Point",
-        "radius": "Radius"
+        "radius": "Radius",
+        "spawnDummies": "Spawn Dummies"
     },
     "platform": {
         "title": "Moving Platform",

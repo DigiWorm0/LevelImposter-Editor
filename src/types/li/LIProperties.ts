@@ -88,6 +88,9 @@ export default interface LIProperties {
     minimapScale?: number;
     imposterOnly?: boolean;
 
+    // Spawn
+    spawnDummies?: boolean;
+
     // Editor
     isLocked?: boolean;
     isVisible?: boolean;

@@ -34,6 +34,8 @@ export const MINIMAP_BUTTON_SIZE = 5;
 export const MINIMAP_BUTTON_X = -17.5;
 export const MINIMAP_BUTTON_Y = 11;
 
+export const SPAWN_PLAYER_COUNT = 15;
+
 export const ROOM_TEXT_WIDTH = 1000;
 export const ROOM_TEXT_HEIGHT = 1000;
 
