@@ -11,6 +11,7 @@ import PanelContainer from "../util/PanelContainer";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",
+    "util-meeting",
     "util-triggerrepeat",
     "util-triggertimer",
     "util-triggerstart",

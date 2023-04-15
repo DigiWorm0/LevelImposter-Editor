@@ -12,6 +12,8 @@ interface AudioPlayerProps {
     title?: string;
     sound?: LISound;
     onSoundChange: (sound: LISound) => void;
+
+    loop?: boolean;
 }
 
 export default function AudioPlayer(props: AudioPlayerProps) {
@@ -67,7 +69,11 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 paddingRight: 10
             }}
         >
-            <audio ref={audioRef} src={soundData} loop>
+            <audio
+                ref={audioRef}
+                src={soundData}
+                loop={props.loop}
+            >
                 {t("audio.errorNotSupported")}
             </audio>
 

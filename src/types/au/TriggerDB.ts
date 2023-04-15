@@ -1,4 +1,8 @@
 const OutputTriggerDB: Record<string, string[]> = {
+    "util-meeting": [
+        "onButton",
+        "onReport"
+    ],
     "util-triggerarea": [
         "onEnter",
         "onExit",
@@ -81,6 +85,9 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-minimapsprite": [
         "show",
         "hide",
+    ],
+    "util-meeting": [
+        "callMeeting",
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

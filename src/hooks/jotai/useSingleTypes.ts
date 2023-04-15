@@ -3,6 +3,7 @@ import { elementsAtom } from "./useMap";
 
 const SINGLE_TYPES = [
     "util-minimap",
+    "util-meeting",
     "util-spawn1",
     "util-spawn2",
     "util-platform",

@@ -92,6 +92,9 @@ export default interface LIProperties {
     // Spawn
     spawnDummies?: boolean;
 
+    // Meeting
+    meetingBackground?: string;
+
     // Editor
     isLocked?: boolean;
     isVisible?: boolean;

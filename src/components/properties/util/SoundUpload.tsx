@@ -17,6 +17,7 @@ interface SoundUploadProps {
     title?: string;
     soundType?: string;
     onFinish?: () => void;
+    loop?: boolean;
 }
 
 export default function SoundUpload(props: SoundUploadProps) {
@@ -25,7 +26,7 @@ export default function SoundUpload(props: SoundUploadProps) {
     const toaster = useToaster();
 
     const soundSize = React.useMemo(() => {
-        return props.sound?.data?.length ?? 0;
+        return props.sound?.isPreset ? 0 : (props.sound?.data?.length ?? 0);
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
@@ -83,6 +84,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     title={props.title}
                     sound={props.sound}
                     onSoundChange={props.onChange}
+                    loop={props.loop}
                 />
             ) : (
                 <p

@@ -17,6 +17,7 @@ const TYPE_BLACKLIST = [
     "util-sound2",
     "util-tele",
     "util-layer",
+    "util-meeting",
     "util-triggerarea",
     "util-triggerrepeat",
     "util-triggersound",

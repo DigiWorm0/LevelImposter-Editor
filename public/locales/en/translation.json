@@ -461,6 +461,12 @@
         "none": "No Room",
         "default": "Default Room"
     },
+    "meeting": {
+        "title": "Meeting Options",
+        "bg": "Background",
+        "buttonStinger": "Button Stinger",
+        "reportStinger": "Report Stinger"
+    },
     "sab": {
         "title": "Sabotage",
         "duration": "Sabotage Duration",
@@ -584,6 +590,7 @@
         "disable": "Disable",
         "open": "Open",
         "close": "Close",
+        "callMeeting": "Call Meeting",
         "onEnter": "On Enter",
         "onExit": "On Exit",
         "onUse": "On Use",
@@ -601,7 +608,9 @@
         "onRandom 2": "Random 2",
         "onTrigger": "On Trigger",
         "onOpen": "On Open",
-        "onClose": "On Close"
+        "onClose": "On Close",
+        "onButton": "Button Hit",
+        "onReport": "Body Report"
     },
     "au": {
         "undefined": "Unknown Object",
@@ -634,6 +643,7 @@
         "util-tele": "Teleporter",
         "util-physics": "Physics Object",
         "util-blanktrigger": "Trigger Sprite",
+        "util-meeting": "Meeting Options",
         "util-triggerarea": "Trigger Area",
         "util-triggerconsole": "Trigger Console",
         "util-triggersound": "Trigger Sound",
