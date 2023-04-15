@@ -420,6 +420,10 @@
         "offsety": "Offset Y",
         "zoom": "Zoom"
     },
+    "spawn": {
+        "title": "Spawn Point",
+        "radius": "Radius"
+    },
     "platform": {
         "title": "Moving Platform",
         "translationX": "Translation X",

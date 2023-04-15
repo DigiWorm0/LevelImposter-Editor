@@ -6,6 +6,7 @@ import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import { saveHistoryAtom } from "./useHistory";
 import { elementsAtom } from "./useMap";
 import { mouseXAtom, mouseYAtom } from "./useMouse";
+import getDefaultZ from "../getDefaultZ";
 
 // Atoms
 export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
@@ -28,6 +29,8 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
     return elemAtom;
 }, (a, b) => a === b);
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
+    elem.z = getDefaultZ(elem);
+
     const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem.type));
     globalProps.forEach((globalProp) => {
         const prop = globalProp.prop as keyof LIElement["properties"];

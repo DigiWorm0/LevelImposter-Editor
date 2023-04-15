@@ -7,7 +7,7 @@ export default function SpawnRange() {
     const selectedElem = useSelectedElemValue();
     const sprite = useSpriteType("util-dummy");
 
-    const radius = selectedElem?.properties.range ? selectedElem.properties.range : DEFAULT_SPAWN_RANGE;
+    const radius = selectedElem?.properties.range ?? DEFAULT_SPAWN_RANGE;
     const playerCount = 15;
     const arr = new Array(playerCount).fill(0);
 
