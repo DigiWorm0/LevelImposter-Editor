@@ -6,6 +6,7 @@ import LIColor from "../../../types/li/LIColor";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import SwitchPanelInput from "../input/SwitchPanelInput";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -31,6 +32,13 @@ export default function SpritePanel() {
 
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
+    }, [selectedElem]);
+
+    const isGIF = React.useMemo(() => {
+        return selectedElem?.properties.spriteData?.startsWith("data:image/gif;base64,");
+    }, [selectedElem]);
+    const isCustomAnim = React.useMemo(() => {
+        return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
     }, [selectedElem]);
 
     const onUpload = React.useCallback((spriteURL: string) => {
@@ -86,6 +94,14 @@ export default function SpritePanel() {
                     color={selectedElem.properties.color}
                     onColorChange={onColorChange}
                 />
+                {isGIF && (
+                    <SwitchPanelInput
+                        name="sprite.loop"
+                        prop="loopGIF"
+                        defaultValue={!isCustomAnim}
+                        disabled={isCustomAnim}
+                    />
+                )}
             </PanelContainer>
             <MapError
                 info

@@ -69,6 +69,7 @@
         "upload": "Upload",
         "reset": "Reset",
         "setColor": "Set Color",
+        "loop": "Loop Animation",
         "ventInfo": "Any GIF animation will play when the vent is used.",
         "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
         "camInfo": "Any GIF animation will play when the cameras are active.",

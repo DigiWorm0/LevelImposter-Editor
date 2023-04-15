@@ -42,6 +42,13 @@ const OutputTriggerDB: Record<string, string[]> = {
     ],
 };
 
+const consoleTriggers = [
+    "show",
+    "hide",
+    "enable",
+    "disable",
+];
+
 const InputTriggerDB: Record<string, string[]> = {
     "util-blanktrigger": [
         "show",
@@ -63,10 +70,6 @@ const InputTriggerDB: Record<string, string[]> = {
         "enable",
         "disable",
     ],
-    "util-triggerconsole": [
-        "show",
-        "hide",
-    ],
     "sab-doorv": [
         "open",
         "close",
@@ -79,6 +82,11 @@ const InputTriggerDB: Record<string, string[]> = {
         "show",
         "hide",
     ],
+    "util-triggerconsole": consoleTriggers,
+    "util-vitals": consoleTriggers,
+    "util-button1": consoleTriggers,
+    "util-button2": consoleTriggers,
+    "util-admin": consoleTriggers
 };
 
 export { InputTriggerDB, OutputTriggerDB };

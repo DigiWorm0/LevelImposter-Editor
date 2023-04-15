@@ -29,6 +29,7 @@ export default interface LIProperties {
     // Sprite
     spriteData?: string;
     color?: LIColor;
+    loopGIF?: boolean;
 
     // Vent
     leftVent?: GUID;
