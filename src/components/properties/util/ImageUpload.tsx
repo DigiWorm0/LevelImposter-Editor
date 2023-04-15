@@ -146,19 +146,30 @@ export default function ImageUpload(props: ImageUploadProps) {
                     opacity: isHovering ? 1 : 0,
                     transition: "opacity 0.1s",
                     display: "flex",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    fontSize: 20,
-                    fontWeight: "bold",
                     textAlign: "center",
                     zIndex: 1000,
                     pointerEvents: "none",
                 }}>
+
                 <Icon
                     icon="cloud-upload"
+                    iconSize={40}
                     style={{ marginRight: 10 }}
                 />
-                {t("sprite.upload")}
+                <span style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                }}>
+                    {t("sprite.upload")}
+                </span>
+                <span style={{
+                    fontSize: 14,
+                }}>
+                    {props.name}
+                </span>
             </div>
         </div>
     );
