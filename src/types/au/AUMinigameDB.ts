@@ -112,6 +112,9 @@ const AUMinigameDB: string[] = [
     "task-decontaminate_playerfill",
     "task-decontaminate_playeroutline",
 
+    "task-diagnostics_bg",
+    "task-diagnostics_ship",
+
     "task-distributor_bg",
     "task-distributor_spin1",
     "task-distributor_spin2",
@@ -220,6 +223,13 @@ const AUMinigameDB: string[] = [
     "task-plants1_bg",
     "task-plants1_fg",
     "task-plants1_watercan",
+
+    "task-plants2_bg",
+    "task-plants2_watercan",
+    "task-plants2_plant1",
+    "task-plants2_plant2",
+    "task-plants2_plant3",
+    "task-plants2_plant4",
 
     "task-process_bg",
     "task-process_btn",

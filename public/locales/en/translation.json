@@ -270,6 +270,7 @@
         "plant1": "Plant 1",
         "plant2": "Plant 2",
         "plant3": "Plant 3",
+        "plant4": "Plant 4",
         "box": "Box",
         "mineralemblem": "Mineral Emblem",
         "plantemblem": "Plant Emblem",
@@ -369,7 +370,8 @@
         "lighton": "Light On",
         "lightoff": "Light Off",
         "screendark": "Screen Dark",
-        "screenlight": "Screen Light"
+        "screenlight": "Screen Light",
+        "ship": "Ship"
     },
     "task": {
         "title": "Task",
