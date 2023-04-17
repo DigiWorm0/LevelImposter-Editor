@@ -371,7 +371,8 @@
         "lightoff": "Light Off",
         "screendark": "Screen Dark",
         "screenlight": "Screen Light",
-        "ship": "Ship"
+        "ship": "Ship",
+        "leaf": "Leaf {{index}}"
     },
     "task": {
         "title": "Task",
@@ -669,7 +670,7 @@
         "task-counting": "Unlock Manifolds",
         "task-artifacts": "Sort Artifacts",
         "task-oxygen": "O2 Canisters",
-        "task-garbage": "Garbage",
+        "task-garbage": "Clear Chute",
         "task-chart": "Chart Course",
         "task-medscan": "Medscan",
         "task-weapons": "Weapons",

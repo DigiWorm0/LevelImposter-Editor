@@ -167,6 +167,13 @@ const AUMinigameDB: string[] = [
     "task-garbage_leverbar",
     "task-garbage_leverbase",
     "task-garbage_leverhandle",
+    "task-garbage_leaf_1",
+    "task-garbage_leaf_2",
+    "task-garbage_leaf_3",
+    "task-garbage_leaf_4",
+    "task-garbage_leaf_5",
+    "task-garbage_leaf_6",
+    "task-garbage_leaf_7",
 
     "task-id_bg",
     "task-id_bgslidebottom",
