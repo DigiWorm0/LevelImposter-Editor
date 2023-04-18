@@ -108,6 +108,7 @@ git push feature/cool-feature
 
 ### Contributors
 [Digi#0069](https://github.com/DigiWorm0) - Lead Developer\
+[Luque#5893](#) - New Editor Icons\
 [PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese Translation\
 [PalmForest#1404](https://github.com/RealPalmForest) & [TommyXL#9414](https://github.com/Tommy-XL) - Russian Translation
 
