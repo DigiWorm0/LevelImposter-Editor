@@ -1,7 +1,8 @@
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import React from "react";
 import { UI_ZOOM_SPEED, UNITY_SCALE } from "../../types/generic/Constants";
 import { useSetMousePos } from "./useMouse";
+import LIElement from "../../types/li/LIElement";
 
 // Atoms
 export const camXAtom = atom(-window.innerWidth / 2);
@@ -58,4 +59,21 @@ export default function useCamera(w: number, h: number) {
         setX,
         setY,
     };
+}
+
+export const jumpToElementAtom = atom(null, (get, set, elem: LIElement) => {
+    const elemX = elem.x * -UNITY_SCALE;
+    const elemY = elem.y * UNITY_SCALE;
+
+    const newCamX = elemX - (window.innerWidth / 2);
+    const newCamY = elemY - (window.innerHeight / 2);
+    const newCamZ = 1;
+
+    set(camXAtom, newCamX);
+    set(camYAtom, newCamY);
+    set(camZAtom, newCamZ);
+});
+
+export function useJumpToElement() {
+    return useSetAtom(jumpToElementAtom);
 }

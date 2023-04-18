@@ -5,6 +5,7 @@ import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } 
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
+import { useJumpToElement } from "../../hooks/jotai/useCamera";
 
 const ICON_DB: Record<string, IconName> = {
     "util-blank": "media",
@@ -30,7 +31,6 @@ const ICON_DB: Record<string, IconName> = {
 }
 
 export default function MapHierarchyElement(props: { elementID: MaybeGUID, searchQuery: string, isRoot: boolean }) {
-    const [isEditingName, setIsEditingName] = React.useState(false);
     const [draggingID, setDraggingID] = useDraggingElementID();
     const [selectedID, setSelectedID] = useSelectedElemID();
     const [element, setElement] = useElement(props.elementID);
@@ -39,6 +39,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     const childIDs = useElementChildren(props.elementID);
     const settings = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
+    const jumpToElement = useJumpToElement();
 
     const getIcon = (type: string): IconName => {
         let icon = ICON_DB[type];
@@ -117,35 +118,13 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                 style={{ outline: 0 }}
                 id={element.id}
                 icon={getIcon(element.type)}
-                text={isEditingName ?
-                    <InputGroup
-                        intent={intent}
-                        small
-                        autoFocus
-                        value={element.name}
-                        maxLength={20}
-                        onChange={(e) => {
-                            setElement({ ...element, name: e.target.value });
-                        }}
-                        onFocus={(e) => {
-                            e.target.select();
-                        }}
-                        onBlur={() => setIsEditingName(false)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                setIsEditingName(false);
-                            }
-                        }}
-                    />
-                    :
-                    element.name
-                }
+                text={element.name}
                 active={element.id === selectedID || isDragOver}
                 disabled={isDisabled}
                 intent={intent}
                 onClick={() => setSelectedID(element.id)}
                 onDoubleClick={() => {
-                    setIsEditingName(true);
+                    jumpToElement(element);
                 }}
                 labelElement={
                     element.type === "util-layer" ? (
