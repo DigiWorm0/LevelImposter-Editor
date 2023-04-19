@@ -1,5 +1,7 @@
+import GUID from "../generic/GUID";
+
 export default interface LIMinigameSprite {
-    id: string;
+    id: GUID;
     type: string;
     spriteData?: string;
 }

@@ -5,6 +5,8 @@ export default interface LIMinigameProps {
     reactorColorBad?: LIColor;
     lightsColorOn?: LIColor;
     lightsColorOff?: LIColor;
+    fuelColor?: LIColor;
+    fuelBgColor?: LIColor;
 }
 
 export type MaybeLIMinigameProps = LIMinigameProps | undefined;

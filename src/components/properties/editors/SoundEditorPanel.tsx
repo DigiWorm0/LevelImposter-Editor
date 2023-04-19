@@ -3,12 +3,15 @@ import React from "react";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import SoundUpload from "../util/SoundUpload";
+import generateGUID from "../../../hooks/generateGUID";
 
 interface SoundEditorProps {
     title: string;
     soundType?: string;
     soundID?: string;
-    onFinish: () => void;
+    onFinish?: () => void;
+    defaultSoundURL?: string;
+    loop?: boolean;
 }
 
 export default function SoundEditorPanel(props: SoundEditorProps) {
@@ -20,6 +23,13 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
         else
             return selectedElem?.properties.sounds?.find(sound => sound.id === props.soundID);
     }, [selectedElem, props.soundType]);
+    const defaultSound = React.useMemo(() => (props.defaultSoundURL ? {
+        id: generateGUID(),
+        type: props.soundType,
+        data: props.defaultSoundURL,
+        volume: 1,
+        isPreset: true
+    } : undefined), [props.defaultSoundURL, props.soundType]);
 
     const onDeleteClick = React.useCallback(() => {
         if (!selectedElem)
@@ -78,11 +88,12 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
 
             <SoundUpload
                 title={props.title}
-                sound={sound}
+                sound={sound ?? defaultSound}
                 soundType={props.soundType}
                 onChange={onSoundChange}
                 onReset={onDeleteClick}
                 onFinish={props.onFinish}
+                loop={props.loop}
             />
         </div>
     )

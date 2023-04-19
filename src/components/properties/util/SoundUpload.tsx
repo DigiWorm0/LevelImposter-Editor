@@ -17,6 +17,7 @@ interface SoundUploadProps {
     title?: string;
     soundType?: string;
     onFinish?: () => void;
+    loop?: boolean;
 }
 
 export default function SoundUpload(props: SoundUploadProps) {
@@ -25,7 +26,7 @@ export default function SoundUpload(props: SoundUploadProps) {
     const toaster = useToaster();
 
     const soundSize = React.useMemo(() => {
-        return props.sound?.data?.length ?? 0;
+        return props.sound?.isPreset ? 0 : (props.sound?.data?.length ?? 0);
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
@@ -52,6 +53,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     if (e.target?.result) {
                         props.onChange({
                             id: props.sound?.id ?? generateGUID(),
+                            type: props.soundType,
                             data: e.target.result as string,
                             volume: DEFAULT_VOLUME,
                             isPreset: false
@@ -83,6 +85,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     title={props.title}
                     sound={props.sound}
                     onSoundChange={props.onChange}
+                    loop={props.loop}
                 />
             ) : (
                 <p
@@ -133,7 +136,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             <div
                 style={{
                     position: "absolute",
-                    top: 5,
+                    top: 0,
                     left: 5,
                     right: 5,
                     bottom: 5,
@@ -142,19 +145,31 @@ export default function SoundUpload(props: SoundUploadProps) {
                     opacity: isHovering ? 1 : 0,
                     transition: "opacity 0.2s",
                     display: "flex",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    fontSize: 20,
-                    fontWeight: "bold",
                     textAlign: "center",
                     zIndex: 1000,
                     pointerEvents: "none",
                 }}>
+
                 <Icon
                     icon="cloud-upload"
+                    iconSize={40}
                     style={{ marginRight: 10 }}
                 />
-                {t("audio.upload")}
+                <span style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                }}>
+                    {t("audio.upload")}
+                </span>
+                <span style={{
+                    fontSize: 14,
+                }}>
+                    {props.title}
+                </span>
+
             </div>
         </div>
     );

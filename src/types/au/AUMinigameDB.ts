@@ -2,9 +2,11 @@ const AUMinigameDB: string[] = [
     "sab-comms_bg",
     "sab-comms_dial",
     "sab-comms_glasspanel",
+
     "sab-electric_bg",
     "sab-electric_bgwires",
     "sab-electric_switch",
+
     "sab-oxygen1_bg",
     "sab-oxygen1_note",
     "sab-oxygen1_0",
@@ -19,6 +21,7 @@ const AUMinigameDB: string[] = [
     "sab-oxygen1_9",
     "sab-oxygen1_check",
     "sab-oxygen1_x",
+
     "sab-oxygen2_bg",
     "sab-oxygen2_note",
     "sab-oxygen2_0",
@@ -33,13 +36,17 @@ const AUMinigameDB: string[] = [
     "sab-oxygen2_9",
     "sab-oxygen2_check",
     "sab-oxygen2_x",
+
     "sab-reactorleft_bg",
     "sab-reactorleft_sweep",
+
     "sab-reactorright_bg",
     "sab-reactorright_sweep",
+
     "task-align1_bg",
     "task-align1_engine",
     "task-align1_slider",
+
     "task-artifacts_bg",
     "task-artifacts_lid1",
     "task-artifacts_lid2",
@@ -47,9 +54,11 @@ const AUMinigameDB: string[] = [
     "task-artifacts_objb",
     "task-artifacts_objc",
     "task-artifacts_objd",
+
     "task-breakers_bg",
     "task-breakers_leverbar",
     "task-breakers_leverhead",
+
     "task-burger_bg",
     "task-burger_buntop",
     "task-burger_bunbottom",
@@ -67,13 +76,16 @@ const AUMinigameDB: string[] = [
     "task-burger_paperlettuce",
     "task-burger_paperonion",
     "task-burger_papertomato",
+
     "task-chart_bg",
     "task-chart_icon",
     "task-chart_end",
+
     "task-code_bg",
     "task-code_card",
     "task-code_wallet",
     "task-code_walletmask",
+
     "task-counting_bg",
     "task-counting_bgwires",
     "task-counting_glass",
@@ -87,6 +99,7 @@ const AUMinigameDB: string[] = [
     "task-counting_8",
     "task-counting_9",
     "task-counting_10",
+
     "task-crystal_bg",
     "task-crystal_bgbase",
     "task-crystal_1",
@@ -94,34 +107,81 @@ const AUMinigameDB: string[] = [
     "task-crystal_3",
     "task-crystal_4",
     "task-crystal_5",
+
     "task-decontaminate_bg",
     "task-decontaminate_playerfill",
     "task-decontaminate_playeroutline",
+
+    "task-diagnostics_bg",
+    "task-diagnostics_ship",
+
     "task-distributor_bg",
     "task-distributor_spin1",
     "task-distributor_spin2",
     "task-distributor_spin3",
+
+    "task-divert1_bg",
+    "task-divert1_slider",
+
+    "task-divert2_bg",
+    "task-divert2_switch",
+
     "task-download_bg",
     "task-download_file",
+
     "task-drill_bg",
     "task-drill_bgoutline",
     "task-drill_drill",
+
     "task-fans1_bg",
     "task-fans1_square",
     "task-fans1_squarehover",
+    "task-fans1_symbol_1",
+    "task-fans1_symbol_2",
+    "task-fans1_symbol_3",
+    "task-fans1_symbol_4",
+
     "task-fans2_bg",
     "task-fans2_square",
     "task-fans2_squarehover",
+    "task-fans2_symbol_1",
+    "task-fans2_symbol_2",
+    "task-fans2_symbol_3",
+    "task-fans2_symbol_4",
+
+    "task-fuel1_bg",
+    "task-fuel1_wires",
+    "task-fuel1_btnbg",
+    "task-fuel1_btn",
+    "task-fuel1_redlight",
+    "task-fuel1_greenlight",
+
+    "task-fuel2_bg",
+    "task-fuel2_wires",
+    "task-fuel2_btnbg",
+    "task-fuel2_btn",
+    "task-fuel2_redlight",
+    "task-fuel2_greenlight",
+
     "task-garbage_bg",
     "task-garbage_leverbar",
     "task-garbage_leverbase",
     "task-garbage_leverhandle",
+    "task-garbage_leaf_1",
+    "task-garbage_leaf_2",
+    "task-garbage_leaf_3",
+    "task-garbage_leaf_4",
+    "task-garbage_leaf_5",
+    "task-garbage_leaf_6",
+    "task-garbage_leaf_7",
+
     "task-id_bg",
     "task-id_bgslidebottom",
     "task-id_bgslidetop",
     "task-id_card",
     "task-id_wallet",
     "task-id_walletmask",
+
     "task-keys_bg",
     "task-keys_key",
     "task-keys_keyinsert",
@@ -130,6 +190,7 @@ const AUMinigameDB: string[] = [
     "task-keys_keyslot",
     "task-keys_keyslothighlight",
     "task-keys_keyslotinsert",
+
     "task-mannequin_bg",
     "task-mannequin_targetbg",
     "task-mannequin_dummy",
@@ -137,25 +198,46 @@ const AUMinigameDB: string[] = [
     "task-mannequin_clothesicon",
     "task-mannequin_faceicon",
     "task-mannequin_haticon",
+
     "task-medscan_panelbottom",
     "task-medscan_paneltop",
     "task-medscan_wires",
+
     "task-node_bg",
+
+    "task-nodeswitch_bg",
+    "task-nodeswitch_switch",
+    "task-nodeswitch_lighton",
+    "task-nodeswitch_lightoff",
+    "task-nodeswitch_screendark",
+    "task-nodeswitch_screenlight",
+
     "task-oxygen_bg",
     "task-oxygen_cannister",
     "task-oxygen_fillbar",
     "task-oxygen_plug",
+
     "task-pass_front",
     "task-pass_back",
     "task-pass_scanner",
     "task-pass_scanninga",
     "task-pass_scanningb",
+
     "task-photos_bg",
     "task-photos_mask",
     "task-photos_photobg",
+
     "task-plants1_bg",
     "task-plants1_fg",
     "task-plants1_watercan",
+
+    "task-plants2_bg",
+    "task-plants2_watercan",
+    "task-plants2_plant1",
+    "task-plants2_plant2",
+    "task-plants2_plant3",
+    "task-plants2_plant4",
+
     "task-process_bg",
     "task-process_btn",
     "task-process_file",
@@ -163,24 +245,30 @@ const AUMinigameDB: string[] = [
     "task-process_mountain",
     "task-process_road",
     "task-process_tree",
+
     "task-records1_folder",
+
     "task-records2_drawerdivider",
     "task-records2_drawerfolder",
     "task-records2_drawerfront",
     "task-records2_shelfbg",
     "task-records2_shelfplatform",
+
     "task-rifles2_bg",
     "task-rifles2_hook",
     "task-rifles2_outline",
     "task-rifles2_rifles",
+
     "task-pistols2_bg",
     "task-pistols2_hook",
     "task-pistols2_outline",
     "task-pistols2_pistols",
+
     "task-router_bg",
     "task-router_handle",
     "task-router_lid",
     "task-router_sidepanel",
+
     "task-ruby_bg",
     "task-ruby_towel",
     "task-ruby_mark1",
@@ -190,11 +278,13 @@ const AUMinigameDB: string[] = [
     "task-ruby_mark5",
     "task-ruby_mark6",
     "task-ruby_mark7",
+
     "task-safe_bg",
     "task-safe_note",
     "task-safe_handle",
     "task-safe_tumbler",
     "task-safe_tumblerbg",
+
     "task-samples_bg",
     "task-samples_top",
     "task-samples_bottom",
@@ -203,16 +293,20 @@ const AUMinigameDB: string[] = [
     "task-samples_glassback",
     "task-samples_liquid",
     "task-samples_platform",
+
     "task-shields_bg",
     "task-shields_guage",
     "task-shields_panel",
+
     "task-showers_bg",
     "task-showers_head",
     "task-showers_mallet",
     "task-showers_powerbar",
+
     "task-simonsays_bgleft",
     "task-simonsays_bgright",
     "task-simonsays_screen",
+
     "task-sort_bg",
     "task-sort_box",
     "task-sort_animal1",
@@ -224,6 +318,7 @@ const AUMinigameDB: string[] = [
     "task-sort_animalemblem",
     "task-sort_plantemblem",
     "task-sort_mineralemblem",
+
     "task-stabilize2_bg",
     "task-stabilize2_arrow",
     "task-stabilize2_handle",
@@ -232,11 +327,13 @@ const AUMinigameDB: string[] = [
     "task-stabilize_bg",
     "task-stabilize_fg",
     "task-stabilize_target",
+
     "task-tapes_bg",
     "task-tapes_note",
     "task-tapes_tape",
     "task-tapes_vcrbg",
     "task-tapes_wheel",
+
     "task-telescope_reticle",
     "task-telescope_target",
     "task-telescope_planet1",
@@ -246,10 +343,12 @@ const AUMinigameDB: string[] = [
     "task-telescope_planet5",
     "task-telescope_planet6",
     "task-telescope_planet7",
+
     "task-temp1_bg",
     "task-temp1_btn",
     "task-temp2_bg",
     "task-temp2_btn",
+
     "task-toilet_front",
     "task-toilet_back",
     "task-toilet_needle",
@@ -257,16 +356,18 @@ const AUMinigameDB: string[] = [
     "task-toilet_plungerdown",
     "task-toilet_plungerup",
     "task-toilet_stick",
+
     "task-towels1_bg",
     "task-towels1_basket",
     "task-towels1_towel",
     "task-towels1_towelfill",
+
     "task-tree_bg",
     "task-tree_arrow",
     "task-tree_bar",
     "task-tree_slider",
+
     "task-vending_bg",
-    "task-vending_check",
     "task-vending_glass",
     "task-vending_front",
     "task-vending_A",
@@ -277,17 +378,62 @@ const AUMinigameDB: string[] = [
     "task-vending_3",
     "task-vending_4",
     "task-vending_x",
+
+    "task-vending_check",
+    "task-vending_item_1",
+    "task-vending_item_2",
+    "task-vending_item_3",
+    "task-vending_item_4",
+    "task-vending_item_5",
+
+    "task-vending_drawing_1",
+    "task-vending_drawing_2",
+    "task-vending_drawing_3",
+    "task-vending_drawing_4",
+    "task-vending_drawing_5",
+
+    "task-waterjug1_leftbg",
+    "task-waterjug1_leftoutline",
+    "task-waterjug1_leftwaterfill",
+    "task-waterjug1_rightbg",
+    "task-waterjug1_rightoutline",
+    "task-waterjug1_rightwaterfill",
+    "task-waterjug1_btnup",
+    "task-waterjug1_btndown",
+
+    "task-waterjug2_leftbg",
+    "task-waterjug2_leftoutline",
+    "task-waterjug2_leftwaterfill",
+    "task-waterjug2_rightbg",
+    "task-waterjug2_rightoutline",
+    "task-waterjug2_rightwaterfill",
+    "task-waterjug2_btnup",
+    "task-waterjug2_btndown",
+
     "task-waterwheel1_bg",
     "task-waterwheel1_pipeback",
     "task-waterwheel1_pipefront",
     "task-waterwheel1_wheel",
+
     "task-weapons_bg",
     "task-weapons_target",
+    "task-weapons_asteroid_1",
+    "task-weapons_asteroid_2",
+    "task-weapons_asteroid_3",
+    "task-weapons_asteroid_4",
+    "task-weapons_asteroid_5",
+    "task-weapons_broken_1",
+    "task-weapons_broken_2",
+    "task-weapons_broken_3",
+    "task-weapons_broken_4",
+    "task-weapons_broken_5",
+
     "task-weather_balloon",
     "task-weather_bg",
     "task-weather_cloud1",
     "task-weather_cloud2",
     "task-weather_cloud3",
+
     "task-wires_bg",
     "task-wires_wiretip1",
     "task-wires_wiretip2",

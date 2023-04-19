@@ -85,6 +85,7 @@ export default function StepSoundPanel() {
                         title={e.name}
                         soundID={e.id}
                         onFinish={() => setSelectedSoundID(undefined)}
+                        loop
                     />
                 )}
             />

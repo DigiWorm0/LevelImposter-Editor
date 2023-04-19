@@ -9,6 +9,7 @@ import ImageUpload from "../util/ImageUpload";
 interface MinigameEditorPanelProps {
     minigameType: string;
     onFinish: () => void;
+    hideName?: boolean;
 }
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
@@ -16,6 +17,8 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
     const minigameType = props.minigameType;
+    const splitMinigameType = minigameType.split("_");
+
     const minigame = React.useMemo(() => {
         return selectedElem?.properties.minigames?.find(mg => mg.type === minigameType);
     }, [selectedElem, props.minigameType]);
@@ -61,14 +64,19 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         });
     }, [selectedElem, minigame, setSelectedElem]);
 
+
+    console.log(splitMinigameType);
+
     if (!selectedElem)
         return null;
 
     return (
         <div style={{ padding: 20 }}>
-            <H6>
-                {t(`minigame.${minigameType?.split("_")[1]}`)}
-            </H6>
+            {!props.hideName && (
+                <H6>
+                    {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
+                </H6>
+            )}
             <DevInfo>
                 {minigame?.id}
                 {minigame?.type}

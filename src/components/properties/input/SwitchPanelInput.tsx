@@ -10,6 +10,7 @@ export interface SwitchInputProps {
     defaultValue: boolean;
 
     tooltip?: string;
+    disabled?: boolean;
 }
 
 export default function SwitchPanelInput(props: SwitchInputProps) {
@@ -36,6 +37,7 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
                     key={`${selectedElem?.id}-${props.prop}`}
                     checked={defaultValue as boolean}
                     label={t(props.name) as string}
+                    disabled={props.disabled}
                     style={{
                         marginBottom: 5,
                         marginTop: 5

@@ -21,6 +21,8 @@ import VentPanel from "../components/properties/panels/VentPanel";
 import DoorPanel from "../components/properties/panels/DoorPanel";
 import MinimapSpritePanel from "../components/properties/panels/MinimapSpritePanel";
 import MinigamePanel from "../components/properties/panels/MinigamePanel";
+import SpawnPanel from "../components/properties/panels/SpawnPanel";
+import MeetingPanel from "../components/properties/panels/MeetingPanel";
 
 export default function RightSidebar() {
 
@@ -38,9 +40,11 @@ export default function RightSidebar() {
             <StarfieldPanel />
             <FloatingPanel />
             <LadderPanel />
+            <MeetingPanel />
             <VentPanel />
             <TelePanel />
             <CamPanel />
+            <SpawnPanel />
             <PlatformPanel />
             <SoundPanel />
             <StepSoundPanel />

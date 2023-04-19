@@ -29,6 +29,7 @@ export default interface LIProperties {
     // Sprite
     spriteData?: string;
     color?: LIColor;
+    loopGIF?: boolean;
 
     // Vent
     leftVent?: GUID;
@@ -87,6 +88,12 @@ export default interface LIProperties {
     // Minimap
     minimapScale?: number;
     imposterOnly?: boolean;
+
+    // Spawn
+    spawnDummies?: boolean;
+
+    // Meeting
+    meetingBackground?: string;
 
     // Editor
     isLocked?: boolean;

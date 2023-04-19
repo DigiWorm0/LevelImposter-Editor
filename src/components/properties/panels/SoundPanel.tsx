@@ -57,6 +57,7 @@ export default function SoundPanel() {
                     sound={sound}
                     onChange={onChange}
                     onReset={onReset}
+                    loop
                 />
             </PanelContainer>
             <MapError

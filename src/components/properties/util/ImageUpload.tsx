@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Icon } from "@blueprintjs/core";
+import { Button, ButtonGroup, H5, H6, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import openUploadDialog from "../../../hooks/openUploadDialog";
@@ -18,6 +18,7 @@ interface ImageUploadProps {
     defaultColor?: LIColor;
     onColorChange?: (color: LIColor) => void;
     onFinish?: () => void;
+    showName?: boolean;
 }
 
 export default function ImageUpload(props: ImageUploadProps) {
@@ -67,6 +68,15 @@ export default function ImageUpload(props: ImageUploadProps) {
             }}
             onDrop={onFileDrop}
         >
+            {/* Title */}
+            {props.showName && (
+                <H6 style={{
+                    marginTop: 2
+                }}>
+                    {props.name}
+                </H6>
+            )}
+
             {/* Image Preview */}
             <div style={{ textAlign: "center", padding: 15 }}>
                 <img
@@ -127,7 +137,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             <div
                 style={{
                     position: "absolute",
-                    top: 5,
+                    top: 0,
                     left: 5,
                     right: 5,
                     bottom: 5,
@@ -136,19 +146,30 @@ export default function ImageUpload(props: ImageUploadProps) {
                     opacity: isHovering ? 1 : 0,
                     transition: "opacity 0.1s",
                     display: "flex",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    fontSize: 20,
-                    fontWeight: "bold",
                     textAlign: "center",
                     zIndex: 1000,
                     pointerEvents: "none",
                 }}>
+
                 <Icon
                     icon="cloud-upload"
+                    iconSize={40}
                     style={{ marginRight: 10 }}
                 />
-                {t("sprite.upload")}
+                <span style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                }}>
+                    {t("sprite.upload")}
+                </span>
+                <span style={{
+                    fontSize: 14,
+                }}>
+                    {props.name}
+                </span>
             </div>
         </div>
     );

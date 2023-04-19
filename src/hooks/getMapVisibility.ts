@@ -12,6 +12,7 @@ const INVISIBLE_TYPES = [
     "util-triggerrand",
     "util-sound1",
     "util-sound2",
+    "util-meeting",
 ]
 
 const INVISIBLE_TYPES_NO_SPRITE = [
