@@ -20,6 +20,10 @@ export default function VentPanel() {
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === VENT_OPEN_SOUND), [sounds]);
     const hasMoveSound = React.useMemo(() => sounds.some((s) => s.type === VENT_MOVE_SOUND), [sounds]);
 
+    const isNotWav = React.useMemo(() => {
+        return sounds.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
+    }, [sounds]);
+
     if (!selectedElem
         || !selectedElem.type.startsWith("util-vent"))
         return null;
@@ -78,6 +82,12 @@ export default function VentPanel() {
                 icon="volume-up"
             >
                 {t("vent.ventSoundInfo")}
+            </MapError>
+            <MapError
+                isVisible={isNotWav}
+                icon="volume-off"
+            >
+                {t("audio.errorNotWav") as string}
             </MapError>
         </>
     );

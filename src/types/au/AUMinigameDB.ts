@@ -385,12 +385,14 @@ const AUMinigameDB: string[] = [
     "task-vending_item_3",
     "task-vending_item_4",
     "task-vending_item_5",
+    "task-vending_item_6",
 
     "task-vending_drawing_1",
     "task-vending_drawing_2",
     "task-vending_drawing_3",
     "task-vending_drawing_4",
     "task-vending_drawing_5",
+    "task-vending_drawing_6",
 
     "task-waterjug1_leftbg",
     "task-waterjug1_leftoutline",

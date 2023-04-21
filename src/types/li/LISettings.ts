@@ -15,4 +15,5 @@ export default interface LISettings {
     elementNesting?: boolean;
     autosave?: boolean;
     isInfoVisible?: boolean;
+    isAudioDownmixEnabled?: boolean;
 }

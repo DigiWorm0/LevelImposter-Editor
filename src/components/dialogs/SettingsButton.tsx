@@ -192,6 +192,19 @@ export default function SettingsButton() {
                             style={{ marginLeft: 10 }} />
                     </ControlGroup>
 
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
+                            {t("settings.interface.audioDownmix") as string}
+                        </Label>
+                        <Switch
+                            checked={settings.isAudioDownmixEnabled === undefined ? true : settings.isAudioDownmixEnabled}
+                            onChange={(e) => {
+                                setSettings({ ...settings, isAudioDownmixEnabled: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
                             {t("settings.interface.grid") as string}
