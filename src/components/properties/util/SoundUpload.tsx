@@ -8,6 +8,7 @@ import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
+import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -24,19 +25,25 @@ export default function SoundUpload(props: SoundUploadProps) {
     const { t } = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
+    const downmixAudio = useAudioDownmixer();
 
     const soundSize = React.useMemo(() => {
         return props.sound?.isPreset ? 0 : (props.sound?.data?.length ?? 0);
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/wav").then((data) => {
-            props.onChange({
-                id: props.sound?.id ?? generateGUID(),
-                type: props.soundType,
-                data,
-                volume: DEFAULT_VOLUME,
-                isPreset: false
+        openUploadDialog("audio/wav").then((audioData) => {
+            downmixAudio(audioData).then((downmixedData) => {
+                props.onChange({
+                    id: props.sound?.id ?? generateGUID(),
+                    type: props.soundType,
+                    data: downmixedData ?? "",
+                    volume: DEFAULT_VOLUME,
+                    isPreset: false
+                });
+            }).catch((e) => {
+                console.error(e);
+                toaster.danger(e);
             });
         });
     }, [props.onChange]);
@@ -50,15 +57,20 @@ export default function SoundUpload(props: SoundUploadProps) {
             if (file.type === "audio/wav") {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    if (e.target?.result) {
+                    if (!e.target?.result)
+                        return;
+                    downmixAudio(e.target.result as string).then((downmixedData) => {
                         props.onChange({
                             id: props.sound?.id ?? generateGUID(),
                             type: props.soundType,
-                            data: e.target.result as string,
+                            data: downmixedData as string,
                             volume: DEFAULT_VOLUME,
                             isPreset: false
                         });
-                    }
+                    }).catch((e) => {
+                        console.error(e);
+                        toaster.danger(e);
+                    });
                 };
                 reader.readAsDataURL(file);
             } else {

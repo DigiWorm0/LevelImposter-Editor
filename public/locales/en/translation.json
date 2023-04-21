@@ -568,7 +568,8 @@
             "invisibleOpacity": "Invisible Opacity",
             "localization": "Localization",
             "showRoomName": "Show Room Name",
-            "showInfo": "Show Inspector Info"
+            "showInfo": "Show Inspector Info",
+            "audioDownmix": "Audio Downmix"
         },
         "map": {
             "title": "Map",
