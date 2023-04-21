@@ -14,6 +14,10 @@ export default function SoundPanel() {
         return selectedElem?.properties.sounds?.length === 1 ? selectedElem.properties.sounds[0] : undefined;
     }, [selectedElem]);
 
+    const isNotWav = React.useMemo(() => {
+        return !sound?.data?.startsWith("data:audio/wav;base64,");
+    }, [sound]);
+
     const onChange = React.useCallback((newSound: LISound) => {
         if (!selectedElem)
             return;
@@ -71,6 +75,12 @@ export default function SoundPanel() {
                 icon="volume-off"
             >
                 {t("audio.errorNoSound") as string}
+            </MapError>
+            <MapError
+                isVisible={isNotWav}
+                icon="volume-off"
+            >
+                {t("audio.errorNotWav") as string}
             </MapError>
         </>
     );

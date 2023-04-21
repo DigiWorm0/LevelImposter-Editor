@@ -25,6 +25,10 @@ export default function DoorPanel() {
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
     const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
 
+    const isNotWav = React.useMemo(() => {
+        return sounds.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
+    }, [sounds]);
+
     if (!selectedElem || !selectedElem.type.startsWith("sab-door"))
         return null;
 
@@ -64,6 +68,12 @@ export default function DoorPanel() {
                 icon="map-marker"
             >
                 {t("door.errorNoRoom")}
+            </MapError>
+            <MapError
+                isVisible={isNotWav}
+                icon="volume-off"
+            >
+                {t("audio.errorNotWav") as string}
             </MapError>
         </>
     );

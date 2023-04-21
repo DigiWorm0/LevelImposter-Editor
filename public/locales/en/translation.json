@@ -96,7 +96,8 @@
         "errorNotSupported": "Your browser does not support the audio element.",
         "errorNoCollider": "This object is missing a collider. Audio only plays to players who are within the collider.",
         "errorNoSound": "This object is missing a sound file. (Unity will only support .wav files)",
-        "errorInvalidType": "This sound file is in invalid format."
+        "errorInvalidType": "This sound file is in invalid format.",
+        "errorNotWav": "Only .wav files are supported by Unity."
     },
     "trigger": {
         "selectTarget": "Select Target",
