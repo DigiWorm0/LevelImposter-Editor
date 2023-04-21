@@ -37,24 +37,7 @@ export default class WavAudioEncoder {
         this.numSamples += len;
     }
 
-    /*
-    encode(buffer: Float32Array[]) {
-        var len = buffer[0].length,
-            nCh = this.numChannels,
-            view = new DataView(new ArrayBuffer(len * nCh * 2)),
-            offset = 0;
-        for (var i = 0; i < len; ++i)
-            for (var ch = 0; ch < nCh; ++ch) {
-                var x = buffer[ch][i] * 0x7fff;
-                view.setInt16(offset, x < 0 ? this.max(x, -0x8000) : this.min(x, 0x7fff), true);
-                offset += 2;
-            }
-        this.dataViews?.push(view);
-        this.numSamples += len;
-    }
-    */
-
-    finish(mimeType: string) {
+    finish() {
         var dataSize = this.numChannels * this.numSamples * 2,
             view = new DataView(new ArrayBuffer(44));
         this.setString(view, 0, 'RIFF');

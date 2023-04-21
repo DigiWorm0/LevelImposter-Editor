@@ -41,7 +41,7 @@ export default function useAudioDownmixer() {
                         const wavEncoder = new WavAudioEncoder(renderedBuffer.sampleRate, renderedBuffer.numberOfChannels);
 
                         wavEncoder.encode(renderedBuffer.getChannelData(0));
-                        const wavBlob = wavEncoder.finish('audio/wav');
+                        const wavBlob = wavEncoder.finish();
                         const reader = new FileReader();
                         reader.readAsDataURL(wavBlob);
                         reader.onloadend = () => {

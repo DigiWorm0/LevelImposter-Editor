@@ -32,7 +32,7 @@ export default function SoundUpload(props: SoundUploadProps) {
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/wav").then((audioData) => {
+        openUploadDialog("audio/*").then((audioData) => {
             downmixAudio(audioData).then((downmixedData) => {
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
@@ -54,7 +54,7 @@ export default function SoundUpload(props: SoundUploadProps) {
         const files = e.dataTransfer.files;
         if (files.length > 0) {
             const file = files[0];
-            if (file.type === "audio/wav") {
+            if (file.type.startsWith("audio/")) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     if (!e.target?.result)
