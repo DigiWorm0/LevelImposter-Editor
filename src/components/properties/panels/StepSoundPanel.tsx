@@ -32,7 +32,7 @@ export default function StepSoundPanel() {
     );
 
     const isNotWav = React.useMemo(() => {
-        return selectedElem?.properties.sounds?.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
+        return selectedElem?.properties.sounds?.some((s) => !s.data?.startsWith("data:audio/wav;base64,") && !s.isPreset);
     }, [selectedElem?.properties.sounds]);
 
     if (!selectedElem || selectedElem.type !== "util-sound2")
