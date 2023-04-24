@@ -32,6 +32,7 @@ export default function MinimapPanel() {
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
+                    intent="warning"
                 />
                 <Button
                     fill

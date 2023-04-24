@@ -22,6 +22,7 @@ export default function CamPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"success"}
                 />
                 <NumericPanelInput
                     name="cameras.offsety"
@@ -31,6 +32,7 @@ export default function CamPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"success"}
                 />
             </ControlGroup>
             <NumericPanelInput
@@ -42,6 +44,7 @@ export default function CamPanel() {
                 minorStepSize={0.1}
                 stepSize={0.5}
                 majorStepSize={1}
+                intent={"success"}
             />
         </PanelContainer>
     );

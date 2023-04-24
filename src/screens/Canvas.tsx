@@ -55,11 +55,13 @@ export default function Canvas() {
                 onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
                     if (e.evt.button === 2) {
                         e.target.getStage()?.startDrag();
+                        e.evt.preventDefault();
                     }
                 }}
                 onMouseUp={(e: KonvaEventObject<MouseEvent>) => {
                     if (e.evt.button === 2) {
                         e.target.getStage()?.stopDrag();
+                        e.evt.preventDefault();
                     }
                 }}
                 onDragEnd={(e: KonvaEventObject<DragEvent>) => {

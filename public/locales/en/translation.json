@@ -19,7 +19,8 @@
     "warning": {
         "title": "Warning",
         "mobile": "The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.",
-        "browser": "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
+        "firefox": "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
+        "opera": "Mouse gestures in Opera break clicking and dragging. You can disable them in the settings under \"Shortcuts\".",
         "ok": "Ok"
     },
     "edit": {
@@ -80,7 +81,7 @@
     },
     "starfield": {
         "title": "Starfield",
-        "count": "Patricle Count",
+        "count": "Particle Count",
         "length": "Area Length",
         "height": "Area Height",
         "minSpeed": "Minimum Particle Speed",

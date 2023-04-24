@@ -22,6 +22,7 @@ export default function LadderPanel() {
                 minorStepSize={0.05}
                 stepSize={0.1}
                 majorStepSize={0.5}
+                intent="warning"
             />
         </PanelContainer>
     );

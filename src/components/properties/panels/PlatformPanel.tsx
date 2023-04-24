@@ -23,6 +23,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.translationY"
@@ -32,6 +33,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -43,6 +45,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.enterOffsetY"
@@ -52,6 +55,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -63,6 +67,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.exitOffsetY"
@@ -72,6 +77,7 @@ export default function PlatformPanel() {
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
+                    intent={"warning"}
                 />
             </ControlGroup>
         </PanelContainer>
