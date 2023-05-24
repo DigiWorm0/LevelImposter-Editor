@@ -41,8 +41,8 @@ export default function Canvas() {
     return (
         <div
             className="canvas"
-            style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}>
-
+            style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}
+        >
             <Stage
                 id="canvas"
                 style={{
@@ -52,6 +52,7 @@ export default function Canvas() {
                 y={camera.y}
                 width={camera.width}
                 height={camera.height}
+                perfectDrawEnabled={false}
                 onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
                     if (e.evt.button === 2) {
                         e.target.getStage()?.startDrag();
@@ -70,24 +71,21 @@ export default function Canvas() {
                         camera.setY(e.target.y());
                     }
                 }}
-                onContextMenu={(e) => e.evt.preventDefault()}>
-
+                onContextMenu={(e) => e.evt.preventDefault()}
+            >
                 <Provider store={primaryStore}>
-
                     <Layer
                         imageSmoothingEnabled={mapProperties.pixelArtMode !== true}
                         x={camera.width}
                         y={camera.height}
-                        scale={{ x: camera.z, y: camera.z }}>
-
+                        scale={{ x: camera.z, y: camera.z }}
+                    >
                         {elementIDs.map(elementID => (
                             <MapElement key={elementID} elementID={elementID} />
                         ))}
-
                         <CanvasGrid />
                         <SelectedMapElement />
                         <MapSorter />
-
                     </Layer>
                 </Provider>
 

@@ -13,7 +13,7 @@ export default function MagicButton() {
             <NavbarDivider />
             <AnchorButton
                 className={Classes.MINIMAL}
-                icon={"build"}
+                icon={"bug"}
                 onClick={generateTestMap}
             />
         </>
