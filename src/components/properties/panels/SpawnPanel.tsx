@@ -23,6 +23,7 @@ export default function SpawnPanel() {
                 minorStepSize={0.01}
                 stepSize={0.1}
                 majorStepSize={0.5}
+                intent="warning"
             />
             <SwitchPanelInput
                 name="spawn.spawnDummies"

@@ -94,6 +94,15 @@ export default function useTestMapGenerator() {
             return elem;
         };
 
+        // Grid Dot
+        const gridParent = addElement("util-layer", 0, 0, 0);
+        gridParent.name = "Grid Dots";
+        const gridDotSprite = generateDotGridSprite();
+        const gridDot = addElement("util-blank", 75, 15, 10, gridParent.id);
+        gridDot.properties = {
+            spriteData: gridDotSprite,
+        };
+
         // Tasks
         let roomID: MaybeGUID = undefined;
         const taskParent = addElement("util-layer", 0, 0, 0);
@@ -192,15 +201,6 @@ export default function useTestMapGenerator() {
         ROOM_TYPES.forEach((type, index) => {
             addElement(type, index * ROOM_SPACING, 20, 5, roomParent.id);
         });
-
-        // Grid Dot
-        const gridParent = addElement("util-layer", 0, 0, 0);
-        gridParent.name = "Grid Dots";
-        const gridDotSprite = generateDotGridSprite();
-        const gridDot = addElement("util-blank", 75, 15, 10, gridParent.id);
-        gridDot.properties = {
-            spriteData: gridDotSprite,
-        };
 
         setMap({
             ...map,

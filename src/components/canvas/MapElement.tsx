@@ -84,7 +84,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setSelectedID(props.elementID);
             }}
             onDragMove={(e) => {
-                if (settings.isGridSnapEnabled) {
+                if (settings.isGridSnapEnabled ?? true) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
                         y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution

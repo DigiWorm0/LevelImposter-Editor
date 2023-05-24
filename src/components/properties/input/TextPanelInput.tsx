@@ -17,9 +17,14 @@ export interface TextInputProps {
 export default function TextPanelInput(props: TextInputProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const { t } = useTranslation();
-    const input = React.useRef<HTMLInputElement>(null);
+    const inputRef = React.useRef<HTMLInputElement>(null);
 
-    const defaultValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+    const propValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+
+    React.useEffect(() => {
+        if (inputRef.current)
+            inputRef.current.value = (propValue ?? "") as string;
+    }, [selectedElem?.id]);
 
     const updateValue = React.useCallback((val?: string) => {
         if (selectedElem) {
@@ -49,22 +54,21 @@ export default function TextPanelInput(props: TextInputProps) {
                 <ResettablePanelInput
                     onReset={() => {
                         updateValue();
-                        if (input.current)
-                            input.current.value = "";
+                        if (inputRef.current)
+                            inputRef.current.value = "";
                     }}
                 >
                     <InputGroup
-                        inputRef={input}
-                        key={`${selectedElem?.id}-${props.prop}`}
+                        inputRef={inputRef}
                         fill
                         placeholder={t(props.name) as string}
-                        defaultValue={defaultValue as string}
+                        defaultValue={propValue as string}
                         leftIcon={props.icon}
                         onBlur={(e) => {
                             updateValue(e.target.value);
                         }}
                         onChange={(e) => {
-                            updateValue(e.target.value);
+                            updateValue(e.currentTarget.value);
                         }}
                     />
                 </ResettablePanelInput>

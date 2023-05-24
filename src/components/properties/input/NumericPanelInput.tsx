@@ -1,4 +1,5 @@
-import { Button, FormGroup, IconName, NumericInput } from "@blueprintjs/core";
+import React from "react";
+import { Button, FormGroup, IconName, Intent, NumericInput } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
@@ -16,13 +17,20 @@ export interface NumericInputProps {
     minorStepSize?: number;
     stepSize?: number;
     majorStepSize?: number;
+    intent?: Intent;
 }
 
 export default function NumericPanelInput(props: NumericInputProps) {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const { t } = useTranslation();
+    const inputRef = React.useRef<HTMLInputElement>(null);
 
-    const defaultValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+    const propValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+
+    React.useEffect(() => {
+        if (inputRef.current)
+            inputRef.current.value = (propValue as number).toString();
+    }, [selectedElem?.id]);
 
     return (
         <FormGroup
@@ -38,16 +46,17 @@ export default function NumericPanelInput(props: NumericInputProps) {
                 fill
             >
                 <NumericInput
-                    key={`${selectedElem?.id}-${props.prop}`}
+                    inputRef={inputRef}
                     fill
                     placeholder={props.defaultValue.toString()}
-                    defaultValue={defaultValue as number}
+                    defaultValue={propValue as number}
                     min={props.min}
                     minorStepSize={props.minorStepSize}
                     stepSize={props.stepSize}
                     majorStepSize={props.majorStepSize}
                     leftIcon={props.icon}
                     rightElement={<Button minimal disabled>{props.label}</Button>}
+                    intent={props.intent}
                     onValueChange={(val, stringVal) => {
                         if (selectedElem) {
                             setSelectedElem({

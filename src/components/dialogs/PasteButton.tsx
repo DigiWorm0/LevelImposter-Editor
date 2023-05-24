@@ -1,4 +1,4 @@
-import { Button, Classes } from "@blueprintjs/core";
+import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import useClipboard from "../../hooks/jotai/useClipboard";
@@ -13,7 +13,7 @@ export default function PasteButton() {
                 content={t("edit.paste") as string}
                 position="bottom">
 
-                <Button
+                <AnchorButton
                     className={Classes.MINIMAL}
                     icon="clipboard"
                     onClick={pasteElement}

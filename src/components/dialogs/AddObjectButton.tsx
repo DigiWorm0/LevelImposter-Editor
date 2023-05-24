@@ -108,7 +108,8 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                             text={t("object.create", { name: query })}
                             label={"util-blank"}
                             active={isActive}
-                            onClick={onClick} />
+                            onClick={onClick}
+                        />
                     )
                 }}
             />

@@ -35,6 +35,7 @@ export default function StarfieldPanel() {
                     minorStepSize={0.1}
                     stepSize={1}
                     majorStepSize={10}
+                    intent="warning"
                 />
                 <NumericPanelInput
                     name="starfield.height"
@@ -45,6 +46,7 @@ export default function StarfieldPanel() {
                     minorStepSize={0.1}
                     stepSize={1}
                     majorStepSize={10}
+                    intent="warning"
                 />
             </ControlGroup>
             <ControlGroup fill>
