@@ -363,6 +363,8 @@
     "btnbg": "Schaltflächenhintergrund",
     "leftoutline": "Linker Umriss",
     "rightoutline": "Richtiger Umriss",
+    "leftbg": "Linker Hintergrund",
+    "rightbg": "Rechter Hintergrund",
     "btndown": "Button-Down",
     "btnup": "Knopf hoch",
     "leftwaterfill": "Linke Wasserfüllung",
