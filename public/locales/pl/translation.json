@@ -1,0 +1,211 @@
+{
+  "language": {
+    "name": "Polski"
+  },
+  "embed": {
+    "openInEditor": "Otwórz w edytorze"
+  },
+  "warning": {
+    "title": "Ostrzeżenie",
+    "mobile": "Edytor LevelImposter nie został zaprojektowany do działania na urządzeniu mobilnym. Twój przebieg może się jednak różnić.",
+    "firefox": "Podczas gdy edytor LevelImposter będzie działał z każdą nowoczesną przeglądarką, przeglądarki oparte na Chromium (Google Chrome, Microsoft Edge, Brave) będą renderować znacznie szybciej podczas pracy z większymi mapami.",
+    "opera": "Gesty myszy w Operze przerywają klikanie i przeciąganie. Możesz je wyłączyć w ustawieniach w sekcji „Skróty”.",
+    "ok": "Ok"
+  },
+  "edit": {
+    "undo": "Cofnij",
+    "redo": "Przywróć",
+    "copy": "Kopiuj",
+    "paste": "Wklej",
+    "search": "Szukaj...",
+    "errorNoClipboard": "Nie masz nic do wklejenia",
+    "errorExternalClipboard": "Wklejanie zewnętrzne nie jest obsługiwane przez przeglądarkę Firefox",
+    "errorInsecureContext": "Wklejanie nie jest dozwolone w trybie HTTP"
+  },
+  "size": {
+    "bytes": "{{size}} bajty",
+    "kilobytes": "{{size}} KB",
+    "megabytes": "{{size}} MB"
+  },
+  "layer": {
+    "new": "Nowa grupa",
+    "add": "Dodaj grupę"
+  },
+  "object": {
+    "add": "Dodaj obiekt",
+    "delete": "Usuń obiekt",
+    "create": "Stwórz '{{name}}'",
+    "search": "Szukaj..."
+  },
+  "policy": {
+    "title": "Zasady API LevelImposter",
+    "agree": "Zgadzam się",
+    "cancel": "Anuluj"
+  },
+  "docs": {
+    "open": "Otwórz dokumentacje"
+  },
+  "minimap": {
+    "title": "Minimapa",
+    "scale": "Skala",
+    "download": "Pobierz minimapę",
+    "minimapSprite": "Sprite minimapy",
+    "imposterOnly": "Tylko dla impostorów",
+    "infoSprite": "Sprite minimapy powinen być czerwony, aby dobrze się wyrenderował.",
+    "errorNoSprite": "Obiekt nie ma dołączonego sprite'a. Minimapa nie będzie widoczna w grze."
+  },
+  "sprite": {
+    "title": "Sprite",
+    "upload": "Wrzuć",
+    "reset": "Reset",
+    "setColor": "Ustaw kolor",
+    "loop": "Zapętl animacje",
+    "ventInfo": "Dowolna animacja GIF będzie odtwarzana, kiedy vent będzie użyty.",
+    "doorInfo": "Dowolna animacja GIF będzie odtwarzana, gdy drzwi zostaną zamknięte, i odwrócona, gdy drzwi zostaną otwarte.",
+    "camInfo": "Dowolna animacja GIF będzie odtwarzana, gdy kamery są aktywne.",
+    "okSize": "Twój obraz jest wystarczająco mały, aby nie powodować żadnych problemów.",
+    "paddingInfo": "Aby podświetlenie było widoczne wokół konsoli, sprity wymagają co najmniej 10 pikseli wypełnienia ze wszystkich stron.",
+    "errorSize": "Większe obrazy mogą czasami crashować lub zawieszać grę. Spróbuj zmniejszyć lub podzielić sprite na wiele obiektów.",
+    "errorInvalidType": "Ten plik obrazu ma nieprawidłowy format."
+  },
+  "starfield": {
+    "title": "Starfield",
+    "count": "Liczba cząsteczek",
+    "length": "Długość obszaru",
+    "height": "Wysokość obszaru",
+    "minSpeed": "Minimalna prędkość cząstek",
+    "maxSpeed": "Maksymalna prędkość cząstek"
+  },
+  "audio": {
+    "soundPlayer": "Odtwarzacz dźwięku",
+    "reset": "Reset",
+    "upload": "Wrzuć",
+    "notUploaded": "Jeszcze nic nie przesłano.",
+    "okSize": "Twój plik audio jest wystarczająco mały, aby nie powodować żadnych problemów.",
+    "errorSize": "Większe pliki dźwiękowe mogą czasami crashować lub zawieszać grę. Spróbuj zmniejszyć liczbę kanałów lub szybkość transmisji.",
+    "errorNotSupported": "Twoja przeglądarka nie obsługuje elementu audio.",
+    "errorNoCollider": "W tym obiekcie brakuje collidera. Dźwięk jest odtwarzany tylko dla graczy, którzy znajdują się w colliderze.",
+    "errorNoSound": "W tym obiekcie brakuje pliku dźwiękowego. (Unity obsługuje tylko pliki .wav)",
+    "errorInvalidType": "Ten plik dźwiękowy ma nieprawidłowy format.",
+    "errorNotWav": "Unity obsługuje tylko pliki .wav."
+  },
+  "trigger": {
+    "selectTarget": "Wybierz cel",
+    "selectTrigger": "Wybierz trigger",
+    "isClientSide": "Strona klienta",
+    "randomInfo": "Trigger losowo wybierze między pierwszym a drugim celem.",
+    "repeatInfo": "Trigger powtórzy wszystkie połączone cele.",
+    "errorNoCollider": "Ten obiekt nie ma triggera. (Trigger jest uruchamiany, gdy gracz wchodzi/wychodzi z obszaru kolizji)",
+    "errorNoTargets": "Na tej mapie nie ma żadnych innych obiektów, które można aktywować."
+  },
+  "vent": {
+    "title": "Vent",
+    "noConnection": "Brak połączenia",
+    "ventOpen": "Dźwięk otwarcia",
+    "ventMove": "Dźwięk poruszania się",
+    "sounds": "Dźwięki",
+    "connections": "Połączenia",
+    "globalInfo": "Dźwięki ventów występują w każdym vencie, zmiany zachodzą na całej mapie.",
+    "ventSoundInfo": "Venty Polusa nie wydają żadnych dźwięków, gdy są używane.",
+    "errorNoVents": "Ta mapa nie ma żadnych innych ventów."
+  },
+  "door": {
+    "title": "Drzwi",
+    "type": "Sposób otwarcia",
+    "skeld": "Timer (Skeld)",
+    "polus": "Panel przełączników (Polus)",
+    "airship": "Przeciągnięcie karty (Airship)",
+    "doorOpen": "Dźwięk otwarcia",
+    "doorClose": "Dźwięk zamknięcia",
+    "globalInfo": "Typ drzwi występuje w każdych drzwiach, zmiany zachodzą na całej mapie.",
+    "errorNoRoom": "Te drzwi nie są połączone do żadnego pomieszczenia."
+  },
+  "stepSound": {
+    "title": "Dźwięk kroków",
+    "presets": "Szablony dźwięków",
+    "priority": "Priorytet",
+    "variants": "Warianty",
+    "variant": "Wariant kroku",
+    "default": "Wariant {{index}}",
+    "Carpet": "Dywan",
+    "Dirt": "Ziemia",
+    "Glass": "Szkło",
+    "Metal": "Metal",
+    "Plastic": "Plastik",
+    "Snow": "Śnieg",
+    "Tile": "Płytka",
+    "Wood": "Drewno",
+    "okSize": "Twój dźwięk jest wystarczająco mały, aby nie powodować żadnych problemów.",
+    "errorSize": "Większe pliki dźwiękowe mogą czasami crashować lub zawieszać grę. Spróbuj zmniejszyć liczbę kanałów lub bitrate."
+  },
+  "minigame": {
+    "title": "Minigra",
+    "reactorColorBad": "Zły kolor",
+    "reactorColorGood": "Dobry kolor",
+    "lightsColorOn": "Kolor włączenia",
+    "lightsColorOff": "Kolor wyłączenia",
+    "fuelColor": "Kolor paliwa",
+    "bgColor": "Kolor tła",
+    "vendingItems": "Przedmioty z automatu",
+    "vendingDrawings": "Rysunki automatów",
+    "weaponAsteroids": "Asteroidy",
+    "weaponBrokenAsteroids": "Uszkodzone asteroidy",
+    "fanSymbols": "Symbole wiatraków",
+    "itemCount": "Ilość sztuk",
+    "item": "Przedmiot {{index}}",
+    "drawing": "Rysunek {{index}}",
+    "symbol": "Symbol {{index}}",
+    "asteroid": "Asteroida {{index}}",
+    "broken": "Zniszczona asteroida {{index}}",
+    "saveInfo": "Kliknij obraz prawym przyciskiem myszy i „Zapisz obraz jako…”, aby bezpośrednio edytować sprita.",
+    "bg": "Tło",
+    "sweep": "Pasek",
+    "glasspanel": "Szklany panel"
+  },
+  "task": {
+  },
+  "tele": {
+  },
+  "timer": {
+  },
+  "transform": {
+  },
+  "cameras": {
+  },
+  "spawn": {
+  },
+  "platform": {
+  },
+  "collider": {
+  },
+  "room": {
+  },
+  "meeting": {
+  },
+  "sab": {
+  },
+  "console": {
+  },
+  "floating": {
+  },
+  "ladder": {
+  },
+  "debug": {
+  },
+  "map": {
+  },
+  "publish": {
+  },
+  "account": {
+  },
+  "settings": {
+    "interface": {
+    },
+    "map": {
+    }
+  },
+  "t": {
+  },
+  "au": {
+  }
+}
