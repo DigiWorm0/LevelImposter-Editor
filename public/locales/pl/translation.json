@@ -2,6 +2,7 @@
   "language": {
     "name": "Polski",
     "auto": "Automatyczny",
+    "en": "język angielski",
     "de": "Niemiecki",
     "es": "hiszpański",
     "fr": "Francuski",
@@ -230,6 +231,7 @@
     "bar": "Bar",
     "arrow": "Strzałka",
     "slider": "Suwak",
+    "glass": "Szkło",
     "obja": "Obiekt A",
     "objb": "Obiekt B",
     "objc": "Obiekt C",
@@ -391,6 +393,7 @@
     "preserveOffsetTooltip": "Zachowaj przesunięcie między graczem a teleporterem.",
     "ghostEnabled": "Duch włączony",
     "ghostEnabledTooltip": "Pozwól duchom korzystać z teleportu.",
+    "noConnection": "Brak połączenia",
     "errorNoTeles": "Na tej mapie nie ma żadnych innych teleportów."
   },
   "timer": {
@@ -465,6 +468,7 @@
   },
   "meeting": {
     "title": "Opcje spotkania",
+    "bg": "Tło",
     "buttonStinger": "Guzik Stingera",
     "reportStinger": "Zgłoś Stingera"
   },
@@ -511,6 +515,7 @@
     "viewExternal": "Zobacz na LevelImposter.net",
     "noDescription": "(Bez opisu)",
     "newDialogText": "Czy na pewno chcesz utworzyć nową mapę? Spowoduje to usunięcie wszystkich elementów i zresetowanie mapy.",
+    "newDialogCancel": "Anuluj",
     "tooLargeError": "Mapa przekracza limit 50 MB do przesłania. Nadal możesz grać lokalnie, ale nie możesz przesyłać, dopóki nie usuniesz ani nie skompresujesz żadnych niestandardowych duszków, gifów i dźwięków.",
     "tooLargeWarn": "Mapa zbliża się do limitu 50 MB dla przesyłanych plików. Zaleca się usunięcie lub skompresowanie wszelkich niestandardowych duszków, gifów i dźwięków.",
     "errorSave": "Błąd podczas zapisywania mapy: {{error}}",
@@ -527,6 +532,8 @@
     "publish": "Publikować",
     "publishRemix": "Opublikuj remiks",
     "publishInfo": "Opublikuj informacje",
+    "ok": "Ok",
+    "cancel": "Anuluj",
     "resetThumbnail": "Zresetuj miniaturę",
     "uploadThumbnail": "Prześlij miniaturę",
     "errorEmailNotVerified": "Przed opublikowaniem map musisz zweryfikować swój adres e-mail.",
@@ -572,6 +579,7 @@
       "pixelArtMode": "Tryb Pixel Art",
       "canRemix": "Zezwalaj na remiksowanie",
       "skyboxColor": "Kolor Skyboxa",
+      "setColor": "Ustaw kolor",
       "exileAnim": "Animacja wygnania",
       "setAnim": "Ustaw animację"
     }
@@ -631,6 +639,8 @@
     "util-cams3": "Panel kamery sterowca",
     "util-spawn1": "Początkowy punkt odradzania",
     "util-spawn2": "Punkt odradzania spotkania",
+    "util-minimap": "Minimapa",
+    "util-minimapsprite": "Sprite minimapy",
     "util-platform": "Ruchoma Platforma",
     "util-starfield": "Pole gwiazd",
     "util-sound1": "Dźwięk otoczenia",
@@ -765,6 +775,7 @@
     "dec-panel2": "Panel 2",
     "dec-pool1": "Stół bilardowy 1",
     "dec-pool2": "Stół bilardowy 2",
+    "dec-scale": "Skala",
     "dec-shelf1": "Półka kuchenna",
     "dec-shelf2": "Półka na książki",
     "dec-statue1": "Posąg pistoletu",
