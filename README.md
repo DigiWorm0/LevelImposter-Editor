@@ -42,6 +42,9 @@ Custom Among Us Mapping Studio
 	<a href="https://discord.gg/9jJEBQ4qJs">
 		<img alt="Discord" src="https://img.shields.io/discord/830091888332767253?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white">
 	</a>
+    <a href="https://gitlocalize.com/repo/8670">
+        <img alt="GitLocalize" src="https://gitlocalize.com/repo/8670/whole_project/badge.svg" />
+    </a>
 </p>
 <hr />
 
@@ -81,6 +84,11 @@ npm start
 ```
 
 ## Contributing
+
+### Localization/Translation
+[GitLocalize Link](https://gitlocalize.com/repo/8670)
+
+### Code
 1. Create a fork of the correct repository\
 [Among Us Mod](https://github.com/DigiWorm0/LevelImposter) (DigiWorm0/LevelImposter)\
 [Web Editor](https://github.com/DigiWorm0/LevelImposter-Editor) (DigiWorm0/LevelImposter-Editor)\
@@ -109,8 +117,10 @@ git push feature/cool-feature
 ### Contributors
 [Digi#0069](https://github.com/DigiWorm0) - Lead Developer\
 [Luque#5893](#) - New Editor Icons\
-[PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese Translation\
-[PalmForest#1404](https://github.com/RealPalmForest) & [TommyXL#9414](https://github.com/Tommy-XL) - Russian Translation
+
+#### Translators
+[PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese\
+[PalmForest#1404](https://github.com/RealPalmForest) & [TommyXL#9414](https://github.com/Tommy-XL) - Russian\
 
 ### Dependencies
 [React](https://reactjs.org/) - UI Rendering\
