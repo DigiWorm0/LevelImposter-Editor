@@ -525,6 +525,7 @@
         "title": "Publish Map",
         "success": "Successfully published map!",
         "mapName": "Map Name",
+        "authorName": "Author Name",
         "mapDescription": "Map Description",
         "thumbnail": "Thumbnail",
         "publishPublic": "Publish Publicly",

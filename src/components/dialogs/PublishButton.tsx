@@ -1,4 +1,4 @@
-import { AnchorButton, Button, ButtonGroup, Dialog, EditableText, FormGroup, H1, ProgressBar } from "@blueprintjs/core";
+import { AnchorButton, Button, ButtonGroup, Classes, Dialog, EditableText, FormGroup, H1, H5, Icon, ProgressBar } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -17,14 +17,14 @@ import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
-import PublishInfoDialog from "./PublishInfoDialog";
+import PublishInfo from "./PublishInfo";
+import ImageUpload from "../properties/util/ImageUpload";
 
 export default function PublishButton() {
     const { t } = useTranslation();
     const toaster = useToaster();
     const [isOpen, setIsOpen] = React.useState(false);
     const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
-    const [isInfoOpen, setIsInfoOpen] = React.useState(false);
     const settings = useSettingsValue();
     const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
@@ -56,8 +56,8 @@ export default function PublishButton() {
                 description: map.description,
                 isPublic: map.isPublic,
                 isVerified: false,
-                authorID: user?.uid ? user.uid : "",
-                authorName: user?.displayName ? user.displayName : "",
+                authorID: user?.uid ?? "",
+                authorName: map.authorName === "" ? (user?.displayName ?? "Anonymous") : map.authorName,
                 createdAt: new Date().getTime(),
                 likeCount: 0,
                 elements: map.elements,
@@ -67,11 +67,13 @@ export default function PublishButton() {
             };
             const mapJSON = JSON.stringify(mapData);
             const mapBytes = new TextEncoder().encode(mapJSON);
+
             return {
                 mapBytes,
                 mapData,
             };
         }
+
         const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
             const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=31536000, immutable" });
 
@@ -88,6 +90,7 @@ export default function PublishButton() {
                 });
             });
         }
+
         const uploadToFirestore = (mapData: LIMap) => {
             const metadata: LIMetadata = {
                 v: mapData.v,
@@ -185,8 +188,8 @@ export default function PublishButton() {
             <Tooltip2
                 fill
                 content={t("publish.title") as string}
-                position="bottom">
-
+                position="bottom"
+            >
                 <AnchorButton
                     fill
                     text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
@@ -195,7 +198,6 @@ export default function PublishButton() {
                     onClick={() => { setIsOpen(true) }}
                     style={{ marginTop: 15 }}
                 />
-
             </Tooltip2>
 
             {/*  Publish  */}
@@ -204,13 +206,13 @@ export default function PublishButton() {
                 isOpen={isOpen && isLoggedIn}
                 onClose={() => { setIsOpen(isPublishing) }}
                 title={t("publish.title")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+            >
                 <div style={{ margin: 15 }} >
-
                     <FormGroup
                         label={t("account.signedInAs", { name: user?.displayName })}
-                        disabled={isPublishing}>
+                        disabled={isPublishing}
+                    >
                         <Button
                             disabled={isPublishing}
                             icon={"user"}
@@ -218,17 +220,18 @@ export default function PublishButton() {
                             intent={"danger"}
                             onClick={() => {
                                 signOut(auth);
-                            }} />
+                            }}
+                        />
                     </FormGroup>
-
                     <FormGroup
                         disabled={isPublishing}
                         style={{ textAlign: "center" }}
-                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}>
-
+                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+                    >
                         <img
-                            src={thumbnail ? URL.createObjectURL(thumbnail) : ""}
-                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }} />
+                            src={thumbnail ? URL.createObjectURL(thumbnail) : "/DefaultThumbnail.png"}
+                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }}
+                        />
                         <ButtonGroup minimal fill>
                             <Button
                                 fill
@@ -238,14 +241,16 @@ export default function PublishButton() {
                                 text={t("publish.resetThumbnail") as string}
                                 onClick={() => {
                                     setThumbnail(undefined);
-                                }} />
+                                }}
+                            />
                             <Button
                                 fill
                                 minimal
                                 disabled={isPublishing}
                                 icon={"upload"}
                                 text={t("publish.uploadThumbnail") as string}
-                                onClick={uploadThumbnail} />
+                                onClick={uploadThumbnail}
+                            />
                         </ButtonGroup>
                     </FormGroup>
                     <div style={{ padding: 15 }}>
@@ -260,8 +265,24 @@ export default function PublishButton() {
                                         ...map,
                                         name: value,
                                     })
-                                }} />
+                                }}
+                            />
                         </H1>
+                        <H5>
+                            by{" "}
+                            <EditableText
+                                selectAllOnFocus
+                                disabled={isPublishing}
+                                defaultValue={map.authorName === "" ? (user?.displayName ?? "Anonymous") : map.authorName}
+                                placeholder={t("publish.authorName") as string}
+                                onChange={(value) => {
+                                    setMap({
+                                        ...map,
+                                        authorName: value,
+                                    })
+                                }}
+                            />
+                        </H5>
                         <EditableText
                             multiline
                             maxLines={12}
@@ -275,7 +296,8 @@ export default function PublishButton() {
                                     ...map,
                                     description: value,
                                 })
-                            }} />
+                            }}
+                        />
                     </div>
 
                     <ButtonGroup fill>
@@ -316,34 +338,23 @@ export default function PublishButton() {
                         <div style={{ marginTop: 15 }}>
                             <ProgressBar
                                 intent={"primary"}
-                                value={uploadProgress} />
+                                value={uploadProgress}
+                            />
                         </div>
                     }
                 </div>
-
             </Dialog>
 
             <AgreementDialog
                 isOpen={isAgreementOpen}
                 onAgree={() => {
                     setIsAgreementOpen(false);
-                    setIsInfoOpen(true);
+                    publishMap(generateGUID());
                 }}
                 onCancel={() => {
                     setIsAgreementOpen(false);
                 }}
             />
-            <PublishInfoDialog
-                isOpen={isInfoOpen}
-                onAgree={() => {
-                    setIsInfoOpen(false);
-                    publishMap(generateGUID());
-                }}
-                onCancel={() => {
-                    setIsInfoOpen(false);
-                }}
-            />
-
         </>
     );
 }
