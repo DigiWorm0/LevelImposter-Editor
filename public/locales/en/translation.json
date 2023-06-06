@@ -438,7 +438,8 @@
         "enterOffsetX": "Entrance Offset X",
         "enterOffsetY": "Entrance Offset Y",
         "exitOffsetX": "Exit Offset X",
-        "exitOffsetY": "Exit Offset Y"
+        "exitOffsetY": "Exit Offset Y",
+        "moveSound": "Move Sound"
     },
     "collider": {
         "title": "Colliders",

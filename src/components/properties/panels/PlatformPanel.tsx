@@ -4,6 +4,9 @@ import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import SoundEditorPanel from "../editors/SoundEditorPanel";
+
+const PLATFORM_MOVE_SOUND = "platformMove";
 
 export default function PlatformPanel() {
     const { t } = useTranslation();
@@ -80,6 +83,11 @@ export default function PlatformPanel() {
                     intent={"warning"}
                 />
             </ControlGroup>
+            <SoundEditorPanel
+                title={t("platform.moveSound") as string}
+                soundType={PLATFORM_MOVE_SOUND}
+                defaultSoundURL="platformMoveSound.wav"
+            />
         </PanelContainer>
     );
 }
