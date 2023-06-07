@@ -1,4 +1,4 @@
-import { Callout, Collapse, IconName } from '@blueprintjs/core';
+import { Button, Callout, Collapse, IconName } from '@blueprintjs/core';
 import React from 'react';
 import { useSettingsValue } from '../../../hooks/jotai/useSettings';
 
@@ -7,6 +7,10 @@ export interface MapErrorProps {
     info?: boolean,
     icon?: IconName,
     children: React.ReactNode
+
+    buttonText?: string,
+    buttonIcon?: IconName,
+    onButtonClick?: () => void
 }
 
 export default function MapError(props: MapErrorProps) {
@@ -22,7 +26,21 @@ export default function MapError(props: MapErrorProps) {
                     borderRadius: 0
                 }}
             >
-                {props.children}
+                <p>
+                    {props.children}
+
+                </p>
+
+                {props.buttonText && props.onButtonClick && (
+                    <Button
+                        icon={props.buttonIcon}
+                        onClick={props.onButtonClick}
+                        intent={props.info ? "primary" : "warning"}
+                        small
+                    >
+                        {props.buttonText}
+                    </Button>
+                )}
             </Callout>
         </Collapse>
     )
