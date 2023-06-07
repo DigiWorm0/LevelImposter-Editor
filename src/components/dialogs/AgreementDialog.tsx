@@ -12,8 +12,8 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                 isOpen={props.isOpen}
                 onClose={props.onCancel}
                 title={t("policy.title") as string}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+            >
                 <div style={{ margin: 15 }} >
                     <p>
                         In order to abide by local laws and regulations as well as InnerSloth's <a href="https://www.innersloth.com/among-us-mod-policy/" target={"_blank"} rel="noreferrer">Among Us Mod Policy</a>,
@@ -50,19 +50,19 @@ export default function AgreementDialog(props: { isOpen: boolean, onAgree: () =>
                     </p>
 
                     <ButtonGroup>
-
                         <Button
                             style={{ marginRight: 10 }}
                             onClick={props.onAgree}
                             text={t("policy.agree") as string}
                             intent="success"
-                            icon="tick" />
+                            icon="tick"
+                        />
                         <Button
                             onClick={props.onCancel}
                             text={t("policy.cancel") as string}
                             intent="danger"
-                            icon="cross" />
-
+                            icon="cross"
+                        />
                     </ButtonGroup>
                 </div>
             </Dialog>

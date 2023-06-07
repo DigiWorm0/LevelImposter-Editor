@@ -86,7 +86,6 @@ export default function ImageUpload(props: ImageUploadProps) {
                     }}
                     src={props.spriteURL ?? props.defaultSpriteURL}
                     alt={props.name}
-
                 />
             </div>
 

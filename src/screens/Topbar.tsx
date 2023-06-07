@@ -21,7 +21,8 @@ export default function Topbar() {
         <div className="topbar">
             <Navbar
                 className="topbar-navbar"
-                fixedToTop={true}>
+                fixedToTop={true}
+            >
                 <NavbarGroup>
 
                     <MapName />
