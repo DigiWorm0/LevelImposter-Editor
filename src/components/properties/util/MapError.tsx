@@ -26,9 +26,8 @@ export default function MapError(props: MapErrorProps) {
                     borderRadius: 0
                 }}
             >
-                <p>
+                <p style={{ marginBottom: 0 }}>
                     {props.children}
-
                 </p>
 
                 {props.buttonText && props.onButtonClick && (
@@ -37,6 +36,7 @@ export default function MapError(props: MapErrorProps) {
                         onClick={props.onButtonClick}
                         intent={props.info ? "primary" : "warning"}
                         small
+                        style={{ marginTop: 5 }}
                     >
                         {props.buttonText}
                     </Button>

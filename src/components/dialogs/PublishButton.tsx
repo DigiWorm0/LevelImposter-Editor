@@ -273,7 +273,7 @@ export default function PublishButton() {
                             <EditableText
                                 selectAllOnFocus
                                 disabled={isPublishing}
-                                defaultValue={map.authorName === "" ? (user?.displayName ?? "Anonymous") : map.authorName}
+                                defaultValue={user?.displayName ?? "Anonymous"}
                                 placeholder={t("publish.authorName") as string}
                                 onChange={(value) => {
                                     setMap({
