@@ -8,6 +8,7 @@ import GUID from "../../../types/generic/GUID";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import getIsConsole from "../../../hooks/getIsConsole";
+import useFixSprite from "../../../hooks/useFixSprite";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -15,6 +16,7 @@ export default function TransformPanel() {
     const removeElement = useRemoveElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const settings = useSettingsValue();
+    const fixSprite = useFixSprite();
 
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
@@ -177,7 +179,10 @@ export default function TransformPanel() {
                 {elemVisibility === ElemVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
             </MapError>
             <MapError
-                isVisible={isConsole && (selectedElem.xScale != 1 || selectedElem.yScale != 1)}
+                isVisible={isConsole && (Math.abs(selectedElem.xScale) != 1 || Math.abs(selectedElem.yScale) != 1)}
+                buttonText={t("transform.autoFix") as string}
+                buttonIcon="wrench"
+                onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
             </MapError>

@@ -413,6 +413,7 @@
         "delete": "Delete",
         "unlock": "Unlock",
         "lock": "Lock",
+        "autoFix": "Auto-Fix",
         "errorInvisible": "This object will not be visible in-game.",
         "errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",
         "errorMinimap": "This object will only be visible in the minimap.",
