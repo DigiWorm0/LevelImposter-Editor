@@ -126,6 +126,7 @@
         "skeld": "Timer (Skeld)",
         "polus": "Switch Panel (Polus)",
         "airship": "Card Swipe (Airship)",
+        "isInteractable": "Interactable",
         "doorOpen": "Open Sound",
         "doorClose": "Close Sound",
         "globalInfo": "Door type is global and can only be changed per-map.",
