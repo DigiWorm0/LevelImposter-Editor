@@ -33,21 +33,16 @@ export function useSpriteSrc(elementID: MaybeGUID) {
 
 export default function useSprite(elementID: MaybeGUID) {
     const spriteURL = useSpriteSrc(elementID);
-    const [image, setImage] = React.useState<HTMLImageElement>(new window.Image());
     const [sprite, setSprite] = React.useState<HTMLImageElement | null>(null);
 
     React.useEffect(() => {
         console.log(`Loading Sprite ${elementID}`);
-        image.src = spriteURL;
-        image.onload = () => {
+        const img = new window.Image();
+        img.src = spriteURL;
+        img.onload = () => {
             console.log(`Loaded Sprite ${elementID}`);
-            setSprite(image);
+            setSprite(img);
         };
-
-        return () => {
-            image.src = "";
-            setSprite(null);
-        }
     }, [spriteURL, elementID]);
 
     return sprite;
