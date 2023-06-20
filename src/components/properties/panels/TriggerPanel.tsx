@@ -6,6 +6,7 @@ import { useSelectedTriggerID } from "../../../hooks/jotai/useSelectedTrigger";
 import { OutputTriggerDB } from "../../../types/au/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import NumericPanelInput from "../input/NumericPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
@@ -25,6 +26,8 @@ export default function TriggerPanel() {
     const triggerOutputs = React.useMemo(() => {
         if ((selectedElem?.type ?? "") in OutputTriggerDB)
             return OutputTriggerDB[(selectedElem?.type ?? "") as keyof typeof OutputTriggerDB];
+        if (selectedElem?.type == "util-triggerrand")
+            return Array.from({ length: selectedElem.properties.triggerCount ?? 2 }, (_, i) => `onRandom ${i + 1}`);
     }, [selectedElem]);
 
     // If the selected element has a collider
@@ -41,19 +44,43 @@ export default function TriggerPanel() {
             && elementIDs.includes(triggerObj.elemID);
     }, [selectedElem, elementIDs]);
 
+    // Gets random percentage
+    const randomPercentage = React.useMemo(() => {
+        if (selectedElem?.type !== "util-triggerrand")
+            return undefined;
+        const triggerCount = selectedElem.properties.triggerCount ?? 2;
+        const percentage = Math.round(1 / triggerCount * 100);
+        return `${percentage}%`;
+    }, [selectedElem]);
+
     if (!selectedElem || triggerOutputs === undefined)
         return null;
 
     return (
         <>
             <PanelContainer title={"Trigger"}>
+                {selectedElem.type === "util-triggerrand" && (
+                    <NumericPanelInput
+                        name={t("trigger.count")}
+                        label={randomPercentage}
+                        prop="triggerCount"
+                        defaultValue={2}
+                        icon="antenna"
+                        min={2}
+                        stepSize={1}
+
+                    />
+                )}
                 <DropdownList
-                    elements={triggerOutputs.map((triggerID) => ({
-                        id: triggerID,
-                        name: t(`t.${triggerID}`),
-                        intent: isTriggerActive(triggerID) ? "success" : "danger",
-                        icon: "antenna"
-                    }))}
+                    elements={triggerOutputs.map((triggerID) => {
+                        const split = triggerID.split(" ");
+                        return {
+                            id: triggerID,
+                            name: t(`t.${split[0]}`, { index: split[1] ?? 1 }),
+                            intent: isTriggerActive(triggerID) ? "success" : "danger",
+                            icon: "antenna"
+                        };
+                    })}
                     selectedID={selectedTriggerID}
                     onSelectID={setSelectedTriggerID}
                     renderElement={(e) => (
