@@ -4,6 +4,7 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
+import clamp from "../../../hooks/clamp";
 
 export interface NumericInputProps {
     name: string;
@@ -63,7 +64,7 @@ export default function NumericPanelInput(props: NumericInputProps) {
                                 ...selectedElem,
                                 properties: {
                                     ...selectedElem.properties,
-                                    [props.prop]: isNaN(parseFloat(stringVal)) ? props.defaultValue : val
+                                    [props.prop]: isNaN(parseFloat(stringVal)) ? props.defaultValue : clamp(val, props.min ?? -Infinity, props.max ?? Infinity)
                                 }
                             });
                         }

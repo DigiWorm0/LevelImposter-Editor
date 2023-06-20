@@ -17,6 +17,7 @@ export default interface LIProperties {
     triggerTime?: number;
     triggerClientSide?: boolean;
     highlightColor?: LIColor;
+    triggerCount?: number;
 
     // Sound
     sounds?: LISound[];
@@ -56,6 +57,7 @@ export default interface LIProperties {
 
     // Door
     doorType?: string;
+    isDoorInteractable?: boolean;
 
     // Platform
     platformXOffset?: number;

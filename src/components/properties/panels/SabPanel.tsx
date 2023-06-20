@@ -10,6 +10,7 @@ import RoomSelect from "../input/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import LIElement from "../../../types/li/LIElement";
 
 const timerElems = [
     "sab-reactorleft",
@@ -29,6 +30,8 @@ export default function SabPanel() {
     const [targetConnections, sourceConnections] = useConnections(selectedElem?.properties.parent);
 
     const otherSab = React.useMemo(() => {
+        if (selectedElem?.type.startsWith("sab-btn"))
+            return undefined;
         return sourceConnections?.find((c) => c.type.startsWith("sab-") && c.id !== selectedElem?.id && !c.type.startsWith("sab-btn"));
     }, [sourceConnections, selectedElem]);
 

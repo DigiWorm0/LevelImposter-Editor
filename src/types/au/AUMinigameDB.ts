@@ -73,6 +73,7 @@ const AUMinigameDB: string[] = [
     "task-burger_paper",
     "task-burger_paperbuntop",
     "task-burger_paperbunbottom",
+    "task-burger_papermeat",
     "task-burger_paperlettuce",
     "task-burger_paperonion",
     "task-burger_papertomato",

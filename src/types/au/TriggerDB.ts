@@ -30,10 +30,6 @@ const OutputTriggerDB: Record<string, string[]> = {
     "util-triggerstart": [
         "onStart",
     ],
-    "util-triggerrand": [
-        "onRandom 1",
-        "onRandom 2"
-    ],
     "sab-doorv": [
         "onOpen",
         "onClose",
