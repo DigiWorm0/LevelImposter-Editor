@@ -1,18 +1,17 @@
-import { Button, FormGroup, NumericInput } from "@blueprintjs/core";
+import { FormGroup, NumericInput } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
+import { ItemRenderer } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import NumericPanelInput from "../input/NumericPanelInput";
 import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
-import PanelContainer from "../util/PanelContainer";
 import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();

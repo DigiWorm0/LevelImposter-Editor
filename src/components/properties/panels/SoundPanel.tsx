@@ -62,6 +62,7 @@ export default function SoundPanel() {
                     onChange={onChange}
                     onReset={onReset}
                     loop
+                    editChannel={selectedElem.type === "util-triggersound"}
                 />
             </PanelContainer>
             <MapError

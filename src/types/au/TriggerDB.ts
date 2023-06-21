@@ -67,8 +67,9 @@ const InputTriggerDB: Record<string, string[]> = {
         "trigger",
     ],
     "util-triggersound": [
-        "enable",
-        "disable",
+        "playonce",
+        "playloop",
+        "stop",
     ],
     "sab-doorv": [
         "open",
