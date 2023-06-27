@@ -428,11 +428,16 @@
         "errorScale": "Scaling the object will also scale console highlight."
     },
     "cameras": {
-        "title": "Cameras",
+        "title": "Camera",
         "offset": "Offset",
         "offsetx": "Offset X",
         "offsety": "Offset Y",
         "zoom": "Zoom"
+    },
+    "display": {
+        "title": "Display",
+        "width": "Width (px)",
+        "height": "Height (px)"
     },
     "spawn": {
         "title": "Spawn Point",
@@ -642,6 +647,7 @@
         "util-cams": "Polus Camera Panel",
         "util-cams2": "Skeld Camera Panel",
         "util-cams3": "Airship Camera Panel",
+        "util-display": "Display",
         "util-spawn1": "Initial Spawnpoint",
         "util-spawn2": "Meeting Spawnpoint",
         "util-minimap": "Minimap",

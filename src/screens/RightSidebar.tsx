@@ -3,6 +3,7 @@ import CamPanel from "../components/properties/panels/CamPanel";
 import ColliderPanel from "../components/properties/panels/ColliderPanel";
 import ConsolePanel from "../components/properties/panels/ConsolePanel";
 import DebugPanel from "../components/properties/panels/DebugPanel";
+import DisplayPanel from "../components/properties/panels/DisplayPanel";
 import FloatingPanel from '../components/properties/panels/FloatingPanel';
 import LadderPanel from "../components/properties/panels/LadderPanel";
 import MinimapPanel from "../components/properties/panels/MinimapPanel";
@@ -43,6 +44,7 @@ export default function RightSidebar() {
             <MeetingPanel />
             <VentPanel />
             <TelePanel />
+            <DisplayPanel />
             <CamPanel />
             <SpawnPanel />
             <PlatformPanel />

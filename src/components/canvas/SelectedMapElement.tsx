@@ -1,7 +1,6 @@
-import { Group } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { UNITY_SCALE } from "../../types/generic/Constants";
 import CameraRender from "./CameraRender";
+import DisplayRender from "./DisplayRender";
 import ColliderEditor from "./ColliderEditor";
 import ColliderPreview from "./ColliderPreview";
 import ConsoleRange from "./ConsoleRange";
@@ -27,6 +26,7 @@ export default function SelectedMapElement() {
             <SpawnRange />
             <LadderRange />
             <CameraRender />
+            <DisplayRender />
             <PlatformRange />
             <MinimapPreview />
             <MinimapElement />

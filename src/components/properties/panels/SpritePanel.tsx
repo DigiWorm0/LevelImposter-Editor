@@ -25,6 +25,7 @@ const TYPE_BLACKLIST = [
     "util-triggertimer",
     "util-triggerstart",
     "util-dummy",
+    "util-display",
 ];
 
 export default function SpritePanel() {

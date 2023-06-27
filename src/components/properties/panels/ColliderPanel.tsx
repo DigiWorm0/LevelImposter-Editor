@@ -2,7 +2,7 @@ import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
-import { useSelectedColliderID, useSetSelectedCollider } from "../../../hooks/jotai/useSelectedCollider";
+import { useSelectedColliderID } from "../../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
@@ -34,14 +34,13 @@ const RESTRICTED_TYPES = [
 
 const SINGULAR_TYPES = [
     "util-room",
-    "util-sound1",
+    "util-sound2",
 ];
 
 export default function ColliderPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
-    const setSelectedCollider = useSetSelectedCollider();
 
     const isRestricted = React.useMemo(() => {
         return RESTRICTED_TYPES.includes(selectedElem?.type || "");

@@ -3,11 +3,14 @@ export const DEFAULT_CONSOLE_RANGE = 1;
 export const VENT_CONSOLE_RANGE = 0.75;
 export const DEFAULT_SPAWN_RANGE = 1.55;
 export const DEFAULT_CAM_SIZE = 6;
-export const DEFAULT_CAM_ASPECT = 1.5;
+export const DEFAULT_CAM_ASPECT = 330 / 230;
 export const DEFAULT_LADDER_HEIGHTS: Record<string, number> = {
     "util-ladder1": 3,
     "util-ladder2": 1.5,
 }
+
+export const DEFAULT_DISPLAY_HEIGHT = 230;
+export const DEFAULT_DISPLAY_WIDTH = 330;
 
 export const DEFAULT_PLATFORM_OFFSET = 3;
 export const DEFAULT_PLATFORM_ENTER = -1.5;

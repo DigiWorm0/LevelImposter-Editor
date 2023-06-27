@@ -47,6 +47,10 @@ export default interface LIProperties {
     camYOffset?: number;
     camZoom?: number;
 
+    // Display
+    displayWidth?: number;
+    displayHeight?: number;
+
     // Console
     onlyFromBelow?: boolean;
     checkCollision?: boolean;

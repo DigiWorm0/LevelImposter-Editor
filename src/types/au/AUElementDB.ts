@@ -108,6 +108,7 @@ const AUElementDB: string[] = [
     "util-blankfloat",
     "util-tele",
     "util-meeting",
+    "util-display",
     //"util-physics",
     "util-blanktrigger",
     "util-triggerarea",
