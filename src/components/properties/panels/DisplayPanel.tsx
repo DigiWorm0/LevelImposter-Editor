@@ -24,36 +24,36 @@ export default function CamPanel() {
 
     return (
         <>
-        <PanelContainer title={t("display.title") as string}>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="display.width"
-                    prop="displayWidth"
-                    defaultValue={DEFAULT_DISPLAY_WIDTH}
-                    icon="arrows-horizontal"
-                    minorStepSize={1}
-                    stepSize={10}
-                    majorStepSize={100}
-                    intent={"primary"}
-                />
-                <NumericPanelInput
-                    name="display.height"
-                    prop="displayHeight"
-                    defaultValue={DEFAULT_DISPLAY_HEIGHT}
-                    icon="arrows-vertical"
-                    minorStepSize={1}
-                    stepSize={10}
-                    majorStepSize={100}
-                    intent={"primary"}
-                />
-            </ControlGroup>
-        </PanelContainer>
-        <MapError
-            isVisible={pixelCount > MAX_PIXELS}
-            icon="desktop"
-        >
-            {t("display.errorResolution", { count: pixelCount, max: MAX_PIXELS })}
-        </MapError>
+            <PanelContainer title={t("display.title") as string}>
+                <ControlGroup fill>
+                    <NumericPanelInput
+                        name="display.width"
+                        prop="displayWidth"
+                        defaultValue={DEFAULT_DISPLAY_WIDTH}
+                        icon="arrows-horizontal"
+                        minorStepSize={1}
+                        stepSize={10}
+                        majorStepSize={100}
+                        intent={"primary"}
+                    />
+                    <NumericPanelInput
+                        name="display.height"
+                        prop="displayHeight"
+                        defaultValue={DEFAULT_DISPLAY_HEIGHT}
+                        icon="arrows-vertical"
+                        minorStepSize={1}
+                        stepSize={10}
+                        majorStepSize={100}
+                        intent={"primary"}
+                    />
+                </ControlGroup>
+            </PanelContainer>
+            <MapError
+                isVisible={pixelCount > MAX_PIXELS}
+                icon="desktop"
+            >
+                {t("display.errorResolution") as string}
+            </MapError>
         </>
     );
 }
