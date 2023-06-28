@@ -30,7 +30,7 @@ export default function DisplayRender() {
                 height={camHeight}
                 fill="#0000ff22"
                 stroke="blue"
-                strokeWidth={10}
+                strokeWidth={2}
                 listening={false}
             />
         </Group>

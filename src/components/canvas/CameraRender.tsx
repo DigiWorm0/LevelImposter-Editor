@@ -34,7 +34,7 @@ export default function CameraRender() {
             height={camHeight}
             fill="#00ff0022"
             stroke="green"
-            strokeWidth={10}
+            strokeWidth={5}
             listening={false}
         />
     );

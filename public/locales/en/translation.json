@@ -437,7 +437,8 @@
     "display": {
         "title": "Display",
         "width": "Width (px)",
-        "height": "Height (px)"
+        "height": "Height (px)",
+        "errorResolution": "Displays larger than 1080p are not recommended."
     },
     "spawn": {
         "title": "Spawn Point",

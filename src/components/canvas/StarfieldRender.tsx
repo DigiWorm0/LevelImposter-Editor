@@ -45,7 +45,7 @@ export default function StarfieldRender() {
             bottomRightPoint.x, bottomRightPoint.y,
             bottomLeftPoint.x, bottomLeftPoint.y,
         ];
-    }, [relativeToAbsolute]);
+    }, [length, height, relativeToAbsolute]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {

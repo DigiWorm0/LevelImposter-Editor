@@ -15,7 +15,7 @@ export default function SoundPanel() {
     }, [selectedElem]);
 
     const isNotWav = React.useMemo(() => {
-        return !sound?.data?.startsWith("data:audio/wav;base64,");
+        return sound?.data !== undefined && !sound.data.startsWith("data:audio/wav;base64,");
     }, [sound]);
 
     const onChange = React.useCallback((newSound: LISound) => {
