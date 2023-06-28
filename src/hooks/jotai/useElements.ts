@@ -29,8 +29,6 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
     return elemAtom;
 }, (a, b) => a === b);
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
-    elem.z = getDefaultZ(elem);
-
     const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem.type));
     globalProps.forEach((globalProp) => {
         const prop = globalProp.prop as keyof LIElement["properties"];
@@ -51,8 +49,10 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
 export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     const mouseX = get(mouseXAtom);
     const mouseY = get(mouseYAtom);
+    const mouseZ = getDefaultZ(elem);
     elem.x = mouseX;
     elem.y = mouseY;
+    elem.z = mouseZ;
     set(addElementAtom, elem);
 });
 export const elementChildrenFamilyAtom = atomFamily((id: MaybeGUID) => {
