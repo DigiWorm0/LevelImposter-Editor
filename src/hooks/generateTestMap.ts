@@ -65,6 +65,7 @@ export default function useTestMapGenerator() {
     const generateMap = React.useCallback(() => {
         const elemList: LIElement[] = [];
         const addElement = (type: string, x: number, y: number, z: number, parentID?: GUID) => {
+            const minigameTypes = AUMinigameDB.filter((mgType) => mgType.startsWith(`${type}_`));
             const elem: LIElement = {
                 id: generateGUID(),
                 parentID,
@@ -77,6 +78,11 @@ export default function useTestMapGenerator() {
                 yScale: 1,
                 rotation: 0,
                 properties: {
+                    minigames: minigameTypes.length > 0 ? minigameTypes.map((mgType) => ({
+                        id: generateGUID(),
+                        type: mgType,
+                        spriteData: generateTestSprite(),
+                    })) : undefined,
                     colliders: type === "util-room" ? [{
                         id: generateGUID(),
                         blocksLight: false,
@@ -156,32 +162,38 @@ export default function useTestMapGenerator() {
             const sab = addElement(type, index * CONSOLE_SPACING, 8, 0, sabParent.id);
             if (type === "sab-btnreactor" || type == "sab-reactorright") {
                 sab.properties = {
+                    ...sab.properties,
                     parent: sabRooms["sab-reactorleft"],
                 };
             }
             else if (type === "sab-btnoxygen" || type == "sab-oxygen2") {
                 sab.properties = {
+                    ...sab.properties,
                     parent: sabRooms["sab-oxygen1"],
                 };
             }
             else if (type === "sab-btncomms") {
                 sab.properties = {
+                    ...sab.properties,
                     parent: sabRooms["sab-comms"],
                 };
             }
             else if (type === "sab-btnlights") {
                 sab.properties = {
+                    ...sab.properties,
                     parent: sabRooms["sab-electric"],
                 };
             }
             else if (type === "sab-btndoors" || type === "sab-doorh") {
                 sab.properties = {
+                    ...sab.properties,
                     parent: sabRooms["sab-doorv"],
                 };
             }
             else {
                 const roomElem = addElement("util-room", index * CONSOLE_SPACING, -10, 0, sabParent.id);
                 sab.properties = {
+                    ...sab.properties,
                     parent: roomElem.id,
                 };
                 sabRooms[type] = roomElem.id;

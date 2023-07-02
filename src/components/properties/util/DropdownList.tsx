@@ -1,11 +1,12 @@
-import { Collapse, Icon, IconName, Intent, Menu } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import {Collapse, Icon, IconName, Intent, Menu} from "@blueprintjs/core";
+import {MenuItem2} from "@blueprintjs/popover2";
 
 export interface DropdownElement<T> {
     id: T;
     name: string;
     icon?: IconName;
     intent?: Intent;
+    isDisabled?: boolean;
 }
 
 export interface DropdownListProps<T> {
@@ -19,7 +20,7 @@ export interface DropdownListProps<T> {
 
 export default function DropdownList<T>(props: DropdownListProps<T>) {
     return (
-        <Menu style={{ backgroundColor: "revert", paddingTop: 0 }}>
+        <Menu style={{backgroundColor: "revert", paddingTop: 0}}>
             {props.elements?.map((element, index) => (
                 <div key={element.id + "-" + index}>
                     <MenuItem2
@@ -37,9 +38,10 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
                         onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
                         active={props.selectedID == element.id}
                         intent={element.intent}
+                        disabled={element.isDisabled}
                     />
 
-                    <Collapse isOpen={props.selectedID == element.id}>
+                    <Collapse isOpen={props.selectedID == element.id && !element.isDisabled}>
                         {props.children}
                         {props.renderElement && props.renderElement(element)}
                     </Collapse>

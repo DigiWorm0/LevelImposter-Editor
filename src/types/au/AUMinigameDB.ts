@@ -37,6 +37,18 @@ const AUMinigameDB: string[] = [
     "sab-oxygen2_check",
     "sab-oxygen2_x",
 
+    "sab-doorh_bg",
+    "sab-doorh_switch",
+    "sab-doorh_card",
+    "sab-doorh_leftslider",
+    "sab-doorh_rightslider",
+
+    "sab-doorv_bg",
+    "sab-doorv_switch",
+    "sab-doorv_card",
+    "sab-doorv_leftslider",
+    "sab-doorv_rightslider",
+
     "sab-reactorleft_bg",
     "sab-reactorleft_sweep",
 
@@ -440,6 +452,10 @@ const AUMinigameDB: string[] = [
     "task-wires_bg",
     "task-wires_wiretip1",
     "task-wires_wiretip2",
-    "task-wires_wiretip3"
+    "task-wires_wiretip3",
+
+    "util-computer_bg",
+    "util-computer_folder",
+    "util-computer_file"
 ];
 export default AUMinigameDB;
