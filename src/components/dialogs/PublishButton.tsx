@@ -17,8 +17,6 @@ import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
-import PublishInfo from "./PublishInfo";
-import ImageUpload from "../properties/util/ImageUpload";
 
 export default function PublishButton() {
     const { t } = useTranslation();
@@ -57,7 +55,7 @@ export default function PublishButton() {
                 isPublic: map.isPublic,
                 isVerified: false,
                 authorID: user?.uid ?? "",
-                authorName: map.authorName === "" ? (user?.displayName ?? "Anonymous") : map.authorName,
+                authorName: map.authorName,
                 createdAt: new Date().getTime(),
                 likeCount: 0,
                 elements: map.elements,
@@ -183,6 +181,17 @@ export default function PublishButton() {
         });
     }, [resizeImage, toaster]);
 
+    React.useEffect(() => {
+        const authorName = user?.displayName ?? "Anonymous";
+        if (user && isOpen && map.authorName !== authorName) {
+            setMap({
+                ...map,
+                authorName: user?.displayName ?? "Anonymous",
+            });
+            console.log("Author name updated");
+        }
+    }, [user, isOpen, setMap]); // "map" is deliberately excluded
+
     return (
         <>
             <Tooltip2
@@ -194,9 +203,10 @@ export default function PublishButton() {
                     fill
                     text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
                     icon={isRemixed ? "random" : "cloud-upload"}
-                    intent="success"
                     onClick={() => { setIsOpen(true) }}
-                    style={{ marginTop: 15 }}
+                    style={{ marginTop: 5 }}
+                    intent={"primary"}
+                    disabled={map.elements.length === 0 || isPublishing || !isLoggedIn}
                 />
             </Tooltip2>
 
@@ -279,7 +289,7 @@ export default function PublishButton() {
                                     setMap({
                                         ...map,
                                         authorName: value,
-                                    })
+                                    });
                                 }}
                             />
                         </H5>

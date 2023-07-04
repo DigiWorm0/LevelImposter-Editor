@@ -9,6 +9,7 @@ import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { useUserMaps } from "../../hooks/useUserMaps";
 import SignIn from "../utils/SignIn";
 import PublishButton from "./PublishButton";
+import SaveButton from "./SaveButton";
 
 export default function SignInButton() {
     const { t } = useTranslation();
@@ -158,6 +159,7 @@ export default function SignInButton() {
                         );
                     })}
 
+                    <SaveButton isButton={true} />
                     <PublishButton />
                 </div>
 

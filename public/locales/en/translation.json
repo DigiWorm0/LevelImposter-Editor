@@ -539,7 +539,7 @@
 		"errorRemix": "Map author has disabled remixing"
 	},
 	"publish": {
-		"title": "Publish Map",
+		"title": "Publish To Workshop",
 		"success": "Successfully published map!",
 		"mapName": "Map Name",
 		"authorName": "Author Name",
