@@ -71,8 +71,10 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     const intent = isDisabled ? "none" : getIntent(element.type);
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
+    const isMatchID = element.id.startsWith(props.searchQuery);
+    const isMatch = isMatchName || isMatchType || isMatchID;
 
-    if (!isMatchName && !isMatchType && element.type !== "util-layer")
+    if (!isMatch && element.type !== "util-layer")
         return null;
 
     return (

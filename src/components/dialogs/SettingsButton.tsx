@@ -339,6 +339,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.map.preloadAllGIFs") as string}
+                        </Label>
+                        <Switch
+                            checked={properties.preloadAllGIFs === undefined ? false : properties.preloadAllGIFs}
+                            onChange={(e) => {
+                                setProperties({ ...properties, preloadAllGIFs: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.map.canRemix") as string}
                         </Label>
                         <Switch
