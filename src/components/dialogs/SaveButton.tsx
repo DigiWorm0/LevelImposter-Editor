@@ -32,16 +32,18 @@ export default function SaveButton(props: { isButton?: boolean }) {
         <>
             <Tooltip2
                 content={t("map.save") as string}
-                position="bottom">
-
+                position="bottom"
+                fill={props.isButton ?? false}
+            >
                 <Button
-                    minimal={props.isButton != true}
+                    minimal={!props.isButton ?? true}
+                    fill={props.isButton ?? false}
                     icon="floppy-disk"
                     intent={props.isButton ? "success" : undefined}
                     text={props.isButton ? t("map.save") : undefined}
-                    style={{ margin: props.isButton ? 10 : 0 }}
-                    onClick={onSave} />
-
+                    onClick={onSave}
+                    style={{ marginTop: props.isButton ? 5 : 0 }}
+                />
             </Tooltip2>
         </>
     );
