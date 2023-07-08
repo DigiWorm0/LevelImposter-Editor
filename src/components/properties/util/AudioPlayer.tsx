@@ -24,13 +24,15 @@ export default function AudioPlayer(props: AudioPlayerProps) {
 
     const sound = props.sound;
 
-
     React.useEffect(() => {
         const interval = setInterval(() => {
-            if (!audioRef.current)
+            if (audioRef?.current === null)
                 return;
-            setProgress(audioRef.current.currentTime);
-            setDuration(audioRef.current.duration);
+                
+            const currentTime = audioRef.current.currentTime;
+            const duration = audioRef.current.duration;
+            setProgress(isNaN(currentTime) ? 0 : currentTime);
+            setDuration(isNaN(duration) ? 0 : duration);
         }, duration > 10 ? MAJOR_UPDATE_INTERVAL : MINOR_UPDATE_INTERVAL);
 
         return () => {
