@@ -11,6 +11,7 @@ import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
+import SecondaryRender from "./SecondaryRender";
 
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
@@ -97,7 +98,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 if (x !== elem.x || y !== elem.y)
-                    setElement({ ...elem, x, y });
+                    setElement({...elem, x, y});
             }}
             onClick={(e) => {
                 e.target.getParent().stopDrag();
@@ -115,7 +116,8 @@ export default function MapElement(props: { elementID: GUID }) {
                 setMouseCursor("default");
             }}
             draggable={false}
-            listening={!isColliderSelected && !isEmbeded && isVisible}>
+            listening={!isColliderSelected && !isEmbeded && isVisible}
+        >
 
             <Image
                 opacity={opacity}
@@ -137,6 +139,10 @@ export default function MapElement(props: { elementID: GUID }) {
                     strokeWidth={2}
                 />
             ) : null}
+
+            {isSelected && (
+                <SecondaryRender />
+            )}
         </Group>
     );
 }
