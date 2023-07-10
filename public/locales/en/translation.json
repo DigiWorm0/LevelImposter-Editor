@@ -570,6 +570,11 @@
 		"yourMaps": "Your Maps",
 		"noMaps": "You have not published any maps."
 	},
+	"scrolling": {
+		"title": "Scrolling Sprite",
+		"xspeed": "X Speed",
+		"yspeed": "Y Speed"
+	},
 	"settings": {
 		"title": "Settings",
 		"interface": {
@@ -661,6 +666,7 @@
 		"util-sound1": "Ambient Sound",
 		"util-sound2": "Footstep Sound",
 		"util-blankfloat": "Floating Sprite",
+		"util-blankscroll": "Scrolling Sprite",
 		"util-tele": "Teleporter",
 		"util-physics": "Physics Object",
 		"util-blanktrigger": "Trigger Sprite",

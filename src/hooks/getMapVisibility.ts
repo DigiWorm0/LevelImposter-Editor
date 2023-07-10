@@ -18,6 +18,7 @@ const INVISIBLE_TYPES = [
 const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blank",
     "util-blankfloat",
+    "util-blankscroll",
     "util-starfield",
     "util-triggerconsole",
     "util-blanktrigger"

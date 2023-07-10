@@ -13,6 +13,12 @@ import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
 import SecondaryRender from "./SecondaryRender";
 
+const SECONDARY_RENDER_TYPES = [
+    "util-starfield",
+    "util-blankscroll",
+    "util-blankfloat"
+]
+
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
     const setMouseCursor = useSetMouseCursor();
@@ -67,7 +73,8 @@ export default function MapElement(props: { elementID: GUID }) {
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
-        (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity); // If Element is Visible in Current Layer
+        (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity) * // If Element is Visible in Current Layer
+        (SECONDARY_RENDER_TYPES.includes(elem.type) && isSelected ? invisibleOpacity : 1); // If Element has Secondary Render
 
     return (
         <Group

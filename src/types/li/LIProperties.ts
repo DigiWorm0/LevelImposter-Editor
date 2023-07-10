@@ -32,6 +32,10 @@ export default interface LIProperties {
     color?: LIColor;
     loopGIF?: boolean;
 
+    // Scroll
+    scrollingXSpeed?: number;
+    scrollingYSpeed?: number;
+
     // Vent
     leftVent?: GUID;
     middleVent?: GUID;

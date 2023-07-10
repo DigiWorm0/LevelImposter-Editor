@@ -26,6 +26,9 @@ export const DEFAULT_STARFIELD_LENGTH = 10;
 export const DEFAULT_FLOATING_HEIGHT = 0.2;
 export const DEFAULT_FLOATING_SPEED = 2;
 
+export const DEFAULT_SCROLL_X_SPEED = 1;
+export const DEFAULT_SCROLL_Y_SPEED = 0;
+
 export const LADDER_Y_OFFSET = -0.4;
 export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;

@@ -54,6 +54,14 @@ const InputTriggerDB: Record<string, string[]> = {
         "show",
         "hide"
     ],
+    "util-blankfloat": [
+        "show",
+        "hide"
+    ],
+    "util-blankscroll": [
+        "show",
+        "hide"
+    ],
     "util-triggerrepeat": [
         "repeat",
     ],
