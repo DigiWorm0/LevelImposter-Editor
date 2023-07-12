@@ -351,6 +351,18 @@ export default function SettingsButton() {
 
                     <ControlGroup fill>
                         <Label style={{ width: "100%" }}>
+                            {t("settings.map.triggerLogging") as string}
+                        </Label>
+                        <Switch
+                            checked={properties.triggerLogging === undefined ? true : properties.triggerLogging}
+                            onChange={(e) => {
+                                setProperties({ ...properties, triggerLogging: e.currentTarget.checked });
+                            }}
+                            style={{ marginLeft: 10 }} />
+                    </ControlGroup>
+
+                    <ControlGroup fill>
+                        <Label style={{ width: "100%" }}>
                             {t("settings.map.canRemix") as string}
                         </Label>
                         <Switch

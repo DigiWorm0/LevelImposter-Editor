@@ -601,6 +601,7 @@
 			"showPingTracker": "Show Ping Tracker",
 			"pixelArtMode": "Pixel Art Mode",
 			"preloadAllGIFs": "Preload All GIFs",
+			"triggerLogging": "Trigger Logging",
 			"canRemix": "Allow Remix-ing",
 			"skyboxColor": "Skybox Color",
 			"setColor": "Set Color",

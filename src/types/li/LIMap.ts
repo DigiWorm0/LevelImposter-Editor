@@ -12,5 +12,6 @@ export default interface LIMap extends LIMetadata {
         sabotageSound?: LISound;
         canRemix?: boolean;
         preloadAllGIFs?: boolean;
+        triggerLogging?: boolean;
     }
 }
