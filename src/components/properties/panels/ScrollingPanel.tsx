@@ -18,7 +18,6 @@ export default function ScrollingPanel() {
                 prop="scrollingXSpeed"
                 defaultValue={DEFAULT_SCROLL_X_SPEED}
                 icon="arrows-horizontal"
-                min={0}
                 minorStepSize={0.01}
                 stepSize={0.1}
                 majorStepSize={1}
@@ -28,7 +27,6 @@ export default function ScrollingPanel() {
                 prop="scrollingYSpeed"
                 defaultValue={DEFAULT_SCROLL_Y_SPEED}
                 icon="arrows-vertical"
-                min={0}
                 minorStepSize={0.01}
                 stepSize={0.1}
                 majorStepSize={1}
