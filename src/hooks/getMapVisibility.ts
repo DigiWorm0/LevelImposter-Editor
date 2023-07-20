@@ -13,11 +13,13 @@ const INVISIBLE_TYPES = [
     "util-sound1",
     "util-sound2",
     "util-meeting",
+    "util-onewaycollider",
 ]
 
 const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blank",
     "util-blankfloat",
+    "util-blankscroll",
     "util-starfield",
     "util-triggerconsole",
     "util-blanktrigger"

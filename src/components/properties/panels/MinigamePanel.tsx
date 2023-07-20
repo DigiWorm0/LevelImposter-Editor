@@ -7,6 +7,15 @@ import ColorPanelInput from "../input/ColorPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import { DoorType } from "../../../types/generic/DoorType";
+import SwitchPanelInput from "../input/SwitchPanelInput";
+
+const POLUS_DOOR_MINIGAMES = [
+    "sab-doorv_bg",
+    "sab-doorv_switch",
+    "sab-doorh_bg",
+    "sab-doorh_switch"
+];
 
 export default function MinigamePanel() {
     const { t } = useTranslation();
@@ -18,6 +27,9 @@ export default function MinigamePanel() {
     const isReactor = React.useMemo(() => element?.type.startsWith("sab-reactor"), [element]);
     const isLights = React.useMemo(() => element?.type === "sab-electric", [element]);
     const isFuel = React.useMemo(() => element?.type.startsWith("task-fuel"), [element]);
+    const isDoor = React.useMemo(() => element?.type.startsWith("sab-door"), [element]);
+    const isTelescope = React.useMemo(() => element?.type === "task-telescope", [element]);
+    const doorType = React.useMemo(() => element?.properties.doorType ?? DoorType.Skeld, [element]);
 
     if (!element || minigameSprites.length === 0)
         return null;
@@ -26,12 +38,22 @@ export default function MinigamePanel() {
         <>
             <PanelContainer title={t("minigame.title") as string}>
                 <DropdownList
-                    elements={minigameSprites.map((type) => ({
-                        id: type,
-                        name: t(`minigame.${type.split("_")[1]}`, { index: type.split("_")[2] }) as string,
-                        icon: 'code-block',
-                        intent: element.properties.minigames?.find((m) => m.type === type)?.spriteData ? 'success' : 'danger'
-                    }))}
+                    elements={minigameSprites.map((type) => {
+                        const hasSprite = element.properties.minigames?.find((m) => m.type === type)?.spriteData !== undefined;
+                        const isDisabled = isDoor && (
+                            doorType === DoorType.Skeld ||
+                            (doorType === DoorType.Polus && !POLUS_DOOR_MINIGAMES.includes(type)) ||
+                            (doorType === DoorType.Airship && POLUS_DOOR_MINIGAMES.includes(type))
+                        );
+
+                        return {
+                            id: type,
+                            name: t(`minigame.${type.split("_")[1]}`, { index: type.split("_")[2] }) as string,
+                            icon: (isDisabled && hasSprite) ? 'warning-sign' : 'code-block',
+                            intent: hasSprite ? 'success' : 'danger',
+                            isDisabled: isDisabled
+                        };
+                    })}
                     selectedID={selectedMinigameType}
                     onSelectID={setSelectedMinigameType}
                     renderElement={(mg) => (
@@ -82,6 +104,13 @@ export default function MinigamePanel() {
                         name={t("minigame.bgColor") as string}
                         minigameProp={"fuelBgColor"}
                         defaultValue={{ r: 0, g: 0, b: 0, a: 255 }}
+                    />
+                )}
+                {isTelescope && (
+                    <SwitchPanelInput
+                        name={"minigame.starfieldEnabled"}
+                        minigameProp={"isStarfieldEnabled"}
+                        defaultValue={true}
                     />
                 )}
 

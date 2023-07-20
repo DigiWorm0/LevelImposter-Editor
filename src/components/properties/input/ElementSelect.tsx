@@ -59,10 +59,10 @@ export default function ElementSelect(props: ElementSelectProps) {
             >
                 <Select2
                     fill
-                    filterable={false}
                     items={filteredElems}
                     itemRenderer={selectRenderer}
                     onItemSelect={props.onPick}
+                    itemPredicate={(query, elem) => elem.name.toLowerCase().includes(query.toLowerCase()) || elem.type.includes(query.toLowerCase())}
                 >
                     <Button
                         rightIcon="caret-down"

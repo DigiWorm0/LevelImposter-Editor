@@ -15,27 +15,27 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@blueprintjs/core": "^4.5.1",
-        "@blueprintjs/popover2": "^1.4.2",
-        "@blueprintjs/select": "^4.4.1",
-        "@fontsource/roboto": "^4.5.5",
-        "dexie": "^3.2.2",
-        "firebase": "^9.9.0",
-        "i18next": "^22.4.5",
-        "i18next-browser-languagedetector": "^7.0.1",
-        "i18next-http-backend": "^2.1.0",
-        "jotai": "^2.0.2",
+        "@blueprintjs/core": "^4.20.2",
+        "@blueprintjs/popover2": "^1.14.11",
+        "@blueprintjs/select": "^4.9.24",
+        "@fontsource/roboto": "^5.0.3",
+        "dexie": "^3.2.4",
+        "firebase": "^9.23.0",
+        "i18next": "^23.2.3",
+        "i18next-browser-languagedetector": "^7.1.0",
+        "i18next-http-backend": "^2.2.1",
+        "jotai": "^2.2.1",
         "jotai-devtools": "^0.2.0",
         "jotai-optics": "^0.3.0",
-        "konva": "^8.3.8",
-        "optics-ts": "^2.3.0",
+        "konva": "^8.4.3",
+        "optics-ts": "^2.4.0",
         "react": "^18.2.0",
         "react-color": "^2.19.3",
         "react-dom": "^18.2.0",
-        "react-firebase-hooks": "^5.0.3",
+        "react-firebase-hooks": "^5.1.1",
         "react-helmet": "^6.1.0",
-        "react-i18next": "^12.1.1",
-        "react-konva": "^18.1.0"
+        "react-i18next": "^13.0.1",
+        "react-konva": "^18.2.10"
     },
     "browserslist": {
         "production": [
@@ -58,6 +58,7 @@
         "@types/react-helmet": "^6.1.6",
         "gh-pages": "^5.0.0",
         "react-scripts": "^5.0.1",
+        "typescript": "^5.1.5",
         "webpack": "^5.78.0"
     }
 }

@@ -56,7 +56,7 @@ export default function NumericPanelInput(props: NumericInputProps) {
                     stepSize={props.stepSize}
                     majorStepSize={props.majorStepSize}
                     leftIcon={props.icon}
-                    rightElement={<Button minimal disabled>{props.label}</Button>}
+                    rightElement={props.label ? (<Button minimal disabled>{props.label}</Button>) : undefined}
                     intent={props.intent}
                     onValueChange={(val, stringVal) => {
                         if (selectedElem) {

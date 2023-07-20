@@ -3,6 +3,7 @@ import CamPanel from "../components/properties/panels/CamPanel";
 import ColliderPanel from "../components/properties/panels/ColliderPanel";
 import ConsolePanel from "../components/properties/panels/ConsolePanel";
 import DebugPanel from "../components/properties/panels/DebugPanel";
+import DisplayPanel from "../components/properties/panels/DisplayPanel";
 import FloatingPanel from '../components/properties/panels/FloatingPanel';
 import LadderPanel from "../components/properties/panels/LadderPanel";
 import MinimapPanel from "../components/properties/panels/MinimapPanel";
@@ -23,6 +24,8 @@ import MinimapSpritePanel from "../components/properties/panels/MinimapSpritePan
 import MinigamePanel from "../components/properties/panels/MinigamePanel";
 import SpawnPanel from "../components/properties/panels/SpawnPanel";
 import MeetingPanel from "../components/properties/panels/MeetingPanel";
+import ScrollingPanel from "../components/properties/panels/ScrollingPanel";
+import OneWayColliderPanel from "../components/properties/panels/OneWayColliderPanel";
 
 export default function RightSidebar() {
 
@@ -39,16 +42,20 @@ export default function RightSidebar() {
             <ConsolePanel />
             <StarfieldPanel />
             <FloatingPanel />
+            <ScrollingPanel />
             <LadderPanel />
             <MeetingPanel />
             <VentPanel />
             <TelePanel />
+            <DisplayPanel />
             <CamPanel />
             <SpawnPanel />
             <PlatformPanel />
             <SoundPanel />
             <StepSoundPanel />
             <TimerPanel />
+            <OneWayColliderPanel />
+
             <TriggerPanel />
             <ColliderPanel />
             <MinimapPanel />

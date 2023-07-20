@@ -1,14 +1,17 @@
 import { Button, ButtonGroup, Icon } from "@blueprintjs/core";
+import { MenuItem2 } from "@blueprintjs/popover2";
+import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/generateGUID";
 import openUploadDialog from "../../../hooks/openUploadDialog";
+import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
+import LISoundChannel from "../../../types/li/LISoundChannel";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
-import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -19,6 +22,7 @@ interface SoundUploadProps {
     soundType?: string;
     onFinish?: () => void;
     loop?: boolean;
+    editChannel?: boolean;
 }
 
 export default function SoundUpload(props: SoundUploadProps) {
@@ -79,6 +83,17 @@ export default function SoundUpload(props: SoundUploadProps) {
         }
     }, [props.onChange]);
 
+    const selectChannelRenderer: ItemRenderer<string> = (channel, props) => (
+        <MenuItem2
+            key={props.index + "-channel"}
+            text={t(`audio.${channel}`)}
+            active={props.modifiers.active}
+            disabled={props.modifiers.disabled}
+            onClick={props.handleClick}
+            onFocus={props.handleFocus}
+        />
+    );
+
     return (
         <div
             onDragOver={(e) => {
@@ -110,8 +125,34 @@ export default function SoundUpload(props: SoundUploadProps) {
                 </p>
             )}
 
+            {/* Channel */}
+            {props.editChannel && (
+                <Select2
+                    fill
+                    filterable={false}
+                    items={Object.values(LISoundChannel) as string[]}
+                    itemRenderer={selectChannelRenderer}
+                    onItemSelect={(item) => {
+                        if (props.sound) {
+                            props.onChange({
+                                ...props.sound,
+                                channel: item as LISoundChannel
+                            });
+                        }
+                    }}
+                >
+                    <Button
+                        icon={"music"}
+                        rightIcon={"caret-down"}
+                        text={t(`audio.${props.sound?.channel ?? LISoundChannel.SFX}`)}
+                        fill
+                        minimal
+                    />
+                </Select2>
+            )}
+
             {/* Size Tag */}
-            <div style={{ textAlign: "center", marginBottom: 10 }}>
+            <div style={{ textAlign: "center", margin: 10 }}>
                 <SizeTag
                     sizeBytes={soundSize}
                     warningMsg={t("audio.errorSize") as string}

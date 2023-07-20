@@ -1,6 +1,7 @@
 const AUMinigameDB: string[] = [
     "sab-comms_bg",
     "sab-comms_dial",
+    "sab-comms_dialshadow",
     "sab-comms_glasspanel",
 
     "sab-electric_bg",
@@ -36,6 +37,18 @@ const AUMinigameDB: string[] = [
     "sab-oxygen2_9",
     "sab-oxygen2_check",
     "sab-oxygen2_x",
+
+    "sab-doorh_bg",
+    "sab-doorh_switch",
+    "sab-doorh_card",
+    "sab-doorh_leftslider",
+    "sab-doorh_rightslider",
+
+    "sab-doorv_bg",
+    "sab-doorv_switch",
+    "sab-doorv_card",
+    "sab-doorv_leftslider",
+    "sab-doorv_rightslider",
 
     "sab-reactorleft_bg",
     "sab-reactorleft_sweep",
@@ -133,6 +146,7 @@ const AUMinigameDB: string[] = [
     "task-drill_bg",
     "task-drill_bgoutline",
     "task-drill_drill",
+    "task-drill_btn",
 
     "task-fans1_bg",
     "task-fans1_square",
@@ -252,6 +266,7 @@ const AUMinigameDB: string[] = [
     "task-records2_drawerdivider",
     "task-records2_drawerfolder",
     "task-records2_drawerfront",
+    "task-records2_drawerside",
     "task-records2_shelfbg",
     "task-records2_shelfplatform",
 
@@ -335,6 +350,7 @@ const AUMinigameDB: string[] = [
     "task-tapes_vcrbg",
     "task-tapes_wheel",
 
+    "task-telescope_bg",
     "task-telescope_reticle",
     "task-telescope_target",
     "task-telescope_planet1",
@@ -347,8 +363,10 @@ const AUMinigameDB: string[] = [
 
     "task-temp1_bg",
     "task-temp1_btn",
+    "task-temp1_btndown",
     "task-temp2_bg",
     "task-temp2_btn",
+    "task-temp2_btndown",
 
     "task-toilet_front",
     "task-toilet_back",
@@ -440,6 +458,10 @@ const AUMinigameDB: string[] = [
     "task-wires_bg",
     "task-wires_wiretip1",
     "task-wires_wiretip2",
-    "task-wires_wiretip3"
+    "task-wires_wiretip3",
+
+    "util-computer_bg",
+    "util-computer_folder",
+    "util-computer_file"
 ];
 export default AUMinigameDB;

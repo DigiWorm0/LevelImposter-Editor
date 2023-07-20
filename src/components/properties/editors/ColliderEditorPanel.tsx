@@ -5,16 +5,10 @@ import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import DevInfo from "../../utils/DevInfo";
 
-const RESTRICTED_TYPES = [
-    "util-room",
-    "util-sound1",
-    "util-sound2",
-    "util-tele",
-    "util-triggerarea",
-    "util-triggersound",
-];
-
 interface ColliderEditorProps {
+    isSolidOnly: boolean;
+    isShadowOnly: boolean;
+
     colliderID: MaybeGUID;
     setSelectedColliderID: (id: MaybeGUID) => void;
 }
@@ -28,10 +22,6 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
     const collider = React.useMemo(() => {
         return selectedElem?.properties.colliders?.find(c => c.id === colliderID);
     }, [selectedElem, props.colliderID]);
-
-    const isRestricted = React.useMemo(() => {
-        return RESTRICTED_TYPES.includes(selectedElem?.type || "");
-    }, [selectedElem?.type]);
 
     const deleteCollider = React.useCallback(() => {
         if (!selectedElem)
@@ -58,7 +48,6 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                 fill
                 placeholder={t("collider.name") as string}
                 value={collider.name}
-                disabled={isRestricted}
                 onChange={(e) => {
                     collider.name = e.currentTarget.value;
                     setSelectedElem({ ...selectedElem });
@@ -70,7 +59,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             <Switch
                 label={t("collider.solid") as string}
                 checked={collider.isSolid}
-                disabled={isRestricted}
+                disabled={props.isSolidOnly || props.isShadowOnly}
                 onChange={(e) => {
                     collider.isSolid = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
@@ -79,7 +68,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             <Switch
                 label={t("collider.blocksLight") as string}
                 checked={collider.blocksLight}
-                disabled={isRestricted}
+                disabled={props.isSolidOnly || props.isShadowOnly}
                 onChange={(e) => {
                     collider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });

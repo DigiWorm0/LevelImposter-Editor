@@ -54,6 +54,14 @@ const InputTriggerDB: Record<string, string[]> = {
         "show",
         "hide"
     ],
+    "util-blankfloat": [
+        "show",
+        "hide"
+    ],
+    "util-blankscroll": [
+        "show",
+        "hide"
+    ],
     "util-triggerrepeat": [
         "repeat",
     ],
@@ -67,8 +75,9 @@ const InputTriggerDB: Record<string, string[]> = {
         "trigger",
     ],
     "util-triggersound": [
-        "enable",
-        "disable",
+        "playonce",
+        "playloop",
+        "stop",
     ],
     "sab-doorv": [
         "open",

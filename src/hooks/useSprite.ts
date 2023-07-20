@@ -43,6 +43,10 @@ export default function useSprite(elementID: MaybeGUID) {
             console.log(`Loaded Sprite ${elementID}`);
             setSprite(img);
         };
+
+        return () => {
+            img.onload = null;
+        }
     }, [spriteURL, elementID]);
 
     return sprite;

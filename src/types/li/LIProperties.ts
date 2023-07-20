@@ -32,6 +32,13 @@ export default interface LIProperties {
     color?: LIColor;
     loopGIF?: boolean;
 
+    // One-Way Colliders
+    isImposterIgnored?: boolean;
+
+    // Scroll
+    scrollingXSpeed?: number;
+    scrollingYSpeed?: number;
+
     // Vent
     leftVent?: GUID;
     middleVent?: GUID;
@@ -46,6 +53,10 @@ export default interface LIProperties {
     camXOffset?: number;
     camYOffset?: number;
     camZoom?: number;
+
+    // Display
+    displayWidth?: number;
+    displayHeight?: number;
 
     // Console
     onlyFromBelow?: boolean;
