@@ -266,6 +266,7 @@ const AUMinigameDB: string[] = [
     "task-records2_drawerdivider",
     "task-records2_drawerfolder",
     "task-records2_drawerfront",
+    "task-records2_drawerside",
     "task-records2_shelfbg",
     "task-records2_shelfplatform",
 
