@@ -362,8 +362,10 @@ const AUMinigameDB: string[] = [
 
     "task-temp1_bg",
     "task-temp1_btn",
+    "task-temp1_btndown",
     "task-temp2_bg",
     "task-temp2_btn",
+    "task-temp2_btndown",
 
     "task-toilet_front",
     "task-toilet_back",
