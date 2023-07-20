@@ -1,6 +1,7 @@
 const AUMinigameDB: string[] = [
     "sab-comms_bg",
     "sab-comms_dial",
+    "sab-comms_dialshadow",
     "sab-comms_glasspanel",
 
     "sab-electric_bg",
@@ -145,6 +146,7 @@ const AUMinigameDB: string[] = [
     "task-drill_bg",
     "task-drill_bgoutline",
     "task-drill_drill",
+    "task-drill_btn",
 
     "task-fans1_bg",
     "task-fans1_square",
@@ -347,6 +349,7 @@ const AUMinigameDB: string[] = [
     "task-tapes_vcrbg",
     "task-tapes_wheel",
 
+    "task-telescope_bg",
     "task-telescope_reticle",
     "task-telescope_target",
     "task-telescope_planet1",

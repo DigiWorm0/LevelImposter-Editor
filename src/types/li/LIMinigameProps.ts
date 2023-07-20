@@ -7,6 +7,8 @@ export default interface LIMinigameProps {
     lightsColorOff?: LIColor;
     fuelColor?: LIColor;
     fuelBgColor?: LIColor;
+    
+    isStarfieldEnabled?: boolean;
 }
 
 export type MaybeLIMinigameProps = LIMinigameProps | undefined;

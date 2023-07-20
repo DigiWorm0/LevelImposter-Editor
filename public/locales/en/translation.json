@@ -157,6 +157,7 @@
 	},
 	"minigame": {
 		"title": "Minigame",
+		"starfieldEnabled": "Starfield Enabled",
 		"reactorColorBad": "Bad Color",
 		"reactorColorGood": "Good Color",
 		"lightsColorOn": "On Color",
@@ -178,6 +179,7 @@
 		"bg": "Background",
 		"sweep": "Sweep",
 		"dial": "Dial",
+		"dialshadow": "Dial Shadow",
 		"glasspanel": "Glass Panel",
 		"bgwires": "Background Wires",
 		"switch": "Switch",
