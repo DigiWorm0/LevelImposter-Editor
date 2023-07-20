@@ -1,4 +1,4 @@
-import { Button, Collapse, IconName, InputGroup, Intent } from "@blueprintjs/core";
+import { Button, Collapse, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/jotai/useElements";
@@ -66,15 +66,15 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
         return null;
 
     const isDisabled = !((element.type === "util-layer" || settings.elementNesting === true) && isDroppable) && draggingID !== undefined;
-    const isVisible = element.properties.isVisible === undefined ? true : element.properties.isVisible;
-    const isExpanded = (element.properties.isExpanded === undefined ? true : element.properties.isExpanded) || props.searchQuery !== "";
+    const isVisible = element.properties.isVisible ?? true;
+    const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
     const intent = isDisabled ? "none" : getIntent(element.type);
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchID = element.id.startsWith(props.searchQuery);
     const isMatch = isMatchName || isMatchType || isMatchID;
 
-    if (!isMatch && element.type !== "util-layer")
+    if (!isMatch && childIDs.length === 0)
         return null;
 
     return (
@@ -117,7 +117,12 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
             }}
         >
             <MenuItem2
-                style={{ outline: 0 }}
+                style={{
+                    //outline: "none",
+                    outline: isMatch && props.searchQuery !== "" ? "rgba(45, 114, 210, 0.6) solid 2px" : "none",
+                    outlineOffset: -1,
+                    marginTop: 1,
+                }}
                 id={element.id}
                 icon={getIcon(element.type)}
                 text={element.name}
@@ -138,7 +143,10 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                             small
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setElement({ ...element, properties: { ...element.properties, isExpanded: !isExpanded } });
+                                setElement({
+                                    ...element,
+                                    properties: { ...element.properties, isExpanded: !isExpanded }
+                                });
                             }}
                             onDoubleClick={(e) => {
                                 e.stopPropagation();
@@ -153,7 +161,10 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                             small
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setElement({ ...element, properties: { ...element.properties, isVisible: !isVisible } });
+                                setElement({
+                                    ...element,
+                                    properties: { ...element.properties, isVisible: !isVisible }
+                                });
                             }}
                             onDoubleClick={(e) => {
                                 e.stopPropagation();

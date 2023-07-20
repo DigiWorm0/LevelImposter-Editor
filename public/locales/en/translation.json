@@ -590,7 +590,7 @@
 			"colliderPreview": "Collider Preview",
 			"colliderHandleSize": "Collider Handle Size",
 			"scrollToSelection": "Scroll to Selection",
-			"objNesting": "Object Nesting",
+			"objNesting": "Object Nesting (Unstable)",
 			"grid": "Grid",
 			"gridVisible": "Grid Visible",
 			"gridSize": "Grid Size",
