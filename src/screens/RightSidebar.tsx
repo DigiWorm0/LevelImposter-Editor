@@ -25,6 +25,7 @@ import MinigamePanel from "../components/properties/panels/MinigamePanel";
 import SpawnPanel from "../components/properties/panels/SpawnPanel";
 import MeetingPanel from "../components/properties/panels/MeetingPanel";
 import ScrollingPanel from "../components/properties/panels/ScrollingPanel";
+import OneWayColliderPanel from "../components/properties/panels/OneWayColliderPanel";
 
 export default function RightSidebar() {
 
@@ -53,6 +54,8 @@ export default function RightSidebar() {
             <SoundPanel />
             <StepSoundPanel />
             <TimerPanel />
+            <OneWayColliderPanel />
+
             <TriggerPanel />
             <ColliderPanel />
             <MinimapPanel />

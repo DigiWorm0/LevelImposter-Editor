@@ -23,13 +23,17 @@ const BLACKLISTED_TYPES = [
     "util-spawn2"
 ];
 
-const RESTRICTED_TYPES = [
+const SOLID_ONLY_TYPES = [
     "util-room",
     "util-sound1",
     "util-sound2",
     "util-tele",
     "util-triggerarea",
     "util-triggersound",
+];
+
+const SHADOW_ONLY_TYPES = [
+    "util-onewaycollider"
 ];
 
 const SINGULAR_TYPES = [
@@ -42,8 +46,12 @@ export default function ColliderPanel() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
 
-    const isRestricted = React.useMemo(() => {
-        return RESTRICTED_TYPES.includes(selectedElem?.type || "");
+    const isSolidOnly = React.useMemo(() => {
+        return SOLID_ONLY_TYPES.includes(selectedElem?.type || "");
+    }, [selectedElem?.type]);
+
+    const isShadowOnly = React.useMemo(() => {
+        return SHADOW_ONLY_TYPES.includes(selectedElem?.type || "");
     }, [selectedElem?.type]);
 
     const isAddDisabled = React.useMemo(() => {
@@ -61,8 +69,8 @@ export default function ColliderPanel() {
 
         const collider = {
             id: generateGUID(),
-            blocksLight: !isRestricted,
-            isSolid: isRestricted,
+            blocksLight: !isSolidOnly,
+            isSolid: isSolidOnly,
             points: [
                 { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 },
@@ -83,7 +91,7 @@ export default function ColliderPanel() {
         };
         setSelectedElem(elem);
         setSelectedColliderID(collider?.id);
-    }, [selectedElem, setSelectedElem, setSelectedColliderID, isRestricted]);
+    }, [selectedElem, setSelectedElem, setSelectedColliderID, isSolidOnly]);
 
     if (!selectedElem || BLACKLISTED_TYPES.includes(selectedElem.type))
         return null;
@@ -115,6 +123,8 @@ export default function ColliderPanel() {
                             key={element.id}
                             colliderID={element.id}
                             setSelectedColliderID={setSelectedColliderID}
+                            isSolidOnly={isSolidOnly}
+                            isShadowOnly={isShadowOnly}
                         />
                     )}
                 />
@@ -162,6 +172,13 @@ export default function ColliderPanel() {
                 icon="polygon-filter"
             >
                 {t("collider.teleInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={selectedElem.type === "util-onewaycollider"}
+                info
+                icon="polygon-filter"
+            >
+                The colliders will be deactivated when the player is in the selected room.
             </MapError>
         </>
     );

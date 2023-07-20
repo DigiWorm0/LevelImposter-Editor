@@ -32,6 +32,9 @@ export default interface LIProperties {
     color?: LIColor;
     loopGIF?: boolean;
 
+    // One-Way Colliders
+    isImposterIgnored?: boolean;
+
     // Scroll
     scrollingXSpeed?: number;
     scrollingYSpeed?: number;

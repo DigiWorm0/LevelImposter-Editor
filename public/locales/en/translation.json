@@ -517,6 +517,12 @@
 		"title": "Debug",
 		"printToConsole": "Print to Console"
 	},
+	"onewaycollider": {
+		"title": "One-Way Collider",
+		"ignoreImposter": "Ignore Imposter",
+		"infoIgnoreImposter": "When enabled, imposters won't see this collider.",
+		"errorNoRoom": "This object does not have a room. Colliders will not function properly."
+	},
 	"map": {
 		"importLegacy": "Import Legacy Map",
 		"open": "Open Map",
@@ -679,6 +685,7 @@
 		"util-triggertimer": "Trigger Timer",
 		"util-triggerstart": "Trigger Start",
 		"util-triggerrand": "Trigger Randomizer",
+		"util-onewaycollider": "One-Way Collider",
 		"task-id": "Card Swipe",
 		"task-keys": "Keys",
 		"task-pass": "Scan Pass",
