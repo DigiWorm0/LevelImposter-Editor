@@ -26,6 +26,7 @@ import SpawnPanel from "../components/properties/panels/SpawnPanel";
 import MeetingPanel from "../components/properties/panels/MeetingPanel";
 import ScrollingPanel from "../components/properties/panels/ScrollingPanel";
 import OneWayColliderPanel from "../components/properties/panels/OneWayColliderPanel";
+import DecontaminationPanel from "../components/properties/panels/DecontaminationPanel";
 
 export default function RightSidebar() {
 
@@ -55,6 +56,7 @@ export default function RightSidebar() {
             <StepSoundPanel />
             <TimerPanel />
             <OneWayColliderPanel />
+            <DecontaminationPanel />
 
             <TriggerPanel />
             <ColliderPanel />

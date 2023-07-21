@@ -35,6 +35,10 @@ export default interface LIProperties {
     // One-Way Colliders
     isImposterIgnored?: boolean;
 
+    // Decontamination
+    doorA?: GUID;
+    doorB?: GUID;
+
     // Scroll
     scrollingXSpeed?: number;
     scrollingYSpeed?: number;

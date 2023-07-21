@@ -134,8 +134,10 @@
 		"isInteractable": "Interactable",
 		"doorOpen": "Open Sound",
 		"doorClose": "Close Sound",
+		"none": "No Door",
 		"globalInfo": "Door type is global and can only be changed per-map.",
-		"errorNoRoom": "This door is not attached to a room."
+		"errorNoRoom": "This door is not attached to a room.",
+		"errorNoDoors": "This map doesn't have any doors. Add a door to the map to connect to this object."
 	},
 	"stepSound": {
 		"title": "Step Sound",
@@ -474,6 +476,7 @@
 		"soundInfo": "Player will only hear audio if they are within this collider.",
 		"teleInfo": "Player will teleport once they enter this collider.",
 		"triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
+		"oneWayColliderInfo": "The colliders will be deactivated when the player is in the selected room.",
 		"colliderInfo": "Left click on the line to add a point. Right click on a point to remove it.",
 		"errorOneOnly": "This object can only have 1 collider"
 	},
@@ -525,6 +528,9 @@
 		"ignoreImposter": "Ignore Imposter",
 		"infoIgnoreImposter": "When enabled, imposters won't see this collider.",
 		"errorNoRoom": "This object does not have a room. Colliders will not function properly."
+	},
+	"decontamination": {
+		"title": "Decontamination System"
 	},
 	"map": {
 		"importLegacy": "Import Legacy Map",
@@ -689,6 +695,7 @@
 		"util-triggerstart": "Trigger Start",
 		"util-triggerrand": "Trigger Randomizer",
 		"util-onewaycollider": "One-Way Collider",
+		"util-decontamination": "Decontamination System",
 		"task-id": "Card Swipe",
 		"task-keys": "Keys",
 		"task-pass": "Scan Pass",

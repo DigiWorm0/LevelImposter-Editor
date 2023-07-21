@@ -21,8 +21,10 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const rightVent = mapElements.find(e => e.id === elem.properties.rightVent);
         const teleporter = mapElements.find(e => e.id === elem.properties.teleporter);
         const roomParent = mapElements.find(e => e.id === elem.properties.parent);
+        const doorA = mapElements.find(e => e.id === elem.properties.doorA);
+        const doorB = mapElements.find(e => e.id === elem.properties.doorB);
         const triggers = mapElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
-        const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent, ...triggers].filter(e => e != undefined) as LIElement[];
+        const targetConnections = [leftVent, middleVent, rightVent, teleporter, roomParent, doorA, doorB, ...triggers].filter(e => e != undefined) as LIElement[];
 
         const sourceConnections = mapElements.filter(e => {
             return e.properties.leftVent === elem.id ||
@@ -30,6 +32,8 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
                 e.properties.rightVent === elem.id ||
                 e.properties.teleporter === elem.id ||
                 e.properties.parent === elem.id ||
+                e.properties.doorA === elem.id ||
+                e.properties.doorB === elem.id ||
                 e.properties.triggers?.some(t => t.elemID === elem.id);
         });
 
@@ -51,6 +55,7 @@ selectedConnectionsAtom.debugLabel = "selectedConnectionsAtom";
 export function useSelectedConnections() {
     return useAtomValue(selectedConnectionsAtom);
 }
+
 export function useConnections(id: MaybeGUID) {
     return useAtomValue(connectionsAtomFamily(id));
 }
