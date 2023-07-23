@@ -9,6 +9,7 @@ import TaskTypeSelect from "../input/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import NumericPanelInput from "../input/NumericPanelInput";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -32,6 +33,9 @@ export default function TaskPanel() {
         return filteredTempTasks.length > 1 && selectedElem?.type.startsWith("task-temp");
     }, [taskElems, selectedElem]);
 
+    const towelCount = React.useMemo(() => {
+        return taskElems.filter((e) => e.type.startsWith("task-towels") && e.type !== "task-towels1").length;
+    }, [taskElems]);
 
     if (!selectedElem || !selectedElem.type.startsWith("task-"))
         return null;
@@ -55,6 +59,18 @@ export default function TaskPanel() {
                     name={"task.description"}
                     icon={"comment"}
                 />
+
+                {selectedElem.type.startsWith("task-towels") && (
+                    <NumericPanelInput
+                        name={"task.towelPickupCount"}
+                        prop={"towelPickupCount"}
+                        icon={"numerical"}
+                        defaultValue={Math.floor(towelCount / 2)}
+                        min={0}
+                        stepSize={1}
+                        max={towelCount}
+                    />
+                )}
             </PanelContainer>
 
             <MapError

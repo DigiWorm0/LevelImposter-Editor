@@ -79,6 +79,16 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
             "util-vent1",
             //"util-vent2", // Polus Vents don't have SpriteAnim so they don't play sounds
         ]
+    },
+    {
+        prop: "towelPickupCount",
+        "types": [
+            "task-towels1",
+            "task-towels2",
+            "task-towels3",
+            "task-towels4",
+            "task-towels5",
+        ]
     }
 ];
 

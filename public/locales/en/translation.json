@@ -397,6 +397,7 @@
 		"Short": "Short",
 		"Long": "Long",
 		"Common": "Common",
+		"towelPickupCount": "Amount of Towels to Grab",
 		"errorNoFuel": "The multi-step gas task requires atleast 2 Gas Outputs (util-fuel2).",
 		"errorNoRoom": "This task is not attached to a room.",
 		"errorTemp": "Different temperature tasks cannot be connected to the same room."
