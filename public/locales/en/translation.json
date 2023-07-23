@@ -495,6 +495,10 @@
 		"buttonStinger": "Button Stinger",
 		"reportStinger": "Report Stinger"
 	},
+	"sabotages": {
+		"title": "Sabotage Options",
+		"sound": "Alarm Sound"
+	},
 	"sab": {
 		"title": "Sabotage",
 		"duration": "Sabotage Duration",
@@ -651,7 +655,23 @@
 		"onOpen": "On Open",
 		"onClose": "On Close",
 		"onButton": "Button Hit",
-		"onReport": "Body Report"
+		"onReport": "Body Report",
+		"onOxygenStart": "Oxygen Sabotaged",
+		"onReactorStart": "Reactor Sabotaged",
+		"onLightsStart": "Lights Sabotaged",
+		"onCommsStart": "Comms Sabotaged",
+		"onOxygenEnd": "Oxygen Fixed",
+		"onReactorEnd": "Reactor Fixed",
+		"onLightsEnd": "Lights Fixed",
+		"onCommsEnd": "Comms Fixed",
+		"startOxygen": "Sabotage Oxygen",
+		"startReactor": "Sabotage Reactor",
+		"startLights": "Sabotage Lights",
+		"startComms": "Sabotage Comms",
+		"endOxygen": "Fix Oxygen",
+		"endReactor": "Fix Reactor",
+		"endLights": "Fix Lights",
+		"endComms": "Fix Comms"
 	},
 	"au": {
 		"undefined": "Unknown Object",
@@ -696,6 +716,7 @@
 		"util-triggerrand": "Trigger Randomizer",
 		"util-onewaycollider": "One-Way Collider",
 		"util-decontamination": "Decontamination System",
+		"util-sabotages": "Sabotage Options",
 		"task-id": "Card Swipe",
 		"task-keys": "Keys",
 		"task-pass": "Scan Pass",

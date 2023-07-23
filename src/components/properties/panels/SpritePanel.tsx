@@ -28,6 +28,7 @@ const TYPE_BLACKLIST = [
     "util-display",
     "util-onewaycollider",
     "util-decontamination",
+    "util-sabotages"
 ];
 
 export default function SpritePanel() {

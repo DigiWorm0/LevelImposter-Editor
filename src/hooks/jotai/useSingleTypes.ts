@@ -1,19 +1,6 @@
 import { atom, useAtomValue } from "jotai";
 import { elementsAtom } from "./useMap";
-
-const SINGLE_TYPES = [
-    "util-minimap",
-    "util-meeting",
-    "util-spawn1",
-    "util-spawn2",
-    "util-platform",
-    "sab-electric",
-    "sab-oxygen1",
-    "sab-oxygen2",
-    "sab-comms",
-    "sab-reactorleft",
-    "sab-reactorright"
-];
+import { SINGLE_TYPES } from "../../types/generic/Constants";
 
 export const hideTypesAtom = atom((get) => {
     const elements = get(elementsAtom);

@@ -27,6 +27,7 @@ import MeetingPanel from "../components/properties/panels/MeetingPanel";
 import ScrollingPanel from "../components/properties/panels/ScrollingPanel";
 import OneWayColliderPanel from "../components/properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../components/properties/panels/DecontaminationPanel";
+import SabotagesPanel from "../components/properties/panels/SabotagesPanel";
 
 export default function RightSidebar() {
 
@@ -46,6 +47,7 @@ export default function RightSidebar() {
             <ScrollingPanel />
             <LadderPanel />
             <MeetingPanel />
+            <SabotagesPanel />
             <VentPanel />
             <TelePanel />
             <DisplayPanel />

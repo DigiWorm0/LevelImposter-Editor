@@ -4,7 +4,6 @@ import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
-import MapError from "../util/MapError";
 
 export default function MeetingPanel() {
     const { t } = useTranslation();
@@ -34,10 +33,6 @@ export default function MeetingPanel() {
         });
     }, [selectedElem, setSelectedElem]);
 
-    const isNotWav = React.useMemo(() => {
-        return selectedElem?.properties.sounds?.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
-    }, [selectedElem?.properties.sounds]);
-
     if (!selectedElem || selectedElem.type !== "util-meeting")
         return null;
 
@@ -65,12 +60,6 @@ export default function MeetingPanel() {
                     defaultSoundURL="meetingReportStinger.wav"
                 />
             </PanelContainer>
-            <MapError
-                isVisible={isNotWav}
-                icon="volume-off"
-            >
-                {t("audio.errorNotWav") as string}
-            </MapError>
         </>
     );
 }

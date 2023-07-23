@@ -20,7 +20,8 @@ const BLACKLISTED_TYPES = [
     "util-minimapsprite",
     "util-layer",
     "util-spawn1",
-    "util-spawn2"
+    "util-spawn2",
+    "util-sabotages",
 ];
 
 const SOLID_ONLY_TYPES = [

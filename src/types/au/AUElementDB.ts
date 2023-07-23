@@ -121,6 +121,7 @@ const AUElementDB: string[] = [
     "util-triggerrand",
     "util-onewaycollider",
     "util-decontamination",
+    "util-sabotages",
     "task-id",
     "task-keys",
     "task-pass",
