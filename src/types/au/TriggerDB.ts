@@ -30,6 +30,16 @@ const OutputTriggerDB: Record<string, string[]> = {
     "util-triggerstart": [
         "onStart",
     ],
+    "util-sabotages": [
+        "onOxygenStart",
+        "onLightsStart",
+        "onCommsStart",
+        "onReactorStart",
+        "onOxygenEnd",
+        "onLightsEnd",
+        "onCommsEnd",
+        "onReactorEnd",
+    ],
     "sab-doorv": [
         "onOpen",
         "onClose",
@@ -93,6 +103,16 @@ const InputTriggerDB: Record<string, string[]> = {
     ],
     "util-meeting": [
         "callMeeting",
+    ],
+    "util-sabotages": [
+        "startOxygen",
+        "startLights",
+        "startComms",
+        "startReactor",
+        "endOxygen",
+        "endLights",
+        "endComms",
+        "endReactor"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

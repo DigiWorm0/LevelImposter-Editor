@@ -20,7 +20,8 @@ const BLACKLISTED_TYPES = [
     "util-minimapsprite",
     "util-layer",
     "util-spawn1",
-    "util-spawn2"
+    "util-spawn2",
+    "util-sabotages",
 ];
 
 const SOLID_ONLY_TYPES = [
@@ -30,6 +31,7 @@ const SOLID_ONLY_TYPES = [
     "util-tele",
     "util-triggerarea",
     "util-triggersound",
+    "util-decontamination"
 ];
 
 const SHADOW_ONLY_TYPES = [
@@ -39,6 +41,7 @@ const SHADOW_ONLY_TYPES = [
 const SINGULAR_TYPES = [
     "util-room",
     "util-sound2",
+    "util-decontamination"
 ];
 
 export default function ColliderPanel() {
@@ -178,7 +181,14 @@ export default function ColliderPanel() {
                 info
                 icon="polygon-filter"
             >
-                The colliders will be deactivated when the player is in the selected room.
+                {t("collider.oneWayColliderInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={selectedElem.type === "util-decontamination"}
+                info
+                icon="volume-up"
+            >
+                {t("collider.soundInfo") as string}
             </MapError>
         </>
     );

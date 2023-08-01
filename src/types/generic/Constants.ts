@@ -77,3 +77,18 @@ export const LANGUAGES = [
     "zh-CN",
     "ru",
 ];
+
+export const SINGLE_TYPES = [
+    "util-minimap",
+    "util-meeting",
+    "util-spawn1",
+    "util-spawn2",
+    "util-platform",
+    "sab-electric",
+    "sab-oxygen1",
+    "sab-oxygen2",
+    "sab-comms",
+    "sab-reactorleft",
+    "sab-reactorright",
+    "util-sabotages"
+];
