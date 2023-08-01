@@ -535,7 +535,10 @@
 		"errorNoRoom": "This object does not have a room. Colliders will not function properly."
 	},
 	"decontamination": {
-		"title": "Decontamination System"
+		"title": "Decontamination System",
+		"duration": "Duration",
+		"sound": "Sound",
+		"errorMissingDoor": "Object is missing one or more doors. Decontamination will not function properly."
 	},
 	"map": {
 		"importLegacy": "Import Legacy Map",

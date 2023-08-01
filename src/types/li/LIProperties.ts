@@ -41,6 +41,7 @@ export default interface LIProperties {
     // Decontamination
     doorA?: GUID;
     doorB?: GUID;
+    deconDuration?: number;
 
     // Scroll
     scrollingXSpeed?: number;
