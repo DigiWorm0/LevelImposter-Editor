@@ -109,6 +109,7 @@
 		"selectTrigger": "Select Trigger",
 		"isClientSide": "Client Side",
 		"count": "Trigger Count",
+		"isGhostEnabled": "Ghost Enabled",
 		"randomInfo": "Trigger will randomly choose between any of its targets.",
 		"repeatInfo": "Trigger will repeat to all connected targets.",
 		"errorNoCollider": "This object does not have a collider. (Trigger is fired when a player enters/exit the collision area)",

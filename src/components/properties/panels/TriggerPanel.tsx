@@ -16,6 +16,10 @@ const CLIENT_SIDE_TYPES = [
     "util-triggerconsole",
 ];
 
+const GHOST_TYPES = [
+    "util-triggerarea",
+];
+
 export default function TriggerPanel() {
     const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
@@ -96,6 +100,13 @@ export default function TriggerPanel() {
                         name="trigger.isClientSide"
                         prop="triggerClientSide"
                         defaultValue={true}
+                    />
+                )}
+                {GHOST_TYPES.includes(selectedElem.type) && (
+                    <SwitchPanelInput
+                        name="trigger.isGhostEnabled"
+                        prop="isGhostEnabled"
+                        defaultValue={false}
                     />
                 )}
             </PanelContainer>
