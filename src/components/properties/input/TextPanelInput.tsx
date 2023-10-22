@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import ResettablePanelInput from "./ResettablePanelInput";
+import LIMinigameProps from "../../../types/li/LIMinigameProps";
 
 export interface TextInputProps {
     name: string;
-    prop: keyof LIProperties;
+    prop?: keyof LIProperties;
+    minigameProp?: keyof LIMinigameProps;
 
     defaultValue?: string;
     icon?: IconName;
@@ -19,24 +21,43 @@ export default function TextPanelInput(props: TextInputProps) {
     const { t } = useTranslation();
     const inputRef = React.useRef<HTMLInputElement>(null);
 
-    const propValue = selectedElem?.properties[props.prop] !== undefined ? selectedElem.properties[props.prop] : props.defaultValue;
+    const propValue = React.useMemo(() => {
+        if (props.prop && selectedElem?.properties[props.prop]) {
+            return selectedElem.properties[props.prop];
+        } else if (props.minigameProp && selectedElem?.properties.minigameProps?.[props.minigameProp]) {
+            return selectedElem.properties.minigameProps[props.minigameProp];
+        } else {
+            return props.defaultValue;
+        }
+    }, [selectedElem, props.prop, props.minigameProp, props.defaultValue]);
 
     React.useEffect(() => {
         if (inputRef.current)
             inputRef.current.value = (propValue ?? "") as string;
     }, [selectedElem?.id]);
 
-    const updateValue = React.useCallback((val?: string) => {
-        if (selectedElem) {
+    const onChange = React.useCallback((val?: string) => {
+        if (props.prop && selectedElem) {
             setSelectedElem({
                 ...selectedElem,
                 properties: {
                     ...selectedElem.properties,
-                    [props.prop]: val ? val : props.defaultValue
+                    [props.prop]: val
+                }
+            });
+        } else if (props.minigameProp && selectedElem) {
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    minigameProps: {
+                        ...selectedElem.properties.minigameProps,
+                        [props.minigameProp]: val
+                    }
                 }
             });
         }
-    }, [selectedElem, props.prop, props.defaultValue, setSelectedElem]);
+    }, [selectedElem, props.prop, props.minigameProp, setSelectedElem]);
 
     return (
         <FormGroup
@@ -53,7 +74,7 @@ export default function TextPanelInput(props: TextInputProps) {
             >
                 <ResettablePanelInput
                     onReset={() => {
-                        updateValue();
+                        onChange();
                         if (inputRef.current)
                             inputRef.current.value = "";
                     }}
@@ -65,10 +86,10 @@ export default function TextPanelInput(props: TextInputProps) {
                         defaultValue={propValue as string}
                         leftIcon={props.icon}
                         onBlur={(e) => {
-                            updateValue(e.target.value);
+                            onChange(e.target.value);
                         }}
                         onChange={(e) => {
-                            updateValue(e.currentTarget.value);
+                            onChange(e.currentTarget.value);
                         }}
                     />
                 </ResettablePanelInput>

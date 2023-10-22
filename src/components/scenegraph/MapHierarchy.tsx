@@ -1,10 +1,9 @@
+import { InputGroup, Menu, MenuDivider } from "@blueprintjs/core";
 import React from "react";
-import { EditableText, H3, InputGroup, Menu, MenuDivider } from "@blueprintjs/core";
+import { useTranslation } from "react-i18next";
 import { useElementChildren } from "../../hooks/jotai/useElements";
 import MapButtons from "../dialogs/MapButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
-import RootHierarchyElement from "./RootHierarchyElement";
-import { useTranslation } from "react-i18next";
 
 export default function MapHierarchy() {
     const { t } = useTranslation();
@@ -28,17 +27,19 @@ export default function MapHierarchy() {
                 }}
             />
             <MenuDivider />
-            <div style={{
-                overflowY: "auto",
-                height: "calc(100vh - 150px)",
-                width: "100%",
-                backgroundColor: "transparent",
-            }}>
+            <div
+                style={{
+                    overflowY: "auto",
+                    height: "calc(100vh - 150px)",
+                    width: "100%",
+                    backgroundColor: "transparent",
+                }}
+            >
                 <Menu
                     style={{
                         backgroundColor: "transparent"
-                    }}>
-
+                    }}
+                >
                     {elementIDs.map((elemID) => (
                         <MapHierarchyElement
                             key={elemID}

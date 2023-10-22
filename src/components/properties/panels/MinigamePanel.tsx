@@ -9,6 +9,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import { DoorType } from "../../../types/generic/DoorType";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import TextPanelInput from "../input/TextPanelInput";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",
@@ -29,6 +30,8 @@ export default function MinigamePanel() {
     const isFuel = React.useMemo(() => element?.type.startsWith("task-fuel"), [element]);
     const isDoor = React.useMemo(() => element?.type.startsWith("sab-door"), [element]);
     const isTelescope = React.useMemo(() => element?.type === "task-telescope", [element]);
+    const isWeapons = React.useMemo(() => element?.type === "task-weapons", [element]);
+    const isBoardingPass = React.useMemo(() => element?.type === "task-pass", [element]);
     const doorType = React.useMemo(() => element?.properties.doorType ?? DoorType.Skeld, [element]);
 
     if (!element || minigameSprites.length === 0)
@@ -111,6 +114,19 @@ export default function MinigamePanel() {
                         name={"minigame.starfieldEnabled"}
                         minigameProp={"isStarfieldEnabled"}
                         defaultValue={true}
+                    />
+                )}
+                {isWeapons && (
+                    <ColorPanelInput
+                        name={t("minigame.weaponsColor") as string}
+                        minigameProp={"weaponsColor"}
+                        defaultValue={{ r: 22, g: 72, b: 46, a: 255 }}
+                    />
+                )}
+                {isBoardingPass && (
+                    <TextPanelInput
+                        name={"minigame.qrCodeText"}
+                        minigameProp={"qrCodeText"}
                     />
                 )}
 

@@ -167,6 +167,7 @@
 		"lightsColorOff": "Off Color",
 		"fuelColor": "Fuel Color",
 		"bgColor": "Background Color",
+		"weaponsColor": "Weapons Color",
 		"vendingItems": "Vending Items",
 		"vendingDrawings": "Vending Drawings",
 		"weaponAsteroids": "Asteroids",
@@ -389,7 +390,13 @@
 		"ship": "Ship",
 		"leaf": "Leaf {{index}}",
 		"leftslider": "Left Slider",
-		"rightslider": "Right Slider"
+		"rightslider": "Right Slider",
+		"qrCodeText": "QR Code Text",
+		"idfront": "ID Front",
+		"idwindow": "ID Window",
+		"idface": "ID Face",
+		"pull": "Pull",
+		"flip": "Flip"
 	},
 	"task": {
 		"title": "Task",
