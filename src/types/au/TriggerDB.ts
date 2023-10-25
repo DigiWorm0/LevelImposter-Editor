@@ -35,10 +35,12 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onLightsStart",
         "onCommsStart",
         "onReactorStart",
+        "onMixupStart",
         "onOxygenEnd",
         "onLightsEnd",
         "onCommsEnd",
         "onReactorEnd",
+        "onMixupEnd",
     ],
     "sab-doorv": [
         "onOpen",

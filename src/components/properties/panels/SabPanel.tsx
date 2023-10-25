@@ -10,7 +10,6 @@ import RoomSelect from "../input/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import LIElement from "../../../types/li/LIElement";
 
 const timerElems = [
     "sab-reactorleft",
@@ -19,6 +18,7 @@ const timerElems = [
     "sab-oxygen1",
     "sab-oxygen2",
     "sab-btnoxygen",
+    "sab-btnmixup"
 ]
 
 export default function SabPanel() {
@@ -73,7 +73,7 @@ export default function SabPanel() {
                     <NumericPanelInput
                         prop="sabDuration"
                         name={"sab.duration"}
-                        defaultValue={45}
+                        defaultValue={selectedElem.type === "sab-btnmixup" ? 10 : 45}
                         min={0}
                         minorStepSize={1}
                         stepSize={5}
