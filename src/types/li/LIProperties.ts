@@ -38,6 +38,9 @@ export default interface LIProperties {
     // Towels
     towelPickupCount?: number;
 
+    // Spore
+    gasColor?: LIColor;
+
     // Decontamination
     doorA?: GUID;
     doorB?: GUID;

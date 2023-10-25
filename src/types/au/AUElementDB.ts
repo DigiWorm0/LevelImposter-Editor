@@ -88,15 +88,18 @@ const AUElementDB: string[] = [
     "util-ladder2",
     "util-admin",
     "util-vitals",
+    "util-spore",
     "util-computer",
     "util-room",
     "util-dummy",
     "util-vent1",
     "util-vent2",
+    "util-vent3",
     "util-cam",
     "util-cams",
     "util-cams2",
     "util-cams3",
+    "util-cams4",
     "util-spawn1",
     "util-spawn2",
     "util-minimap",
@@ -314,7 +317,8 @@ const AUElementDB: string[] = [
     "sab-btnoxygen",
     "sab-btnlights",
     "sab-btncomms",
-    "sab-btndoors"
+    "sab-btndoors",
+    "sab-btnmixup"
 ];
 
 export default AUElementDB;

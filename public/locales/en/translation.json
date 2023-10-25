@@ -606,6 +606,11 @@
 		"xspeed": "X Speed",
 		"yspeed": "Y Speed"
 	},
+	"spore": {
+		"title": "Spore",
+		"range": "Activation Range",
+		"gasColor": "Gas Color"
+	},
 	"settings": {
 		"title": "Settings",
 		"interface": {
@@ -695,15 +700,18 @@
 		"util-ladder2": "Short Ladder",
 		"util-admin": "Admin Table",
 		"util-vitals": "Vitals",
+		"util-spore": "Spore",
 		"util-computer": "Freeplay Laptop",
 		"util-room": "Room",
 		"util-dummy": "Dummy",
 		"util-vent1": "Skeld / Mira Vent",
 		"util-vent2": "Polus Vent",
+		"util-vent3": "Fungle Vent",
 		"util-cam": "Camera",
 		"util-cams": "Polus Camera Panel",
 		"util-cams2": "Skeld Camera Panel",
 		"util-cams3": "Airship Camera Panel",
+		"util-cams4": "Binoculars Panel",
 		"util-display": "Display",
 		"util-spawn1": "Initial Spawnpoint",
 		"util-spawn2": "Meeting Spawnpoint",
@@ -920,6 +928,7 @@
 		"sab-btnlights": "Lights Button",
 		"sab-btncomms": "Comms Button",
 		"sab-btndoors": "Doors Button",
+		"sab-btnmixup": "Mixup Button",
 		"sab-doorv": "Vertical Door",
 		"sab-doorh": "Horizontal Door"
 	}
