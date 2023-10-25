@@ -687,10 +687,12 @@
 		"startReactor": "Sabotage Reactor",
 		"startLights": "Sabotage Lights",
 		"startComms": "Sabotage Comms",
+		"startMixup": "Sabotage Mixup",
 		"endOxygen": "Fix Oxygen",
 		"endReactor": "Fix Reactor",
 		"endLights": "Fix Lights",
-		"endComms": "Fix Comms"
+		"endComms": "Fix Comms",
+		"endMixup": "Fix Mixup"
 	},
 	"au": {
 		"undefined": "Unknown Object",

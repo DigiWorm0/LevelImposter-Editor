@@ -111,10 +111,12 @@ const InputTriggerDB: Record<string, string[]> = {
         "startLights",
         "startComms",
         "startReactor",
+        "startMixup",
         "endOxygen",
         "endLights",
         "endComms",
-        "endReactor"
+        "endReactor",
+        "endMixup"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,
