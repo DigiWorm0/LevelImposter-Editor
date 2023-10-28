@@ -2,7 +2,8 @@ export const EXILE_IDS: string[] = [
     "Skeld",
     "MiraHQ",
     "Polus",
-    "Airship"
+    "Airship",
+    "Fungle"
 ];
 
 export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
@@ -193,6 +194,26 @@ const AUElementDB: string[] = [
     "task-fans1",
     "task-fans2",
     "task-distributor",
+    "task-marshmallow1",
+    "task-marshmallow2",
+    "task-sandcastle",
+    "task-weights",
+    "task-frisbee",
+    "task-generator",
+    "task-fish1",
+    "task-fish2",
+    "task-seashells",
+    "task-egg1",
+    "task-egg2",
+    "task-samples1",
+    "task-samples2",
+    "task-vegetables1",
+    "task-vegetables2",
+    "task-radio",
+    "task-mineores",
+    "task-replaceparts1",
+    "task-replaceparts2",
+    "task-hoist",
     "task-wires",
     "dec-rock1",
     "dec-rock2",
