@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
-import { auth } from "../../hooks/Firebase";
+import { auth } from "../../hooks/utils/Firebase";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { useUserMaps } from "../../hooks/useUserMaps";
 import SignIn from "../utils/SignIn";
@@ -38,7 +38,9 @@ export default function SignInButton() {
                             :
                             "log-in"
                     }
-                    onClick={() => { setIsOpen(true) }}
+                    onClick={() => {
+                        setIsOpen(true)
+                    }}
                 />
 
             </Tooltip2>
@@ -46,7 +48,9 @@ export default function SignInButton() {
 
             <Dialog
                 isOpen={isOpen && !isLoggedIn}
-                onClose={() => { setIsOpen(false) }}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
                 title={t("account.signIn")}
                 style={{ paddingBottom: 0 }}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
@@ -57,7 +61,9 @@ export default function SignInButton() {
 
             <Dialog
                 isOpen={isOpen && isLoggedIn}
-                onClose={() => { setIsOpen(false) }}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
                 title={user?.displayName}
                 style={{ paddingBottom: 0 }}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>

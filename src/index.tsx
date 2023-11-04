@@ -8,7 +8,7 @@ import '@fontsource/roboto/700.css';
 
 import { createRoot } from 'react-dom/client';
 import App from './screens/App';
-import './hooks/Localization';
+import './hooks/utils/Localization';
 import './style/DarkMode.css';
 import './style/Index.css';
 import './style/Screens.css';

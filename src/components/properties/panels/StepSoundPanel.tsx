@@ -3,7 +3,7 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
+import generateGUID from "../../../hooks/utils/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
@@ -72,7 +72,10 @@ export default function StepSoundPanel() {
                             for (let i = sounds.length - 1; i >= value; i--) {
                                 sounds.splice(i, 1);
                             }
-                            setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, sounds: sounds } });
+                            setSelectedElem({
+                                ...selectedElem,
+                                properties: { ...selectedElem.properties, sounds: sounds }
+                            });
                         }}
                     />
                 </FormGroup>

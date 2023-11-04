@@ -3,7 +3,7 @@ import { getBytes, ref } from "firebase/storage";
 import React from "react";
 import GUID from "../types/generic/GUID";
 import LIMetadata from "../types/li/LIMetadata";
-import { db, storage } from "./Firebase";
+import { db, storage } from "./utils/Firebase";
 import { useSaveHistory } from "./jotai/useHistory";
 import { useSetMap } from "./jotai/useMap";
 import useToaster from "./useToaster";

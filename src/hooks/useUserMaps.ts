@@ -1,7 +1,7 @@
 import { collection, getDocs, limit, orderBy, query, QueryConstraint, where } from 'firebase/firestore';
 import React from 'react';
 import LIMetadata from '../types/li/LIMetadata';
-import { db } from './Firebase';
+import { db } from './utils/Firebase';
 
 const MAX_PER_PAGE = 100;
 

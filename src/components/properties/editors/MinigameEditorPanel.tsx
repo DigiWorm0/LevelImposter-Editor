@@ -1,10 +1,11 @@
 import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
+import generateGUID from "../../../hooks/utils/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import DevInfo from "../../utils/DevInfo";
 import ImageUpload from "../util/ImageUpload";
+import { MapAsset } from "../../../types/li/MapAssetDB";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -36,14 +37,14 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         });
     }, [selectedElem, minigameType, setSelectedElem]);
 
-    const onUpload = React.useCallback((spriteData: string) => {
+    const onUpload = React.useCallback((asset: MapAsset) => {
         if (!selectedElem)
             return;
         const minigameList = selectedElem.properties.minigames?.map(mg => {
             if (mg.id === minigame?.id)
                 return {
                     ...mg,
-                    spriteData
+                    spriteID: asset.id,
                 }
             return mg;
         }) ?? [];
@@ -52,7 +53,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
             minigameList?.push({
                 id: generateGUID(),
                 type: minigameType,
-                spriteData
+                spriteID: asset.id,
             });
         }
         setSelectedElem({
@@ -85,7 +86,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
             <ImageUpload
                 name={selectedElem.name}
                 defaultSpriteURL={`/minigames/${minigameType}.png`}
-                spriteURL={minigame?.spriteData}
+                assetID={minigame?.spriteID}
                 onUpload={onUpload}
                 onReset={onReset}
                 onFinish={props.onFinish}

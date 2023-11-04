@@ -1,7 +1,7 @@
 import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
+import generateGUID from "../../../hooks/utils/generateGUID";
 import { useSelectedColliderID } from "../../../hooks/jotai/useSelectedCollider";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";

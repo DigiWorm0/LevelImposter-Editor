@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import GUID, { MaybeGUID } from "../../types/generic/GUID";
 import LIClipboard from "../../types/li/LIClipboard";
 import LIElement from "../../types/li/LIElement";
-import generateGUID from "../generateGUID";
+import generateGUID from "../utils/generateGUID";
 import useToaster from "../useToaster";
 import { useAddElement } from "./useElements";
 import { useMapValue } from "./useMap";

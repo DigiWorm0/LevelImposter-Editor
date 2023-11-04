@@ -3,7 +3,7 @@ import { focusAtom } from "jotai-optics";
 import { atomWithReset, useResetAtom } from "jotai/utils";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import LIMap from "../../types/li/LIMap";
-import { DEFAULT_GUID } from "../generateGUID";
+import { DEFAULT_GUID } from "../utils/generateGUID";
 
 const DEFAULT_MAP: LIMap = {
     v: MAP_FORMAT_VER,
@@ -17,6 +17,7 @@ const DEFAULT_MAP: LIMap = {
     createdAt: -1,
     likeCount: 0,
     elements: [],
+    assets: [],
     properties: {},
     thumbnailURL: null,
     remixOf: null,
@@ -42,9 +43,11 @@ elementIDsAtom.debugLabel = "elementIDsAtom";
 export default function useMap() {
     return useAtom(mapAtom);
 }
+
 export function useSetMap() {
     return useSetAtom(mapAtom);
 }
+
 export function useMapValue() {
     return useAtomValue(mapAtom);
 }
@@ -52,9 +55,11 @@ export function useMapValue() {
 export function useMapName() {
     return useAtom(mapNameAtom);
 }
+
 export function useMapProperties() {
     return useAtom(mapPropsAtom);
 }
+
 export function useMapReset() {
     return useResetAtom(mapAtom);
 }
@@ -62,6 +67,7 @@ export function useMapReset() {
 export function useElementIDs() {
     return useAtomValue(elementIDsAtom);
 }
+
 export function useElements() {
     return useAtom(elementsAtom);
 }

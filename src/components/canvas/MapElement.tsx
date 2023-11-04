@@ -10,7 +10,7 @@ import useEmbed from "../../hooks/useEmbed";
 import useSprite from "../../hooks/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, { ElemVisibility } from "../../hooks/getMapVisibility";
+import getElemVisibility, { ElemVisibility } from "../../hooks/utils/getMapVisibility";
 import SecondaryRender from "./SecondaryRender";
 
 const SECONDARY_RENDER_TYPES = [
@@ -105,7 +105,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 if (x !== elem.x || y !== elem.y)
-                    setElement({...elem, x, y});
+                    setElement({ ...elem, x, y });
             }}
             onClick={(e) => {
                 e.target.getParent().stopDrag();

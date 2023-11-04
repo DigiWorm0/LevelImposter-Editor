@@ -1,12 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import getIsConsole from "../../../hooks/getIsConsole";
+import getIsConsole from "../../../hooks/utils/getIsConsole";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import MapAsset from "../../../types/li/MapAssetDB";
+import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -34,26 +36,27 @@ const TYPE_BLACKLIST = [
 export default function SpritePanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const asset = useMapAssetValue(selectedElem?.properties.spriteID);
 
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
     }, [selectedElem]);
 
     const isGIF = React.useMemo(() => {
-        return selectedElem?.properties.spriteData?.startsWith("data:image/gif;base64,");
+        return asset?.blob.type === "image/gif";
     }, [selectedElem]);
     const isCustomAnim = React.useMemo(() => {
         return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
     }, [selectedElem]);
 
-    const onUpload = React.useCallback((spriteURL: string) => {
+    const onUpload = React.useCallback((asset: MapAsset) => {
         if (!selectedElem)
             return;
         setSelectedElem({
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                spriteData: spriteURL,
+                spriteID: asset.id,
                 color: undefined
             }
         });
@@ -66,7 +69,7 @@ export default function SpritePanel() {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                spriteData: undefined,
+                spriteID: undefined,
                 color: undefined
             }
         });
@@ -92,8 +95,8 @@ export default function SpritePanel() {
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
                     name={selectedElem.name}
-                    defaultSpriteURL={"/sprites/" + selectedElem.type + ".png"}
-                    spriteURL={selectedElem.properties.spriteData}
+                    defaultSpriteURL={`/sprites/${selectedElem.type}.png`}
+                    assetID={selectedElem.properties.spriteID}
                     onUpload={onUpload}
                     onReset={onReset}
                     color={selectedElem.properties.color}
@@ -131,7 +134,7 @@ export default function SpritePanel() {
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.properties.spriteData !== undefined && isConsole}
+                isVisible={selectedElem.properties.spriteID !== undefined && isConsole}
                 icon="vertical-inbetween"
             >
                 {t("sprite.paddingInfo") as string}

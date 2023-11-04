@@ -1,5 +1,5 @@
 import { Shape } from "react-konva";
-import getIsConsole from "../../hooks/getIsConsole";
+import getIsConsole from "../../hooks/utils/getIsConsole";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
 import {
     DEFAULT_CONSOLE_RANGE,

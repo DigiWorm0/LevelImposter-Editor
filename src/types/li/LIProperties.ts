@@ -28,9 +28,14 @@ export default interface LIProperties {
     minigameProps?: LIMinigameProps;
 
     // Sprite
-    spriteData?: string;
+    spriteID?: GUID;
     color?: LIColor;
     loopGIF?: boolean;
+
+    /**
+     * @deprecated Use spriteID instead
+     */
+    spriteData?: string;
 
     // One-Way Colliders
     isImposterIgnored?: boolean;

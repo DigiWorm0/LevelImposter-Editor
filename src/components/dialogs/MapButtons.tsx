@@ -8,17 +8,17 @@ export default function MapButtons() {
         <ButtonGroup
             fill
             style={{ padding: 5 }}
-            minimal>
-
+            minimal
+        >
             <AddObjectButton
-                isSidePanel={true} />
-
+                isSidePanel={true}
+            />
             <AddLayerButton
-                isSidePanel={true} />
-
+                isSidePanel={true}
+            />
             <DeleteObjectButton
-                isSidePanel={true} />
-
+                isSidePanel={true}
+            />
         </ButtonGroup>
     );
 }

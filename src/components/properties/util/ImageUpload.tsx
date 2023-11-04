@@ -1,17 +1,21 @@
-import { Button, ButtonGroup, H5, H6, Icon } from "@blueprintjs/core";
+import { Button, ButtonGroup, H6, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import openUploadDialog from "../../../hooks/openUploadDialog";
+import openUploadDialog from "../../../hooks/utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import SizeTag from "../../utils/SizeTag";
+import MapAsset from "../../../types/li/MapAssetDB";
+import generateGUID from "../../../hooks/utils/generateGUID";
+import GUID from "../../../types/generic/GUID";
+import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 interface ImageUploadProps {
     name: string;
     defaultSpriteURL: string;
-    spriteURL?: string;
-    onUpload: (spriteURL: string) => void;
+    assetID?: GUID;
+    onUpload: (asset: MapAsset) => void;
     onReset: () => void;
 
     color?: LIColor;
@@ -25,18 +29,23 @@ export default function ImageUpload(props: ImageUploadProps) {
     const { t } = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
+    const asset = useMapAssetValue(props.assetID);
+    const createMapAsset = useCreateMapAsset();
 
+    // Get the size of the sprite in bytes
     const spriteSize = React.useMemo(() => {
-        return props.spriteURL?.length ?? 0;
-    }, [props.spriteURL]);
+        return asset?.blob?.size ?? 0;
+    }, [asset]);
 
+    // Handle Upload
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("image/*").then((result) => {
-            if (result)
-                props.onUpload(result);
+        openUploadDialog("image/*").then((blob) => {
+            if (blob)
+                props.onUpload(createMapAsset(blob));
         });
     }, [props.onUpload]);
 
+    // Handle Drag & Drop
     const onFileDrop = React.useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setIsHovering(false);
@@ -44,12 +53,11 @@ export default function ImageUpload(props: ImageUploadProps) {
         if (files.length > 0) {
             const file = files[0];
             if (file.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    if (e.target?.result)
-                        props.onUpload(e.target.result as string);
-                };
-                reader.readAsDataURL(file);
+                props.onUpload({
+                    id: generateGUID(),
+                    blob: file,
+                    url: URL.createObjectURL(file),
+                });
             } else {
                 toaster.danger(t("sprite.errorInvalidType"));
             }
@@ -84,7 +92,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                         maxHeight: 100,
                         maxWidth: 100
                     }}
-                    src={props.spriteURL ?? props.defaultSpriteURL}
+                    src={asset?.url ?? props.defaultSpriteURL}
                     alt={props.name}
                 />
             </div>
@@ -128,7 +136,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                     intent="danger"
                     onClick={props.onReset}
                     style={{ margin: 3 }}
-                    disabled={props.color === undefined && props.spriteURL === undefined}
+                    disabled={props.color === undefined && asset === undefined}
                 />
             </ButtonGroup>
 
@@ -155,7 +163,7 @@ export default function ImageUpload(props: ImageUploadProps) {
 
                 <Icon
                     icon="cloud-upload"
-                    iconSize={40}
+                    size={40}
                     style={{ marginRight: 10 }}
                 />
                 <span style={{

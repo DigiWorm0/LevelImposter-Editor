@@ -42,7 +42,7 @@ export default function MinigamePanel() {
             <PanelContainer title={t("minigame.title") as string}>
                 <DropdownList
                     elements={minigameSprites.map((type) => {
-                        const hasSprite = element.properties.minigames?.find((m) => m.type === type)?.spriteData !== undefined;
+                        const hasSprite = element.properties.minigames?.find((m) => m.type === type)?.spriteID !== undefined;
                         const isDisabled = isDoor && (
                             doorType === DoorType.Skeld ||
                             (doorType === DoorType.Polus && !POLUS_DOOR_MINIGAMES.includes(type)) ||

@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import getElemVisibility, { ElemVisibility } from "../../../hooks/getMapVisibility";
+import getElemVisibility, { ElemVisibility } from "../../../hooks/utils/getMapVisibility";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/jotai/useSettings";
 import GUID from "../../../types/generic/GUID";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import getIsConsole from "../../../hooks/getIsConsole";
+import getIsConsole from "../../../hooks/utils/getIsConsole";
 import useFixSprite from "../../../hooks/useFixSprite";
 
 export default function TransformPanel() {
@@ -153,7 +153,12 @@ export default function TransformPanel() {
                             icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
                             text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
                             onClick={() => {
-                                setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, isLocked: !selectedElem.properties.isLocked } });
+                                setSelectedElem({ ...selectedElem,
+                                    properties: {
+                                        ...selectedElem.properties,
+                                        isLocked: !selectedElem.properties.isLocked
+                                    }
+                                });
                             }}
                         />
                         <Button

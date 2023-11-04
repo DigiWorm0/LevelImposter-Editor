@@ -66,7 +66,6 @@ export default function RootHierarchyElement() {
                 onDoubleClick={() => {
                     setIsEditingName(true);
                 }}
-
             />
         </>
     );
