@@ -134,7 +134,7 @@ export default function SpritePanel() {
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.properties.spriteData !== undefined && isConsole}
+                isVisible={selectedElem.properties.spriteID !== undefined && isConsole}
                 icon="vertical-inbetween"
             >
                 {t("sprite.paddingInfo") as string}

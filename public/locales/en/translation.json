@@ -551,8 +551,8 @@
 	"map": {
 		"importLegacy": "Import Legacy Map",
 		"open": "Open Map",
+		"converting": "Converting legacy map, please wait...",
 		"opened": "Opened {{name}}",
-		"imported": "Imported {{name}}",
 		"new": "New Map",
 		"play": "Play Map",
 		"save": "Save Map",

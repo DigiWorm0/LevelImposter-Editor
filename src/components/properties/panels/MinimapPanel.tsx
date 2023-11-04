@@ -51,7 +51,7 @@ export default function MinimapPanel() {
                 {t("minimap.infoSprite") as string}
             </MapError>
             <MapError
-                isVisible={element.properties.spriteData === undefined}
+                isVisible={element.properties.spriteID === undefined}
                 icon="media"
             >
                 {t("minimap.errorNoSprite") as string}

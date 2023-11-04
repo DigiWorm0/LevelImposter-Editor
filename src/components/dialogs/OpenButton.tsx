@@ -5,7 +5,7 @@ import { useOpenMap } from "../../hooks/utils/openMap";
 
 export default function OpenButton() {
     const { t } = useTranslation();
-    const { openMapFile } = useOpenMap();
+    const openMapFile = useOpenMap();
 
     return (
         <>

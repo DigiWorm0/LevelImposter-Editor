@@ -26,7 +26,7 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
     const defaultSound = React.useMemo(() => (props.defaultSoundURL ? {
         id: generateGUID(),
         type: props.soundType,
-        data: props.defaultSoundURL,
+        presetID: props.defaultSoundURL,
         volume: 1,
         isPreset: true
     } : undefined), [props.defaultSoundURL, props.soundType]);
@@ -81,7 +81,7 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
                             marginBottom: 10,
                         }}
                     >
-                        {sound.data}
+                        {sound.presetID}
                     </Tag>
                 )}
             </div>
