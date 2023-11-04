@@ -609,7 +609,8 @@
 	},
 	"spore": {
 		"title": "Spore",
-		"range": "Activation Range",
+		"activateRange": "Activation Range",
+		"gasRange": "Gas Range",
 		"gasColor": "Gas Color"
 	},
 	"settings": {

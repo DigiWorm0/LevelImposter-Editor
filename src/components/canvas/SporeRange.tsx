@@ -1,17 +1,14 @@
-import { Shape } from "react-konva";
-import getIsConsole from "../../hooks/utils/getIsConsole";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { DEFAULT_CONSOLE_RANGE, UNITY_SCALE, VENT_CONSOLE_RANGE } from "../../types/generic/Constants";
+import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
+import { Shape } from "react-konva";
 
-export default function ConsoleRange() {
+export default function SporeRange() {
     const selectedElem = useSelectedElemValue();
 
-    const isVent = selectedElem?.type.startsWith("util-vent");
-    const radius = isVent ? VENT_CONSOLE_RANGE : (selectedElem?.properties.range ?? DEFAULT_CONSOLE_RANGE);
-    const angle = selectedElem?.properties.onlyFromBelow ? Math.PI : Math.PI * 2;
-    const isConsole = getIsConsole(selectedElem?.type || "");
+    const isSpore = selectedElem?.type === "util-spore";
+    const radius = selectedElem?.properties.sporeRange ?? DEFAULT_SPORE_GAS_RANGE;
 
-    if (!selectedElem || !isConsole)
+    if (!selectedElem || !isSpore)
         return null;
     return (
         <Shape
@@ -22,14 +19,14 @@ export default function ConsoleRange() {
                     -selectedElem.y * UNITY_SCALE,
                     radius * UNITY_SCALE,
                     0,
-                    angle,
+                    Math.PI * 2,
                     false
                 );
                 ctx.closePath();
                 ctx.fillStrokeShape(shape);
             }}
-            fill="#ffaa0066"
-            stroke="#ffaa00ff"
+            fill="#00aaff22"
+            stroke="#00aaffff"
             strokeWidth={4}
             dashEnabled={true}
             dash={[10, 10]}

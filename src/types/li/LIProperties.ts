@@ -78,6 +78,7 @@ export default interface LIProperties {
     onlyFromBelow?: boolean;
     checkCollision?: boolean;
     range?: number;
+    sporeRange?: number;
 
     // Ladder
     ladderHeight?: number;
