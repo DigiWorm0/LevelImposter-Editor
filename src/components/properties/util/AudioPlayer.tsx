@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import DevInfo from "../../utils/DevInfo";
+import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;
@@ -21,14 +22,15 @@ export default function AudioPlayer(props: AudioPlayerProps) {
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
+    const soundAsset = useMapAssetValue(props.sound?.dataID);
 
-    const sound = props.sound;
+    const { sound } = props;
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             if (audioRef?.current === null)
                 return;
-                
+
             const currentTime = audioRef.current.currentTime;
             const duration = audioRef.current.duration;
             setProgress(isNaN(currentTime) ? 0 : currentTime);
@@ -46,18 +48,18 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         audioRef.current.volume = sound?.volume ? sound.volume : DEFAULT_VOLUME;
     }, [sound]);
 
-    const soundData = React.useMemo(() => {
-        return sound?.isPreset ? "/sounds/" + sound?.data : sound?.data;
+    const soundURL = React.useMemo(() => {
+        return sound?.isPreset ? `/sounds/${sound?.presetID}` : soundAsset?.url;
     }, [sound]);
 
     const downloadSound = React.useCallback(() => {
-        if (!soundData)
+        if (!soundURL)
             return;
         const link = document.createElement("a");
-        link.href = soundData;
+        link.href = soundURL;
         link.download = props.title ?? "sound";
         link.click();
-    }, [soundData, props.title]);
+    }, [soundURL, props.title]);
 
     if (!sound)
         return null;
@@ -73,7 +75,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         >
             <audio
                 ref={audioRef}
-                src={soundData}
+                src={soundURL}
                 loop={props.loop}
             >
                 {t("audio.errorNotSupported")}
@@ -83,7 +85,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 {sound?.id} <br />
                 {sound?.type} <br />
                 {sound?.isPreset} <br />
-                {soundData?.length}
+                {soundURL}
             </DevInfo>
 
             <ButtonGroup large minimal>

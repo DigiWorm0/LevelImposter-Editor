@@ -1,14 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { MAP_FORMAT_VER } from "../types/generic/Constants";
-import LIElement from "../types/li/LIElement";
-import LILegacyFile from "../types/li/LILegacyFile";
-import LIMap from "../types/li/LIMap";
+import { MAP_FORMAT_VER } from "../../types/generic/Constants";
+import LIElement from "../../types/li/LIElement";
+import LILegacyFile from "../../types/li/LILegacyFile";
+import LIMap from "../../types/li/LIMap";
 import generateGUID, { DEFAULT_GUID } from "./generateGUID";
-import { useSaveHistory } from "./jotai/useHistory";
-import { useSetSaved } from "./jotai/useIsSaved";
-import { useSetMap } from "./jotai/useMap";
-import useToaster from "./useToaster";
+import { useSaveHistory } from "../jotai/useHistory";
+import { useSetSaved } from "../jotai/useIsSaved";
+import { useSetMap } from "../jotai/useMap";
+import useToaster from "../useToaster";
 
 const LEGACY_PORTS: Record<string, string> = {
     "util-player": "util-dummy",
@@ -155,8 +155,7 @@ export function useOpenMap() {
             reader.onload = (e) => {
                 if (file.name.endsWith(".json")) {
                     openLegacyMap(reader);
-                }
-                else {
+                } else {
                     openMap(reader);
                 }
             }

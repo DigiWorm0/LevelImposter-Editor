@@ -2,7 +2,7 @@ import { Button, FormGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
+import generateGUID from "../../../hooks/utils/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { PRESET_RESOURCE_IDS } from "../../../types/au/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";

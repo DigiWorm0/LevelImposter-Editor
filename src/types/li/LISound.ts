@@ -4,10 +4,16 @@ import LISoundChannel from "./LISoundChannel";
 export default interface LISound {
     id: GUID;
     type?: string;
-    data?: string;
     volume: number;
-    isPreset: boolean;
+    dataID?: GUID;
     channel?: LISoundChannel;
+    isPreset: boolean;
+    presetID?: string;
+
+    /**
+     * @deprecated Use dataID instead
+     */
+    data?: string;
 }
 
 export type MaybeLISound = LISound | undefined;

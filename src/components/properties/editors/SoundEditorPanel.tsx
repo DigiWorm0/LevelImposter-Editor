@@ -3,7 +3,7 @@ import React from "react";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import SoundUpload from "../util/SoundUpload";
-import generateGUID from "../../../hooks/generateGUID";
+import generateGUID from "../../../hooks/utils/generateGUID";
 
 interface SoundEditorProps {
     title: string;

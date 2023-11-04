@@ -3,7 +3,7 @@ import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from '../../hooks/generateGUID';
+import generateGUID from '../../hooks/utils/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
 import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
@@ -15,6 +15,7 @@ interface AUElement {
     name: string;
     type: string;
 }
+
 const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 export default function AddObjectButton(props: { isSidePanel?: boolean }) {
@@ -57,7 +58,9 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     className={Classes.MINIMAL}
                     icon={"cube-add"}
                     intent={props.isSidePanel ? "success" : undefined}
-                    onClick={() => { setIsOpen(true) }} />
+                    onClick={() => {
+                        setIsOpen(true)
+                    }} />
 
             </Tooltip2>
 
@@ -66,14 +69,18 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                     placeholder: t("object.search") || "Search..."
                 }}
                 isOpen={isOpen}
-                onClose={() => { setIsOpen(false) }}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
                 items={AUElementDB.map((elem) => {
                     return {
                         name: t(`au.${elem}`) as string,
                         type: elem
                     }
                 })}
-                onItemSelect={(elem) => { handleClick(elem) }}
+                onItemSelect={(elem) => {
+                    handleClick(elem)
+                }}
                 className={settings.isDarkMode === false ? "" : "bp4-dark"}
                 itemRenderer={(elem, props) => {
                     return (
@@ -81,7 +88,8 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                             key={elem.type}
                             text={elem.name}
                             label={elem.type}
-                            icon={<div style={{ width: 20, textAlign: "center" }}><img src={"/sprites/" + elem.type + ".png"} style={{ maxWidth: 20, maxHeight: 20 }} /></div>}
+                            icon={<div style={{ width: 20, textAlign: "center" }}><img
+                                src={"/sprites/" + elem.type + ".png"} style={{ maxWidth: 20, maxHeight: 20 }} /></div>}
                             active={props.modifiers.active}
                             disabled={props.modifiers.disabled || hiddenTypes.includes(elem.type)}
                             onClick={props.handleClick}

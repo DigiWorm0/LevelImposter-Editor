@@ -1,12 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import getIsConsole from "../../../hooks/getIsConsole";
+import getIsConsole from "../../../hooks/utils/getIsConsole";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import MapAsset from "../../../types/li/MapAssetDB";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -46,14 +47,14 @@ export default function SpritePanel() {
         return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
     }, [selectedElem]);
 
-    const onUpload = React.useCallback((spriteURL: string) => {
+    const onUpload = React.useCallback((asset: MapAsset) => {
         if (!selectedElem)
             return;
         setSelectedElem({
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                spriteData: spriteURL,
+                spriteID: asset.id,
                 color: undefined
             }
         });
@@ -92,8 +93,8 @@ export default function SpritePanel() {
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
                     name={selectedElem.name}
-                    defaultSpriteURL={"/sprites/" + selectedElem.type + ".png"}
-                    spriteURL={selectedElem.properties.spriteData}
+                    defaultSpriteURL={`/sprites/${selectedElem.type}.png`}
+                    assetID={selectedElem.properties.spriteID}
                     onUpload={onUpload}
                     onReset={onReset}
                     color={selectedElem.properties.color}

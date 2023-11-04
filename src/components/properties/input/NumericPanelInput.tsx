@@ -4,7 +4,7 @@ import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
-import clamp from "../../../hooks/clamp";
+import clamp from "../../../hooks/utils/clamp";
 
 export interface NumericInputProps {
     name: string;

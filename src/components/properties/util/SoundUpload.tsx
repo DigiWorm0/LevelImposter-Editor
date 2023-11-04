@@ -3,8 +3,8 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/generateGUID";
-import openUploadDialog from "../../../hooks/openUploadDialog";
+import generateGUID from "../../../hooks/utils/generateGUID";
+import openUploadDialog from "../../../hooks/utils/openUploadDialog";
 import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
@@ -12,6 +12,7 @@ import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
+import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -30,18 +31,19 @@ export default function SoundUpload(props: SoundUploadProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
+    const asset = useMapAssetValue(props.sound?.dataID);
 
     const soundSize = React.useMemo(() => {
-        return props.sound?.isPreset ? 0 : (props.sound?.data?.length ?? 0);
+        return props.sound?.isPreset ? 0 : (asset?.blob.size ?? 0);
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/*").then((audioData) => {
-            downmixAudio(audioData).then((downmixedData) => {
+        openUploadDialog("audio/*").then((asset) => {
+            downmixAudio(asset.blob).then((newAsset) => {
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
                     type: props.soundType,
-                    data: downmixedData ?? "",
+                    dataID: asset.id,
                     volume: DEFAULT_VOLUME,
                     isPreset: false
                 });
@@ -59,24 +61,18 @@ export default function SoundUpload(props: SoundUploadProps) {
         if (files.length > 0) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    if (!e.target?.result)
-                        return;
-                    downmixAudio(e.target.result as string).then((downmixedData) => {
-                        props.onChange({
-                            id: props.sound?.id ?? generateGUID(),
-                            type: props.soundType,
-                            data: downmixedData as string,
-                            volume: DEFAULT_VOLUME,
-                            isPreset: false
-                        });
-                    }).catch((e) => {
-                        console.error(e);
-                        toaster.danger(e);
+                downmixAudio(file).then((downmixedData) => {
+                    props.onChange({
+                        id: props.sound?.id ?? generateGUID(),
+                        type: props.soundType,
+                        dataID: downmixedData.id,
+                        volume: DEFAULT_VOLUME,
+                        isPreset: false
                     });
-                };
-                reader.readAsDataURL(file);
+                }).catch((e) => {
+                    console.error(e);
+                    toaster.danger(e);
+                });
             } else {
                 toaster.danger(t("audio.errorInvalidType"));
             }
@@ -175,7 +171,6 @@ export default function SoundUpload(props: SoundUploadProps) {
                     disabled={!props.onFinish}
                     onClick={props.onFinish}
                 />
-
                 <Button
                     icon="refresh"
                     intent="danger"
@@ -204,22 +199,26 @@ export default function SoundUpload(props: SoundUploadProps) {
                     textAlign: "center",
                     zIndex: 1000,
                     pointerEvents: "none",
-                }}>
-
+                }}
+            >
                 <Icon
                     icon="cloud-upload"
-                    iconSize={40}
+                    size={40}
                     style={{ marginRight: 10 }}
                 />
-                <span style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                }}>
+                <span
+                    style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                    }}
+                >
                     {t("audio.upload")}
                 </span>
-                <span style={{
-                    fontSize: 14,
-                }}>
+                <span
+                    style={{
+                        fontSize: 14,
+                    }}
+                >
                     {props.title}
                 </span>
 

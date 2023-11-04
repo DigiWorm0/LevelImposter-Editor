@@ -16,29 +16,32 @@ export default function PlayButton() {
         <>
             <Tooltip2
                 content={t("map.play") as string}
-                position="bottom">
-
+                position="bottom"
+            >
                 <Button
                     className={Classes.MINIMAL}
                     icon={"play"}
-                    onClick={() => { setIsOpen(true) }}
+                    onClick={() => {
+                        setIsOpen(true)
+                    }}
                 />
-
             </Tooltip2>
-
             <Dialog
                 isOpen={isOpen}
-                onClose={() => { setIsOpen(false) }}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
                 title={mapName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
+                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+            >
                 <div style={{ margin: 15 }}>
                     <h2 style={{ marginTop: 0 }}>
                         <Icon icon="desktop" size={IconSize.LARGE} style={{ marginRight: 5 }} /> How to Install
                     </h2>
                     <ol>
-                        <li>Download and install the <a href="https://github.com/DigiWorm0/LevelImposter/releases">LevelImposter Mod</a> <i>(If you haven't already)</i></li>
+                        <li>Download and install the <a href="https://github.com/DigiWorm0/LevelImposter/releases">LevelImposter
+                            Mod</a> <i>(If you haven't already)</i></li>
                         <li>Save the map LIM file: <br /><SaveButton isButton={true} /></li>
                         <li>Open Among Us</li>
                         <li>Go to <code>Maps {">>>"} Open Folder</code></li>
@@ -59,7 +62,8 @@ export default function PlayButton() {
                     <h3>Multiplayer</h3>
                     <Callout intent={"primary"} title={"Note"} icon={"info-sign"}>
                         <p>
-                            Multiplayer requires the map is published and all players have the LevelImposter Mod installed.
+                            Multiplayer requires the map is published and all players have the LevelImposter Mod
+                            installed.
                             The map will be synced to all players when they join the game.
                         </p>
                     </Callout>
@@ -72,15 +76,17 @@ export default function PlayButton() {
                     <Tooltip2
                         fill
                         content={t("docs.open") as string}
-                        position="bottom">
-
+                        position="bottom"
+                    >
                         <Button
                             fill
                             icon="share"
                             text={t("docs.open") as string}
                             intent="primary"
-                            onClick={() => { window.open("https://docs.levelimposter.net/en/latest/about/getting-started.html"); }} />
-
+                            onClick={() => {
+                                window.open("https://docs.levelimposter.net/en/latest/about/getting-started.html");
+                            }}
+                        />
                     </Tooltip2>
                 </div>
             </Dialog>
