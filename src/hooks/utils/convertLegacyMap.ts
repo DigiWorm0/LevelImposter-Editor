@@ -1,21 +1,36 @@
 import LIMap from "../../types/li/LIMap";
 import generateGUID from "./generateGUID";
+import GUID from "../../types/generic/GUID";
 
 export default function convertLegacyMap(mapData: LIMap) {
+
+    // Reset
     mapData.assets = [];
+    let duplicateDB: Record<string, GUID> = {};
+
+    // Add Asset Function
+    const addAsset = (base64: string): GUID => {
+        // Check if already exists
+        if (duplicateDB[base64] != undefined)
+            return duplicateDB[base64];
+        // Add Asset
+        const id = generateGUID();
+        const blob = base64ToBlob(base64);
+        mapData.assets?.push({
+            id,
+            blob: blob,
+            url: URL.createObjectURL(blob),
+        });
+        duplicateDB[base64] = id;
+        return id;
+    }
+
     for (const element of mapData.elements) {
         // SpriteData
         if (element.properties.spriteData != undefined) {
             console.log(`Converting SpriteData of ${element.id}`);
-            const id = generateGUID();
-            const blob = base64ToBlob(element.properties.spriteData);
-            mapData.assets.push({
-                id,
-                blob: blob,
-                url: URL.createObjectURL(blob),
-            });
+            element.properties.spriteID = addAsset(element.properties.spriteData);
             element.properties.spriteData = undefined;
-            element.properties.spriteID = id;
         }
 
         // Sound Data
@@ -28,14 +43,7 @@ export default function convertLegacyMap(mapData: LIMap) {
                     sound.presetID = sound.data;
                     sound.data = undefined;
                 } else {
-                    const id = generateGUID();
-                    const blob = base64ToBlob(sound.data);
-                    mapData.assets.push({
-                        id,
-                        blob: blob,
-                        url: URL.createObjectURL(blob),
-                    });
-                    sound.id = id;
+                    sound.dataID = addAsset(sound.data);
                     sound.data = undefined;
                 }
             }
@@ -46,15 +54,8 @@ export default function convertLegacyMap(mapData: LIMap) {
             for (const minigame of element.properties.minigames) {
                 if (minigame.spriteData != undefined) {
                     console.log(`Converting Minigame of ${minigame.id}`);
-                    const id = generateGUID();
-                    const blob = base64ToBlob(minigame.spriteData);
-                    mapData.assets.push({
-                        id,
-                        blob: blob,
-                        url: URL.createObjectURL(blob),
-                    });
+                    minigame.spriteID = addAsset(minigame.spriteData);
                     minigame.spriteData = undefined;
-                    minigame.spriteID = id;
                 }
             }
         }

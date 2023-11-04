@@ -17,7 +17,7 @@ const LEGACY_PORTS: Record<string, string> = {
 
 export function useOpenMap() {
     const saveHistory = useSaveHistory();
-    const { warning, success } = useToaster();
+    const { danger, warning, success } = useToaster();
     const { t } = useTranslation();
     const setSaved = useSetSaved();
     const deserializeMap = useLIDeserializer();
@@ -29,20 +29,28 @@ export function useOpenMap() {
         input.onchange = (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
             if (!file) return;
-            if (file.name.endsWith(".json")) {
-                // TODO: Handle JSON map
-            }
             if (file.name.endsWith(".lim")) {
                 warning(t("map.converting"));
+            } else if (file.name.endsWith(".lim2")) {
+                // Good
+            } else {
+                danger(t("map.errorOpen", { error: `Invalid file type (${file.type})` }));
+                return;
             }
 
             deserializeMap(file).then((mapData) => {
                 success(t("map.opened", { name: mapData?.name }));
                 setSaved(true);
                 saveHistory();
-                // TODO: Warn if map is too big
+
+                // Warn if the map is too large
+                if (file.size > 1024 * 1024 * 50) { // 50 MB
+                    danger(t("map.tooLargeError"));
+                } else if (file.size > 1024 * 1024 * 40) { // 40 MB
+                    warning(t("map.tooLargeWarn"));
+                }
             }).catch((err) => {
-                // TODO: Handle map error
+                danger(t("map.errorOpen", { error: err }));
             });
         }
         input.click();

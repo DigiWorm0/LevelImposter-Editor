@@ -13,8 +13,8 @@ import SettingsButton from "../components/dialogs/SettingsButton";
 import SignInButton from "../components/dialogs/SignInButton";
 import UndoButton from "../components/dialogs/UndoButton";
 import MapName from "../components/scenegraph/MapName";
-import MagicButton from "../components/dialogs/MagicButton";
 import DebugTextBox from "../components/dialogs/DebugTextBox";
+import MapAssetsButton from "../components/dialogs/MapAssetsButton";
 
 export default function Topbar() {
     return (
@@ -40,7 +40,9 @@ export default function Topbar() {
                     <CopyButton />
                     <PasteButton />
                     <DeleteObjectButton />
-                    <MagicButton />
+                    <NavbarDivider />
+                    {/*<MagicButton />*/}
+                    <MapAssetsButton />
                     <DebugTextBox />
                 </NavbarGroup>
                 <NavbarGroup align="right">

@@ -8,6 +8,7 @@ import { elementChildrenFamilyAtom, elementFamilyAtom } from "./useElements";
 import { saveHistoryAtom } from "./useHistory";
 import { elementsAtom } from "./useMap";
 import { selectedColliderIDAtom } from "./useSelectedCollider";
+import { trimAssetsAtom } from "./useMapAssets";
 
 // Atoms
 export const selectedElementIDAtom = atom<MaybeGUID>(undefined);
@@ -42,6 +43,7 @@ export const selectedElementAtom = atom(
             });
 
             set(elementsAtom, [...elements]);
+            set(trimAssetsAtom);
             set(saveHistoryAtom);
         }
     }
@@ -76,6 +78,7 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
         });
     };
     removeElement(id);
+    set(trimAssetsAtom);
     set(saveHistoryAtom);
 });
 
@@ -88,9 +91,11 @@ removeElementAtom.debugLabel = "removeElementAtom";
 export function useSelectedElemID() {
     return useAtom(selectedElementIDAtom);
 }
+
 export function useSetSelectedElemID() {
     return useSetAtom(selectedElementIDAtom);
 }
+
 export function useSelectedElemIDValue() {
     return useAtomValue(selectedElementIDAtom);
 }
@@ -98,12 +103,15 @@ export function useSelectedElemIDValue() {
 export default function useSelectedElem() {
     return useAtom(selectedElementAtom);
 }
+
 export function useSetSelectedElem() {
     return useSetAtom(selectedElementAtom);
 }
+
 export function useSelectedElemValue() {
     return useAtomValue(selectedElementAtom);
 }
+
 export function useIsSelectedElem(id: MaybeGUID) {
     return useAtomValue(isSelectedElemFamily(id));
 }

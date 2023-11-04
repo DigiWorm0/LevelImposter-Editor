@@ -18,6 +18,10 @@ export default function useLIDeserializer() {
 
                 const isLegacy = byteView[0] === '{'.charCodeAt(0);
                 const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
+                if (mapData === undefined) {
+                    reject("Failed to deserialize file data");
+                    return;
+                }
                 setMap(mapData);
                 resolve(mapData);
             }
@@ -29,7 +33,7 @@ export default function useLIDeserializer() {
     }, []);
 }
 
-function deserializeLegacy(buffer: ArrayBuffer) {
+function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
     console.log("Deserializing LIM Map");
     const textDecoder = new TextDecoder();
 
@@ -48,7 +52,7 @@ function deserializeLegacy(buffer: ArrayBuffer) {
     return mapData;
 }
 
-function deserialize(buffer: ArrayBuffer) {
+function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     console.log("Deserializing LIM2 Map...");
     const dataView = new DataView(buffer);
     const textDecoder = new TextDecoder("utf-8");
@@ -76,7 +80,7 @@ function deserialize(buffer: ArrayBuffer) {
         // Check Length
         if (assetLength < 0) {
             console.error(`Asset ${guid} has invalid length ${assetLength}`);
-            break;
+            return undefined;
         }
 
         console.log(`Asset ${guid}: ${assetLength} bytes`);
