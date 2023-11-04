@@ -62,7 +62,7 @@ export const THUMBNAIL_HEIGHT = 144;
 export const UI_ZOOM_SPEED = 1.1;
 
 export const MAP_FORMAT_VER = 2;
-export const MAX_HISTORY_LENGTH = 30;
+export const MAX_HISTORY_LENGTH = 15;
 
 export const CAM_SPEED = 20;
 

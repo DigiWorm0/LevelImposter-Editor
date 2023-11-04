@@ -27,6 +27,7 @@ import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
+import useLISerializer from "../../hooks/useLISerializer";
 
 export default function PublishButton() {
     const { t } = useTranslation();
@@ -39,6 +40,7 @@ export default function PublishButton() {
     const [thumbnail, setThumbnail] = React.useState<Blob | undefined>(undefined);
     const [isPublishing, setIsPublishing] = React.useState(false);
     const [uploadProgress, setProgress] = React.useState(0);
+    const serializeMap = useLISerializer();
 
     const isLoggedIn = user !== null;
     const isRemixed = !(map.authorID === user?.uid || map.authorID === "");
@@ -51,12 +53,12 @@ export default function PublishButton() {
 
         const oldMapID = map.id;
         const mapID = id || map.id;
-        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim`);
+        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim2`);
         const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.png`);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, mapID);
 
-        const serializeMap = (thumbnailURL: string | null) => {
+        const serializeMapData = async (thumbnailURL: string | null) => {
             const mapData: LIMap = {
                 id: mapID,
                 v: map.v,
@@ -72,9 +74,9 @@ export default function PublishButton() {
                 properties: map.properties,
                 thumbnailURL: thumbnailURL,
                 remixOf: isRemixed ? oldMapID : map.remixOf,
+                assets: map.assets ?? [],
             };
-            const mapJSON = JSON.stringify(mapData);
-            const mapBytes = new TextEncoder().encode(mapJSON);
+            const mapBytes = await serializeMap(mapData);
 
             return {
                 mapBytes,
@@ -137,7 +139,7 @@ export default function PublishButton() {
                 thumbnailURL = await getDownloadURL(imgStorageRef);
             }
 
-            const { mapBytes, mapData } = serializeMap(thumbnailURL);
+            const { mapBytes, mapData } = await serializeMapData(thumbnailURL);
             await uploadToStorage("LIM", mapBytes, mapStorageRef);
             await uploadToFirestore(mapData);
             return mapData;

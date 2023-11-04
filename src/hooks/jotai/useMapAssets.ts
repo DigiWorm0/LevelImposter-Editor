@@ -31,13 +31,6 @@ export const addAssetAtom = atom(null, (get, set, asset: MapAsset) => {
 });
 addAssetAtom.debugLabel = "addAssetAtom";
 
-// Remove Asset
-export const removeAssetAtom = atom(null, (get, set, id: MaybeGUID) => {
-    const mapAssets = get(mapAssetsAtom) ?? [];
-    set(mapAssetsAtom, mapAssets.filter((mapAsset) => mapAsset.id !== id));
-});
-removeAssetAtom.debugLabel = "removeAssetAtom";
-
 // Trim Assets
 export const trimAssetsAtom = atom(null, (get, set) => {
     const elements = get(elementsAtom);
