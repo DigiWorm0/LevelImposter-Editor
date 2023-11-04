@@ -27,7 +27,6 @@ import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
-import { MapAsset } from "../../types/li/MapAssetDB";
 
 export default function PublishButton() {
     const { t } = useTranslation();
@@ -157,12 +156,12 @@ export default function PublishButton() {
         });
     }, [map, user, isRemixed, setMap, toaster, t]);
 
-    const resizeImage = React.useCallback((asset: MapAsset, width: number, height: number) => {
+    const resizeImage = React.useCallback((blob: Blob, width: number, height: number) => {
         return new Promise<Blob>((resolve, reject) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             const image = new Image();
-            image.src = asset.url;
+            image.src = URL.createObjectURL(blob);
             image.onload = () => {
                 canvas.width = width;
                 canvas.height = height;
@@ -182,8 +181,8 @@ export default function PublishButton() {
     }, []);
 
     const uploadThumbnail = React.useCallback(() => {
-        openUploadDialog("image/*").then((asset) => {
-            return resizeImage(asset, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+        openUploadDialog("image/*").then((blob) => {
+            return resizeImage(blob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
         }).then((img) => {
             setThumbnail(img);
         }).catch((err) => {

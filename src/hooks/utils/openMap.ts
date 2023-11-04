@@ -1,10 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
-import LIElement from "../../types/li/LIElement";
-import LILegacyFile from "../../types/li/LILegacyFile";
 import LIMap from "../../types/li/LIMap";
-import generateGUID, { DEFAULT_GUID } from "./generateGUID";
+import { DEFAULT_GUID } from "./generateGUID";
 import { useSaveHistory } from "../jotai/useHistory";
 import { useSetSaved } from "../jotai/useIsSaved";
 import { useSetMap } from "../jotai/useMap";
@@ -43,6 +41,7 @@ export function useOpenMap() {
     }, []);
 
     const openLegacyMap = React.useCallback((reader: FileReader) => {
+        /*
         const legacyMapData = JSON.parse(reader.result as string) as LILegacyFile;
 
         // Import Objects
@@ -125,6 +124,8 @@ export function useOpenMap() {
 
         // Toast
         success(t("map.imported", { name: mapData.name }));
+         */
+        // TODO: Legacy map import
     }, [setMap]);
 
     const openMap = React.useCallback((reader: FileReader) => {

@@ -1,15 +1,8 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import AUElementDB from "../../types/au/AUElementDB";
-import AUMinigameDB from "../../types/au/AUMinigameDB";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
-import LIElement from "../../types/li/LIElement";
-import generateGUID from "./generateGUID";
 import useMap from "../jotai/useMap";
-import { UNITY_SCALE } from "../../types/generic/Constants";
 import useToaster from "../useToaster";
 import { useCreateMapAsset } from "../jotai/useMapAssets";
-import MapAsset from "../../types/li/MapAssetDB";
 
 const TASK_TYPES = AUElementDB.filter((type) => type.startsWith("task-"));
 const UTIL_TYPES = AUElementDB.filter((type) => type.startsWith("util-"));
@@ -26,6 +19,8 @@ export default function useTestMapGenerator() {
     const { t } = useTranslation();
     const toast = useToaster();
     const createMapAsset = useCreateMapAsset();
+
+    /*
 
     const generateTestSprite = React.useCallback((color?: string, size?: number) => {
         return new Promise<MapAsset>((resolve, reject) => {
@@ -77,7 +72,11 @@ export default function useTestMapGenerator() {
                 );
             }
         }
-        return canvas.toDataURL("image/png");
+        canvas.toBlob((blob) => {
+            if (blob) {
+                return createMapAsset(blob);
+            }
+        });
     }, []);
 
     const generateMap = React.useCallback(() => {
@@ -239,4 +238,7 @@ export default function useTestMapGenerator() {
     }, [map, setMap]);
 
     return generateMap;
+    */
+    return () => {
+    };
 }

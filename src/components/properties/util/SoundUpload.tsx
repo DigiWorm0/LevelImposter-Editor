@@ -12,7 +12,7 @@ import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
-import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -32,14 +32,16 @@ export default function SoundUpload(props: SoundUploadProps) {
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
     const asset = useMapAssetValue(props.sound?.dataID);
+    const createMapAsset = useCreateMapAsset();
 
     const soundSize = React.useMemo(() => {
         return props.sound?.isPreset ? 0 : (asset?.blob.size ?? 0);
     }, [props.sound]);
 
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/*").then((asset) => {
-            downmixAudio(asset.blob).then((newAsset) => {
+        openUploadDialog("audio/*").then((blob) => {
+            downmixAudio(blob).then((downmixedBlob) => {
+                const asset = createMapAsset(downmixedBlob);
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
                     type: props.soundType,
@@ -61,11 +63,12 @@ export default function SoundUpload(props: SoundUploadProps) {
         if (files.length > 0) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
-                downmixAudio(file).then((downmixedData) => {
+                downmixAudio(file).then((downmixedBlob) => {
+                    const asset = createMapAsset(downmixedBlob);
                     props.onChange({
                         id: props.sound?.id ?? generateGUID(),
                         type: props.soundType,
-                        dataID: downmixedData.id,
+                        dataID: asset.id,
                         volume: DEFAULT_VOLUME,
                         isPreset: false
                     });

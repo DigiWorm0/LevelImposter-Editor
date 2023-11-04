@@ -8,6 +8,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 import MapAsset from "../../../types/li/MapAssetDB";
+import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -35,13 +36,14 @@ const TYPE_BLACKLIST = [
 export default function SpritePanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
+    const asset = useMapAssetValue(selectedElem?.properties.spriteID);
 
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
     }, [selectedElem]);
 
     const isGIF = React.useMemo(() => {
-        return selectedElem?.properties.spriteData?.startsWith("data:image/gif;base64,");
+        return asset?.blob.type === "image/gif";
     }, [selectedElem]);
     const isCustomAnim = React.useMemo(() => {
         return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
@@ -67,7 +69,7 @@ export default function SpritePanel() {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                spriteData: undefined,
+                spriteID: undefined,
                 color: undefined
             }
         });

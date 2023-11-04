@@ -1,8 +1,6 @@
 import React from 'react';
 import WavAudioEncoder from '../lib/WavAudioEncoder';
 import { useSettingsValue } from './jotai/useSettings';
-import MapAsset from "../types/li/MapAssetDB";
-import { useCreateMapAsset } from "./jotai/useMapAssets";
 
 // Constants
 const TARGET_CHANNELS = 1;
@@ -14,12 +12,11 @@ const TARGET_SAMPLE_RATE = 16000; // 44100
  */
 export default function useAudioDownmixer() {
     const settings = useSettingsValue();
-    const createMapAsset = useCreateMapAsset();
 
     return React.useCallback((soundData: Blob) => {
-        return new Promise<MapAsset>((resolve, reject) => {
+        return new Promise<Blob>((resolve, reject) => {
             if (settings.isAudioDownmixEnabled === false)
-                return resolve(createMapAsset(soundData));
+                return resolve(soundData);
 
             const audioCtx = new AudioContext();
             const fileReader = new FileReader();
@@ -51,7 +48,7 @@ export default function useAudioDownmixer() {
                         const wavBlob = wavEncoder.finish();
 
                         // Resolve
-                        resolve(createMapAsset(wavBlob));
+                        resolve(wavBlob);
                     });
                 });
             };

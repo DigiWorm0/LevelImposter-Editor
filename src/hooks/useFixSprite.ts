@@ -2,6 +2,7 @@ import React from "react";
 import useSelectedElem from "./jotai/useSelectedElem";
 import useSprite from "./useSprite";
 import { useMapProperties } from "./jotai/useMap";
+import { useCreateMapAsset } from "./jotai/useMapAssets";
 
 const SPRITE_PADDING = 10; // px
 
@@ -9,6 +10,7 @@ export default function useFixSprite() {
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const sprite = useSprite(selectedElem?.id);
     const [properties] = useMapProperties();
+    const createMapAsset = useCreateMapAsset();
 
     const fixSprite = React.useCallback(() => {
         if (!selectedElem || !sprite)
@@ -33,34 +35,39 @@ export default function useFixSprite() {
             sprite.width * xScale,
             sprite.height * yScale
         );
-        const spriteData = canvas.toDataURL();
-
-        // Fix Colliders
-        const colliders = selectedElem.properties.colliders?.map(collider => {
-            const { points } = collider;
-            return {
-                ...collider,
-                points: points.map(point => ({
-                    ...point,
-                    x: point.x * xScale,
-                    y: point.y * yScale
-                }))
+        canvas.toBlob((blob) => {
+            if (!blob) {
+                console.error("Failed to fix sprite");
+                return;
             }
-        });
+            const asset = createMapAsset(blob);
 
-        // Fix Element
-        setSelectedElem({
-            ...selectedElem,
-            xScale: selectedElem.xScale < 0 ? -1 : 1,
-            yScale: selectedElem.yScale < 0 ? -1 : 1,
-            properties: {
-                ...selectedElem.properties,
-                spriteData,
-                colliders
-            }
-        });
+            const colliders = selectedElem.properties.colliders?.map(collider => {
+                const { points } = collider;
+                return {
+                    ...collider,
+                    points: points.map(point => ({
+                        ...point,
+                        x: point.x * xScale,
+                        y: point.y * yScale
+                    }))
+                }
+            });
 
-        console.log("Fixed sprite", selectedElem);
+            // Fix Element
+            setSelectedElem({
+                ...selectedElem,
+                xScale: selectedElem.xScale < 0 ? -1 : 1,
+                yScale: selectedElem.yScale < 0 ? -1 : 1,
+                properties: {
+                    ...selectedElem.properties,
+                    spriteID: asset.id,
+                    colliders
+                }
+            });
+
+            console.log("Fixed sprite", selectedElem);
+        });
     }, [selectedElem, sprite, properties]);
 
     return fixSprite;

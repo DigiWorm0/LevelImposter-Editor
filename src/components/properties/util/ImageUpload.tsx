@@ -9,7 +9,7 @@ import SizeTag from "../../utils/SizeTag";
 import MapAsset from "../../../types/li/MapAssetDB";
 import generateGUID from "../../../hooks/utils/generateGUID";
 import GUID from "../../../types/generic/GUID";
-import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 
 interface ImageUploadProps {
     name: string;
@@ -30,6 +30,7 @@ export default function ImageUpload(props: ImageUploadProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const asset = useMapAssetValue(props.assetID);
+    const createMapAsset = useCreateMapAsset();
 
     // Get the size of the sprite in bytes
     const spriteSize = React.useMemo(() => {
@@ -38,9 +39,9 @@ export default function ImageUpload(props: ImageUploadProps) {
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("image/*").then((result) => {
-            if (result)
-                props.onUpload(result);
+        openUploadDialog("image/*").then((blob) => {
+            if (blob)
+                props.onUpload(createMapAsset(blob));
         });
     }, [props.onUpload]);
 
