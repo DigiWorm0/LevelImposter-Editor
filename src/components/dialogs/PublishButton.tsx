@@ -1,4 +1,14 @@
-import { AnchorButton, Button, ButtonGroup, Classes, Dialog, EditableText, FormGroup, H1, H5, Icon, ProgressBar } from "@blueprintjs/core";
+import {
+    AnchorButton,
+    Button,
+    ButtonGroup,
+    Dialog,
+    EditableText,
+    FormGroup,
+    H1,
+    H5,
+    ProgressBar
+} from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -6,17 +16,18 @@ import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "fir
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
-import { auth, db, storage } from "../../hooks/Firebase";
-import generateGUID from "../../hooks/generateGUID";
+import { auth, db, storage } from "../../hooks/utils/Firebase";
+import generateGUID from "../../hooks/utils/generateGUID";
 import useMap from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import openUploadDialog from "../../hooks/openUploadDialog";
+import openUploadDialog from "../../hooks/utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import LIMap from "../../types/li/LIMap";
 import LIMetadata from "../../types/li/LIMetadata";
 import AgreementDialog from "./AgreementDialog";
+import useLISerializer from "../../hooks/useLISerializer";
 
 export default function PublishButton() {
     const { t } = useTranslation();
@@ -29,6 +40,7 @@ export default function PublishButton() {
     const [thumbnail, setThumbnail] = React.useState<Blob | undefined>(undefined);
     const [isPublishing, setIsPublishing] = React.useState(false);
     const [uploadProgress, setProgress] = React.useState(0);
+    const serializeMap = useLISerializer();
 
     const isLoggedIn = user !== null;
     const isRemixed = !(map.authorID === user?.uid || map.authorID === "");
@@ -41,12 +53,12 @@ export default function PublishButton() {
 
         const oldMapID = map.id;
         const mapID = id || map.id;
-        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim`);
+        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim2`);
         const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.png`);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, mapID);
 
-        const serializeMap = (thumbnailURL: string | null) => {
+        const serializeMapData = async (thumbnailURL: string | null) => {
             const mapData: LIMap = {
                 id: mapID,
                 v: map.v,
@@ -62,9 +74,9 @@ export default function PublishButton() {
                 properties: map.properties,
                 thumbnailURL: thumbnailURL,
                 remixOf: isRemixed ? oldMapID : map.remixOf,
+                assets: map.assets ?? [],
             };
-            const mapJSON = JSON.stringify(mapData);
-            const mapBytes = new TextEncoder().encode(mapJSON);
+            const mapBytes = await serializeMap(mapData);
 
             return {
                 mapBytes,
@@ -127,7 +139,7 @@ export default function PublishButton() {
                 thumbnailURL = await getDownloadURL(imgStorageRef);
             }
 
-            const { mapBytes, mapData } = serializeMap(thumbnailURL);
+            const { mapBytes, mapData } = await serializeMapData(thumbnailURL);
             await uploadToStorage("LIM", mapBytes, mapStorageRef);
             await uploadToFirestore(mapData);
             return mapData;
@@ -146,12 +158,12 @@ export default function PublishButton() {
         });
     }, [map, user, isRemixed, setMap, toaster, t]);
 
-    const resizeImage = React.useCallback((img: string, width: number, height: number) => {
+    const resizeImage = React.useCallback((blob: Blob, width: number, height: number) => {
         return new Promise<Blob>((resolve, reject) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             const image = new Image();
-            image.src = img;
+            image.src = URL.createObjectURL(blob);
             image.onload = () => {
                 canvas.width = width;
                 canvas.height = height;
@@ -171,8 +183,8 @@ export default function PublishButton() {
     }, []);
 
     const uploadThumbnail = React.useCallback(() => {
-        openUploadDialog("image/*").then((img) => {
-            return resizeImage(img, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+        openUploadDialog("image/*").then((blob) => {
+            return resizeImage(blob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
         }).then((img) => {
             setThumbnail(img);
         }).catch((err) => {
@@ -203,7 +215,9 @@ export default function PublishButton() {
                     fill
                     text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
                     icon={isRemixed ? "random" : "cloud-upload"}
-                    onClick={() => { setIsOpen(true) }}
+                    onClick={() => {
+                        setIsOpen(true)
+                    }}
                     style={{ marginTop: 5 }}
                     intent={"primary"}
                     disabled={map.elements.length === 0 || isPublishing || !isLoggedIn}
@@ -214,11 +228,13 @@ export default function PublishButton() {
 
             <Dialog
                 isOpen={isOpen && isLoggedIn}
-                onClose={() => { setIsOpen(isPublishing) }}
+                onClose={() => {
+                    setIsOpen(isPublishing)
+                }}
                 title={t("publish.title")}
                 portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
             >
-                <div style={{ margin: 15 }} >
+                <div style={{ margin: 15 }}>
                     <FormGroup
                         label={t("account.signedInAs", { name: user?.displayName })}
                         disabled={isPublishing}
@@ -240,7 +256,12 @@ export default function PublishButton() {
                     >
                         <img
                             src={thumbnail ? URL.createObjectURL(thumbnail) : "/DefaultThumbnail.png"}
-                            style={{ width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT, borderRadius: 5, border: "1px solid rgb(96, 96, 96)" }}
+                            style={{
+                                width: THUMBNAIL_WIDTH,
+                                height: THUMBNAIL_HEIGHT,
+                                borderRadius: 5,
+                                border: "1px solid rgb(96, 96, 96)"
+                            }}
                         />
                         <ButtonGroup minimal fill>
                             <Button

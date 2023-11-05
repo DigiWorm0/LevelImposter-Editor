@@ -7,10 +7,12 @@ export default function SizeTag(props: { sizeBytes: number, okMsg: string, warni
     const { t } = useTranslation();
     const { sizeBytes, okMsg, warningMsg } = props;
 
+    // Get Size Intent
     const isOverSize = sizeBytes > 1000 * 1000 * 4; // 4 MB
     const isSuperOverSize = sizeBytes > 1000 * 1000 * 6; // 6 MB
     const sizeIntent = isSuperOverSize ? "danger" : (isOverSize ? "warning" : "success");
 
+    // Get Size as a String
     const sizeString = React.useMemo(() => {
         const sizeKB = sizeBytes / 1000;
         const sizeMB = sizeKB / 1000;
@@ -22,8 +24,7 @@ export default function SizeTag(props: { sizeBytes: number, okMsg: string, warni
         else
             return t("size.bytes", { size: sizeBytes });
     }, [sizeBytes]);
-
-
+    
     return (
         <Tooltip2
             content={isOverSize ? warningMsg : okMsg}

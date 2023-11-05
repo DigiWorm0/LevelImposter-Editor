@@ -28,15 +28,23 @@ export default interface LIProperties {
     minigameProps?: LIMinigameProps;
 
     // Sprite
-    spriteData?: string;
+    spriteID?: GUID;
     color?: LIColor;
     loopGIF?: boolean;
+
+    /**
+     * @deprecated Use spriteID instead
+     */
+    spriteData?: string;
 
     // One-Way Colliders
     isImposterIgnored?: boolean;
 
     // Towels
     towelPickupCount?: number;
+
+    // Spore
+    gasColor?: LIColor;
 
     // Decontamination
     doorA?: GUID;
@@ -70,6 +78,7 @@ export default interface LIProperties {
     onlyFromBelow?: boolean;
     checkCollision?: boolean;
     range?: number;
+    sporeRange?: number;
 
     // Ladder
     ladderHeight?: number;

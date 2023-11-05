@@ -13,10 +13,12 @@ import MinimapElement from "./MinimapElement";
 import PlayerZRender from "./PlayerZRender";
 import RoomText from "./RoomText";
 import StarfieldRender from "./StarfieldRender";
+import SporeRange from "./SporeRange";
 
 export default function SelectedMapElement() {
     return (
         <>
+            <SporeRange />
             <ConsoleRange />
             <SpawnRange />
             <LadderRange />

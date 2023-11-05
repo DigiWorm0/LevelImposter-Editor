@@ -14,8 +14,6 @@ export default function DecontaminationPanel() {
     const doorA = useElementValue(selectedElem?.properties.doorA);
     const doorB = useElementValue(selectedElem?.properties.doorB);
 
-    console.log(doorA, doorB);
-
     if (!selectedElem || selectedElem.type !== "util-decontamination")
         return null;
 

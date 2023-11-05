@@ -7,7 +7,9 @@ export default interface LIMinigameProps {
     lightsColorOff?: LIColor;
     fuelColor?: LIColor;
     fuelBgColor?: LIColor;
-    
+    weaponsColor?: LIColor;
+    qrCodeText?: string;
+
     isStarfieldEnabled?: boolean;
 }
 

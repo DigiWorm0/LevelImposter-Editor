@@ -41,8 +41,8 @@ export default function DebugPanel() {
                 icon="console"
                 onClick={() => {
                     console.log(selectedElem);
-                }} />
-
+                }}
+            />
             <Menu>
                 {keys.map((key, index) => {
                     const value = values[index];

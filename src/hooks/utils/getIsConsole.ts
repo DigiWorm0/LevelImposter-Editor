@@ -1,5 +1,6 @@
 export default function getIsConsole(type: string) {
     const isVent = type.startsWith("util-vent");
+    const isSpore = type === "util-spore";
     const isConsole = type.startsWith("task-")
         || (type.startsWith("sab-") && !type.startsWith("sab-btn"))
         || type.startsWith("util-button")
@@ -8,6 +9,7 @@ export default function getIsConsole(type: string) {
         || type === "util-vitals"
         || type === "util-computer"
         || type === "util-triggerconsole"
-        || isVent;
+        || isVent
+        || isSpore;
     return isConsole;
 }

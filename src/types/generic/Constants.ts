@@ -1,5 +1,7 @@
 export const UNITY_SCALE = 100;
 export const DEFAULT_CONSOLE_RANGE = 1;
+export const DEFAULT_SPORE_RANGE = 0.25;
+export const DEFAULT_SPORE_GAS_RANGE = 3.7;
 export const VENT_CONSOLE_RANGE = 0.75;
 export const DEFAULT_SPAWN_RANGE = 1.55;
 export const DEFAULT_CAM_SIZE = 6;
@@ -59,8 +61,8 @@ export const THUMBNAIL_HEIGHT = 144;
 
 export const UI_ZOOM_SPEED = 1.1;
 
-export const MAP_FORMAT_VER = 0;
-export const MAX_HISTORY_LENGTH = 30;
+export const MAP_FORMAT_VER = 2;
+export const MAX_HISTORY_LENGTH = 15;
 
 export const CAM_SPEED = 20;
 

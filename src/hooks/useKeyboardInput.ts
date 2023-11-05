@@ -2,7 +2,7 @@ import { HotkeyConfig, useHotkeys } from "@blueprintjs/core";
 import { useSetAtom } from "jotai";
 import React from "react";
 import { CAM_SPEED } from "../types/generic/Constants";
-import generateGUID from "./generateGUID";
+import generateGUID from "./utils/generateGUID";
 import { camXAtom, camYAtom } from "./jotai/useCamera";
 import useClipboard from "./jotai/useClipboard";
 import { useAddElementAtMouse } from "./jotai/useElements";

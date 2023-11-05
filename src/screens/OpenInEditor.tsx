@@ -1,7 +1,7 @@
-import { AnchorButton, Button } from "@blueprintjs/core";
+import { AnchorButton } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import { DEFAULT_GUID } from "../hooks/generateGUID";
+import { DEFAULT_GUID } from "../hooks/utils/generateGUID";
 import { useMapValue } from "../hooks/jotai/useMap";
 import useEmbed from "../hooks/useEmbed";
 

@@ -6,7 +6,8 @@ import LIElement, { MaybeLIElement } from "../../types/li/LIElement";
 import { saveHistoryAtom } from "./useHistory";
 import { elementsAtom } from "./useMap";
 import { mouseXAtom, mouseYAtom } from "./useMouse";
-import getDefaultZ from "../getDefaultZ";
+import getDefaultZ from "../utils/getDefaultZ";
+import { trimAssetsAtom } from "./useMapAssets";
 
 // Atoms
 export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
@@ -21,6 +22,7 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
             if (index >= 0 && elem) {
                 elements[index] = { ...elem };
                 set(elementsAtom, [...elements]);
+                set(trimAssetsAtom);
                 set(saveHistoryAtom);
             }
         }
@@ -44,6 +46,7 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
     });
 
     set(elementsAtom, [...get(elementsAtom), elem]);
+    set(trimAssetsAtom);
     set(saveHistoryAtom);
 });
 export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
@@ -119,9 +122,11 @@ export function useAddElementAtMouse() {
 export function useElementChildren(id: MaybeGUID) {
     return useAtomValue(elementChildrenFamilyAtom(id));
 }
+
 export function useDraggingElementID() {
     return useAtom(draggingElementIDAtom);
 }
+
 export function useIsDroppable(id: MaybeGUID) {
     return useAtomValue(isDroppableAtomFamily(id));
 }

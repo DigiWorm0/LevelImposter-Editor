@@ -35,10 +35,12 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onLightsStart",
         "onCommsStart",
         "onReactorStart",
+        "onMixupStart",
         "onOxygenEnd",
         "onLightsEnd",
         "onCommsEnd",
         "onReactorEnd",
+        "onMixupEnd",
     ],
     "sab-doorv": [
         "onOpen",
@@ -109,10 +111,12 @@ const InputTriggerDB: Record<string, string[]> = {
         "startLights",
         "startComms",
         "startReactor",
+        "startMixup",
         "endOxygen",
         "endLights",
         "endComms",
-        "endReactor"
+        "endReactor",
+        "endMixup"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

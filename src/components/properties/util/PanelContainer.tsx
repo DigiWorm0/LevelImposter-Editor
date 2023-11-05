@@ -13,12 +13,14 @@ export default function PanelContainer(props: PanelContainerProps) {
 
     return (
         <Collapse isOpen={props.isOpen ?? true}>
-            <Card style={{
-                padding: 0,
-                marginTop: 10,
-                boxShadow: "none",
-                borderRadius: 0
-            }}>
+            <Card
+                style={{
+                    padding: 0,
+                    marginTop: 10,
+                    boxShadow: "none",
+                    borderRadius: 0
+                }}
+            >
                 <Button
                     fill
                     large
@@ -31,14 +33,16 @@ export default function PanelContainer(props: PanelContainerProps) {
                 />
                 <Collapse
                     isOpen={isOpen}
-                    keepChildrenMounted={true}>
-
-                    <div style={{
-                        paddingLeft: 10,
-                        paddingRight: 10,
-                        paddingBottom: 10,
-                        ...props.style
-                    }}>
+                    keepChildrenMounted={true}
+                >
+                    <div
+                        style={{
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingBottom: 10,
+                            ...props.style
+                        }}
+                    >
                         {props.children}
                     </div>
                 </Collapse>

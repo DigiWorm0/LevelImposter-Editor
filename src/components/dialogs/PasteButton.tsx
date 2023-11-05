@@ -11,15 +11,14 @@ export default function PasteButton() {
         <>
             <Tooltip2
                 content={t("edit.paste") as string}
-                position="bottom">
-
+                position="bottom"
+            >
                 <AnchorButton
                     className={Classes.MINIMAL}
                     icon="clipboard"
                     onClick={pasteElement}
                     disabled={!canPaste}
                 />
-
             </Tooltip2>
         </>
     );

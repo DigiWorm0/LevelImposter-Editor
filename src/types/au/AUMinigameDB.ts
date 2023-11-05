@@ -196,6 +196,8 @@ const AUMinigameDB: string[] = [
     "task-id_card",
     "task-id_wallet",
     "task-id_walletmask",
+    "task-id_redlight",
+    "task-id_greenlight",
 
     "task-keys_bg",
     "task-keys_key",
@@ -237,6 +239,11 @@ const AUMinigameDB: string[] = [
     "task-pass_scanner",
     "task-pass_scanninga",
     "task-pass_scanningb",
+    "task-pass_idfront",
+    "task-pass_idwindow",
+    "task-pass_idface",
+    "task-pass_pull",
+    "task-pass_flip",
 
     "task-photos_bg",
     "task-photos_mask",

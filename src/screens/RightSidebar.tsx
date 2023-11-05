@@ -28,6 +28,7 @@ import ScrollingPanel from "../components/properties/panels/ScrollingPanel";
 import OneWayColliderPanel from "../components/properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../components/properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../components/properties/panels/SabotagesPanel";
+import SporePanel from "../components/properties/panels/SporePanel";
 
 export default function RightSidebar() {
 
@@ -59,6 +60,7 @@ export default function RightSidebar() {
             <TimerPanel />
             <OneWayColliderPanel />
             <DecontaminationPanel />
+            <SporePanel />
 
             <TriggerPanel />
             <ColliderPanel />

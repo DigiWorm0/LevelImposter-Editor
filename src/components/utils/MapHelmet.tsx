@@ -1,6 +1,5 @@
 import { useMapValue } from "../../hooks/jotai/useMap";
 import { Helmet } from "react-helmet";
-import isDefaultName from "../../hooks/isDefaultMapName";
 import useIsSaved from "../../hooks/jotai/useIsSaved";
 
 export default function MapHelmet() {
