@@ -92,5 +92,6 @@ export const SINGLE_TYPES = [
     "sab-comms",
     "sab-reactorleft",
     "sab-reactorright",
-    "util-sabotages"
+    "util-sabotages",
+    "util-cams4"
 ];
