@@ -664,6 +664,7 @@
 		"callMeeting": "Call Meeting",
 		"playonce": "Play Once",
 		"playloop": "Play Loop",
+		"teleportonce": "Teleport Once",
 		"stop": "Stop",
 		"onEnter": "On Enter",
 		"onExit": "On Exit",

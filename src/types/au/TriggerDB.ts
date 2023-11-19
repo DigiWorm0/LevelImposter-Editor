@@ -74,6 +74,11 @@ const InputTriggerDB: Record<string, string[]> = {
         "show",
         "hide"
     ],
+    "util-tele": [
+        "enable",
+        "disable",
+        "teleportonce"
+    ],
     "util-triggerrepeat": [
         "repeat",
     ],
