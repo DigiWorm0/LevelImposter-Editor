@@ -1,12 +1,18 @@
 import { Rect } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { DEFAULT_CAM_ASPECT, DEFAULT_CAM_SIZE, DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT, UNITY_SCALE } from "../../types/generic/Constants";
+import {
+    DEFAULT_CAM_ASPECT,
+    DEFAULT_CAM_SIZE,
+    DEFAULT_DISPLAY_HEIGHT,
+    DEFAULT_DISPLAY_WIDTH,
+    UNITY_SCALE
+} from "../../types/generic/Constants";
 
 export default function CameraRender() {
     const selectedElem = useSelectedElemValue();
 
     if (!selectedElem
-        || (selectedElem.type !== "util-cam" && selectedElem.type !== "util-display"))
+        || (selectedElem.type !== "util-cam" && selectedElem.type !== "util-cams4" && selectedElem.type !== "util-display"))
         return null;
 
     const { camXOffset, camYOffset, camZoom } = selectedElem.properties;

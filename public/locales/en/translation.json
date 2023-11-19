@@ -487,6 +487,8 @@
 		"triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
 		"oneWayColliderInfo": "The colliders will be deactivated when the player is in the selected room.",
 		"colliderInfo": "Left click on the line to add a point. Right click on a point to remove it.",
+		"binocularsInfo": "The collider will only block the binoculars camera from moving past.",
+		"ghostInfo": "The collider will block all players, including ghosts.",
 		"errorOneOnly": "This object can only have 1 collider"
 	},
 	"room": {
@@ -718,6 +720,8 @@
 		"util-cams2": "Skeld Camera Panel",
 		"util-cams3": "Airship Camera Panel",
 		"util-cams4": "Binoculars Panel",
+		"util-binocularscollider": "Binoculars Collider",
+		"util-ghostcollider": "Ghost Collider",
 		"util-display": "Display",
 		"util-spawn1": "Initial Spawnpoint",
 		"util-spawn2": "Meeting Spawnpoint",

@@ -8,6 +8,7 @@ import DevInfo from "../../utils/DevInfo";
 interface ColliderEditorProps {
     isSolidOnly: boolean;
     isShadowOnly: boolean;
+    isEdgeOnly: boolean;
 
     colliderID: MaybeGUID;
     setSelectedColliderID: (id: MaybeGUID) => void;
@@ -59,7 +60,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             <Switch
                 label={t("collider.solid") as string}
                 checked={collider.isSolid}
-                disabled={props.isSolidOnly || props.isShadowOnly}
+                disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
                 onChange={(e) => {
                     collider.isSolid = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });
@@ -68,7 +69,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             <Switch
                 label={t("collider.blocksLight") as string}
                 checked={collider.blocksLight}
-                disabled={props.isSolidOnly || props.isShadowOnly}
+                disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
                 onChange={(e) => {
                     collider.blocksLight = e.currentTarget.checked;
                     setSelectedElem({ ...selectedElem });

@@ -101,6 +101,8 @@ const AUElementDB: string[] = [
     "util-cams2",
     "util-cams3",
     "util-cams4",
+    "util-binocularscollider",
+    "util-ghostcollider",
     "util-spawn1",
     "util-spawn2",
     "util-minimap",

@@ -38,6 +38,11 @@ const SHADOW_ONLY_TYPES = [
     "util-onewaycollider"
 ];
 
+const EDGE_ONLY_TYPES = [
+    "util-binocularscollider",
+    "util-ghostcollider",
+];
+
 const SINGULAR_TYPES = [
     "util-room",
     "util-sound2",
@@ -57,6 +62,10 @@ export default function ColliderPanel() {
         return SHADOW_ONLY_TYPES.includes(selectedElem?.type || "");
     }, [selectedElem?.type]);
 
+    const isEdgeOnly = React.useMemo(() => {
+        return EDGE_ONLY_TYPES.includes(selectedElem?.type || "");
+    }, [selectedElem?.type]);
+
     const isAddDisabled = React.useMemo(() => {
         return selectedElem
             && SINGULAR_TYPES.includes(selectedElem?.type)
@@ -72,8 +81,8 @@ export default function ColliderPanel() {
 
         const collider = {
             id: generateGUID(),
-            blocksLight: !isSolidOnly,
-            isSolid: isSolidOnly,
+            blocksLight: !isSolidOnly && !isEdgeOnly,
+            isSolid: isSolidOnly && !isEdgeOnly,
             points: [
                 { x: -0.5, y: 0.5 },
                 { x: -0.5, y: -0.5 },
@@ -128,6 +137,7 @@ export default function ColliderPanel() {
                             setSelectedColliderID={setSelectedColliderID}
                             isSolidOnly={isSolidOnly}
                             isShadowOnly={isShadowOnly}
+                            isEdgeOnly={isEdgeOnly}
                         />
                     )}
                 />
@@ -189,6 +199,20 @@ export default function ColliderPanel() {
                 icon="volume-up"
             >
                 {t("collider.soundInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={selectedElem.type === "util-ghostcollider"}
+                info
+                icon="person"
+            >
+                {t("collider.ghostInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={selectedElem.type === "util-binocularscollider"}
+                info
+                icon="camera"
+            >
+                {t("collider.binocularsInfo") as string}
             </MapError>
         </>
     );
