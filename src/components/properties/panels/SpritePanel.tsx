@@ -141,6 +141,13 @@ export default function SpritePanel() {
             >
                 {t("sprite.paddingInfo") as string}
             </MapError>
+            <MapError
+                info
+                isVisible={selectedElem.type === "util-filter"}
+                icon="eye-open"
+            >
+                {t("sprite.filterInfo") as string}
+            </MapError>
         </>
     );
 }

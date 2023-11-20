@@ -128,6 +128,7 @@ const AUElementDB: string[] = [
     "util-onewaycollider",
     "util-decontamination",
     "util-sabotages",
+    "util-filter",
     "task-id",
     "task-keys",
     "task-pass",

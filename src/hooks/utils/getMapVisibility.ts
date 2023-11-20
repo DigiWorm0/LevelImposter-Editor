@@ -13,7 +13,7 @@ const INVISIBLE_TYPES = [
     "util-sound1",
     "util-sound2",
     "util-meeting",
-    "util-onewaycollider",
+    "util-onewaycollider"
 ]
 
 const INVISIBLE_TYPES_NO_SPRITE = [
