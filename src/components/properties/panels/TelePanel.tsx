@@ -21,6 +21,12 @@ export default function TelePanel() {
                 tooltip={"tele.preserveOffsetTooltip"}
             />
             <SwitchPanelInput
+                prop={"isEnabled"}
+                name={"tele.isEnabled"}
+                defaultValue={true}
+                tooltip={"tele.isEnabledTooltip"}
+            />
+            <SwitchPanelInput
                 prop={"isGhostEnabled"}
                 name={"tele.ghostEnabled"}
                 defaultValue={true}
