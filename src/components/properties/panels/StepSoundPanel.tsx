@@ -1,6 +1,4 @@
 import { FormGroup, NumericInput } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../hooks/utils/generateGUID";
@@ -10,7 +8,6 @@ import SoundEditorPanel from "../editors/SoundEditorPanel";
 import NumericPanelInput from "../input/NumericPanelInput";
 import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
-import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 
 export default function StepSoundPanel() {
@@ -19,20 +16,6 @@ export default function StepSoundPanel() {
     const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
     const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
-
-    const presetRenderer: ItemRenderer<string> = (soundPreset, props) => (
-        <MenuItem2
-            key={soundPreset + props.index + "-soundPreset"}
-            text={soundPreset}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
-
-    const isNotWav = React.useMemo(() => {
-        return selectedElem?.properties.sounds?.some((s) => !s.data?.startsWith("data:audio/wav;base64,") && !s.isPreset);
-    }, [selectedElem?.properties.sounds]);
 
     if (!selectedElem || selectedElem.type !== "util-sound2")
         return null;
@@ -64,7 +47,7 @@ export default function StepSoundPanel() {
                                 if (sounds[i] == null)
                                     sounds[i] = {
                                         id: generateGUID(),
-                                        data: undefined,
+                                        presetID: undefined,
                                         volume: DEFAULT_VOLUME,
                                         isPreset: false
                                     };
@@ -98,12 +81,6 @@ export default function StepSoundPanel() {
                     )}
                 />
             </PanelContainer>
-            <MapError
-                isVisible={isNotWav}
-                icon="volume-off"
-            >
-                {t("audio.errorNotWav") as string}
-            </MapError>
         </>
     );
 }

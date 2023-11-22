@@ -53,7 +53,7 @@ export default function SoundPresetSelect() {
                                 ...selectedElem.properties, sounds: resourceIDs.map((resourceID) => {
                                     return {
                                         id: generateGUID(),
-                                        data: resourceID,
+                                        presetID: resourceID,
                                         volume: DEFAULT_VOLUME,
                                         isPreset: true
                                     }
