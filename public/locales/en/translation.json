@@ -422,7 +422,9 @@
 	},
 	"timer": {
 		"title": "Timer Trigger",
-		"duration": "Duration"
+		"duration": "Duration in seconds",
+		"isRepeat": "Repeat",
+		"isRepeatTooltip": "If enabled, the timer will automatically restart after every trigger."
 	},
 	"transform": {
 		"title": "Transform",
@@ -654,9 +656,11 @@
 		"undefined": "Unknown Trigger",
 		"show": "Show",
 		"hide": "Hide",
+		"toggle": "Toggle",
 		"repeat": "Repeat",
 		"random": "Random",
 		"startTimer": "Start Timer",
+		"stopTimer": "Stop Timer",
 		"trigger": "Trigger",
 		"enable": "Enable",
 		"disable": "Disable",

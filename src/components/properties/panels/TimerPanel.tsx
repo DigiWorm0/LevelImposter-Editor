@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import SwitchPanelInput from "../input/SwitchPanelInput";
 
 export default function TimerPanel() {
     const { t } = useTranslation();
@@ -23,6 +24,12 @@ export default function TimerPanel() {
                 minorStepSize={0.1}
                 stepSize={1}
                 majorStepSize={10}
+            />
+            <SwitchPanelInput
+                prop={"triggerLoop"}
+                name={"timer.isRepeat"}
+                defaultValue={false}
+                tooltip={"timer.isRepeatTooltip"}
             />
         </PanelContainer>
     );

@@ -59,6 +59,7 @@ const consoleTriggers = [
     "hide",
     "enable",
     "disable",
+    "toggle",
 ];
 
 const InputTriggerDB: Record<string, string[]> = {
@@ -77,6 +78,7 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-tele": [
         "enable",
         "disable",
+        "toggle",
         "teleportonce"
     ],
     "util-triggerrepeat": [
@@ -87,6 +89,7 @@ const InputTriggerDB: Record<string, string[]> = {
     ],
     "util-triggertimer": [
         "startTimer",
+        "stopTimer",
     ],
     "util-triggeronce": [
         "trigger",
