@@ -19,7 +19,8 @@ export default function SoundPresetSelect() {
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
-            onFocus={props.handleFocus} />
+            onFocus={props.handleFocus}
+        />
     );
 
     if (!selectedElem)

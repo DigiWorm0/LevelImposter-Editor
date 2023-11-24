@@ -1,13 +1,16 @@
 import React from "react";
 import LIMap from "../types/li/LIMap";
+import useToaster from "./useToaster";
 
 export default function useLISerializer() {
+    const toaster = useToaster();
+
     return React.useCallback((map: LIMap) => {
-        return serializeMap(map);
+        return serializeMap(map, toaster.warning);
     }, []);
 }
 
-async function serializeMap(map: LIMap) {
+async function serializeMap(map: LIMap, onError?: (error: string) => void) {
     const assets = map.assets ?? [];
 
     // Serialize JSON
@@ -45,10 +48,16 @@ async function serializeMap(map: LIMap) {
         offset += 4;
 
         // Write Asset Data
-        const arrayBuffer = await asset.blob.arrayBuffer();
-        const data = new Uint8Array(arrayBuffer);
-        for (let i = 0; i < size; i++)
-            rawData[offset + i] = data[i];
+        try {
+            const arrayBuffer = await asset.blob.arrayBuffer();
+            const data = new Uint8Array(arrayBuffer);
+            for (let i = 0; i < size; i++)
+                rawData[offset + i] = data[i];
+        } catch (error: any) {
+            if (onError)
+                onError(`Warning: Failed to serialize asset ${asset.id}. One or more images/sounds may not be included in the map.`);
+            console.warn(`Failed to serialize asset ${asset.id}`, error);
+        }
         offset += size;
     }
 

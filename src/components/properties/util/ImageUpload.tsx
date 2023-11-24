@@ -10,6 +10,7 @@ import MapAsset from "../../../types/li/MapAssetDB";
 import generateGUID from "../../../hooks/utils/generateGUID";
 import GUID from "../../../types/generic/GUID";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import duplicateBlob from "../../../hooks/utils/duplicateBlob";
 
 interface ImageUploadProps {
     name: string;
@@ -40,8 +41,12 @@ export default function ImageUpload(props: ImageUploadProps) {
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
         openUploadDialog("image/*").then((blob) => {
-            if (blob)
-                props.onUpload(createMapAsset(blob));
+            return duplicateBlob(blob);
+        }).then((blob) => {
+            props.onUpload(createMapAsset(blob));
+        }).catch((e) => {
+            console.warn(e);
+            toaster.warning(e);
         });
     }, [props.onUpload]);
 
