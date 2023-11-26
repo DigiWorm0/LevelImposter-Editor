@@ -7,15 +7,13 @@ import { camXAtom, camYAtom } from "./jotai/useCamera";
 import useClipboard from "./jotai/useClipboard";
 import { useAddElementAtMouse } from "./jotai/useElements";
 import { useRedo, useUndo } from "./jotai/useHistory";
-import { useSetSaved } from "./jotai/useIsSaved";
-import { useMapValue } from "./jotai/useMap";
 import { useRemoveElement, useSelectedElemValue, useSetSelectedElemID } from "./jotai/useSelectedElem";
 import { useSetSettings } from "./jotai/useSettings";
 import useToaster from "./useToaster";
+import useSaveMap from "./useSaveMap";
 
 export default function useKeyboardInput() {
     const { copyElement, pasteElement } = useClipboard();
-    const map = useMapValue();
     const undo = useUndo();
     const redo = useRedo();
     const selectedElem = useSelectedElemValue();
@@ -26,18 +24,8 @@ export default function useKeyboardInput() {
     const toaster = useToaster();
     const setCamX = useSetAtom(camXAtom);
     const setCamY = useSetAtom(camYAtom);
-    const setIsSaved = useSetSaved();
+    const saveMap = useSaveMap();
 
-    const saveMap = React.useCallback(() => {
-        const mapJSON = JSON.stringify(map);
-        const blob = new Blob([mapJSON], { type: "application/levelimposter.map" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = map.name + ".lim";
-        link.click();
-        setIsSaved(true);
-    }, [map]);
 
     const duplicateElement = React.useCallback(() => {
         if (selectedElem) {

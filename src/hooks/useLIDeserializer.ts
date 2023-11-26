@@ -15,18 +15,25 @@ export default function useLIDeserializer() {
         return new Promise<LIMap>((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => {
-                const result = reader.result as ArrayBuffer;
-                const byteView = new Uint8Array(result);
+                try {
+                    const result = reader.result as ArrayBuffer;
+                    const byteView = new Uint8Array(result);
 
-                const isLegacy = byteView[0] === '{'.charCodeAt(0);
-                const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
-                if (mapData === undefined) {
-                    reject("Failed to deserialize file data");
-                    return;
+                    const firstByte = byteView[0];
+                    const lastByte = byteView[byteView.length - 1];
+                    const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
+
+                    const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
+                    if (mapData === undefined) {
+                        reject("Failed to deserialize file data");
+                        return;
+                    }
+                    setMap(mapData);
+                    saveHistory();
+                    resolve(mapData);
+                } catch (e) {
+                    reject(e);
                 }
-                setMap(mapData);
-                saveHistory();
-                resolve(mapData);
             }
             reader.onerror = () => {
                 reject(reader.error);

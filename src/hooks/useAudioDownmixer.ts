@@ -1,6 +1,7 @@
 import React from 'react';
 import WavAudioEncoder from '../lib/WavAudioEncoder';
 import { useSettingsValue } from './jotai/useSettings';
+import duplicateBlob from "./utils/duplicateBlob";
 
 // Constants
 const TARGET_CHANNELS = 1;
@@ -16,7 +17,7 @@ export default function useAudioDownmixer() {
     return React.useCallback((soundData: Blob) => {
         return new Promise<Blob>((resolve, reject) => {
             if (settings.isAudioDownmixEnabled === false)
-                return resolve(soundData);
+                duplicateBlob(soundData).then(resolve).catch(reject);
 
             const audioCtx = new AudioContext();
             const fileReader = new FileReader();

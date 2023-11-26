@@ -19,7 +19,8 @@ export default function SoundPresetSelect() {
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
             onClick={props.handleClick}
-            onFocus={props.handleFocus} />
+            onFocus={props.handleFocus}
+        />
     );
 
     if (!selectedElem)
@@ -53,7 +54,7 @@ export default function SoundPresetSelect() {
                                 ...selectedElem.properties, sounds: resourceIDs.map((resourceID) => {
                                     return {
                                         id: generateGUID(),
-                                        data: resourceID,
+                                        presetID: resourceID,
                                         volume: DEFAULT_VOLUME,
                                         isPreset: true
                                     }

@@ -76,6 +76,7 @@
 		"camInfo": "Any GIF animation will play when the cameras are active.",
 		"okSize": "Your image is small enough to not cause any issues.",
 		"paddingInfo": "To ensure highlight is visible around consoles, sprites requires atleast 10px of padding on all sides.",
+		"filterInfo": "Sprite will hide all players (other than the local player). Acts just like a mushroom spore.",
 		"errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects.",
 		"errorInvalidType": "This image file is in invalid format."
 	},
@@ -421,7 +422,9 @@
 	},
 	"timer": {
 		"title": "Timer Trigger",
-		"duration": "Duration"
+		"duration": "Duration in seconds",
+		"isRepeat": "Repeat",
+		"isRepeatTooltip": "If enabled, the timer will automatically restart after every trigger."
 	},
 	"transform": {
 		"title": "Transform",
@@ -487,6 +490,8 @@
 		"triggerAreaInfo": "Trigger will fire once player enters/exits this collider.",
 		"oneWayColliderInfo": "The colliders will be deactivated when the player is in the selected room.",
 		"colliderInfo": "Left click on the line to add a point. Right click on a point to remove it.",
+		"binocularsInfo": "The collider will only block the binoculars camera from moving past.",
+		"ghostInfo": "The collider will block all players, including ghosts.",
 		"errorOneOnly": "This object can only have 1 collider"
 	},
 	"room": {
@@ -651,9 +656,11 @@
 		"undefined": "Unknown Trigger",
 		"show": "Show",
 		"hide": "Hide",
+		"toggle": "Toggle",
 		"repeat": "Repeat",
 		"random": "Random",
 		"startTimer": "Start Timer",
+		"stopTimer": "Stop Timer",
 		"trigger": "Trigger",
 		"enable": "Enable",
 		"disable": "Disable",
@@ -662,6 +669,7 @@
 		"callMeeting": "Call Meeting",
 		"playonce": "Play Once",
 		"playloop": "Play Loop",
+		"teleportonce": "Teleport Once",
 		"stop": "Stop",
 		"onEnter": "On Enter",
 		"onExit": "On Exit",
@@ -718,6 +726,8 @@
 		"util-cams2": "Skeld Camera Panel",
 		"util-cams3": "Airship Camera Panel",
 		"util-cams4": "Binoculars Panel",
+		"util-binocularscollider": "Binoculars Collider",
+		"util-ghostcollider": "Ghost Collider",
 		"util-display": "Display",
 		"util-spawn1": "Initial Spawnpoint",
 		"util-spawn2": "Meeting Spawnpoint",
@@ -743,6 +753,7 @@
 		"util-onewaycollider": "One-Way Collider",
 		"util-decontamination": "Decontamination System",
 		"util-sabotages": "Sabotage Options",
+		"util-filter": "Render Filter",
 		"task-id": "Card Swipe",
 		"task-keys": "Keys",
 		"task-pass": "Scan Pass",

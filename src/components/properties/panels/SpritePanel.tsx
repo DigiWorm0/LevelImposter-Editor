@@ -30,7 +30,9 @@ const TYPE_BLACKLIST = [
     "util-display",
     "util-onewaycollider",
     "util-decontamination",
-    "util-sabotages"
+    "util-sabotages",
+    "util-binocularscollider",
+    "util-ghostcollider",
 ];
 
 export default function SpritePanel() {
@@ -138,6 +140,13 @@ export default function SpritePanel() {
                 icon="vertical-inbetween"
             >
                 {t("sprite.paddingInfo") as string}
+            </MapError>
+            <MapError
+                info
+                isVisible={selectedElem.type === "util-filter"}
+                icon="eye-open"
+            >
+                {t("sprite.filterInfo") as string}
             </MapError>
         </>
     );

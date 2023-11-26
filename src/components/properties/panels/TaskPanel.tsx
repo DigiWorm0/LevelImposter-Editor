@@ -54,11 +54,13 @@ export default function TaskPanel() {
                 </div>
                 <RoomSelect useDefault={true} />
                 <TaskTypeSelect />
-                <TextPanelInput
-                    prop="description"
-                    name={"task.description"}
-                    icon={"comment"}
-                />
+                {selectedElem.type !== "task-nodeswitch" && (
+                    <TextPanelInput
+                        prop="description"
+                        name={"task.description"}
+                        icon={"comment"}
+                    />
+                )}
 
                 {selectedElem.type.startsWith("task-towels") && (
                     <NumericPanelInput
