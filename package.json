@@ -1,64 +1,67 @@
 {
-    "name": "levelimposter-editor",
-    "description": "LevelImposter Editor",
-    "homepage": "https://editor.levelimposter.net/",
-    "version": "0.1.0",
-    "author": "DigiWorm",
-    "license": "GNU GPLv3",
-    "private": true,
-    "scripts": {
-        "predeploy": "npm run build",
-        "deploy": "echo 'editor.levelimposter.net' > ./build/CNAME && gh-pages -d build",
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "dependencies": {
-        "@blueprintjs/core": "^4.20.2",
-        "@blueprintjs/popover2": "^1.14.11",
-        "@blueprintjs/select": "^4.9.24",
-        "@fontsource/roboto": "^5.0.3",
-        "dexie": "^3.2.4",
-        "firebase": "^9.23.0",
-        "i18next": "^23.2.3",
-        "i18next-browser-languagedetector": "^7.1.0",
-        "i18next-http-backend": "^2.2.1",
-        "jotai": "^2.2.1",
-        "jotai-devtools": "^0.2.0",
-        "jotai-optics": "^0.3.0",
-        "konva": "^8.4.3",
-        "optics-ts": "^2.4.0",
-        "react": "^18.2.0",
-        "react-color": "^2.19.3",
-        "react-dom": "^18.2.0",
-        "react-firebase-hooks": "^5.1.1",
-        "react-helmet": "^6.1.0",
-        "react-i18next": "^13.0.1",
-        "react-konva": "^18.2.10"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@types/jest": "^29.4.0",
-        "@types/node": "^18.13.0",
-        "@types/react": "^18.0.15",
-        "@types/react-color": "^3.0.6",
-        "@types/react-dom": "^18.0.6",
-        "@types/react-helmet": "^6.1.6",
-        "gh-pages": "^5.0.0",
-        "react-scripts": "^5.0.1",
-        "typescript": "^5.1.5",
-        "webpack": "^5.78.0"
-    }
+	"name": "levelimposter-editor",
+	"description": "LevelImposter Editor",
+	"homepage": "https://editor.levelimposter.net/",
+	"version": "0.1.0",
+	"author": "DigiWorm",
+	"license": "GNU GPLv3",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"predeploy": "npm run build",
+		"deploy": "echo 'editor.levelimposter.net' > ./build/CNAME && gh-pages -d build",
+		"start": "vite",
+		"build": "tsc && vite build",
+		"serve": "vite preview"
+	},
+	"dependencies": {
+		"@blueprintjs/core": "^5.7.1",
+		"@blueprintjs/popover2": "^2.0.19",
+		"@blueprintjs/select": "^5.0.19",
+		"@fontsource/roboto": "^5.0.3",
+		"dexie": "^3.2.4",
+		"firebase": "^9.23.0",
+		"i18next": "^23.2.3",
+		"i18next-browser-languagedetector": "^7.1.0",
+		"i18next-http-backend": "^2.2.1",
+		"jotai": "^2.2.1",
+		"jotai-devtools": "^0.7.0",
+		"jotai-optics": "^0.3.0",
+		"konva": "^8.4.3",
+		"optics-ts": "^2.4.0",
+		"react": "^18.2.0",
+		"react-color": "^2.19.3",
+		"react-dom": "^18.2.0",
+		"react-firebase-hooks": "^5.1.1",
+		"react-helmet": "^6.1.0",
+		"react-i18next": "^13.0.1",
+		"react-konva": "^18.2.10"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@types/jest": "^29.4.0",
+		"@types/node": "^18.13.0",
+		"@types/react": "^18.0.15",
+		"@types/react-color": "^3.0.6",
+		"@types/react-dom": "^18.0.6",
+		"@types/react-helmet": "^6.1.6",
+		"@vitejs/plugin-react": "^4.2.0",
+		"gh-pages": "^5.0.0",
+		"typescript": "^5.1.5",
+		"vite": "^5.0.4",
+		"vite-plugin-svgr": "^4.2.0",
+		"vite-tsconfig-paths": "^4.2.1",
+		"webpack": "^5.78.0"
+	}
 }
