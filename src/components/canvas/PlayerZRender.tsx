@@ -14,7 +14,7 @@ export default function PlayerZRender() {
         return null;
 
     // Get Line Size
-    const lineWidth = (elemSprite.width * selectedElem.xScale) ?? 0;
+    const lineWidth = elemSprite.width * selectedElem.xScale;
     const lineY = (selectedElem.z - PLAYER_POS) * -1000;
 
     // Calculate Points

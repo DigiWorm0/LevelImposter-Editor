@@ -53,7 +53,7 @@ export default function SignInButton() {
                 }}
                 title={t("account.signIn")}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
 
                 <SignIn />
 
@@ -66,7 +66,7 @@ export default function SignInButton() {
                 }}
                 title={user?.displayName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
 
                 <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
                     <img

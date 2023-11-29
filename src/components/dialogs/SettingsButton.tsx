@@ -6,7 +6,13 @@ import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../hooks/jotai/useMap";
 import useSettings from "../../hooks/jotai/useSettings";
 import { EXILE_IDS } from "../../types/au/AUElementDB";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, LANGUAGES } from "../../types/generic/Constants";
+import {
+    DEFAULT_COLLIDER_HANDLE_SIZE,
+    DEFAULT_GRID_SIZE,
+    DEFAULT_GRID_SNAP_RESOLUTION,
+    DEFAULT_INVISIBLE_OPACITY,
+    LANGUAGES
+} from "../../types/generic/Constants";
 import LIColor from "../../types/li/LIColor";
 import ColorPicker from "../utils/ColorPicker";
 
@@ -63,27 +69,36 @@ export default function SettingsButton() {
         <>
             <Tooltip2
                 content={t("settings.title") as string}
-                position="bottom">
+                position="bottom"
+            >
 
                 <Button
                     className={Classes.MINIMAL}
                     icon="cog"
-                    onClick={() => { setIsOpen(true) }} />
+                    onClick={() => {
+                        setIsOpen(true)
+                    }}
+                />
 
             </Tooltip2>
 
             <Dialog
                 isOpen={isOpen}
-                onClose={() => { setIsOpen(false) }}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
                 title={t("settings.title")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+            >
 
-                <div style={{
-                    marginLeft: 10,
-                    marginRight: 10,
-                    marginTop: 10,
-                    padding: 15
-                }}>
+                <div
+                    style={{
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 10,
+                        padding: 15
+                    }}
+                >
                     <H5>
                         <Icon
                             icon="modal"

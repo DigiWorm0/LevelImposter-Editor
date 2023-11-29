@@ -232,7 +232,7 @@ export default function PublishButton() {
                     setIsOpen(isPublishing)
                 }}
                 title={t("publish.title")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
             >
                 <div style={{ margin: 15 }}>
                     <FormGroup

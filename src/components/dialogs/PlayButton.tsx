@@ -33,7 +33,7 @@ export default function PlayButton() {
                 }}
                 title={mapName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
             >
                 <div style={{ margin: 15 }}>
                     <h2 style={{ marginTop: 0 }}>

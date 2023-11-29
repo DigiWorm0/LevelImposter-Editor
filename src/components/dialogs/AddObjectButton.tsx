@@ -81,7 +81,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 onItemSelect={(elem) => {
                     handleClick(elem)
                 }}
-                className={settings.isDarkMode === false ? "" : "bp4-dark"}
+                className={settings.isDarkMode === false ? "" : "bp5-dark"}
                 itemRenderer={(elem, props) => {
                     return (
                         <MenuItem2
