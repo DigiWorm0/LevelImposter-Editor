@@ -9,12 +9,12 @@ import OpenButton from "../components/dialogs/OpenButton";
 import PasteButton from "../components/dialogs/PasteButton";
 import RedoButton from "../components/dialogs/RedoButton";
 import SaveButton from "../components/dialogs/SaveButton";
-import SettingsButton from "../components/dialogs/SettingsButton";
 import SignInButton from "../components/dialogs/SignInButton";
 import UndoButton from "../components/dialogs/UndoButton";
 import MapName from "../components/scenegraph/MapName";
 import DebugTextBox from "../components/dialogs/DebugTextBox";
 import MapAssetsButton from "../components/dialogs/MapAssetsButton";
+import SettingsButton2 from "../components/dialogs/SettingsButton2";
 
 export default function Topbar() {
     return (
@@ -47,7 +47,7 @@ export default function Topbar() {
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />
-                    <SettingsButton />
+                    <SettingsButton2 />
                     <DocsButton />
                 </NavbarGroup>
             </Navbar>

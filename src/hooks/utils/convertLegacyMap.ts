@@ -33,6 +33,13 @@ export default function convertLegacyMap(mapData: LIMap) {
             element.properties.spriteData = undefined;
         }
 
+        // Meeting Background
+        if (element.properties.meetingBackground != undefined) {
+            console.log(`Converting MeetingBackground of ${element.id}`);
+            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground);
+            element.properties.meetingBackground = undefined;
+        }
+
         // Sound Data
         if (element.properties.sounds != undefined) {
             for (const sound of element.properties.sounds) {

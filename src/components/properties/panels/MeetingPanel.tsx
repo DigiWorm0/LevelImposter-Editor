@@ -4,19 +4,20 @@ import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
+import MapAsset from "../../../types/li/MapAssetDB";
 
 export default function MeetingPanel() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
-    const onUploadSprite = React.useCallback((spriteURL: string) => {
+    const onUploadSprite = React.useCallback((asset: MapAsset) => {
         if (!selectedElem)
             return;
         setSelectedElem({
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                meetingBackground: spriteURL
+                meetingBackgroundID: asset.id
             }
         });
     }, [selectedElem, setSelectedElem]);
@@ -28,7 +29,7 @@ export default function MeetingPanel() {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                meetingBackground: undefined
+                meetingBackgroundID: undefined
             }
         });
     }, [selectedElem, setSelectedElem]);
@@ -44,7 +45,7 @@ export default function MeetingPanel() {
                         name={t("meeting.bg") as string}
                         showName
                         defaultSpriteURL={"/sprites/util-meetingbackground.png"}
-                        spriteURL={selectedElem.properties.meetingBackground}
+                        assetID={selectedElem.properties.meetingBackgroundID}
                         onUpload={onUploadSprite}
                         onReset={onResetSprite}
                     />
