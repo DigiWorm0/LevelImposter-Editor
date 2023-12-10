@@ -37,9 +37,10 @@ export const trimAssetsAtom = atom(null, (get, set) => {
 
     // Get All Used Asset IDs
     const spriteIDs = elements.map((e) => e.properties.spriteID);
+    const meetingSpriteIDs = elements.map((e) => e.properties.meetingBackgroundID);
     const minigameIDs = elements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
     const soundIDs = elements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
-    const assetIDs = [...spriteIDs, ...minigameIDs, ...soundIDs];
+    const assetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs];
 
     // Remove Unused Assets
     const mapAssets = get(mapAssetsAtom) ?? [];

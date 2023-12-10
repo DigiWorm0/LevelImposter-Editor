@@ -124,7 +124,12 @@ export default interface LIProperties {
     spawnDummies?: boolean;
 
     // Meeting
+
+    /**
+     * @deprecated Use meetingBackgroundID instead
+     */
     meetingBackground?: string;
+    meetingBackgroundID?: GUID;
 
     // Editor
     isLocked?: boolean;
