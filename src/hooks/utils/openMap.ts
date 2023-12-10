@@ -25,7 +25,7 @@ export function useOpenMap() {
     return React.useCallback(() => {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = ".lim, .lim2"; // TODO: Add .json
+        input.accept = ".lim, .lim2, .json";
         input.onchange = (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
             if (!file) return;
@@ -37,7 +37,7 @@ export function useOpenMap() {
             .lim2 - Current map file
              */
 
-            if (file.name.endsWith(".lim") || file.name.endsWith(".lim.bak")) {
+            if (file.name.endsWith(".lim") || file.name.endsWith(".lim.bak") || file.name.endsWith(".json")) {
                 warning(t("map.converting"));
             } else if (file.name.endsWith(".lim2")) {
                 // Good

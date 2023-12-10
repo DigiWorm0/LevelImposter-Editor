@@ -1,8 +1,17 @@
 import LIMap from "../../types/li/LIMap";
 import generateGUID from "./generateGUID";
 import GUID from "../../types/generic/GUID";
+import convertOldLegacyMap from "./convertOldLegacyMap";
 
+/**
+ * Converts .LIM to .LIM2
+ * @param mapData - .LIM Map Data
+ */
 export default function convertLegacyMap(mapData: LIMap) {
+
+    // Check for .JSON file
+    if ("objs" in mapData)
+        convertOldLegacyMap(mapData);
 
     // Reset
     mapData.assets = [];
