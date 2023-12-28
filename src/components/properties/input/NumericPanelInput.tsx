@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, FormGroup, IconName, Intent, NumericInput } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Button, FormGroup, IconName, Intent, NumericInput, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
@@ -33,6 +32,18 @@ export default function NumericPanelInput(props: NumericInputProps) {
             inputRef.current.value = (propValue as number).toString();
     }, [selectedElem?.id]);
 
+    const onValueChange = React.useCallback((val: number, stringVal: string) => {
+        if (selectedElem) {
+            setSelectedElem({
+                ...selectedElem,
+                properties: {
+                    ...selectedElem.properties,
+                    [props.prop]: isNaN(parseFloat(stringVal)) ? props.defaultValue : clamp(val, props.min ?? -Infinity, props.max ?? Infinity)
+                }
+            });
+        }
+    }, [selectedElem, props.prop, setSelectedElem, props.defaultValue, props.min, props.max]);
+
     return (
         <FormGroup
             style={{
@@ -40,13 +51,14 @@ export default function NumericPanelInput(props: NumericInputProps) {
                 marginTop: 5
             }}
         >
-            <Tooltip2
+            <Tooltip
                 content={t(props.name) as string}
                 hoverOpenDelay={200}
                 hoverCloseDelay={0}
                 fill
             >
                 <NumericInput
+                    key={selectedElem?.id}
                     inputRef={inputRef}
                     fill
                     placeholder={props.defaultValue.toString()}
@@ -58,19 +70,9 @@ export default function NumericPanelInput(props: NumericInputProps) {
                     leftIcon={props.icon}
                     rightElement={props.label ? (<Button minimal disabled>{props.label}</Button>) : undefined}
                     intent={props.intent}
-                    onValueChange={(val, stringVal) => {
-                        if (selectedElem) {
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: {
-                                    ...selectedElem.properties,
-                                    [props.prop]: isNaN(parseFloat(stringVal)) ? props.defaultValue : clamp(val, props.min ?? -Infinity, props.max ?? Infinity)
-                                }
-                            });
-                        }
-                    }}
+                    onValueChange={onValueChange}
                 />
-            </Tooltip2>
+            </Tooltip>
         </FormGroup>
     )
 }
