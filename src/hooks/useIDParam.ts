@@ -7,10 +7,12 @@ import { db, storage } from "./utils/Firebase";
 import useToaster from "./useToaster";
 import useLIDeserializer from "./useLIDeserializer";
 import LIMap from "../types/li/LIMap";
+import { useSetMap } from "./jotai/useMap";
 
 export default function useIDParam() {
     const toaster = useToaster();
     const deserializeMap = useLIDeserializer();
+    const setMap = useSetMap();
 
     // Load Map From Params
     React.useEffect(() => {
@@ -23,8 +25,12 @@ export default function useIDParam() {
 
     // Handle Load/Error Events
     const onLoad = (map: LIMap) => {
-        const params = new URLSearchParams(window.location.search);
+        // Set Map
+        setMap(map);
         toaster.success(`Loaded ${map.name} by ${map.authorName}`);
+
+        // Remove ID Param
+        const params = new URLSearchParams(window.location.search);
         params.delete("id");
         window.history.replaceState({}, "", `?${params.toString()}`);
     }
@@ -35,7 +41,6 @@ export default function useIDParam() {
 
     // Load Map From ID
     const loadMapFromID = (id: GUID) => {
-        const params = new URLSearchParams(window.location.search);
         const storeRef = collection(db, "maps");
         const docRef = doc(storeRef, id);
 
