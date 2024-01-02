@@ -18,10 +18,17 @@ export default function TransformPanel() {
     const settings = useSettingsValue();
     const fixSprite = useFixSprite();
 
+    // Gets if the selected element is a console object
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
     }, [selectedElem]);
 
+    // Gets if the selected element is a camera object
+    const isCamera = React.useMemo(() => {
+        return selectedElem?.type === "util-cam";
+    }, [selectedElem]);
+
+    // Gets the visibility of the selected element
     const elemVisibility = React.useMemo(() => {
         return getElemVisibility(selectedElem);
     }, [selectedElem]);
@@ -153,7 +160,8 @@ export default function TransformPanel() {
                             icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
                             text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
                             onClick={() => {
-                                setSelectedElem({ ...selectedElem,
+                                setSelectedElem({
+                                    ...selectedElem,
                                     properties: {
                                         ...selectedElem.properties,
                                         isLocked: !selectedElem.properties.isLocked
@@ -190,6 +198,14 @@ export default function TransformPanel() {
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
+            </MapError>
+
+            <MapError
+                isVisible={isCamera}
+                info
+                icon={"paragraph"}
+            >
+                {t("cameras.nameInfo")}
             </MapError>
         </>
     );

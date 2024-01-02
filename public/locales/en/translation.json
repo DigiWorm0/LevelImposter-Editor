@@ -451,7 +451,8 @@
 		"offset": "Offset",
 		"offsetx": "Offset X",
 		"offsety": "Offset Y",
-		"zoom": "Zoom"
+		"zoom": "Zoom",
+		"nameInfo": "Name of the camera object will be displayed in the panel UI."
 	},
 	"display": {
 		"title": "Display",
