@@ -3,7 +3,6 @@ import AddLayerButton from "../components/dialogs/AddLayerButton";
 import AddObjectButton from "../components/dialogs/AddObjectButton";
 import CopyButton from "../components/dialogs/CopyButton";
 import DeleteObjectButton from "../components/dialogs/DeleteObjectButton";
-import DocsButton from "../components/dialogs/DocsButton";
 import NewMapButton from "../components/dialogs/NewMapButton";
 import OpenButton from "../components/dialogs/OpenButton";
 import PasteButton from "../components/dialogs/PasteButton";
@@ -24,7 +23,6 @@ export default function Topbar() {
                 fixedToTop={true}
             >
                 <NavbarGroup>
-
                     <MapName />
                     <NavbarDivider />
                     <OpenButton />
@@ -48,7 +46,6 @@ export default function Topbar() {
                 <NavbarGroup align="right">
                     <SignInButton />
                     <SettingsButton2 />
-                    <DocsButton />
                 </NavbarGroup>
             </Navbar>
         </div>
