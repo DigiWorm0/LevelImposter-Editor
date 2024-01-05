@@ -9,7 +9,7 @@ import useKeyboardInput from "../../hooks/useKeyboardInput";
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
     const settings = useSettingsValue();
-    const isEmbeded = useEmbed();
+    const isEmbedded = useEmbed();
     useKeyboardInput();
     useIDParam();
     useAutoSave();
@@ -20,13 +20,13 @@ export default function GlobalHooks() {
             e.returnValue = "";
         };
 
-        if (!isEmbeded)
+        if (!isEmbedded)
             window.addEventListener("beforeunload", onBeforeUnload);
 
         return () => {
             window.removeEventListener("beforeunload", onBeforeUnload);
         }
-    }, [isEmbeded]);
+    }, [isEmbedded]);
 
     React.useEffect(() => {
         if (settings.language === "auto")

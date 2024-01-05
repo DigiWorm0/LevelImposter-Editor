@@ -1,13 +1,13 @@
-import { Intent, Toaster } from "@blueprintjs/core";
+import { Intent, OverlayToaster } from "@blueprintjs/core";
 
-const toaster = Toaster.create({
-    maxToasts: 5
-});
+const toaster = OverlayToaster.create({
+    maxToasts: 5,
+})
 
 export default function useToaster() {
     const success = (message: string, link?: string) => {
         console.log("Toast Success", message, link);
-        toaster.show({
+        return toaster.show({
             intent: Intent.SUCCESS,
             message,
             icon: "tick",
@@ -24,7 +24,7 @@ export default function useToaster() {
 
     const danger = (message: string, link?: string) => {
         console.log("Toast Danger", message, link);
-        toaster.show({
+        return toaster.show({
             intent: Intent.DANGER,
             message,
             icon: "error",
@@ -40,7 +40,7 @@ export default function useToaster() {
 
     const warning = (message: string) => {
         console.log("Toast Warning", message);
-        toaster.show({
+        return toaster.show({
             intent: Intent.WARNING,
             message,
             icon: "warning-sign",
@@ -49,7 +49,7 @@ export default function useToaster() {
 
     const info = (message: string) => {
         console.log("Toast Info", message);
-        toaster.show({
+        return toaster.show({
             intent: Intent.PRIMARY,
             message,
             icon: "info-sign",
@@ -57,6 +57,8 @@ export default function useToaster() {
     }
 
     return {
+        toast: toaster.show.bind(toaster),
+        dismiss: toaster.dismiss.bind(toaster),
         success,
         danger,
         warning,

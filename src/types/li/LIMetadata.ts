@@ -10,7 +10,8 @@ export default interface LIMetadata {
     authorID: string;
     authorName: string;
     createdAt: number;
-    likeCount: number;
+    likeCount?: number;
+    downloadCount?: number;
     thumbnailURL: string | null;
     remixOf: GUID | null;
 }

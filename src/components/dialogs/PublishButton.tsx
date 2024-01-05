@@ -70,6 +70,7 @@ export default function PublishButton() {
                 authorName: map.authorName,
                 createdAt: new Date().getTime(),
                 likeCount: 0,
+                downloadCount: 0,
                 elements: map.elements,
                 properties: map.properties,
                 thumbnailURL: thumbnailURL,
@@ -113,6 +114,7 @@ export default function PublishButton() {
                 authorName: mapData.authorName,
                 createdAt: mapData.createdAt,
                 likeCount: mapData.likeCount,
+                downloadCount: mapData.downloadCount,
                 thumbnailURL: mapData.thumbnailURL,
                 remixOf: mapData.remixOf,
             };
