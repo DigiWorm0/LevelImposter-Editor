@@ -397,7 +397,12 @@
 		"idwindow": "ID Window",
 		"idface": "ID Face",
 		"pull": "Pull",
-		"flip": "Flip"
+		"flip": "Flip",
+		"progressbar": "Progress Bar",
+		"antenna": "Antenna",
+		"antennatop": "Antenna Top",
+		"radiowave1": "Inner Radio Wave",
+		"radiowave2": "Outer Radio Wave"
 	},
 	"task": {
 		"title": "Task",
@@ -844,6 +849,9 @@
 		"task-replaceparts1": "Get Parts",
 		"task-replaceparts2": "Replace Parts",
 		"task-hoist": "Hoist Resources",
+		"task-download": "Download",
+		"task-upload": "Upload",
+		"task-leaves": "Filter Leaves",
 		"dec-rock1": "Rock 1",
 		"dec-rock2": "Rock 2",
 		"dec-rock3": "Rock 3",

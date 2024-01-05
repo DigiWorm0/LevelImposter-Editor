@@ -142,6 +142,12 @@ const AUMinigameDB: string[] = [
 
     "task-download_bg",
     "task-download_file",
+    "task-download_glass",
+    "task-download_progressbar",
+    "task-download_antenna",
+    "task-download_antennatop",
+    "task-download_radiowave1",
+    "task-download_radiowave2",
 
     "task-drill_bg",
     "task-drill_bgoutline",
@@ -207,6 +213,16 @@ const AUMinigameDB: string[] = [
     "task-keys_keyslot",
     "task-keys_keyslothighlight",
     "task-keys_keyslotinsert",
+
+    "task-leaves_bg",
+    "task-leaves_bgtop",
+    "task-leaves_leaf_1",
+    "task-leaves_leaf_2",
+    "task-leaves_leaf_3",
+    "task-leaves_leaf_4",
+    "task-leaves_leaf_5",
+    "task-leaves_leaf_6",
+    "task-leaves_leaf_7",
 
     "task-mannequin_bg",
     "task-mannequin_targetbg",
@@ -392,6 +408,15 @@ const AUMinigameDB: string[] = [
     "task-tree_arrow",
     "task-tree_bar",
     "task-tree_slider",
+
+    "task-upload_bg",
+    "task-upload_file",
+    "task-upload_glass",
+    "task-upload_progressbar",
+    "task-upload_antenna",
+    "task-upload_antennatop",
+    "task-upload_radiowave1",
+    "task-upload_radiowave2",
 
     "task-vending_bg",
     "task-vending_glass",
