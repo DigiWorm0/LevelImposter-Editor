@@ -17,7 +17,7 @@ async function serializeMap(map: LIMap, onError?: (error: string) => void) {
     const jsonString = toUTF8(JSON.stringify({ ...map, assets: undefined }));
     const jsonLength = jsonString.length;
 
-    console.log(`JSON: ${jsonLength} bytes`, map);
+    console.log(`JSON: ${jsonLength} bytes`);
 
     // Create Data Array
     const dataSize = 4 + jsonLength + assets.reduce((acc, asset) => acc + 36 + 4 + asset.blob.size, 0);

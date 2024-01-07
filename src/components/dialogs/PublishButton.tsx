@@ -2,229 +2,97 @@ import {
     AnchorButton,
     Button,
     ButtonGroup,
+    Classes,
     Dialog,
     EditableText,
-    FormGroup,
     H1,
     H5,
-    ProgressBar
+    ProgressBar,
+    Radio,
+    RadioGroup,
+    Tooltip
 } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
-import { signOut } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
-import { auth, db, storage } from "../../hooks/utils/Firebase";
-import generateGUID from "../../hooks/utils/generateGUID";
-import useMap from "../../hooks/jotai/useMap";
+import { auth } from "../../hooks/utils/Firebase";
+import { useMapAuthorName, useMapDescription, useMapIsPublic, useMapName } from "../../hooks/jotai/useMap";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import openUploadDialog from "../../hooks/utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
-import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
-import GUID from "../../types/generic/GUID";
-import LIMap from "../../types/li/LIMap";
-import LIMetadata from "../../types/li/LIMetadata";
-import AgreementDialog from "./AgreementDialog";
-import useLISerializer from "../../hooks/useLISerializer";
+import usePublishMap from "../../hooks/usePublishMap";
+import ThumbnailEdit from "../utils/ThumbnailEdit";
+import useIsPublished from "../../hooks/jotai/useIsPublished";
 
 export default function PublishButton() {
     const { t } = useTranslation();
     const toaster = useToaster();
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [isAgreementOpen, setIsAgreementOpen] = React.useState(false);
-    const settings = useSettingsValue();
-    const [map, setMap] = useMap();
     const [user] = useAuthState(auth);
-    const [thumbnail, setThumbnail] = React.useState<Blob | undefined>(undefined);
-    const [isPublishing, setIsPublishing] = React.useState(false);
+    const settings = useSettingsValue();
+
+    // State Hooks
+    const [thumbnail, setThumbnail] = React.useState<Blob | null>(null);
     const [uploadProgress, setProgress] = React.useState(0);
-    const serializeMap = useLISerializer();
+    const [isPublishing, setIsPublishing] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    // Map Hooks
+    const [mapName, setMapName] = useMapName();
+    const [description, setDescription] = useMapDescription();
+    const [authorName, setAuthorName] = useMapAuthorName();
+    const [isPublic, setIsPublic] = useMapIsPublic();
+    const isPublished = useIsPublished();
+    const publishMap = usePublishMap();
 
     const isLoggedIn = user !== null;
-    const isRemixed = !(map.authorID === user?.uid || map.authorID === "");
 
-    const publishMap = React.useCallback(async (id?: GUID) => {
-        if (!user?.emailVerified) {
-            toaster.danger(t("publish.errorEmailNotVerified"));
-            return;
-        }
-
-        const oldMapID = map.id;
-        const mapID = id || map.id;
-        const mapStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.lim2`);
-        const imgStorageRef = ref(storage, `maps/${user?.uid}/${mapID}.png`);
-        const storeRef = collection(db, "maps");
-        const docRef = doc(storeRef, mapID);
-
-        const serializeMapData = async (thumbnailURL: string | null) => {
-            const mapData: LIMap = {
-                id: mapID,
-                v: map.v,
-                name: map.name,
-                description: map.description,
-                isPublic: map.isPublic,
-                isVerified: false,
-                authorID: user?.uid ?? "",
-                authorName: map.authorName,
-                createdAt: new Date().getTime(),
-                likeCount: 0,
-                downloadCount: 0,
-                elements: map.elements,
-                properties: map.properties,
-                thumbnailURL: thumbnailURL,
-                remixOf: isRemixed ? oldMapID : map.remixOf,
-                assets: map.assets ?? [],
-            };
-            const mapBytes = await serializeMap(mapData);
-
-            return {
-                mapBytes,
-                mapData,
-            };
-        }
-
-        const uploadToStorage = (name: string, data: Uint8Array | Blob | ArrayBuffer, ref: StorageReference) => {
-            const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=31536000, immutable" });
-
-            return new Promise<void>((resolve, reject) => {
-                uploadTask.on("state_changed", (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log(`${name} upload is ${progress}% done`);
-                    setProgress(progress / 100);
-                }, (err) => {
-                    reject(err);
-                }, () => {
-                    console.log(`${name} is uploaded to firebase storage: ${ref.fullPath}`);
-                    resolve();
-                });
-            });
-        }
-
-        const uploadToFirestore = (mapData: LIMap) => {
-            const metadata: LIMetadata = {
-                v: mapData.v,
-                id: mapData.id,
-                name: mapData.name,
-                description: mapData.description,
-                isPublic: mapData.isPublic,
-                isVerified: mapData.isVerified,
-                authorID: mapData.authorID,
-                authorName: mapData.authorName,
-                createdAt: mapData.createdAt,
-                likeCount: mapData.likeCount,
-                downloadCount: mapData.downloadCount,
-                thumbnailURL: mapData.thumbnailURL,
-                remixOf: mapData.remixOf,
-            };
-
-            return new Promise<void>((resolve, reject) => {
-                setDoc(docRef, metadata).then(() => {
-                    console.log(`Map published to firestore: ${docRef.path}`);
-
-                    const link = `https://levelimposter.net/#/map/${mapData.id}`;
-                    toaster.success(t("publish.success"), link);
-                    const win = window.open(link, "_blank");
-                    win?.focus();
-
-                    resolve();
-                }).catch((err) => {
-                    reject(err);
-                });
-            });
-        }
-        const uploadTask = async () => {
-            let thumbnailURL: string | null = null;
-            if (thumbnail) {
-                await uploadToStorage("Thumbnail", thumbnail, imgStorageRef);
-                thumbnailURL = await getDownloadURL(imgStorageRef);
-            }
-
-            const { mapBytes, mapData } = await serializeMapData(thumbnailURL);
-            await uploadToStorage("LIM", mapBytes, mapStorageRef);
-            await uploadToFirestore(mapData);
-            return mapData;
-        }
-
-        setIsPublishing(true);
+    /**
+     * Publishes the map to the workshop.
+     */
+    const onPublishClick = React.useCallback((isNew: boolean) => {
         setProgress(0);
-        uploadTask().then((mapData) => {
-            setIsPublishing(false);
+        setIsPublishing(true);
+
+        // Run task
+        publishMap(thumbnail, isNew, setProgress).then((id) => {
+
+            // Open Link
+            const link = `https://levelimposter.net/#/map/${id}`;
+            const win = window.open(link, "_blank");
+            win?.focus();
+
+            // Toast
+            toaster.success(t("publish.success"), link);
+
+            // Close
             setIsOpen(false);
-            setMap(mapData);
+            setIsPublishing(false);
         }).catch((err) => {
             console.error(err);
             toaster.danger(err.message);
             setIsPublishing(false);
         });
-    }, [map, user, isRemixed, setMap, toaster, t]);
+    }, [publishMap, thumbnail, toaster, t]);
 
-    const resizeImage = React.useCallback((blob: Blob, width: number, height: number) => {
-        return new Promise<Blob>((resolve, reject) => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            const image = new Image();
-            image.src = URL.createObjectURL(blob);
-            image.onload = () => {
-                canvas.width = width;
-                canvas.height = height;
-                ctx?.drawImage(image, 0, 0, width, height);
-                canvas.toBlob((blob) => {
-                    if (blob) {
-                        resolve(blob);
-                    } else {
-                        reject("Failed to convert image to blob");
-                    }
-                }, "image/png");
-            }
-            image.onerror = (err) => {
-                reject(err);
-            }
-        });
-    }, []);
-
-    const uploadThumbnail = React.useCallback(() => {
-        openUploadDialog("image/*").then((blob) => {
-            return resizeImage(blob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
-        }).then((img) => {
-            setThumbnail(img);
-        }).catch((err) => {
-            console.error(err);
-            toaster.danger(err.message);
-        });
-    }, [resizeImage, toaster]);
-
-    React.useEffect(() => {
-        const authorName = user?.displayName ?? "Anonymous";
-        if (user && isOpen && map.authorName !== authorName) {
-            setMap({
-                ...map,
-                authorName: user?.displayName ?? "Anonymous",
-            });
-            console.log("Author name updated");
-        }
-    }, [user, isOpen, setMap]); // "map" is deliberately excluded
 
     return (
         <>
-            <Tooltip2
+            <Tooltip
                 fill
                 content={t("publish.title") as string}
                 position="bottom"
             >
                 <AnchorButton
                     fill
-                    text={isRemixed ? t("publish.publishRemix") : t("publish.title")}
-                    icon={isRemixed ? "random" : "cloud-upload"}
+                    text={t("publish.title")}
+                    icon={"cloud-upload"}
                     onClick={() => {
                         setIsOpen(true)
                     }}
                     style={{ marginTop: 5 }}
                     intent={"primary"}
-                    disabled={map.elements.length === 0 || isPublishing || !isLoggedIn}
+                    disabled={isPublishing || !isLoggedIn}
                 />
-            </Tooltip2>
+            </Tooltip>
 
             {/*  Publish  */}
 
@@ -237,68 +105,19 @@ export default function PublishButton() {
                 portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
             >
                 <div style={{ margin: 15 }}>
-                    <FormGroup
-                        label={t("account.signedInAs", { name: user?.displayName })}
-                        disabled={isPublishing}
-                    >
-                        <Button
-                            disabled={isPublishing}
-                            icon={"user"}
-                            text={t("account.signOut")}
-                            intent={"danger"}
-                            onClick={() => {
-                                signOut(auth);
-                            }}
-                        />
-                    </FormGroup>
-                    <FormGroup
-                        disabled={isPublishing}
-                        style={{ textAlign: "center" }}
-                        label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
-                    >
-                        <img
-                            src={thumbnail ? URL.createObjectURL(thumbnail) : "/DefaultThumbnail.png"}
-                            style={{
-                                width: THUMBNAIL_WIDTH,
-                                height: THUMBNAIL_HEIGHT,
-                                borderRadius: 5,
-                                border: "1px solid rgb(96, 96, 96)"
-                            }}
-                        />
-                        <ButtonGroup minimal fill>
-                            <Button
-                                fill
-                                minimal
-                                disabled={isPublishing}
-                                icon={"refresh"}
-                                text={t("publish.resetThumbnail") as string}
-                                onClick={() => {
-                                    setThumbnail(undefined);
-                                }}
-                            />
-                            <Button
-                                fill
-                                minimal
-                                disabled={isPublishing}
-                                icon={"upload"}
-                                text={t("publish.uploadThumbnail") as string}
-                                onClick={uploadThumbnail}
-                            />
-                        </ButtonGroup>
-                    </FormGroup>
-                    <div style={{ padding: 15 }}>
+                    <ThumbnailEdit
+                        isDisabled={isPublishing}
+                        thumbnail={thumbnail}
+                        setThumbnail={setThumbnail}
+                    />
+                    <div style={{ padding: 30, paddingBottom: 10 }}>
                         <H1>
                             <EditableText
                                 selectAllOnFocus
                                 disabled={isPublishing}
-                                value={map.name}
                                 placeholder={t("publish.mapName") as string}
-                                onChange={(value) => {
-                                    setMap({
-                                        ...map,
-                                        name: value,
-                                    })
-                                }}
+                                value={mapName}
+                                onChange={setMapName}
                             />
                         </H1>
                         <H5>
@@ -306,14 +125,9 @@ export default function PublishButton() {
                             <EditableText
                                 selectAllOnFocus
                                 disabled={isPublishing}
-                                defaultValue={user?.displayName ?? "Anonymous"}
                                 placeholder={t("publish.authorName") as string}
-                                onChange={(value) => {
-                                    setMap({
-                                        ...map,
-                                        authorName: value,
-                                    });
-                                }}
+                                value={authorName || user?.displayName || "Anonymous"}
+                                onChange={setAuthorName}
                             />
                         </H5>
                         <EditableText
@@ -322,50 +136,62 @@ export default function PublishButton() {
                             minLines={3}
                             selectAllOnFocus
                             disabled={isPublishing}
-                            value={map.description}
                             placeholder={t("publish.mapDescription") as string}
-                            onChange={(value) => {
-                                setMap({
-                                    ...map,
-                                    description: value,
-                                })
-                            }}
+                            value={description}
+                            onChange={setDescription}
                         />
                     </div>
+                    <div style={{ textAlign: "center" }}>
+                        <RadioGroup
+                            disabled={isPublishing}
+                            onChange={(e) => setIsPublic(e.currentTarget.value === "public")}
+                            selectedValue={isPublic ? "public" : "private"}
+                            inline
+                        >
+                            <Radio
+                                label={t("publish.public")}
+                                value="public"
+                            />
+                            <Radio
+                                label={t("publish.private")}
+                                value="private"
+                            />
+                        </RadioGroup>
+                    </div>
+
 
                     <ButtonGroup fill>
                         <Button
+                            style={{ margin: 5 }}
                             fill
-                            style={{ marginRight: 10 }}
                             disabled={isPublishing}
                             icon={"cloud-upload"}
-                            text={t("publish.publishPublic") as string}
+                            text={t("publish.publishNew") as string}
                             intent={"primary"}
-                            onClick={() => {
-                                setMap({
-                                    ...map,
-                                    isPublic: true,
-                                });
-                                setIsAgreementOpen(true);
-                            }}
+                            onClick={() => onPublishClick(true)}
                         />
                         <Button
+                            style={{ margin: 5 }}
                             fill
-                            style={{ marginRight: 10 }}
-                            disabled={isPublishing}
-                            icon={"eye-off"}
-                            text={t("publish.publishPrivate") as string}
+                            disabled={isPublishing || !isPublished}
+                            icon={"updated"}
+                            text={t("publish.publishUpdate") as string}
                             intent={"danger"}
-                            onClick={() => {
-                                setMap({
-                                    ...map,
-                                    isPublic: false,
-                                });
-                                setIsAgreementOpen(true);
-                            }}
+                            onClick={() => onPublishClick(false)}
                         />
-
                     </ButtonGroup>
+
+                    <div style={{ textAlign: "center", marginTop: 10 }}>
+                        <p className={Classes.TEXT_MUTED}>
+                            By publishing, you agree to the
+                            {" "}
+                            <a href="https://levelimposter.net/#/policy" target="_blank">
+                                rules & policies
+                            </a>
+                            {" "}
+                            of the LevelImposter workshop.
+                        </p>
+                    </div>
 
                     {isPublishing &&
                         <div style={{ marginTop: 15 }}>
@@ -377,17 +203,6 @@ export default function PublishButton() {
                     }
                 </div>
             </Dialog>
-
-            <AgreementDialog
-                isOpen={isAgreementOpen}
-                onAgree={() => {
-                    setIsAgreementOpen(false);
-                    publishMap(generateGUID());
-                }}
-                onCancel={() => {
-                    setIsAgreementOpen(false);
-                }}
-            />
         </>
     );
 }

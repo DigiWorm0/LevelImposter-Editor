@@ -44,7 +44,7 @@ function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
     const jsonString = textDecoder.decode(buffer);
     const mapData = JSON.parse(jsonString) as LIMap;
 
-    console.log(`JSON: ${jsonString.length} bytes`, mapData);
+    console.log(`JSON: ${jsonString.length} bytes`);
 
     // Convert
     convertLegacyMap(mapData);
