@@ -139,7 +139,8 @@
 		"none": "No Door",
 		"globalInfo": "Door type is global and can only be changed per-map.",
 		"errorNoRoom": "This door is not attached to a room.",
-		"errorNoDoors": "This map doesn't have any doors. Add a door to the map to connect to this object."
+		"errorNoDoors": "This map doesn't have any doors. Add a door to the map to connect to this object.",
+		"errorMaxDoors": "This map has {{count}} doors of the maximum {{max}}."
 	},
 	"stepSound": {
 		"title": "Step Sound",
@@ -502,9 +503,10 @@
 	},
 	"room": {
 		"title": "Room",
-		"showName": "Show Name",
+		"showName": "Show on Minimap",
 		"showOnAdmin": "Show on Admin Table",
-		"errorNoCollider": "This object does not have a collider. Admin Table will not function and name will not popup for players.",
+		"showOnUI": "Show UI Popup",
+		"errorNoCollider": "This object does not have a collider. Admin Table will not function and UI will not popup for players.",
 		"errorNoRooms": "This map does not have any rooms. Add a room to the map to connect to this object.",
 		"none": "No Room",
 		"default": "Default Room"
@@ -579,7 +581,8 @@
 		"tooLargeWarn": "Map is near the 50MB limit for uploads. It is recommended you remove or compress any custom sprites, gifs, and sounds.",
 		"errorSave": "Error saving map: {{error}}",
 		"errorRemix": "Map author has disabled remixing",
-		"errorOpen": "Error opening map: {{error}}"
+		"errorOpen": "Error opening map: {{error}}",
+		"errorNoPermission": "You do not have permission to edit this map. If you're the author, make sure you're logged in."
 	},
 	"publish": {
 		"title": "Publish To Workshop",
@@ -648,7 +651,7 @@
 			"invisibleOpacity": "Invisible Opacity",
 			"localization": "Localization",
 			"showRoomName": "Show Room Name",
-			"showInfo": "Show Inspector Info",
+			"showInfo": "Show Inspector Tips",
 			"audioDownmix": "Audio Downmix"
 		},
 		"map": {

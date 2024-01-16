@@ -1,5 +1,4 @@
-import { Button, Icon, Intent } from "@blueprintjs/core";
-import { Popover2 } from "@blueprintjs/popover2";
+import { Button, Icon, Intent, Popover } from "@blueprintjs/core";
 import React from "react";
 import { ChromePicker } from "react-color";
 import LIColor from "../../types/li/LIColor";
@@ -26,7 +25,7 @@ export default function ColorPicker(props: ColorPickerProps) {
     }, [props.color]);
 
     return (
-        <Popover2
+        <Popover
             fill={props.fill}
             hasBackdrop={true}
             onOpened={props.onOpen}
@@ -53,7 +52,7 @@ export default function ColorPicker(props: ColorPickerProps) {
             renderTarget={({ isOpen, ref, ...rest }) => (
                 <Button
                     {...rest}
-                    elementRef={ref}
+                    ref={ref}
                     fill={props.fill}
                     minimal={props.minimal}
                     intent={props.intent}

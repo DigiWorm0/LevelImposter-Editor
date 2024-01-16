@@ -13,7 +13,8 @@ import UndoButton from "../components/dialogs/UndoButton";
 import MapName from "../components/scenegraph/MapName";
 import DebugTextBox from "../components/dialogs/DebugTextBox";
 import MapAssetsButton from "../components/dialogs/MapAssetsButton";
-import SettingsButton2 from "../components/dialogs/SettingsButton2";
+import SettingsButton from "../components/dialogs/SettingsButton";
+import MapPropertiesButton from "../components/dialogs/MapPropertiesButton";
 
 export default function Topbar() {
     return (
@@ -45,7 +46,8 @@ export default function Topbar() {
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />
-                    <SettingsButton2 />
+                    <MapPropertiesButton />
+                    <SettingsButton />
                 </NavbarGroup>
             </Navbar>
         </div>

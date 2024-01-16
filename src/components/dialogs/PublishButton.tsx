@@ -9,8 +9,7 @@ import {
     H5,
     ProgressBar,
     Radio,
-    RadioGroup,
-    Tooltip
+    RadioGroup
 } from "@blueprintjs/core";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -76,23 +75,17 @@ export default function PublishButton() {
 
     return (
         <>
-            <Tooltip
+            <AnchorButton
                 fill
-                content={t("publish.title") as string}
-                position="bottom"
-            >
-                <AnchorButton
-                    fill
-                    text={t("publish.title")}
-                    icon={"cloud-upload"}
-                    onClick={() => {
-                        setIsOpen(true)
-                    }}
-                    style={{ marginTop: 5 }}
-                    intent={"primary"}
-                    disabled={isPublishing || !isLoggedIn}
-                />
-            </Tooltip>
+                text={t("publish.title")}
+                icon={"cloud-upload"}
+                onClick={() => {
+                    setIsOpen(true)
+                }}
+                style={{ marginTop: 5 }}
+                intent={"primary"}
+                disabled={isPublishing || !isLoggedIn}
+            />
 
             {/*  Publish  */}
 

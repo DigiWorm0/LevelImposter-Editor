@@ -26,6 +26,11 @@ export default function RoomPanel() {
                     prop="isRoomAdminVisible"
                     defaultValue={true}
                 />
+                <SwitchPanelInput
+                    name="room.showOnUI"
+                    prop="isRoomUIVisible"
+                    defaultValue={true}
+                />
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}

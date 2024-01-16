@@ -1,5 +1,4 @@
-import { Button, Classes } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Button, Classes, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useOpenMap } from "../../hooks/utils/openMap";
 
@@ -9,7 +8,7 @@ export default function OpenButton() {
 
     return (
         <>
-            <Tooltip2
+            <Tooltip
                 content={t("map.open") as string}
                 position="bottom"
             >
@@ -18,7 +17,7 @@ export default function OpenButton() {
                     icon="folder-open"
                     onClick={openMapFile}
                 />
-            </Tooltip2>
+            </Tooltip>
         </>
     );
 }

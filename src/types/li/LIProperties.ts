@@ -115,6 +115,7 @@ export default interface LIProperties {
     // Room
     isRoomNameVisible?: boolean;
     isRoomAdminVisible?: boolean;
+    isRoomUIVisible?: boolean;
 
     // Minimap
     minimapScale?: number;

@@ -65,8 +65,8 @@ export default function MapElement(props: { elementID: GUID }) {
     if (!elem || elem.type === "util-layer")
         return null;
 
-    const w = sprite ? sprite.width : 0;
-    const h = sprite ? sprite.height : 0;
+    const w = (sprite ? sprite.width : 0) * elem.xScale;
+    const h = (sprite ? sprite.height : 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
     const gridSnapResolution = settings.gridSnapResolution ?? DEFAULT_GRID_SNAP_RESOLUTION;
     const invisibleOpacity = settings.invisibleOpacity ?? DEFAULT_INVISIBLE_OPACITY;
@@ -77,79 +77,83 @@ export default function MapElement(props: { elementID: GUID }) {
         (SECONDARY_RENDER_TYPES.includes(elem.type) && isSelected ? invisibleOpacity : 1); // If Element has Secondary Render
 
     return (
-        <Group
-            x={elem.x * UNITY_SCALE}
-            y={-elem.y * UNITY_SCALE}
-            scaleX={elem.xScale}
-            scaleY={elem.yScale}
-            rotation={-elem.rotation}
-            onMouseDown={(e) => {
-                if (e.evt.button === 0 && !elem.properties.isLocked) {
-                    e.target.getParent().startDrag();
-                }
-            }}
-            onDragStart={(e) => {
-                setSelectedID(props.elementID);
-            }}
-            onDragMove={(e) => {
-                if (settings.isGridSnapEnabled ?? true) {
-                    e.target.position({
-                        x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
-                        y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
-                    })
-                }
-                //elem.x = e.target.x() / UNITY_SCALE;
-                //elem.y = -e.target.y() / UNITY_SCALE;
-            }}
-            onDragEnd={(e) => {
-                const x = e.target.x() / UNITY_SCALE;
-                const y = -e.target.y() / UNITY_SCALE;
-                if (x !== elem.x || y !== elem.y)
-                    setElement({ ...elem, x, y });
-            }}
-            onClick={(e) => {
-                e.target.getParent().stopDrag();
-                setSelectedID(props.elementID);
-            }}
-            onMouseEnter={(e) => {
-                setHovering(true);
-                if (!elem.properties.isLocked)
-                    setMouseCursor("pointer");
-                else
+        <>
+            <Group
+                x={elem.x * UNITY_SCALE}
+                y={-elem.y * UNITY_SCALE}
+                scaleX={elem.xScale}
+                scaleY={elem.yScale}
+                rotation={-elem.rotation}
+                onMouseDown={(e) => {
+                    if (e.evt.button === 0 && !elem.properties.isLocked) {
+                        e.target.getParent().startDrag();
+                    }
+                }}
+                onDragStart={(e) => {
+                    setSelectedID(props.elementID);
+                }}
+                onDragMove={(e) => {
+                    if (settings.isGridSnapEnabled ?? true) {
+                        e.target.position({
+                            x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
+                            y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
+                        })
+                    }
+                    //elem.x = e.target.x() / UNITY_SCALE;
+                    //elem.y = -e.target.y() / UNITY_SCALE;
+                }}
+                onDragEnd={(e) => {
+                    const x = e.target.x() / UNITY_SCALE;
+                    const y = -e.target.y() / UNITY_SCALE;
+                    if (x !== elem.x || y !== elem.y)
+                        setElement({ ...elem, x, y });
+                }}
+                onClick={(e) => {
+                    e.target.getParent().stopDrag();
+                    setSelectedID(props.elementID);
+                }}
+                onMouseEnter={(e) => {
+                    setHovering(true);
+                    if (!elem.properties.isLocked)
+                        setMouseCursor("pointer");
+                    else
+                        setMouseCursor("default");
+                }}
+                onMouseLeave={(e) => {
+                    setHovering(false);
                     setMouseCursor("default");
-            }}
-            onMouseLeave={(e) => {
-                setHovering(false);
-                setMouseCursor("default");
-            }}
-            draggable={false}
-            listening={!isColliderSelected && !isEmbeded && isVisible}
-        >
+                }}
+                draggable={false}
+                listening={!isColliderSelected && !isEmbeded && isVisible}
+            >
 
-            <Image
-                opacity={opacity}
-                x={-w / 2}
-                y={-h / 2}
-                width={w}
-                height={h}
-                image={sprite as CanvasImageSource}
-                ref={imageRef}
-            />
-
-            {isSelected || isHovering ? (
-                <Rect
+                <Image
+                    opacity={opacity}
                     x={-w / 2}
                     y={-h / 2}
                     width={w}
                     height={h}
+                    image={sprite as CanvasImageSource}
+                    ref={imageRef}
+                />
+
+
+                {isSelected && (
+                    <SecondaryRender />
+                )}
+            </Group>
+
+            {isSelected || isHovering ? (
+                <Rect
+                    x={-w / 2 + (elem.x * UNITY_SCALE)}
+                    y={-h / 2 - (elem.y * UNITY_SCALE)}
+                    width={w}
+                    height={h}
                     stroke={isSelected ? "#CD4246" : "#C5CBD3"}
                     strokeWidth={2}
+                    listening={false}
                 />
             ) : null}
-
-            {isSelected && (
-                <SecondaryRender />
-            )}
-        </Group>
+        </>
     );
 }

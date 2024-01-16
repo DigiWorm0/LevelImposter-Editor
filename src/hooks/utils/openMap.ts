@@ -56,7 +56,7 @@ export function useOpenMap() {
                 const canRemix = mapData.properties?.canRemix ?? true;
                 const canOpen = canRemix || mapData.authorID === user?.uid;
                 if (!canOpen) {
-                    danger(t("map.errorOpen", { error: "You don't have permission to open this map" }));
+                    danger(t("map.errorOpen", { error: t("map.errorNoPermission") }));
                     return;
                 }
 
