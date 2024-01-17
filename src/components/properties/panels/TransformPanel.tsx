@@ -128,7 +128,7 @@ export default function TransformPanel() {
                                 setSelectedElem({ ...selectedElem, yScale: val });
                             }}
                             fill
-                            leftIcon="arrows-horizontal"
+                            leftIcon="arrows-vertical"
                             placeholder={t("transform.yScale") as string}
                             minorStepSize={0.001}
                             stepSize={0.1}

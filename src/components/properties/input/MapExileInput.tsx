@@ -1,29 +1,22 @@
 import React from "react";
 import { Button, Card, Classes, Icon, MenuItem } from "@blueprintjs/core";
-import useSettings from "../../../hooks/jotai/useSettings";
-import { LANGUAGES } from "../../../types/generic/Constants";
 import { useTranslation } from "react-i18next";
 import { ItemRenderer, Select } from "@blueprintjs/select";
+import { useMapProperties } from "../../../hooks/jotai/useMap";
+import { EXILE_IDS } from "../../../types/au/AUElementDB";
 
 
-export default function SettingsLocalizationInput() {
-    const { t, i18n } = useTranslation();
-    const [settings, setSettings] = useSettings();
-
-    // Gets the language name from the i18n code
-    const getLanguageName = (i18nCode: string): string => {
-        return i18nCode === "auto" ? t("language.auto") : i18n.t(`language.${i18nCode}`) as string;
-    }
+export default function MapExileInput() {
+    const { t } = useTranslation();
+    const [properties, setProperties] = useMapProperties();
 
     // Item Renderer
-    const languageSelectRenderer: ItemRenderer<string> = (i18nCode, props) => (
+    const exileSelectRenderer: ItemRenderer<string> = (exileID, props) => (
         <MenuItem
-            key={i18nCode}
-            text={getLanguageName(i18nCode)}
-            label={i18nCode}
+            key={exileID}
+            text={exileID}
             active={props.modifiers.active}
             disabled={props.modifiers.disabled}
-            intent={i18nCode !== "auto" ? "success" : undefined}
             onClick={props.handleClick}
             onFocus={props.handleFocus}
         />
@@ -33,27 +26,27 @@ export default function SettingsLocalizationInput() {
         <Card style={{ justifyContent: "space-between" }}>
             <div>
                 <Icon
-                    icon={"translate"}
+                    icon={"play"}
                     className={Classes.TEXT_MUTED}
                     style={{ marginRight: 8 }}
                 />
-                {t("settings.interface.localization")}
+                {t("settings.map.exileAnim")}
             </div>
 
             <div style={{ maxWidth: 200 }}>
                 <Select<string>
                     filterable={false}
-                    items={LANGUAGES}
-                    itemRenderer={languageSelectRenderer}
-                    onItemSelect={(i18nCode) => {
-                        setSettings({ ...settings, language: i18nCode });
+                    items={EXILE_IDS}
+                    itemRenderer={exileSelectRenderer}
+                    onItemSelect={(exileID) => {
+                        setProperties({ ...properties, exileID });
                     }}
                     popoverProps={{ minimal: true }}
                 >
 
                     <Button
                         rightIcon="caret-down"
-                        text={getLanguageName(settings.language || "auto")}
+                        text={properties.exileID || t("settings.map.setAnim") as string}
                         style={{ marginLeft: 10, marginTop: -5, width: 180 }}
                     />
                 </Select>

@@ -25,7 +25,7 @@ export default function SettingsButton() {
             >
                 <Button
                     className={Classes.MINIMAL}
-                    icon="modal"
+                    icon="cog"
                     onClick={() => {
                         setIsOpen(true)
                     }}
@@ -41,8 +41,8 @@ export default function SettingsButton() {
             >
                 <Section
                     icon={"cog"}
-                    title={t("settings.title")}
-                    subtitle={t("settings.interface.title")}
+                    title={t("settings.interface.title")}
+                    subtitle={t("settings.interface.subtitle")}
                 >
                     <CardList bordered={false} compact>
                         <SettingsSwitchInput

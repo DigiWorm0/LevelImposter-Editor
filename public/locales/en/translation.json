@@ -634,9 +634,9 @@
 		"gasColor": "Gas Color"
 	},
 	"settings": {
-		"title": "Settings",
 		"interface": {
-			"title": "Interface",
+			"title": "Settings",
+			"subtitle": "Interface",
 			"devMode": "Developer Mode",
 			"darkMode": "Dark Mode",
 			"colliderPreview": "Collider Preview",
@@ -656,7 +656,8 @@
 		},
 		"map": {
 			"title": "Map",
-			"showPingTracker": "Show Ping Tracker",
+			"subtitle": "Properties",
+			"showPingTracker": "Show Map Info in Ping Tracker",
 			"pixelArtMode": "Pixel Art Mode",
 			"preloadAllGIFs": "Preload All GIFs",
 			"triggerLogging": "Trigger Logging",

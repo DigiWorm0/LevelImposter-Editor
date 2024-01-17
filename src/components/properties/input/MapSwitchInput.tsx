@@ -1,33 +1,33 @@
 import React from "react";
 import { Classes, Icon, IconName, SwitchCard } from "@blueprintjs/core";
-import LISettings from "../../../types/li/LISettings";
-import useSettings from "../../../hooks/jotai/useSettings";
+import LIMapProperties from "../../../types/li/LIMapProperties";
+import { useMapProperties } from "../../../hooks/jotai/useMap";
 
-export interface SettingsSwitchInputProps {
+export interface MapSwitchInputProps {
     name: string;
-    prop?: keyof LISettings;
+    prop?: keyof LIMapProperties;
     defaultValue: boolean;
 
     icon?: IconName;
 }
 
-export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
-    const [settings, setSettings] = useSettings();
+export default function MapSwitchInput(props: MapSwitchInputProps) {
+    const [properties, setProperties] = useMapProperties();
 
     const value = React.useMemo(() => {
         if (props.prop === undefined)
             return false;
-        return (settings[props.prop] as boolean) ?? props.defaultValue;
-    }, [settings, props.prop, props.defaultValue]);
+        return (properties[props.prop] as boolean) ?? props.defaultValue;
+    }, [properties, props.prop, props.defaultValue]);
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (props.prop === undefined)
             return;
-        setSettings({
-            ...settings,
+        setProperties({
+            ...properties,
             [props.prop]: e.target.checked
         });
-    }, [settings, props.prop, setSettings]);
+    }, [properties, props.prop, setProperties]);
 
     return (
         <SwitchCard
