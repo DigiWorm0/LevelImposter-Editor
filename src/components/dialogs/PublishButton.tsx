@@ -61,6 +61,8 @@ export default function PublishButton() {
 
             // Toast
             toaster.success(t("publish.success"), link);
+            if (!isNew)
+                toaster.info(t("publish.cacheInfo"));
 
             // Close
             setIsOpen(false);

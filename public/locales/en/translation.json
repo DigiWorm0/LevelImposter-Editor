@@ -604,6 +604,7 @@
 		"cancel": "Cancel",
 		"resetThumbnail": "Reset Thumbnail",
 		"uploadThumbnail": "Upload Thumbnail",
+		"cacheInfo": "Note: Map preview may take up to 24hrs to refresh due to cache.",
 		"errorNotLoggedIn": "You must be logged in to publish maps.",
 		"errorEmailNotVerified": "You must verify your email before publishing maps.",
 		"errorNotAuthor": "You must be the author of this map to publish it.",

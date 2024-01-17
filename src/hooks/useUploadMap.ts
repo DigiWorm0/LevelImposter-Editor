@@ -18,7 +18,7 @@ export default function useUploadMap() {
         data: Uint8Array | Blob | ArrayBuffer,
         onProgress: (percent: number) => void
     ) => {
-        const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=31536000, immutable" });
+        const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=86400" });
         await new Promise<void>((resolve, reject) => {
             uploadTask.on(
                 "state_changed",
