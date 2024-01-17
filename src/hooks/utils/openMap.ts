@@ -52,6 +52,7 @@ export function useOpenMap() {
 
             deserializeMap(file).then((mapData) => {
 
+                /*
                 // Check Permissions
                 const canRemix = mapData.properties?.canRemix ?? true;
                 const canOpen = canRemix || mapData.authorID === user?.uid;
@@ -59,6 +60,9 @@ export function useOpenMap() {
                     danger(t("map.errorOpen", { error: t("map.errorNoPermission") }));
                     return;
                 }
+                // TODO: Fix me!
+                */
+
 
                 // Success
                 success(t("map.opened", { name: mapData?.name }));
