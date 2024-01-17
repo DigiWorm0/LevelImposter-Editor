@@ -7,7 +7,6 @@ import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import SizeTag from "../../utils/SizeTag";
 import MapAsset from "../../../types/li/MapAssetDB";
-import generateGUID from "../../../hooks/utils/generateGUID";
 import GUID from "../../../types/generic/GUID";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
 import duplicateBlob from "../../../hooks/utils/duplicateBlob";
@@ -58,10 +57,11 @@ export default function ImageUpload(props: ImageUploadProps) {
         if (files.length > 0) {
             const file = files[0];
             if (file.type.startsWith("image/")) {
-                props.onUpload({
-                    id: generateGUID(),
-                    blob: file,
-                    url: URL.createObjectURL(file),
+                duplicateBlob(file).then((blob) => {
+                    props.onUpload(createMapAsset(blob));
+                }).catch((e) => {
+                    console.warn(e);
+                    toaster.warning(e);
                 });
             } else {
                 toaster.danger(t("sprite.errorInvalidType"));

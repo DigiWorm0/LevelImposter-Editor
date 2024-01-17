@@ -5,7 +5,7 @@ import generateGUID from "../../../hooks/utils/generateGUID";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import DevInfo from "../../utils/DevInfo";
 import ImageUpload from "../util/ImageUpload";
-import { MapAsset } from "../../../types/li/MapAssetDB";
+import MapAsset from "../../../types/li/MapAssetDB";
 
 interface MinigameEditorPanelProps {
     minigameType: string;

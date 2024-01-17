@@ -35,7 +35,7 @@ export default function MapAssetsDialog(props: MapAssetsDialogProps) {
                 isOpen={props.isOpen}
                 onClose={props.onClose}
                 title={"Map Asset DB"}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
             >
                 <div style={{ margin: 15 }}>
                     <Menu>

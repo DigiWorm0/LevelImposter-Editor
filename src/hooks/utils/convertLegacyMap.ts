@@ -1,8 +1,17 @@
 import LIMap from "../../types/li/LIMap";
 import generateGUID from "./generateGUID";
 import GUID from "../../types/generic/GUID";
+import convertOldLegacyMap from "./convertOldLegacyMap";
 
+/**
+ * Converts .LIM to .LIM2
+ * @param mapData - .LIM Map Data
+ */
 export default function convertLegacyMap(mapData: LIMap) {
+
+    // Check for .JSON file
+    if ("objs" in mapData)
+        convertOldLegacyMap(mapData);
 
     // Reset
     mapData.assets = [];
@@ -31,6 +40,13 @@ export default function convertLegacyMap(mapData: LIMap) {
             console.log(`Converting SpriteData of ${element.id}`);
             element.properties.spriteID = addAsset(element.properties.spriteData);
             element.properties.spriteData = undefined;
+        }
+
+        // Meeting Background
+        if (element.properties.meetingBackground != undefined) {
+            console.log(`Converting MeetingBackground of ${element.id}`);
+            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground);
+            element.properties.meetingBackground = undefined;
         }
 
         // Sound Data

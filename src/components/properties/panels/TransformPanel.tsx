@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup, ControlGroup, InputGroup, NumericInput } from "@blueprintjs/core";
+import { Button, ButtonGroup, ControlGroup, InputGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import getElemVisibility, { ElemVisibility } from "../../../hooks/utils/getMapVisibility";
 import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../../hooks/jotai/useSelectedElem";
@@ -9,6 +9,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import getIsConsole from "../../../hooks/utils/getIsConsole";
 import useFixSprite from "../../../hooks/useFixSprite";
+import FlexNumericInput from "../util/FlexNumericInput";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -18,10 +19,17 @@ export default function TransformPanel() {
     const settings = useSettingsValue();
     const fixSprite = useFixSprite();
 
+    // Gets if the selected element is a console object
     const isConsole = React.useMemo(() => {
         return getIsConsole(selectedElem?.type || "");
     }, [selectedElem]);
 
+    // Gets if the selected element is a camera object
+    const isCamera = React.useMemo(() => {
+        return selectedElem?.type === "util-cam";
+    }, [selectedElem]);
+
+    // Gets the visibility of the selected element
     const elemVisibility = React.useMemo(() => {
         return getElemVisibility(selectedElem);
     }, [selectedElem]);
@@ -67,11 +75,10 @@ export default function TransformPanel() {
                 />
                 {selectedElem.type !== "util-layer" && (<>
                     <ControlGroup fill>
-                        <NumericInput
-                            key={selectedElem.id + "-x"}
-                            defaultValue={selectedElem.x}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, x: val });
+                        <FlexNumericInput
+                            value={selectedElem.x}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, x: val });
                             }}
                             fill
                             placeholder={t("transform.x") as string}
@@ -79,11 +86,10 @@ export default function TransformPanel() {
                             stepSize={0.1}
                             majorStepSize={1}
                         />
-                        <NumericInput
-                            key={selectedElem.id + "-y"}
-                            defaultValue={selectedElem.y}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, y: val });
+                        <FlexNumericInput
+                            value={selectedElem.y}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, y: val });
                             }}
                             fill
                             placeholder={t("transform.y") as string}
@@ -91,11 +97,10 @@ export default function TransformPanel() {
                             stepSize={0.1}
                             majorStepSize={1}
                         />
-                        <NumericInput
-                            key={selectedElem.id + "-z"}
-                            defaultValue={selectedElem.z}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, z: val });
+                        <FlexNumericInput
+                            value={selectedElem.z}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, z: val });
                             }}
                             fill
                             placeholder={t("transform.z") as string}
@@ -105,39 +110,36 @@ export default function TransformPanel() {
                         />
                     </ControlGroup>
                     <ControlGroup fill>
-                        <NumericInput
-                            key={selectedElem.id + "-xScale"}
-                            defaultValue={selectedElem.xScale}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, xScale: val });
+                        <FlexNumericInput
+                            value={selectedElem.xScale}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, xScale: val });
                             }}
                             fill
                             leftIcon="arrows-horizontal"
                             placeholder={t("transform.xScale") as string}
-                            minorStepSize={0.01}
+                            minorStepSize={0.001}
                             stepSize={0.1}
                             majorStepSize={1}
                         />
-                        <NumericInput
-                            key={selectedElem.id + "-yScale"}
-                            defaultValue={selectedElem.yScale}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, yScale: val });
+                        <FlexNumericInput
+                            value={selectedElem.yScale}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, yScale: val });
                             }}
                             fill
                             leftIcon="arrows-vertical"
                             placeholder={t("transform.yScale") as string}
-                            minorStepSize={0.01}
+                            minorStepSize={0.001}
                             stepSize={0.1}
                             majorStepSize={1}
                         />
                     </ControlGroup>
                     <ControlGroup fill>
-                        <NumericInput
-                            key={selectedElem.id + "-rotation"}
-                            defaultValue={selectedElem.rotation}
-                            onValueChange={(val) => {
-                                !isNaN(val) && setSelectedElem({ ...selectedElem, rotation: val });
+                        <FlexNumericInput
+                            value={selectedElem.rotation}
+                            onChange={(val) => {
+                                setSelectedElem({ ...selectedElem, rotation: val });
                             }}
                             fill
                             leftIcon="refresh"
@@ -153,7 +155,8 @@ export default function TransformPanel() {
                             icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
                             text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
                             onClick={() => {
-                                setSelectedElem({ ...selectedElem,
+                                setSelectedElem({
+                                    ...selectedElem,
                                     properties: {
                                         ...selectedElem.properties,
                                         isLocked: !selectedElem.properties.isLocked
@@ -190,6 +193,14 @@ export default function TransformPanel() {
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
+            </MapError>
+
+            <MapError
+                isVisible={isCamera}
+                info
+                icon={"paragraph"}
+            >
+                {t("cameras.nameInfo")}
             </MapError>
         </>
     );

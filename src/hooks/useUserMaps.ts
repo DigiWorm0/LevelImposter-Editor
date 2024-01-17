@@ -27,9 +27,9 @@ export function useUserMaps(userID?: string) {
     return mapList;
 }
 
-async function _getMaps(contraints: QueryConstraint[]) {
+async function _getMaps(constraints: QueryConstraint[]) {
     const storeRef = collection(db, "maps");
-    const mapsQuery = query(storeRef, ...contraints);
+    const mapsQuery = query(storeRef, ...constraints);
     const docs = await getDocs(mapsQuery);
     return docs.docs.map(doc => doc.data() as LIMetadata);
 }

@@ -1,16 +1,11 @@
 import React from "react";
 import LIMap from "../types/li/LIMap";
 import GUID from "../types/generic/GUID";
-import { useSetMap } from "./jotai/useMap";
 import convertLegacyMap from "./utils/convertLegacyMap";
 import { MAP_FORMAT_VER } from "../types/generic/Constants";
 import { DEFAULT_GUID } from "./utils/generateGUID";
-import { useSaveHistory } from "./jotai/useHistory";
 
 export default function useLIDeserializer() {
-    const setMap = useSetMap();
-    const saveHistory = useSaveHistory();
-
     return React.useCallback((file: Blob) => {
         return new Promise<LIMap>((resolve, reject) => {
             const reader = new FileReader();
@@ -28,8 +23,6 @@ export default function useLIDeserializer() {
                         reject("Failed to deserialize file data");
                         return;
                     }
-                    setMap(mapData);
-                    saveHistory();
                     resolve(mapData);
                 } catch (e) {
                     reject(e);
@@ -51,7 +44,7 @@ function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
     const jsonString = textDecoder.decode(buffer);
     const mapData = JSON.parse(jsonString) as LIMap;
 
-    console.log(`JSON: ${jsonString.length} bytes`, mapData);
+    console.log(`JSON: ${jsonString.length} bytes`);
 
     // Convert
     convertLegacyMap(mapData);

@@ -25,7 +25,11 @@ const DEFAULT_MAP: LIMap = {
 
 // Atoms
 export const mapAtom = atomWithReset(DEFAULT_MAP);
+export const mapIDAtom = focusAtom(mapAtom, (optic) => optic.prop("id"));
 export const mapNameAtom = focusAtom(mapAtom, (optic) => optic.prop("name"));
+export const mapDescriptionAtom = focusAtom(mapAtom, (optic) => optic.prop("description"));
+export const mapIsPublicAtom = focusAtom(mapAtom, (optic) => optic.prop("isPublic"));
+export const mapAuthorNameAtom = focusAtom(mapAtom, (optic) => optic.prop("authorName"));
 export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
 export const elementIDsAtom = atom((get) => {
@@ -35,6 +39,9 @@ export const elementIDsAtom = atom((get) => {
 // Debug
 mapAtom.debugLabel = "mapAtom";
 mapNameAtom.debugLabel = "mapNameAtom";
+mapDescriptionAtom.debugLabel = "mapDescriptionAtom";
+mapIsPublicAtom.debugLabel = "mapIsPublicAtom";
+mapAuthorNameAtom.debugLabel = "mapAuthorNameAtom";
 mapPropsAtom.debugLabel = "mapPropsAtom";
 elementsAtom.debugLabel = "elementsAtom";
 elementIDsAtom.debugLabel = "elementIDsAtom";
@@ -52,8 +59,24 @@ export function useMapValue() {
     return useAtomValue(mapAtom);
 }
 
+export function useMapID() {
+    return useAtomValue(mapIDAtom);
+}
+
 export function useMapName() {
     return useAtom(mapNameAtom);
+}
+
+export function useMapDescription() {
+    return useAtom(mapDescriptionAtom);
+}
+
+export function useMapIsPublic() {
+    return useAtom(mapIsPublicAtom);
+}
+
+export function useMapAuthorName() {
+    return useAtom(mapAuthorNameAtom);
 }
 
 export function useMapProperties() {

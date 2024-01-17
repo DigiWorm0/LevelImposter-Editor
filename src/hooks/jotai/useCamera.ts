@@ -28,6 +28,11 @@ export default function useCamera(w: number, h: number) {
         setZoom(z => z * zoomDelta);
         setX(x => ((x + (w / 2)) * zoomDelta) - (w / 2));
         setY(y => ((y + (h / 2)) * zoomDelta) - (h / 2));
+
+        e.stopPropagation();
+        e.preventDefault();
+        e.returnValue = false;
+        return false;
     }
 
     const onMouseMove = (e: MouseEvent) => {
@@ -41,7 +46,7 @@ export default function useCamera(w: number, h: number) {
     }
 
     React.useEffect(() => {
-        document.addEventListener('wheel', onMouseScroll, { passive: true });
+        document.addEventListener('wheel', onMouseScroll, { passive: false });
         document.addEventListener('mousemove', onMouseMove);
         return () => {
             document.removeEventListener('wheel', onMouseScroll);

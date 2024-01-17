@@ -1,5 +1,4 @@
-import { Button, ButtonGroup, Card, Classes, Dialog, FormGroup, Tag } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { Button, ButtonGroup, Card, Classes, Dialog, FormGroup, Tag, Tooltip } from "@blueprintjs/core";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,7 +8,6 @@ import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { useUserMaps } from "../../hooks/useUserMaps";
 import SignIn from "../utils/SignIn";
 import PublishButton from "./PublishButton";
-import SaveButton from "./SaveButton";
 
 export default function SignInButton() {
     const { t } = useTranslation();
@@ -21,10 +19,10 @@ export default function SignInButton() {
 
     return (
         <>
-            <Tooltip2
+            <Tooltip
                 content={(isLoggedIn && user?.displayName) ? user?.displayName : t("account.signIn") as string}
-                position="bottom">
-
+                position="bottom"
+            >
                 <Button
                     className={Classes.MINIMAL}
                     icon={
@@ -34,7 +32,8 @@ export default function SignInButton() {
                                 alt={user?.displayName || ""}
                                 className="avatar"
                                 src={user?.photoURL || ""}
-                                style={{ height: 30, width: 30, borderRadius: 15 }} />
+                                style={{ height: 30, width: 30, borderRadius: 15 }}
+                            />
                             :
                             "log-in"
                     }
@@ -42,8 +41,7 @@ export default function SignInButton() {
                         setIsOpen(true)
                     }}
                 />
-
-            </Tooltip2>
+            </Tooltip>
 
 
             <Dialog
@@ -53,10 +51,9 @@ export default function SignInButton() {
                 }}
                 title={t("account.signIn")}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+            >
                 <SignIn />
-
             </Dialog>
 
             <Dialog
@@ -66,14 +63,15 @@ export default function SignInButton() {
                 }}
                 title={user?.displayName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
-
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+            >
                 <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
                     <img
                         referrerPolicy="no-referrer"
                         alt={user?.displayName || ""}
                         src={user?.photoURL || ""}
-                        style={{ width: 100, height: 100, borderRadius: 50, objectFit: "cover", marginRight: 20 }} />
+                        style={{ width: 100, height: 100, borderRadius: 50, objectFit: "cover", marginRight: 20 }}
+                    />
                     <FormGroup>
                         <h1 style={{ marginBottom: 15, marginTop: 10 }}>
                             {user?.displayName}
@@ -95,7 +93,8 @@ export default function SignInButton() {
                                 intent={"danger"}
                                 onClick={() => {
                                     signOut(auth);
-                                }} />
+                                }}
+                            />
                         </ButtonGroup>
                     </FormGroup>
                 </div>
@@ -131,10 +130,10 @@ export default function SignInButton() {
                                         map.description}
                                 </p>
 
-                                <Tooltip2
+                                <Tooltip
                                     content={t("map.viewExternal") as string}
-                                    position="bottom">
-
+                                    position="bottom"
+                                >
                                     <Button
                                         icon={"share"}
                                         text={t("map.view") as string}
@@ -143,12 +142,11 @@ export default function SignInButton() {
                                             window.open(`https://levelimposter.net/#/map/${map.id}`);
                                         }}
                                     />
-                                </Tooltip2>
-
-
-                                <Tooltip2
+                                </Tooltip>
+                                <Tooltip
                                     content={t("map.edit") as string}
-                                    position="bottom">
+                                    position="bottom"
+                                >
                                     <Button
                                         icon={"edit"}
                                         text={t("map.edit") as string}
@@ -160,12 +158,10 @@ export default function SignInButton() {
                                         }}
                                         style={{ marginLeft: 5 }}
                                     />
-                                </Tooltip2>
+                                </Tooltip>
                             </Card>
                         );
                     })}
-
-                    <SaveButton isButton={true} />
                     <PublishButton />
                 </div>
 

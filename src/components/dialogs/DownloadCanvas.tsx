@@ -36,7 +36,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                 isOpen={props.isVisible}
                 onClose={() => props.setVisible(false)}
                 title={t("minimap.download")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
 
                 {(props.isVisible && minimap !== undefined) && (
                     <Stage

@@ -16,7 +16,7 @@ export default function SaveButton(props: { isButton?: boolean }) {
                 fill={props.isButton ?? false}
             >
                 <Button
-                    minimal={!props.isButton ?? true}
+                    minimal={!props.isButton}
                     fill={props.isButton ?? false}
                     icon="floppy-disk"
                     intent={props.isButton ? "success" : undefined}

@@ -15,14 +15,11 @@ export default function CheckMobile() {
 
         if (isMobile) {
             setDialogText(t("warning.mobile") as string);
-        }
-        else if (isFirefox && !settings.isBrowserAccepted) {
+        } else if (isFirefox && !settings.isBrowserAccepted) {
             setDialogText(t("warning.firefox") as string);
-        }
-        else if (isOpera && !settings.isBrowserAccepted) {
+        } else if (isOpera && !settings.isBrowserAccepted) {
             setDialogText(t("warning.opera") as string);
-        }
-        else {
+        } else {
             setDialogText(undefined);
         }
     }, [settings.isBrowserAccepted]);
@@ -33,9 +30,9 @@ export default function CheckMobile() {
                 isOpen={dialogText !== undefined}
                 onClose={() => setDialogText(undefined)}
                 title={t("warning.title") as string}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
 
-                <div style={{ margin: 15 }} >
+                <div style={{ margin: 15 }}>
                     <p>
                         {dialogText}
                     </p>

@@ -115,6 +115,7 @@ export default interface LIProperties {
     // Room
     isRoomNameVisible?: boolean;
     isRoomAdminVisible?: boolean;
+    isRoomUIVisible?: boolean;
 
     // Minimap
     minimapScale?: number;
@@ -124,7 +125,12 @@ export default interface LIProperties {
     spawnDummies?: boolean;
 
     // Meeting
+
+    /**
+     * @deprecated Use meetingBackgroundID instead
+     */
     meetingBackground?: string;
+    meetingBackgroundID?: GUID;
 
     // Editor
     isLocked?: boolean;

@@ -14,7 +14,7 @@ export default function Content() {
     const settings = useSettingsValue();
 
     return (
-        <div className={"app" + (settings.isDarkMode === false ? "" : " bp4-dark")}>
+        <div className={"app" + (settings.isDarkMode === false ? "" : " bp5-dark")}>
             <GlobalHooks />
 
             {!isEmbeded && (<>

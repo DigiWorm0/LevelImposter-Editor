@@ -1,5 +1,3 @@
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
@@ -12,6 +10,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 import { DoorType } from "../../../types/generic/DoorType";
+import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
@@ -19,6 +18,7 @@ const DOOR_CLOSE_SOUND = "doorClose";
 export default function DoorPanel() {
     const { t } = useTranslation();
     const roomElems = useElementType("util-room");
+    const doorElems = useElementType("sab-door");
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
@@ -79,10 +79,15 @@ export default function DoorPanel() {
                 {t("door.errorNoRoom")}
             </MapError>
             <MapError
+                isVisible={doorElems.length > MAX_DOOR_COUNT - 10}
+            >
+                {t("door.errorMaxDoors", { count: doorElems.length, max: MAX_DOOR_COUNT })}
+            </MapError>
+            <MapError
                 isVisible={isNotWav}
                 icon="volume-off"
             >
-                {t("audio.errorNotWav") as string}
+                {t("audio.errorNotWav")}
             </MapError>
         </>
     );

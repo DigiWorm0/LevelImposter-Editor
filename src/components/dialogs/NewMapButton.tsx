@@ -31,15 +31,19 @@ export default function NewMapButton() {
                 <Button
                     className={Classes.MINIMAL}
                     icon="document"
-                    onClick={() => { setIsVisible(true); }} />
+                    onClick={() => {
+                        setIsVisible(true);
+                    }} />
 
             </Tooltip2>
 
             <Dialog
                 isOpen={isVisible}
-                onClose={() => { setIsVisible(false); }}
+                onClose={() => {
+                    setIsVisible(false);
+                }}
                 title={t("map.new") as string}
-                portalClassName={settings.isDarkMode === false ? "" : "bp4-dark"}>
+                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
 
                 <div style={{ margin: 15 }}>
                     <p>
@@ -47,12 +51,16 @@ export default function NewMapButton() {
                     </p>
 
                     <Button
-                        onClick={() => { onClear(); }}
+                        onClick={() => {
+                            onClear();
+                        }}
                         text={t("map.new") as string}
                         intent="danger"
                         style={{ marginRight: 10 }} />
                     <Button
-                        onClick={() => { setIsVisible(false); }}
+                        onClick={() => {
+                            setIsVisible(false);
+                        }}
                         text={t("map.newDialogCancel") as string}
                     />
                 </div>
