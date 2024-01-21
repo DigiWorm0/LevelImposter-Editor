@@ -50,6 +50,8 @@ export default function MapElement(props: { elementID: GUID }) {
         <Group
             x={elem.x * UNITY_SCALE}
             y={-elem.y * UNITY_SCALE}
+            scaleX={elem.xScale < 0 ? -1 : 1}
+            scaleY={elem.yScale < 0 ? -1 : 1}
             rotation={-elem.rotation}
             onMouseDown={(e) => {
                 if (e.evt.button === 0 && !elem.properties.isLocked) {
