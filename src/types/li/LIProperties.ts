@@ -64,6 +64,7 @@ export default interface LIProperties {
     // Teleporter
     teleporter?: GUID;
     preserveOffset?: boolean;
+    isEnabled?: boolean;
     isGhostEnabled?: boolean;
 
     // Camera

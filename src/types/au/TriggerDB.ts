@@ -126,6 +126,11 @@ const InputTriggerDB: Record<string, string[]> = {
         "endReactor",
         "endMixup"
     ],
+    "util-tele": [
+        "enable",
+        "disable",
+        "toggle",
+    ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,
     "util-button1": consoleTriggers,
