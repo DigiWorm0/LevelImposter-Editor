@@ -5,7 +5,6 @@ import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } 
 import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
 import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
-import { useJumpToElement } from "../../hooks/jotai/useCamera";
 
 const ICON_DB: Record<string, IconName> = {
     "util-blank": "media",
@@ -39,7 +38,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     const childIDs = useElementChildren(props.elementID);
     const settings = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
-    const jumpToElement = useJumpToElement();
 
     const getIcon = (type: string): IconName => {
         let icon = ICON_DB[type];
@@ -130,9 +128,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                 disabled={isDisabled}
                 intent={intent}
                 onClick={() => setSelectedID(element.id)}
-                onDoubleClick={() => {
-                    jumpToElement(element);
-                }}
                 labelElement={
                     element.type === "util-layer" ? (
                         <Button

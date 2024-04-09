@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, Classes, Dialog, FormGroup, Tag, Tooltip } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup, Tooltip } from "@blueprintjs/core";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -8,6 +8,7 @@ import { useSettingsValue } from "../../hooks/jotai/useSettings";
 import { useUserMaps } from "../../hooks/useUserMaps";
 import SignIn from "../utils/SignIn";
 import PublishButton from "./PublishButton";
+import MapThumbnail from "../utils/MapThumbnail";
 
 export default function SignInButton() {
     const { t } = useTranslation();
@@ -99,69 +100,11 @@ export default function SignInButton() {
                     </FormGroup>
                 </div>
                 <div style={{ margin: 15 }}>
-                    <h2 style={{ marginTop: 0, marginBottom: 5 }}>
-                        {t("account.yourMaps")}
-                    </h2>
                     {maps.length <= 0 ? (
                         <p>
                             {t("account.noMaps")}
                         </p>
-                    ) : maps.map((map) => {
-                        return (
-                            <Card style={{ marginTop: 5 }} key={map.id}>
-                                {!map.isPublic && (
-                                    <Tag
-                                        intent="danger">
-                                        {t("map.unlisted")}
-                                    </Tag>
-                                )}
-                                {map.isVerified && (
-                                    <Tag
-                                        intent="warning">
-                                        {t("map.verified")}
-                                    </Tag>
-                                )}
-                                <h3 style={{ marginTop: 5, marginBottom: 10 }}>
-                                    {map.name}
-                                </h3>
-                                <p>
-                                    {map.description === "" ?
-                                        (<i>{t("map.noDescription")}</i>) :
-                                        map.description}
-                                </p>
-
-                                <Tooltip
-                                    content={t("map.viewExternal") as string}
-                                    position="bottom"
-                                >
-                                    <Button
-                                        icon={"share"}
-                                        text={t("map.view") as string}
-                                        intent={"primary"}
-                                        onClick={() => {
-                                            window.open(`https://levelimposter.net/#/map/${map.id}`);
-                                        }}
-                                    />
-                                </Tooltip>
-                                <Tooltip
-                                    content={t("map.edit") as string}
-                                    position="bottom"
-                                >
-                                    <Button
-                                        icon={"edit"}
-                                        text={t("map.edit") as string}
-                                        intent={"danger"}
-                                        onClick={() => {
-                                            const url = new URL(window.location.href);
-                                            url.searchParams.set("id", map.id);
-                                            window.location.href = url.href;
-                                        }}
-                                        style={{ marginLeft: 5 }}
-                                    />
-                                </Tooltip>
-                            </Card>
-                        );
-                    })}
+                    ) : maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
                     <PublishButton />
                 </div>
 

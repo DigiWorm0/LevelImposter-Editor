@@ -1,9 +1,6 @@
 import { HotkeyConfig, useHotkeys } from "@blueprintjs/core";
-import { useSetAtom } from "jotai";
 import React from "react";
-import { CAM_SPEED } from "../types/generic/Constants";
 import generateGUID from "./utils/generateGUID";
-import { camXAtom, camYAtom } from "./jotai/useCamera";
 import useClipboard from "./jotai/useClipboard";
 import { useAddElementAtMouse } from "./jotai/useElements";
 import { useRedo, useUndo } from "./jotai/useHistory";
@@ -22,8 +19,6 @@ export default function useKeyboardInput() {
     const setSettings = useSetSettings();
     const setSelectedID = useSetSelectedElemID();
     const toaster = useToaster();
-    const setCamX = useSetAtom(camXAtom);
-    const setCamY = useSetAtom(camYAtom);
     const saveMap = useSaveMap();
 
 
@@ -178,53 +173,8 @@ export default function useKeyboardInput() {
                 redo();
             },
             preventDefault: true,
-        },
-        {
-            global: true,
-            group: "Camera",
-            label: "Move Up",
-            combo: "up",
-            description: "Move camera up",
-            onKeyDown: () => {
-                console.log("move up", setCamY);
-                setCamY(y => y + CAM_SPEED);
-            },
-            preventDefault: true,
-        },
-        {
-            global: true,
-            group: "Camera",
-            label: "Move Down",
-            combo: "down",
-            description: "Move camera down",
-            onKeyDown: () => {
-                setCamY(y => y - CAM_SPEED);
-            },
-            preventDefault: true,
-        },
-        {
-            global: true,
-            group: "Camera",
-            label: "Move Left",
-            combo: "left",
-            description: "Move camera left",
-            onKeyDown: () => {
-                setCamX(x => x + CAM_SPEED);
-            },
-            preventDefault: true,
-        },
-        {
-            global: true,
-            group: "Camera",
-            label: "Move Right",
-            combo: "right",
-            description: "Move camera right",
-            onKeyDown: () => {
-                setCamX(x => x - CAM_SPEED);
-            },
-            preventDefault: true,
         }
-    ], [toaster, setSettings, copyElement, pasteElement, deleteElement, duplicateElement, saveMap, undo, redo, setCamX, setCamY]);
+    ], [toaster, setSettings, copyElement, pasteElement, deleteElement, duplicateElement, saveMap, undo, redo]);
 
     const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys);
     return { handleKeyDown, handleKeyUp };

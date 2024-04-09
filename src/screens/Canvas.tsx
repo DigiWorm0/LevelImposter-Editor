@@ -1,42 +1,21 @@
 import { Provider } from 'jotai';
-import Konva from 'konva';
-import { KonvaEventObject } from 'konva/lib/Node';
 import React from 'react';
 import { Layer, Stage } from 'react-konva';
 import CanvasGrid from '../components/canvas/CanvasGrid';
-import MapElement from '../components/canvas/MapElement';
 import { MapSorter } from '../components/canvas/MapSorter';
 import SelectedMapElement from '../components/canvas/SelectedMapElement';
 import primaryStore from '../hooks/jotai/primaryStore';
-import useCamera from '../hooks/jotai/useCamera';
-import { useElementIDs, useMapProperties } from '../hooks/jotai/useMap';
+import { useMapProperties } from '../hooks/jotai/useMap';
 import { useMouseCursorValue } from '../hooks/jotai/useMouse';
+import useCameraControl from "../hooks/canvas/useCameraControl";
+import useWindowSize from "../hooks/canvas/useWindowSize";
+import MapElementsRenderer from "../components/canvas/MapElementsRenderer";
 
 export default function Canvas() {
-    const [canvasWidth, setCanvasWidth] = React.useState(window.innerWidth);
-    const [canvasHeight, setCanvasHeight] = React.useState(window.innerHeight);
+    const { stageRef, layerRef } = useCameraControl();
+    const [windowWidth, windowHeight] = useWindowSize();
     const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
-    const elementIDs = useElementIDs();
-    const camera = useCamera(canvasWidth, canvasHeight);
-    const [mapProperties] = useMapProperties();
-
-    const onWindowResize = () => {
-        setCanvasWidth(window.innerWidth);
-        setCanvasHeight(window.innerHeight);
-    }
-
-    React.useEffect(() => {
-        window.addEventListener('resize', onWindowResize);
-        return () => {
-            window.removeEventListener('resize', onWindowResize);
-        }
-    }, []);
-
-    React.useEffect(() => {
-        Konva.dragButtons = [0, 1, 2];
-        Konva.hitOnDragEnabled = true;
-    }, []);
 
     return (
         <div
@@ -45,44 +24,20 @@ export default function Canvas() {
         >
             <Stage
                 id="canvas"
-                style={{
-                    cursor: cursor,
-                }}
-                x={camera.x}
-                y={camera.y}
-                width={camera.width}
-                height={camera.height}
+                width={windowWidth}
+                height={windowHeight}
+                ref={stageRef}
+                style={{ cursor: cursor }}
                 perfectDrawEnabled={false}
-                onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
-                    if (e.evt.button === 2) {
-                        e.target.getStage()?.startDrag();
-                        e.evt.preventDefault();
-                    }
-                }}
-                onMouseUp={(e: KonvaEventObject<MouseEvent>) => {
-                    if (e.evt.button === 2) {
-                        e.target.getStage()?.stopDrag();
-                        e.evt.preventDefault();
-                    }
-                }}
-                onDragEnd={(e: KonvaEventObject<DragEvent>) => {
-                    if (e.target === e.target.getStage()) {
-                        camera.setX(e.target.x());
-                        camera.setY(e.target.y());
-                    }
-                }}
-                onContextMenu={(e) => e.evt.preventDefault()}
             >
                 <Provider store={primaryStore}>
                     <Layer
-                        imageSmoothingEnabled={mapProperties.pixelArtMode !== true}
-                        x={camera.width}
-                        y={camera.height}
-                        scale={{ x: camera.z, y: camera.z }}
+                        imageSmoothingEnabled={properties.pixelArtMode !== true}
+                        x={windowWidth / 2}
+                        y={windowHeight / 2}
+                        ref={layerRef}
                     >
-                        {elementIDs.map(elementID => (
-                            <MapElement key={elementID} elementID={elementID} />
-                        ))}
+                        <MapElementsRenderer />
                         <CanvasGrid />
                         <SelectedMapElement />
                         <MapSorter />
