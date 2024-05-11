@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useElementIDs } from "../../../hooks/jotai/useMap";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedTriggerID } from "../../../hooks/jotai/useSelectedTrigger";
-import { OutputTriggerDB } from "../../../types/au/TriggerDB";
+import { useElementIDs } from "../../../hooks/map/useMap";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedTriggerID } from "../../../hooks/map/elements/useSelectedTrigger";
+import { OutputTriggerDB } from "../../../types/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";

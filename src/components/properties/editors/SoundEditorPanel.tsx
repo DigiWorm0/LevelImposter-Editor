@@ -1,9 +1,9 @@
 import { H6, Tag } from "@blueprintjs/core";
 import React from "react";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import SoundUpload from "../util/SoundUpload";
-import generateGUID from "../../../hooks/utils/generateGUID";
+import generateGUID from "../../../utils/generateGUID";
 
 interface SoundEditorProps {
     title: string;

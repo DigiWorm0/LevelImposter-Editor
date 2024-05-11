@@ -1,9 +1,9 @@
 import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../../hooks/jotai/useTypes";
-import { useSpriteType } from "../../../hooks/useSprite";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useElementType } from "../../../hooks/map/elements/useTypes";
+import { useSpriteType } from "../../../hooks/canvas/useSprite";
 import RoomSelect from "../input/RoomSelect";
 import TaskTypeSelect from "../input/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";

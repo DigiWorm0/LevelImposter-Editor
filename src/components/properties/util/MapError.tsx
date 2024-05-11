@@ -1,6 +1,6 @@
 import { Button, Callout, Collapse, IconName } from '@blueprintjs/core';
 import React from 'react';
-import { useSettingsValue } from '../../../hooks/jotai/useSettings';
+import { useSettingsValue } from '../../../hooks/useSettings';
 
 export interface MapErrorProps {
     isVisible?: boolean,

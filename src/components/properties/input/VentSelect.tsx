@@ -1,6 +1,6 @@
 import { FormGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ElementSelect from "./ElementSelect";
 
 export default function VentSelect(props: { prop: "leftVent" | "middleVent" | "rightVent" }) {

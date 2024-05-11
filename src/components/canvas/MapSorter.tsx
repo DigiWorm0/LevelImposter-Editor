@@ -1,6 +1,5 @@
 import React from "react";
-import useMap from "../../hooks/jotai/useMap";
-import { PLAYER_POS } from "../../types/generic/Constants";
+import useMap from "../../hooks/map/useMap";
 import LIElement from "../../types/li/LIElement";
 
 export function MapSorter() {

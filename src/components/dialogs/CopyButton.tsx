@@ -1,7 +1,7 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import useClipboard from "../../hooks/jotai/useClipboard";
+import useClipboard from "../../hooks/input/useClipboard";
 
 export default function CopyButton() {
     const { t } = useTranslation();

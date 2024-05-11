@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import AUMinigameDB from "../../../types/au/AUMinigameDB";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import AUMinigameDB from "../../../types/db/AUMinigameDB";
 import MinigameEditorPanel from "../editors/MinigameEditorPanel";
 import ColorPanelInput from "../input/ColorPanelInput";
 import DropdownList from "../util/DropdownList";

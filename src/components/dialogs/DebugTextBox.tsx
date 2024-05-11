@@ -1,6 +1,6 @@
 import { Button, H3, H6 } from "@blueprintjs/core";
-import { useDebugTextValue } from "../../hooks/jotai/useDebugText";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useDebugTextValue } from "../../hooks/useDebugText";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function DebugTextBox() {
     const settings = useSettingsValue();

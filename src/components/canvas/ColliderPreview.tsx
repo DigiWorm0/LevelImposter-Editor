@@ -1,7 +1,7 @@
 import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useAdjustPoint from "../../hooks/useAdjustPoint";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
 
 export default function ColliderPreview() {
     const elem = useSelectedElemValue();

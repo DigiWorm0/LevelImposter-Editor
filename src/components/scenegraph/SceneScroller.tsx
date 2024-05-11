@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelectedElemIDValue } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSelectedElemIDValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function SceneScroller() {
     const settings = useSettingsValue();

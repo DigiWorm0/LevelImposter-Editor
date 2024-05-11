@@ -3,13 +3,13 @@ import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
 import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from '../../hooks/utils/generateGUID';
-import { useAddElementAtMouse } from "../../hooks/jotai/useElements";
-import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
-import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useHiddenTypes from "../../hooks/jotai/useSingleTypes";
-import AUElementDB from "../../types/au/AUElementDB";
+import generateGUID from '../../utils/generateGUID';
+import { useAddElementAtMouse } from "../../hooks/map/elements/useElements";
+import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
+import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useHiddenTypes from "../../hooks/map/elements/useSingleTypes";
+import AUElementDB from "../../types/db/AUElementDB";
 
 interface AUElement {
     name: string;

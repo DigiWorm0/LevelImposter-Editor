@@ -1,7 +1,7 @@
 import React from "react";
 import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
 import { DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT } from "../../../types/generic/Constants";

@@ -2,7 +2,7 @@ import { Button, ButtonGroup, FormGroup, InputGroup } from "@blueprintjs/core";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { auth, githubProvider, googleProvider, microsoftProvider } from "../../hooks/utils/Firebase";
+import { auth, githubProvider, googleProvider, microsoftProvider } from "../../utils/Firebase";
 import useToaster from "../../hooks/useToaster";
 
 const SIGN_UP_PAGE = "https://levelimposter.net/#/login";

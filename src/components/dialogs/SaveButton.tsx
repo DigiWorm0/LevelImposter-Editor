@@ -2,7 +2,7 @@ import { Button } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSaveMap from "../../hooks/useSaveMap";
+import useSaveMap from "../../hooks/fileio/useSaveMap";
 
 export default function SaveButton(props: { isButton?: boolean }) {
     const { t } = useTranslation();

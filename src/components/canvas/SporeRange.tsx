@@ -1,4 +1,4 @@
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
 import { Shape } from "react-konva";
 

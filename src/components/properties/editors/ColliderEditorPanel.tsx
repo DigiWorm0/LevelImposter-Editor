@@ -1,7 +1,7 @@
 import { Button, Collapse, ControlGroup, FormGroup, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import DevInfo from "../../utils/DevInfo";
 

@@ -1,7 +1,7 @@
 import { InputGroup, Menu, MenuDivider } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useElementChildren } from "../../hooks/jotai/useElements";
+import { useElementChildren } from "../../hooks/map/elements/useElements";
 import MapButtons from "../dialogs/MapButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
 

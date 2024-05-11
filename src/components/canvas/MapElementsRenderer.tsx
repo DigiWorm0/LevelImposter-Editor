@@ -1,4 +1,4 @@
-import { useElementIDs } from "../../hooks/jotai/useMap";
+import { useElementIDs } from "../../hooks/map/useMap";
 import MapElement from "./MapElement";
 
 export default function MapElementsRenderer() {

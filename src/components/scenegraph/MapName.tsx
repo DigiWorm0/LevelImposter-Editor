@@ -1,8 +1,8 @@
 import { Button, InputGroup } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import isDefaultName from "../../hooks/utils/isDefaultMapName";
-import { useMapName } from "../../hooks/jotai/useMap";
+import isDefaultName from "../../utils/isDefaultMapName";
+import { useMapName } from "../../hooks/map/useMap";
 
 export default function MapName() {
     const { t, i18n } = useTranslation();

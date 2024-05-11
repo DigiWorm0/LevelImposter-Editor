@@ -1,7 +1,7 @@
 import React from "react";
 import { Classes, Icon, IconName, SwitchCard } from "@blueprintjs/core";
 import LIMapProperties from "../../../types/li/LIMapProperties";
-import { useMapProperties } from "../../../hooks/jotai/useMap";
+import { useMapProperties } from "../../../hooks/map/useMap";
 
 export interface MapSwitchInputProps {
     name: string;

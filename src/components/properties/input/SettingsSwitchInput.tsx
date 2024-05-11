@@ -1,7 +1,7 @@
 import React from "react";
 import { Classes, Icon, IconName, SwitchCard } from "@blueprintjs/core";
 import LISettings from "../../../types/li/LISettings";
-import useSettings from "../../../hooks/jotai/useSettings";
+import useSettings from "../../../hooks/useSettings";
 
 export interface SettingsSwitchInputProps {
     name: string;

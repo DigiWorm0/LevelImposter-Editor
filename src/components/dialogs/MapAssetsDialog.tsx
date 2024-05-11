@@ -1,7 +1,7 @@
 import { Dialog, Menu, MenuItem } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import { useMapValue } from "../../hooks/jotai/useMap";
+import { useSettingsValue } from "../../hooks/useSettings";
+import { useMapValue } from "../../hooks/map/useMap";
 import GUID from "../../types/generic/GUID";
 import React from "react";
 

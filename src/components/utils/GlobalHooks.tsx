@@ -1,10 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useAutoSave from "../../hooks/useAutoSave";
-import useEmbed from "../../hooks/useEmbed";
-import useIDParam from "../../hooks/useIDParam";
-import useKeyboardInput from "../../hooks/useKeyboardInput";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useEmbed from "../../hooks/embed/useEmbed";
+import useIDParam from "../../hooks/embed/useIDParam";
+import useKeyboardInput from "../../hooks/input/useKeyboardInput";
 
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
@@ -12,7 +11,6 @@ export default function GlobalHooks() {
     const isEmbedded = useEmbed();
     useKeyboardInput();
     useIDParam();
-    useAutoSave();
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {

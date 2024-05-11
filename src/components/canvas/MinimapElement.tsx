@@ -1,8 +1,8 @@
 import { atom, useAtomValue } from "jotai";
 import { Image } from "react-konva";
-import { elementsAtom } from "../../hooks/jotai/useMap";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { elementsAtom } from "../../hooks/map/useMap";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import useSprite from "../../hooks/canvas/useSprite";
 import { MINIMAP_BUTTON_SIZE, UNITY_SCALE } from "../../types/generic/Constants";
 
 const minimapScaleAtom = atom((get) => {

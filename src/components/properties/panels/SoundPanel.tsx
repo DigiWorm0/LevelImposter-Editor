@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";

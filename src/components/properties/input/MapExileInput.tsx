@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Card, Classes, Icon, MenuItem } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { ItemRenderer, Select } from "@blueprintjs/select";
-import { useMapProperties } from "../../../hooks/jotai/useMap";
-import { EXILE_IDS } from "../../../types/au/AUElementDB";
+import { useMapProperties } from "../../../hooks/map/useMap";
+import { EXILE_IDS } from "../../../types/db/AUElementDB";
 
 
 export default function MapExileInput() {

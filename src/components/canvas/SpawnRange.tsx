@@ -1,8 +1,13 @@
 import { Image } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { useSpriteType } from "../../hooks/useSprite";
-import { DEFAULT_INVISIBLE_OPACITY, DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE } from "../../types/generic/Constants";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSpriteType } from "../../hooks/canvas/useSprite";
+import {
+    DEFAULT_INVISIBLE_OPACITY,
+    DEFAULT_SPAWN_RANGE,
+    SPAWN_PLAYER_COUNT,
+    UNITY_SCALE
+} from "../../types/generic/Constants";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function SpawnRange() {
     const selectedElem = useSelectedElemValue();

@@ -2,7 +2,7 @@ import { FormGroup, IconName, InputGroup } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import ResettablePanelInput from "./ResettablePanelInput";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";

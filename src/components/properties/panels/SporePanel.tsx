@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_SPORE_GAS_RANGE, DEFAULT_SPORE_RANGE } from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";

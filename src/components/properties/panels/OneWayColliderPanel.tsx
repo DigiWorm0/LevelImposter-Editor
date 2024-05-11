@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import PanelContainer from "../util/PanelContainer";
 import RoomSelect from "../input/RoomSelect";
 import React from "react";
 import MapError from "../util/MapError";
-import { useElementType } from "../../../hooks/jotai/useTypes";
+import { useElementType } from "../../../hooks/map/elements/useTypes";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 
 export default function OneWayColliderPanel() {

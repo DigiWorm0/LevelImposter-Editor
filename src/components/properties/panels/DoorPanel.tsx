@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../../hooks/jotai/useTypes";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import { useElementType } from "../../../hooks/map/elements/useTypes";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorTypeSelect from "../input/DoorTypeSelect";
 import RoomSelect from "../input/RoomSelect";

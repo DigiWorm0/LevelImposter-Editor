@@ -2,7 +2,7 @@ import React from "react";
 import { ControlGroup, Switch } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
 

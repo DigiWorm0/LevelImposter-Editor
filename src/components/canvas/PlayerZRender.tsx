@@ -1,6 +1,6 @@
 import { Image, Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import useSprite, { useSpriteType } from "../../hooks/useSprite";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import useSprite, { useSpriteType } from "../../hooks/canvas/useSprite";
 import { PLAYER_POS, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function PlayerZRender() {

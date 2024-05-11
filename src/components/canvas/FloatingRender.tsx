@@ -1,8 +1,8 @@
 import React from "react";
 import { Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_FLOATING_HEIGHT } from "../../types/generic/Constants";
-import useAdjustPoint from "../../hooks/useAdjustPoint";
+import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
 
 export default function FloatingRender() {
     const selectedElem = useSelectedElemValue();

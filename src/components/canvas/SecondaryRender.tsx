@@ -1,17 +1,17 @@
 import React from "react";
 import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import useSprite from "../../hooks/canvas/useSprite";
 import {
     DEFAULT_FLOATING_HEIGHT,
     DEFAULT_FLOATING_SPEED,
+    DEFAULT_SCROLL_X_SPEED,
+    DEFAULT_SCROLL_Y_SPEED,
     DEFAULT_STARFIELD_COUNT,
     DEFAULT_STARFIELD_HEIGHT,
     DEFAULT_STARFIELD_LENGTH,
     DEFAULT_STARFIELD_MAXSPEED,
     DEFAULT_STARFIELD_MINSPEED,
-    DEFAULT_SCROLL_X_SPEED,
-    DEFAULT_SCROLL_Y_SPEED,
     UNITY_SCALE
 } from "../../types/generic/Constants";
 
@@ -46,7 +46,7 @@ export default function SecondaryRender() {
             const x = Math.random() * length;
             const y = Math.random() * height - height / 2;
             const speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
-            newPositions.push({x, y, speed});
+            newPositions.push({ x, y, speed });
         }
         setPositions(newPositions);
     }, [selectedElem, setPositions]);
@@ -79,7 +79,7 @@ export default function SecondaryRender() {
     // Floating
     const runFloating = React.useCallback(() => {
         // Initialize Positions
-        setPositions([{x: 0, y: 0}]);
+        setPositions([{ x: 0, y: 0 }]);
     }, [setPositions]);
     const runFloatingTick = React.useCallback(() => {
         // Get Properties
@@ -89,13 +89,13 @@ export default function SecondaryRender() {
         // Run Tick
         const t = new Date().getTime() / 1000;
         const y = -(Math.sin(t * speed) + 1) * height / 2;
-        setPositions([{x: 0, y: y}]);
+        setPositions([{ x: 0, y: y }]);
     }, [selectedElem, setPositions]);
 
     // Scrolling
     const runScrolling = React.useCallback(() => {
         // Initialize Positions
-        setPositions([{x: 0, y: 0}]);
+        setPositions([{ x: 0, y: 0 }]);
     }, [selectedElem, setPositions]);
     const runScrollingTick = React.useCallback(() => {
         // Get Properties
@@ -133,12 +133,12 @@ export default function SecondaryRender() {
                 setPositions([]);
         }
     }, [selectedElem, sprite, setPositions, runStarfield, runScrolling, runFloating]);
-    
+
     // Do Tick
     React.useEffect(() => {
         if (!selectedElem)
             return;
-        
+
         const interval = setInterval(() => {
             switch (selectedElem.type) {
                 case "util-starfield":
@@ -152,7 +152,7 @@ export default function SecondaryRender() {
                     break;
             }
         }, REFRESH_RATE);
-        
+
         return () => clearInterval(interval);
     }, [selectedElem, runScrollingTick, runFloatingTick, runStarfieldTick]);
 

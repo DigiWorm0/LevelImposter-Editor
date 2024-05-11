@@ -14,13 +14,13 @@ import {
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
-import { auth } from "../../hooks/utils/Firebase";
-import { useMapAuthorName, useMapDescription, useMapIsPublic, useMapName } from "../../hooks/jotai/useMap";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { auth } from "../../utils/Firebase";
+import { useMapAuthorName, useMapDescription, useMapIsPublic, useMapName } from "../../hooks/map/useMap";
+import { useSettingsValue } from "../../hooks/useSettings";
 import useToaster from "../../hooks/useToaster";
-import usePublishMap from "../../hooks/usePublishMap";
+import usePublishMap from "../../hooks/firebase/usePublishMap";
 import ThumbnailEdit from "../utils/ThumbnailEdit";
-import useIsPublished from "../../hooks/jotai/useIsPublished";
+import useIsPublished from "../../hooks/firebase/useIsPublished";
 
 export default function PublishButton() {
     const { t } = useTranslation();

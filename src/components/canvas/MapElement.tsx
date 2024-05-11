@@ -1,17 +1,17 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useElement from "../../hooks/jotai/useElements";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
-import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
-import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useEmbed from "../../hooks/useEmbed";
-import useSprite from "../../hooks/useSprite";
+import useElement from "../../hooks/map/elements/useElements";
+import { useSetMouseCursor } from "../../hooks/input/useMouse";
+import { useIsSelectedCollider } from "../../hooks/map/elements/useSelectedCollider";
+import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useEmbed from "../../hooks/embed/useEmbed";
+import useSprite from "../../hooks/canvas/useSprite";
 import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, { ElemVisibility } from "../../hooks/utils/getMapVisibility";
+import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
 import SecondaryRender from "./SecondaryRender";
-import useColoredSprite from "../../hooks/useColoredSprite";
+import useColoredSprite from "../../hooks/canvas/useColoredSprite";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",

@@ -1,6 +1,6 @@
-import { useMapValue } from "../../hooks/jotai/useMap";
+import { useMapValue } from "../../hooks/map/useMap";
 import { Helmet } from "react-helmet";
-import useIsSaved from "../../hooks/jotai/useIsSaved";
+import useIsSaved from "../../hooks/fileio/useIsSaved";
 
 export default function MapHelmet() {
     const map = useMapValue();

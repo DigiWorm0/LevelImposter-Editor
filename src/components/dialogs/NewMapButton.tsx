@@ -2,10 +2,10 @@ import { Button, Classes, Dialog } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useMapReset } from "../../hooks/jotai/useMap";
-import { useSetSelectedColliderID } from "../../hooks/jotai/useSelectedCollider";
-import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useMapReset } from "../../hooks/map/useMap";
+import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
+import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function NewMapButton() {
     const { t } = useTranslation();

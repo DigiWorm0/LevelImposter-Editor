@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Classes, Icon } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useMapProperties } from "../../../hooks/jotai/useMap";
+import { useMapProperties } from "../../../hooks/map/useMap";
 import ColorPicker from "../../utils/ColorPicker";
 import LIColor from "../../../types/li/LIColor";
 

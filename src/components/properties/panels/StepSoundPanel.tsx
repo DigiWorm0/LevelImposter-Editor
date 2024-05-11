@@ -1,8 +1,8 @@
 import { FormGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import generateGUID from "../../../utils/generateGUID";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import NumericPanelInput from "../input/NumericPanelInput";

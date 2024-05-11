@@ -1,7 +1,7 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import { useCanUndo, useUndo } from "../../hooks/jotai/useHistory";
+import { useCanUndo, useUndo } from "../../hooks/map/useHistory";
 
 export default function UndoButton() {
     const { t } = useTranslation();

@@ -1,5 +1,5 @@
 import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import {
     DEFAULT_CAM_ASPECT,
     DEFAULT_CAM_SIZE,

@@ -1,10 +1,10 @@
 import React from "react";
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
-import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useAdjustPoint from "../../hooks/useAdjustPoint";
+import { useSetMouseCursor } from "../../hooks/input/useMouse";
+import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/map/elements/useSelectedCollider";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
 import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
 

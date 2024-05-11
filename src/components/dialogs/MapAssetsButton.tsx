@@ -1,5 +1,5 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSettingsValue } from "../../hooks/useSettings";
 import React from "react";
 import MapAssetsDialog from "./MapAssetsDialog";
 

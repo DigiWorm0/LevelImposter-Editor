@@ -1,9 +1,9 @@
 import { InputGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
-import useElement, { useDraggingElementID } from "../../hooks/jotai/useElements";
-import { useMapName } from "../../hooks/jotai/useMap";
-import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import useElement, { useDraggingElementID } from "../../hooks/map/elements/useElements";
+import { useMapName } from "../../hooks/map/useMap";
+import { useSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 
 export default function RootHierarchyElement() {
     const [mapName, setMapName] = useMapName();

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import DevInfo from "../../utils/DevInfo";
-import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import { useMapAssetValue } from "../../../hooks/map/useMapAssets";
 
 const MAJOR_UPDATE_INTERVAL = 1;
 const MINOR_UPDATE_INTERVAL = 0.01;

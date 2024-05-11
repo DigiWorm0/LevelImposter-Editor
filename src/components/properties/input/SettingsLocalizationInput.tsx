@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, Classes, Icon, MenuItem } from "@blueprintjs/core";
-import useSettings from "../../../hooks/jotai/useSettings";
+import useSettings from "../../../hooks/useSettings";
 import { LANGUAGES } from "../../../types/generic/Constants";
 import { useTranslation } from "react-i18next";
 import { ItemRenderer, Select } from "@blueprintjs/select";

@@ -1,6 +1,6 @@
 import { Button, Classes, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useOpenMap } from "../../hooks/utils/openMap";
+import { useOpenMap } from "../../hooks/fileio/useOpenMap";
 
 export default function OpenButton() {
     const { t } = useTranslation();

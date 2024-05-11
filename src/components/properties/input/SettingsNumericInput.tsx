@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Card, Classes, Icon, IconName, NumericInput } from "@blueprintjs/core";
 import LISettings from "../../../types/li/LISettings";
-import useSettings from "../../../hooks/jotai/useSettings";
-import clamp from "../../../hooks/utils/clamp";
+import useSettings from "../../../hooks/useSettings";
+import clamp from "../../../utils/clamp";
 
 export interface SettingsNumericInputProps {
     name: string;

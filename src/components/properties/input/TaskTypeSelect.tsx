@@ -3,7 +3,7 @@ import { Button, FormGroup } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import { AUTaskLengthDB, TaskLength } from "../../../types/generic/TaskLength";
 import ResettablePanelInput from "./ResettablePanelInput";
 

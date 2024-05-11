@@ -1,7 +1,7 @@
 import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import VentSelect from "../input/VentSelect";
 import DropdownList from "../util/DropdownList";

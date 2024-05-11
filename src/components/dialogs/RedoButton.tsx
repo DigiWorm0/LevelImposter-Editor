@@ -1,7 +1,7 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
-import { useCanRedo, useRedo } from "../../hooks/jotai/useHistory";
+import { useCanRedo, useRedo } from "../../hooks/map/useHistory";
 
 export default function RedoButton() {
     const { t } = useTranslation();

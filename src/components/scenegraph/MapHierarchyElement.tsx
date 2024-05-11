@@ -1,9 +1,9 @@
 import { Button, Collapse, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
-import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/jotai/useElements";
-import { useSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/map/elements/useElements";
+import { useSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
 
 const ICON_DB: Record<string, IconName> = {

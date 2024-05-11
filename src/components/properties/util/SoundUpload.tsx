@@ -3,16 +3,16 @@ import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import openUploadDialog from "../../../hooks/utils/openUploadDialog";
-import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
+import generateGUID from "../../../utils/generateGUID";
+import openUploadDialog from "../../../utils/openUploadDialog";
+import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
 
 interface SoundUploadProps {
     sound?: LISound;

@@ -1,7 +1,7 @@
 import { Button, Dialog } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSettings from "../../hooks/jotai/useSettings";
+import useSettings from "../../hooks/useSettings";
 
 export default function CheckMobile() {
     const [settings, setSettings] = useSettings();

@@ -1,5 +1,5 @@
 import { Group, Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function DisplayRender() {

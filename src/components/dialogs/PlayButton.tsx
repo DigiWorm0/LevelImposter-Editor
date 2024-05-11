@@ -2,8 +2,8 @@ import { Button, Callout, Classes, Dialog, Icon, IconSize } from "@blueprintjs/c
 import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useMapName } from "../../hooks/jotai/useMap";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useMapName } from "../../hooks/map/useMap";
+import { useSettingsValue } from "../../hooks/useSettings";
 import SaveButton from "./SaveButton";
 
 export default function PlayButton() {

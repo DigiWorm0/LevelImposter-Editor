@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, FormGroup, IconName, Intent, NumericInput, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
-import clamp from "../../../hooks/utils/clamp";
+import clamp from "../../../utils/clamp";
 
 export interface NumericInputProps {
     name: string;

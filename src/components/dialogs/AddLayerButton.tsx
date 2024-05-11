@@ -1,8 +1,8 @@
 import { AnchorButton, Classes } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
-import generateGUID from "../../hooks/utils/generateGUID";
-import { useAddElement } from "../../hooks/jotai/useElements";
-import { useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
+import generateGUID from "../../utils/generateGUID";
+import { useAddElement } from "../../hooks/map/elements/useElements";
+import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useTranslation } from "react-i18next";
 
 export default function AddLayerButton(props: { isSidePanel?: boolean }) {

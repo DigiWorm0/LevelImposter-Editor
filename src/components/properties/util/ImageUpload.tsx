@@ -1,15 +1,15 @@
 import { Button, ButtonGroup, H6, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import openUploadDialog from "../../../hooks/utils/openUploadDialog";
+import openUploadDialog from "../../../utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import SizeTag from "../../utils/SizeTag";
 import MapAsset from "../../../types/li/MapAssetDB";
 import GUID from "../../../types/generic/GUID";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
-import duplicateBlob from "../../../hooks/utils/duplicateBlob";
+import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
+import duplicateBlob from "../../../utils/duplicateBlob";
 
 interface ImageUploadProps {
     name: string;

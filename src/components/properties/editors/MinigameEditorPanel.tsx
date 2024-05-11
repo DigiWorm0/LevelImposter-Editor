@@ -1,8 +1,8 @@
 import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import generateGUID from "../../../utils/generateGUID";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import DevInfo from "../../utils/DevInfo";
 import ImageUpload from "../util/ImageUpload";
 import MapAsset from "../../../types/li/MapAssetDB";

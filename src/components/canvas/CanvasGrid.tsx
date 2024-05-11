@@ -1,5 +1,5 @@
 import { Group, Line, Shape } from "react-konva";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { DEFAULT_GRID_SIZE, GRID_SPACING } from "../../types/generic/Constants";
 
 

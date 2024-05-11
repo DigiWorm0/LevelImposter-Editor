@@ -1,7 +1,7 @@
 import { Button, CardList, Classes, Dialog, Section, Tooltip } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSettings from "../../hooks/jotai/useSettings";
+import useSettings from "../../hooks/useSettings";
 import SettingsSwitchInput from "../properties/input/SettingsSwitchInput";
 import SettingsNumericInput from "../properties/input/SettingsNumericInput";
 import {

@@ -1,6 +1,6 @@
 import { Text } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { ROOM_TEXT_HEIGHT, ROOM_TEXT_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function RoomText() {

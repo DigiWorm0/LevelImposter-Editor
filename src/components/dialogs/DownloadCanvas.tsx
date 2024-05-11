@@ -4,10 +4,10 @@ import Konva from 'konva';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Stage } from 'react-konva';
-import primaryStore from '../../hooks/jotai/primaryStore';
-import { useElementIDs } from '../../hooks/jotai/useMap';
-import { useSelectedElemValue } from '../../hooks/jotai/useSelectedElem';
-import { useSettingsValue } from '../../hooks/jotai/useSettings';
+import primaryStore from '../../hooks/primaryStore';
+import { useElementIDs } from '../../hooks/map/useMap';
+import { useSelectedElemValue } from '../../hooks/map/elements/useSelectedElem';
+import { useSettingsValue } from '../../hooks/useSettings';
 import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
 
