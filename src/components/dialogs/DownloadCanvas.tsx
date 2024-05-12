@@ -13,12 +13,12 @@ import MapElement from '../canvas/MapElement';
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {
     const minimap = useSelectedElemValue();
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
     const elementIDs = useElementIDs();
     const stageRef = React.useRef() as React.MutableRefObject<Konva.Stage>;
     const { t } = useTranslation();
 
-    const scale = minimap?.properties.minimapScale === undefined ? 1 : minimap.properties.minimapScale;
+    const scale = minimap?.properties.minimapScale ?? 1;
 
     const onDownload = () => {
         const stage = stageRef.current;
@@ -36,7 +36,7 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                 isOpen={props.isVisible}
                 onClose={() => props.setVisible(false)}
                 title={t("minimap.download")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
+                portalClassName={isDarkMode ? "bp5-dark" : ""}>
 
                 {(props.isVisible && minimap !== undefined) && (
                     <Stage

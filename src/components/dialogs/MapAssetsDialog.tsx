@@ -1,5 +1,4 @@
 import { Dialog, Menu, MenuItem } from "@blueprintjs/core";
-import { useTranslation } from "react-i18next";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { useMapValue } from "../../hooks/map/useMap";
 import GUID from "../../types/generic/GUID";
@@ -11,8 +10,7 @@ interface MapAssetsDialogProps {
 }
 
 export default function MapAssetsDialog(props: MapAssetsDialogProps) {
-    const settings = useSettingsValue();
-    const { t } = useTranslation();
+    const { isDarkMode } = useSettingsValue();
     const map = useMapValue();
 
     const assetIDCounts = React.useMemo(() => {
@@ -35,7 +33,7 @@ export default function MapAssetsDialog(props: MapAssetsDialogProps) {
                 isOpen={props.isOpen}
                 onClose={props.onClose}
                 title={"Map Asset DB"}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <div style={{ margin: 15 }}>
                     <Menu>

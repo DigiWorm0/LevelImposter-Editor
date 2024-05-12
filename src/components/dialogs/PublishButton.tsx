@@ -26,7 +26,7 @@ export default function PublishButton() {
     const { t } = useTranslation();
     const toaster = useToaster();
     const [user] = useAuthState(auth);
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
 
     // State Hooks
     const [thumbnail, setThumbnail] = React.useState<Blob | null>(null);
@@ -97,7 +97,7 @@ export default function PublishButton() {
                     setIsOpen(isPublishing)
                 }}
                 title={t("publish.title")}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <div style={{ margin: 15 }}>
                     <ThumbnailEdit

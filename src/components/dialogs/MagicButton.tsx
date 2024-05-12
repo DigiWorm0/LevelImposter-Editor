@@ -2,9 +2,9 @@ import { AnchorButton, Classes } from "@blueprintjs/core";
 import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function MagicButton() {
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
 
-    if (settings.isDevMode !== true)
+    if (!isDevMode)
         return null;
     return (
         <>

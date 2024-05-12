@@ -1,13 +1,12 @@
 import React from "react";
 import { Button, Card, Classes, Icon, IconName, NumericInput } from "@blueprintjs/core";
-import LISettings from "../../../types/li/LISettings";
+import LISettings, { DEFAULT_SETTINGS } from "../../../types/li/LISettings";
 import useSettings from "../../../hooks/useSettings";
 import clamp from "../../../utils/clamp";
 
 export interface SettingsNumericInputProps {
     name: string;
     prop?: keyof LISettings;
-    defaultValue: number;
 
     icon?: IconName;
     disabled?: boolean;
@@ -23,20 +22,26 @@ export interface SettingsNumericInputProps {
 export default function SettingsNumericInput(props: SettingsNumericInputProps) {
     const [settings, setSettings] = useSettings();
 
+    const defaultValue = React.useMemo(() => {
+        if (props.prop === undefined)
+            return 0;
+        return DEFAULT_SETTINGS[props.prop] as number;
+    }, [props.prop]);
+
     const value = React.useMemo(() => {
         if (props.prop === undefined)
             return 0;
-        return (settings[props.prop] as number) ?? props.defaultValue;
-    }, [settings, props.prop, props.defaultValue]);
+        return settings[props.prop] as number;
+    }, [settings, props.prop]);
 
     const onChange = React.useCallback((numericVal: number, stringVal: string) => {
         if (props.prop === undefined)
             return;
         setSettings({
             ...settings,
-            [props.prop]: isNaN(parseFloat(stringVal)) ? props.defaultValue : clamp(numericVal, props.min ?? -Infinity, props.max ?? Infinity)
+            [props.prop]: isNaN(parseFloat(stringVal)) ? defaultValue : clamp(numericVal, props.min ?? -Infinity, props.max ?? Infinity)
         });
-    }, [settings, props.prop, setSettings]);
+    }, [setSettings, settings, props.prop, props.min, props.max, defaultValue]);
 
     return (
         <Card style={{ justifyContent: "space-between" }}>
@@ -52,7 +57,7 @@ export default function SettingsNumericInput(props: SettingsNumericInputProps) {
             <div style={{ maxWidth: 200 }}>
                 <NumericInput
                     fill
-                    placeholder={props.defaultValue.toString()}
+                    placeholder={defaultValue.toString()}
                     defaultValue={value as number}
                     min={props.min}
                     minorStepSize={props.minorStepSize}

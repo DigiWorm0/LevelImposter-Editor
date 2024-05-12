@@ -9,7 +9,7 @@ import SaveButton from "./SaveButton";
 export default function PlayButton() {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
     const [mapName] = useMapName();
 
     return (
@@ -33,7 +33,7 @@ export default function PlayButton() {
                 }}
                 title={mapName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <div style={{ margin: 15 }}>
                     <h2 style={{ marginTop: 0 }}>

@@ -4,10 +4,10 @@ import React from "react";
 import MapAssetsDialog from "./MapAssetsDialog";
 
 export default function MapAssetsButton() {
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
     const [isOpen, setIsOpen] = React.useState(false);
 
-    if (settings.isDevMode !== true)
+    if (!isDevMode)
         return null;
     return (
         <>

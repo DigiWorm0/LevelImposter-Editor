@@ -20,8 +20,11 @@ export default function FloatingRender() {
         ];
     }, [selectedElem, relativeToAbsolute]);
 
-    if (!selectedElem || selectedElem.type !== "util-blankfloat")
+    if (!selectedElem)
         return null;
+    if (selectedElem.type !== "util-blankfloat")
+        return null;
+    
     return (
         <Line
             points={linePoints}

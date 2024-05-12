@@ -2,21 +2,20 @@ import React from "react";
 import { Button, ButtonGroup, ControlGroup, InputGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
-import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
-import GUID from "../../../types/generic/GUID";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import getIsConsole from "../../../utils/getIsConsole";
 import useFixSprite from "../../../hooks/canvas/useFixSprite";
 import FlexNumericInput from "../util/FlexNumericInput";
+import { useRemoveSelectedElement } from "../../../hooks/map/elements/useRemoveElement";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
-    const setSelectedID = useSetSelectedElemID();
-    const removeElement = useRemoveElement();
+    const removeSelectedElement = useRemoveSelectedElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
     const fixSprite = useFixSprite();
 
     // Gets if the selected element is a console object
@@ -41,8 +40,9 @@ export default function TransformPanel() {
         <>
             <PanelContainer
                 title={t("transform.title") as string}
-                style={{ paddingTop: 0 }}>
-                {settings.isDevMode ? (
+                style={{ paddingTop: 0 }}
+            >
+                {isDevMode ? (
                     <InputGroup
                         key={selectedElem.id + "-type-dev"}
                         defaultValue={selectedElem.type}
@@ -168,10 +168,7 @@ export default function TransformPanel() {
                             fill
                             icon="trash"
                             text={t("transform.delete") as string}
-                            onClick={() => {
-                                removeElement(selectedElem.id);
-                                setSelectedID("" as GUID)
-                            }}
+                            onClick={removeSelectedElement}
                         />
                     </ButtonGroup>
                 </>)}

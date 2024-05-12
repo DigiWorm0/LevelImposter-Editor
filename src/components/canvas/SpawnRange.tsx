@@ -1,20 +1,14 @@
 import { Image } from "react-konva";
 import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import { useSpriteType } from "../../hooks/canvas/useSprite";
-import {
-    DEFAULT_INVISIBLE_OPACITY,
-    DEFAULT_SPAWN_RANGE,
-    SPAWN_PLAYER_COUNT,
-    UNITY_SCALE
-} from "../../types/generic/Constants";
+import { DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE } from "../../types/generic/Constants";
 import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function SpawnRange() {
     const selectedElem = useSelectedElemValue();
     const sprite = useSpriteType("util-dummy");
-    const settings = useSettingsValue();
+    const { invisibleOpacity } = useSettingsValue();
 
-    const invisibleOpacity = settings.invisibleOpacity ?? DEFAULT_INVISIBLE_OPACITY;
     const radius = selectedElem?.properties.range ?? DEFAULT_SPAWN_RANGE;
     const arr = new Array(SPAWN_PLAYER_COUNT).fill(0);
 

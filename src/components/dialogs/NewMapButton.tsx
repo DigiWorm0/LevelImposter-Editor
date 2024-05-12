@@ -9,7 +9,7 @@ import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function NewMapButton() {
     const { t } = useTranslation();
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
     const resetMap = useMapReset();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -43,7 +43,7 @@ export default function NewMapButton() {
                     setIsVisible(false);
                 }}
                 title={t("map.new") as string}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}>
+                portalClassName={isDarkMode ? "bp5-dark" : ""}>
 
                 <div style={{ margin: 15 }}>
                     <p>

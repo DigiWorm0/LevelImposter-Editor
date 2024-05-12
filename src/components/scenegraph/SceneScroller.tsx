@@ -3,19 +3,19 @@ import { useSelectedElemIDValue } from "../../hooks/map/elements/useSelectedElem
 import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function SceneScroller() {
-    const settings = useSettingsValue();
+    const { scrollToSelection } = useSettingsValue();
     const selectedID = useSelectedElemIDValue();
 
     React.useEffect(() => {
         if (!selectedID)
             return;
         const elem = document.getElementById(selectedID);
-        if (elem && settings.scrollToSelection !== false) {
+        if (elem && scrollToSelection) {
             elem.scrollIntoView({
                 behavior: "smooth",
             });
         }
-    }, [selectedID, settings]);
+    }, [selectedID, scrollToSelection]);
 
     return null;
 }

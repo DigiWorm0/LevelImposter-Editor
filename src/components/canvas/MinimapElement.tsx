@@ -8,8 +8,7 @@ import { MINIMAP_BUTTON_SIZE, UNITY_SCALE } from "../../types/generic/Constants"
 const minimapScaleAtom = atom((get) => {
     const elems = get(elementsAtom);
     const minimap = elems.find((e) => e.type === "util-minimap");
-    const scale = minimap?.properties.minimapScale === undefined ? 1 : minimap.properties.minimapScale;
-    return scale;
+    return minimap?.properties.minimapScale ?? 1;
 });
 
 export default function MinimapElement() {

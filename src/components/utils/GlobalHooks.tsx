@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useSettingsValue } from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import useIDParam from "../../hooks/embed/useIDParam";
-import useKeyboardInput from "../../hooks/input/useKeyboardInput";
+import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
 
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
-    const settings = useSettingsValue();
+    const { language } = useSettingsValue();
     const isEmbedded = useEmbed();
-    useKeyboardInput();
+    useHotkeysHandler();
     useIDParam();
 
     React.useEffect(() => {
@@ -27,11 +27,9 @@ export default function GlobalHooks() {
     }, [isEmbedded]);
 
     React.useEffect(() => {
-        if (settings.language === "auto")
-            i18n.changeLanguage(navigator.language);
-        else
-            i18n.changeLanguage(settings.language);
-    }, [settings.language]);
+        const newLanguage = language === "auto" ? navigator.language : language;
+        i18n.changeLanguage(newLanguage).catch(console.error);
+    }, [language]);
 
     return null;
 }

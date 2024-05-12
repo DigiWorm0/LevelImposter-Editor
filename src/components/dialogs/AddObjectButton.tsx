@@ -24,7 +24,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
     const [isOpen, setIsOpen] = React.useState(false);
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
     const hiddenTypes = useHiddenTypes();
 
     const handleClick = (elem: AUElement) => {
@@ -81,7 +81,7 @@ export default function AddObjectButton(props: { isSidePanel?: boolean }) {
                 onItemSelect={(elem) => {
                     handleClick(elem)
                 }}
-                className={settings.isDarkMode === false ? "" : "bp5-dark"}
+                className={isDarkMode ? "bp5-dark" : ""}
                 itemRenderer={(elem, props) => {
                     return (
                         <MenuItem2

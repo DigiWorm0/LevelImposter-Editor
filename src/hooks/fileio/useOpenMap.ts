@@ -4,8 +4,6 @@ import { useSaveHistory } from "../map/useHistory";
 import { useSetSaved } from "./useIsSaved";
 import useToaster from "../useToaster";
 import useLIDeserializer from "./useLIDeserializer";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../utils/Firebase";
 import { useSetMap } from "../map/useMap";
 
 /*
@@ -25,7 +23,6 @@ export function useOpenMap() {
     const setSaved = useSetSaved();
     const setMap = useSetMap();
     const deserializeMap = useLIDeserializer();
-    const [user] = useAuthState(auth);
 
     return React.useCallback(() => {
         const input = document.createElement("input");
@@ -51,19 +48,6 @@ export function useOpenMap() {
             }
 
             deserializeMap(file).then((mapData) => {
-
-                /*
-                // Check Permissions
-                const canRemix = mapData.properties?.canRemix ?? true;
-                const canOpen = canRemix || mapData.authorID === user?.uid;
-                if (!canOpen) {
-                    danger(t("map.errorOpen", { error: t("map.errorNoPermission") }));
-                    return;
-                }
-                // TODO: Fix me!
-                */
-
-
                 // Success
                 success(t("map.opened", { name: mapData?.name }));
                 setSaved(true);

@@ -13,7 +13,7 @@ import MapThumbnail from "../utils/MapThumbnail";
 export default function SignInButton() {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
-    const settings = useSettingsValue();
+    const { isDarkMode } = useSettingsValue();
     const [user] = useAuthState(auth);
     const maps = useUserMaps(user?.uid);
     const isLoggedIn = user !== null;
@@ -52,7 +52,7 @@ export default function SignInButton() {
                 }}
                 title={t("account.signIn")}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <SignIn />
             </Dialog>
@@ -64,7 +64,7 @@ export default function SignInButton() {
                 }}
                 title={user?.displayName}
                 style={{ paddingBottom: 0 }}
-                portalClassName={settings.isDarkMode === false ? "" : "bp5-dark"}
+                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
                     <img

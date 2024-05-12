@@ -14,10 +14,13 @@ export interface MapErrorProps {
 }
 
 export default function MapError(props: MapErrorProps) {
-    const settings = useSettingsValue();
+    const { isInfoVisible } = useSettingsValue();
+
+    const isVisible = (props.isVisible ?? true) &&
+        (isInfoVisible || !(props.info ?? false));
 
     return (
-        <Collapse isOpen={(props.isVisible ?? true) && ((settings.isInfoVisible ?? true) || !(props.info ?? false))}>
+        <Collapse isOpen={isVisible}>
             <Callout
                 intent={props.info ? "primary" : "warning"}
                 icon={props.icon}

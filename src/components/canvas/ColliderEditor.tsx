@@ -2,30 +2,18 @@ import React from "react";
 import { Rect, Shape } from "react-konva";
 import { useSetMouseCursor } from "../../hooks/input/useMouse";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/map/elements/useSelectedCollider";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, UNITY_SCALE } from "../../types/generic/Constants";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
 
 
 export default function ColliderEditor() {
-    const elem = useSelectedElemValue();
     const [collider, setCollider] = useSelectedCollider();
     const setMouseCursor = useSetMouseCursor();
     const insertPointAtMouse = useInsertPointAtMouse();
-    const settings = useSettingsValue();
+    const { gridSnapResolution, colliderHandleSize, isGridSnapEnabled } = useSettingsValue();
     const { relativeToAbsolute, absoluteToRelative } = useAdjustPoint();
-
-    // Resolution of the grid snap
-    const gridSnapResolution = React.useMemo(() => {
-        return settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
-    }, [settings.gridSnapResolution]);
-
-    // Size of the collider handles
-    const handleSize = React.useMemo(() => {
-        return settings.colliderHandleSize || DEFAULT_COLLIDER_HANDLE_SIZE;
-    }, [settings.colliderHandleSize]);
 
     // Snap the point to the grid
     const snapPointToGrid = React.useCallback((p: Point) => {
@@ -81,11 +69,11 @@ export default function ColliderEditor() {
                 return (
                     <Rect
                         key={collider.id + "-" + index}
-                        x={p1.x - handleSize / 2}
-                        y={p1.y - handleSize / 2}
-                        width={handleSize}
-                        height={handleSize}
-                        strokeWidth={handleSize / 8}
+                        x={p1.x - colliderHandleSize / 2}
+                        y={p1.y - colliderHandleSize / 2}
+                        width={colliderHandleSize}
+                        height={colliderHandleSize}
+                        strokeWidth={colliderHandleSize / 8}
                         fill={"blue"}
                         stroke={"white"}
                         onMouseDown={(e) => {
@@ -94,26 +82,26 @@ export default function ColliderEditor() {
                                 setCollider({ ...collider });
                             }
                         }}
-                        onMouseEnter={(e) => {
+                        onMouseEnter={() => {
                             setMouseCursor("pointer");
                         }}
-                        onMouseLeave={(e) => {
+                        onMouseLeave={() => {
                             setMouseCursor("default");
                         }}
                         onDragMove={(e) => {
-                            if (settings.isGridSnapEnabled != false) {
+                            if (isGridSnapEnabled) {
                                 const snapPoint = snapPointToGrid({
-                                    x: e.target.x() + handleSize / 2,
-                                    y: e.target.y() + handleSize / 2
+                                    x: e.target.x() + colliderHandleSize / 2,
+                                    y: e.target.y() + colliderHandleSize / 2
                                 });
                                 e.target.position({
-                                    x: snapPoint.x - handleSize / 2,
-                                    y: snapPoint.y - handleSize / 2
+                                    x: snapPoint.x - colliderHandleSize / 2,
+                                    y: snapPoint.y - colliderHandleSize / 2
                                 });
                             }
 
-                            const targetX = e.target.x() + handleSize / 2;
-                            const targetY = e.target.y() + handleSize / 2;
+                            const targetX = e.target.x() + colliderHandleSize / 2;
+                            const targetY = e.target.y() + colliderHandleSize / 2;
                             const relative = absoluteToRelative({ x: targetX, y: targetY });
                             p.x = relative.x;
                             p.y = relative.y;

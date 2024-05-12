@@ -16,7 +16,7 @@ const TYPE_INTENTS: Record<string, Intent> = {
 
 export default function DebugPanel() {
     const { t } = useTranslation();
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
     const selectedElem = useSelectedElemValue();
     const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
 
@@ -30,7 +30,9 @@ export default function DebugPanel() {
     const keys = React.useMemo(() => Object.keys(selectedElem?.properties ?? {}), [selectedElem]);
     const values = React.useMemo(() => Object.values(selectedElem?.properties ?? {}), [selectedElem]);
 
-    if (!selectedElem || !settings.isDevMode)
+    if (!selectedElem)
+        return null;
+    if (!isDevMode)
         return null;
 
     return (

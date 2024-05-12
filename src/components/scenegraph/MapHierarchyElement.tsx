@@ -1,7 +1,11 @@
 import { Button, Collapse, IconName, Intent } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
-import useElement, { useDraggingElementID, useElementChildren, useIsDroppable } from "../../hooks/map/elements/useElements";
+import useElement, {
+    useDraggingElementID,
+    useElementChildren,
+    useIsDroppable
+} from "../../hooks/map/elements/useElements";
 import { useSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
@@ -36,7 +40,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     const [draggingElement, setDraggingElement] = useElement(draggingID);
     const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildren(props.elementID);
-    const settings = useSettingsValue();
+    const { elementNesting } = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
 
     const getIcon = (type: string): IconName => {
@@ -63,7 +67,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     if (element === undefined)
         return null;
 
-    const isDisabled = !((element.type === "util-layer" || settings.elementNesting === true) && isDroppable) && draggingID !== undefined;
+    const isDisabled = !((element.type === "util-layer" || elementNesting) && isDroppable) && draggingID !== undefined;
     const isVisible = element.properties.isVisible ?? true;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
     const intent = isDisabled ? "none" : getIntent(element.type);
@@ -182,7 +186,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                     />
                 ))}
             </Collapse>
-
         </div>
     );
 }

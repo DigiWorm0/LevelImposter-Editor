@@ -8,7 +8,7 @@ export default function LadderRange() {
     if (!selectedElem || !selectedElem?.type.startsWith("util-ladder"))
         return null;
 
-    const height = selectedElem?.properties.ladderHeight ? selectedElem.properties.ladderHeight : DEFAULT_LADDER_HEIGHTS[selectedElem.type];
+    const height = selectedElem?.properties.ladderHeight ?? DEFAULT_LADDER_HEIGHTS[selectedElem.type];
     const topOffset = height + LADDER_Y_OFFSET;
     const bottomOffset = -height + LADDER_Y_OFFSET;
 

@@ -10,14 +10,14 @@ import RightSidebar from "./RightSidebar";
 import Topbar from "./Topbar";
 
 export default function Content() {
-    const isEmbeded = useEmbed();
-    const settings = useSettingsValue();
+    const isEmbedded = useEmbed();
+    const { isDarkMode } = useSettingsValue();
 
     return (
-        <div className={"app" + (settings.isDarkMode === false ? "" : " bp5-dark")}>
+        <div className={"app" + (isDarkMode ? " bp5-dark" : "")}>
             <GlobalHooks />
 
-            {!isEmbeded && (<>
+            {!isEmbedded && (<>
                 <MapHelmet />
                 <Topbar />
                 <LeftSidebar />
@@ -25,12 +25,12 @@ export default function Content() {
 
             <Canvas />
 
-            {!isEmbeded && (<>
+            {!isEmbedded && (<>
                 <RightSidebar />
                 <CheckMobile />
             </>)}
 
-            {isEmbeded && (<>
+            {isEmbedded && (<>
                 <OpenInEditor />
             </>)}
         </div>

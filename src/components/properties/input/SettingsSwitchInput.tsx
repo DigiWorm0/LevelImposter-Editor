@@ -6,7 +6,6 @@ import useSettings from "../../../hooks/useSettings";
 export interface SettingsSwitchInputProps {
     name: string;
     prop?: keyof LISettings;
-    defaultValue: boolean;
 
     icon?: IconName;
 }
@@ -17,8 +16,8 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
     const value = React.useMemo(() => {
         if (props.prop === undefined)
             return false;
-        return (settings[props.prop] as boolean) ?? props.defaultValue;
-    }, [settings, props.prop, props.defaultValue]);
+        return settings[props.prop] as boolean;
+    }, [settings, props.prop]);
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (props.prop === undefined)

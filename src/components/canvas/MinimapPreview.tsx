@@ -9,7 +9,7 @@ export default function MinimapPreview() {
         || elem.type !== "util-minimap")
         return null;
 
-    const scale = elem?.properties.minimapScale === undefined ? 1 : elem.properties.minimapScale;
+    const scale = elem?.properties.minimapScale ?? 1;
 
     return (
         <>

@@ -4,10 +4,9 @@ import GLOBAL_PROPERTIES from "../../../types/generic/GlobalProps";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import { MaybeLIElement } from "../../../types/li/LIElement";
 import LIProperties from "../../../types/li/LIProperties";
-import { elementChildrenFamilyAtom, elementFamilyAtom } from "./useElements";
+import { elementFamilyAtom } from "./useElements";
 import { saveHistoryAtom } from "../useHistory";
 import { elementsAtom } from "../useMap";
-import { selectedColliderIDAtom } from "./useSelectedCollider";
 import { trimAssetsAtom } from "../useMapAssets";
 
 // Atoms
@@ -64,28 +63,10 @@ export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
     selectedAtom.debugLabel = `isSelectedElemFamily(${id})`;
     return selectedAtom;
 });
-export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
-    const removeElement = (id: MaybeGUID) => {
-        console.log("Removed " + id);
-        elementFamilyAtom.remove(id);
-        set(selectedElementAtom, undefined);
-        set(selectedColliderIDAtom, undefined);
-        set(elementsAtom, get(elementsAtom).filter((elem) => elem.id !== id));
-
-        const childIDs = get(elementChildrenFamilyAtom(id));
-        childIDs.forEach((childID) => {
-            removeElement(childID);
-        });
-    };
-    removeElement(id);
-    set(trimAssetsAtom);
-    set(saveHistoryAtom);
-});
 
 // Debug
 selectedElementIDAtom.debugLabel = "selectedElementIDAtom";
 selectedElementAtom.debugLabel = "selectedElementAtom";
-removeElementAtom.debugLabel = "removeElementAtom";
 
 // Hooks
 export function useSelectedElemID() {
@@ -114,8 +95,4 @@ export function useSelectedElemValue() {
 
 export function useIsSelectedElem(id: MaybeGUID) {
     return useAtomValue(isSelectedElemFamily(id));
-}
-
-export function useRemoveElement() {
-    return useSetAtom(removeElementAtom);
 }

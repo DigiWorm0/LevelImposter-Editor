@@ -651,6 +651,7 @@
 			"grid": "Grid",
 			"gridVisible": "Grid Visible",
 			"gridSize": "Grid Size",
+			"gridSpacing": "Grid Spacing",
 			"snapToGrid": "Snap to Grid",
 			"snapResolution": "Snap Resolution",
 			"invisibleOpacity": "Invisible Opacity",

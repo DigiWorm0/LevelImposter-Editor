@@ -12,11 +12,11 @@ const TARGET_SAMPLE_RATE = 16000; // 44100
  * @returns Function function to downmixes audio file to mono and 16kHz
  */
 export default function useAudioDownmixer() {
-    const settings = useSettingsValue();
+    const { isAudioDownmixEnabled } = useSettingsValue();
 
     return React.useCallback((soundData: Blob) => {
         return new Promise<Blob>((resolve, reject) => {
-            if (settings.isAudioDownmixEnabled === false)
+            if (!isAudioDownmixEnabled)
                 duplicateBlob(soundData).then(resolve).catch(reject);
 
             const audioCtx = new AudioContext();
@@ -60,5 +60,5 @@ export default function useAudioDownmixer() {
             // Start Reading
             fileReader.readAsArrayBuffer(soundData);
         });
-    }, [settings.isAudioDownmixEnabled]);
+    }, [isAudioDownmixEnabled]);
 }

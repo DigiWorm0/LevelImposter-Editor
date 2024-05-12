@@ -7,7 +7,7 @@ import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/element
 import { useSettingsValue } from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import useSprite from "../../hooks/canvas/useSprite";
-import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
 import SecondaryRender from "./SecondaryRender";
@@ -22,11 +22,11 @@ const SECONDARY_RENDER_TYPES = [
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
     const setMouseCursor = useSetMouseCursor();
-    const isEmbeded = useEmbed();
+    const isEmbedded = useEmbed();
     const sprite = useSprite(props.elementID);
     const isColliderSelected = useIsSelectedCollider();
     const isSelected = useIsSelectedElem(props.elementID);
-    const settings = useSettingsValue();
+    const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
     const spriteRef = useColoredSprite(props.elementID);
@@ -38,8 +38,6 @@ export default function MapElement(props: { elementID: GUID }) {
     const w = (sprite?.width ?? 0) * elem.xScale;
     const h = (sprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
-    const gridSnapResolution = settings.gridSnapResolution ?? DEFAULT_GRID_SNAP_RESOLUTION;
-    const invisibleOpacity = settings.invisibleOpacity ?? DEFAULT_INVISIBLE_OPACITY;
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
@@ -62,7 +60,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setSelectedID(props.elementID);
             }}
             onDragMove={(e) => {
-                if (settings.isGridSnapEnabled ?? true) {
+                if (isGridSnapEnabled) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
                         y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
@@ -88,7 +86,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setMouseCursor("default");
             }}
             draggable={false}
-            listening={!isColliderSelected && !isEmbeded && isVisible}
+            listening={!isColliderSelected && !isEmbedded && isVisible}
         >
 
             <Image
