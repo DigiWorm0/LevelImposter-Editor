@@ -83,7 +83,7 @@ export function useMapProperties() {
     return useAtom(mapPropsAtom);
 }
 
-export function useMapReset() {
+export function useResetMap() {
     return useResetAtom(mapAtom);
 }
 

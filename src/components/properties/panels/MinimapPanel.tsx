@@ -2,7 +2,7 @@ import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import DownloadCanvasDialog from "../../dialogs/DownloadCanvas";
+import DownloadCanvasDialog from "../../modals/DownloadCanvas";
 import NumericPanelInput from "../input/NumericPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";

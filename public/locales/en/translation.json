@@ -28,6 +28,7 @@
 		"redo": "Redo",
 		"copy": "Copy",
 		"paste": "Paste",
+		"mapAssets": "Map Assets",
 		"search": "Search...",
 		"errorNoClipboard": "Nothing to paste",
 		"errorExternalClipboard": "External pasting is unsupported by Firefox",
@@ -590,6 +591,7 @@
 	},
 	"publish": {
 		"title": "Publish To Workshop",
+		"description": "Publish your map to the workshop to play online with others.",
 		"success": "Successfully published map!",
 		"mapName": "Map Name",
 		"authorName": "Author Name",

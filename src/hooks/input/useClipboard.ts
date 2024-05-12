@@ -1,123 +1,38 @@
-import { atom, useAtom } from "jotai";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import { atom } from "jotai";
 import LIClipboard from "../../types/li/LIClipboard";
-import LIElement from "../../types/li/LIElement";
-import generateGUID from "../../utils/generateGUID";
-import useToaster from "../useToaster";
-import { useAddElement } from "../map/elements/useElements";
-import { useMapValue } from "../map/useMap";
-import { useSelectedElemValue, useSetSelectedElemID } from "../map/elements/useSelectedElem";
 
-const clipboardAtom = atom<string | undefined>(undefined);
+export const localClipboardAtom = atom<string | undefined>(undefined);
+export const clipboardAtom = atom(async (get) => {
+    // Get Local Clipboard
+    let clipboardData = get(localClipboardAtom);
 
-export default function useClipboard() {
-    const map = useMapValue();
-    const addElement = useAddElement();
-    const toaster = useToaster();
-    const selectedElem = useSelectedElemValue();
-    const setSelectedID = useSetSelectedElemID();
-    const { t } = useTranslation();
-    const [localClipboard, setLocalClipboard] = useAtom(clipboardAtom);
-    const [canCopy, setCanCopy] = React.useState(false);
-    const [canPaste, setCanPaste] = React.useState(false);
-
-    React.useEffect(() => {
-        setCanCopy(!!selectedElem);
-        setCanPaste(!!localClipboard);
-    }, [selectedElem, localClipboard]);
-
-    const copyElement = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        const clipboardData: LIClipboard = {
-            data: [selectedElem]
-        };
-
-        const addChildren = (elem: LIElement) => {
-            map.elements.forEach(e => {
-                if (e.parentID === elem.id) {
-                    clipboardData.data.push(e);
-                    addChildren(e);
-                }
-            });
-        };
-        addChildren(selectedElem);
-
-        const clipboardJSON = JSON.stringify(clipboardData);
-        setLocalClipboard(clipboardJSON);
-        if (navigator.clipboard.writeText)
-            navigator.clipboard.writeText(clipboardJSON);
-    }, [selectedElem, map, setLocalClipboard]);
-
-    const pasteElement = React.useCallback(async () => {
-        let clipboard = localClipboard;
-        if (!clipboard) {
-            if (!window.isSecureContext) {
-                toaster.danger(t("edit.errorInsecureContext"));
-                return;
-            }
-            if (!navigator.clipboard.read) {
-                toaster.danger(t("edit.errorExternalClipboard"), "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/read");
-                return;
-            }
-            clipboard = await navigator.clipboard.readText();
-        }
-        if (!clipboard) {
-            toaster.danger(t("edit.errorNoClipboard"));
+    // If no local clipboard, read from navigator
+    if (!clipboardData) {
+        // Check if secure context
+        if (!window.isSecureContext) {
+            console.error("Cannot access clipboard in insecure context");
             return;
         }
-        const clipboardData = JSON.parse(clipboard) as LIClipboard | undefined;
-        if (clipboardData) {
-            const elements = clipboardData.data as LIElement[];
-            const newIDs = new Map<GUID, GUID>();
-            const getID = (id: MaybeGUID) => {
-                if (id === undefined)
-                    return undefined;
-                if (newIDs.has(id))
-                    return newIDs.get(id);
-                if (elements.find(e => e.id === id)) {
-                    const newID = generateGUID();
-                    newIDs.set(id, newID);
-                    return newID;
-                }
-                return id;
-            };
 
-            elements.forEach((elem, index) => {
-                const newID = generateGUID();
-                const newName = elem.name + " (copy)";
-                newIDs.set(elem.id, newID);
-                addElement({
-                    ...elem,
-                    id: newID,
-                    name: newName,
-                    x: elem.x + 1,
-                    parentID: getID(elem.parentID),
-                    properties: {
-                        ...elem.properties,
-                        parent: getID(elem.properties.parent),
-                        leftVent: getID(elem.properties.leftVent),
-                        rightVent: getID(elem.properties.rightVent),
-                        middleVent: getID(elem.properties.middleVent),
-                        teleporter: getID(elem.properties.teleporter),
-
-                        colliders: [
-                            ...(elem.properties.colliders || []),
-                        ]
-                    }
-                });
-                if (index == 0)
-                    setSelectedID(newID);
-            });
+        // Check if navigator clipboard is available
+        if (!navigator.clipboard.read) {
+            console.error("Navigator clipboard is not available");
+            return;
         }
-    }, [localClipboard, toaster]);
 
-    return {
-        copyElement,
-        pasteElement,
-        canCopy,
-        canPaste
-    };
-}
+        // Read clipboard
+        clipboardData = await navigator.clipboard.readText();
+
+        // Check if clipboard has data
+        if (!clipboardData) {
+            console.error("Clipboard is empty");
+            return;
+        }
+    }
+
+    // Parse clipboard data
+    return JSON.parse(clipboardData) as LIClipboard | undefined;
+});
+
+localClipboardAtom.debugLabel = "localClipboardAtom";
+clipboardAtom.debugLabel = "clipboardAtom";

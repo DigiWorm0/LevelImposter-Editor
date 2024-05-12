@@ -6,16 +6,7 @@ import useToaster from "../useToaster";
 import useLIDeserializer from "./useLIDeserializer";
 import { useSetMap } from "../map/useMap";
 
-/*
-const LEGACY_PORTS: Record<string, string> = {
-    "util-player": "util-dummy",
-    "task-fuel3": "task-fuel2",
-    "task-waterwheel2": "task-waterwheel1",
-    "task-waterwheel3": "task-waterwheel1",
-    "task-align2": "task-align1",
-}
-*/
-
+// TODO: Atomize me!
 export function useOpenMap() {
     const saveHistory = useSaveHistory();
     const { danger, warning, success } = useToaster();

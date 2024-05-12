@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup, Tooltip } from "@blueprintjs/core";
+import { Button, ButtonGroup, Dialog, FormGroup } from "@blueprintjs/core";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -6,13 +6,17 @@ import { useTranslation } from "react-i18next";
 import { auth } from "../../utils/Firebase";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { useUserMaps } from "../../hooks/firebase/useUserMaps";
-import SignIn from "../utils/SignIn";
-import PublishButton from "./PublishButton";
 import MapThumbnail from "../utils/MapThumbnail";
+import MapPublishButton from "../buttons/MapPublishButton";
+import SignInModal from "./SignInModal";
 
-export default function SignInButton() {
+export interface AccountModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export default function AccountModal(props: AccountModalProps) {
     const { t } = useTranslation();
-    const [isOpen, setIsOpen] = React.useState(false);
     const { isDarkMode } = useSettingsValue();
     const [user] = useAuthState(auth);
     const maps = useUserMaps(user?.uid);
@@ -20,48 +24,14 @@ export default function SignInButton() {
 
     return (
         <>
-            <Tooltip
-                content={(isLoggedIn && user?.displayName) ? user?.displayName : t("account.signIn") as string}
-                position="bottom"
-            >
-                <Button
-                    className={Classes.MINIMAL}
-                    icon={
-                        isLoggedIn ?
-                            <img
-                                referrerPolicy="no-referrer"
-                                alt={user?.displayName || ""}
-                                className="avatar"
-                                src={user?.photoURL || ""}
-                                style={{ height: 30, width: 30, borderRadius: 15 }}
-                            />
-                            :
-                            "log-in"
-                    }
-                    onClick={() => {
-                        setIsOpen(true)
-                    }}
-                />
-            </Tooltip>
-
+            <SignInModal
+                isOpen={props.isOpen && !isLoggedIn}
+                onClose={props.onClose}
+            />
 
             <Dialog
-                isOpen={isOpen && !isLoggedIn}
-                onClose={() => {
-                    setIsOpen(false)
-                }}
-                title={t("account.signIn")}
-                style={{ paddingBottom: 0 }}
-                portalClassName={isDarkMode ? "bp5-dark" : ""}
-            >
-                <SignIn />
-            </Dialog>
-
-            <Dialog
-                isOpen={isOpen && isLoggedIn}
-                onClose={() => {
-                    setIsOpen(false)
-                }}
+                isOpen={props.isOpen && isLoggedIn}
+                onClose={props.onClose}
                 title={user?.displayName}
                 style={{ paddingBottom: 0 }}
                 portalClassName={isDarkMode ? "bp5-dark" : ""}
@@ -105,11 +75,10 @@ export default function SignInButton() {
                             {t("account.noMaps")}
                         </p>
                     ) : maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
-                    <PublishButton />
+                    <MapPublishButton />
                 </div>
 
             </Dialog>
-
         </>
     );
 }

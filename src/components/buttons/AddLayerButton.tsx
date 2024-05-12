@@ -1,16 +1,20 @@
-import { AnchorButton, Classes } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
+import { AnchorButton, Tooltip } from "@blueprintjs/core";
 import generateGUID from "../../utils/generateGUID";
 import { useAddElement } from "../../hooks/map/elements/useElements";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useTranslation } from "react-i18next";
+import React from "react";
 
-export default function AddLayerButton(props: { isSidePanel?: boolean }) {
+export interface AddLayerButtonProps {
+    buttonProps?: React.ComponentProps<typeof AnchorButton>
+}
+
+export default function AddLayerButton(props: AddLayerButtonProps) {
     const { t } = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const addElement = useAddElement();
 
-    const handleClick = () => {
+    const onClick = React.useCallback(() => {
         const id = generateGUID();
         addElement({
             id,
@@ -25,23 +29,21 @@ export default function AddLayerButton(props: { isSidePanel?: boolean }) {
             properties: {}
         });
         setSelectedID(id);
-    }
+    }, [addElement, setSelectedID]);
 
     return (
-        <>
-            <Tooltip2
+        <Tooltip
+            fill
+            content={t("layer.add") as string}
+            position="bottom"
+        >
+            <AnchorButton
                 fill
-                content={t("layer.add") as string}
-                position="bottom">
-
-                <AnchorButton
-                    fill
-                    className={Classes.MINIMAL}
-                    icon="folder-new"
-                    intent={props.isSidePanel ? "primary" : undefined}
-                    onClick={handleClick} />
-
-            </Tooltip2>
-        </>
+                minimal
+                icon="folder-new"
+                onClick={onClick}
+                {...props.buttonProps}
+            />
+        </Tooltip>
     );
 }

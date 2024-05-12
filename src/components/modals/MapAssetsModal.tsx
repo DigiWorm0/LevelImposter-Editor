@@ -9,7 +9,7 @@ interface MapAssetsDialogProps {
     onClose: () => void
 }
 
-export default function MapAssetsDialog(props: MapAssetsDialogProps) {
+export default function MapAssetsModal(props: MapAssetsDialogProps) {
     const { isDarkMode } = useSettingsValue();
     const map = useMapValue();
 

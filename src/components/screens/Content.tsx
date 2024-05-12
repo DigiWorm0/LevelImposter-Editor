@@ -1,4 +1,4 @@
-import CheckMobile from "../dialogs/CheckMobile";
+import BrowserWarningModal from "../modals/BrowserWarningModal";
 import GlobalHooks from "../utils/GlobalHooks";
 import MapHelmet from "../utils/MapHelmet";
 import { useSettingsValue } from "../../hooks/useSettings";
@@ -27,7 +27,7 @@ export default function Content() {
 
             {!isEmbedded && (<>
                 <RightSidebar />
-                <CheckMobile />
+                <BrowserWarningModal />
             </>)}
 
             {isEmbedded && (<>

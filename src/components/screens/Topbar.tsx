@@ -1,20 +1,19 @@
 import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
-import AddLayerButton from "../dialogs/AddLayerButton";
-import AddObjectButton from "../dialogs/AddObjectButton";
-import CopyButton from "../dialogs/CopyButton";
-import DeleteObjectButton from "../dialogs/DeleteObjectButton";
-import NewMapButton from "../dialogs/NewMapButton";
-import OpenButton from "../dialogs/OpenButton";
-import PasteButton from "../dialogs/PasteButton";
-import RedoButton from "../dialogs/RedoButton";
-import SaveButton from "../dialogs/SaveButton";
-import SignInButton from "../dialogs/SignInButton";
-import UndoButton from "../dialogs/UndoButton";
+import AddLayerButton from "../buttons/AddLayerButton";
+import AddObjectButton from "../buttons/AddObjectButton";
+import CopyButton from "../buttons/CopyButton";
+import DeleteObjectButton from "../buttons/DeleteObjectButton";
+import NewMapButton from "../buttons/NewMapButton";
+import OpenMapButton from "../buttons/OpenMapButton";
+import PasteButton from "../buttons/PasteButton";
+import RedoButton from "../buttons/RedoButton";
+import SaveMapButton from "../buttons/SaveMapButton";
+import SignInButton from "../buttons/SignInButton";
+import UndoButton from "../buttons/UndoButton";
 import MapName from "../scenegraph/MapName";
-import DebugTextBox from "../dialogs/DebugTextBox";
-import MapAssetsButton from "../dialogs/MapAssetsButton";
-import SettingsButton from "../dialogs/SettingsButton";
-import MapPropertiesButton from "../dialogs/MapPropertiesButton";
+import MapAssetsButton from "../buttons/MapAssetsButton";
+import SettingsButton from "../buttons/SettingsButton";
+import MapPropertiesButton from "../buttons/MapPropertiesButton";
 
 export default function Topbar() {
     return (
@@ -26,9 +25,9 @@ export default function Topbar() {
                 <NavbarGroup>
                     <MapName />
                     <NavbarDivider />
-                    <OpenButton />
+                    <OpenMapButton />
                     <NewMapButton />
-                    <SaveButton />
+                    <SaveMapButton />
                     <NavbarDivider />
                     <AddObjectButton />
                     <AddLayerButton />
@@ -40,9 +39,7 @@ export default function Topbar() {
                     <PasteButton />
                     <DeleteObjectButton />
                     <NavbarDivider />
-                    {/*<MagicButton />*/}
                     <MapAssetsButton />
-                    <DebugTextBox />
                 </NavbarGroup>
                 <NavbarGroup align="right">
                     <SignInButton />

@@ -15,8 +15,7 @@ export const selectedElementAtom = atom(
     (get) => {
         const id = get(selectedElementIDAtom);
         const elemAtom = elementFamilyAtom(id);
-        const elem = get(elemAtom);
-        return elem;
+        return get(elemAtom);
     },
     (get, set, elem: MaybeLIElement) => {
         const elements = get(elementsAtom);

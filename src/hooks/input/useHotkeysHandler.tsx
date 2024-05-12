@@ -1,5 +1,4 @@
 import generateGUID from "../../utils/generateGUID";
-import useClipboard from "./useClipboard";
 import { useAddElementAtMouse } from "../map/elements/useElements";
 import { useRedo, useUndo } from "../map/useHistory";
 import { useSelectedElemValue, useSetSelectedElemID } from "../map/elements/useSelectedElem";
@@ -9,13 +8,16 @@ import useSaveMap from "../fileio/useSaveMap";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useRemoveSelectedElement } from "../map/elements/useRemoveElement";
 import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
+import useCopyToClipboard from "./useCopyToClipboard";
+import usePasteFromClipboard from "./usePasteFromClipboard";
 
 export enum Scope {
     Canvas = "Canvas"
 }
 
 export default function useHotkeysHandler() {
-    const { copyElement, pasteElement } = useClipboard();
+    const copyElement = useCopyToClipboard();
+    const pasteElement = usePasteFromClipboard();
     const undo = useUndo();
     const redo = useRedo();
     const selectedElem = useSelectedElemValue();
