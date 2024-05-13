@@ -32,7 +32,7 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
             <Dialog
                 isOpen={props.isOpen}
                 onClose={props.onClose}
-                title={"Map Asset DB"}
+                title={"Map Assets"}
                 portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 <div style={{ margin: 15 }}>

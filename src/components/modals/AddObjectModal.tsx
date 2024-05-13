@@ -10,7 +10,6 @@ import { useSettingsValue } from "../../hooks/useSettings";
 import useHiddenTypes from "../../hooks/map/elements/useSingleTypes";
 import AUElementDB from "../../types/db/AUElementDB";
 
-
 // Omnibar Types
 interface AUElement {
     name: string;

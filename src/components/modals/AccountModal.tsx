@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Dialog, FormGroup } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, FormGroup } from "@blueprintjs/core";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,6 +9,7 @@ import { useUserMaps } from "../../hooks/firebase/useUserMaps";
 import MapThumbnail from "../utils/MapThumbnail";
 import MapPublishButton from "../buttons/MapPublishButton";
 import SignInModal from "./SignInModal";
+import ProfileIcon from "../utils/ProfileIcon";
 
 export interface AccountModalProps {
     isOpen: boolean;
@@ -24,24 +25,37 @@ export default function AccountModal(props: AccountModalProps) {
 
     return (
         <>
+            {/* Sign-In Dialog */}
             <SignInModal
                 isOpen={props.isOpen && !isLoggedIn}
                 onClose={props.onClose}
             />
 
+            {/* Account Dialog */}
             <Dialog
                 isOpen={props.isOpen && isLoggedIn}
                 onClose={props.onClose}
-                title={user?.displayName}
-                style={{ paddingBottom: 0 }}
                 portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
-                <div style={{ margin: 15, display: "flex", flexDirection: "row" }}>
-                    <img
-                        referrerPolicy="no-referrer"
-                        alt={user?.displayName || ""}
-                        src={user?.photoURL || ""}
-                        style={{ width: 100, height: 100, borderRadius: 50, objectFit: "cover", marginRight: 20 }}
+                {/* Profile Header */}
+                <div
+                    style={{
+                        marginTop: 30,
+                        paddingRight: 30,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
+                >
+                    <ProfileIcon
+                        style={{
+                            height: 85,
+                            width: 85,
+                            borderRadius: 50,
+                            objectFit: "cover",
+                            marginRight: 15
+                        }}
                     />
                     <FormGroup>
                         <h1 style={{ marginBottom: 15, marginTop: 10 }}>
@@ -49,7 +63,7 @@ export default function AccountModal(props: AccountModalProps) {
                         </h1>
                         <ButtonGroup>
                             <Button
-                                icon={"share"}
+                                rightIcon={"share"}
                                 text={t("account.viewProfile") as string}
                                 intent={"success"}
                                 onClick={() => {
@@ -57,25 +71,30 @@ export default function AccountModal(props: AccountModalProps) {
                                 }}
                                 style={{ marginRight: 5 }}
                             />
-
                             <Button
-                                icon={"log-out"}
+                                rightIcon={"log-out"}
                                 text={t("account.signOut") as string}
                                 intent={"danger"}
-                                onClick={() => {
-                                    signOut(auth);
-                                }}
+                                onClick={() => signOut(auth).catch(console.error)}
                             />
                         </ButtonGroup>
                     </FormGroup>
                 </div>
-                <div style={{ margin: 15 }}>
-                    {maps.length <= 0 ? (
-                        <p>
+
+                {/* Maps */}
+                <div
+                    style={{
+                        margin: 15,
+                        textAlign: "center"
+                    }}
+                >
+                    <MapPublishButton />
+                    {maps.length <= 0 && (
+                        <p className={Classes.TEXT_MUTED} style={{ marginTop: 10 }}>
                             {t("account.noMaps")}
                         </p>
-                    ) : maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
-                    <MapPublishButton />
+                    )}
+                    {maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
                 </div>
 
             </Dialog>

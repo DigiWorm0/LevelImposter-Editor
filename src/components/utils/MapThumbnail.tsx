@@ -1,13 +1,13 @@
 import LIMetadata from "../../types/li/LIMetadata";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Card, Tag, Tooltip } from "@blueprintjs/core";
+import { Card, Icon, Tag } from "@blueprintjs/core";
 
 export interface MapThumbnailProps {
     map: LIMetadata;
 }
 
-const MAX_DESCRIPTION_LENGTH = 300;
+const MAX_DESCRIPTION_LENGTH = 150;
 
 export default function MapThumbnail(props: MapThumbnailProps) {
     const { t } = useTranslation();
@@ -21,8 +21,16 @@ export default function MapThumbnail(props: MapThumbnailProps) {
         return map.description.substring(0, MAX_DESCRIPTION_LENGTH) + "...";
     }, [map.description, t]);
 
+    const onClick = React.useCallback(() => {
+        window.open(`https://levelimposter.net/#/map/${map.id}`);
+    }, [map.id]);
+
     return (
-        <Card style={{ marginTop: 5 }} key={map.id}>
+        <Card
+            interactive
+            style={{ marginTop: 5 }}
+            onClick={onClick}
+        >
             <div
                 style={{
                     flexDirection: "row",
@@ -44,19 +52,7 @@ export default function MapThumbnail(props: MapThumbnailProps) {
                         </Tag>
                     )}
                 </div>
-                <Tooltip
-                    content={t("map.viewExternal") as string}
-                    position="top-left"
-                >
-                    <Button
-                        small
-                        minimal
-                        icon={"share"}
-                        onClick={() => {
-                            window.open(`https://levelimposter.net/#/map/${map.id}`);
-                        }}
-                    />
-                </Tooltip>
+                <Icon icon={"share"} />
             </div>
             <h3 style={{ marginTop: 5, marginBottom: 10 }}>
                 {map.name}

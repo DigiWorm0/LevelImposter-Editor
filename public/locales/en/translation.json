@@ -18,9 +18,11 @@
 	},
 	"warning": {
 		"title": "Warning",
+		"learnMore": "Learn More",
 		"mobile": "The LevelImposter Editor was not designed to run on a mobile device. However, your mileage may vary.",
-		"firefox": "While LevelImposter Editor will work with any modern browser, Chromium-based browsers (Google Chrome, Microsoft Edge, Brave) will render much faster while working with larger maps.",
+		"firefox": "Firefox is known for having slow performance when it comes to Canvas API. We recommend using a chromium-based browser (Chrome, Edge, etc) for the best experience.",
 		"opera": "Mouse gestures in Opera break clicking and dragging. You can disable them in the settings under \"Shortcuts\".",
+		"brave": "Brave browser has a known issue with the editor where clicking and dragging objects may not work. You can fix this by disabling \"Brave Shield\" for this site in the address bar.",
 		"ok": "Ok"
 	},
 	"edit": {
@@ -591,7 +593,7 @@
 	},
 	"publish": {
 		"title": "Publish To Workshop",
-		"description": "Publish your map to the workshop to play online with others.",
+		"description": "Publish this map to the workshop to play online with others.",
 		"success": "Successfully published map!",
 		"mapName": "Map Name",
 		"authorName": "Author Name",
@@ -617,6 +619,8 @@
 	},
 	"account": {
 		"signedInAs": "Signed in as {{name}}",
+		"signInWithSocial": "Sign In With:",
+		"orUseEmail": "...or use email...",
 		"signOut": "Sign Out",
 		"signIn": "Sign In",
 		"signUp": "Sign Up",
