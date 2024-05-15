@@ -18,7 +18,7 @@ export default function TimerPanel() {
                 name="timer.duration"
                 prop="triggerTime"
                 defaultValue={1}
-                icon="time"
+                icon="Timer"
                 label="seconds"
                 min={0}
                 minorStepSize={0.1}

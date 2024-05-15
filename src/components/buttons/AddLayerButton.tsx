@@ -1,12 +1,13 @@
-import { AnchorButton, Tooltip } from "@blueprintjs/core";
 import generateGUID from "../../utils/generateGUID";
 import { useAddElement } from "../../hooks/map/elements/useElements";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useTranslation } from "react-i18next";
 import React from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import { CreateNewFolder } from "@mui/icons-material";
 
 export interface AddLayerButtonProps {
-    buttonProps?: React.ComponentProps<typeof AnchorButton>
+    buttonProps?: React.ComponentProps<typeof IconButton>
 }
 
 export default function AddLayerButton(props: AddLayerButtonProps) {
@@ -32,18 +33,13 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
     }, [addElement, setSelectedID]);
 
     return (
-        <Tooltip
-            fill
-            content={t("layer.add") as string}
-            position="bottom"
-        >
-            <AnchorButton
-                fill
-                minimal
-                icon="folder-new"
+        <Tooltip title={t("layer.add")}>
+            <IconButton
                 onClick={onClick}
                 {...props.buttonProps}
-            />
+            >
+                <CreateNewFolder />
+            </IconButton>
         </Tooltip>
     );
 }

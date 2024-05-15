@@ -1,9 +1,10 @@
-import { NumericInput, NumericInputProps } from "@blueprintjs/core";
 import React from "react";
+import { TextField, TextFieldProps } from "@mui/material";
 
-export interface FlexNumericInputProps extends NumericInputProps {
+export interface FlexNumericInputProps {
     value: number;
     onChange: (value: number) => void;
+    inputProps?: TextFieldProps;
 }
 
 /**
@@ -13,7 +14,10 @@ export interface FlexNumericInputProps extends NumericInputProps {
 export default function FlexNumericInput(props: FlexNumericInputProps) {
     const [inputValue, setInputValue] = React.useState(props.value.toString());
 
-    const onChange = React.useCallback((value: number, stringValue: string) => {
+    const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const stringValue = e.target.value;
+        const value = parseFloat(stringValue);
+
         setInputValue(stringValue);
         if (!isNaN(value) && value !== props.value)
             props.onChange(value);
@@ -25,11 +29,10 @@ export default function FlexNumericInput(props: FlexNumericInputProps) {
     }, [props.value]);
 
     return (
-        <NumericInput
-            {...props}
+        <TextField
             value={inputValue}
-            onValueChange={onChange}
-            onChange={undefined}
+            onChange={onChange}
+            {...props.inputProps}
         />
     )
 }

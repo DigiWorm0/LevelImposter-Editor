@@ -1,7 +1,8 @@
-import { Button, Tooltip } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import NewMapModal from "../modals/NewMapModal";
+import { IconButton, Tooltip } from "@mui/material";
+import { NoteAdd } from "@mui/icons-material";
 
 export default function NewMapButton() {
     const { t } = useTranslation();
@@ -9,15 +10,10 @@ export default function NewMapButton() {
 
     return (
         <>
-            <Tooltip
-                content={t("map.new") as string}
-                position="bottom"
-            >
-                <Button
-                    minimal
-                    icon="document"
-                    onClick={() => setIsVisible(true)}
-                />
+            <Tooltip title={t("map.new")}>
+                <IconButton onClick={() => setIsVisible(true)}>
+                    <NoteAdd />
+                </IconButton>
             </Tooltip>
 
             <NewMapModal

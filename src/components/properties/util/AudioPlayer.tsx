@@ -1,13 +1,11 @@
-import { Button, ButtonGroup, Slider } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import DevInfo from "../../utils/DevInfo";
 import { useMapAssetValue } from "../../../hooks/map/useMapAssets";
-
-const MAJOR_UPDATE_INTERVAL = 1;
-const MINOR_UPDATE_INTERVAL = 0.01;
+import { ButtonGroup, IconButton, Slider } from "@mui/material";
+import { Pause, PlayArrow, SaveAlt, Stop } from "@mui/icons-material";
 
 interface AudioPlayerProps {
     title?: string;
@@ -20,38 +18,52 @@ interface AudioPlayerProps {
 export default function AudioPlayer(props: AudioPlayerProps) {
     const { t } = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
+    const animRef = React.useRef<number>(0);
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
+    const [isPlaying, setIsPlaying] = React.useState(false);
     const soundAsset = useMapAssetValue(props.sound?.dataID);
 
     const { sound } = props;
 
-    React.useEffect(() => {
-        const interval = setInterval(() => {
-            if (audioRef?.current === null)
-                return;
+    /*
+        Update progress bar
+     */
+    const updateProgress = () => {
 
-            const currentTime = audioRef.current.currentTime;
-            const duration = audioRef.current.duration;
-            setProgress(isNaN(currentTime) ? 0 : currentTime);
-            setDuration(isNaN(duration) ? 0 : duration);
-        }, duration > 10 ? MAJOR_UPDATE_INTERVAL : MINOR_UPDATE_INTERVAL);
-
-        return () => {
-            clearInterval(interval);
+        // Update progress
+        if (audioRef.current) {
+            setProgress(audioRef.current.currentTime);
+            setDuration(audioRef.current.duration);
         }
-    }, [audioRef, duration]);
 
+        // Loop
+        animRef.current = requestAnimationFrame(updateProgress);
+    }
+    React.useEffect(() => {
+        animRef.current = requestAnimationFrame(updateProgress);
+        return () => cancelAnimationFrame(animRef.current);
+    }, []);
+
+    /*
+        Update Volume
+     */
     React.useEffect(() => {
         if (!audioRef.current)
             return;
-        audioRef.current.volume = sound?.volume ? sound.volume : DEFAULT_VOLUME;
+        audioRef.current.volume = sound?.volume ?? DEFAULT_VOLUME;
     }, [sound]);
 
+    /*
+        Sound URL
+     */
     const soundURL = React.useMemo(() => {
         return sound?.isPreset ? `/sounds/${sound?.presetID}` : soundAsset?.url;
     }, [sound]);
 
+    /*
+        Download sound
+     */
     const downloadSound = React.useCallback(() => {
         if (!soundURL)
             return;
@@ -60,6 +72,40 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         link.download = props.title ?? "sound";
         link.click();
     }, [soundURL, props.title]);
+
+    /*
+        Update Play/Pause State
+     */
+    React.useEffect(() => {
+        if (!audioRef.current)
+            return;
+
+        const onPlay = () => setIsPlaying(true);
+        const onPause = () => setIsPlaying(false);
+
+        audioRef.current.addEventListener("play", onPlay);
+        audioRef.current.addEventListener("pause", onPause);
+
+        return () => {
+            audioRef.current?.removeEventListener("play", onPlay);
+            audioRef.current?.removeEventListener("pause", onPause);
+        }
+    }, [audioRef.current]);
+
+    const onChangeProgress = React.useCallback((value: number) => {
+        setProgress(value);
+        if (audioRef.current)
+            audioRef.current.currentTime = value;
+    }, [audioRef.current]);
+
+    const onChangeVolume = React.useCallback((value: number) => {
+        if (!sound)
+            return;
+        props.onSoundChange({
+            ...sound,
+            volume: value
+        });
+    }, [sound]);
 
     if (!sound)
         return null;
@@ -88,42 +134,39 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 {soundURL}
             </DevInfo>
 
-            <ButtonGroup large minimal>
-                <Button
-                    icon="stop"
+            <ButtonGroup>
+                <IconButton
                     onClick={() => {
                         if (audioRef.current) {
                             audioRef.current.pause();
                             audioRef.current.currentTime = 0;
                         }
                     }}
-                />
-                <Button
-                    icon="play"
-                    onClick={() => {
-                        if (audioRef.current)
-                            audioRef.current.play();
-                    }}
-                />
-                <Button
-                    icon="pause"
-                    onClick={() => {
-                        if (audioRef.current)
-                            audioRef.current.pause();
-                    }}
-                />
-                <Button
-                    icon="cloud-download"
-                    onClick={() => {
-                        downloadSound();
-                    }}
-                />
+                >
+                    <Stop />
+                </IconButton>
+                {isPlaying ? (
+                    <IconButton onClick={() => audioRef.current?.pause()}>
+                        <Pause />
+                    </IconButton>
+                ) : (
+                    <IconButton onClick={() => audioRef.current?.play().catch(console.error)}>
+                        <PlayArrow />
+                    </IconButton>
+                )}
+                <IconButton onClick={downloadSound}>
+                    <SaveAlt />
+                </IconButton>
             </ButtonGroup>
 
             <Slider
                 min={0}
                 max={duration}
-                stepSize={0.001}
+                value={progress}
+                step={0.001}
+                onChange={(_, value) => onChangeProgress(value as number)}
+
+                /*
                 labelStepSize={duration <= 0 ? undefined : duration}
                 labelRenderer={(value) => {
                     const seconds = Math.floor(value);
@@ -136,17 +179,19 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                     if (audioRef.current)
                         audioRef.current.currentTime = value;
                 }}
-                value={progress}
+                */
             />
 
             <Slider
                 min={0}
                 max={1}
-                stepSize={0.01}
-                labelStepSize={1}
-                labelRenderer={(value) => `${Math.round(value * 100)}%`}
-                intent="success"
+                step={0.01}
+                /*llabelStepSize={1}
+                abelRenderer={(value) => `${Math.round(value * 100)}%`}*/
+                color={"success"}
                 value={sound?.volume}
+                onChange={(_, value) => onChangeVolume(value as number)}
+                /*
                 onChange={(value) => {
                     if (!sound)
                         return;
@@ -155,6 +200,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                         volume: value
                     });
                 }}
+                */
             />
         </div>
     );

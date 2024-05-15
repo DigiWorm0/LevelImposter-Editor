@@ -17,7 +17,7 @@ export default function FloatingPanel() {
                 name="floating.height"
                 prop="floatingHeight"
                 defaultValue={DEFAULT_FLOATING_HEIGHT}
-                icon="arrows-vertical"
+                icon="SwapVert"
                 min={0}
                 minorStepSize={0.01}
                 stepSize={0.1}
@@ -27,7 +27,7 @@ export default function FloatingPanel() {
                 name="floating.speed"
                 prop="floatingSpeed"
                 defaultValue={DEFAULT_FLOATING_SPEED}
-                icon="double-chevron-up"
+                icon="Speed"
                 min={0}
                 minorStepSize={0.01}
                 stepSize={0.1}

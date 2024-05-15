@@ -1,7 +1,8 @@
-import { Button, Tooltip } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import PublishModal from "../modals/PublishModal";
+import { Button, Tooltip } from "@mui/material";
+import { CloudUpload } from "@mui/icons-material";
 
 export default function MapPublishButton() {
     const { t } = useTranslation();
@@ -10,19 +11,15 @@ export default function MapPublishButton() {
 
     return (
         <>
-            <Tooltip
-                fill
-                content={t("publish.description") as string}
-                position="top"
-            >
+            <Tooltip title={t("publish.description")}>
                 <Button
-                    fill
-                    text={t("publish.title")}
-                    icon={"cloud-upload"}
                     onClick={() => setIsOpen(true)}
                     style={{ marginTop: 5 }}
-                    intent={"primary"}
-                />
+                    variant={"outlined"}
+                    startIcon={<CloudUpload />}
+                >
+                    {t("publish.title")}
+                </Button>
             </Tooltip>
 
             <PublishModal

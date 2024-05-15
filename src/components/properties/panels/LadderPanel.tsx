@@ -17,12 +17,12 @@ export default function LadderPanel() {
                 name="ladder.height"
                 prop="ladderHeight"
                 defaultValue={DEFAULT_LADDER_HEIGHTS[selectedElem.type]}
-                icon="arrows-vertical"
+                icon="SwapVert"
                 min={0}
                 minorStepSize={0.05}
                 stepSize={0.1}
                 majorStepSize={0.5}
-                intent="warning"
+                color="warning"
             />
         </PanelContainer>
     );

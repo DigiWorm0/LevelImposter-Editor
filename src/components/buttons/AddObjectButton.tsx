@@ -1,10 +1,11 @@
-import { AnchorButton, Tooltip } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import AddObjectModal from "../modals/AddObjectModal";
+import { IconButton, Tooltip } from "@mui/material";
+import { AddBoxOutlined } from "@mui/icons-material";
 
 export interface AddObjectButtonProps {
-    buttonProps?: React.ComponentProps<typeof AnchorButton>;
+    buttonProps?: React.ComponentProps<typeof IconButton>;
 }
 
 export default function AddObjectButton(props: AddObjectButtonProps) {
@@ -13,18 +14,13 @@ export default function AddObjectButton(props: AddObjectButtonProps) {
 
     return (
         <>
-            <Tooltip
-                fill
-                content={t("object.add") as string}
-                position="bottom"
-            >
-                <AnchorButton
-                    fill
-                    minimal
-                    icon={"cube-add"}
+            <Tooltip title={t("object.add")}>
+                <IconButton
                     onClick={() => setIsOpen(true)}
                     {...props.buttonProps}
-                />
+                >
+                    <AddBoxOutlined />
+                </IconButton>
             </Tooltip>
             <AddObjectModal
                 isVisible={isOpen}

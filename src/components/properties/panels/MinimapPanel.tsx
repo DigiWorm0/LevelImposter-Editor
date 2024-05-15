@@ -27,12 +27,12 @@ export default function MinimapPanel() {
                     name="minimap.scale"
                     prop="minimapScale"
                     defaultValue={1}
-                    icon="maximize"
+                    icon="AspectRatio"
                     min={0.1}
                     minorStepSize={0.01}
                     stepSize={0.1}
                     majorStepSize={1}
-                    intent="warning"
+                    color="warning"
                 />
                 <Button
                     fill
@@ -46,13 +46,13 @@ export default function MinimapPanel() {
 
             <MapError
                 info
-                icon="tint"
+                icon="Image"
             >
                 {t("minimap.infoSprite") as string}
             </MapError>
             <MapError
                 isVisible={element.properties.spriteID === undefined}
-                icon="media"
+                icon="PlayArrow"
             >
                 {t("minimap.errorNoSprite") as string}
             </MapError>

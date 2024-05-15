@@ -1,4 +1,3 @@
-import { Button, ButtonGroup, Icon } from "@blueprintjs/core";
 import { MenuItem2 } from "@blueprintjs/popover2";
 import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
@@ -13,6 +12,8 @@ import LISoundChannel from "../../../types/li/LISoundChannel";
 import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
+import { Audiotrack, Check, CloudUpload, ExpandMore, Refresh } from "@mui/icons-material";
+import { Button, ButtonGroup } from "@mui/material";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -141,12 +142,12 @@ export default function SoundUpload(props: SoundUploadProps) {
                     }}
                 >
                     <Button
-                        icon={"music"}
-                        rightIcon={"caret-down"}
-                        text={t(`audio.${props.sound?.channel ?? LISoundChannel.SFX}`)}
-                        fill
-                        minimal
-                    />
+                        startIcon={<Audiotrack />}
+                        endIcon={<ExpandMore />}
+                        fullWidth
+                    >
+                        {t(`audio.${props.sound?.channel ?? LISoundChannel.SFX}`)}
+                    </Button>
                 </Select2>
             )}
 
@@ -160,27 +161,33 @@ export default function SoundUpload(props: SoundUploadProps) {
             </div>
 
             {/* Buttons */}
-            <ButtonGroup fill>
+            <ButtonGroup fullWidth>
                 <Button
-                    icon="cloud-upload"
-                    intent="primary"
+                    color={"primary"}
                     onClick={() => onUploadClick()}
-                    style={{ margin: 3 }}
-                />
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <CloudUpload />
+                </Button>
                 <Button
-                    icon="tick"
-                    intent="success"
-                    style={{ margin: 3 }}
+                    color={"success"}
                     disabled={!props.onFinish}
                     onClick={props.onFinish}
-                />
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <Check />
+                </Button>
                 <Button
-                    icon="refresh"
-                    intent="danger"
+                    color={"error"}
                     onClick={props.onReset}
-                    style={{ margin: 3 }}
                     disabled={props.sound === undefined}
-                />
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <Refresh />
+                </Button>
             </ButtonGroup>
 
             {/* Drag & Drop File Upload */}
@@ -204,10 +211,8 @@ export default function SoundUpload(props: SoundUploadProps) {
                     pointerEvents: "none",
                 }}
             >
-                <Icon
-                    icon="cloud-upload"
-                    size={40}
-                    style={{ marginRight: 10 }}
+                <CloudUpload
+                    style={{ marginRight: 10, fontSize: 40 }}
                 />
                 <span
                     style={{

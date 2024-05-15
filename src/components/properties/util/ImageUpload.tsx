@@ -1,4 +1,3 @@
-import { Button, ButtonGroup, H6, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import openUploadDialog from "../../../utils/openUploadDialog";
@@ -10,6 +9,8 @@ import MapAsset from "../../../types/li/MapAssetDB";
 import GUID from "../../../types/generic/GUID";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
 import duplicateBlob from "../../../utils/duplicateBlob";
+import { Button, ButtonGroup } from "@mui/material";
+import { CloudUpload, Done, Refresh } from "@mui/icons-material";
 
 interface ImageUploadProps {
     name: string;
@@ -83,11 +84,11 @@ export default function ImageUpload(props: ImageUploadProps) {
         >
             {/* Title */}
             {props.showName && (
-                <H6 style={{
+                <h4 style={{
                     marginTop: 2
                 }}>
                     {props.name}
-                </H6>
+                </h4>
             )}
 
             {/* Image Preview */}
@@ -112,37 +113,36 @@ export default function ImageUpload(props: ImageUploadProps) {
             </div>
 
             {/* Buttons */}
-            <ButtonGroup fill>
+            <ButtonGroup fullWidth>
                 <Button
-                    icon="cloud-upload"
-                    intent="primary"
-                    onClick={() => onUploadClick()}
-                    style={{ margin: 3 }}
-                />
+                    color={"primary"}
+                    onClick={onUploadClick}
+                >
+                    <CloudUpload />
+                </Button>
                 {props.onColorChange ? (
                     <ColorPicker
                         intent="success"
                         color={props.color ?? props.defaultColor ?? { r: 255, g: 255, b: 255, a: 255 }}
-                        style={{ margin: 3 }}
                         onChange={props.onColorChange}
                     />
                 ) : (
                     <Button
-                        icon="tick"
-                        intent="success"
-                        style={{ margin: 3 }}
+                        color="success"
                         disabled={!props.onFinish}
                         onClick={props.onFinish}
-                    />
+                    >
+                        <Done />
+                    </Button>
                 )}
 
                 <Button
-                    icon="refresh"
-                    intent="danger"
+                    color={"error"}
                     onClick={props.onReset}
-                    style={{ margin: 3 }}
                     disabled={props.color === undefined && asset === undefined}
-                />
+                >
+                    <Refresh />
+                </Button>
             </ButtonGroup>
 
             {/* Drag & Drop File Upload */}
@@ -166,10 +166,8 @@ export default function ImageUpload(props: ImageUploadProps) {
                     pointerEvents: "none",
                 }}>
 
-                <Icon
-                    icon="cloud-upload"
-                    size={40}
-                    style={{ marginRight: 10 }}
+                <CloudUpload
+                    style={{ marginRight: 10, fontSize: 40 }}
                 />
                 <span style={{
                     fontSize: 20,

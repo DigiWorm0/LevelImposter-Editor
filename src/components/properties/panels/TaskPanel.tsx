@@ -66,7 +66,7 @@ export default function TaskPanel() {
                     <NumericPanelInput
                         name={"task.towelPickupCount"}
                         prop={"towelPickupCount"}
-                        icon={"numerical"}
+                        icon={"Workspaces"}
                         defaultValue={Math.floor(towelCount / 2)}
                         min={0}
                         stepSize={1}
@@ -82,13 +82,13 @@ export default function TaskPanel() {
             </MapError>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("task.errorNoRoom")}
             </MapError>
             <MapError
                 isVisible={hasDuplicateTempTask}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("task.errorTemp")}
             </MapError>

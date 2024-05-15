@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
-import { DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT } from "../../../types/generic/Constants";
+import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../../types/generic/Constants";
 import MapError from "../util/MapError";
 
 const MAX_PIXELS = 1920 * 1080;
@@ -30,27 +30,27 @@ export default function CamPanel() {
                         name="display.width"
                         prop="displayWidth"
                         defaultValue={DEFAULT_DISPLAY_WIDTH}
-                        icon="arrows-horizontal"
+                        icon="SwapHoriz"
                         minorStepSize={1}
                         stepSize={10}
                         majorStepSize={100}
-                        intent={"primary"}
+                        color={"primary"}
                     />
                     <NumericPanelInput
                         name="display.height"
                         prop="displayHeight"
                         defaultValue={DEFAULT_DISPLAY_HEIGHT}
-                        icon="arrows-vertical"
+                        icon="SwapVert"
                         minorStepSize={1}
                         stepSize={10}
                         majorStepSize={100}
-                        intent={"primary"}
+                        color={"primary"}
                     />
                 </ControlGroup>
             </PanelContainer>
             <MapError
                 isVisible={pixelCount > MAX_PIXELS}
-                icon="desktop"
+                icon="ViewCompact"
             >
                 {t("display.errorResolution") as string}
             </MapError>

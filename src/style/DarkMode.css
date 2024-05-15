@@ -1,15 +1,15 @@
 .bp5-dark .canvas {
-    background-color: #1C2127;
+    background-color: #151515;
 }
 
 .bp5-dark .left-sidebar,
 .bp5-dark .right-sidebar {
-    background-color: #252A31 !important;
+    background-color: #1b1b1b !important;
 }
 
 .bp5-dark .topbar-navbar {
-    background-color: #252A31 !important;
-    box-shadow: 0 3px 6px #1C2127 !important;
+    background-color: #1b1b1b !important;
+    box-shadow: 0 0 10px #050505 !important;
 }
 
 .bp5-dark input {

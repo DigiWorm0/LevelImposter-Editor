@@ -1,21 +1,18 @@
-import { Button, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useOpenMap } from "../../hooks/fileio/useOpenMap";
+import { IconButton, Tooltip } from "@mui/material";
+import { FileOpen } from "@mui/icons-material";
+import React from "react";
 
 export default function OpenMapButton() {
     const { t } = useTranslation();
     const openMapFile = useOpenMap();
 
     return (
-        <Tooltip
-            content={t("map.open") as string}
-            position="bottom"
-        >
-            <Button
-                minimal
-                icon="folder-open"
-                onClick={openMapFile}
-            />
+        <Tooltip title={t("map.open")}>
+            <IconButton onClick={openMapFile}>
+                <FileOpen />
+            </IconButton>
         </Tooltip>
     );
 }

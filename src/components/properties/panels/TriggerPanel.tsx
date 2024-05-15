@@ -69,7 +69,7 @@ export default function TriggerPanel() {
                         label={randomPercentage}
                         prop="triggerCount"
                         defaultValue={2}
-                        icon="antenna"
+                        icon="SettingsInputAntenna"
                         min={2}
                         stepSize={1}
 
@@ -114,20 +114,20 @@ export default function TriggerPanel() {
             <MapError
                 isVisible={selectedElem.type === "util-triggerrand"}
                 info
-                icon="random"
+                icon="Shuffle"
             >
                 {t("trigger.randomInfo")}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerrepeat"}
                 info
-                icon="antenna"
+                icon="SettingsInputAntenna"
             >
                 {t("trigger.repeatInfo")}
             </MapError>
             <MapError
                 isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("trigger.errorNoCollider")}
             </MapError>

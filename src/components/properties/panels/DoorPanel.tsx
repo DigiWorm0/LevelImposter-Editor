@@ -74,7 +74,7 @@ export default function DoorPanel() {
             </PanelContainer>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("door.errorNoRoom")}
             </MapError>
@@ -85,7 +85,7 @@ export default function DoorPanel() {
             </MapError>
             <MapError
                 isVisible={isNotWav}
-                icon="volume-off"
+                icon="VolumeMute"
             >
                 {t("audio.errorNotWav")}
             </MapError>

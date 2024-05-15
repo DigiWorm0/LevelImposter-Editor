@@ -79,13 +79,13 @@ export default function VentPanel() {
             <MapError
                 isVisible={selectedElem.type === "util-vent2"}
                 info
-                icon="volume-up"
+                icon="VolumeUp"
             >
                 {t("vent.ventSoundInfo")}
             </MapError>
             <MapError
                 isVisible={isNotWav}
-                icon="volume-off"
+                icon="VolumeMute"
             >
                 {t("audio.errorNotWav") as string}
             </MapError>

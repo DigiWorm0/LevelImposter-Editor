@@ -1,6 +1,7 @@
-import { Button, Callout, Collapse, IconName } from '@blueprintjs/core';
 import React from 'react';
 import { useSettingsValue } from '../../../hooks/useSettings';
+import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
+import { Alert, Button, Collapse } from "@mui/material";
 
 export interface MapErrorProps {
     isVisible?: boolean,
@@ -20,10 +21,10 @@ export default function MapError(props: MapErrorProps) {
         (isInfoVisible || !(props.info ?? false));
 
     return (
-        <Collapse isOpen={isVisible}>
-            <Callout
-                intent={props.info ? "primary" : "warning"}
-                icon={props.icon}
+        <Collapse in={isVisible}>
+            <Alert
+                severity={props.info ? "info" : "warning"}
+                icon={props.icon && (<MaterialIcon icon={props.icon} />)}
                 style={{
                     borderBottom: `3px solid ${props.info ? "rgb(37, 93, 128)" : "rgb(146, 100, 53)"}`,
                     borderRadius: 0
@@ -35,16 +36,17 @@ export default function MapError(props: MapErrorProps) {
 
                 {props.buttonText && props.onButtonClick && (
                     <Button
-                        icon={props.buttonIcon}
+                        endIcon={props.buttonIcon && (<MaterialIcon icon={props.buttonIcon} />)}
                         onClick={props.onButtonClick}
-                        intent={props.info ? "primary" : "warning"}
-                        small
+                        color={props.info ? "primary" : "warning"}
+                        size={"small"}
                         style={{ marginTop: 5 }}
+                        variant={"contained"}
                     >
                         {props.buttonText}
                     </Button>
                 )}
-            </Callout>
+            </Alert>
         </Collapse>
     )
 }

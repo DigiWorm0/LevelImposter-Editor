@@ -79,21 +79,21 @@ export default function SabPanel() {
                         stepSize={5}
                         majorStepSize={15}
                         label={"seconds"}
-                        icon="time"
+                        icon="Timer"
                     />
                 )}
             </PanelContainer>
 
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("sab.errorNoRoom") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "sab-btndoors"}
                 info
-                icon="map-marker"
+                icon="Room"
             >
                 {t("sab.doorInfo") as string}
             </MapError>

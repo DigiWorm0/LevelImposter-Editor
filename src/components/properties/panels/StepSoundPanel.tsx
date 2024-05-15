@@ -26,7 +26,7 @@ export default function StepSoundPanel() {
                 <NumericPanelInput
                     name={t("stepSound.priority")}
                     prop={"soundPriority"}
-                    icon="sort"
+                    icon="PriorityHigh"
                     defaultValue={0}
                     min={0}
                     max={1000}

@@ -147,70 +147,70 @@ export default function ColliderPanel() {
             <MapError
                 isVisible={selectedColliderID !== undefined}
                 info
-                icon="hand-up"
+                icon="HighlightAlt"
             >
                 {t("collider.colliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type.startsWith("sab-door")}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.doorInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-room"}
                 info
-                icon="area-of-interest"
+                icon="Room"
             >
                 {t("collider.roomInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type.startsWith("util-sound") || selectedElem.type === "util-triggersound"}
                 info
-                icon="volume-up"
+                icon="VolumeUp"
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerarea"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.triggerAreaInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-tele"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.teleInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-onewaycollider"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.oneWayColliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-decontamination"}
                 info
-                icon="volume-up"
+                icon="VolumeUp"
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-ghostcollider"}
                 info
-                icon="person"
+                icon="Person"
             >
                 {t("collider.ghostInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-binocularscollider"}
                 info
-                icon="camera"
+                icon="CameraAlt"
             >
                 {t("collider.binocularsInfo") as string}
             </MapError>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup, ControlGroup, InputGroup } from "@blueprintjs/core";
+import { ControlGroup, InputGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
@@ -10,6 +10,8 @@ import getIsConsole from "../../../utils/getIsConsole";
 import useFixSprite from "../../../hooks/canvas/useFixSprite";
 import FlexNumericInput from "../util/FlexNumericInput";
 import { useRemoveSelectedElement } from "../../../hooks/map/elements/useRemoveElement";
+import { Button, ButtonGroup, TextField } from "@mui/material";
+import { Delete, Lock, LockOpen } from "@mui/icons-material";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -47,7 +49,7 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-type-dev"}
                         defaultValue={selectedElem.type}
                         placeholder={t("transform.type") as string}
-                        leftElement={<Button minimal disabled>{t("transform.type")}</Button>}
+                        leftElement={<Button disabled>{t("transform.type")}</Button>}
                         onChange={(e) => {
                             setSelectedElem({ ...selectedElem, type: e.target.value });
                         }}
@@ -58,17 +60,18 @@ export default function TransformPanel() {
                         key={selectedElem.id + "-type"}
                         defaultValue={t(`au.${selectedElem?.type}`) as string}
                         placeholder={t("transform.type") as string}
-                        leftElement={<Button minimal disabled>{t("transform.type")}:</Button>}
-                        rightElement={<Button minimal disabled>{selectedElem.type}</Button>}
+                        leftElement={<Button disabled>{t("transform.type")}:</Button>}
+                        rightElement={<Button disabled>{selectedElem.type}</Button>}
                         disabled
                     />
                 )}
-                <InputGroup
+                <TextField
                     style={{ marginBottom: 5 }}
                     key={selectedElem.id + "-name"}
+                    size={"small"}
                     value={selectedElem.name}
                     placeholder={t("transform.name") as string}
-                    large
+                    fullWidth
                     onChange={(e) => {
                         setSelectedElem({ ...selectedElem, name: e.target.value });
                     }}
@@ -80,33 +83,42 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, x: val });
                             }}
-                            fill
-                            placeholder={t("transform.x") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.x") as string,
+                                inputProps: {
+                                    stepSize: 0.1
+                                }
+                            }}
                         />
                         <FlexNumericInput
                             value={selectedElem.y}
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, y: val });
                             }}
-                            fill
-                            placeholder={t("transform.y") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.y") as string,
+                                inputProps: {
+                                    stepSize: 0.1
+                                }
+                            }}
                         />
                         <FlexNumericInput
                             value={selectedElem.z}
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, z: val });
                             }}
-                            fill
-                            placeholder={t("transform.z") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.z") as string,
+                                inputProps: {
+                                    stepSize: 0.1
+                                }
+                            }}
                         />
                     </ControlGroup>
                     <ControlGroup fill>
@@ -115,24 +127,28 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, xScale: val });
                             }}
-                            fill
-                            leftIcon="arrows-horizontal"
-                            placeholder={t("transform.xScale") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.xScale") as string,
+                                inputProps: {
+                                    stepSize: 0.1
+                                }
+                            }}
                         />
                         <FlexNumericInput
                             value={selectedElem.yScale}
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, yScale: val });
                             }}
-                            fill
-                            leftIcon="arrows-vertical"
-                            placeholder={t("transform.yScale") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.yScale") as string,
+                                inputProps: {
+                                    stepSize: 0.1
+                                }
+                            }}
                         />
                     </ControlGroup>
                     <ControlGroup fill>
@@ -141,19 +157,21 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, rotation: val });
                             }}
-                            fill
-                            leftIcon="refresh"
-                            placeholder={t("transform.rotation") as string}
-                            minorStepSize={1}
-                            stepSize={45}
-                            majorStepSize={90}
+                            inputProps={{
+                                size: "small",
+                                fullWidth: true,
+                                placeholder: t("transform.rotation") as string,
+                                inputProps: {
+                                    stepSize: 1
+                                }
+                            }}
                         />
                     </ControlGroup>
-                    <ButtonGroup minimal style={{ marginTop: 10 }} fill>
+                    <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                         <Button
-                            fill
-                            icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
-                            text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
+                            variant={"text"}
+                            color={"inherit"}
+                            startIcon={selectedElem.properties.isLocked ? <Lock /> : <LockOpen />}
                             onClick={() => {
                                 setSelectedElem({
                                     ...selectedElem,
@@ -163,20 +181,24 @@ export default function TransformPanel() {
                                     }
                                 });
                             }}
-                        />
+                        >
+                            {selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
+                        </Button>
                         <Button
-                            fill
-                            icon="trash"
-                            text={t("transform.delete") as string}
+                            variant={"text"}
+                            color={"inherit"}
+                            startIcon={<Delete />}
                             onClick={removeSelectedElement}
-                        />
+                        >
+                            {t("transform.delete") as string}
+                        </Button>
                     </ButtonGroup>
                 </>)}
             </PanelContainer>
             <MapError
                 isVisible={elemVisibility !== ElemVisibility.Visible}
                 info
-                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}
+                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? "Visibility" : "VisibilityOff"}
             >
                 {elemVisibility === ElemVisibility.Invisible ? t("transform.errorInvisible") : null}
                 {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
@@ -186,7 +208,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isConsole && (Math.abs(selectedElem.xScale) != 1 || Math.abs(selectedElem.yScale) != 1)}
                 buttonText={t("transform.autoFix") as string}
-                buttonIcon="wrench"
+                buttonIcon="Build"
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
@@ -195,7 +217,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isCamera}
                 info
-                icon={"paragraph"}
+                icon={"TextSnippet"}
             >
                 {t("cameras.nameInfo")}
             </MapError>

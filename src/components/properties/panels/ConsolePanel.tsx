@@ -29,12 +29,12 @@ export default function ConsolePanel() {
                     name="console.range"
                     prop="range"
                     defaultValue={DEFAULT_CONSOLE_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
                     minorStepSize={0.05}
                     stepSize={0.1}
                     majorStepSize={0.5}
-                    intent="warning"
+                    color="warning"
                 />
                 {selectedElem.type === "util-triggerconsole" && (
                     <ColorPanelInput

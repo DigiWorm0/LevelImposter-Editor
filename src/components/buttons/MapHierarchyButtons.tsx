@@ -10,9 +10,9 @@ export default function MapHierarchyButtons() {
             style={{ padding: 5 }}
             minimal
         >
-            <AddObjectButton buttonProps={{ intent: "success" }} />
-            <AddLayerButton buttonProps={{ intent: "primary" }} />
-            <DeleteObjectButton buttonProps={{ intent: "danger" }} />
+            <AddObjectButton buttonProps={{ color: "success" }} />
+            <AddLayerButton buttonProps={{ color: "primary" }} />
+            <DeleteObjectButton buttonProps={{ color: "error" }} />
         </ButtonGroup>
     );
 }

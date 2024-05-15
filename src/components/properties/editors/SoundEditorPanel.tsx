@@ -1,9 +1,9 @@
-import { H6, Tag } from "@blueprintjs/core";
 import React from "react";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import SoundUpload from "../util/SoundUpload";
 import generateGUID from "../../../utils/generateGUID";
+import { Chip } from "@mui/material";
 
 interface SoundEditorProps {
     title: string;
@@ -67,22 +67,20 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
         return null;
 
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{ padding: 10 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <H6 style={{
-                    marginTop: 2
-                }}>
+                <h4 style={{ marginTop: 2 }}>
                     {props.title}
-                </H6>
+                </h4>
                 {sound?.isPreset && (
-                    <Tag
-                        intent="success"
+                    <Chip
+                        label={sound.presetID}
+                        size={"small"}
+                        color={"success"}
                         style={{
                             marginBottom: 10,
                         }}
-                    >
-                        {sound.presetID}
-                    </Tag>
+                    />
                 )}
             </div>
 

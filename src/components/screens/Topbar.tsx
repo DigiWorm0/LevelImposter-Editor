@@ -1,4 +1,4 @@
-import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
+import { Navbar, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../buttons/AddLayerButton";
 import AddObjectButton from "../buttons/AddObjectButton";
 import CopyButton from "../buttons/CopyButton";
@@ -24,21 +24,16 @@ export default function Topbar() {
             >
                 <NavbarGroup>
                     <MapName />
-                    <NavbarDivider />
                     <OpenMapButton />
                     <NewMapButton />
                     <SaveMapButton />
-                    <NavbarDivider />
                     <AddObjectButton />
                     <AddLayerButton />
-                    <NavbarDivider />
                     <UndoButton />
                     <RedoButton />
-                    <NavbarDivider />
                     <CopyButton />
                     <PasteButton />
                     <DeleteObjectButton />
-                    <NavbarDivider />
                     <MapAssetsButton />
                 </NavbarGroup>
                 <NavbarGroup align="right">

@@ -1,7 +1,11 @@
 import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../../types/generic/Constants";
+import {
+    DEFAULT_PLATFORM_ENTER,
+    DEFAULT_PLATFORM_EXIT,
+    DEFAULT_PLATFORM_OFFSET
+} from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
@@ -22,21 +26,21 @@ export default function PlatformPanel() {
                     name="platform.translationX"
                     prop="platformXOffset"
                     defaultValue={-DEFAULT_PLATFORM_OFFSET}
-                    icon="arrows-horizontal"
+                    icon="SwapHoriz"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.translationY"
                     prop="platformYOffset"
                     defaultValue={0}
-                    icon="arrows-vertical"
+                    icon="SwapVert"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -44,21 +48,21 @@ export default function PlatformPanel() {
                     name="platform.enterOffsetX"
                     prop="platformXEntranceOffset"
                     defaultValue={DEFAULT_PLATFORM_ENTER}
-                    icon="log-in"
+                    icon="Login"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.enterOffsetY"
                     prop="platformYEntranceOffset"
                     defaultValue={0}
-                    icon="log-in"
+                    icon="Login"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -66,21 +70,21 @@ export default function PlatformPanel() {
                     name="platform.exitOffsetX"
                     prop="platformXExitOffset"
                     defaultValue={DEFAULT_PLATFORM_EXIT}
-                    icon="log-out"
+                    icon="Logout"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
                 <NumericPanelInput
                     name="platform.exitOffsetY"
                     prop="platformYExitOffset"
                     defaultValue={0}
-                    icon="log-out"
+                    icon="Logout"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
             </ControlGroup>
             <SoundEditorPanel

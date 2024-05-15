@@ -28,7 +28,7 @@ export default function DecontaminationPanel() {
                     label={"seconds"}
                     defaultValue={3}
                     min={0}
-                    icon={"time"}
+                    icon={"Timer"}
                 />
                 <SoundEditorPanel
                     title={t("decontamination.sound") as string}

@@ -1,7 +1,8 @@
-import { Button, Tooltip } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SettingsModal from "../modals/SettingsModal";
+import { IconButton, Tooltip } from "@mui/material";
+import { Settings } from "@mui/icons-material";
 
 export default function SettingsButton() {
     const { t } = useTranslation();
@@ -9,15 +10,10 @@ export default function SettingsButton() {
 
     return (
         <>
-            <Tooltip
-                content={t("settings.interface.title") as string}
-                position="bottom"
-            >
-                <Button
-                    minimal
-                    icon="cog"
-                    onClick={() => setIsOpen(true)}
-                />
+            <Tooltip title={t("settings.interface.title")}>
+                <IconButton onClick={() => setIsOpen(true)}>
+                    <Settings />
+                </IconButton>
             </Tooltip>
 
             <SettingsModal

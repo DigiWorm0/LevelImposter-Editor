@@ -19,23 +19,23 @@ export default function SporePanel() {
                     name="spore.activateRange"
                     prop="range"
                     defaultValue={DEFAULT_SPORE_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
                     minorStepSize={0.05}
                     stepSize={0.1}
                     majorStepSize={0.5}
-                    intent="warning"
+                    color="warning"
                 />
                 <NumericPanelInput
                     name="spore.gasRange"
                     prop="sporeRange"
                     defaultValue={DEFAULT_SPORE_GAS_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
                     minorStepSize={0.05}
                     stepSize={0.1}
                     majorStepSize={0.5}
-                    intent="primary"
+                    color="primary"
                 />
                 <ColorPanelInput
                     name={t("spore.gasColor") as string}

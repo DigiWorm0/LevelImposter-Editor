@@ -1,9 +1,9 @@
-import { InputGroup, Menu, MenuDivider } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useElementChildren } from "../../hooks/map/elements/useElements";
 import MapHierarchyButtons from "../buttons/MapHierarchyButtons";
 import MapHierarchyElement from "./MapHierarchyElement";
+import { Divider, TextField } from "@mui/material";
 
 export default function MapHierarchy() {
     const { t } = useTranslation();
@@ -12,21 +12,21 @@ export default function MapHierarchy() {
 
     return (
         <>
-            <InputGroup
-                placeholder={t("edit.search") as string}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                leftIcon="search"
-                intent={searchQuery.length > 0 ? "warning" : "none"}
-                small
-                style={{
-                    border: "none",
-                    outline: 0,
-                    backgroundColor: "transparent",
-                    boxShadow: "none",
-                }}
-            />
-            <MenuDivider />
+            <div style={{ padding: 10 }}>
+                <TextField
+                    placeholder={t("edit.search")}
+                    variant={"standard"}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    style={{
+                        width: "100%",
+                        border: "none",
+                        outline: 0,
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                    }}
+                />
+            </div>
             <div
                 style={{
                     overflowY: "auto",
@@ -35,23 +35,16 @@ export default function MapHierarchy() {
                     backgroundColor: "transparent",
                 }}
             >
-                <Menu
-                    style={{
-                        backgroundColor: "transparent"
-                    }}
-                >
-                    {elementIDs.map((elemID) => (
-                        <MapHierarchyElement
-                            key={elemID}
-                            elementID={elemID}
-                            searchQuery={searchQuery}
-                            isRoot={true}
-                        />
-                    ))}
-                </Menu>
+                {elementIDs.map((elemID) => (
+                    <MapHierarchyElement
+                        key={elemID}
+                        elementID={elemID}
+                        searchQuery={searchQuery}
+                        isRoot={true}
+                    />
+                ))}
             </div>
-
-            <MenuDivider />
+            <Divider />
             <MapHierarchyButtons />
         </>
     );

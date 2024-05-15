@@ -1,4 +1,3 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
@@ -19,11 +18,11 @@ export default function SpawnPanel() {
                 name="spawn.radius"
                 prop="range"
                 defaultValue={DEFAULT_SPAWN_RANGE}
-                icon="circle"
+                icon="TripOrigin"
                 minorStepSize={0.01}
                 stepSize={0.1}
                 majorStepSize={0.5}
-                intent="warning"
+                color="warning"
             />
             <SwitchPanelInput
                 name="spawn.spawnDummies"

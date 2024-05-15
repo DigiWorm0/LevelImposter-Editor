@@ -67,19 +67,19 @@ export default function SoundPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("audio.errorNoCollider") as string}
             </MapError>
             <MapError
                 isVisible={!hasSound}
-                icon="volume-off"
+                icon="VolumeOff"
             >
                 {t("audio.errorNoSound") as string}
             </MapError>
             <MapError
                 isVisible={isNotWav}
-                icon="volume-off"
+                icon="VolumeOff"
             >
                 {t("audio.errorNotWav") as string}
             </MapError>

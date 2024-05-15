@@ -1,7 +1,13 @@
 import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED } from "../../../types/generic/Constants";
+import {
+    DEFAULT_STARFIELD_COUNT,
+    DEFAULT_STARFIELD_HEIGHT,
+    DEFAULT_STARFIELD_LENGTH,
+    DEFAULT_STARFIELD_MAXSPEED,
+    DEFAULT_STARFIELD_MINSPEED
+} from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
 
@@ -18,7 +24,7 @@ export default function StarfieldPanel() {
                 name="starfield.count"
                 prop="starfieldCount"
                 defaultValue={DEFAULT_STARFIELD_COUNT}
-                icon="layout-sorted-clusters"
+                icon="Workspaces"
                 min={1}
                 minorStepSize={1}
                 stepSize={5}
@@ -30,23 +36,23 @@ export default function StarfieldPanel() {
                     name="starfield.length"
                     prop="starfieldLength"
                     defaultValue={DEFAULT_STARFIELD_LENGTH}
-                    icon="arrows-horizontal"
+                    icon="SwapHoriz"
                     min={0}
                     minorStepSize={0.1}
                     stepSize={1}
                     majorStepSize={10}
-                    intent="warning"
+                    color="warning"
                 />
                 <NumericPanelInput
                     name="starfield.height"
                     prop="starfieldHeight"
                     defaultValue={DEFAULT_STARFIELD_HEIGHT}
-                    icon="arrows-vertical"
+                    icon="SwapVert"
                     min={0}
                     minorStepSize={0.1}
                     stepSize={1}
                     majorStepSize={10}
-                    intent="warning"
+                    color="warning"
                 />
             </ControlGroup>
             <ControlGroup fill>
@@ -54,7 +60,7 @@ export default function StarfieldPanel() {
                     name="starfield.minSpeed"
                     prop="starfieldMinSpeed"
                     defaultValue={DEFAULT_STARFIELD_MINSPEED}
-                    icon="double-chevron-down"
+                    icon="FastRewind"
                     min={0}
                     minorStepSize={0.1}
                     stepSize={1}
@@ -64,7 +70,7 @@ export default function StarfieldPanel() {
                     name="starfield.maxSpeed"
                     prop="starfieldMaxSpeed"
                     defaultValue={DEFAULT_STARFIELD_MAXSPEED}
-                    icon="double-chevron-up"
+                    icon="FastForward"
                     min={0}
                     minorStepSize={0.1}
                     stepSize={1}

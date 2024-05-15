@@ -133,7 +133,7 @@ export default function MinigamePanel() {
             </PanelContainer>
             <MapError
                 info
-                icon="media"
+                icon="PlayArrow"
             >
                 {t("minigame.saveInfo")}
             </MapError>

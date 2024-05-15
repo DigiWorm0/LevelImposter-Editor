@@ -18,33 +18,33 @@ export default function CamPanel() {
                     name="cameras.offsetx"
                     prop="camXOffset"
                     defaultValue={0}
-                    icon="arrows-horizontal"
+                    icon="SwapHoriz"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"success"}
+                    color={"success"}
                 />
                 <NumericPanelInput
                     name="cameras.offsety"
                     prop="camYOffset"
                     defaultValue={0}
-                    icon="arrows-vertical"
+                    icon="SwapVert"
                     minorStepSize={0.1}
                     stepSize={0.5}
                     majorStepSize={1}
-                    intent={"success"}
+                    color={"success"}
                 />
             </ControlGroup>
             <NumericPanelInput
                 name="cameras.zoom"
                 prop="camZoom"
                 defaultValue={3}
-                icon="zoom-in"
+                icon="ZoomIn"
                 min={0}
                 minorStepSize={0.1}
                 stepSize={0.5}
                 majorStepSize={1}
-                intent={"success"}
+                color={"success"}
             />
         </PanelContainer>
     );

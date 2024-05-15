@@ -1,5 +1,5 @@
-import { Button, Collapse, IconName, Intent } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import { Collapse } from "@blueprintjs/core";
+import { Button } from "@mui/material";
 import React from "react";
 import useElement, {
     useDraggingElementID,
@@ -9,28 +9,29 @@ import useElement, {
 import { useSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
+import MaterialIcon, { IconName } from "../utils/MaterialIcon";
 
 const ICON_DB: Record<string, IconName> = {
-    "util-blank": "media",
-    "util-minimap": "map",
-    "util-cam": "camera",
-    "util-dummy": "person",
-    "util-vitals": "pulse",
-    "util-room": "map-marker",
-    "util-computer": "desktop",
-    "util-admin": "globe-network",
-    "util-platform": "arrows-horizontal",
-    "util-ladder1": "arrows-vertical",
-    "util-ladder2": "arrows-vertical",
-    "util-starfield": "star",
-    "util-button1": "target",
-    "util-button2": "target",
-    "util-spawn1": "locate",
-    "util-spawn2": "locate",
-    "util-cams1": "video",
-    "util-cams2": "video",
-    "util-cams3": "video",
-    "util-layer": "folder-close"
+    "util-blank": "Interests",
+    "util-minimap": "Map",
+    "util-cam": "Camera",
+    "util-dummy": "Person",
+    "util-vitals": "MonitorHeart",
+    "util-room": "Room",
+    "util-computer": "Computer",
+    "util-admin": "Language",
+    "util-platform": "SwapHoriz",
+    "util-ladder1": "SwapVert",
+    "util-ladder2": "SwapVert",
+    "util-starfield": "Star",
+    "util-button1": "CrisisAlert",
+    "util-button2": "CrisisAlert",
+    "util-spawn1": "Flag",
+    "util-spawn2": "Flag",
+    "util-cams1": "PlayArrow",
+    "util-cams2": "PlayArrow",
+    "util-cams3": "PlayArrow",
+    "util-layer": "Folder"
 }
 
 export default function MapHierarchyElement(props: { elementID: MaybeGUID, searchQuery: string, isRoot: boolean }) {
@@ -48,20 +49,14 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
         if (icon)
             return icon;
         if (type.startsWith("task-"))
-            return "build";
+            return "Handyman";
         else if (type.startsWith("sab-"))
-            return "warning-sign";
+            return "Warning";
         else if (type.startsWith("util-"))
-            return "wrench";
+            return "Build";
         else if (type.startsWith("dec-") || type.startsWith("room-"))
-            return "cube";
-        return "help";
-    }
-
-    const getIntent = (type: string): Intent => {
-        if (type === "util-layer")
-            return "primary";
-        return "success";
+            return "Chair";
+        return "Help";
     }
 
     if (element === undefined)
@@ -70,7 +65,6 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
     const isDisabled = !((element.type === "util-layer" || elementNesting) && isDroppable) && draggingID !== undefined;
     const isVisible = element.properties.isVisible ?? true;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
-    const intent = isDisabled ? "none" : getIntent(element.type);
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchID = element.id.startsWith(props.searchQuery);
@@ -118,7 +112,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                 e.stopPropagation();
             }}
         >
-            <MenuItem2
+            {/*<MenuItem2
                 style={{
                     //outline: "none",
                     outline: isMatch && props.searchQuery !== "" ? "rgba(45, 114, 210, 0.6) solid 2px" : "none",
@@ -173,6 +167,23 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
                 }
 
             />
+            */}
+            <Button
+                fullWidth
+                style={{
+                    outline: isMatch && props.searchQuery !== "" ? "rgba(45, 114, 210, 0.6) solid 2px" : "none",
+                    outlineOffset: -1,
+                    marginTop: 1,
+                }}
+                id={element.id}
+                startIcon={<MaterialIcon icon={getIcon(element.type)} />}
+                onClick={() => setSelectedID(element.id)}
+                disabled={isDisabled}
+                color={element.type === "util-layer" ? "primary" : "inherit"}
+                size={"small"}
+            >
+                {element.name}
+            </Button>
             <Collapse
                 isOpen={isExpanded}
                 keepChildrenMounted>

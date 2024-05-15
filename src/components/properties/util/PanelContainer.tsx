@@ -1,5 +1,6 @@
-import { Button, Card, Collapse } from "@blueprintjs/core";
 import React from "react";
+import { Button, Card, CardContent, Collapse } from "@mui/material";
+import { ExpandLess } from "@mui/icons-material";
 
 interface PanelContainerProps {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ export default function PanelContainer(props: PanelContainerProps) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
-        <Collapse isOpen={props.isOpen ?? true}>
+        <Collapse in={props.isOpen ?? true}>
             <Card
                 style={{
                     padding: 0,
@@ -22,29 +23,25 @@ export default function PanelContainer(props: PanelContainerProps) {
                 }}
             >
                 <Button
-                    fill
-                    large
-                    minimal
-                    rightIcon={isOpen ? "chevron-up" : "chevron-down"}
+                    fullWidth
+                    endIcon={
+                        <ExpandLess
+                            style={{
+                                transform: isOpen ? "rotate(180deg)" : "",
+                                transition: "transform 0.2s"
+                            }}
+                        />
+                    }
+                    size={"large"}
                     onClick={() => setIsOpen(!isOpen)}
-                    text={props.title}
-                    alignText="left"
                     style={{ fontWeight: 600 }}
-                />
-                <Collapse
-                    isOpen={isOpen}
-                    keepChildrenMounted={true}
                 >
-                    <div
-                        style={{
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingBottom: 10,
-                            ...props.style
-                        }}
-                    >
+                    {props.title}
+                </Button>
+                <Collapse in={isOpen}>
+                    <CardContent sx={{ paddingTop: 0 }}>
                         {props.children}
-                    </div>
+                    </CardContent>
                 </Collapse>
             </Card>
         </Collapse>

@@ -116,35 +116,35 @@ export default function SpritePanel() {
             <MapError
                 info
                 isVisible={selectedElem.type.startsWith("util-vent")}
-                icon="play"
+                icon="PlayArrow"
             >
                 {t("sprite.ventInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedElem.type.startsWith("sab-door")}
-                icon="play"
+                icon="PlayArrow"
             >
                 {t("sprite.doorInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedElem.type === "util-cam"}
-                icon="play"
+                icon="PlayArrow"
             >
                 {t("sprite.camInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedElem.properties.spriteID !== undefined && isConsole}
-                icon="vertical-inbetween"
+                icon="Padding"
             >
                 {t("sprite.paddingInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedElem.type === "util-filter"}
-                icon="eye-open"
+                icon="Visibility"
             >
                 {t("sprite.filterInfo") as string}
             </MapError>

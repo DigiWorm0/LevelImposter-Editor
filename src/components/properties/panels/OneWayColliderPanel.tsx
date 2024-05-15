@@ -29,7 +29,7 @@ export default function OneWayColliderPanel() {
             </PanelContainer>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("onewaycollider.errorNoRoom")}
             </MapError>
