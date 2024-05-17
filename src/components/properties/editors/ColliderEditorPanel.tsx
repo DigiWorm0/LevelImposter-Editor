@@ -1,9 +1,10 @@
-import { Button, Collapse, ControlGroup, FormGroup, H6, InputGroup, NumericInput, Switch } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
-import DevInfo from "../../utils/DevInfo";
+import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
+import { Check, Delete, ExpandLess } from "@mui/icons-material";
+import InputGroup from "../input/InputGroup";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;
@@ -36,131 +37,163 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
         return null;
 
     return (
-        <div style={{ padding: 20 }}>
-            <H6>
-                {t("collider.edit")}
-            </H6>
-            <DevInfo>
-                {colliderID}
-            </DevInfo>
-
-            <InputGroup
-                small
-                fill
+        <Box sx={{ padding: 1 }}>
+            <TextField
+                size={"small"}
+                fullWidth
                 placeholder={t("collider.name") as string}
                 value={collider.name}
                 onChange={(e) => {
-                    collider.name = e.currentTarget.value;
+                    collider.name = e.target.value;
                     setSelectedElem({ ...selectedElem });
                 }}
                 style={{
                     marginBottom: 10
                 }}
             />
-            <Switch
+            <FormControlLabel
                 label={t("collider.solid") as string}
-                checked={collider.isSolid}
-                disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                onChange={(e) => {
-                    collider.isSolid = e.currentTarget.checked;
-                    setSelectedElem({ ...selectedElem });
-                }}
-            />
-            <Switch
-                label={t("collider.blocksLight") as string}
-                checked={collider.blocksLight}
-                disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                onChange={(e) => {
-                    collider.blocksLight = e.currentTarget.checked;
-                    setSelectedElem({ ...selectedElem });
-                }}
-            />
-            <Button
-                fill
-                text={t("collider.points") as string}
-                rightIcon={isCollapsed ? "chevron-down" : "chevron-up"}
-                onClick={() => setIsCollapsed(!isCollapsed)}
-            />
-
-            <Collapse isOpen={isCollapsed}>
-                <FormGroup label={t("collider.points") as string}>
-                    <NumericInput
-                        fill
-                        disabled={!collider}
-                        min={2}
-                        value={collider.points.length}
-                        onValueChange={(value) => {
-                            if (value < 0)
-                                return;
-                            const points = [];
-                            for (let i = 0; i < value; i++) {
-                                if (i < collider.points.length)
-                                    points.push({
-                                        x: collider.points[i].x,
-                                        y: collider.points[i].y
-                                    });
-                                else
-                                    points.push({ x: 0, y: 0 });
-                            }
-                            collider.points = points;
+                control={
+                    <Switch
+                        checked={collider.isSolid}
+                        disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
+                        onChange={(e) => {
+                            collider.isSolid = e.currentTarget.checked;
                             setSelectedElem({ ...selectedElem });
                         }}
                     />
-                </FormGroup>
+                }
+            />
+
+            <FormControlLabel
+                label={t("collider.blocksLight") as string}
+                control={
+                    <Switch
+                        checked={collider.blocksLight}
+                        disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
+                        onChange={(e) => {
+                            collider.blocksLight = e.currentTarget.checked;
+                            setSelectedElem({ ...selectedElem });
+                        }}
+                    />
+                } />
+            <Button
+                fullWidth
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                endIcon={
+                    <ExpandLess
+                        style={{
+                            transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)",
+                            transition: "transform 0.2s"
+                        }}
+                    />
+                }
+            >
+                {t("collider.points") as string}
+            </Button>
+
+            <Collapse in={isCollapsed}>
+                <TextField
+                    fullWidth
+                    disabled={!collider}
+                    label={t("collider.points") as string}
+                    size={"small"}
+                    value={collider.points.length}
+                    onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (value < 0)
+                            return;
+                        const points = [];
+                        for (let i = 0; i < value; i++) {
+                            if (i < collider.points.length)
+                                points.push({
+                                    x: collider.points[i].x,
+                                    y: collider.points[i].y
+                                });
+                            else
+                                points.push({ x: 0, y: 0 });
+                        }
+                        collider.points = points;
+                        setSelectedElem({ ...selectedElem });
+                    }}
+                    InputProps={{
+                        type: "number",
+                        inputProps: {
+                            min: 2,
+                            stepSize: 1
+                        }
+                    }}
+                />
+
 
                 {collider.points.map((point, index) => (
-                    <ControlGroup fill key={index}>
-                        <NumericInput
-                            fill
+                    <InputGroup key={index}>
+                        <TextField
+                            size={"small"}
+                            fullWidth
                             disabled={!collider}
-                            minorStepSize={0.001}
-                            stepSize={0.01}
-                            majorStepSize={0.1}
                             value={point.x.toString()}
-                            onValueChange={(value) => {
+                            onChange={(e) => {
                                 const points = collider.points.map((p, i) => {
                                     if (i === index)
-                                        return { x: value, y: p.y };
+                                        return { x: parseFloat(e.target.value), y: p.y };
                                     return p;
                                 });
                                 collider.points = points;
                                 setSelectedElem({ ...selectedElem });
                             }}
+                            InputProps={{
+                                type: "number",
+                                inputProps: {
+                                    step: 0.01
+                                }
+                            }}
                         />
-                        <NumericInput
-                            fill
+                        <TextField
+                            size={"small"}
+                            fullWidth
                             disabled={!collider}
-                            minorStepSize={0.001}
-                            stepSize={0.01}
-                            majorStepSize={0.1}
                             value={point.y.toString()}
-                            onValueChange={(value) => {
+                            onChange={(e) => {
                                 const points = collider.points.map((p, i) => {
                                     if (i === index)
-                                        return { x: p.x, y: value };
+                                        return { x: p.x, y: parseFloat(e.target.value) };
                                     return p;
                                 });
                                 collider.points = points;
                                 setSelectedElem({ ...selectedElem });
                             }}
+                            InputProps={{
+                                type: "number",
+                                inputProps: {
+                                    step: 0.01
+                                }
+                            }}
                         />
-                    </ControlGroup>
+                    </InputGroup>
                 ))}
             </Collapse>
 
-            <div style={{ marginTop: 10 }}>
+            <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                 <Button
-                    icon="tick"
-                    intent="success"
+                    fullWidth
+                    size={"small"}
+                    variant={"contained"}
+                    color="success"
                     onClick={() => props.setSelectedColliderID(undefined)}
-                    style={{ marginRight: 5 }}
-                />
+                >
+                    <Check />
+                </Button>
                 <Button
-                    icon="trash"
-                    intent="danger"
+                    fullWidth
+                    size={"small"}
+                    variant={"contained"}
+                    color="error"
                     onClick={() => deleteCollider()}
-                />
-            </div>
-        </div>
+                >
+                    <Delete />
+                </Button>
+            </ButtonGroup>
+        </Box>
     )
 }

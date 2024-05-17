@@ -1,5 +1,4 @@
 import React from "react";
-import { ControlGroup, InputGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
@@ -10,8 +9,10 @@ import getIsConsole from "../../../utils/getIsConsole";
 import useFixSprite from "../../../hooks/canvas/useFixSprite";
 import FlexNumericInput from "../util/FlexNumericInput";
 import { useRemoveSelectedElement } from "../../../hooks/map/elements/useRemoveElement";
-import { Button, ButtonGroup, TextField } from "@mui/material";
-import { Delete, Lock, LockOpen } from "@mui/icons-material";
+import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
+import { Delete, Lock, LockOpen, RotateLeft, SwapHoriz, SwapVert } from "@mui/icons-material";
+import AUElementDB from "../../../types/db/AUElementDB";
+import InputGroup from "../input/InputGroup";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -21,19 +22,13 @@ export default function TransformPanel() {
     const fixSprite = useFixSprite();
 
     // Gets if the selected element is a console object
-    const isConsole = React.useMemo(() => {
-        return getIsConsole(selectedElem?.type || "");
-    }, [selectedElem]);
+    const isConsole = getIsConsole(selectedElem?.type || "");
 
     // Gets if the selected element is a camera object
-    const isCamera = React.useMemo(() => {
-        return selectedElem?.type === "util-cam";
-    }, [selectedElem]);
+    const isCamera = selectedElem?.type === "util-cam";
 
     // Gets the visibility of the selected element
-    const elemVisibility = React.useMemo(() => {
-        return getElemVisibility(selectedElem);
-    }, [selectedElem]);
+    const elemVisibility = getElemVisibility(selectedElem);
 
     if (!selectedElem)
         return null;
@@ -44,27 +39,30 @@ export default function TransformPanel() {
                 title={t("transform.title") as string}
                 style={{ paddingTop: 0 }}
             >
-                {isDevMode ? (
-                    <InputGroup
-                        key={selectedElem.id + "-type-dev"}
-                        defaultValue={selectedElem.type}
-                        placeholder={t("transform.type") as string}
-                        leftElement={<Button disabled>{t("transform.type")}</Button>}
-                        onChange={(e) => {
-                            setSelectedElem({ ...selectedElem, type: e.target.value });
-                        }}
-                    />
-                ) : (
-                    <InputGroup
-                        style={{ backgroundColor: "var(--color-bg-2)" }}
-                        key={selectedElem.id + "-type"}
-                        defaultValue={t(`au.${selectedElem?.type}`) as string}
-                        placeholder={t("transform.type") as string}
-                        leftElement={<Button disabled>{t("transform.type")}:</Button>}
-                        rightElement={<Button disabled>{selectedElem.type}</Button>}
-                        disabled
-                    />
-                )}
+                <TextField
+                    key={selectedElem.id + "-type"}
+                    disabled={!isDevMode}
+                    size={"small"}
+                    variant={"standard"}
+                    defaultValue={selectedElem.type}
+                    placeholder={t("transform.type") as string}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position={"start"}>
+                                {t("transform.type")}
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position={"end"}>
+                                {AUElementDB.includes(selectedElem.type) ? t(`au.${selectedElem.type}`) : "?"}
+                            </InputAdornment>
+                        )
+                    }}
+                    onChange={(e) => {
+                        setSelectedElem({ ...selectedElem, type: e.target.value });
+                    }}
+                    sx={{ marginBottom: 1 }}
+                />
                 <TextField
                     style={{ marginBottom: 5 }}
                     key={selectedElem.id + "-name"}
@@ -77,7 +75,7 @@ export default function TransformPanel() {
                     }}
                 />
                 {selectedElem.type !== "util-layer" && (<>
-                    <ControlGroup fill>
+                    <InputGroup>
                         <FlexNumericInput
                             value={selectedElem.x}
                             onChange={(val) => {
@@ -120,8 +118,8 @@ export default function TransformPanel() {
                                 }
                             }}
                         />
-                    </ControlGroup>
-                    <ControlGroup fill>
+                    </InputGroup>
+                    <InputGroup>
                         <FlexNumericInput
                             value={selectedElem.xScale}
                             onChange={(val) => {
@@ -131,6 +129,9 @@ export default function TransformPanel() {
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.xScale") as string,
+                                InputProps: {
+                                    endAdornment: (<InputAdornment position={"end"}><SwapHoriz /></InputAdornment>)
+                                },
                                 inputProps: {
                                     stepSize: 0.1
                                 }
@@ -145,28 +146,32 @@ export default function TransformPanel() {
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.yScale") as string,
+                                InputProps: {
+                                    endAdornment: (<InputAdornment position={"end"}><SwapVert /></InputAdornment>)
+                                },
                                 inputProps: {
                                     stepSize: 0.1
                                 }
                             }}
                         />
-                    </ControlGroup>
-                    <ControlGroup fill>
-                        <FlexNumericInput
-                            value={selectedElem.rotation}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, rotation: val });
-                            }}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.rotation") as string,
-                                inputProps: {
-                                    stepSize: 1
-                                }
-                            }}
-                        />
-                    </ControlGroup>
+                    </InputGroup>
+                    <FlexNumericInput
+                        value={selectedElem.rotation}
+                        onChange={(val) => {
+                            setSelectedElem({ ...selectedElem, rotation: val });
+                        }}
+                        inputProps={{
+                            size: "small",
+                            fullWidth: true,
+                            placeholder: t("transform.rotation") as string,
+                            InputProps: {
+                                endAdornment: (<InputAdornment position={"end"}><RotateLeft /></InputAdornment>)
+                            },
+                            inputProps: {
+                                stepSize: 1
+                            },
+                        }}
+                    />
                     <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                         <Button
                             variant={"text"}

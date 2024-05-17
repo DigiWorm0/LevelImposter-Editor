@@ -17,6 +17,8 @@ export default function MapPublishButton() {
                     style={{ marginTop: 5 }}
                     variant={"outlined"}
                     startIcon={<CloudUpload />}
+                    color={"success"}
+                    fullWidth
                 >
                     {t("publish.title")}
                 </Button>

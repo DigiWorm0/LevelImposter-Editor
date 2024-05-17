@@ -65,7 +65,6 @@ export default function AccountModal(props: AccountModalProps) {
                                     onClick={() => {
                                         window.open("https://levelimposter.net/#/profile");
                                     }}
-                                    style={{ marginRight: 5 }}
                                     endIcon={<Share />}
                                 >
                                     {t("account.viewProfile")}

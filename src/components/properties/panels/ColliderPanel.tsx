@@ -1,4 +1,3 @@
-import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
@@ -8,6 +7,8 @@ import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import { Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",
@@ -112,21 +113,22 @@ export default function ColliderPanel() {
         <>
             <PanelContainer title={t("collider.title") as string}>
                 <Button
-                    alignText="left"
-                    minimal
-                    fill
-                    icon="add"
-                    text={t("collider.add") as string}
+                    size={"small"}
+                    fullWidth
+                    endIcon={<Add />}
                     onClick={addCollider}
                     disabled={isAddDisabled}
+                    color={"inherit"}
                     style={{ marginTop: 5, marginBottom: 0 }}
-                />
+                >
+                    {t("collider.add") as string}
+                </Button>
                 <DropdownList
                     elements={selectedElem.properties.colliders?.map((collider, index) => ({
                         id: collider.id,
                         name: collider.name !== undefined ? collider.name : t("collider.defaultName", { index: index + 1 }) as string,
-                        intent: collider.blocksLight ? "danger" : "success",
-                        icon: "edit"
+                        intent: collider.blocksLight ? "error" : "success",
+                        icon: "Edit"
                     })) ?? []}
                     selectedID={selectedColliderID}
                     onSelectID={setSelectedColliderID}

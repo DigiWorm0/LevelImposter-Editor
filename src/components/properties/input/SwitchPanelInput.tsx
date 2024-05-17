@@ -1,10 +1,9 @@
 import React from "react";
-import { ControlGroup, Switch } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
+import { Box, FormControlLabel, Switch, Tooltip } from "@mui/material";
 
 export interface SwitchInputProps {
     name: string;
@@ -54,30 +53,20 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
     }, [selectedElem, props.prop, props.minigameProp, setSelectedElem]);
 
     return (
-        <ControlGroup
-            fill
-            style={{
-                textAlign: "center",
-            }}
-        >
-            <Tooltip2
-                content={props.tooltip && (t(props.tooltip) as string)}
-                placement="top"
-                hoverOpenDelay={200}
-                hoverCloseDelay={0}
-            >
-                <Switch
-                    key={`${selectedElem?.id}-${props.prop}`}
-                    checked={defaultValue as boolean}
-                    onChange={(e) => onChange(e.currentTarget.checked)}
+        <Box sx={{ textAlign: "center" }}>
+            <Tooltip title={props.tooltip && (t(props.tooltip) as string)}>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            key={`${selectedElem?.id}-${props.prop}`}
+                            checked={defaultValue as boolean}
+                            onChange={(e) => onChange(e.currentTarget.checked)}
+                            disabled={props.disabled}
+                        />
+                    }
                     label={t(props.name) as string}
-                    disabled={props.disabled}
-                    style={{
-                        marginBottom: 5,
-                        marginTop: 5
-                    }}
                 />
-            </Tooltip2>
-        </ControlGroup>
+            </Tooltip>
+        </Box>
     )
 }

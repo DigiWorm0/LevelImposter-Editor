@@ -1,11 +1,10 @@
-import { ControlGroup } from "@blueprintjs/core";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
 import LIProperties from "../../../types/li/LIProperties";
 import ColorPicker from "../../utils/ColorPicker";
+import { Box } from "@mui/material";
 
 export interface ColorInputProps {
     name: string;
@@ -52,7 +51,7 @@ export default function ColorPanelInput(props: ColorInputProps) {
     }, [selectedElem, props.prop, props.minigameProp, setSelectedElem]);
 
     return (
-        <ControlGroup
+        <Box
             style={{
                 textAlign: "center",
             }}
@@ -65,6 +64,6 @@ export default function ColorPanelInput(props: ColorInputProps) {
                 onChange={onChange}
                 disableAlpha={props.disableAlpha}
             />
-        </ControlGroup>
+        </Box>
     )
 }

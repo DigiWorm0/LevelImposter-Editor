@@ -1,13 +1,10 @@
-import { Button } from "@blueprintjs/core";
-import { MenuItem2, Tooltip2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useElementValue } from "../../../hooks/map/elements/useElements";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { useElementType } from "../../../hooks/map/elements/useTypes";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import LIElement from "../../../types/li/LIElement";
-import ResettablePanelInput from "./ResettablePanelInput";
+import { Autocomplete, TextField, Tooltip } from "@mui/material";
 
 export interface ElementSelectProps {
     nameFilter?: string;
@@ -36,45 +33,33 @@ export default function ElementSelect(props: ElementSelectProps) {
                 && !props.blacklistedIDs?.includes(e.id));
     }, [elems, props.nameFilter, props.allowSelected, selectedElem, props.blacklistedIDs]);
 
-    const selectRenderer: ItemRenderer<LIElement> = (elem, props) => (
-        <MenuItem2
-            key={elem.id}
-            text={elem.name}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus}
-        />
-    );
-
     return (
-        <Tooltip2
-            content={filteredElems.length === 0 ? props.noElementsText : undefined}
-            disabled={filteredElems.length > 0}
-            fill
-            intent="danger"
+        <Tooltip
+            title={filteredElems.length === 0 ? props.noElementsText : undefined}
+            color={"error"}
         >
-            <ResettablePanelInput
-                onReset={props.onReset}
-            >
-                <Select2
-                    fill
-                    items={filteredElems}
-                    itemRenderer={selectRenderer}
-                    onItemSelect={props.onPick}
-                    itemPredicate={(query, elem) => elem.name.toLowerCase().includes(query.toLowerCase()) || elem.type.includes(query.toLowerCase())}
-                >
-                    <Button
-                        rightIcon="caret-down"
-                        text={currentElem?.name ?? props.defaultText}
-                        disabled={filteredElems.length === 0}
-                        style={{
-                            fontStyle: currentElem ? "normal" : "italic"
-                        }}
-                        fill
+            <Autocomplete
+                key={props.selectedID}
+                fullWidth
+                disablePortal
+                options={filteredElems}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label={currentElem ? currentElem.name : props.defaultText}
+                        variant="standard"
+                        fullWidth
                     />
-                </Select2>
-            </ResettablePanelInput>
-        </Tooltip2>
+                )}
+                value={currentElem}
+                onChange={(_, elem) => {
+                    if (elem)
+                        props.onPick(elem);
+                    else
+                        props.onReset();
+                }}
+                getOptionLabel={(elem) => elem.name}
+            />
+        </Tooltip>
     );
 }

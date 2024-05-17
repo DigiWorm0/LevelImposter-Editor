@@ -1,7 +1,7 @@
-import { FormGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ElementSelect from "./ElementSelect";
+import { Box } from "@mui/material";
 
 export default function TeleSelect() {
     const { t } = useTranslation();
@@ -11,7 +11,7 @@ export default function TeleSelect() {
         return null;
 
     return (
-        <FormGroup
+        <Box
             style={{
                 marginBottom: 5,
                 marginTop: 5
@@ -23,12 +23,18 @@ export default function TeleSelect() {
                 defaultText={t("tele.noConnection")}
                 selectedID={selectedElem.properties.teleporter}
                 onPick={(vent) => {
-                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: vent.id } });
+                    setSelectedElem({
+                        ...selectedElem,
+                        properties: { ...selectedElem.properties, teleporter: vent.id }
+                    });
                 }}
                 onReset={() => {
-                    setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, teleporter: undefined } });
+                    setSelectedElem({
+                        ...selectedElem,
+                        properties: { ...selectedElem.properties, teleporter: undefined }
+                    });
                 }}
             />
-        </FormGroup>
+        </Box>
     )
 }

@@ -9,7 +9,6 @@ import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
-import SizeTag from "../../utils/SizeTag";
 import AudioPlayer from "./AudioPlayer";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
 import { Audiotrack, Check, CloudUpload, ExpandMore, Refresh } from "@mui/icons-material";
@@ -150,15 +149,6 @@ export default function SoundUpload(props: SoundUploadProps) {
                     </Button>
                 </Select2>
             )}
-
-            {/* Size Tag */}
-            <div style={{ textAlign: "center", margin: 10 }}>
-                <SizeTag
-                    sizeBytes={soundSize}
-                    warningMsg={t("audio.errorSize") as string}
-                    okMsg={t("audio.okSize") as string}
-                />
-            </div>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>

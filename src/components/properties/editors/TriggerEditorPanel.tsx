@@ -1,6 +1,3 @@
-import { Button, ControlGroup } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import { atom, useAtomValue } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -11,6 +8,7 @@ import { InputTriggerDB } from "../../../types/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import DevInfo from "../../utils/DevInfo";
 import ElementSelect from "../input/ElementSelect";
+import { MenuItem, Select } from "@mui/material";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);
@@ -93,18 +91,6 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
         });
     }, [trigger, targetElem, setTargetElem]);
 
-    const selectRenderer: ItemRenderer<string> = (triggerType, props) => (
-        <MenuItem2
-            icon={"send-message"}
-            key={triggerType + props.index}
-            text={t(`t.${triggerType}`)}
-            label={triggerType}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus} />
-    );
-
     if (!selectedElem)
         return null;
 
@@ -133,29 +119,22 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                     });
                 }}
             />
-            <ControlGroup fill style={{ marginTop: 5 }}>
-                <Select2
-                    fill
-                    filterable={false}
-                    items={targetInputs ?? []}
-                    itemRenderer={selectRenderer}
-                    disabled={!targetElem}
-                    activeItem={trigger.triggerID}
-                    onItemSelect={(triggerID) => {
-                        setTrigger({ ...trigger, triggerID });
-                    }}
-                >
-                    <Button
-                        icon={isTriggerSelected && "send-message"}
-                        rightIcon="caret-down"
-                        text={isTriggerSelected ?
-                            t(`t.${trigger.triggerID}`) :
-                            t("trigger.selectTrigger")}
-                        disabled={!targetElem}
-                        fill
-                    />
-                </Select2>
-            </ControlGroup>
+            <Select
+                size={"small"}
+                fullWidth
+                disabled={(targetInputs?.length ?? 0) === 0}
+                value={trigger.triggerID || undefined}
+                onChange={(e) => {
+                    setTrigger({ ...trigger, triggerID: e.target.value });
+                }}
+            >
+                <MenuItem value={undefined}>{t("trigger.selectTrigger")}</MenuItem>
+                {targetInputs?.map((triggerID) => (
+                    <MenuItem key={triggerID} value={triggerID}>
+                        {t(`t.${triggerID}`)}
+                    </MenuItem>
+                ))}
+            </Select>
         </div>
     )
 }

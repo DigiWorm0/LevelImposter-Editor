@@ -4,7 +4,6 @@ import openUploadDialog from "../../../utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
-import SizeTag from "../../utils/SizeTag";
 import MapAsset from "../../../types/li/MapAssetDB";
 import GUID from "../../../types/generic/GUID";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
@@ -100,15 +99,6 @@ export default function ImageUpload(props: ImageUploadProps) {
                     }}
                     src={asset?.url ?? props.defaultSpriteURL}
                     alt={props.name}
-                />
-            </div>
-
-            {/* Size Tag */}
-            <div style={{ textAlign: "center", marginBottom: 10 }}>
-                <SizeTag
-                    sizeBytes={spriteSize}
-                    warningMsg={t("sprite.errorSize") as string}
-                    okMsg={t("sprite.okSize") as string}
                 />
             </div>
 

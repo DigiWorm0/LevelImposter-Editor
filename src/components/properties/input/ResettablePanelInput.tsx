@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, ControlGroup } from "@blueprintjs/core";
+import { ButtonGroup, IconButton } from "@mui/material";
+import { Refresh } from "@mui/icons-material";
 
 interface ResettableInputProps {
     children: React.ReactNode;
@@ -8,13 +9,14 @@ interface ResettableInputProps {
 
 export default function ResettablePanelInput(props: ResettableInputProps) {
     return (
-        <ControlGroup fill>
+        <ButtonGroup fullWidth>
             {props.children}
-            <Button
-                minimal
-                rightIcon="refresh"
+            <IconButton
+                size={"small"}
                 onClick={props.onReset}
-            />
-        </ControlGroup>
+            >
+                <Refresh />
+            </IconButton>
+        </ButtonGroup>
     )
 }

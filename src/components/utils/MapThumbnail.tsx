@@ -1,7 +1,7 @@
 import LIMetadata from "../../types/li/LIMetadata";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Card, Icon, Tag } from "@blueprintjs/core";
+import { Card, CardActionArea, CardContent, Chip } from "@mui/material";
 
 export interface MapThumbnailProps {
     map: LIMetadata;
@@ -27,39 +27,33 @@ export default function MapThumbnail(props: MapThumbnailProps) {
 
     return (
         <Card
-            interactive
-            style={{ marginTop: 5 }}
+            style={{ marginTop: 5, textAlign: "left" }}
             onClick={onClick}
         >
-            <div
-                style={{
-                    flexDirection: "row",
-                    display: "flex",
-                    justifyContent: "space-between",
-                }}
-            >
-                <div>
-                    {!map.isPublic && (
-                        <Tag
-                            intent="danger">
-                            {t("map.unlisted")}
-                        </Tag>
-                    )}
-                    {map.isVerified && (
-                        <Tag
-                            intent="warning">
-                            {t("map.verified")}
-                        </Tag>
-                    )}
-                </div>
-                <Icon icon={"share"} />
-            </div>
-            <h3 style={{ marginTop: 5, marginBottom: 10 }}>
-                {map.name}
-            </h3>
-            <p>
-                {shortDescription}
-            </p>
+            <CardActionArea>
+                <CardContent>
+                    <div
+                        style={{
+                            flexDirection: "row",
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        {!map.isPublic && (
+                            <Chip color="error" label={t("map.unlisted")} size={"small"} />
+                        )}
+                        {map.isVerified && (
+                            <Chip color="warning" label={t("map.verified")} size={"small"} />
+                        )}
+                    </div>
+                    <h3 style={{ marginTop: 5, marginBottom: 10 }}>
+                        {map.name}
+                    </h3>
+                    <p>
+                        {shortDescription}
+                    </p>
+                </CardContent>
+            </CardActionArea>
         </Card>
     );
 }

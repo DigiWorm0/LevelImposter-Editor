@@ -51,14 +51,14 @@ export default function DoorPanel() {
                         {
                             id: DOOR_OPEN_SOUND,
                             name: t(`door.${DOOR_OPEN_SOUND}`) as string,
-                            icon: "volume-up",
-                            intent: hasOpenSound ? "success" : "danger",
+                            icon: "VolumeUp",
+                            intent: hasOpenSound ? "success" : "error",
                         },
                         {
                             id: DOOR_CLOSE_SOUND,
                             name: t(`door.${DOOR_CLOSE_SOUND}`) as string,
-                            icon: "volume-up",
-                            intent: hasCloseSound ? "success" : "danger",
+                            icon: "VolumeUp",
+                            intent: hasCloseSound ? "success" : "error",
                         }
                     ]}
                     selectedID={selectedSoundType}

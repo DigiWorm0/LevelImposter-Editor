@@ -1,12 +1,12 @@
 import React from "react";
-import { Classes, Icon, IconName, SwitchCard } from "@blueprintjs/core";
 import LISettings from "../../../types/li/LISettings";
 import useSettings from "../../../hooks/useSettings";
+import { Checkbox, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { IconName } from "../../utils/MaterialIcon";
 
 export interface SettingsSwitchInputProps {
     name: string;
     prop?: keyof LISettings;
-
     icon?: IconName;
 }
 
@@ -28,19 +28,30 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
         });
     }, [settings, props.prop, setSettings]);
 
+    const onClick = React.useCallback(() => {
+        if (props.prop === undefined)
+            return;
+        setSettings({
+            ...settings,
+            [props.prop]: !value
+        });
+    }, [settings, props.prop, setSettings, value]);
+
     return (
-        <SwitchCard
-            checked={value}
-            showAsSelectedWhenChecked={false}
-            onChange={onChange}
-            compact
+        <ListItem
+            dense
+            disablePadding
+            secondaryAction={
+                <Checkbox
+                    edge={"end"}
+                    checked={value}
+                    onChange={onChange}
+                />
+            }
         >
-            <Icon
-                icon={props.icon}
-                className={Classes.TEXT_MUTED}
-                style={{ marginRight: 8 }}
-            />
-            {props.name}
-        </SwitchCard>
+            <ListItemButton onClick={onClick}>
+                <ListItemText primary={props.name} />
+            </ListItemButton>
+        </ListItem>
     )
 }

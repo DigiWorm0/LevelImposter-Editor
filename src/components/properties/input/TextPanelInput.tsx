@@ -1,11 +1,11 @@
-import { FormGroup, IconName, InputGroup } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import ResettablePanelInput from "./ResettablePanelInput";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
+import { Box, InputAdornment, TextField, Tooltip } from "@mui/material";
+import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
 
 export interface TextInputProps {
     name: string;
@@ -60,18 +60,13 @@ export default function TextPanelInput(props: TextInputProps) {
     }, [selectedElem, props.prop, props.minigameProp, setSelectedElem]);
 
     return (
-        <FormGroup
+        <Box
             style={{
                 marginBottom: 5,
                 marginTop: 5
             }}
         >
-            <Tooltip2
-                content={t(props.name) as string}
-                hoverOpenDelay={200}
-                hoverCloseDelay={0}
-                fill
-            >
+            <Tooltip title={t(props.name) as string}>
                 <ResettablePanelInput
                     onReset={() => {
                         onChange();
@@ -79,21 +74,27 @@ export default function TextPanelInput(props: TextInputProps) {
                             inputRef.current.value = "";
                     }}
                 >
-                    <InputGroup
+                    <TextField
                         inputRef={inputRef}
-                        fill
+                        fullWidth
                         placeholder={t(props.name) as string}
                         defaultValue={propValue as string}
-                        leftIcon={props.icon}
                         onBlur={(e) => {
                             onChange(e.target.value);
                         }}
                         onChange={(e) => {
                             onChange(e.currentTarget.value);
                         }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position={"start"}>
+                                    {props.icon ? <MaterialIcon icon={props.icon} /> : null}
+                                </InputAdornment>
+                            )
+                        }}
                     />
                 </ResettablePanelInput>
-            </Tooltip2>
-        </FormGroup>
+            </Tooltip>
+        </Box>
     )
 }

@@ -1,4 +1,3 @@
-import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
@@ -31,9 +30,9 @@ export default function VentPanel() {
     return (
         <>
             <PanelContainer title={t("vent.title") as string}>
-                <H6 style={{ marginTop: 5, marginLeft: 5 }}>
+                <h4 style={{ margin: 5, marginTop: 10 }}>
                     {t("vent.connections")}
-                </H6>
+                </h4>
                 <VentSelect
                     prop="leftVent"
                 />
@@ -45,22 +44,22 @@ export default function VentPanel() {
                 />
                 {selectedElem.type === "util-vent1" && (
                     <>
-                        <H6 style={{ marginTop: 10, marginLeft: 5 }}>
+                        <h4 style={{ margin: 5, marginTop: 10 }}>
                             {t("vent.sounds")}
-                        </H6>
+                        </h4>
                         <DropdownList
                             elements={[
                                 {
                                     name: t(`vent.${VENT_OPEN_SOUND}`) as string,
                                     id: VENT_OPEN_SOUND,
-                                    intent: hasOpenSound ? "success" : "danger",
-                                    icon: hasOpenSound ? "volume-up" : "volume-off"
+                                    intent: hasOpenSound ? "success" : "error",
+                                    icon: hasOpenSound ? "VolumeUp" : "VolumeDown"
                                 },
                                 {
                                     name: t(`vent.${VENT_MOVE_SOUND}`) as string,
                                     id: VENT_MOVE_SOUND,
-                                    intent: hasMoveSound ? "success" : "danger",
-                                    icon: hasMoveSound ? "volume-up" : "volume-off"
+                                    intent: hasOpenSound ? "success" : "error",
+                                    icon: hasOpenSound ? "VolumeUp" : "VolumeDown"
                                 },
                             ]}
                             selectedID={selectedSoundType}

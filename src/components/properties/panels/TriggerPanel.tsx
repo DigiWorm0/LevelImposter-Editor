@@ -81,8 +81,8 @@ export default function TriggerPanel() {
                         return {
                             id: triggerID,
                             name: t(`t.${split[0]}`, { index: split[1] ?? 1 }),
-                            intent: isTriggerActive(triggerID) ? "success" : "danger",
-                            icon: "antenna"
+                            intent: isTriggerActive(triggerID) ? "success" : "error",
+                            icon: "SettingsInputAntenna"
                         };
                     })}
                     selectedID={selectedTriggerID}

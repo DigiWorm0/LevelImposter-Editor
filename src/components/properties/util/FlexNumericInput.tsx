@@ -32,6 +32,12 @@ export default function FlexNumericInput(props: FlexNumericInputProps) {
         <TextField
             value={inputValue}
             onChange={onChange}
+            InputProps={{
+                inputProps: {
+                    type: "number",
+                },
+                ...props.inputProps?.InputProps
+            }}
             {...props.inputProps}
         />
     )

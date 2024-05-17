@@ -67,7 +67,7 @@ export default function StepSoundPanel() {
                     elements={selectedElem.properties.sounds?.map((sound, index) => ({
                         id: sound.id,
                         name: t("stepSound.default", { index: index + 1 }) as string,
-                        icon: "volume-up"
+                        icon: "VolumeUp"
                     })) ?? []}
                     selectedID={selectedSoundID}
                     onSelectID={setSelectedSoundID}
