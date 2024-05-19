@@ -29,11 +29,12 @@ import OneWayColliderPanel from "../properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../properties/panels/SabotagesPanel";
 import SporePanel from "../properties/panels/SporePanel";
+import { Paper } from "@mui/material";
 
 export default function RightSidebar() {
 
     return (
-        <div className="right-sidebar">
+        <Paper className="right-sidebar">
             <TransformPanel />
             <DebugPanel />
             <SpritePanel />
@@ -72,6 +73,6 @@ export default function RightSidebar() {
                     height: 200
                 }}
             />
-        </div>
+        </Paper>
     );
 }

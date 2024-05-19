@@ -1,4 +1,3 @@
-import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useConnections } from "../../../hooks/map/elements/useConnections";
@@ -60,14 +59,14 @@ export default function SabPanel() {
                         src={sprite?.src}
                         alt={selectedElem.name}
                     />
-                    <H5 style={{ marginBottom: 3 }}>{sabName}</H5>
+                    <h5 style={{ marginBottom: 3 }}>{sabName}</h5>
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
                 <TextPanelInput
                     prop="description"
                     name={"sab.description"}
-                    icon={"comment"}
+                    icon={"Comment"}
                 />
                 {showTimer && (
                     <NumericPanelInput

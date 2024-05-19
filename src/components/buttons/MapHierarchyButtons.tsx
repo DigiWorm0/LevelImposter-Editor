@@ -1,14 +1,13 @@
-import { ButtonGroup } from "@blueprintjs/core";
 import AddLayerButton from "./AddLayerButton";
 import AddObjectButton from './AddObjectButton';
 import DeleteObjectButton from './DeleteObjectButton';
+import { ButtonGroup } from "@mui/material";
 
 export default function MapHierarchyButtons() {
     return (
         <ButtonGroup
-            fill
+            fullWidth
             style={{ padding: 5 }}
-            minimal
         >
             <AddObjectButton buttonProps={{ color: "success" }} />
             <AddLayerButton buttonProps={{ color: "primary" }} />

@@ -1,15 +1,3 @@
-import {
-    Button,
-    ButtonGroup,
-    Classes,
-    Dialog,
-    EditableText,
-    H1,
-    H5,
-    ProgressBar,
-    Radio,
-    RadioGroup
-} from "@blueprintjs/core";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
@@ -20,6 +8,19 @@ import useToaster from "../../hooks/useToaster";
 import usePublishMap from "../../hooks/firebase/usePublishMap";
 import ThumbnailEdit from "../utils/ThumbnailEdit";
 import useIsPublished from "../../hooks/firebase/useIsPublished";
+import GenericModal from "./GenericModal";
+import {
+    Button,
+    ButtonGroup,
+    FormControlLabel,
+    InputAdornment,
+    LinearProgress,
+    Radio,
+    RadioGroup,
+    TextField,
+    Typography
+} from "@mui/material";
+import { CloudUpload, Update } from "@mui/icons-material";
 
 export interface PublishModalProps {
     isOpen: boolean;
@@ -82,114 +83,110 @@ export default function PublishModal(props: PublishModalProps) {
 
 
     return (
-        <Dialog
-            isOpen={props.isOpen && isLoggedIn}
+        <GenericModal
+            open={props.isOpen && isLoggedIn}
             onClose={props.onClose}
-            title={t("publish.title")}
-            portalClassName={isDarkMode ? "bp5-dark" : ""}
-
-            canEscapeKeyClose={!isPublishing}
-            canOutsideClickClose={!isPublishing}
-            isCloseButtonShown={!isPublishing}
         >
-            <div style={{ margin: 15 }}>
-                <ThumbnailEdit
-                    isDisabled={isPublishing}
-                    thumbnail={thumbnail}
-                    setThumbnail={setThumbnail}
+            <h2>
+                {t("publish.title")}
+            </h2>
+            <ThumbnailEdit
+                isDisabled={isPublishing}
+                thumbnail={thumbnail}
+                setThumbnail={setThumbnail}
+            />
+            <div style={{ padding: 10, paddingLeft: 30, paddingRight: 30 }}>
+                <TextField
+                    fullWidth
+                    sx={{ marginBottom: 1 }}
+                    disabled={isPublishing}
+                    placeholder={t("publish.mapName")}
+                    value={mapName}
+                    onChange={(e) => setMapName(e.target.value)}
                 />
-                <div style={{ padding: 30, paddingBottom: 10 }}>
-                    <H1>
-                        <EditableText
-                            selectAllOnFocus
-                            disabled={isPublishing}
-                            placeholder={t("publish.mapName") as string}
-                            value={mapName}
-                            onChange={setMapName}
-                        />
-                    </H1>
-                    <H5>
-                        by{" "}
-                        <EditableText
-                            selectAllOnFocus
-                            disabled={isPublishing}
-                            placeholder={t("publish.authorName") as string}
-                            value={authorName || user?.displayName || "Anonymous"}
-                            onChange={setAuthorName}
-                        />
-                    </H5>
-                    <EditableText
-                        multiline
-                        maxLines={12}
-                        minLines={3}
-                        selectAllOnFocus
-                        disabled={isPublishing}
-                        placeholder={t("publish.mapDescription") as string}
-                        value={description}
-                        onChange={setDescription}
-                    />
-                </div>
-                <div style={{ textAlign: "center" }}>
-                    <RadioGroup
-                        disabled={isPublishing}
-                        onChange={(e) => setIsPublic(e.currentTarget.value === "public")}
-                        selectedValue={isPublic ? "public" : "private"}
-                        inline
-                    >
-                        <Radio
-                            label={t("publish.public")}
-                            value="public"
-                        />
-                        <Radio
-                            label={t("publish.private")}
-                            value="private"
-                        />
-                    </RadioGroup>
-                </div>
-
-
-                <ButtonGroup fill>
-                    <Button
-                        style={{ margin: 5 }}
-                        fill
-                        disabled={isPublishing}
-                        icon={"cloud-upload"}
-                        text={t("publish.publishNew") as string}
-                        intent={"primary"}
-                        onClick={() => onPublishClick(true)}
-                    />
-                    <Button
-                        style={{ margin: 5 }}
-                        fill
-                        disabled={isPublishing || !isPublished}
-                        icon={"updated"}
-                        text={t("publish.publishUpdate") as string}
-                        intent={"danger"}
-                        onClick={() => onPublishClick(false)}
-                    />
-                </ButtonGroup>
-
-                <div style={{ textAlign: "center", marginTop: 10 }}>
-                    <p className={Classes.TEXT_MUTED}>
-                        By publishing, you agree to the
-                        {" "}
-                        <a href="https://levelimposter.net/#/policy" target="_blank">
-                            rules & policies
-                        </a>
-                        {" "}
-                        of the LevelImposter workshop.
-                    </p>
-                </div>
-
-                {isPublishing &&
-                    <div style={{ marginTop: 15 }}>
-                        <ProgressBar
-                            intent={"primary"}
-                            value={uploadProgress}
-                        />
-                    </div>
-                }
+                <TextField
+                    fullWidth
+                    sx={{ marginBottom: 1 }}
+                    disabled={isPublishing}
+                    placeholder={t("publish.authorName")}
+                    value={authorName || user?.displayName || "Anonymous"}
+                    onChange={(e) => setAuthorName(e.target.value)}
+                    InputProps={{
+                        startAdornment: (<InputAdornment position={"start"}>by </InputAdornment>),
+                    }}
+                />
+                <TextField
+                    fullWidth
+                    sx={{ marginBottom: 1 }}
+                    size={"small"}
+                    disabled={isPublishing}
+                    placeholder={t("publish.mapDescription")}
+                    multiline
+                    maxRows={12}
+                    minRows={3}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
             </div>
-        </Dialog>
+            <div style={{ textAlign: "center" }}>
+                <RadioGroup
+                    row
+                    onChange={(e) => setIsPublic(e.currentTarget.value === "public")}
+                    value={isPublic ? "public" : "private"}
+                >
+                    <FormControlLabel
+                        control={<Radio color={"success"} />}
+                        label={t("publish.public")}
+                        value="public"
+                    />
+                    <FormControlLabel
+                        control={<Radio color={"error"} />}
+                        label={t("publish.private")}
+                        value="private"
+                    />
+                </RadioGroup>
+            </div>
+
+            <ButtonGroup fullWidth>
+                <Button
+                    fullWidth
+                    disabled={isPublishing}
+                    startIcon={<CloudUpload />}
+                    color={"primary"}
+                    onClick={() => onPublishClick(true)}
+                >
+                    {t("publish.publishNew")}
+                </Button>
+                <Button
+                    fullWidth
+                    disabled={isPublishing || !isPublished}
+                    startIcon={<Update />}
+                    color={"error"}
+                    onClick={() => onPublishClick(false)}
+                >
+                    {t("publish.publishUpdate") as string}
+                </Button>
+            </ButtonGroup>
+
+            <div style={{ textAlign: "center", marginTop: 10 }}>
+                <Typography
+                    variant={"body2"}
+                    sx={{ color: "text.secondary" }}
+                >
+                    By publishing, you agree to the
+                    {" "}
+                    <a href="https://levelimposter.net/#/policy" target="_blank">
+                        rules & policies
+                    </a>
+                    {" "}
+                    of the LevelImposter workshop.
+
+                </Typography>
+
+                {isPublishing && (
+                    <LinearProgress variant="determinate" value={uploadProgress} sx={{ margin: 1 }} />
+                )}
+            </div>
+        </GenericModal>
     );
 }

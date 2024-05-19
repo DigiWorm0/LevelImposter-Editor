@@ -1,5 +1,3 @@
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
@@ -11,8 +9,8 @@ import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioPlayer from "./AudioPlayer";
 import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
-import { Audiotrack, Check, CloudUpload, ExpandMore, Refresh } from "@mui/icons-material";
-import { Button, ButtonGroup } from "@mui/material";
+import { Check, CloudUpload, Refresh } from "@mui/icons-material";
+import { Button, ButtonGroup, Select } from "@mui/material";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -82,17 +80,6 @@ export default function SoundUpload(props: SoundUploadProps) {
         }
     }, [props.onChange]);
 
-    const selectChannelRenderer: ItemRenderer<string> = (channel, props) => (
-        <MenuItem2
-            key={props.index + "-channel"}
-            text={t(`audio.${channel}`)}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus}
-        />
-    );
-
     return (
         <div
             onDragOver={(e) => {
@@ -126,28 +113,21 @@ export default function SoundUpload(props: SoundUploadProps) {
 
             {/* Channel */}
             {props.editChannel && (
-                <Select2
-                    fill
-                    filterable={false}
-                    items={Object.values(LISoundChannel) as string[]}
-                    itemRenderer={selectChannelRenderer}
-                    onItemSelect={(item) => {
-                        if (props.sound) {
+                <Select
+                    fullWidth
+                    onChange={(e) => {
+                        const channel = e.target.value as LISoundChannel;
+                        if (props.sound)
                             props.onChange({
                                 ...props.sound,
-                                channel: item as LISoundChannel
+                                channel
                             });
-                        }
                     }}
                 >
-                    <Button
-                        startIcon={<Audiotrack />}
-                        endIcon={<ExpandMore />}
-                        fullWidth
-                    >
-                        {t(`audio.${props.sound?.channel ?? LISoundChannel.SFX}`)}
-                    </Button>
-                </Select2>
+                    {Object.values(LISoundChannel).map((channel) =>
+                        t(`audio.${channel ?? LISoundChannel.SFX}`)
+                    )}
+                </Select>
             )}
 
             {/* Buttons */}

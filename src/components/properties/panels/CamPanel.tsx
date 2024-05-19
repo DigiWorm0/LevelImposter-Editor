@@ -1,8 +1,8 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import InputGroup from "../input/InputGroup";
 
 export default function CamPanel() {
     const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function CamPanel() {
 
     return (
         <PanelContainer title={t("cameras.title") as string}>
-            <ControlGroup fill>
+            <InputGroup>
                 <NumericPanelInput
                     name="cameras.offsetx"
                     prop="camXOffset"
@@ -34,7 +34,7 @@ export default function CamPanel() {
                     majorStepSize={1}
                     color={"success"}
                 />
-            </ControlGroup>
+            </InputGroup>
             <NumericPanelInput
                 name="cameras.zoom"
                 prop="camZoom"

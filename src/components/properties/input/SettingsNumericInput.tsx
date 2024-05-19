@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Card, Classes, Icon, IconName, NumericInput } from "@blueprintjs/core";
 import LISettings, { DEFAULT_SETTINGS } from "../../../types/li/LISettings";
 import useSettings from "../../../hooks/useSettings";
 import clamp from "../../../utils/clamp";
+import { InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from "@mui/material";
+import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
 
 export interface SettingsNumericInputProps {
     name: string;
@@ -44,30 +45,35 @@ export default function SettingsNumericInput(props: SettingsNumericInputProps) {
     }, [setSettings, settings, props.prop, props.min, props.max, defaultValue]);
 
     return (
-        <Card style={{ justifyContent: "space-between" }}>
-            <div>
-                <Icon
-                    icon={props.icon}
-                    className={Classes.TEXT_MUTED}
-                    style={{ marginRight: 8 }}
+        <ListItem
+            dense
+            disablePadding
+            secondaryAction={
+                <TextField
+                    size={"small"}
+                    type={"number"}
+                    variant={"standard"}
+                    value={value}
+                    onChange={(e) => onChange(parseFloat(e.target.value), e.target.value)}
+                    disabled={props.disabled}
+                    style={{ width: 150 }}
+                    InputProps={{
+                        endAdornment: (<InputAdornment position={"end"}>{props.label}</InputAdornment>),
+                        inputProps: {
+                            step: props.stepSize,
+                            min: props.min,
+                            max: props.max
+                        }
+                    }}
                 />
-                {props.name}
-            </div>
-
-            <div style={{ maxWidth: 200 }}>
-                <NumericInput
-                    fill
-                    placeholder={defaultValue.toString()}
-                    defaultValue={value as number}
-                    min={props.min}
-                    minorStepSize={props.minorStepSize}
-                    stepSize={props.stepSize}
-                    majorStepSize={props.majorStepSize}
-                    leftIcon={props.icon}
-                    rightElement={props.label ? (<Button minimal disabled>{props.label}</Button>) : undefined}
-                    onValueChange={onChange}
-                />
-            </div>
-        </Card>
+            }
+        >
+            <ListItemButton>
+                {props.icon && (
+                    <ListItemIcon><MaterialIcon icon={props.icon} /></ListItemIcon>
+                )}
+                <ListItemText primary={props.name} />
+            </ListItemButton>
+        </ListItem>
     )
 }

@@ -1,4 +1,3 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import {
@@ -9,6 +8,7 @@ import {
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import InputGroup from "../input/InputGroup";
 
 const PLATFORM_MOVE_SOUND = "platformMove";
 
@@ -21,7 +21,7 @@ export default function PlatformPanel() {
 
     return (
         <PanelContainer title={t("platform.title") as string}>
-            <ControlGroup fill>
+            <InputGroup>
                 <NumericPanelInput
                     name="platform.translationX"
                     prop="platformXOffset"
@@ -42,8 +42,8 @@ export default function PlatformPanel() {
                     majorStepSize={1}
                     color={"warning"}
                 />
-            </ControlGroup>
-            <ControlGroup fill>
+            </InputGroup>
+            <InputGroup>
                 <NumericPanelInput
                     name="platform.enterOffsetX"
                     prop="platformXEntranceOffset"
@@ -64,8 +64,8 @@ export default function PlatformPanel() {
                     majorStepSize={1}
                     color={"warning"}
                 />
-            </ControlGroup>
-            <ControlGroup fill>
+            </InputGroup>
+            <InputGroup>
                 <NumericPanelInput
                     name="platform.exitOffsetX"
                     prop="platformXExitOffset"
@@ -86,7 +86,7 @@ export default function PlatformPanel() {
                     majorStepSize={1}
                     color={"warning"}
                 />
-            </ControlGroup>
+            </InputGroup>
             <SoundEditorPanel
                 title={t("platform.moveSound") as string}
                 soundType={PLATFORM_MOVE_SOUND}

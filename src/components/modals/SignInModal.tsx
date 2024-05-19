@@ -1,11 +1,10 @@
-import { Classes } from "@blueprintjs/core";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
 import { auth, githubProvider, googleProvider, microsoftProvider } from "../../utils/Firebase";
 import useToaster from "../../hooks/useToaster";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { Button, ButtonGroup, Divider, InputAdornment, TextField } from "@mui/material";
+import { Button, ButtonGroup, Divider, InputAdornment, TextField, Typography } from "@mui/material";
 import { Email, GitHub, Google, Microsoft, OpenInNew, Password } from "@mui/icons-material";
 import GenericModal from "./GenericModal";
 
@@ -81,10 +80,16 @@ export default function SignInModal(props: SignInModalProps) {
                         <Microsoft />
                     </Button>
                 </ButtonGroup>
-                <Divider style={{ margin: 10 }} />
-                <p style={{ textAlign: "center" }} className={Classes.TEXT_MUTED}>
+                <Divider
+                    sx={{ width: "100%" }}
+                />
+                <Typography
+                    variant={"body2"}
+                    sx={{ color: "text.secondary", margin: 1 }}
+                    style={{ textAlign: "center" }}
+                >
                     {t("account.orUseEmail")}
-                </p>
+                </Typography>
 
                 <TextField
                     size={"small"}

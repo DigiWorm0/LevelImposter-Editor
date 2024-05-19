@@ -1,22 +1,17 @@
-import { MenuItem } from "@blueprintjs/core";
-import { Omnibar } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from '../../utils/generateGUID';
 import { useAddElementAtMouse } from "../../hooks/map/elements/useElements";
 import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useHiddenTypes from "../../hooks/map/elements/useSingleTypes";
-import AUElementDB from "../../types/db/AUElementDB";
+import GenericModal from "./GenericModal";
 
 // Omnibar Types
 interface AUElement {
     name: string;
     type: string;
 }
-
-const AUElementOmnibar = Omnibar.ofType<AUElement>();
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -29,7 +24,6 @@ export default function AddObjectModal(props: AddObjectModalProps) {
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
-    const { isDarkMode } = useSettingsValue();
     const hiddenTypes = useHiddenTypes();
 
     // Handle when an element is clicked
@@ -52,6 +46,7 @@ export default function AddObjectModal(props: AddObjectModalProps) {
         setColliderID(undefined);
     }, [addElement, props.onClose, setSelectedID, setColliderID, t]);
 
+    /*
     return (
         <AUElementOmnibar
             inputProps={{
@@ -106,4 +101,14 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             )}
         />
     );
+     */
+
+    return (
+        <GenericModal
+            open={props.isVisible}
+            onClose={props.onClose}
+        >
+            TODO
+        </GenericModal>
+    )
 }

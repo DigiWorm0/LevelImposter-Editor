@@ -8,7 +8,6 @@ import useLIDeserializer from "../fileio/useLIDeserializer";
 import LIMap from "../../types/li/LIMap";
 import { useSetMap } from "../map/useMap";
 import downloadFromURL from "../../utils/downloadFromURL";
-import { ProgressBar } from "@blueprintjs/core";
 import useToaster from "../useToaster";
 
 export default function useIDParam() {
@@ -69,17 +68,17 @@ export default function useIDParam() {
 
             // On Progress
             const onProgress = (percent: number, _toastID?: string) => {
-                return toaster.toast({
-                    message: (
-                        <>
-                            <p>{`Downloading ${metadata.name} by ${metadata.authorName}...`}</p>
-                            <ProgressBar value={percent} intent={"primary"} />
-                        </>
-                    ),
-                    timeout: 0,
-                    icon: "cloud-download",
-                    className: "bp5-dark",
-                }, _toastID ?? toastID);
+                // return toaster.toast({
+                //     message: (
+                //         <>
+                //             <p>{`Downloading ${metadata.name} by ${metadata.authorName}...`}</p>
+                //             <LinearProgress variant="determinate" value={percent} />
+                //         </>
+                //     ),
+                //     timeout: 0,
+                //     icon: "cloud-download",
+                //     className: "bp5-dark",
+                // }, _toastID ?? toastID);
             }
             toastID = onProgress(0);
 

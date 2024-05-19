@@ -1,4 +1,3 @@
-import { H5 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
@@ -49,7 +48,7 @@ export default function TaskPanel() {
                         src={sprite?.src}
                         alt={selectedElem.name}
                     />
-                    <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
+                    <h5 style={{ marginBottom: 3 }}>{taskName}</h5>
                     <p className="bp4-text-muted">{selectedElem.type}</p>
                 </div>
                 <RoomSelect useDefault={true} />
@@ -58,7 +57,7 @@ export default function TaskPanel() {
                     <TextPanelInput
                         prop="description"
                         name={"task.description"}
-                        icon={"comment"}
+                        icon={"Notes"}
                     />
                 )}
 

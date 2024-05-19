@@ -1,9 +1,10 @@
 import React from "react";
-import { Card, Classes, Icon } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../../hooks/map/useMap";
 import ColorPicker from "../../utils/ColorPicker";
 import LIColor from "../../../types/li/LIColor";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Palette } from "@mui/icons-material";
 
 
 export default function MapSkyboxInput() {
@@ -24,6 +25,7 @@ export default function MapSkyboxInput() {
         return `#${r}${g}${b}`;
     }
 
+    /*
     return (
         <Card style={{ justifyContent: "space-between" }}>
             <div>
@@ -48,4 +50,29 @@ export default function MapSkyboxInput() {
             </div>
         </Card>
     )
+    */
+
+
+    return (
+        <ListItem
+            dense
+            disablePadding
+            secondaryAction={
+                <ColorPicker
+                    disableAlpha
+                    title={t("settings.map.setColor") as string}
+                    color={hexToColor(properties.bgColor || "#ffffff")}
+                    onChange={(color) => {
+                        setProperties({ ...properties, bgColor: colorToHex(color) });
+                    }}
+                    style={{ marginLeft: 10, marginTop: -5, minWidth: 180 }}
+                />
+            }
+        >
+            <ListItemButton>
+                <ListItemIcon><Palette /></ListItemIcon>
+                <ListItemText primary={t("settings.map.skyboxColor")} />
+            </ListItemButton>
+        </ListItem>
+    );
 }

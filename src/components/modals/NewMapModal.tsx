@@ -1,10 +1,11 @@
-import { Button, Dialog } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { useResetMap } from "../../hooks/map/useMap";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 export interface NewMapDialogProps {
     isVisible: boolean;
@@ -27,26 +28,31 @@ export default function NewMapModal(props: NewMapDialogProps) {
 
     return (
         <Dialog
-            isOpen={props.isVisible}
+            open={props.isVisible}
             onClose={props.onClose}
-            title={t("map.new") as string}
-            portalClassName={isDarkMode ? "bp5-dark" : ""}
         >
-            <div style={{ margin: 15 }}>
-                <p>
-                    {t("map.newDialogText") as string}
-                </p>
+            <DialogTitle>
+                {t("map.new")}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    {t("map.newDialogText")}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
                 <Button
                     onClick={onClick}
-                    text={t("map.new") as string}
-                    intent="danger"
-                    style={{ marginRight: 10 }}
-                />
+                    startIcon={<Add />}
+                >
+                    {t("map.new")}
+                </Button>
                 <Button
                     onClick={props.onClose}
-                    text={t("map.newDialogCancel") as string}
-                />
-            </div>
+                    color={"error"}
+                >
+                    {t("map.newDialogCancel")}
+                </Button>
+            </DialogActions>
         </Dialog>
     )
 }

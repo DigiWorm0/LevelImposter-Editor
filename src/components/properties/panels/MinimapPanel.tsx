@@ -1,4 +1,3 @@
-import { Button } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
@@ -6,6 +5,8 @@ import DownloadCanvasDialog from "../../modals/DownloadCanvas";
 import NumericPanelInput from "../input/NumericPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import { Button } from "@mui/material";
+import { CloudDownload } from "@mui/icons-material";
 
 export default function MinimapPanel() {
     const { t } = useTranslation();
@@ -35,13 +36,13 @@ export default function MinimapPanel() {
                     color="warning"
                 />
                 <Button
-                    fill
-                    minimal
-                    icon="download"
-                    text={t("minimap.download") as string}
+                    fullWidth
+                    startIcon={<CloudDownload />}
                     disabled={isVisible}
                     onClick={() => setVisible(true)}
-                />
+                >
+                    {t("minimap.download") as string}
+                </Button>
             </PanelContainer>
 
             <MapError

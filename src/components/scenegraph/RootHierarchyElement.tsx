@@ -1,5 +1,3 @@
-import { InputGroup } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import useElement, { useDraggingElementID } from "../../hooks/map/elements/useElements";
 import { useMapName } from "../../hooks/map/useMap";
@@ -13,6 +11,7 @@ export default function RootHierarchyElement() {
     const [draggingElement, setDraggingElement] = useElement(draggingID);
     const [isDragOver, setDragOver] = React.useState(false);
 
+    /*
     return (
         <>
             <MenuItem2
@@ -69,4 +68,6 @@ export default function RootHierarchyElement() {
             />
         </>
     );
+    */
+    return null;
 }

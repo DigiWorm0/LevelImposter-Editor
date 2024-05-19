@@ -1,4 +1,3 @@
-import { FormGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
@@ -9,6 +8,7 @@ import NumericPanelInput from "../input/NumericPanelInput";
 import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
+import { TextField } from "@mui/material";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
@@ -34,34 +34,38 @@ export default function StepSoundPanel() {
                     stepSize={10}
                     majorStepSize={100}
                 />
-                <FormGroup label={t("stepSound.variants")} style={{ marginTop: 10 }}>
-                    <SoundPresetSelect />
-                    <NumericInput
-                        fill
-                        min={0}
-                        value={sounds.length}
-                        onValueChange={(value) => {
-                            if (value < 0)
-                                return;
-                            for (let i = 0; i < value; i++) {
-                                if (sounds[i] == null)
-                                    sounds[i] = {
-                                        id: generateGUID(),
-                                        presetID: undefined,
-                                        volume: DEFAULT_VOLUME,
-                                        isPreset: false
-                                    };
-                            }
-                            for (let i = sounds.length - 1; i >= value; i--) {
-                                sounds.splice(i, 1);
-                            }
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: { ...selectedElem.properties, sounds: sounds }
-                            });
-                        }}
-                    />
-                </FormGroup>
+                <SoundPresetSelect />
+                <TextField
+                    fullWidth
+                    label={t("stepSound.soundCount")}
+                    value={sounds.length}
+                    type={"number"}
+                    onChange={(e) => {
+                        const stringValue = e.target.value;
+                        if (stringValue === "")
+                            return;
+
+                        const value = parseInt(stringValue);
+                        if (value < 0)
+                            return;
+                        for (let i = 0; i < value; i++) {
+                            if (sounds[i] == null)
+                                sounds[i] = {
+                                    id: generateGUID(),
+                                    presetID: undefined,
+                                    volume: DEFAULT_VOLUME,
+                                    isPreset: false
+                                };
+                        }
+                        for (let i = sounds.length - 1; i >= value; i--) {
+                            sounds.splice(i, 1);
+                        }
+                        setSelectedElem({
+                            ...selectedElem,
+                            properties: { ...selectedElem.properties, sounds: sounds }
+                        });
+                    }}
+                />
 
                 <DropdownList
                     elements={selectedElem.properties.sounds?.map((sound, index) => ({

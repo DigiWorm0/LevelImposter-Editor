@@ -1,4 +1,3 @@
-import { Navbar, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../buttons/AddLayerButton";
 import AddObjectButton from "../buttons/AddObjectButton";
 import CopyButton from "../buttons/CopyButton";
@@ -14,15 +13,17 @@ import MapName from "../scenegraph/MapName";
 import MapAssetsButton from "../buttons/MapAssetsButton";
 import SettingsButton from "../buttons/SettingsButton";
 import MapPropertiesButton from "../buttons/MapPropertiesButton";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Topbar() {
     return (
         <div className="topbar">
-            <Navbar
+            <AppBar
                 className="topbar-navbar"
-                fixedToTop={true}
             >
-                <NavbarGroup>
+                <Toolbar
+                    style={{ minHeight: 50 }}
+                >
                     <MapName />
                     <OpenMapButton />
                     <NewMapButton />
@@ -35,13 +36,15 @@ export default function Topbar() {
                     <PasteButton />
                     <DeleteObjectButton />
                     <MapAssetsButton />
-                </NavbarGroup>
-                <NavbarGroup align="right">
+
+                    <Typography sx={{ flexGrow: 1 }} />
+
                     <SignInButton />
                     <MapPropertiesButton />
                     <SettingsButton />
-                </NavbarGroup>
-            </Navbar>
+                </Toolbar>
+
+            </AppBar>
         </div>
     );
 }

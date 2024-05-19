@@ -1,17 +1,21 @@
-import { Button, Card, Intent, Menu } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
+import { Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Code } from "@mui/icons-material";
 
-const TYPE_INTENTS: Record<string, Intent> = {
-    "string": Intent.PRIMARY,
-    "number": Intent.SUCCESS,
-    "boolean": Intent.WARNING,
-    "object": Intent.DANGER,
-    "array": Intent.DANGER
+const TYPE_INTENTS = {
+    "string": "Primary",
+    "number": "Success",
+    "bigint": "Success",
+    "boolean": "Warning",
+    "object": "Error",
+    "array": "Error",
+    "symbol": "Error",
+    "function": "Error",
+    "undefined": "Error"
 };
 
 export default function DebugPanel() {
@@ -38,36 +42,29 @@ export default function DebugPanel() {
     return (
         <PanelContainer title={t("debug.title") as string}>
             <Button
-                fill
-                text={t("debug.printToConsole") as string}
-                icon="console"
-                onClick={() => {
-                    console.log(selectedElem);
-                }}
-            />
-            <Menu>
+                fullWidth
+                startIcon={<Code />}
+                onClick={() => console.log(selectedElem)}
+            >
+                {t("debug.printToConsole")}
+            </Button>
+            <List>
                 {keys.map((key, index) => {
                     const value = values[index];
                     const stringValue = JSON.stringify(value);
                     return (
-                        <div key={`debug-${key}-${index}`}>
-                            <MenuItem2
-                                text={key}
-                                intent={TYPE_INTENTS[typeof value]}
-                                onClick={() => {
-                                    editKey(key);
-                                }}
-                            />
-                            {selectedKey === key && (
-                                <Card style={{ overflowX: "scroll" }}>
-                                    <pre>{typeof value}</pre>
-                                    <pre>{stringValue}</pre>
-                                </Card>
-                            )}
-                        </div>
+                        <ListItem key={`debug-${key}-${index}`}>
+                            <ListItemButton onClick={() => editKey(key)}>
+                                <ListItemText
+                                    primary={key}
+                                    secondary={stringValue}
+                                    color={TYPE_INTENTS[typeof value]}
+                                />
+                            </ListItemButton>
+                        </ListItem>
                     );
                 })}
-            </Menu>
+            </List>
         </PanelContainer>
     );
 }

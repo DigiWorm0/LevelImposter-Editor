@@ -23,7 +23,8 @@
 		"firefox": "Firefox is known for having slow performance when it comes to Canvas API. We recommend using a chromium-based browser (Chrome, Edge, etc) for the best experience.",
 		"opera": "Mouse gestures in Opera break clicking and dragging. You can disable them in the settings under \"Shortcuts\".",
 		"brave": "Brave browser has a known issue with the editor where clicking and dragging objects may not work. You can fix this by disabling \"Brave Shield\" for this site in the address bar.",
-		"ok": "Ok"
+		"ok": "Ok",
+		"dismiss": "Dismiss"
 	},
 	"edit": {
 		"undo": "Undo",

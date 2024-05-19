@@ -24,17 +24,17 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.darkMode")}
                 prop="isDarkMode"
-                icon="moon"
+                icon="ModeNight"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.colliderPreview")}
                 prop="colliderPreview"
-                icon="polygon-filter"
+                icon="ShapeLine"
             />
             <SettingsNumericInput
                 name={t("settings.interface.colliderHandleSize")}
                 prop="colliderHandleSize"
-                icon="polygon-filter"
+                icon="AdsClick"
                 min={1}
                 minorStepSize={0.5}
                 stepSize={1}
@@ -44,37 +44,37 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.scrollToSelection")}
                 prop="scrollToSelection"
-                icon="zoom-to-fit"
+                icon="SwapVert"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.objNesting")}
                 prop="elementNesting"
-                icon="layers"
+                icon="Layers"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.showRoomName")}
                 prop="isRoomNameVisible"
-                icon="home"
+                icon="Article"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.showInfo")}
                 prop="isInfoVisible"
-                icon="info-sign"
+                icon="Info"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.audioDownmix")}
                 prop="isAudioDownmixEnabled"
-                icon="volume-up"
+                icon="VolumeUp"
             />
             <SettingsSwitchInput
                 name={t("settings.interface.grid")}
                 prop="isGridVisible"
-                icon="grid"
+                icon="GridOn"
             />
             <SettingsNumericInput
                 name={t("settings.interface.gridSize")}
                 prop="gridSize"
-                icon="grid-view"
+                icon="AspectRatio"
                 min={1}
                 minorStepSize={0.5}
                 stepSize={1}
@@ -84,7 +84,7 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsNumericInput
                 name={t("settings.interface.gridSpacing")}
                 prop="gridSpacing"
-                icon="grid-view"
+                icon="LineWeight"
                 min={1}
                 minorStepSize={0.5}
                 stepSize={1}
@@ -94,12 +94,12 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.snapToGrid")}
                 prop="isGridSnapEnabled"
-                icon="layout-grid"
+                icon="Grid3x3"
             />
             <SettingsNumericInput
                 name={t("settings.interface.snapResolution")}
                 prop="gridSnapResolution"
-                icon="layout-skew-grid"
+                icon="GridGoldenratio"
                 min={0}
                 minorStepSize={0.05}
                 stepSize={0.1}
@@ -109,7 +109,7 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsNumericInput
                 name={t("settings.interface.invisibleOpacity")}
                 prop="invisibleOpacity"
-                icon="eye-off"
+                icon="Visibility"
                 min={0}
                 minorStepSize={0.05}
                 stepSize={0.1}
@@ -120,7 +120,7 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.devMode")}
                 prop="isDevMode"
-                icon="code"
+                icon="Code"
             />
         </GenericModal>
     );

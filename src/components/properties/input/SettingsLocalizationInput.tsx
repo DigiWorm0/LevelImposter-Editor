@@ -1,63 +1,46 @@
 import React from "react";
-import { Button, Card, Classes, Icon, MenuItem } from "@blueprintjs/core";
 import useSettings from "../../../hooks/useSettings";
-import { LANGUAGES } from "../../../types/generic/Constants";
 import { useTranslation } from "react-i18next";
-import { ItemRenderer, Select } from "@blueprintjs/select";
-
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select } from "@mui/material";
+import { LANGUAGES } from "../../../types/generic/Constants";
+import { Language } from "@mui/icons-material";
 
 export default function SettingsLocalizationInput() {
     const { t, i18n } = useTranslation();
     const [settings, setSettings] = useSettings();
+    const selectRef = React.useRef<HTMLSelectElement>(null);
 
     // Gets the language name from the i18n code
     const getLanguageName = (i18nCode: string): string => {
         return i18nCode === "auto" ? t("language.auto") : i18n.t(`language.${i18nCode}`) as string;
     }
 
-    // Item Renderer
-    const languageSelectRenderer: ItemRenderer<string> = (i18nCode, props) => (
-        <MenuItem
-            key={i18nCode}
-            text={getLanguageName(i18nCode)}
-            label={i18nCode}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            intent={i18nCode !== "auto" ? "success" : undefined}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus}
-        />
-    );
+    const onClick = (e: React.MouseEvent) => {
+        // Show the dropdown
+        selectRef.current?.click();
+    }
 
     return (
-        <Card style={{ justifyContent: "space-between" }}>
-            <div>
-                <Icon
-                    icon={"translate"}
-                    className={Classes.TEXT_MUTED}
-                    style={{ marginRight: 8 }}
-                />
-                {t("settings.interface.localization")}
-            </div>
-
-            <div style={{ maxWidth: 200 }}>
-                <Select<string>
-                    filterable={false}
-                    items={LANGUAGES}
-                    itemRenderer={languageSelectRenderer}
-                    onItemSelect={(i18nCode) => {
-                        setSettings({ ...settings, language: i18nCode });
-                    }}
-                    popoverProps={{ minimal: true }}
+        <ListItem
+            disablePadding
+            secondaryAction={
+                <Select
+                    value={settings.language}
+                    onChange={(e) => setSettings({ ...settings, language: e.target.value })}
+                    size={"small"}
+                    style={{ width: 200 }}
+                    ref={selectRef}
                 >
-
-                    <Button
-                        rightIcon="caret-down"
-                        text={getLanguageName(settings.language || "auto")}
-                        style={{ marginLeft: 10, marginTop: -5, width: 180 }}
-                    />
+                    {LANGUAGES.map((lang) => (
+                        <MenuItem key={lang} value={lang}>{getLanguageName(lang)}</MenuItem>
+                    ))}
                 </Select>
-            </div>
-        </Card>
+            }
+        >
+            <ListItemButton onClick={onClick}>
+                <ListItemIcon><Language /></ListItemIcon>
+                <ListItemText primary={t("settings.interface.localization")} />
+            </ListItemButton>
+        </ListItem>
     )
 }

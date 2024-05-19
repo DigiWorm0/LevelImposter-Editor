@@ -1,4 +1,3 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import {
@@ -10,6 +9,7 @@ import {
 } from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import InputGroup from "../input/InputGroup";
 
 export default function StarfieldPanel() {
     const { t } = useTranslation();
@@ -31,7 +31,7 @@ export default function StarfieldPanel() {
                 majorStepSize={10}
                 max={10000}
             />
-            <ControlGroup fill>
+            <InputGroup>
                 <NumericPanelInput
                     name="starfield.length"
                     prop="starfieldLength"
@@ -54,8 +54,8 @@ export default function StarfieldPanel() {
                     majorStepSize={10}
                     color="warning"
                 />
-            </ControlGroup>
-            <ControlGroup fill>
+            </InputGroup>
+            <InputGroup>
                 <NumericPanelInput
                     name="starfield.minSpeed"
                     prop="starfieldMinSpeed"
@@ -76,7 +76,7 @@ export default function StarfieldPanel() {
                     stepSize={1}
                     majorStepSize={10}
                 />
-            </ControlGroup>
+            </InputGroup>
         </PanelContainer>
     );
 }

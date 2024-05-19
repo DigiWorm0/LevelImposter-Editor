@@ -1,11 +1,11 @@
 import React from "react";
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../../types/generic/Constants";
 import MapError from "../util/MapError";
+import InputGroup from "../input/InputGroup";
 
 const MAX_PIXELS = 1920 * 1080;
 
@@ -25,7 +25,7 @@ export default function CamPanel() {
     return (
         <>
             <PanelContainer title={t("display.title") as string}>
-                <ControlGroup fill>
+                <InputGroup>
                     <NumericPanelInput
                         name="display.width"
                         prop="displayWidth"
@@ -46,7 +46,7 @@ export default function CamPanel() {
                         majorStepSize={100}
                         color={"primary"}
                     />
-                </ControlGroup>
+                </InputGroup>
             </PanelContainer>
             <MapError
                 isVisible={pixelCount > MAX_PIXELS}

@@ -1,7 +1,8 @@
-import { Button, Dialog } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/useSettings";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Launch } from "@mui/icons-material";
 
 const BRAVE_LINK = "https://github.com/konvajs/konva/issues/1132#issuecomment-867339732";
 
@@ -39,22 +40,34 @@ export default function BrowserWarningModal() {
 
     return (
         <Dialog
-            isOpen={dialogText !== undefined}
+            open={dialogText !== undefined}
             onClose={onDismiss}
-            title={t("warning.title") as string}
-            icon={"warning-sign"}
-            portalClassName={settings.isDarkMode ? "bp5-dark" : ""}
         >
-            <div style={{ margin: 15 }}>
-                <p>{dialogText}</p>
+            <DialogTitle>
+                {t("warning.title") as string}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    {dialogText}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    onClick={onDismiss}
+                    color="primary"
+                >
+                    {t("warning.dismiss") as string}
+                </Button>
+
                 {link && (
                     <Button
                         onClick={() => window.open(link, "_blank")}
-                        text={t("warning.learnMore") as string}
-                        rightIcon={"share"}
-                    />
+                        endIcon={<Launch />}
+                    >
+                        {t("warning.learnMore") as string}
+                    </Button>
                 )}
-            </div>
+            </DialogActions>
         </Dialog>
     );
 }

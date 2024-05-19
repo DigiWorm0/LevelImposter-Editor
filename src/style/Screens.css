@@ -35,16 +35,3 @@
     width: 500px !important;
     height: 300px !important;
 }
-
-.topbar-navbar {
-    background-color: "#f5f5f5";
-    box-shadow: 0 3px 6px #E5E8EB !important;
-    border-bottom: "1px solid #e5e5e5";
-}
-
-.open-in-editor {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1;
-}

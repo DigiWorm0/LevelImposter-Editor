@@ -2,9 +2,10 @@ import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants
 import React from "react";
 import openUploadDialog from "../../utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
-import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/map/useMap";
+import { Button, ButtonGroup, FormLabel } from "@mui/material";
+import { CloudUpload, Refresh } from "@mui/icons-material";
 
 export interface ThumbnailEditProps {
     thumbnail: Blob | null;
@@ -104,11 +105,10 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
     }, [props.thumbnail]);
 
     return (
-        <FormGroup
-            disabled={props.isDisabled}
-            style={{ textAlign: "center" }}
-            label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
-        >
+        <div style={{ textAlign: "center" }}>
+            <FormLabel>
+                {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+            </FormLabel>
             <img
                 src={thumbnailURL}
                 alt={"Thumbnail"}
@@ -119,24 +119,25 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
                     border: "1px solid rgb(96, 96, 96)"
                 }}
             />
-            <ButtonGroup minimal fill>
+            <ButtonGroup fullWidth>
                 <Button
-                    fill
-                    minimal
+                    fullWidth
                     disabled={props.isDisabled}
-                    icon={"refresh"}
-                    text={t("publish.resetThumbnail") as string}
-                    onClick={() => props.setThumbnail(null)}
-                />
-                <Button
-                    fill
-                    minimal
-                    disabled={props.isDisabled}
-                    icon={"upload"}
-                    text={t("publish.uploadThumbnail") as string}
+                    startIcon={<CloudUpload />}
                     onClick={onUploadClick}
-                />
+                >
+                    {t("publish.uploadThumbnail") as string}
+                </Button>
+                <Button
+                    fullWidth
+                    disabled={props.isDisabled}
+                    startIcon={<Refresh />}
+                    onClick={() => props.setThumbnail(null)}
+                    color={"error"}
+                >
+                    {t("publish.resetThumbnail") as string}
+                </Button>
             </ButtonGroup>
-        </FormGroup>
+        </div>
     )
 }

@@ -1,4 +1,3 @@
-import { H6 } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
@@ -74,9 +73,9 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     return (
         <div style={{ padding: 20 }}>
             {!props.hideName && (
-                <H6>
+                <h6>
                     {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
-                </H6>
+                </h6>
             )}
             <DevInfo>
                 {minigame?.id}

@@ -6,8 +6,6 @@ import '@fontsource/roboto/700.css';
 import { createRoot } from 'react-dom/client';
 import App from './components/screens/App';
 import './utils/Localization';
-import './style/DarkMode.css';
-import './style/Index.css';
 import './style/Screens.css';
 
 const container = document.getElementById('root') as HTMLElement;

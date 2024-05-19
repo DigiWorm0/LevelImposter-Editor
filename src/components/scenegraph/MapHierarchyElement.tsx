@@ -1,5 +1,4 @@
-import { Collapse } from "@blueprintjs/core";
-import { Button } from "@mui/material";
+import { Button, Collapse } from "@mui/material";
 import React from "react";
 import useElement, {
     useDraggingElementID,
@@ -184,10 +183,7 @@ export default function MapHierarchyElement(props: { elementID: MaybeGUID, searc
             >
                 {element.name}
             </Button>
-            <Collapse
-                isOpen={isExpanded}
-                keepChildrenMounted>
-
+            <Collapse in={isExpanded}>
                 {childIDs.map((childID) => (
                     <MapHierarchyElement
                         elementID={childID}
