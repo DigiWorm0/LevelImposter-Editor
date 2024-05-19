@@ -1,7 +1,7 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useElement from "../../hooks/map/elements/useElements";
-import { useSetMouseCursor } from "../../hooks/input/useMouse";
+import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import { useIsSelectedCollider } from "../../hooks/map/elements/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../hooks/useSettings";

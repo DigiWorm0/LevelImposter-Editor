@@ -1,12 +1,9 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
-import GLOBAL_PROPERTIES from "../../../types/generic/GlobalProps";
 import { MaybeGUID } from "../../../types/generic/GUID";
-import LIElement, { MaybeLIElement } from "../../../types/li/LIElement";
+import { MaybeLIElement } from "../../../types/li/LIElement";
 import { saveHistoryAtom } from "../useHistory";
 import { elementsAtom } from "../useMap";
-import { mouseXAtom, mouseYAtom } from "../../input/useMouse";
-import getDefaultZ from "../../../utils/getDefaultZ";
 import { trimAssetsAtom } from "../useMapAssets";
 
 // Atoms
@@ -30,34 +27,6 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
     elemAtom.debugLabel = `elementFamilyAtom(${id})`;
     return elemAtom;
 }, (a, b) => a === b);
-export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
-    const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem.type));
-    globalProps.forEach((globalProp) => {
-        const prop = globalProp.prop as keyof LIElement["properties"];
-        get(elementsAtom).forEach((e) => {
-            if (globalProp.types.includes(e.type)) {
-                elem.properties = {
-                    ...elem.properties,
-                    [prop]: e.properties[prop],
-                };
-                return;
-            }
-        });
-    });
-
-    set(elementsAtom, [...get(elementsAtom), elem]);
-    set(trimAssetsAtom);
-    set(saveHistoryAtom);
-});
-export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
-    const mouseX = get(mouseXAtom);
-    const mouseY = get(mouseYAtom);
-    const mouseZ = getDefaultZ(elem);
-    elem.x = mouseX;
-    elem.y = mouseY;
-    elem.z = mouseZ;
-    set(addElementAtom, elem);
-});
 export const elementChildrenFamilyAtom = atomFamily((id: MaybeGUID) => {
     const elemChildrenAtom = atom(
         (get) => {
@@ -93,10 +62,6 @@ export const isDroppableAtomFamily = atomFamily((id: MaybeGUID) => {
     return isDroppableAtom;
 }, (a, b) => a === b);
 
-// Debug
-addElementAtMouseAtom.debugLabel = "addElementAtMouseAtom";
-addElementAtom.debugLabel = "addElementAtom";
-
 
 // Hooks
 export default function useElement(id: MaybeGUID) {
@@ -109,14 +74,6 @@ export function useSetElement(id: MaybeGUID) {
 
 export function useElementValue(id: MaybeGUID) {
     return useAtomValue(elementFamilyAtom(id));
-}
-
-export function useAddElement() {
-    return useSetAtom(addElementAtom);
-}
-
-export function useAddElementAtMouse() {
-    return useSetAtom(addElementAtMouseAtom);
 }
 
 export function useElementChildren(id: MaybeGUID) {

@@ -1,17 +1,23 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from '../../utils/generateGUID';
-import { useAddElementAtMouse } from "../../hooks/map/elements/useElements";
 import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import useHiddenTypes from "../../hooks/map/elements/useSingleTypes";
-import GenericModal from "./GenericModal";
-
-// Omnibar Types
-interface AUElement {
-    name: string;
-    type: string;
-}
+import {
+    Dialog,
+    DialogContent,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    TextField
+} from "@mui/material";
+import { Close } from "@mui/icons-material";
+import AUElementDB from "../../types/db/AUElementDB";
+import useAddElementAtMouse from "../../hooks/map/elements/useAddElementAtMouse";
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -27,12 +33,12 @@ export default function AddObjectModal(props: AddObjectModalProps) {
     const hiddenTypes = useHiddenTypes();
 
     // Handle when an element is clicked
-    const onClick = React.useCallback((elem: AUElement) => {
+    const onClick = React.useCallback((type: string) => {
         const id = generateGUID();
         addElement({
             id,
-            name: elem.name || t(`au.${elem.type}`) || elem.type,
-            type: elem.type,
+            name: t(`au.${type}`) || type,
+            type,
             x: 0,
             y: 0,
             z: 0,
@@ -104,11 +110,58 @@ export default function AddObjectModal(props: AddObjectModalProps) {
      */
 
     return (
-        <GenericModal
+        <Dialog
             open={props.isVisible}
             onClose={props.onClose}
+            fullWidth
+            maxWidth="sm"
+            PaperProps={{
+                elevation: 1,
+            }}
         >
-            TODO
-        </GenericModal>
+            <TextField
+                variant="outlined"
+                fullWidth
+                autoFocus
+            />
+            <IconButton
+                onClick={props.onClose}
+                sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8
+                }}
+            >
+                <Close />
+            </IconButton>
+
+            <DialogContent>
+                <List dense>
+                    {AUElementDB.map((type) => (
+                        <ListItem
+                            key={type}
+                            disablePadding
+                        >
+                            <ListItemButton
+                                disabled={hiddenTypes.includes(type)}
+                                onClick={() => onClick(type)}
+                            >
+                                <ListItemIcon>
+                                    <img
+                                        alt={type}
+                                        src={`/sprites/${type}.png`}
+                                        style={{ maxWidth: 20, maxHeight: 20 }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={t(`au.${type}`) || type}
+                                    secondary={type}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+            </DialogContent>
+        </Dialog>
     )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/input/useMouse";
+import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
 import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/map/elements/useSelectedCollider";
 import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";

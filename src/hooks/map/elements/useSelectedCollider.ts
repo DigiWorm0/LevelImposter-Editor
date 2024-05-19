@@ -1,8 +1,8 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import { MaybeLICollider } from "../../../types/li/LICollider";
-import { mouseXAtom, mouseYAtom } from "../../input/useMouse";
 import { selectedElementAtom } from "./useSelectedElem";
+import { mouseXAtom, mouseYAtom } from "../../canvas/useMouse";
 
 // Atoms
 export const selectedColliderIDAtom = atom<MaybeGUID>(undefined);

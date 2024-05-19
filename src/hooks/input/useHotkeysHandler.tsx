@@ -1,5 +1,4 @@
 import generateGUID from "../../utils/generateGUID";
-import { useAddElementAtMouse } from "../map/elements/useElements";
 import { useRedo, useUndo } from "../map/useHistory";
 import { useSelectedElemValue, useSetSelectedElemID } from "../map/elements/useSelectedElem";
 import useSettings from "../useSettings";
@@ -10,6 +9,7 @@ import { useRemoveSelectedElement } from "../map/elements/useRemoveElement";
 import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
 import useCopyToClipboard from "./useCopyToClipboard";
 import usePasteFromClipboard from "./usePasteFromClipboard";
+import useAddElementAtMouse from "../map/elements/useAddElementAtMouse";
 
 export enum Scope {
     Canvas = "Canvas"
