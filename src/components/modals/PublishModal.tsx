@@ -3,7 +3,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
 import { auth } from "../../utils/Firebase";
 import { useMapAuthorName, useMapDescription, useMapIsPublic, useMapName } from "../../hooks/map/useMap";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useToaster from "../../hooks/useToaster";
 import usePublishMap from "../../hooks/firebase/usePublishMap";
 import ThumbnailEdit from "../utils/ThumbnailEdit";
@@ -31,7 +30,6 @@ export default function PublishModal(props: PublishModalProps) {
     const { t } = useTranslation();
     const toaster = useToaster();
     const [user] = useAuthState(auth);
-    const { isDarkMode } = useSettingsValue();
 
     // State Hooks
     const [thumbnail, setThumbnail] = React.useState<Blob | null>(null);
@@ -86,10 +84,8 @@ export default function PublishModal(props: PublishModalProps) {
         <GenericModal
             open={props.isOpen && isLoggedIn}
             onClose={props.onClose}
+            title={t("publish.title")}
         >
-            <h2>
-                {t("publish.title")}
-            </h2>
             <ThumbnailEdit
                 isDisabled={isPublishing}
                 thumbnail={thumbnail}

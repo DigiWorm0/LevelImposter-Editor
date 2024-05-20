@@ -29,50 +29,66 @@ import OneWayColliderPanel from "../properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../properties/panels/SabotagesPanel";
 import SporePanel from "../properties/panels/SporePanel";
-import { Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 
 export default function RightSidebar() {
 
     return (
-        <Paper className="right-sidebar">
-            <TransformPanel />
-            <DebugPanel />
-            <SpritePanel />
-            <RoomPanel />
-            <TaskPanel />
-            <DoorPanel />
-            <SabPanel />
-            <MinigamePanel />
-            <ConsolePanel />
-            <StarfieldPanel />
-            <FloatingPanel />
-            <ScrollingPanel />
-            <LadderPanel />
-            <MeetingPanel />
-            <SabotagesPanel />
-            <VentPanel />
-            <TelePanel />
-            <DisplayPanel />
-            <CamPanel />
-            <SpawnPanel />
-            <PlatformPanel />
-            <SoundPanel />
-            <StepSoundPanel />
-            <TimerPanel />
-            <OneWayColliderPanel />
-            <DecontaminationPanel />
-            <SporePanel />
-
-            <TriggerPanel />
-            <ColliderPanel />
-            <MinimapPanel />
-            <MinimapSpritePanel />
-
-            <div
-                style={{
-                    height: 200
+        <Paper
+            elevation={1}
+            className="right-sidebar"
+            sx={{
+                width: 300,
+                display: "flex",
+                flexDirection: "column",
+                position: "fixed",
+                top: 0,
+                right: 0,
+                bottom: 0
+            }}
+        >
+            <Box
+                sx={{
+                    marginTop: 5,
+                    overflowX: "hidden",
+                    overflowY: "auto"
                 }}
-            />
+            >
+                <TransformPanel />
+                <DebugPanel />
+                <SpritePanel />
+                <RoomPanel />
+                <TaskPanel />
+                <DoorPanel />
+                <SabPanel />
+                <MinigamePanel />
+                <ConsolePanel />
+                <StarfieldPanel />
+                <FloatingPanel />
+                <ScrollingPanel />
+                <LadderPanel />
+                <MeetingPanel />
+                <SabotagesPanel />
+                <VentPanel />
+                <TelePanel />
+                <DisplayPanel />
+                <CamPanel />
+                <SpawnPanel />
+                <PlatformPanel />
+                <SoundPanel />
+                <StepSoundPanel />
+                <TimerPanel />
+                <OneWayColliderPanel />
+                <DecontaminationPanel />
+                <SporePanel />
+
+                <TriggerPanel />
+                <ColliderPanel />
+                <MinimapPanel />
+                <MinimapSpritePanel />
+
+                <div style={{ minHeight: 150 }} />
+            </Box>
         </Paper>
     );
 }

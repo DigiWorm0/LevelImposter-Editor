@@ -15,9 +15,10 @@ export default function PanelContainer(props: PanelContainerProps) {
     return (
         <Collapse in={props.isOpen ?? true}>
             <Card
-                style={{
+                elevation={3}
+                sx={{
                     padding: 0,
-                    marginTop: 10,
+                    marginTop: 1,
                     boxShadow: "none",
                     borderRadius: 0
                 }}
@@ -39,7 +40,7 @@ export default function PanelContainer(props: PanelContainerProps) {
                     {props.title}
                 </Button>
                 <Collapse in={isOpen}>
-                    <CardContent sx={{ paddingTop: 0 }}>
+                    <CardContent sx={{ paddingTop: 0 }} style={{ paddingBottom: 10 }}>
                         {props.children}
                     </CardContent>
                 </Collapse>

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import NewMapModal from "../modals/NewMapModal";
 import { IconButton, Tooltip } from "@mui/material";
-import { NoteAdd } from "@mui/icons-material";
+import { InsertDriveFileOutlined } from "@mui/icons-material";
 
 export default function NewMapButton() {
     const { t } = useTranslation();
@@ -12,7 +12,7 @@ export default function NewMapButton() {
         <>
             <Tooltip title={t("map.new")}>
                 <IconButton onClick={() => setIsVisible(true)}>
-                    <NoteAdd />
+                    <InsertDriveFileOutlined />
                 </IconButton>
             </Tooltip>
 

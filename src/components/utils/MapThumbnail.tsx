@@ -29,6 +29,7 @@ export default function MapThumbnail(props: MapThumbnailProps) {
         <Card
             style={{ marginTop: 5, textAlign: "left" }}
             onClick={onClick}
+            elevation={3}
         >
             <CardActionArea>
                 <CardContent>

@@ -13,6 +13,7 @@ import MapElementsRenderer from "../canvas/MapElementsRenderer";
 import { useHotkeysContext } from "react-hotkeys-hook";
 import { Scope } from "../../hooks/input/useHotkeysHandler";
 import { Paper } from "@mui/material";
+import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 
 export default function Canvas() {
     const stageRef = useCameraControl();
@@ -20,6 +21,7 @@ export default function Canvas() {
     const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const { enableScope, disableScope } = useHotkeysContext();
+    const setSelectedElemID = useSetSelectedElemID();
 
     return (
         <Paper
@@ -40,6 +42,7 @@ export default function Canvas() {
                 style={{ cursor: cursor }}
                 perfectDrawEnabled={false}
                 imageSmoothingEnabled={properties.pixelArtMode !== true}
+                onClick={() => setSelectedElemID(undefined)}
             >
                 <Provider store={primaryStore}>
                     <Layer>

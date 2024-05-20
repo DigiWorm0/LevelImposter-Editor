@@ -6,6 +6,7 @@ import VentSelect from "../input/VentSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import { Typography } from "@mui/material";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";
@@ -29,24 +30,18 @@ export default function VentPanel() {
 
     return (
         <>
-            <PanelContainer title={t("vent.title") as string}>
-                <h4 style={{ margin: 5, marginTop: 10 }}>
+            <PanelContainer title={t("vent.title")}>
+                <Typography variant={"subtitle2"} sx={{ ms: 1 }}>
                     {t("vent.connections")}
-                </h4>
-                <VentSelect
-                    prop="leftVent"
-                />
-                <VentSelect
-                    prop="middleVent"
-                />
-                <VentSelect
-                    prop="rightVent"
-                />
+                </Typography>
+                <VentSelect prop="leftVent" />
+                <VentSelect prop="middleVent" />
+                <VentSelect prop="rightVent" />
                 {selectedElem.type === "util-vent1" && (
                     <>
-                        <h4 style={{ margin: 5, marginTop: 10 }}>
+                        <Typography variant={"subtitle2"} sx={{ mt: 2, ms: 1 }}>
                             {t("vent.sounds")}
-                        </h4>
+                        </Typography>
                         <DropdownList
                             elements={[
                                 {

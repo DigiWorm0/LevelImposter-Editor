@@ -7,6 +7,7 @@ export type IconName = keyof typeof Icons;
 export interface MaterialIconProps {
     icon: IconName;
     size?: number;
+    color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 }
 
 export default function MaterialIcon(props: MaterialIconProps) {
@@ -17,5 +18,5 @@ export default function MaterialIcon(props: MaterialIconProps) {
         return null;
     }
 
-    return <Icon style={{ fontSize: props.size }} component={IconComponent} />;
+    return <Icon style={{ fontSize: props.size }} component={IconComponent} color={props.color} />;
 }

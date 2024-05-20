@@ -1,5 +1,6 @@
 import React from "react";
 import GenericModal from "./GenericModal";
+import { Typography } from "@mui/material";
 
 interface MapAssetsDialogProps {
     isOpen: boolean,
@@ -11,10 +12,11 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
         <GenericModal
             open={props.isOpen}
             onClose={props.onClose}
+            title={"Map Assets"}
         >
-            <p>
-                TODO
-            </p>
+            <Typography sx={{ color: "text.secondary" }}>
+                Soon™
+            </Typography>
         </GenericModal>
     )
 }

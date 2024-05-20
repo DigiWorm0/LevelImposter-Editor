@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useOpenMap } from "../../hooks/fileio/useOpenMap";
 import { IconButton, Tooltip } from "@mui/material";
-import { FileOpen } from "@mui/icons-material";
+import { FolderOutlined } from "@mui/icons-material";
 import React from "react";
 
 export default function OpenMapButton() {
@@ -11,7 +11,7 @@ export default function OpenMapButton() {
     return (
         <Tooltip title={t("map.open")}>
             <IconButton onClick={openMapFile}>
-                <FileOpen />
+                <FolderOutlined />
             </IconButton>
         </Tooltip>
     );

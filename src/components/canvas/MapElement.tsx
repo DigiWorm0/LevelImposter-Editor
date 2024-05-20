@@ -76,6 +76,7 @@ export default function MapElement(props: { elementID: GUID }) {
             onClick={(e) => {
                 e.target.getParent().stopDrag();
                 setSelectedID(props.elementID);
+                e.cancelBubble = true;
             }}
             onMouseEnter={() => {
                 setHovering(true);

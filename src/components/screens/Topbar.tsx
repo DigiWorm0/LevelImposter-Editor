@@ -14,27 +14,36 @@ import MapAssetsButton from "../buttons/MapAssetsButton";
 import SettingsButton from "../buttons/SettingsButton";
 import MapPropertiesButton from "../buttons/MapPropertiesButton";
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import NavDivider from "./NavDivider";
 
 export default function Topbar() {
     return (
         <div className="topbar">
             <AppBar
+                elevation={1}
                 className="topbar-navbar"
             >
                 <Toolbar
                     style={{ minHeight: 50 }}
                 >
                     <MapName />
+
+
+                    <NavDivider />
                     <OpenMapButton />
                     <NewMapButton />
                     <SaveMapButton />
+                    <NavDivider />
                     <AddObjectButton />
                     <AddLayerButton />
+                    <NavDivider />
                     <UndoButton />
                     <RedoButton />
+                    <NavDivider />
                     <CopyButton />
                     <PasteButton />
                     <DeleteObjectButton />
+                    <NavDivider />
                     <MapAssetsButton />
 
                     <Typography sx={{ flexGrow: 1 }} />

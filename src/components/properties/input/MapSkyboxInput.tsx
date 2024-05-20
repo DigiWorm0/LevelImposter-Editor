@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useMapProperties } from "../../../hooks/map/useMap";
 import ColorPicker from "../../utils/ColorPicker";
 import LIColor from "../../../types/li/LIColor";
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Palette } from "@mui/icons-material";
+import { Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Palette, Refresh } from "@mui/icons-material";
 
 
 export default function MapSkyboxInput() {
@@ -25,48 +25,25 @@ export default function MapSkyboxInput() {
         return `#${r}${g}${b}`;
     }
 
-    /*
-    return (
-        <Card style={{ justifyContent: "space-between" }}>
-            <div>
-                <Icon
-                    icon={"play"}
-                    className={Classes.TEXT_MUTED}
-                    style={{ marginRight: 8 }}
-                />
-                {t("settings.map.skyboxColor")}
-            </div>
-
-            <div style={{ maxWidth: 200 }}>
-                <ColorPicker
-                    disableAlpha
-                    title={t("settings.map.setColor") as string}
-                    color={hexToColor(properties.bgColor || "#ffffff")}
-                    onChange={(color) => {
-                        setProperties({ ...properties, bgColor: colorToHex(color) });
-                    }}
-                    style={{ marginLeft: 10, marginTop: -5, minWidth: 180 }}
-                />
-            </div>
-        </Card>
-    )
-    */
-
-
     return (
         <ListItem
             dense
             disablePadding
             secondaryAction={
-                <ColorPicker
-                    disableAlpha
-                    title={t("settings.map.setColor") as string}
-                    color={hexToColor(properties.bgColor || "#ffffff")}
-                    onChange={(color) => {
-                        setProperties({ ...properties, bgColor: colorToHex(color) });
-                    }}
-                    style={{ marginLeft: 10, marginTop: -5, minWidth: 180 }}
-                />
+                <ButtonGroup>
+                    <ColorPicker
+                        disableAlpha
+                        title={t("settings.map.setColor")}
+                        color={hexToColor(properties.bgColor || "#ffffff")}
+                        onChange={(color) => setProperties({ ...properties, bgColor: colorToHex(color) })}
+                    />
+                    <Button
+                        color={"error"}
+                        onClick={() => setProperties({ ...properties, bgColor: undefined })}
+                    >
+                        <Refresh />
+                    </Button>
+                </ButtonGroup>
             }
         >
             <ListItemButton>

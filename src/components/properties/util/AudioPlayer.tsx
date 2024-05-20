@@ -2,10 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
-import DevInfo from "../../utils/DevInfo";
 import { useMapAssetValue } from "../../../hooks/map/useMapAssets";
-import { ButtonGroup, IconButton, Slider } from "@mui/material";
-import { Pause, PlayArrow, SaveAlt, Stop } from "@mui/icons-material";
+import { ButtonGroup, IconButton, Slider, Stack } from "@mui/material";
+import { Pause, PlayArrow, SaveAlt, Stop, VolumeDown, VolumeUp } from "@mui/icons-material";
 
 interface AudioPlayerProps {
     title?: string;
@@ -127,13 +126,6 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 {t("audio.errorNotSupported")}
             </audio>
 
-            <DevInfo>
-                {sound?.id} <br />
-                {sound?.type} <br />
-                {sound?.isPreset} <br />
-                {soundURL}
-            </DevInfo>
-
             <ButtonGroup>
                 <IconButton
                     onClick={() => {
@@ -165,43 +157,25 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 value={progress}
                 step={0.001}
                 onChange={(_, value) => onChangeProgress(value as number)}
-
-                /*
-                labelStepSize={duration <= 0 ? undefined : duration}
-                labelRenderer={(value) => {
-                    const seconds = Math.floor(value);
-                    const minutes = Math.floor(seconds / 60);
-                    const secondsRemainder = seconds % 60;
-                    return `${minutes}:${secondsRemainder < 10 ? "0" : ""}${secondsRemainder}`;
-                }}
-                onChange={(value) => {
-                    setProgress(value);
-                    if (audioRef.current)
-                        audioRef.current.currentTime = value;
-                }}
-                */
             />
 
-            <Slider
-                min={0}
-                max={1}
-                step={0.01}
-                /*llabelStepSize={1}
-                abelRenderer={(value) => `${Math.round(value * 100)}%`}*/
-                color={"success"}
-                value={sound?.volume}
-                onChange={(_, value) => onChangeVolume(value as number)}
-                /*
-                onChange={(value) => {
-                    if (!sound)
-                        return;
-                    props.onSoundChange({
-                        ...sound,
-                        volume: value
-                    });
-                }}
-                */
-            />
+            <Stack
+                spacing={2}
+                direction="row"
+                sx={{ mb: 1 }}
+                alignItems="center"
+            >
+                <VolumeDown />
+                <Slider
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    color={"success"}
+                    value={sound?.volume}
+                    onChange={(_, value) => onChangeVolume(value as number)}
+                />
+                <VolumeUp />
+            </Stack>
         </div>
     );
 }

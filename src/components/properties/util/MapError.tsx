@@ -30,18 +30,17 @@ export default function MapError(props: MapErrorProps) {
                     borderRadius: 0
                 }}
             >
-                <p style={{ marginBottom: 0 }}>
-                    {props.children}
-                </p>
+                {props.children}
 
-                {props.buttonText && props.onButtonClick && (
+                {props.onButtonClick && props.buttonText && (
                     <Button
                         endIcon={props.buttonIcon && (<MaterialIcon icon={props.buttonIcon} />)}
                         onClick={props.onButtonClick}
                         color={props.info ? "primary" : "warning"}
+                        sx={{ mt: 1 }}
                         size={"small"}
-                        style={{ marginTop: 5 }}
-                        variant={"contained"}
+                        variant={"outlined"}
+                        fullWidth
                     >
                         {props.buttonText}
                     </Button>

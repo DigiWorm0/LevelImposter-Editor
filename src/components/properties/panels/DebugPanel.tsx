@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
-import { Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { Code } from "@mui/icons-material";
+import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
 
 const TYPE_INTENTS = {
     "string": "Primary",
@@ -41,30 +41,40 @@ export default function DebugPanel() {
 
     return (
         <PanelContainer title={t("debug.title") as string}>
-            <Button
-                fullWidth
-                startIcon={<Code />}
-                onClick={() => console.log(selectedElem)}
-            >
-                {t("debug.printToConsole")}
-            </Button>
-            <List>
+            <List dense>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    const stringValue = JSON.stringify(value);
+                    const stringValue = JSON.stringify(value, null, 2);
+
+                    // Icons
+                    const isArray = Array.isArray(value);
+                    const isObject = typeof value === "object" && !isArray;
+                    const isPrimitive = !isArray && !isObject;
+
                     return (
-                        <ListItem key={`debug-${key}-${index}`}>
-                            <ListItemButton onClick={() => editKey(key)}>
-                                <ListItemText
-                                    primary={key}
-                                    secondary={stringValue}
-                                    color={TYPE_INTENTS[typeof value]}
-                                />
-                            </ListItemButton>
+                        <ListItem key={`debug-${key}-${index}`} disablePadding>
+                            <ListItemIcon>
+                                {isArray && <DataArray />}
+                                {isObject && <DataObject />}
+                                {isPrimitive && <Abc />}
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={key}
+                                secondary={stringValue}
+                                color={TYPE_INTENTS[typeof value]}
+                            />
                         </ListItem>
                     );
                 })}
             </List>
+            <Button
+                fullWidth
+                startIcon={<Code />}
+                onClick={() => console.log(selectedElem)}
+                color={"secondary"}
+            >
+                {t("debug.printToConsole")}
+            </Button>
         </PanelContainer>
     );
 }

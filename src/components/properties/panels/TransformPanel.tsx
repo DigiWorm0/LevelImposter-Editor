@@ -81,13 +81,11 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, x: val });
                             }}
+                            stepSize={0.1}
                             inputProps={{
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.x") as string,
-                                inputProps: {
-                                    stepSize: 0.1
-                                }
                             }}
                         />
                         <FlexNumericInput
@@ -95,13 +93,11 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, y: val });
                             }}
+                            stepSize={0.1}
                             inputProps={{
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.y") as string,
-                                inputProps: {
-                                    stepSize: 0.1
-                                }
                             }}
                         />
                         <FlexNumericInput
@@ -109,13 +105,11 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, z: val });
                             }}
+                            stepSize={0.1}
                             inputProps={{
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.z") as string,
-                                inputProps: {
-                                    stepSize: 0.1
-                                }
                             }}
                         />
                     </InputGroup>
@@ -125,6 +119,7 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, xScale: val });
                             }}
+                            stepSize={0.25}
                             inputProps={{
                                 size: "small",
                                 fullWidth: true,
@@ -132,9 +127,6 @@ export default function TransformPanel() {
                                 InputProps: {
                                     endAdornment: (<InputAdornment position={"end"}><SwapHoriz /></InputAdornment>)
                                 },
-                                inputProps: {
-                                    stepSize: 0.1
-                                }
                             }}
                         />
                         <FlexNumericInput
@@ -142,15 +134,13 @@ export default function TransformPanel() {
                             onChange={(val) => {
                                 setSelectedElem({ ...selectedElem, yScale: val });
                             }}
+                            stepSize={0.25}
                             inputProps={{
                                 size: "small",
                                 fullWidth: true,
                                 placeholder: t("transform.yScale") as string,
                                 InputProps: {
                                     endAdornment: (<InputAdornment position={"end"}><SwapVert /></InputAdornment>)
-                                },
-                                inputProps: {
-                                    stepSize: 0.1
                                 }
                             }}
                         />
@@ -160,15 +150,13 @@ export default function TransformPanel() {
                         onChange={(val) => {
                             setSelectedElem({ ...selectedElem, rotation: val });
                         }}
+                        stepSize={45}
                         inputProps={{
                             size: "small",
                             fullWidth: true,
                             placeholder: t("transform.rotation") as string,
                             InputProps: {
                                 endAdornment: (<InputAdornment position={"end"}><RotateLeft /></InputAdornment>)
-                            },
-                            inputProps: {
-                                stepSize: 1
                             },
                         }}
                     />

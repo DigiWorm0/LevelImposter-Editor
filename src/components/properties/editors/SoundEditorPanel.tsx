@@ -3,7 +3,7 @@ import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LISound from "../../../types/li/LISound";
 import SoundUpload from "../util/SoundUpload";
 import generateGUID from "../../../utils/generateGUID";
-import { Chip } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface SoundEditorProps {
     title: string;
@@ -67,23 +67,10 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
         return null;
 
     return (
-        <div style={{ padding: 10 }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h4 style={{ marginTop: 2 }}>
-                    {props.title}
-                </h4>
-                {sound?.isPreset && (
-                    <Chip
-                        label={sound.presetID}
-                        size={"small"}
-                        color={"success"}
-                        style={{
-                            marginBottom: 10,
-                        }}
-                    />
-                )}
-            </div>
-
+        <Box sx={{ padding: 2 }}>
+            <Typography variant={"subtitle2"}>
+                {props.title}
+            </Typography>
             <SoundUpload
                 title={props.title}
                 sound={sound ?? defaultSound}
@@ -93,6 +80,6 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
                 onFinish={props.onFinish}
                 loop={props.loop}
             />
-        </div>
+        </Box>
     )
 }

@@ -17,10 +17,8 @@ export default function SettingsModal(props: SettingsModalProps) {
         <GenericModal
             open={props.isOpen}
             onClose={props.onClose}
+            title={t("settings.interface.title") as string}
         >
-            <h2>
-                {t("settings.interface.title")}
-            </h2>
             <SettingsSwitchInput
                 name={t("settings.interface.darkMode")}
                 prop="isDarkMode"

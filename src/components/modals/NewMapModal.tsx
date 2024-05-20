@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/useSettings";
 import { useResetMap } from "../../hooks/map/useMap";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, DialogContentText } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import GenericModal from "./GenericModal";
 
 export interface NewMapDialogProps {
     isVisible: boolean;
@@ -14,7 +14,6 @@ export interface NewMapDialogProps {
 
 export default function NewMapModal(props: NewMapDialogProps) {
     const { t } = useTranslation();
-    const { isDarkMode } = useSettingsValue();
     const resetMap = useResetMap();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -27,19 +26,11 @@ export default function NewMapModal(props: NewMapDialogProps) {
     }, [resetMap, setSelectedID, setColliderID, props.onClose]);
 
     return (
-        <Dialog
+        <GenericModal
             open={props.isVisible}
             onClose={props.onClose}
-        >
-            <DialogTitle>
-                {t("map.new")}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    {t("map.newDialogText")}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
+            title={t("map.new")}
+            actions={<>
                 <Button
                     onClick={onClick}
                     startIcon={<Add />}
@@ -52,7 +43,11 @@ export default function NewMapModal(props: NewMapDialogProps) {
                 >
                     {t("map.newDialogCancel")}
                 </Button>
-            </DialogActions>
-        </Dialog>
+            </>}
+        >
+            <DialogContentText>
+                {t("map.newDialogText")}
+            </DialogContentText>
+        </GenericModal>
     )
 }

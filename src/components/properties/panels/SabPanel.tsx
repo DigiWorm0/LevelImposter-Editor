@@ -9,6 +9,7 @@ import RoomSelect from "../input/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import { Typography } from "@mui/material";
 
 const timerElems = [
     "sab-reactorleft",
@@ -26,7 +27,7 @@ export default function SabPanel() {
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteType(selectedElem?.type);
     const roomElems = useElementType("util-room");
-    const [targetConnections, sourceConnections] = useConnections(selectedElem?.properties.parent);
+    const [, sourceConnections] = useConnections(selectedElem?.properties.parent);
 
     const otherSab = React.useMemo(() => {
         if (selectedElem?.type.startsWith("sab-btn"))
@@ -59,8 +60,12 @@ export default function SabPanel() {
                         src={sprite?.src}
                         alt={selectedElem.name}
                     />
-                    <h5 style={{ marginBottom: 3 }}>{sabName}</h5>
-                    <p className="bp4-text-muted">{selectedElem.type}</p>
+                    <Typography variant={"subtitle2"}>
+                        {sabName}
+                    </Typography>
+                    <Typography variant={"body2"} sx={{ color: "text.secondary" }}>
+                        {selectedElem.type}
+                    </Typography>
                 </div>
                 <RoomSelect useDefault={true} />
                 <TextPanelInput

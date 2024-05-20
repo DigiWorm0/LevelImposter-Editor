@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import AddObjectModal from "../modals/AddObjectModal";
+import AddObjectModal from "../modals/AddObject/AddObjectModal";
 import { IconButton, Tooltip } from "@mui/material";
 import { AddBoxOutlined } from "@mui/icons-material";
 

@@ -1,37 +1,52 @@
-import { Box, Modal } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, IconButton } from "@mui/material";
 import React from "react";
-
-const modalStyle = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 500,
-    bgcolor: 'background.paper',
-    color: 'text.primary',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    overflow: "scroll",
-    maxHeight: "100%",
-    display: "block"
-};
+import { Close } from "@mui/icons-material";
 
 export interface GenericModalProps {
     open: boolean;
     onClose: () => void;
+    title?: string;
     children: React.ReactNode;
+    DialogProps?: Partial<DialogProps>;
+    actions?: React.ReactNode;
 }
 
 export default function GenericModal(props: GenericModalProps) {
     return (
-        <Modal
+        <Dialog
             open={props.open}
             onClose={props.onClose}
+            fullWidth
+            maxWidth="sm"
+            scroll={"body"}
+            PaperProps={{
+                elevation: 1,
+            }}
+            {...props.DialogProps}
         >
-            <Box sx={modalStyle}>
+            <DialogTitle>
+                {props.title}
+            </DialogTitle>
+            <IconButton
+                onClick={props.onClose}
+                sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8
+                }}
+            >
+                <Close />
+            </IconButton>
+
+            <DialogContent sx={{ paddingTop: 0 }}>
                 {props.children}
-            </Box>
-        </Modal>
+            </DialogContent>
+
+            {props.actions && (
+                <DialogActions>
+                    {props.actions}
+                </DialogActions>
+            )}
+        </Dialog>
     )
 }

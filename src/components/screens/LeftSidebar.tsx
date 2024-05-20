@@ -1,13 +1,24 @@
-import MapHierarchy from "../scenegraph/MapHierarchy";
-import SceneScroller from "../scenegraph/SceneScroller";
+import SceneGraph from "../scenegraph/SceneGraph";
 import { Paper } from "@mui/material";
 
 export default function LeftSidebar() {
 
     return (
-        <Paper className="left-sidebar">
-            <MapHierarchy />
-            <SceneScroller />
+        <Paper
+            elevation={1}
+            sx={{
+                width: 250,
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                position: "fixed",
+                paddingTop: 1,
+                top: 0,
+                bottom: 0,
+                left: 0,
+            }}
+        >
+            <SceneGraph />
         </Paper>
     );
 }

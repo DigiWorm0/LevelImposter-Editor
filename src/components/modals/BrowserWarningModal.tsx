@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/useSettings";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, DialogContentText } from "@mui/material";
 import { Launch } from "@mui/icons-material";
+import GenericModal from "./GenericModal";
 
 const BRAVE_LINK = "https://github.com/konvajs/konva/issues/1132#issuecomment-867339732";
 
@@ -39,35 +40,31 @@ export default function BrowserWarningModal() {
     }, [settings, setSettings]);
 
     return (
-        <Dialog
+        <GenericModal
             open={dialogText !== undefined}
             onClose={onDismiss}
-        >
-            <DialogTitle>
-                {t("warning.title") as string}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    {dialogText}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button
-                    onClick={onDismiss}
-                    color="primary"
-                >
-                    {t("warning.dismiss") as string}
-                </Button>
-
-                {link && (
+            title={t("warning.title") as string}
+            actions={(<>
                     <Button
-                        onClick={() => window.open(link, "_blank")}
-                        endIcon={<Launch />}
+                        onClick={onDismiss}
+                        color="primary"
                     >
-                        {t("warning.learnMore") as string}
+                        {t("warning.dismiss") as string}
                     </Button>
-                )}
-            </DialogActions>
-        </Dialog>
+                    {link && (
+                        <Button
+                            onClick={() => window.open(link, "_blank")}
+                            endIcon={<Launch />}
+                        >
+                            {t("warning.learnMore") as string}
+                        </Button>
+                    )}
+                </>
+            )}
+        >
+            <DialogContentText>
+                {dialogText}
+            </DialogContentText>
+        </GenericModal>
     );
 }

@@ -66,18 +66,18 @@ export default function SignInModal(props: SignInModalProps) {
                     justifyContent: "center"
                 }}
             >
-                <h2>
+                <Typography variant={"h4"} sx={{ margin: 1 }}>
                     {t("account.signInWithSocial")}
-                </h2>
+                </Typography>
                 <ButtonGroup style={{ marginBottom: 10 }}>
                     <Button onClick={signInWithGoogle} size={"large"}>
-                        <Google />
+                        <Google sx={{ fontSize: 30 }} />
                     </Button>
                     <Button onClick={signInWithGithub} size={"large"}>
-                        <GitHub />
+                        <GitHub sx={{ fontSize: 30 }} />
                     </Button>
                     <Button onClick={signInWithMicrosoft} size={"large"}>
-                        <Microsoft />
+                        <Microsoft sx={{ fontSize: 30 }} />
                     </Button>
                 </ButtonGroup>
                 <Divider

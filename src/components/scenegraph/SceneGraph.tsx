@@ -1,51 +1,48 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useElementChildren } from "../../hooks/map/elements/useElements";
-import MapHierarchyButtons from "../buttons/MapHierarchyButtons";
-import MapHierarchyElement from "./MapHierarchyElement";
-import { Divider, TextField } from "@mui/material";
+import SceneGraphButtons from "../buttons/SceneGraphButtons";
+import SceneGraphElement from "./SceneGraphElement";
+import { Box, Divider, InputAdornment, List, TextField } from "@mui/material";
+import { Search } from "@mui/icons-material";
 
-export default function MapHierarchy() {
+export default function SceneGraph() {
     const { t } = useTranslation();
     const elementIDs = useElementChildren(undefined);
     const [searchQuery, setSearchQuery] = React.useState<string>("");
 
     return (
         <>
-            <div style={{ padding: 10 }}>
+            <Box sx={{ padding: 1, marginTop: 6 }}>
                 <TextField
                     placeholder={t("edit.search")}
-                    variant={"standard"}
+                    variant={"outlined"}
+                    size={"small"}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    style={{
-                        width: "100%",
-                        border: "none",
-                        outline: 0,
-                        backgroundColor: "transparent",
-                        boxShadow: "none",
+                    fullWidth
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"><Search /></InputAdornment>
                     }}
                 />
-            </div>
-            <div
-                style={{
+            </Box>
+            <List
+                sx={{
+                    flexGrow: 1,
                     overflowY: "auto",
-                    height: "calc(100vh - 150px)",
-                    width: "100%",
-                    backgroundColor: "transparent",
                 }}
             >
                 {elementIDs.map((elemID) => (
-                    <MapHierarchyElement
+                    <SceneGraphElement
                         key={elemID}
                         elementID={elemID}
                         searchQuery={searchQuery}
-                        isRoot={true}
+                        depth={0}
                     />
                 ))}
-            </div>
+            </List>
             <Divider />
-            <MapHierarchyButtons />
+            <SceneGraphButtons />
         </>
     );
 }

@@ -8,7 +8,7 @@ import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioPlayer from "./AudioPlayer";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
+import { useCreateMapAsset } from "../../../hooks/map/useMapAssets";
 import { Check, CloudUpload, Refresh } from "@mui/icons-material";
 import { Button, ButtonGroup, Select } from "@mui/material";
 
@@ -29,15 +29,10 @@ export default function SoundUpload(props: SoundUploadProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
-    const asset = useMapAssetValue(props.sound?.dataID);
     const createMapAsset = useCreateMapAsset();
 
-    const soundSize = React.useMemo(() => {
-        return props.sound?.isPreset ? 0 : (asset?.blob.size ?? 0);
-    }, [props.sound]);
-
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/*").then((blob) => {
+        return openUploadDialog("audio/*").then((blob) => {
             downmixAudio(blob).then((downmixedBlob) => {
                 const asset = createMapAsset(downmixedBlob);
                 props.onChange({

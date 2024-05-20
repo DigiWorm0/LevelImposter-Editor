@@ -8,7 +8,7 @@ import MapThumbnail from "../utils/MapThumbnail";
 import MapPublishButton from "../buttons/MapPublishButton";
 import SignInModal from "./SignInModal";
 import ProfileIcon from "../utils/ProfileIcon";
-import { Box, Button, ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, Typography } from "@mui/material";
 import GenericModal from "./GenericModal";
 import { Logout, Share } from "@mui/icons-material";
 
@@ -36,67 +36,77 @@ export default function AccountModal(props: AccountModalProps) {
                 open={props.isOpen && isLoggedIn}
                 onClose={props.onClose}
             >
-                <Box>
-                    {/* Profile Header */}
-                    <div
+                {/* Profile Header */}
+                <div
+                    style={{
+                        paddingRight: 30,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
+                >
+                    <ProfileIcon
                         style={{
-                            paddingRight: 30,
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "center"
+                            height: 85,
+                            width: 85,
+                            borderRadius: 50,
+                            objectFit: "cover",
+                            marginRight: 15
                         }}
-                    >
-                        <ProfileIcon
-                            style={{
-                                height: 85,
-                                width: 85,
-                                borderRadius: 50,
-                                objectFit: "cover",
-                                marginRight: 15
+                    />
+                    <div>
+                        <Typography
+                            variant={"h4"}
+                            sx={{
+                                marginBottom: 1,
+                                marginTop: 1,
+                                fontWeight: "bold"
                             }}
-                        />
-                        <div>
-                            <h1 style={{ marginBottom: 15, marginTop: 10 }}>
-                                {user?.displayName}
-                            </h1>
-                            <ButtonGroup>
-                                <Button
-                                    onClick={() => {
-                                        window.open("https://levelimposter.net/#/profile");
-                                    }}
-                                    endIcon={<Share />}
-                                >
-                                    {t("account.viewProfile")}
-                                </Button>
-                                <Button
-                                    onClick={() => signOut(auth).catch(console.error)}
-                                    color={"error"}
-                                    endIcon={<Logout />}
-                                >
-                                    {t("account.signOut")}
-                                </Button>
-                            </ButtonGroup>
-                        </div>
+                        >
+                            {user?.displayName}
+                        </Typography>
+                        <ButtonGroup>
+                            <Button
+                                onClick={() => {
+                                    window.open("https://levelimposter.net/#/profile");
+                                }}
+                                endIcon={<Share />}
+                            >
+                                {t("account.viewProfile")}
+                            </Button>
+                            <Button
+                                onClick={() => signOut(auth).catch(console.error)}
+                                color={"error"}
+                                endIcon={<Logout />}
+                            >
+                                {t("account.signOut")}
+                            </Button>
+                        </ButtonGroup>
                     </div>
+                </div>
 
-                    {/* Maps */}
-                    <div
-                        style={{
-                            margin: 15,
-                            textAlign: "center"
-                        }}
-                    >
-                        <MapPublishButton />
-                        {maps.length <= 0 && (
-                            <p style={{ marginTop: 10 }}>
-                                {t("account.noMaps")}
-                            </p>
-                        )}
-                        {maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
-                    </div>
-                </Box>
-
+                {/* Maps */}
+                <div
+                    style={{
+                        margin: 15,
+                        textAlign: "center"
+                    }}
+                >
+                    <MapPublishButton />
+                    {maps.length <= 0 && (
+                        <Typography
+                            variant={"body1"}
+                            sx={{
+                                color: "text.secondary",
+                                marginTop: 2
+                            }}
+                        >
+                            {t("account.noMaps")}
+                        </Typography>
+                    )}
+                    {maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
+                </div>
             </GenericModal>
         </>
     );
