@@ -137,3 +137,5 @@ export default interface LIProperties {
     isVisible?: boolean;
     isExpanded?: boolean;
 };
+
+export type LIPropName = keyof LIProperties;

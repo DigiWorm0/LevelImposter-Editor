@@ -3,7 +3,7 @@ import LIElement from "../../../types/li/LIElement";
 import getDefaultZ from "../../../utils/getDefaultZ";
 import { addElementAtom } from "./useAddElement";
 import { useSetAtom } from "jotai";
-import { mouseXAtom, mouseYAtom } from "../../canvas/useMouse";
+import { mouseXAtom, mouseYAtom } from "../../input/useMouse";
 
 export const addElementAtMouseAtom = atom(null, (get, set, elem: LIElement) => {
     const mouseX = get(mouseXAtom);

@@ -7,8 +7,8 @@ import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SwitchPanelInput from "../input/SwitchPanelInput";
-import MapAsset from "../../../types/li/MapAssetDB";
-import { useMapAssetValue } from "../../../hooks/map/useMapAssets";
+import MapAsset from "../../../types/li/MapAsset";
+import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
 
 const TYPE_BLACKLIST = [
     "util-player",

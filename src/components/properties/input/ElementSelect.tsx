@@ -13,6 +13,7 @@ export interface ElementSelectProps {
     blacklistedIDs?: MaybeGUID[];
     whitelistedIDs?: MaybeGUID[];
 
+    label?: string;
     noElementsText: string;
     defaultText: string;
     selectedID: MaybeGUID;
@@ -46,8 +47,9 @@ export default function ElementSelect(props: ElementSelectProps) {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label={currentElem ? currentElem.name : props.defaultText}
-                        variant="standard"
+                        placeholder={filteredElems.length === 0 ? props.noElementsText : props.defaultText}
+                        size={"small"}
+                        label={props.label}
                         fullWidth
                     />
                 )}

@@ -7,10 +7,10 @@ import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
-import AudioPlayer from "./AudioPlayer";
-import { useCreateMapAsset } from "../../../hooks/map/useMapAssets";
+import AudioEditor from "./AudioEditor";
 import { Check, CloudUpload, Refresh } from "@mui/icons-material";
-import { Button, ButtonGroup, Select } from "@mui/material";
+import { Button, ButtonGroup, Select, Typography } from "@mui/material";
+import useCreateMapAsset from "../../../hooks/map/assets/useCreateMapAsset";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -34,7 +34,10 @@ export default function SoundUpload(props: SoundUploadProps) {
     const onUploadClick = React.useCallback(() => {
         return openUploadDialog("audio/*").then((blob) => {
             downmixAudio(blob).then((downmixedBlob) => {
-                const asset = createMapAsset(downmixedBlob);
+                const asset = createMapAsset({
+                    type: "audio",
+                    blob: downmixedBlob
+                });
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
                     type: props.soundType,
@@ -57,7 +60,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
                 downmixAudio(file).then((downmixedBlob) => {
-                    const asset = createMapAsset(downmixedBlob);
+                    const asset = createMapAsset({ blob: downmixedBlob, type: "audio" });
                     props.onChange({
                         id: props.sound?.id ?? generateGUID(),
                         type: props.soundType,
@@ -89,21 +92,19 @@ export default function SoundUpload(props: SoundUploadProps) {
         >
             {/* Sound Preview */}
             {props.sound ? (
-                <AudioPlayer
+                <AudioEditor
                     title={props.title}
                     sound={props.sound}
                     onSoundChange={props.onChange}
                     loop={props.loop}
                 />
             ) : (
-                <p
-                    style={{
-                        textAlign: "center",
-                        paddingTop: 10
-                    }}
+                <Typography
+                    variant={"subtitle2"}
+                    sx={{ textAlign: "center", m: 2 }}
                 >
                     {t("audio.notUploaded")}
-                </p>
+                </Typography>
             )}
 
             {/* Channel */}

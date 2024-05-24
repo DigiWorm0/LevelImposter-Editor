@@ -11,7 +11,6 @@ import SpawnRange from "./SpawnRange";
 import ElemConnections from "./ElemConnections";
 import MinimapElement from "./MinimapElement";
 import PlayerZRender from "./PlayerZRender";
-import RoomText from "./RoomText";
 import StarfieldRender from "./StarfieldRender";
 import SporeRange from "./SporeRange";
 
@@ -33,7 +32,6 @@ export default function SelectedMapElement() {
             <FloatingRender />
             <StarfieldRender />
             <ElemConnections />
-            <RoomText />
         </>
     );
 }

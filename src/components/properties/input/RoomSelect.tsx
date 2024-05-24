@@ -3,7 +3,12 @@ import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ElementSelect from "./ElementSelect";
 import { Box } from "@mui/material";
 
-export default function RoomSelect(props: { useDefault: boolean }) {
+export interface RoomSelectProps {
+    useDefault: boolean;
+    label?: string;
+}
+
+export default function RoomSelect(props: RoomSelectProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
@@ -18,6 +23,7 @@ export default function RoomSelect(props: { useDefault: boolean }) {
             }}
         >
             <ElementSelect
+                label={props.label}
                 typeFilter="util-room"
                 noElementsText={t("room.errorNoRooms")}
                 defaultText={props.useDefault ? t("room.default") : t("room.none")}

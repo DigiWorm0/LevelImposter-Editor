@@ -4,7 +4,6 @@ import { MaybeGUID } from "../../../types/generic/GUID";
 import { MaybeLIElement } from "../../../types/li/LIElement";
 import { saveHistoryAtom } from "../useHistory";
 import { elementsAtom } from "../useMap";
-import { trimAssetsAtom } from "../useMapAssets";
 
 // Atoms
 export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
@@ -19,7 +18,6 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
             if (index >= 0 && elem) {
                 elements[index] = { ...elem };
                 set(elementsAtom, [...elements]);
-                set(trimAssetsAtom);
                 set(saveHistoryAtom);
             }
         }

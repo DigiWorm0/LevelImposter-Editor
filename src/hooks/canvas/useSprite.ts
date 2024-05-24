@@ -2,7 +2,7 @@ import React from "react";
 import AUElementDB from "../../types/db/AUElementDB";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { useElementValue } from "../map/elements/useElements";
-import { useMapAssetValue } from "../map/useMapAssets";
+import { useMapAssetValue } from "../map/assets/useMapAsset";
 
 const DEFAULT_URL = "/sprites/util-unknown.png";
 

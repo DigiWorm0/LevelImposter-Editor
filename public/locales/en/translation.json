@@ -414,6 +414,8 @@
 		"title": "Task",
 		"defaultLength": "Default Length",
 		"description": "Task Description",
+		"length": "Task Length",
+		"room": "Task Room",
 		"Short": "Short",
 		"Long": "Long",
 		"Common": "Common",

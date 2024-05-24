@@ -2,7 +2,7 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { MAX_HISTORY_LENGTH } from "../../types/generic/Constants";
 import LIMap from "../../types/li/LIMap";
 import { mapAtom } from "./useMap";
-import { selectedColliderIDAtom } from "./elements/useSelectedCollider";
+import { selectedColliderIDAtom } from "./elements/colliders/useSelectedCollider";
 import { selectedElementIDAtom } from "./elements/useSelectedElem";
 
 // Atoms

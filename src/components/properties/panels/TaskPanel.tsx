@@ -9,6 +9,7 @@ import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import NumericPanelInput from "../input/NumericPanelInput";
+import { Box, Typography } from "@mui/material";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -42,16 +43,23 @@ export default function TaskPanel() {
     return (
         <>
             <PanelContainer title={t("task.title") as string}>
-                <div style={{ textAlign: "center", padding: 15 }}>
+                <Box sx={{ textAlign: "center", padding: 2 }}>
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
                         src={sprite?.src}
                         alt={selectedElem.name}
                     />
-                    <h5 style={{ marginBottom: 3 }}>{taskName}</h5>
-                    <p className="bp4-text-muted">{selectedElem.type}</p>
-                </div>
-                <RoomSelect useDefault={true} />
+                    <Typography variant={"subtitle2"}>
+                        {taskName}
+                    </Typography>
+                    <Typography variant={"body2"} color={"text.secondary"}>
+                        {selectedElem.type}
+                    </Typography>
+                </Box>
+                <RoomSelect
+                    useDefault={true}
+                    label={t("task.room")}
+                />
                 <TaskTypeSelect />
                 {selectedElem.type !== "task-nodeswitch" && (
                     <TextPanelInput

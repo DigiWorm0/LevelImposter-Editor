@@ -1,14 +1,16 @@
 import React from "react";
 import { KonvaEventObject } from "konva/lib/Node";
 import Konva from "konva";
-import useSetMouse from "./useMouse";
 import { UNITY_SCALE } from "../../types/generic/Constants";
+import useSetMouse from "../input/useMouse";
+import { useSetCameraScale } from "./useCameraScale";
 
 const ZOOM_SPEED = 1.002;
 
 export default function useCameraControl() {
     const stageRef = React.useRef<Konva.Stage>(null);
     const setMouse = useSetMouse();
+    const setCameraScale = useSetCameraScale();
 
     // Utility Functions
     const zoom = React.useCallback((delta: number) => {
@@ -41,6 +43,7 @@ export default function useCameraControl() {
         // Set New Camera Position
         stage.scale({ x: newScale, y: newScale });
         stage.position(newPos);
+        setCameraScale(newScale);
     }, []);
 
     const getCenter = (p1: { x: number, y: number }, p2: { x: number, y: number }) => {
@@ -77,21 +80,17 @@ export default function useCameraControl() {
             e.evt.preventDefault();
         }
     }, []);
-    const onMouseMove = React.useCallback((_: KonvaEventObject<MouseEvent>) => {
+    const onMouseMove = React.useCallback((e: MouseEvent) => {
         const stage = stageRef.current;
         if (!stage)
             return;
 
-        const pos = stage.getPointerPosition();
-        if (!pos)
-            return;
-
-        const mouseX = (pos.x - stage.x()) / stage.scaleX();
-        const mouseY = (pos.y - stage.y()) / stage.scaleY();
+        const mouseX = (e.clientX - stage.x()) / stage.scaleX();
+        const mouseY = (e.clientY - stage.y()) / stage.scaleY();
 
         setMouse({
             x: mouseX / UNITY_SCALE,
-            y: mouseY / UNITY_SCALE
+            y: -mouseY / UNITY_SCALE
         });
     }, [setMouse]);
 
@@ -168,6 +167,7 @@ export default function useCameraControl() {
             // Set New Camera Position
             stage.scale({ x: scale, y: scale });
             stage.position({ x: newX, y: newY });
+            setCameraScale(scale);
 
             // Save Last Center/Distance
             lastDist = dist;
@@ -209,10 +209,10 @@ export default function useCameraControl() {
             return () => {
             };
 
+        window.addEventListener("mousemove", onMouseMove);
         stage.on("wheel", onScroll);
         stage.on("mousedown", onMouseDown);
         stage.on("mouseup", onMouseUp);
-        stage.on("mousemove", onMouseMove);
         stage.on("contextmenu", onContextMenu);
         stage.on("touchstart", onTouchStart);
         stage.on("touchmove", onTouchMove);
@@ -220,10 +220,10 @@ export default function useCameraControl() {
         window.addEventListener("keydown", onKeyDown);
 
         return () => {
+            window.removeEventListener("mousemove", onMouseMove);
             stage.off("wheel", onScroll);
             stage.off("mousedown", onMouseDown);
             stage.off("mouseup", onMouseUp);
-            stage.off("mousemove", onMouseMove);
             stage.off("contextmenu", onContextMenu);
             stage.off("touchstart", onTouchStart);
             stage.off("touchmove", onTouchMove);

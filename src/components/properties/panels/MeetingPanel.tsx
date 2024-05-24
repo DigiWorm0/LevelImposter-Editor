@@ -4,7 +4,7 @@ import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
-import MapAsset from "../../../types/li/MapAssetDB";
+import MapAsset from "../../../types/li/MapAsset";
 
 export default function MeetingPanel() {
     const { t } = useTranslation();

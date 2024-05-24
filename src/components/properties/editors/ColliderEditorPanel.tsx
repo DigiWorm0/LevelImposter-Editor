@@ -5,6 +5,9 @@ import { MaybeGUID } from "../../../types/generic/GUID";
 import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
 import { Check, Delete, ExpandLess } from "@mui/icons-material";
 import InputGroup from "../input/InputGroup";
+import useDeleteCollider from "../../../hooks/map/elements/colliders/useDeleteCollider";
+import useCollider from "../../../hooks/map/elements/colliders/useCollider";
+import FlexNumericInput from "../util/FlexNumericInput";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;
@@ -19,19 +22,33 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
+    const deleteCollider = useDeleteCollider();
+    const [collider, setCollider] = useCollider(props.colliderID);
 
-    const colliderID = props.colliderID;
-    const collider = React.useMemo(() => {
-        return selectedElem?.properties.colliders?.find(c => c.id === colliderID);
-    }, [selectedElem, props.colliderID]);
-
-    const deleteCollider = React.useCallback(() => {
-        if (!selectedElem)
+    const updatePoint = React.useCallback((x: number, y: number, index: number) => {
+        if (!collider)
             return;
-        const filteredColliders = selectedElem.properties.colliders?.filter(c => c.id !== colliderID);
-        setSelectedElem({ ...selectedElem, properties: { ...selectedElem.properties, colliders: filteredColliders } });
-        props.setSelectedColliderID(undefined);
-    }, [selectedElem, colliderID, props.setSelectedColliderID]);
+        const points = collider.points.map((p, i) => {
+            if (i === index)
+                return { x, y };
+            return p;
+        });
+        setCollider({ ...collider, points });
+    }, [collider, setCollider]);
+
+    const updatePointCount = React.useCallback((count: number) => {
+        if (!collider)
+            return;
+        const points = collider.points;
+        if (count > points.length) {
+            for (let i = points.length; i < count; i++) {
+                points.push({ x: 0, y: 0 });
+            }
+        } else {
+            points.splice(count);
+        }
+        setCollider({ ...collider, points });
+    }, [collider, setCollider]);
 
     if (!selectedElem || !collider)
         return null;
@@ -43,12 +60,9 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                 fullWidth
                 placeholder={t("collider.name") as string}
                 value={collider.name}
-                onChange={(e) => {
-                    collider.name = e.target.value;
-                    setSelectedElem({ ...selectedElem });
-                }}
-                style={{
-                    marginBottom: 10
+                onChange={(e) => setCollider({ ...collider, name: e.target.value })}
+                sx={{
+                    mb: 1
                 }}
             />
             <FormControlLabel
@@ -71,10 +85,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     <Switch
                         checked={collider.blocksLight}
                         disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                        onChange={(e) => {
-                            collider.blocksLight = e.currentTarget.checked;
-                            setSelectedElem({ ...selectedElem });
-                        }}
+                        onChange={(e) => setCollider({ ...collider, blocksLight: e.currentTarget.checked })}
                     />
                 } />
             <Button
@@ -93,82 +104,22 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             </Button>
 
             <Collapse in={isCollapsed}>
-                <TextField
-                    fullWidth
-                    disabled={!collider}
-                    label={t("collider.points") as string}
-                    size={"small"}
+                <FlexNumericInput
                     value={collider.points.length}
-                    onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        if (value < 0)
-                            return;
-                        const points = [];
-                        for (let i = 0; i < value; i++) {
-                            if (i < collider.points.length)
-                                points.push({
-                                    x: collider.points[i].x,
-                                    y: collider.points[i].y
-                                });
-                            else
-                                points.push({ x: 0, y: 0 });
-                        }
-                        collider.points = points;
-                        setSelectedElem({ ...selectedElem });
-                    }}
-                    InputProps={{
-                        type: "number",
-                        inputProps: {
-                            min: 2,
-                            stepSize: 1
-                        }
+                    onChange={(value) => updatePointCount(value)}
+                    inputProps={{
+                        fullWidth: true
                     }}
                 />
-
-
                 {collider.points.map((point, index) => (
                     <InputGroup key={index}>
-                        <TextField
-                            size={"small"}
-                            fullWidth
-                            disabled={!collider}
-                            value={point.x.toString()}
-                            onChange={(e) => {
-                                const points = collider.points.map((p, i) => {
-                                    if (i === index)
-                                        return { x: parseFloat(e.target.value), y: p.y };
-                                    return p;
-                                });
-                                collider.points = points;
-                                setSelectedElem({ ...selectedElem });
-                            }}
-                            InputProps={{
-                                type: "number",
-                                inputProps: {
-                                    step: 0.01
-                                }
-                            }}
+                        <FlexNumericInput
+                            value={point.x}
+                            onChange={(value) => updatePoint(value, point.y, index)}
                         />
-                        <TextField
-                            size={"small"}
-                            fullWidth
-                            disabled={!collider}
-                            value={point.y.toString()}
-                            onChange={(e) => {
-                                const points = collider.points.map((p, i) => {
-                                    if (i === index)
-                                        return { x: p.x, y: parseFloat(e.target.value) };
-                                    return p;
-                                });
-                                collider.points = points;
-                                setSelectedElem({ ...selectedElem });
-                            }}
-                            InputProps={{
-                                type: "number",
-                                inputProps: {
-                                    step: 0.01
-                                }
-                            }}
+                        <FlexNumericInput
+                            value={point.y}
+                            onChange={(value) => updatePoint(point.x, value, index)}
                         />
                     </InputGroup>
                 ))}
@@ -189,7 +140,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     size={"small"}
                     variant={"contained"}
                     color="error"
-                    onClick={() => deleteCollider()}
+                    onClick={() => deleteCollider(props.colliderID)}
                 >
                     <Delete />
                 </Button>

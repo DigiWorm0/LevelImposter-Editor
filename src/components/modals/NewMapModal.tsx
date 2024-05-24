@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useResetMap } from "../../hooks/map/useMap";
 import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
+import { useSetSelectedColliderID } from "../../hooks/map/elements/colliders/useSelectedCollider";
 import { Button, DialogContentText } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import GenericModal from "./GenericModal";

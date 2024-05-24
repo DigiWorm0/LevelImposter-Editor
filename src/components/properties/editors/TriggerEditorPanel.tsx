@@ -8,7 +8,7 @@ import { InputTriggerDB } from "../../../types/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import DevInfo from "../../utils/DevInfo";
 import ElementSelect from "../input/ElementSelect";
-import { MenuItem, Select } from "@mui/material";
+import { Box, MenuItem, Select } from "@mui/material";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);
@@ -95,7 +95,7 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
         return null;
 
     return (
-        <div style={{ padding: 20 }}>
+        <Box sx={{ p: 1 }}>
             <DevInfo>
                 {trigger.id}
                 {trigger.elemID}
@@ -135,6 +135,6 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                     </MenuItem>
                 ))}
             </Select>
-        </div>
+        </Box>
     )
 }

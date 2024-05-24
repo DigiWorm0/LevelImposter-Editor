@@ -8,6 +8,7 @@ export interface GenericModalProps {
     title?: string;
     children: React.ReactNode;
     DialogProps?: Partial<DialogProps>;
+    DialogContentProps?: Partial<DialogProps>;
     actions?: React.ReactNode;
 }
 
@@ -38,8 +39,11 @@ export default function GenericModal(props: GenericModalProps) {
                 <Close />
             </IconButton>
 
-            <DialogContent sx={{ paddingTop: 0 }}>
-                {props.children}
+            <DialogContent
+                sx={{ paddingTop: 0 }}
+                {...props.DialogContentProps}
+            >
+                           {props.children}
             </DialogContent>
 
             {props.actions && (

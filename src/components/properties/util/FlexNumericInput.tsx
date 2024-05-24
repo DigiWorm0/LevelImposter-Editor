@@ -57,6 +57,7 @@ export default function FlexNumericInput(props: FlexNumericInputProps) {
             value={inputValue}
             onChange={onChange}
             onKeyDown={onKeyDown}
+            size={"small"}
             {...props.inputProps}
         />
     )

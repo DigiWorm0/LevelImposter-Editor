@@ -4,12 +4,13 @@ import openUploadDialog from "../../../utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
-import MapAsset from "../../../types/li/MapAssetDB";
+import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/generic/GUID";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/map/useMapAssets";
 import duplicateBlob from "../../../utils/duplicateBlob";
 import { Button, ButtonGroup } from "@mui/material";
 import { CloudUpload, Done, Refresh } from "@mui/icons-material";
+import useCreateMapAsset from "../../../hooks/map/assets/useCreateMapAsset";
+import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
 
 interface ImageUploadProps {
     name: string;
@@ -32,17 +33,12 @@ export default function ImageUpload(props: ImageUploadProps) {
     const asset = useMapAssetValue(props.assetID);
     const createMapAsset = useCreateMapAsset();
 
-    // Get the size of the sprite in bytes
-    const spriteSize = React.useMemo(() => {
-        return asset?.blob?.size ?? 0;
-    }, [asset]);
-
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
         openUploadDialog("image/*").then((blob) => {
             return duplicateBlob(blob);
         }).then((blob) => {
-            props.onUpload(createMapAsset(blob));
+            props.onUpload(createMapAsset({ type: "image", blob }));
         }).catch((e) => {
             console.warn(e);
             toaster.warning(e);

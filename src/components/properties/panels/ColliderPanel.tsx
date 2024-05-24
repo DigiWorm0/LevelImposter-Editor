@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
-import { useSelectedColliderID } from "../../../hooks/map/elements/useSelectedCollider";
+import { useSelectedColliderID } from "../../../hooks/map/elements/colliders/useSelectedCollider";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";

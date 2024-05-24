@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from '../../../utils/generateGUID';
-import { useSetSelectedColliderID } from "../../../hooks/map/elements/useSelectedCollider";
+import { useSetSelectedColliderID } from "../../../hooks/map/elements/colliders/useSelectedCollider";
 import { useSetSelectedElemID } from "../../../hooks/map/elements/useSelectedElem";
 import useHiddenTypes from "../../../hooks/map/elements/useSingleTypes";
 import { Dialog, DialogContent, IconButton, InputAdornment, List, ListSubheader, TextField } from "@mui/material";

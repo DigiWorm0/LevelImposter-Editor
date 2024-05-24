@@ -1,9 +1,8 @@
 import { atom } from "jotai/index";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import { elementChildrenFamilyAtom, elementFamilyAtom } from "./useElements";
-import { selectedColliderIDAtom } from "./useSelectedCollider";
+import { selectedColliderIDAtom } from "./colliders/useSelectedCollider";
 import { elementsAtom } from "../useMap";
-import { trimAssetsAtom } from "../useMapAssets";
 import { saveHistoryAtom } from "../useHistory";
 import { selectedElementAtom } from "./useSelectedElem";
 import { useSetAtom } from "jotai";
@@ -22,7 +21,6 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
         });
     };
     removeElement(id);
-    set(trimAssetsAtom);
     set(saveHistoryAtom);
 });
 

@@ -1,4 +1,4 @@
-import { Button, Collapse } from "@mui/material";
+import { Button, Collapse, Divider } from "@mui/material";
 import { ExpandLess } from "@mui/icons-material";
 import { IconName } from "../../utils/MaterialIcon";
 import React from "react";
@@ -23,6 +23,7 @@ export interface DropdownListProps<T> {
 export default function DropdownList<T>(props: DropdownListProps<T>) {
     return props.elements?.map((element, index) => (
         <div key={element.id + "-" + index}>
+            {index === 0 && <Divider sx={{ width: "100%" }} />}
             <Button
                 fullWidth
                 variant={props.selectedID === element.id ? "contained" : "text"}
@@ -49,6 +50,8 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
                 {props.children}
                 {props.renderElement && props.renderElement(element)}
             </Collapse>
+
+            <Divider sx={{ width: "100%" }} />
         </div>
     ));
 }

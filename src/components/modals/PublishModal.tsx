@@ -124,7 +124,12 @@ export default function PublishModal(props: PublishModalProps) {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-            <div style={{ textAlign: "center" }}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
                 <RadioGroup
                     row
                     onChange={(e) => setIsPublic(e.currentTarget.value === "public")}

@@ -1,5 +1,5 @@
 import React from "react";
-import MapAssetsModal from "../modals/MapAssetsModal";
+import MapAssetsModal from "../modals/MapAssets/MapAssetsModal";
 import { useTranslation } from "react-i18next";
 import { IconButton, Tooltip } from "@mui/material";
 import { PermMedia } from "@mui/icons-material";

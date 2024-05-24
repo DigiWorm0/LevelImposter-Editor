@@ -95,6 +95,8 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
         const assetURL = URL.createObjectURL(assetBlob);
         mapData.assets.push({
             id: guid,
+            type: assetType.startsWith("image/") ? "image" :
+                (assetType.startsWith("audio/") ? "audio" : "unknown"),
             blob: assetBlob,
             url: assetURL,
         });
@@ -115,11 +117,16 @@ function parseAssetType(asset: ArrayBuffer) {
     const isGIF = asset.byteLength > 3 && textDecoder.decode(asset.slice(0, 3)) === "GIF";
     const isPNG = asset.byteLength > 8 && textDecoder.decode(asset.slice(1, 8)) === "PNG\r\n\x1a\n";
     const isJPEG = asset.byteLength > 2 && textDecoder.decode(asset.slice(0, 2)) === "\xff\xd8";
-    const isWAV = asset.byteLength > 11 && textDecoder.decode(asset.slice(0, 11)) === "RIFF\x00\x00\x00\x00WAVEfmt ";
+    const isWEBP = asset.byteLength > 11 && textDecoder.decode(asset.slice(8, 11)) === "WEBP";
+    const isWAV = asset.byteLength > 11 &&
+        textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
+        textDecoder.decode(asset.slice(8, 11)) === "WAV";
+    console.log(textDecoder.decode(asset.slice(0, 4)), textDecoder.decode(asset.slice(8, 11)), isWAV);
 
     if (isGIF) return "image/gif";
     if (isPNG) return "image/png";
     if (isJPEG) return "image/jpeg";
+    if (isWEBP) return "image/webp";
     if (isWAV) return "audio/wav";
     console.warn("Unknown asset type");
     return "application/octet-stream";

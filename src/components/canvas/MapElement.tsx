@@ -1,8 +1,7 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
 import useElement from "../../hooks/map/elements/useElements";
-import { useSetMouseCursor } from "../../hooks/input/useMouseCursor";
-import { useIsSelectedCollider } from "../../hooks/map/elements/useSelectedCollider";
+import { useIsSelectedCollider } from "../../hooks/map/elements/colliders/useSelectedCollider";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
 import { useSettingsValue } from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
@@ -12,6 +11,8 @@ import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
 import SecondaryRender from "./SecondaryRender";
 import useColoredSprite from "../../hooks/canvas/useColoredSprite";
+import setCursor from "../../utils/setCursor";
+import RoomText from "./RoomText";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -21,7 +22,6 @@ const SECONDARY_RENDER_TYPES = [
 
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
-    const setMouseCursor = useSetMouseCursor();
     const isEmbedded = useEmbed();
     const sprite = useSprite(props.elementID);
     const isColliderSelected = useIsSelectedCollider();
@@ -78,13 +78,13 @@ export default function MapElement(props: { elementID: GUID }) {
                 setSelectedID(props.elementID);
                 e.cancelBubble = true;
             }}
-            onMouseEnter={() => {
+            onMouseEnter={e => {
                 setHovering(true);
-                setMouseCursor(elem.properties.isLocked ? "default" : "pointer");
+                setCursor(e, elem.properties.isLocked ? "default" : "pointer");
             }}
-            onMouseLeave={() => {
+            onMouseLeave={e => {
                 setHovering(false);
-                setMouseCursor("default");
+                setCursor(e, "default");
             }}
             draggable={false}
             listening={!isColliderSelected && !isEmbedded && isVisible}
@@ -116,6 +116,10 @@ export default function MapElement(props: { elementID: GUID }) {
             {isSelected && (
                 <SecondaryRender />
             )}
+
+            {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
+                <RoomText name={elem.name} />
+            }
         </Group>
     );
 }

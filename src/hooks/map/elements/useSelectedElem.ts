@@ -7,7 +7,6 @@ import LIProperties from "../../../types/li/LIProperties";
 import { elementFamilyAtom } from "./useElements";
 import { saveHistoryAtom } from "../useHistory";
 import { elementsAtom } from "../useMap";
-import { trimAssetsAtom } from "../useMapAssets";
 
 // Atoms
 export const selectedElementIDAtom = atom<MaybeGUID>(undefined);
@@ -41,7 +40,6 @@ export const selectedElementAtom = atom(
             });
 
             set(elementsAtom, [...elements]);
-            set(trimAssetsAtom);
             set(saveHistoryAtom);
         }
     }

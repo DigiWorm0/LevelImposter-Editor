@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
-import ResettablePanelInput from "./ResettablePanelInput";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
-import { Box, InputAdornment, TextField, Tooltip } from "@mui/material";
+import { Box, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
 import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
+import { Clear } from "@mui/icons-material";
 
 export interface TextInputProps {
     name: string;
@@ -67,33 +67,36 @@ export default function TextPanelInput(props: TextInputProps) {
             }}
         >
             <Tooltip title={t(props.name) as string}>
-                <ResettablePanelInput
-                    onReset={() => {
-                        onChange();
-                        if (inputRef.current)
-                            inputRef.current.value = "";
+                <TextField
+                    inputRef={inputRef}
+                    fullWidth
+                    size={"small"}
+                    placeholder={t(props.name)}
+                    label={t(props.name)}
+                    defaultValue={propValue as string}
+                    onBlur={(e) => onChange(e.target.value)}
+                    onChange={(e) => onChange(e.currentTarget.value)}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position={"start"}>
+                                {props.icon ? <MaterialIcon icon={props.icon} /> : null}
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position={"end"}>
+                                <IconButton
+                                    onClick={() => {
+                                        onChange();
+                                        if (inputRef.current)
+                                            inputRef.current.value = "";
+                                    }}
+                                >
+                                    <Clear />
+                                </IconButton>
+                            </InputAdornment>
+                        )
                     }}
-                >
-                    <TextField
-                        inputRef={inputRef}
-                        fullWidth
-                        placeholder={t(props.name) as string}
-                        defaultValue={propValue as string}
-                        onBlur={(e) => {
-                            onChange(e.target.value);
-                        }}
-                        onChange={(e) => {
-                            onChange(e.currentTarget.value);
-                        }}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position={"start"}>
-                                    {props.icon ? <MaterialIcon icon={props.icon} /> : null}
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                </ResettablePanelInput>
+                />
             </Tooltip>
         </Box>
     )

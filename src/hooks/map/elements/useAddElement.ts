@@ -2,7 +2,6 @@ import { atom } from "jotai/index";
 import LIElement from "../../../types/li/LIElement";
 import GLOBAL_PROPERTIES from "../../../types/generic/GlobalProps";
 import { elementsAtom } from "../useMap";
-import { trimAssetsAtom } from "../useMapAssets";
 import { saveHistoryAtom } from "../useHistory";
 import { useSetAtom } from "jotai";
 
@@ -22,7 +21,6 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
     });
 
     set(elementsAtom, [...get(elementsAtom), elem]);
-    set(trimAssetsAtom);
     set(saveHistoryAtom);
 });
 

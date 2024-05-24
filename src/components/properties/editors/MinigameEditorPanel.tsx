@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import generateGUID from "../../../utils/generateGUID";
 import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import DevInfo from "../../utils/DevInfo";
 import ImageUpload from "../util/ImageUpload";
-import MapAsset from "../../../types/li/MapAssetDB";
+import MapAsset from "../../../types/li/MapAsset";
+import { Box, Typography } from "@mui/material";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -71,17 +71,12 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
         return null;
 
     return (
-        <div style={{ padding: 20 }}>
+        <Box sx={{ p: 2 }}>
             {!props.hideName && (
-                <h6>
+                <Typography variant={"subtitle2"}>
                     {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
-                </h6>
+                </Typography>
             )}
-            <DevInfo>
-                {minigame?.id}
-                {minigame?.type}
-            </DevInfo>
-
             <ImageUpload
                 name={selectedElem.name}
                 defaultSpriteURL={`/minigames/${minigameType}.png`}
@@ -90,7 +85,6 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 onReset={onReset}
                 onFinish={props.onFinish}
             />
-
-        </div>
+        </Box>
     )
 }

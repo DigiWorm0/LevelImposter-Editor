@@ -6,22 +6,21 @@ import { MapSorter } from '../canvas/MapSorter';
 import SelectedMapElement from '../canvas/SelectedMapElement';
 import primaryStore from '../../hooks/primaryStore';
 import { useMapProperties } from '../../hooks/map/useMap';
-import { useMouseCursorValue } from '../../hooks/input/useMouseCursor';
 import useCameraControl from "../../hooks/canvas/useCameraControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
 import MapElementsRenderer from "../canvas/MapElementsRenderer";
 import { useHotkeysContext } from "react-hotkeys-hook";
 import { Scope } from "../../hooks/input/useHotkeysHandler";
 import { Paper } from "@mui/material";
-import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import useDeselectAll from "../../hooks/map/useDeselectAll";
 
 export default function Canvas() {
     const stageRef = useCameraControl();
     const [windowWidth, windowHeight] = useWindowSize();
-    const cursor = useMouseCursorValue();
     const [properties] = useMapProperties();
     const { enableScope, disableScope } = useHotkeysContext();
-    const setSelectedElemID = useSetSelectedElemID();
+    const deselectAll = useDeselectAll();
+
 
     return (
         <Paper
@@ -39,10 +38,9 @@ export default function Canvas() {
                 x={windowWidth / 2}
                 y={windowHeight / 2}
                 ref={stageRef}
-                style={{ cursor: cursor }}
                 perfectDrawEnabled={false}
                 imageSmoothingEnabled={properties.pixelArtMode !== true}
-                onClick={() => setSelectedElemID(undefined)}
+                onClick={deselectAll}
             >
                 <Provider store={primaryStore}>
                     <Layer>

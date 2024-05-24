@@ -8,13 +8,15 @@ import LeftSidebar from "./LeftSidebar";
 import OpenInEditor from "./OpenInEditor";
 import RightSidebar from "./RightSidebar";
 import Topbar from "./Topbar";
+import useMouseRef from "../../hooks/input/useMouse";
 
 export default function Content() {
     const isEmbedded = useEmbed();
     const { isDarkMode } = useSettingsValue();
+    const contentRef = useMouseRef();
 
     return (
-        <div className={"app" + (isDarkMode ? " bp5-dark" : "")}>
+        <div className={"app" + (isDarkMode ? " bp5-dark" : "")} ref={contentRef}>
             <GlobalHooks />
 
             {!isEmbedded && (<>

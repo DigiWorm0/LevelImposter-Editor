@@ -2,7 +2,7 @@ import React from "react";
 import useSelectedElem from "../map/elements/useSelectedElem";
 import useSprite from "./useSprite";
 import { useMapProperties } from "../map/useMap";
-import { useCreateMapAsset } from "../map/useMapAssets";
+import useCreateMapAsset from "../map/assets/useCreateMapAsset";
 
 const SPRITE_PADDING = 10; // px
 
@@ -40,7 +40,7 @@ export default function useFixSprite() {
                 console.error("Failed to fix sprite");
                 return;
             }
-            const asset = createMapAsset(blob);
+            const asset = createMapAsset({ type: "image", blob });
 
             const colliders = selectedElem.properties.colliders?.map(collider => {
                 const { points } = collider;
