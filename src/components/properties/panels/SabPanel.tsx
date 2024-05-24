@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useConnections } from "../../../hooks/map/elements/useConnections";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { useElementType } from "../../../hooks/map/elements/useTypes";
-import { useSpriteType } from "../../../hooks/canvas/useSprite";
 import NumericPanelInput from "../input/NumericPanelInput";
 import RoomSelect from "../input/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import { Typography } from "@mui/material";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 
 const timerElems = [
     "sab-reactorleft",
@@ -25,7 +25,7 @@ export default function SabPanel() {
     const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
-    const sprite = useSpriteType(selectedElem?.type);
+    const sprite = useSpriteOfType(selectedElem?.type);
     const roomElems = useElementType("util-room");
     const [, sourceConnections] = useConnections(selectedElem?.properties.parent);
 

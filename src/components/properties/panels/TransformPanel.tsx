@@ -6,7 +6,7 @@ import { useSettingsValue } from "../../../hooks/useSettings";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import getIsConsole from "../../../utils/getIsConsole";
-import useFixSprite from "../../../hooks/canvas/useFixSprite";
+import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
 import FlexNumericInput from "../util/FlexNumericInput";
 import { useRemoveSelectedElement } from "../../../hooks/map/elements/useRemoveElement";
 import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
@@ -19,7 +19,7 @@ export default function TransformPanel() {
     const removeSelectedElement = useRemoveSelectedElement();
     const [selectedElem, setSelectedElem] = useSelectedElem();
     const { isDevMode } = useSettingsValue();
-    const fixSprite = useFixSprite();
+    const fixSprite = useFixSpriteScaling();
 
     // Gets if the selected element is a console object
     const isConsole = getIsConsole(selectedElem?.type || "");

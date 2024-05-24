@@ -10,7 +10,7 @@ export default function SaveMapButton() {
 
     return (
         <Tooltip title={t("map.save")}>
-            <IconButton onClick={saveMap}>
+            <IconButton onClick={() => saveMap({})}>
                 <Save />
             </IconButton>
         </Tooltip>

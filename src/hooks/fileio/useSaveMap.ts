@@ -1,29 +1,17 @@
-import React from "react";
-import useLISerializer from "./useLISerializer";
-import { useMapValue } from "../map/useMap";
-import { useSetSaved } from "./useIsSaved";
-import useToaster from "../useToaster";
-import { useTranslation } from "react-i18next";
+import { serializeMap } from "./useLISerializer";
+import { mapAtom } from "../map/useMap";
+import { isSavedAtom } from "./useIsSaved";
+import { saveFileFromBlob } from "../../utils/saveFileFromURL";
+import { atom, useSetAtom } from "jotai";
+
+export const saveMapAtom = atom(null, async (get, set) => {
+    const map = get(mapAtom);
+    const mapData = await serializeMap(map);
+    const blob = new Blob([mapData], { type: "application/levelimposter.map" });
+    saveFileFromBlob(blob, `${map.name}.lim2`);
+    set(isSavedAtom, true);
+})
 
 export default function useSaveMap() {
-    const { t } = useTranslation();
-    const serializeMap = useLISerializer();
-    const map = useMapValue();
-    const setIsSaved = useSetSaved();
-    const { danger } = useToaster();
-
-    return React.useCallback(() => {
-        serializeMap(map).then((mapData) => {
-            const blob = new Blob([mapData], { type: "application/levelimposter.map" });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = map.name + ".lim2";
-            link.click();
-            URL.revokeObjectURL(url);
-            setIsSaved(true);
-        }).catch((e) => {
-            danger(t("map.errorSave", { error: e.message }) as string);
-        });
-    }, [map, serializeMap, setIsSaved, danger, t]);
+    return useSetAtom(saveMapAtom);
 }

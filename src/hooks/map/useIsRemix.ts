@@ -1,10 +1,10 @@
-import { mapAtom } from "../map/useMap";
-import { auth } from "../../utils/Firebase";
+import { mapAtom } from "./useMap";
 import { atom, useAtomValue } from "jotai";
+import { userAtom } from "../firebase/useUser";
 
 export const remixAtom = atom((get) => {
     const map = get(mapAtom);
-    const userID = auth.currentUser?.uid;
+    const userID = get(userAtom)?.uid;
 
     const isRemix = map.authorID !== userID && map.authorID !== "";
     const wasRemix = map.remixOf !== null;

@@ -1,32 +1,38 @@
 import { collection, getDocs, limit, orderBy, query, QueryConstraint, where } from 'firebase/firestore';
-import React from 'react';
 import LIMetadata from '../../types/li/LIMetadata';
 import { db } from '../../utils/Firebase';
+import { atom, useAtomValue } from "jotai";
+import { userAtom } from "./useUser";
+import { unwrap } from "jotai/utils";
 
 const MAX_PER_PAGE = 100;
 
-export function useUserMaps(userID?: string) {
-    const [mapList, setMapList] = React.useState<LIMetadata[]>([]);
+export const _userMapsAtom = atom(async (get) => {
+    const userID = get(userAtom)?.uid;
 
-    React.useEffect(() => {
-        if (userID === undefined) {
-            setMapList([]);
-            return;
-        }
-        const mapQueries = [];
-        mapQueries.push(
-            where("authorID", "==", userID),
-            orderBy("createdAt", "desc"),
-            limit(MAX_PER_PAGE),
-        );
-        _getMaps(mapQueries).then(maps => {
-            setMapList(maps);
-        });
-    }, [userID]);
+    // If the user is not logged in, return an empty array
+    if (userID === undefined)
+        return [];
 
-    return mapList;
+    // Firebase queries
+    const mapQueries = [
+        where("authorID", "==", userID),
+        orderBy("createdAt", "desc"),
+        limit(MAX_PER_PAGE),
+    ];
+
+    // Get the maps
+    return await _getMaps(mapQueries);
+})
+
+export const userMapsAtom = unwrap(_userMapsAtom);
+
+export default function useUserMaps() {
+    return useAtomValue(userMapsAtom);
 }
 
+
+// TODO: Make this a helper function
 async function _getMaps(constraints: QueryConstraint[]) {
     const storeRef = collection(db, "maps");
     const mapsQuery = query(storeRef, ...constraints);

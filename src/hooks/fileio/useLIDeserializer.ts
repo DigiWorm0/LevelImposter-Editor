@@ -5,35 +5,40 @@ import convertLegacyMap from "../../utils/convertLegacyMap";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import { DEFAULT_GUID } from "../../utils/generateGUID";
 
+/// @deprecated Hook unnecessary, use `deserializeMap` instead
 export default function useLIDeserializer() {
     return React.useCallback((file: Blob) => {
-        return new Promise<LIMap>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                try {
-                    const result = reader.result as ArrayBuffer;
-                    const byteView = new Uint8Array(result);
-
-                    const firstByte = byteView[0];
-                    const lastByte = byteView[byteView.length - 1];
-                    const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
-
-                    const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
-                    if (mapData === undefined) {
-                        reject("Failed to deserialize file data");
-                        return;
-                    }
-                    resolve(mapData);
-                } catch (e) {
-                    reject(e);
-                }
-            }
-            reader.onerror = () => {
-                reject(reader.error);
-            }
-            reader.readAsArrayBuffer(file);
-        });
+        return deserializeMap(file);
     }, []);
+}
+
+export function deserializeMap(file: Blob) {
+    return new Promise<LIMap>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            try {
+                const result = reader.result as ArrayBuffer;
+                const byteView = new Uint8Array(result);
+
+                const firstByte = byteView[0];
+                const lastByte = byteView[byteView.length - 1];
+                const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
+
+                const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
+                if (mapData === undefined) {
+                    reject("Failed to deserialize file data");
+                    return;
+                }
+                resolve(mapData);
+            } catch (e) {
+                reject(e);
+            }
+        }
+        reader.onerror = () => {
+            reject(reader.error);
+        }
+        reader.readAsArrayBuffer(file);
+    });
 }
 
 function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {

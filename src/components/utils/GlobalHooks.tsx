@@ -4,6 +4,7 @@ import { useSettingsValue } from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
+import { _useUserAtom } from "../../hooks/firebase/useUser";
 
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
@@ -11,6 +12,7 @@ export default function GlobalHooks() {
     const isEmbedded = useEmbed();
     useHotkeysHandler();
     useIDParam();
+    _useUserAtom();
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {

@@ -21,6 +21,11 @@ export default function PublishModal(props: PublishModalProps) {
 
     const isLoggedIn = user !== null;
 
+    React.useEffect(() => {
+        if (props.isOpen)
+            setStep(0);
+    }, [props.isOpen]);
+
 
     return (
         <GenericModal

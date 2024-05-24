@@ -1,6 +1,7 @@
 import {
     Box,
     Chip,
+    CircularProgress,
     Divider,
     List,
     ListItem,
@@ -10,21 +11,18 @@ import {
     Typography
 } from "@mui/material";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../utils/Firebase";
-import { useUserMaps } from "../../../hooks/firebase/useUserMaps";
 import { Add, SwapVert } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import useUserMaps from "../../../hooks/firebase/useUserMaps";
 
 export default function PublishModalTarget() {
     const { t } = useTranslation();
     const [targetID, setTargetID] = React.useState<string | null>(null);
-    const [user] = useAuthState(auth);
-    const maps = useUserMaps(user?.uid);
+    const maps = useUserMaps();
 
     // Revert non-existant map ID
     React.useEffect(() => {
-        if (!maps.some(map => map.id === targetID))
+        if (!maps?.some(map => map.id === targetID))
             setTargetID(null);
     }, [maps, targetID]);
 
@@ -56,7 +54,7 @@ export default function PublishModalTarget() {
                         overflow: "auto"
                     }}
                 >
-                    {maps.map(map => (
+                    {maps?.map(map => (
                         <ListItem
                             key={map.id}
                             disablePadding
@@ -90,7 +88,13 @@ export default function PublishModalTarget() {
                         justifyContent: "center"
                     }}
                 >
-                    {maps.length === 0 && (
+                    {maps === undefined && (
+                        <CircularProgress
+                            sx={{ m: 1 }}
+                            color={"inherit"}
+                        />
+                    )}
+                    {maps?.length === 0 && (
                         <Typography
                             sx={{ p: 2 }}
                             variant={"body2"}

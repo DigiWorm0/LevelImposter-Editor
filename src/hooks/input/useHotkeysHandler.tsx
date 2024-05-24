@@ -72,7 +72,7 @@ export default function useHotkeysHandler() {
     useHotkeys("backspace", removeSelectedElement, options, [removeSelectedElement]);
 
     // Save
-    useHotkeys("ctrl+s", saveMap, options, [saveMap]);
+    useHotkeys("ctrl+s", () => saveMap({}), options, [saveMap]);
 
     // Undo/Redo
     useHotkeys("ctrl+z", undo, options, [undo]);

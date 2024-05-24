@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { useElementType } from "../../../hooks/map/elements/useTypes";
-import { useSpriteType } from "../../../hooks/canvas/useSprite";
 import RoomSelect from "../input/RoomSelect";
 import TaskTypeSelect from "../input/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";
@@ -10,6 +9,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import NumericPanelInput from "../input/NumericPanelInput";
 import { Box, Typography } from "@mui/material";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -17,7 +17,7 @@ export default function TaskPanel() {
     const taskElems = useElementType("task-");
     const selectedElem = useSelectedElemValue();
     const typeElems = useElementType(selectedElem?.type ?? "");
-    const sprite = useSpriteType(selectedElem?.type);
+    const sprite = useSpriteOfType(selectedElem?.type);
 
     const parentRoom = React.useMemo(() => {
         return roomElems.find((e) => e.id === selectedElem?.properties.parent);

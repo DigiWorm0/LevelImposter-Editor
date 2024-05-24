@@ -10,7 +10,7 @@ export default function OpenMapButton() {
 
     return (
         <Tooltip title={t("map.open")}>
-            <IconButton onClick={openMapFile}>
+            <IconButton onClick={() => openMapFile({})}>
                 <FolderOutlined />
             </IconButton>
         </Tooltip>

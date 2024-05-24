@@ -10,7 +10,7 @@ export default function useLISerializer() {
     }, []);
 }
 
-async function serializeMap(map: LIMap, onError?: (error: string) => void) {
+export async function serializeMap(map: LIMap, onError?: (error: string) => void) {
     const assets = map.assets ?? [];
 
     // Serialize JSON
