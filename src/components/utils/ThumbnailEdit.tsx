@@ -4,7 +4,7 @@ import openUploadDialog from "../../utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/map/useMap";
-import { Button, ButtonGroup, FormLabel } from "@mui/material";
+import { Box, Button, ButtonGroup, CardMedia, Typography } from "@mui/material";
 import { CloudUpload, Refresh } from "@mui/icons-material";
 
 export interface ThumbnailEditProps {
@@ -104,11 +104,22 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
         }
     }, [props.thumbnail]);
 
+    /*
     return (
-        <div style={{ textAlign: "center" }}>
-            <FormLabel>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                pb: 1
+            }}
+        >
+            <Typography
+                variant={"subtitle2"}
+                color={"text.secondary"}
+            >
                 {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
-            </FormLabel>
+            </Typography>
             <img
                 src={thumbnailURL}
                 alt={"Thumbnail"}
@@ -116,7 +127,8 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
                 height={THUMBNAIL_HEIGHT}
                 style={{
                     borderRadius: 5,
-                    border: "1px solid rgb(96, 96, 96)"
+                    border: "1px solid rgb(96, 96, 96)",
+                    marginBottom: 10
                 }}
             />
             <ButtonGroup fullWidth>
@@ -138,6 +150,55 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
                     {t("publish.resetThumbnail") as string}
                 </Button>
             </ButtonGroup>
-        </div>
+        </Box>
+    )
+     */
+
+    return (
+        <Box
+            sx={{
+                textAlign: "center",
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}
+        >
+            <Typography
+                variant={"subtitle2"}
+                color={"text.secondary"}
+            >
+                {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+            </Typography>
+            <Box sx={{ maxWidth: THUMBNAIL_WIDTH }}>
+                <CardMedia
+                    component={"img"}
+                    src={thumbnailURL}
+                    alt={"Thumbnail"}
+                    sx={{
+                        borderRadius: 1
+                    }}
+                />
+                <ButtonGroup fullWidth>
+                    <Button
+                        disabled={props.isDisabled}
+                        startIcon={<CloudUpload />}
+                        onClick={onUploadClick}
+                        variant={"text"}
+                    >
+                        {t("publish.uploadThumbnail") as string}
+                    </Button>
+                    <Button
+                        disabled={props.isDisabled}
+                        startIcon={<Refresh />}
+                        onClick={() => props.setThumbnail(null)}
+                        color={"error"}
+                        variant={"text"}
+                    >
+                        {t("publish.resetThumbnail") as string}
+                    </Button>
+                </ButtonGroup>
+            </Box>
+        </Box>
     )
 }

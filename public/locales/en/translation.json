@@ -595,7 +595,7 @@
 		"errorNoPermission": "You do not have permission to edit this map. If you're the author, make sure you're logged in."
 	},
 	"publish": {
-		"title": "Publish To Workshop",
+		"title": "Upload Map",
 		"description": "Publish this map to the workshop to play online with others.",
 		"success": "Successfully published map!",
 		"mapName": "Map Name",

@@ -15,6 +15,7 @@ import SettingsButton from "../buttons/SettingsButton";
 import MapPropertiesButton from "../buttons/MapPropertiesButton";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import NavDivider from "./NavDivider";
+import MapPublishButton from "../buttons/MapPublishButton";
 
 export default function Topbar() {
     return (
@@ -49,6 +50,7 @@ export default function Topbar() {
                     <Typography sx={{ flexGrow: 1 }} />
 
                     <SignInButton />
+                    <MapPublishButton />
                     <MapPropertiesButton />
                     <SettingsButton />
                 </Toolbar>

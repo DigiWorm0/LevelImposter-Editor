@@ -5,10 +5,9 @@ import { useTranslation } from "react-i18next";
 import { auth } from "../../utils/Firebase";
 import { useUserMaps } from "../../hooks/firebase/useUserMaps";
 import MapThumbnail from "../utils/MapThumbnail";
-import MapPublishButton from "../buttons/MapPublishButton";
 import SignInModal from "./SignInModal";
 import ProfileIcon from "../utils/ProfileIcon";
-import { Button, ButtonGroup, Typography } from "@mui/material";
+import { Button, ButtonGroup, Divider, Typography } from "@mui/material";
 import GenericModal from "./GenericModal";
 import { Logout, Share } from "@mui/icons-material";
 
@@ -48,11 +47,11 @@ export default function AccountModal(props: AccountModalProps) {
                 >
                     <ProfileIcon
                         style={{
-                            height: 85,
-                            width: 85,
+                            height: 100,
+                            width: 100,
                             borderRadius: 50,
                             objectFit: "cover",
-                            marginRight: 15
+                            marginRight: 25
                         }}
                     />
                     <div>
@@ -86,6 +85,8 @@ export default function AccountModal(props: AccountModalProps) {
                     </div>
                 </div>
 
+                <Divider sx={{ mt: 2 }} />
+
                 {/* Maps */}
                 <div
                     style={{
@@ -93,7 +94,6 @@ export default function AccountModal(props: AccountModalProps) {
                         textAlign: "center"
                     }}
                 >
-                    <MapPublishButton />
                     {maps.length <= 0 && (
                         <Typography
                             variant={"body1"}

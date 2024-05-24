@@ -9,13 +9,13 @@ export interface ImageAssetProps extends Partial<React.HTMLAttributes<HTMLImageE
 export default function ImageAsset(props: ImageAssetProps) {
     const asset = useMapAssetValue(props.assetID);
 
+    // TODO: Fix warning about `assetID` being passed to the DOM
+
     return (
         <img
             {...props}
             alt={props.assetID}
             src={asset?.url}
-
-            assetID={undefined} {/* Prevents the assetID from being passed to the img element */}
         />
     )
 }

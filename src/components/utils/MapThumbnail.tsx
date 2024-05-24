@@ -5,6 +5,7 @@ import { Card, CardActionArea, CardContent, Chip } from "@mui/material";
 
 export interface MapThumbnailProps {
     map: LIMetadata;
+    onClick?: () => void;
 }
 
 const MAX_DESCRIPTION_LENGTH = 150;
@@ -22,8 +23,11 @@ export default function MapThumbnail(props: MapThumbnailProps) {
     }, [map.description, t]);
 
     const onClick = React.useCallback(() => {
-        window.open(`https://levelimposter.net/#/map/${map.id}`);
-    }, [map.id]);
+        if (props.onClick)
+            props.onClick();
+        else
+            window.open(`https://levelimposter.net/#/map/${map.id}`);
+    }, [map.id, props.onClick]);
 
     return (
         <Card
