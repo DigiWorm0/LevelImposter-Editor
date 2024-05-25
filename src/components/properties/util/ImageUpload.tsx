@@ -9,8 +9,8 @@ import GUID from "../../../types/generic/GUID";
 import duplicateBlob from "../../../utils/duplicateBlob";
 import { Button, ButtonGroup } from "@mui/material";
 import { CloudUpload, Done, Refresh } from "@mui/icons-material";
-import useCreateMapAsset from "../../../hooks/map/assets/useCreateMapAsset";
-import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
+import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 
 interface ImageUploadProps {
     name: string;
@@ -39,10 +39,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             return duplicateBlob(blob);
         }).then((blob) => {
             props.onUpload(createMapAsset({ type: "image", blob }));
-        }).catch((e) => {
-            console.warn(e);
-            toaster.warning(e);
-        });
+        }).catch(toaster.warn);
     }, [props.onUpload]);
 
     // Handle Drag & Drop
@@ -54,13 +51,13 @@ export default function ImageUpload(props: ImageUploadProps) {
             const file = files[0];
             if (file.type.startsWith("image/")) {
                 duplicateBlob(file).then((blob) => {
-                    props.onUpload(createMapAsset(blob));
-                }).catch((e) => {
-                    console.warn(e);
-                    toaster.warning(e);
-                });
+                    props.onUpload(createMapAsset({
+                        type: "image",
+                        blob
+                    }));
+                }).catch(toaster.warn);
             } else {
-                toaster.danger(t("sprite.errorInvalidType"));
+                toaster.error(t("sprite.errorInvalidType"));
             }
         }
     }, [props.onUpload]);

@@ -1,7 +1,7 @@
 import { Context } from "konva/lib/Context";
 import { Shape } from "react-konva";
-import { useSelectedConnections } from "../../hooks/map/elements/useConnections";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSelectedConnections } from "../../hooks/elements/useConnections";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import LIElement from "../../types/li/LIElement";
 

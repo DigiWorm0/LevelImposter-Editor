@@ -28,6 +28,7 @@
 		"jotai-devtools": "^0.7.0",
 		"jotai-optics": "^0.3.0",
 		"konva": "^8.4.3",
+		"notistack": "^3.0.1",
 		"optics-ts": "^2.4.0",
 		"react": "^18.3.1",
 		"react-colorful": "^5.6.1",

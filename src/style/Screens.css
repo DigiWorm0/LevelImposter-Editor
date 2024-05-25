@@ -1,23 +1,5 @@
-.right-sidebar {
-    width: 300px;
-    height: 100%;
-    background-color: #f1f1f1;
-    position: fixed;
-    top: 50px;
-    right: 0;
-    overflow-x: hidden;
-    padding: 10px;
-    padding-bottom: 400px;
-    overflow-y: auto;
-}
-
-.canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+body, html {
+    font-family: Roboto, Arial, sans-serif;
 }
 
 .download-canvas .konvajs-content,

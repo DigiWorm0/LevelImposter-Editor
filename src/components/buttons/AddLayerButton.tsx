@@ -1,10 +1,10 @@
-import generateGUID from "../../utils/generateGUID";
-import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useTranslation } from "react-i18next";
-import React from "react";
-import { IconButton, Tooltip } from "@mui/material";
 import { CreateNewFolder } from "@mui/icons-material";
-import useAddElement from "../../hooks/map/elements/useAddElement";
+import { IconButton, Tooltip } from "@mui/material";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import useAddElement from "../../hooks/elements/useAddElement";
+import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import generateGUID from "../../utils/generateGUID";
 
 export interface AddLayerButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>

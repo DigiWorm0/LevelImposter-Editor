@@ -1,8 +1,8 @@
-import { MaybeGUID } from "../../../../types/generic/GUID";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import LICollider from "../../../types/li/LICollider";
 import { selectedElementAtom } from "../useSelectedElem";
-import LICollider from "../../../../types/li/LICollider";
 
 export const colliderAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom((get) => {

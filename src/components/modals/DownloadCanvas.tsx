@@ -1,15 +1,15 @@
+import { CloudDownload } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { Provider } from 'jotai';
 import Konva from 'konva';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Stage } from 'react-konva';
-import primaryStore from '../../hooks/primaryStore';
+import { useSelectedElemValue } from '../../hooks/elements/useSelectedElem';
 import { useElementIDs } from '../../hooks/map/useMap';
-import { useSelectedElemValue } from '../../hooks/map/elements/useSelectedElem';
+import primaryStore from '../../hooks/primaryStore';
 import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
-import { Button } from "@mui/material";
-import { CloudDownload } from "@mui/icons-material";
 import GenericModal from "./GenericModal";
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {

@@ -1,7 +1,6 @@
 import BrowserWarningModal from "../modals/BrowserWarningModal";
 import GlobalHooks from "../utils/GlobalHooks";
 import MapHelmet from "../utils/MapHelmet";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import Canvas from "./Canvas";
 import LeftSidebar from "./LeftSidebar";
@@ -11,10 +10,9 @@ import Topbar from "./Topbar";
 
 export default function Content() {
     const isEmbedded = useEmbed();
-    const { isDarkMode } = useSettingsValue();
 
     return (
-        <div className={"app" + (isDarkMode ? " bp5-dark" : "")}>
+        <div className={"app"}>
             <GlobalHooks />
 
             {!isEmbedded && (<>

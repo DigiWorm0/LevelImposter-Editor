@@ -1,6 +1,6 @@
+import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../types/generic/Constants";
-import useIsSelectedElemType from "../../hooks/map/elements/useSelectedElemIsType";
-import { useSelectedElemPropValue } from "../../hooks/map/elements/useSelectedElemProperty";
 
 export default function DisplayRender() {
     const displayHeight = useSelectedElemPropValue<number>("displayHeight");

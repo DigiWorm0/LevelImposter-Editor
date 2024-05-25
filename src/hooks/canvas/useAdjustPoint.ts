@@ -1,7 +1,7 @@
+import { atom, useSetAtom } from "jotai";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
-import { selectedElementAtom } from "../map/elements/useSelectedElem";
-import { atom, useSetAtom } from "jotai";
+import { selectedElementAtom } from "../elements/useSelectedElem";
 
 export const relativeToAbsoluteAtom = atom(null, (get, _, point: Point) => {
 

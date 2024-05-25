@@ -4,9 +4,10 @@ import { Box, Button, ButtonGroup } from "@mui/material";
 import ImageAssetModalList from "./Images/ImageAssetModalList";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import MapAssetModalEditor from "./MapAssetModalEditor";
-import useTrimMapAssets from "../../../hooks/map/assets/useTrimMapAssets";
+import useTrimMapAssets from "../../../hooks/assets/useTrimMapAssets";
 import { Compress, ContentCut, Merge } from "@mui/icons-material";
 import SoundAssetModalList from "./Sounds/SoundAssetModalList";
+import useMergeMapAssets from "../../../hooks/assets/useMergeMapAssets";
 
 interface MapAssetsDialogProps {
     isOpen: boolean,
@@ -16,6 +17,7 @@ interface MapAssetsDialogProps {
 export default function MapAssetsModal(props: MapAssetsDialogProps) {
     const [selectedAssetID, setSelectedAssetID] = React.useState<MaybeGUID>(undefined);
     const trimAssets = useTrimMapAssets();
+    const mergeAssets = useMergeMapAssets();
 
     return (
         <GenericModal
@@ -35,11 +37,10 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
                     <Box sx={{ p: 1 }}>
                         <ButtonGroup fullWidth>
                             <Button
-                                onClick={trimAssets}
+                                onClick={mergeAssets}
                                 variant={"outlined"}
                                 color={"primary"}
                                 endIcon={<Merge />}
-                                disabled
                             >
                                 Merge
                             </Button>

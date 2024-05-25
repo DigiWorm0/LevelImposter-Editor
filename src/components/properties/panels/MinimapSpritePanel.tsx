@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 import PanelContainer from "../util/PanelContainer";
 

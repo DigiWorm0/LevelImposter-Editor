@@ -3,6 +3,7 @@ import primaryStore from '../../hooks/primaryStore';
 import Content from './Content';
 import { HotkeysProvider } from "react-hotkeys-hook";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 
 const darkTheme = createTheme({
     palette: {
@@ -20,11 +21,15 @@ const darkTheme = createTheme({
 
 export default function App() {
 
+    // How many providers is too many providers?
+
     return (
         <StateProvider store={primaryStore}>
             <HotkeysProvider>
                 <ThemeProvider theme={darkTheme}>
-                    <Content />
+                    <SnackbarProvider>
+                        <Content />
+                    </SnackbarProvider>
                 </ThemeProvider>
             </HotkeysProvider>
         </StateProvider>

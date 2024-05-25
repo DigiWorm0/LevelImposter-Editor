@@ -1,5 +1,5 @@
 import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../types/generic/GUID";
 import { mapAssetsAtom } from "./useMapAssets";
 
 export const deleteMapAssetAtom = atom(null, (get, set, id: MaybeGUID) => {

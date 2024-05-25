@@ -10,7 +10,7 @@ import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";
 import { Check, CloudUpload, Refresh } from "@mui/icons-material";
 import { Button, ButtonGroup, Select, Typography } from "@mui/material";
-import useCreateMapAsset from "../../../hooks/map/assets/useCreateMapAsset";
+import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -45,10 +45,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     volume: DEFAULT_VOLUME,
                     isPreset: false
                 });
-            }).catch((e) => {
-                console.error(e);
-                toaster.danger(e);
-            });
+            }).catch(toaster.error);
         });
     }, [props.onChange]);
 
@@ -68,12 +65,9 @@ export default function SoundUpload(props: SoundUploadProps) {
                         volume: DEFAULT_VOLUME,
                         isPreset: false
                     });
-                }).catch((e) => {
-                    console.error(e);
-                    toaster.danger(e);
-                });
+                }).catch(toaster.error);
             } else {
-                toaster.danger(t("audio.errorInvalidType"));
+                toaster.error(t("audio.errorInvalidType"));
             }
         }
     }, [props.onChange]);

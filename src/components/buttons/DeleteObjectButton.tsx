@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import { useRemoveSelectedElement } from "../../hooks/map/elements/useRemoveElement";
-import React from "react";
-import useIsElementSelected from "../../hooks/map/elements/useIsElementSelected";
-import { IconButton, Tooltip } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { IconButton, Tooltip } from "@mui/material";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
+import { useRemoveSelectedElement } from "../../hooks/elements/useRemoveElement";
 
 export interface DeleteObjectButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>;

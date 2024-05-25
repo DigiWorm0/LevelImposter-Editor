@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import { Box, IconButton, MenuItem, Select, Tooltip } from "@mui/material";
-import InputGroup from "./InputGroup";
 import { QuestionMark } from "@mui/icons-material";
+import { Box, IconButton, MenuItem, Select, Tooltip } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import InputGroup from "./InputGroup";
 
 export default function DoorTypeSelect() {
     const { t } = useTranslation();

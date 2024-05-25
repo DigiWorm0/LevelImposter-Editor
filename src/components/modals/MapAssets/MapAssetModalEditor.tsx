@@ -4,10 +4,10 @@ import { CloudDownload, Delete, Image, Upload } from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/toSizeString";
 import React from "react";
-import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
-import useDeleteMapAsset from "../../../hooks/map/assets/useDeleteMapAsset";
+import useDeleteMapAsset from "../../../hooks/assets/useDeleteMapAsset";
 
 export interface MapAssetModalEditorProps {
     id: MaybeGUID;

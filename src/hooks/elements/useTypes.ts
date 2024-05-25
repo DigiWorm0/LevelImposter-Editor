@@ -1,6 +1,6 @@
 import { atom, useAtomValue } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { elementsAtom } from "../useMap";
+import { elementsAtom } from "../map/useMap";
 
 // Atom
 export const elementTypeAtom = atomFamily((typeFilter: string) => {

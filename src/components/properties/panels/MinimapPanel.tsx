@@ -1,12 +1,12 @@
+import { CloudDownload } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import DownloadCanvasDialog from "../../modals/DownloadCanvas";
 import NumericPanelInput from "../input/NumericPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import { Button } from "@mui/material";
-import { CloudDownload } from "@mui/icons-material";
 
 export default function MinimapPanel() {
     const { t } = useTranslation();

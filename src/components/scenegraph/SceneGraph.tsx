@@ -1,14 +1,12 @@
+import { Search } from "@mui/icons-material";
+import { Box, Divider, InputAdornment, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useElementChildren } from "../../hooks/map/elements/useElements";
 import SceneGraphButtons from "../buttons/SceneGraphButtons";
-import SceneGraphElement from "./SceneGraphElement";
-import { Box, Divider, InputAdornment, List, TextField } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import SceneGraphElements from "./SceneGraphElements";
 
 export default function SceneGraph() {
     const { t } = useTranslation();
-    const elementIDs = useElementChildren(undefined);
     const [searchQuery, setSearchQuery] = React.useState<string>("");
 
     return (
@@ -26,21 +24,7 @@ export default function SceneGraph() {
                     }}
                 />
             </Box>
-            <List
-                sx={{
-                    flexGrow: 1,
-                    overflowY: "auto",
-                }}
-            >
-                {elementIDs.map((elemID) => (
-                    <SceneGraphElement
-                        key={elemID}
-                        elementID={elemID}
-                        searchQuery={searchQuery}
-                        depth={0}
-                    />
-                ))}
-            </List>
+            <SceneGraphElements searchQuery={searchQuery} />
             <Divider />
             <SceneGraphButtons />
         </>

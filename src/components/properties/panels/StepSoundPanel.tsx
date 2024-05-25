@@ -1,14 +1,14 @@
+import { TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../utils/generateGUID";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import generateGUID from "../../../utils/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import NumericPanelInput from "../input/NumericPanelInput";
 import SoundPresetSelect from "../input/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
-import { TextField } from "@mui/material";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();

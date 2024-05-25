@@ -1,15 +1,15 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/map/elements/useTypes";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useElementType } from "../../../hooks/elements/useTypes";
+import NumericPanelInput from "../input/NumericPanelInput";
 import RoomSelect from "../input/RoomSelect";
 import TaskTypeSelect from "../input/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import NumericPanelInput from "../input/NumericPanelInput";
-import { Box, Typography } from "@mui/material";
-import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 
 export default function TaskPanel() {
     const { t } = useTranslation();

@@ -1,10 +1,10 @@
+import { Box } from "@mui/material";
 import React from "react";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
 import LIProperties from "../../../types/li/LIProperties";
 import ColorPicker from "../../utils/ColorPicker";
-import { Box } from "@mui/material";
 
 export interface ColorInputProps {
     name: string;

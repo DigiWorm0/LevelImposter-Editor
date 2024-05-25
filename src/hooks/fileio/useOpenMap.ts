@@ -1,4 +1,4 @@
-import { saveHistoryAtom } from "../map/useHistory";
+import { saveHistoryAtom } from "../map/history/useHistory";
 import { isSavedAtom } from "./useIsSaved";
 import { deserializeMap } from "./useLIDeserializer";
 import { mapAtom } from "../map/useMap";

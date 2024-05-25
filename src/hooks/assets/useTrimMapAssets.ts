@@ -1,8 +1,9 @@
 // Trim Assets
 import { atom } from "jotai/index";
-import { elementsAtom } from "../useMap";
+import { elementsAtom } from "../map/useMap";
 import { mapAssetsAtom } from "./useMapAssets";
 import { useSetAtom } from "jotai";
+import { saveHistoryAtom } from "../map/history/useHistory";
 
 // Atom
 export const trimAssetsAtom = atom(null, (get, set) => {
@@ -23,12 +24,14 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     let trimAmount = mapAssets.length - filteredAssets.length;
     if (trimAmount > 0) {
         set(mapAssetsAtom, filteredAssets);
+        set(saveHistoryAtom);
         console.log(`Trimmed ${trimAmount} assets`);
         return trimAmount;
     } else {
         console.log("No assets to trim");
         return 0;
     }
+
 });
 trimAssetsAtom.debugLabel = "trimAssetsAtom";
 

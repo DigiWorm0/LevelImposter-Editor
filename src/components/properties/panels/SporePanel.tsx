@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_SPORE_GAS_RANGE, DEFAULT_SPORE_RANGE } from "../../../types/generic/Constants";
+import ColorPanelInput from "../input/ColorPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
-import ColorPanelInput from "../input/ColorPanelInput";
 
 export default function SporePanel() {
     const { t } = useTranslation();

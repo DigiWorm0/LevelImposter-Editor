@@ -1,7 +1,7 @@
 import { Box, ImageList, Typography } from "@mui/material";
 import ImageAssetModalButton from "./ImageAssetModalButton";
 import React from "react";
-import useMapAssetsValue from "../../../../hooks/map/assets/useMapAssets";
+import useMapAssetsValue from "../../../../hooks/assets/useMapAssets";
 import GUID, { MaybeGUID } from "../../../../types/generic/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 

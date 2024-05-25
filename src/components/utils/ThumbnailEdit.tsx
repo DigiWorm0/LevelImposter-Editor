@@ -29,7 +29,7 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
         fetch(map.thumbnailURL)
             .then((response) => response.blob())
             .then((blob) => props.setThumbnail(blob))
-            .catch(console.error);
+            .catch(toaster.error);
     }, [map.thumbnailURL, props.setThumbnail]);
 
     /**
@@ -82,10 +82,7 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
             props.setThumbnail(resizedBlob);
         }
 
-        uploadThumbnail().catch((e) => {
-            console.error(e);
-            toaster.danger(e.message);
-        });
+        uploadThumbnail().catch(toaster.error);
     }, [props, resizeImage, toaster]);
 
     // Manage Object URL
@@ -103,56 +100,6 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
             URL.revokeObjectURL(objectURL);
         }
     }, [props.thumbnail]);
-
-    /*
-    return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                pb: 1
-            }}
-        >
-            <Typography
-                variant={"subtitle2"}
-                color={"text.secondary"}
-            >
-                {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
-            </Typography>
-            <img
-                src={thumbnailURL}
-                alt={"Thumbnail"}
-                width={THUMBNAIL_WIDTH}
-                height={THUMBNAIL_HEIGHT}
-                style={{
-                    borderRadius: 5,
-                    border: "1px solid rgb(96, 96, 96)",
-                    marginBottom: 10
-                }}
-            />
-            <ButtonGroup fullWidth>
-                <Button
-                    fullWidth
-                    disabled={props.isDisabled}
-                    startIcon={<CloudUpload />}
-                    onClick={onUploadClick}
-                >
-                    {t("publish.uploadThumbnail") as string}
-                </Button>
-                <Button
-                    fullWidth
-                    disabled={props.isDisabled}
-                    startIcon={<Refresh />}
-                    onClick={() => props.setThumbnail(null)}
-                    color={"error"}
-                >
-                    {t("publish.resetThumbnail") as string}
-                </Button>
-            </ButtonGroup>
-        </Box>
-    )
-     */
 
     return (
         <Box

@@ -1,9 +1,9 @@
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../../types/generic/GUID";
 import { atom, useAtomValue } from "jotai";
-import { elementFamilyAtom } from "../../map/elements/useElements";
+import { atomFamily } from "jotai/utils";
 import AUElementDB from "../../../types/db/AUElementDB";
-import { mapAssetsAtomFamily } from "../../map/assets/useMapAsset";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import { mapAssetsAtomFamily } from "../../assets/useMapAsset";
+import { elementFamilyAtom } from "../../elements/useElements";
 
 // TODO: Put this in constants
 const DEFAULT_URL = "/sprites/util-unknown.png";

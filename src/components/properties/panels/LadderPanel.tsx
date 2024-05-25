@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_LADDER_HEIGHTS } from "../../../types/generic/Constants";
 import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";

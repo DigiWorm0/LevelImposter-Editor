@@ -1,7 +1,7 @@
 import React from "react";
 import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_FLOATING_HEIGHT,
     DEFAULT_FLOATING_SPEED,

@@ -1,6 +1,5 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import PanelContainer from "../util/PanelContainer";
 

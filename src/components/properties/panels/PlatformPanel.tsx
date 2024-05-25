@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_PLATFORM_ENTER,
     DEFAULT_PLATFORM_EXIT,
     DEFAULT_PLATFORM_OFFSET
 } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import InputGroup from "../input/InputGroup";
+import NumericPanelInput from "../input/NumericPanelInput";
+import PanelContainer from "../util/PanelContainer";
 
 const PLATFORM_MOVE_SOUND = "platformMove";
 

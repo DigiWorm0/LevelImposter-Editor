@@ -1,10 +1,10 @@
+import { Add } from "@mui/icons-material";
+import { Button, DialogContentText } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSetSelectedColliderID } from "../../hooks/elements/colliders/useSelectedCollider";
+import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import { useResetMap } from "../../hooks/map/useMap";
-import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSetSelectedColliderID } from "../../hooks/map/elements/colliders/useSelectedCollider";
-import { Button, DialogContentText } from "@mui/material";
-import { Add } from "@mui/icons-material";
 import GenericModal from "./GenericModal";
 
 export interface NewMapDialogProps {

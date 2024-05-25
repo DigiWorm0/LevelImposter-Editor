@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../../types/generic/GUID";
-import LICollider from "../../../../types/li/LICollider";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import LICollider from "../../../types/li/LICollider";
 import { colliderAtomFamily } from "./useCollider";
 
 // Atoms

@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import GUID from "../../../../types/generic/GUID";
-import { useMapAssetValue } from "../../../../hooks/map/assets/useMapAsset";
+import { useMapAssetValue } from "../../../../hooks/assets/useMapAsset";
 
 export interface MapAssetModalButtonProps {
     id: GUID;

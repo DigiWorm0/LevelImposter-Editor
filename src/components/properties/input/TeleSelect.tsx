@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import ElementSelect from "./ElementSelect";
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import ElementSelect from "./ElementSelect";
 
 export default function TeleSelect() {
     const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH } from "../../types/generic/Constants";
 
 export default function StarfieldRender() {

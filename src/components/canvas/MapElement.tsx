@@ -1,17 +1,17 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useElement from "../../hooks/map/elements/useElements";
-import { useIsSelectedCollider } from "../../hooks/map/elements/colliders/useSelectedCollider";
-import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSettingsValue } from "../../hooks/useSettings";
+import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
+import { useIsSelectedCollider } from "../../hooks/elements/colliders/useSelectedCollider";
+import useElement from "../../hooks/elements/useElements";
+import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import useEmbed from "../../hooks/embed/useEmbed";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
-import SecondaryRender from "./SecondaryRender";
-import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
 import setCursor from "../../utils/setCursor";
 import RoomText from "./RoomText";
+import SecondaryRender from "./SecondaryRender";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",

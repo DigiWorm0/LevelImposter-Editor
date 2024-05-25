@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { LIPropName } from "../../../types/li/LIProperties";
+import { LIPropName } from "../../types/li/LIProperties";
 import { selectedElementAtom } from "./useSelectedElem";
 
 // Atoms

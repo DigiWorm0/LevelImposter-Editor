@@ -1,5 +1,5 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../types/generic/GUID";
 
 // Atoms
 export const hoveredElementIDAtom = atom<MaybeGUID>(undefined);

@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import MapAsset from "../../../types/li/MapAsset";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
-import MapAsset from "../../../types/li/MapAsset";
 
 export default function MeetingPanel() {
     const { t } = useTranslation();

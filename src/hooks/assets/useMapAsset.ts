@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../types/generic/GUID";
 import { mapAssetsAtom } from "./useMapAssets";
 
 // Map Asset Family

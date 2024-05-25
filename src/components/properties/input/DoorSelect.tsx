@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import ElementSelect from "./ElementSelect";
-import LIProperties from "../../../types/li/LIProperties";
-import { MaybeGUID } from "../../../types/generic/GUID";
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import LIProperties from "../../../types/li/LIProperties";
+import ElementSelect from "./ElementSelect";
 
 export default function DoorSelect(props: { prop: keyof LIProperties }) {
     const { t } = useTranslation();

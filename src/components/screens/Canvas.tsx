@@ -24,12 +24,19 @@ export default function Canvas() {
 
     return (
         <Paper
-            className="canvas"
             style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}
             tabIndex={-1}
             elevation={0}
             onFocus={() => enableScope(Scope.Canvas)}
             onBlur={() => disableScope(Scope.Canvas)}
+            sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: -1
+            }}
         >
             <Stage
                 id="canvas"

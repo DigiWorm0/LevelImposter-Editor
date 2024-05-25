@@ -1,9 +1,9 @@
-import React from "react";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import LISound from "../../../types/li/LISound";
-import SoundUpload from "../util/SoundUpload";
-import generateGUID from "../../../utils/generateGUID";
 import { Box, Typography } from "@mui/material";
+import React from "react";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import LISound from "../../../types/li/LISound";
+import generateGUID from "../../../utils/generateGUID";
+import SoundUpload from "../util/SoundUpload";
 
 interface SoundEditorProps {
     title: string;

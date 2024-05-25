@@ -2,7 +2,6 @@ import SceneGraph from "../scenegraph/SceneGraph";
 import { Paper } from "@mui/material";
 
 export default function LeftSidebar() {
-
     return (
         <Paper
             elevation={1}

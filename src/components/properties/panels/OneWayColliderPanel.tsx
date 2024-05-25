@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import PanelContainer from "../util/PanelContainer";
-import RoomSelect from "../input/RoomSelect";
 import React from "react";
-import MapError from "../util/MapError";
-import { useElementType } from "../../../hooks/map/elements/useTypes";
+import { useTranslation } from "react-i18next";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useElementType } from "../../../hooks/elements/useTypes";
+import RoomSelect from "../input/RoomSelect";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function OneWayColliderPanel() {
     const { t } = useTranslation();

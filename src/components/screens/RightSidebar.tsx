@@ -32,19 +32,21 @@ import SporePanel from "../properties/panels/SporePanel";
 import { Box, Paper } from "@mui/material";
 
 export default function RightSidebar() {
-
     return (
         <Paper
             elevation={1}
-            className="right-sidebar"
             sx={{
                 width: 300,
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 position: "fixed",
                 top: 0,
                 right: 0,
-                bottom: 0
+                bottom: 0,
+                padding: 1,
+                overflowX: "hidden",
+                overflowY: "auto",
             }}
         >
             <Box

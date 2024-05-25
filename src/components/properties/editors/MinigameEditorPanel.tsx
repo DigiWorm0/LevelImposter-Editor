@@ -1,10 +1,10 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../utils/generateGUID";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import ImageUpload from "../util/ImageUpload";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import MapAsset from "../../../types/li/MapAsset";
-import { Box, Typography } from "@mui/material";
+import generateGUID from "../../../utils/generateGUID";
+import ImageUpload from "../util/ImageUpload";
 
 interface MinigameEditorPanelProps {
     minigameType: string;

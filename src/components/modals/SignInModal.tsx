@@ -25,27 +25,19 @@ export default function SignInModal(props: SignInModalProps) {
     const [password, setPassword] = React.useState("");
 
     const signInWithGithub = () => {
-        signInWithPopup(auth, githubProvider).catch((e) => {
-            toaster.danger(e.message);
-        });
+        signInWithPopup(auth, githubProvider).catch(toaster.error);
     }
 
     const signInWithGoogle = () => {
-        signInWithPopup(auth, googleProvider).catch((e) => {
-            toaster.danger(e.message);
-        });
+        signInWithPopup(auth, googleProvider).catch(toaster.error);
     }
 
     const signInWithEmail = () => {
-        signInWithEmailAndPassword(auth, email, password).catch((e) => {
-            toaster.danger(e.message);
-        });
+        signInWithEmailAndPassword(auth, email, password).catch(toaster.error);
     }
 
     const signInWithMicrosoft = () => {
-        signInWithPopup(auth, microsoftProvider).catch((e) => {
-            toaster.danger(e.message);
-        });
+        signInWithPopup(auth, microsoftProvider).catch(toaster.error);
     }
 
     const signUp = () => {

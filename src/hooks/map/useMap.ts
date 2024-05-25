@@ -36,16 +36,6 @@ export const elementIDsAtom = atom((get) => {
     return get(elementsAtom).map((e) => e.id);
 });
 
-// Debug
-mapAtom.debugLabel = "mapAtom";
-mapNameAtom.debugLabel = "mapNameAtom";
-mapDescriptionAtom.debugLabel = "mapDescriptionAtom";
-mapIsPublicAtom.debugLabel = "mapIsPublicAtom";
-mapAuthorNameAtom.debugLabel = "mapAuthorNameAtom";
-mapPropsAtom.debugLabel = "mapPropsAtom";
-elementsAtom.debugLabel = "elementsAtom";
-elementIDsAtom.debugLabel = "elementIDsAtom";
-
 // Hooks
 export default function useMap() {
     return useAtom(mapAtom);

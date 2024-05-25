@@ -1,12 +1,12 @@
+import { Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import VentSelect from "../input/VentSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import { Typography } from "@mui/material";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";

@@ -1,6 +1,6 @@
 import { atom, useAtomValue } from "jotai";
-import { elementsAtom } from "../useMap";
-import { SINGLE_TYPES } from "../../../types/generic/Constants";
+import { SINGLE_TYPES } from "../../types/generic/Constants";
+import { elementsAtom } from "../map/useMap";
 
 export const hideTypesAtom = atom((get) => {
     const elements = get(elementsAtom);

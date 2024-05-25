@@ -1,14 +1,14 @@
+import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import generateGUID from "../../../utils/generateGUID";
-import { useSelectedColliderID } from "../../../hooks/map/elements/colliders/useSelectedCollider";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import { Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",

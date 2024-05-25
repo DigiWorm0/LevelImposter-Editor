@@ -1,6 +1,6 @@
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
 import { Shape } from "react-konva";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function SporeRange() {
     const selectedElem = useSelectedElemValue();

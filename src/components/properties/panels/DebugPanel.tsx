@@ -1,10 +1,10 @@
+import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
+import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
-import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
 
 const TYPE_INTENTS = {
     "string": "Primary",

@@ -1,12 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import PanelContainer from "../util/PanelContainer";
-import React from "react";
-import DoorSelect from "../input/DoorSelect";
-import { useElementValue } from "../../../hooks/map/elements/useElements";
-import MapError from "../util/MapError";
-import NumericPanelInput from "../input/NumericPanelInput";
+import { useElementValue } from "../../../hooks/elements/useElements";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import DoorSelect from "../input/DoorSelect";
+import NumericPanelInput from "../input/NumericPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 export default function DecontaminationPanel() {
     const { t } = useTranslation();

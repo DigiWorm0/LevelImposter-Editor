@@ -1,8 +1,8 @@
 import { Image, Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
-import { PLAYER_POS, UNITY_SCALE } from "../../types/generic/Constants";
 import useSpriteOfType from "../../hooks/canvas/sprite/useSpriteOfType";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import { PLAYER_POS, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function PlayerZRender() {
     const selectedElem = useSelectedElemValue();

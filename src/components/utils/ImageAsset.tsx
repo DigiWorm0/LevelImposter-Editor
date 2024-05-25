@@ -1,6 +1,6 @@
 import { MaybeGUID } from "../../types/generic/GUID";
 import React from "react";
-import { useMapAssetValue } from "../../hooks/map/assets/useMapAsset";
+import { useMapAssetValue } from "../../hooks/assets/useMapAsset";
 
 export interface ImageAssetProps extends Partial<React.HTMLAttributes<HTMLImageElement>> {
     assetID: MaybeGUID;

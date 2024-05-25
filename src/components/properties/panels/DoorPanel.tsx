@@ -1,16 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/map/elements/useTypes";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import { useElementType } from "../../../hooks/elements/useTypes";
+import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
+import { DoorType } from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorTypeSelect from "../input/DoorTypeSelect";
 import RoomSelect from "../input/RoomSelect";
+import SwitchPanelInput from "../input/SwitchPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import { DoorType } from "../../../types/generic/DoorType";
-import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";

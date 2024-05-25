@@ -1,9 +1,9 @@
 import { atom, useAtomValue } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import LIElement from "../../../types/li/LIElement";
+import { MaybeGUID } from "../../types/generic/GUID";
+import LIElement from "../../types/li/LIElement";
+import { elementsAtom } from "../map/useMap";
 import { elementFamilyAtom } from "./useElements";
-import { elementsAtom } from "../useMap";
 import { selectedElementIDAtom } from "./useSelectedElem";
 
 // Atoms

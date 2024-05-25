@@ -1,14 +1,14 @@
+import { Box, MenuItem, Select } from "@mui/material";
 import { atom, useAtomValue } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useElement from "../../../hooks/map/elements/useElements";
+import useElement from "../../../hooks/elements/useElements";
+import useSelectedElem, { selectedElementIDAtom } from "../../../hooks/elements/useSelectedElem";
 import { elementsAtom } from "../../../hooks/map/useMap";
-import useSelectedElem, { selectedElementIDAtom } from "../../../hooks/map/elements/useSelectedElem";
 import { InputTriggerDB } from "../../../types/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import DevInfo from "../../utils/DevInfo";
 import ElementSelect from "../input/ElementSelect";
-import { Box, MenuItem, Select } from "@mui/material";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);

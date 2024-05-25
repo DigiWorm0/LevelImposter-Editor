@@ -10,6 +10,7 @@ import { Button, ButtonGroup, CircularProgress, Divider, Typography } from "@mui
 import GenericModal from "./GenericModal";
 import { Logout, Share } from "@mui/icons-material";
 import useUserMaps from "../../hooks/firebase/useUserMaps";
+import useToaster from "../../hooks/useToaster";
 
 export interface AccountModalProps {
     isOpen: boolean;
@@ -21,99 +22,100 @@ export default function AccountModal(props: AccountModalProps) {
     const [user] = useAuthState(auth);
     const maps = useUserMaps();
     const isLoggedIn = user !== null;
+    const toaster = useToaster();
 
     return (
         <>
             {/* Sign-In Dialog */}
-                <SignInModal
-                    isOpen={props.isOpen && !isLoggedIn}
-                    onClose={props.onClose}
-                />
+            <SignInModal
+                isOpen={props.isOpen && !isLoggedIn}
+                onClose={props.onClose}
+            />
 
             {/* Account Dialog */}
-                <GenericModal
-                    open={props.isOpen && isLoggedIn}
-                    onClose={props.onClose}
+            <GenericModal
+                open={props.isOpen && isLoggedIn}
+                onClose={props.onClose}
+            >
+                {/* Profile Header */}
+                <div
+                    style={{
+                        paddingRight: 30,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
                 >
-                    {/* Profile Header */}
-                    <div
+                    <ProfileIcon
                         style={{
-                            paddingRight: 30,
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "center"
+                            height: 100,
+                            width: 100,
+                            borderRadius: 50,
+                            objectFit: "cover",
+                            marginRight: 25
                         }}
-                    >
-                        <ProfileIcon
-                            style={{
-                                height: 100,
-                                width: 100,
-                                borderRadius: 50,
-                                objectFit: "cover",
-                                marginRight: 25
+                    />
+                    <div>
+                        <Typography
+                            variant={"h4"}
+                            sx={{
+                                marginBottom: 1,
+                                marginTop: 1,
+                                fontWeight: "bold"
                             }}
+                        >
+                            {user?.displayName}
+                        </Typography>
+                        <ButtonGroup>
+                            <Button
+                                onClick={() => {
+                                    window.open("https://levelimposter.net/#/profile");
+                                }}
+                                endIcon={<Share />}
+                            >
+                                {t("account.viewProfile")}
+                            </Button>
+                            <Button
+                                onClick={() => signOut(auth).catch(toaster.error)}
+                                color={"error"}
+                                endIcon={<Logout />}
+                            >
+                                {t("account.signOut")}
+                            </Button>
+                        </ButtonGroup>
+                    </div>
+                </div>
+
+                <Divider sx={{ mt: 2 }} />
+
+                {/* Maps */}
+                <div
+                    style={{
+                        margin: 15,
+                        textAlign: "center"
+                    }}
+                >
+                    {maps === undefined && (
+                        <CircularProgress
+                            sx={{ m: 1 }}
+                            color={"inherit"}
                         />
-                        <div>
-                            <Typography
-                                variant={"h4"}
-                                sx={{
-                                    marginBottom: 1,
-                                    marginTop: 1,
-                                    fontWeight: "bold"
-                                }}
-                            >
-                                {user?.displayName}
-                            </Typography>
-                            <ButtonGroup>
-                                <Button
-                                    onClick={() => {
-                                        window.open("https://levelimposter.net/#/profile");
-                                    }}
-                                    endIcon={<Share />}
-                                >
-                                    {t("account.viewProfile")}
-                                </Button>
-                                <Button
-                                    onClick={() => signOut(auth).catch(console.error)}
-                                    color={"error"}
-                                    endIcon={<Logout />}
-                                >
-                                    {t("account.signOut")}
-                                </Button>
-                            </ButtonGroup>
-                        </div>
-                    </div>
-
-                    <Divider sx={{ mt: 2 }} />
-
-                    {/* Maps */}
-                    <div
-                        style={{
-                            margin: 15,
-                            textAlign: "center"
-                        }}
-                    >
-                        {maps === undefined && (
-                            <CircularProgress
-                                sx={{ m: 1 }}
-                                color={"inherit"}
-                            />
-                        )}
-                        {maps?.length === 0 && (
-                            <Typography
-                                variant={"body1"}
-                                sx={{
-                                    color: "text.secondary",
-                                    marginTop: 2
-                                }}
-                            >
-                                {t("account.noMaps")}
-                            </Typography>
-                        )}
-                        {maps?.map((map) => (<MapThumbnail map={map} key={map.id} />))}
-                    </div>
-                </GenericModal>
+                    )}
+                    {maps?.length === 0 && (
+                        <Typography
+                            variant={"body1"}
+                            sx={{
+                                color: "text.secondary",
+                                marginTop: 2
+                            }}
+                        >
+                            {t("account.noMaps")}
+                        </Typography>
+                    )}
+                    {maps?.map((map) => (<MapThumbnail map={map} key={map.id} />))}
+                </div>
+            </GenericModal>
         </>
     );
 }

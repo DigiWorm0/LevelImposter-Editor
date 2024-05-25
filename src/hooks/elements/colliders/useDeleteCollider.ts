@@ -1,5 +1,5 @@
 import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../../types/generic/GUID";
+import { MaybeGUID } from "../../../types/generic/GUID";
 import { selectedElementAtom } from "../useSelectedElem";
 
 export const deleteColliderAtom = atom(null, (get, set, colliderID: MaybeGUID) => {

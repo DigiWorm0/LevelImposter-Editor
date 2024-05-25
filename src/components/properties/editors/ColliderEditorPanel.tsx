@@ -1,12 +1,12 @@
+import { Check, Delete, ExpandLess } from "@mui/icons-material";
+import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useCollider from "../../../hooks/elements/colliders/useCollider";
+import useDeleteCollider from "../../../hooks/elements/colliders/useDeleteCollider";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
-import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
-import { Check, Delete, ExpandLess } from "@mui/icons-material";
 import InputGroup from "../input/InputGroup";
-import useDeleteCollider from "../../../hooks/map/elements/colliders/useDeleteCollider";
-import useCollider from "../../../hooks/map/elements/colliders/useCollider";
 import FlexNumericInput from "../util/FlexNumericInput";
 
 interface ColliderEditorProps {

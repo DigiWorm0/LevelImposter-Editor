@@ -1,11 +1,11 @@
+import { Clear } from "@mui/icons-material";
+import { Box, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import LIProperties from "../../../types/li/LIProperties";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
-import { Box, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
+import LIProperties from "../../../types/li/LIProperties";
 import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
-import { Clear } from "@mui/icons-material";
 
 export interface TextInputProps {
     name: string;

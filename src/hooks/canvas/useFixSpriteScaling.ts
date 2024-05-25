@@ -1,8 +1,8 @@
-import { selectedElementAtom } from "../map/elements/useSelectedElem";
-import { spriteAtomFamily } from "./sprite/useSprite";
-import { mapPropsAtom } from "../map/useMap";
-import { createMapAssetAtom } from "../map/assets/useCreateMapAsset";
 import { atom, useSetAtom } from "jotai";
+import { createMapAssetAtom } from "../assets/useCreateMapAsset";
+import { selectedElementAtom } from "../elements/useSelectedElem";
+import { mapPropsAtom } from "../map/useMap";
+import { spriteAtomFamily } from "./sprite/useSprite";
 
 const SPRITE_PADDING = 10; // px
 

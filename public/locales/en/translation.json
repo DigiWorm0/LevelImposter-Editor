@@ -26,6 +26,16 @@
 		"ok": "Ok",
 		"dismiss": "Dismiss"
 	},
+	"errorCode": {
+		"auth/invalid-email": "Invalid email address.",
+		"auth/user-disabled": "Your user account has been disabled.",
+		"auth/user-not-found": "Couldn't find any user with that email address.",
+		"auth/wrong-password": "Incorrect password.",
+		"auth/unverified-email": "You must verify your email address before signing in.",
+		"auth/too-many-requests": "We're getting too many requests. Please try again later.",
+		"auth/user-token-expired": "Your session has expired. Please sign in again.",
+		"storage/unauthorized": "You do not have permission to access this. Are you signed in?"
+	},
 	"edit": {
 		"undo": "Undo",
 		"redo": "Redo",

@@ -1,8 +1,8 @@
-import { atom } from "jotai/index";
-import { selectedElementAtom } from "../useSelectedElem";
-import { mouseXAtom, mouseYAtom } from "../../../input/useMouse";
-import { selectedColliderAtom } from "./useSelectedCollider";
 import { useSetAtom } from "jotai";
+import { atom } from "jotai/index";
+import { mouseXAtom, mouseYAtom } from "../../input/useMouse";
+import { selectedElementAtom } from "../useSelectedElem";
+import { selectedColliderAtom } from "./useSelectedCollider";
 
 // Atom
 export const insertColliderPointAtMouseAtom = atom(null, (get, set, index: number) => {

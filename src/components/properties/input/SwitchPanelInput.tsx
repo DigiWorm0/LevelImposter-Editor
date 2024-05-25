@@ -1,9 +1,9 @@
+import { Box, FormControlLabel, Switch, Tooltip } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import LIProperties from "../../../types/li/LIProperties";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIMinigameProps from "../../../types/li/LIMinigameProps";
-import { Box, FormControlLabel, Switch, Tooltip } from "@mui/material";
+import LIProperties from "../../../types/li/LIProperties";
 
 export interface SwitchInputProps {
     name: string;

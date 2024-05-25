@@ -1,18 +1,17 @@
-import React from "react";
+import { Delete, Lock, LockOpen, RotateLeft, SwapHoriz, SwapVert } from "@mui/icons-material";
+import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
+import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
+import AUElementDB from "../../../types/db/AUElementDB";
+import getIsConsole from "../../../utils/getIsConsole";
+import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
+import InputGroup from "../input/InputGroup";
+import FlexNumericInput from "../util/FlexNumericInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import getIsConsole from "../../../utils/getIsConsole";
-import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
-import FlexNumericInput from "../util/FlexNumericInput";
-import { useRemoveSelectedElement } from "../../../hooks/map/elements/useRemoveElement";
-import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
-import { Delete, Lock, LockOpen, RotateLeft, SwapHoriz, SwapVert } from "@mui/icons-material";
-import AUElementDB from "../../../types/db/AUElementDB";
-import InputGroup from "../input/InputGroup";
 
 export default function TransformPanel() {
     const { t } = useTranslation();

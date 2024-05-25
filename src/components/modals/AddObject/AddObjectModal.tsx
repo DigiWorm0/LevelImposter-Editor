@@ -1,15 +1,15 @@
+import { Close, Search } from "@mui/icons-material";
+import { Dialog, DialogContent, IconButton, InputAdornment, List, ListSubheader, TextField } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from '../../../utils/generateGUID';
-import { useSetSelectedColliderID } from "../../../hooks/map/elements/colliders/useSelectedCollider";
-import { useSetSelectedElemID } from "../../../hooks/map/elements/useSelectedElem";
-import useHiddenTypes from "../../../hooks/map/elements/useSingleTypes";
-import { Dialog, DialogContent, IconButton, InputAdornment, List, ListSubheader, TextField } from "@mui/material";
-import { Close, Search } from "@mui/icons-material";
-import useAddElementAtMouse from "../../../hooks/map/elements/useAddElementAtMouse";
-import AddObjectModalButton from "./AddObjectModalButton";
+import { useSetSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import useAddElementAtMouse from "../../../hooks/elements/useAddElementAtMouse";
+import { useSetSelectedElemID } from "../../../hooks/elements/useSelectedElem";
+import useHiddenTypes from "../../../hooks/elements/useSingleTypes";
 import AUElementDB from "../../../types/db/AUElementDB";
-import { grey } from "@mui/material/colors";
+import generateGUID from '../../../utils/generateGUID';
+import AddObjectModalButton from "./AddObjectModalButton";
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -96,6 +96,13 @@ export default function AddObjectModal(props: AddObjectModalProps) {
 
             <DialogContent sx={{ padding: 0 }}>
                 <List dense sx={{ paddingTop: 0 }}>
+                    <AddObjectModalButton
+                        key={`add-new-object`}
+                        type={"util-blank"}
+                        onClick={onClick}
+                        hiddenTypes={hiddenTypes}
+                    />
+
                     {TYPE_CATEGORIES.map((category) => {
                         const types = filteredTypes.filter(type => type.startsWith(category.type));
 

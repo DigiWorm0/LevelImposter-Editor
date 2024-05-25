@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../../types/generic/Constants";
-import MapError from "../util/MapError";
 import InputGroup from "../input/InputGroup";
+import NumericPanelInput from "../input/NumericPanelInput";
+import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
 
 const MAX_PIXELS = 1920 * 1080;
 

@@ -1,7 +1,7 @@
 import { Shape } from "react-konva";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
-import { useSelectedElemPropValue } from "../../hooks/map/elements/useSelectedElemProperty";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
+import { useSettingsValue } from "../../hooks/useSettings";
 import LICollider from "../../types/li/LICollider";
 
 export default function ColliderPreview() {

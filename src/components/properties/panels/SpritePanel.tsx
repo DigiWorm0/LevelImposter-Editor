@@ -1,14 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import getIsConsole from "../../../utils/getIsConsole";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
+import MapAsset from "../../../types/li/MapAsset";
+import getIsConsole from "../../../utils/getIsConsole";
+import SwitchPanelInput from "../input/SwitchPanelInput";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import MapAsset from "../../../types/li/MapAsset";
-import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
 
 const TYPE_BLACKLIST = [
     "util-player",

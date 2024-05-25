@@ -1,17 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { selectedElementAtom } from "../../../hooks/elements/useSelectedElem";
 import SwitchPanelInput from "../input/SwitchPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import React from "react";
+import { atom, useAtomValue } from "jotai";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+
+const hasColliderAtom = atom((get) => {
+    const element = get(selectedElementAtom);
+    return element?.properties.colliders !== undefined && element.properties.colliders.length > 0;
+});
 
 export default function RoomPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const isRoom = useIsSelectedElemType("util-room");
+    const hasCollider = useAtomValue(hasColliderAtom);
 
-    if (!element || element.type !== "util-room")
+    if (!isRoom)
         return null;
-
-    const hasCollider = element.properties.colliders !== undefined && element.properties.colliders.length > 0;
 
     return (
         <>

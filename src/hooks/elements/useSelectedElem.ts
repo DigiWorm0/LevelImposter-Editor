@@ -1,12 +1,12 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
-import GLOBAL_PROPERTIES from "../../../types/generic/GlobalProps";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import { MaybeLIElement } from "../../../types/li/LIElement";
-import LIProperties from "../../../types/li/LIProperties";
+import { MaybeGUID } from "../../types/generic/GUID";
+import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
+import { MaybeLIElement } from "../../types/li/LIElement";
+import LIProperties from "../../types/li/LIProperties";
+import { saveHistoryAtom } from "../map/history/useHistory";
+import { elementsAtom } from "../map/useMap";
 import { elementFamilyAtom } from "./useElements";
-import { saveHistoryAtom } from "../useHistory";
-import { elementsAtom } from "../useMap";
 
 // Atoms
 export const selectedElementIDAtom = atom<MaybeGUID>(undefined);

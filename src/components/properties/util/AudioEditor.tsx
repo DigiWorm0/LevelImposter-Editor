@@ -1,6 +1,6 @@
 import React from "react";
 import LISound from "../../../types/li/LISound";
-import { useMapAssetValue } from "../../../hooks/map/assets/useMapAsset";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 import AudioPlayer from "./AudioPlayer";
 
 interface AudioPlayerProps {

@@ -31,8 +31,13 @@ export default function MapSwitchInput(props: MapSwitchInputProps) {
     }, [properties, props.prop, setProperties]);
 
     const onClick = React.useCallback(() => {
-
-    }, []);
+        if (props.prop === undefined)
+            return;
+        setProperties({
+            ...properties,
+            [props.prop]: !value
+        });
+    }, [properties, props.prop, setProperties, value]);
 
     return (
         <ListItem

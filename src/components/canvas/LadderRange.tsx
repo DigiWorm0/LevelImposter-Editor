@@ -1,5 +1,5 @@
 import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { DEFAULT_LADDER_HEIGHTS, LADDER_RADIUS, LADDER_Y_OFFSET, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function LadderRange() {

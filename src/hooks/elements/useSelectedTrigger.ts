@@ -1,7 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import { MaybeLITrigger } from "../../../types/li/LITrigger";
-import { saveHistoryAtom } from "../useHistory";
+import { MaybeLITrigger } from "../../types/li/LITrigger";
+import { saveHistoryAtom } from "../map/history/useHistory";
 import { selectedElementAtom } from "./useSelectedElem";
 
 // Atoms
@@ -21,11 +20,17 @@ export const selectedTriggerAtom = atom(
         const index = triggers?.findIndex((c) => c.id === trigger?.id);
         if (selectedElem && index != undefined && index >= 0 && trigger != undefined) {
             triggers[index] = trigger;
-            set(selectedElementAtom, { ...selectedElem, properties: { ...selectedElem?.properties, triggers: [...triggers] } });
+            set(selectedElementAtom, {
+                ...selectedElem,
+                properties: { ...selectedElem?.properties, triggers: [...triggers] }
+            });
             set(saveHistoryAtom);
         } else if (selectedElem && trigger != undefined) {
             triggers.push(trigger);
-            set(selectedElementAtom, { ...selectedElem, properties: { ...selectedElem?.properties, triggers: [...triggers] } });
+            set(selectedElementAtom, {
+                ...selectedElem,
+                properties: { ...selectedElem?.properties, triggers: [...triggers] }
+            });
             set(saveHistoryAtom);
         }
     }
@@ -45,21 +50,27 @@ isSelectedTriggerAtom.debugLabel = "isSelectedTriggerAtom";
 export function useSelectedTriggerID() {
     return useAtom(selectedTriggerIDAtom);
 }
+
 export function useSetSelectedTriggerID() {
     return useSetAtom(selectedTriggerIDAtom);
 }
+
 export function useSelectedTriggerIDValue() {
     return useAtomValue(selectedTriggerIDAtom);
 }
+
 export default function useSelectedTrigger() {
     return useAtom(selectedTriggerAtom);
 }
+
 export function useSetSelectedTrigger() {
     return useSetAtom(selectedTriggerAtom);
 }
+
 export function useSelectedTriggerValue() {
     return useAtomValue(selectedTriggerAtom);
 }
+
 export function useIsSelectedTrigger() {
     return useAtomValue(isSelectedTriggerAtom);
 }

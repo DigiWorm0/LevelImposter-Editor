@@ -1,11 +1,11 @@
 import React from "react";
 import { Rect, Shape } from "react-konva";
-import useSelectedCollider from "../../hooks/map/elements/colliders/useSelectedCollider";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useInsertPointAtMouse } from "../../hooks/elements/colliders/useInsertColliderPointAtMouse";
+import useSelectedCollider from "../../hooks/elements/colliders/useSelectedCollider";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
-import { useInsertPointAtMouse } from "../../hooks/map/elements/colliders/useInsertColliderPointAtMouse";
 import setCursor from "../../utils/setCursor";
 
 

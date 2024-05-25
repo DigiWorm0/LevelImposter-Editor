@@ -1,15 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import AUMinigameDB from "../../../types/db/AUMinigameDB";
+import { DoorType } from "../../../types/generic/DoorType";
 import MinigameEditorPanel from "../editors/MinigameEditorPanel";
 import ColorPanelInput from "../input/ColorPanelInput";
+import SwitchPanelInput from "../input/SwitchPanelInput";
+import TextPanelInput from "../input/TextPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import { DoorType } from "../../../types/generic/DoorType";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import TextPanelInput from "../input/TextPanelInput";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",

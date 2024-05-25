@@ -1,7 +1,7 @@
-import React from "react";
 import { FormGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIProperties from "../../../types/li/LIProperties";
 import clamp from "../../../utils/clamp";
 import MaterialIcon, { IconName } from "../../utils/MaterialIcon";

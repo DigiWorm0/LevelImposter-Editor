@@ -1,16 +1,16 @@
+import { ExpandLess } from "@mui/icons-material";
 import { Collapse, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
-import useElement, {
-    useDraggingElementID,
-    useElementChildren,
-    useIsDroppable
-} from "../../hooks/map/elements/useElements";
-import { useSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
+import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
+import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
+import useElement from "../../hooks/elements/useElements";
+import useIsDroppable from "../../hooks/elements/useIsDroppable";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { IconName } from "../utils/MaterialIcon";
-import { ExpandLess } from "@mui/icons-material";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
+import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
+import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 
 const ICON_DB: Record<string, IconName> = {
     "util-blank": "Interests",
@@ -35,13 +35,20 @@ const ICON_DB: Record<string, IconName> = {
     "util-layer": "Folder"
 }
 
-export default function SceneGraphElement(props: { elementID: MaybeGUID, searchQuery: string, depth: number }) {
+export interface SceneGraphElementProps {
+    elementID: MaybeGUID;
+    searchQuery: string;
+    depth: number;
+}
+
+export default function SceneGraphElement(props: SceneGraphElementProps) {
     const [draggingID, setDraggingID] = useDraggingElementID();
-    const [selectedID, setSelectedID] = useSelectedElemID();
-    const [element, setElement] = useElement(props.elementID);
     const [draggingElement, setDraggingElement] = useElement(draggingID);
+    const isSelected = useIsElementSelected(props.elementID);
+    const setSelectedElemID = useSetSelectedElemID();
+    const [element, setElement] = useElement(props.elementID);
     const isDroppable = useIsDroppable(props.elementID);
-    const childIDs = useElementChildren(props.elementID);
+    const childIDs = useElementChildIDs(props.elementID);
     const { elementNesting } = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
 
@@ -50,13 +57,11 @@ export default function SceneGraphElement(props: { elementID: MaybeGUID, searchQ
 
     const isGroup = element.type === "util-layer";
     const isDisabled = !((isGroup || elementNesting) && isDroppable) && draggingID !== undefined;
-    const isVisible = element.properties.isVisible ?? true;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
     const isMatchID = element.id.startsWith(props.searchQuery);
     const isMatch = isMatchName || isMatchType || isMatchID;
-    const color = isGroup ? "primary" : "success";
 
     if (!isMatch && childIDs.length === 0)
         return null;
@@ -116,13 +121,11 @@ export default function SceneGraphElement(props: { elementID: MaybeGUID, searchQ
                 )}
             >
                 <ListItemButton
-                    sx={{
-                        paddingLeft: props.depth + 1
-                    }}
-                    onClick={() => setSelectedID(element.id)}
+                    sx={{ pe: props.depth + 1 }}
+                    onClick={() => setSelectedElemID(element.id)}
                     disabled={isDisabled}
                     dense
-                    selected={element.id === selectedID || isDragOver}
+                    selected={isSelected || isDragOver}
                 >
                     <ListItemIcon>
                         <SceneGraphElementIcon type={element.type} />

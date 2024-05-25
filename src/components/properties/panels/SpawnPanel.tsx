@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_SPAWN_RANGE } from "../../../types/generic/Constants";
+import NumericPanelInput from "../input/NumericPanelInput";
 import SwitchPanelInput from "../input/SwitchPanelInput";
+import PanelContainer from "../util/PanelContainer";
 
 export default function SpawnPanel() {
     const { t } = useTranslation();

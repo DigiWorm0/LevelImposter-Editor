@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useSelectedTriggerID } from "../../../hooks/elements/useSelectedTrigger";
 import { useElementIDs } from "../../../hooks/map/useMap";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { useSelectedTriggerID } from "../../../hooks/map/elements/useSelectedTrigger";
 import { OutputTriggerDB } from "../../../types/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import NumericPanelInput from "../input/NumericPanelInput";
+import SwitchPanelInput from "../input/SwitchPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";

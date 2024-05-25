@@ -14,10 +14,6 @@ export const settingsAtom = atom((get) => {
     }
 );
 
-// Debug
-settingsStoreAtom.debugLabel = "settingsStore";
-settingsAtom.debugLabel = "settings";
-
 // Hooks
 export default function useSettings() {
     return useAtom(settingsAtom);

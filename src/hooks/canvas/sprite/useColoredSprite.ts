@@ -1,8 +1,8 @@
-import { MaybeGUID } from "../../../types/generic/GUID";
-import { elementFamilyAtom } from "../../map/elements/useElements";
-import { spriteAtomFamily } from "./useSprite";
-import { atomFamily, unwrap } from "jotai/utils";
 import { atom, useAtomValue } from "jotai";
+import { atomFamily, unwrap } from "jotai/utils";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import { elementFamilyAtom } from "../../elements/useElements";
+import { spriteAtomFamily } from "./useSprite";
 
 export const coloredSpriteAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom(async (get) => {
