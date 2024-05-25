@@ -8,6 +8,7 @@ export const elementTypeAtom = atomFamily((typeFilter: string) => {
         (get) => {
             const elements = get(elementsAtom);
             return elements.filter((elem) => elem.type.includes(typeFilter));
+            // TODO: Improve this filter. Causes re-renders on every element change.
         }
     );
     typeAtom.debugLabel = `typeAtom(${typeFilter})`;

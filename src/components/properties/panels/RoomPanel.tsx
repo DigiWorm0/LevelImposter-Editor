@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { selectedElementAtom } from "../../../hooks/elements/useSelectedElem";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import React from "react";
 import { atom, useAtomValue } from "jotai";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 
 const hasColliderAtom = atom((get) => {
     const element = get(selectedElementAtom);
@@ -23,18 +23,18 @@ export default function RoomPanel() {
     return (
         <>
             <PanelContainer title={t("room.title") as string}>
-                <SwitchPanelInput
-                    name="room.showName"
+                <ElementPropSwitch
+                    name={t("room.showName")}
                     prop="isRoomNameVisible"
                     defaultValue={true}
                 />
-                <SwitchPanelInput
-                    name="room.showOnAdmin"
+                <ElementPropSwitch
+                    name={t("room.showOnAdmin")}
                     prop="isRoomAdminVisible"
                     defaultValue={true}
                 />
-                <SwitchPanelInput
-                    name="room.showOnUI"
+                <ElementPropSwitch
+                    name={t("room.showOnUI")}
                     prop="isRoomUIVisible"
                     defaultValue={true}
                 />

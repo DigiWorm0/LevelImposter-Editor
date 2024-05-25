@@ -1,31 +1,30 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
-import VentSelect from "../input/VentSelect";
+import VentSelect from "../input/select/VentSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import LISound from "../../../types/li/LISound";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";
 
 export default function VentPanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const isVent1 = useIsSelectedElemType("util-vent1");
+    const isVent2 = useIsSelectedElemType("util-vent2");
+    const isVent3 = useIsSelectedElemType("util-vent3");
+    const sounds = useSelectedElemPropValue<LISound[]>("sounds") ?? [];
     const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
-    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === VENT_OPEN_SOUND), [sounds]);
     const hasMoveSound = React.useMemo(() => sounds.some((s) => s.type === VENT_MOVE_SOUND), [sounds]);
 
-    const isNotWav = React.useMemo(() => {
-        return sounds.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
-    }, [sounds]);
-
-    if (!selectedElem
-        || !selectedElem.type.startsWith("util-vent"))
+    if (!isVent1 && !isVent2 && !isVent3)
         return null;
 
     return (
@@ -37,7 +36,7 @@ export default function VentPanel() {
                 <VentSelect prop="leftVent" />
                 <VentSelect prop="middleVent" />
                 <VentSelect prop="rightVent" />
-                {selectedElem.type === "util-vent1" && (
+                {isVent1 && (
                     <>
                         <Typography variant={"subtitle2"} sx={{ mt: 2, ms: 1 }}>
                             {t("vent.sounds")}
@@ -71,17 +70,11 @@ export default function VentPanel() {
                 )}
             </PanelContainer>
             <MapError
-                isVisible={selectedElem.type === "util-vent2"}
+                isVisible={isVent2}
                 info
                 icon="VolumeUp"
             >
                 {t("vent.ventSoundInfo")}
-            </MapError>
-            <MapError
-                isVisible={isNotWav}
-                icon="VolumeMute"
-            >
-                {t("audio.errorNotWav") as string}
             </MapError>
         </>
     );

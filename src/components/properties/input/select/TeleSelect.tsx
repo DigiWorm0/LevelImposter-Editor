@@ -1,11 +1,9 @@
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import LIProperties from "../../../types/li/LIProperties";
+import useSelectedElem from "../../../../hooks/elements/useSelectedElem";
 import ElementSelect from "./ElementSelect";
 
-export default function DoorSelect(props: { prop: keyof LIProperties }) {
+export default function TeleSelect() {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
@@ -20,20 +18,20 @@ export default function DoorSelect(props: { prop: keyof LIProperties }) {
             }}
         >
             <ElementSelect
-                typeFilter="sab-door"
-                noElementsText={t("door.errorNoDoors")}
-                defaultText={t("door.none")}
-                selectedID={selectedElem.properties[props.prop] as MaybeGUID}
-                onPick={(door) => {
+                typeFilter="util-tele"
+                noElementsText={t("tele.errorNoTeles") as string}
+                defaultText={t("tele.noConnection")}
+                selectedID={selectedElem.properties.teleporter}
+                onPick={(vent) => {
                     setSelectedElem({
                         ...selectedElem,
-                        properties: { ...selectedElem.properties, [props.prop]: door.id }
+                        properties: { ...selectedElem.properties, teleporter: vent.id }
                     });
                 }}
                 onReset={() => {
                     setSelectedElem({
                         ...selectedElem,
-                        properties: { ...selectedElem.properties, [props.prop]: undefined }
+                        properties: { ...selectedElem.properties, teleporter: undefined }
                     });
                 }}
             />

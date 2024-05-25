@@ -18,12 +18,12 @@ export const selectedElementPropAtom = atomFamily((propName: LIPropName) => {
 });
 
 // Hooks
-export default function useSelectedElemProp(propName: LIPropName) {
-    return useAtom(selectedElementPropAtom(propName));
+export default function useSelectedElemProp<T>(propName: LIPropName) {
+    return useAtom(selectedElementPropAtom(propName)) as [T | undefined, (newValue: T) => void];
 }
 
-export function useSetSelectedElemProp(propName: LIPropName) {
-    return useSetAtom(selectedElementPropAtom(propName));
+export function useSetSelectedElemProp<T>(propName: LIPropName) {
+    return useSetAtom(selectedElementPropAtom(propName)) as (newValue: T) => void;
 }
 
 export function useSelectedElemPropValue<T>(propName: LIPropName) {

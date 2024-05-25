@@ -1,49 +1,44 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../../types/generic/Constants";
 import InputGroup from "../input/InputGroup";
-import NumericPanelInput from "../input/NumericPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 
 const MAX_PIXELS = 1920 * 1080;
 
 export default function CamPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
 
-    const pixelCount = React.useMemo(() => {
-        const width = element?.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
-        const height = element?.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
-        return width * height;
-    }, [element]);
+    const displayWidth = useSelectedElemPropValue<number>("displayWidth") ?? DEFAULT_DISPLAY_WIDTH;
+    const displayHeight = useSelectedElemPropValue<number>("displayHeight") ?? DEFAULT_DISPLAY_HEIGHT;
+    const isDisplay = useIsSelectedElemType("util-display");
 
-    if (!element || element.type !== "util-display")
+    const pixelCount = displayWidth * displayHeight;
+
+    if (!isDisplay)
         return null;
-
     return (
         <>
             <PanelContainer title={t("display.title") as string}>
                 <InputGroup>
-                    <NumericPanelInput
-                        name="display.width"
+                    <ElementPropNumericInput
+                        name={t("display.width")}
                         prop="displayWidth"
                         defaultValue={DEFAULT_DISPLAY_WIDTH}
                         icon="SwapHoriz"
-                        minorStepSize={1}
                         stepSize={10}
-                        majorStepSize={100}
                         color={"primary"}
                     />
-                    <NumericPanelInput
-                        name="display.height"
+                    <ElementPropNumericInput
+                        name={t("display.height")}
                         prop="displayHeight"
                         defaultValue={DEFAULT_DISPLAY_HEIGHT}
                         icon="SwapVert"
-                        minorStepSize={1}
                         stepSize={10}
-                        majorStepSize={100}
                         color={"primary"}
                     />
                 </InputGroup>

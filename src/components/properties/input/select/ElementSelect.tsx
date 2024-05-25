@@ -1,10 +1,10 @@
 import { Autocomplete, TextField, Tooltip } from "@mui/material";
 import React from "react";
-import { useElementValue } from "../../../hooks/elements/useElements";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/elements/useTypes";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import LIElement from "../../../types/li/LIElement";
+import { useElementValue } from "../../../../hooks/elements/useElements";
+import { useSelectedElemValue } from "../../../../hooks/elements/useSelectedElem";
+import { useElementType } from "../../../../hooks/elements/useTypes";
+import { MaybeGUID } from "../../../../types/generic/GUID";
+import LIElement from "../../../../types/li/LIElement";
 
 export interface ElementSelectProps {
     nameFilter?: string;

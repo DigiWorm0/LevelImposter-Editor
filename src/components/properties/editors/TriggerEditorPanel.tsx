@@ -8,7 +8,7 @@ import { elementsAtom } from "../../../hooks/map/useMap";
 import { InputTriggerDB } from "../../../types/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import DevInfo from "../../utils/DevInfo";
-import ElementSelect from "../input/ElementSelect";
+import ElementSelect from "../input/select/ElementSelect";
 
 const triggerInputsAtom = atom((get) => {
     const elements = get(elementsAtom);

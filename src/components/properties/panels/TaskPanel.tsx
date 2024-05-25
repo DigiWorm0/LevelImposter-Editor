@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useElementType } from "../../../hooks/elements/useTypes";
-import NumericPanelInput from "../input/NumericPanelInput";
-import RoomSelect from "../input/RoomSelect";
-import TaskTypeSelect from "../input/TaskTypeSelect";
+import RoomSelect from "../input/select/RoomSelect";
+import TaskTypeSelect from "../input/select/TaskTypeSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -70,8 +70,8 @@ export default function TaskPanel() {
                 )}
 
                 {selectedElem.type.startsWith("task-towels") && (
-                    <NumericPanelInput
-                        name={"task.towelPickupCount"}
+                    <ElementPropNumericInput
+                        name={t("task.towelPickupCount")}
                         prop={"towelPickupCount"}
                         icon={"Workspaces"}
                         defaultValue={Math.floor(towelCount / 2)}

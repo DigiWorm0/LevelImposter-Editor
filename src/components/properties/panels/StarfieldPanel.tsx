@@ -8,8 +8,8 @@ import {
     DEFAULT_STARFIELD_MINSPEED
 } from "../../../types/generic/Constants";
 import InputGroup from "../input/InputGroup";
-import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 export default function StarfieldPanel() {
     const { t } = useTranslation();
@@ -20,61 +20,51 @@ export default function StarfieldPanel() {
 
     return (
         <PanelContainer title={t("starfield.title") as string}>
-            <NumericPanelInput
-                name="starfield.count"
+            <ElementPropNumericInput
+                name={t("starfield.count")}
                 prop="starfieldCount"
                 defaultValue={DEFAULT_STARFIELD_COUNT}
                 icon="Workspaces"
                 min={1}
-                minorStepSize={1}
                 stepSize={5}
-                majorStepSize={10}
                 max={10000}
             />
             <InputGroup>
-                <NumericPanelInput
-                    name="starfield.length"
+                <ElementPropNumericInput
+                    name={t("starfield.length")}
                     prop="starfieldLength"
                     defaultValue={DEFAULT_STARFIELD_LENGTH}
                     icon="SwapHoriz"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                     color="warning"
                 />
-                <NumericPanelInput
-                    name="starfield.height"
+                <ElementPropNumericInput
+                    name={t("starfield.height")}
                     prop="starfieldHeight"
                     defaultValue={DEFAULT_STARFIELD_HEIGHT}
                     icon="SwapVert"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                     color="warning"
                 />
             </InputGroup>
             <InputGroup>
-                <NumericPanelInput
-                    name="starfield.minSpeed"
+                <ElementPropNumericInput
+                    name={t("starfield.minSpeed")}
                     prop="starfieldMinSpeed"
                     defaultValue={DEFAULT_STARFIELD_MINSPEED}
                     icon="FastRewind"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                 />
-                <NumericPanelInput
-                    name="starfield.maxSpeed"
+                <ElementPropNumericInput
+                    name={t("starfield.maxSpeed")}
                     prop="starfieldMaxSpeed"
                     defaultValue={DEFAULT_STARFIELD_MAXSPEED}
                     icon="FastForward"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                 />
             </InputGroup>
         </PanelContainer>

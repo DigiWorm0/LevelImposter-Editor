@@ -97,12 +97,6 @@ export default function useCameraControl() {
     /*
      * Touch Events
      */
-    const onTouchStart = React.useCallback((e: KonvaEventObject<TouchEvent>) => {
-        e.target.stopDrag();
-        e.target.getStage()?.startDrag();
-        e.evt.preventDefault();
-    }, []);
-
     let lastCenter: { x: number, y: number } | null = null;
     let lastDist = 0;
 
@@ -214,7 +208,6 @@ export default function useCameraControl() {
         stage.on("mousedown", onMouseDown);
         stage.on("mouseup", onMouseUp);
         stage.on("contextmenu", onContextMenu);
-        stage.on("touchstart", onTouchStart);
         stage.on("touchmove", onTouchMove);
         stage.on("touchend", onTouchEnd);
         window.addEventListener("keydown", onKeyDown);
@@ -225,7 +218,6 @@ export default function useCameraControl() {
             stage.off("mousedown", onMouseDown);
             stage.off("mouseup", onMouseUp);
             stage.off("contextmenu", onContextMenu);
-            stage.off("touchstart", onTouchStart);
             stage.off("touchmove", onTouchMove);
             stage.off("touchend", onTouchEnd);
             window.removeEventListener("keydown", onKeyDown);

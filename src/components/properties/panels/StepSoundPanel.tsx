@@ -1,38 +1,39 @@
 import { TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import generateGUID from "../../../utils/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
-import NumericPanelInput from "../input/NumericPanelInput";
-import SoundPresetSelect from "../input/SoundPresetSelect";
+import SoundPresetSelect from "../input/select/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import LISound from "../../../types/li/LISound";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const isStepSound = useIsSelectedElemType("util-sound2");
+    const [_sounds, setSounds] = useSelectedElemProp<LISound[]>("sounds");
     const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
-    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
+    const sounds = _sounds ?? [];
 
-    if (!selectedElem || selectedElem.type !== "util-sound2")
+    if (!isStepSound)
         return null;
 
     return (
         <>
             <PanelContainer title={t("stepSound.title") as string}>
-                <NumericPanelInput
+                <ElementPropNumericInput
                     name={t("stepSound.priority")}
                     prop={"soundPriority"}
                     icon="PriorityHigh"
                     defaultValue={0}
                     min={0}
                     max={1000}
-                    minorStepSize={1}
                     stepSize={10}
-                    majorStepSize={100}
                 />
                 <SoundPresetSelect />
                 <TextField
@@ -44,7 +45,6 @@ export default function StepSoundPanel() {
                         const stringValue = e.target.value;
                         if (stringValue === "")
                             return;
-
                         const value = parseInt(stringValue);
                         if (value < 0)
                             return;
@@ -57,18 +57,14 @@ export default function StepSoundPanel() {
                                     isPreset: false
                                 };
                         }
-                        for (let i = sounds.length - 1; i >= value; i--) {
+                        for (let i = sounds.length - 1; i >= value; i--)
                             sounds.splice(i, 1);
-                        }
-                        setSelectedElem({
-                            ...selectedElem,
-                            properties: { ...selectedElem.properties, sounds: sounds }
-                        });
+                        setSounds([...sounds]);
                     }}
                 />
 
                 <DropdownList
-                    elements={selectedElem.properties.sounds?.map((sound, index) => ({
+                    elements={sounds?.map((sound, index) => ({
                         id: sound.id,
                         name: t("stepSound.default", { index: index + 1 }) as string,
                         icon: "VolumeUp"

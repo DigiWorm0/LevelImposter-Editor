@@ -6,11 +6,11 @@ import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
 import { DoorType } from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorTypeSelect from "../input/DoorTypeSelect";
-import RoomSelect from "../input/RoomSelect";
-import SwitchPanelInput from "../input/SwitchPanelInput";
+import RoomSelect from "../input/select/RoomSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
@@ -40,8 +40,8 @@ export default function DoorPanel() {
             <PanelContainer title={t("door.title") as string}>
                 <RoomSelect useDefault={true} />
                 <DoorTypeSelect />
-                <SwitchPanelInput
-                    name={"door.isInteractable"}
+                <ElementPropSwitch
+                    name={t("door.isInteractable")}
                     prop="isDoorInteractable"
                     defaultValue={true}
                     disabled={doorType === DoorType.Skeld}

@@ -1,37 +1,32 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function FloatingPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isFloat = useIsSelectedElemType("util-blankfloat");
 
-    if (!selectedElem || selectedElem.type !== "util-blankfloat")
+    if (!isFloat)
         return null;
-
     return (
         <PanelContainer title={t("floating.title") as string}>
-            <NumericPanelInput
-                name="floating.height"
+            <ElementPropNumericInput
+                name={t("floating.height")}
                 prop="floatingHeight"
                 defaultValue={DEFAULT_FLOATING_HEIGHT}
                 icon="SwapVert"
                 min={0}
-                minorStepSize={0.01}
                 stepSize={0.1}
-                majorStepSize={1}
             />
-            <NumericPanelInput
-                name="floating.speed"
+            <ElementPropNumericInput
+                name={t("floating.speed")}
                 prop="floatingSpeed"
                 defaultValue={DEFAULT_FLOATING_SPEED}
                 icon="Speed"
                 min={0}
-                minorStepSize={0.01}
                 stepSize={0.1}
-                majorStepSize={1}
             />
         </PanelContainer>
     );

@@ -5,11 +5,11 @@ import { useSelectedTriggerID } from "../../../hooks/elements/useSelectedTrigger
 import { useElementIDs } from "../../../hooks/map/useMap";
 import { OutputTriggerDB } from "../../../types/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
-import NumericPanelInput from "../input/NumericPanelInput";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",
@@ -64,15 +64,14 @@ export default function TriggerPanel() {
         <>
             <PanelContainer title={"Trigger"}>
                 {selectedElem.type === "util-triggerrand" && (
-                    <NumericPanelInput
+                    <ElementPropNumericInput
                         name={t("trigger.count")}
-                        label={randomPercentage}
                         prop="triggerCount"
+                        label={randomPercentage}
                         defaultValue={2}
                         icon="SettingsInputAntenna"
                         min={2}
                         stepSize={1}
-
                     />
                 )}
                 <DropdownList
@@ -96,15 +95,15 @@ export default function TriggerPanel() {
                 />
 
                 {CLIENT_SIDE_TYPES.includes(selectedElem.type) && (
-                    <SwitchPanelInput
-                        name="trigger.isClientSide"
+                    <ElementPropSwitch
+                        name={t("trigger.isClientSide")}
                         prop="triggerClientSide"
                         defaultValue={true}
                     />
                 )}
                 {GHOST_TYPES.includes(selectedElem.type) && (
-                    <SwitchPanelInput
-                        name="trigger.isGhostEnabled"
+                    <ElementPropSwitch
+                        name={t("trigger.isGhostEnabled")}
                         prop="isGhostEnabled"
                         defaultValue={false}
                     />

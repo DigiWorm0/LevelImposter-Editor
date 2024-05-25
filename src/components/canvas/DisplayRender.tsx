@@ -3,9 +3,9 @@ import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemPr
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../types/generic/Constants";
 
 export default function DisplayRender() {
+    const isDisplay = useIsSelectedElemType("util-display");
     const displayHeight = useSelectedElemPropValue<number>("displayHeight");
     const displayWidth = useSelectedElemPropValue<number>("displayWidth");
-    const isDisplay = useIsSelectedElemType("util-display");
 
     if (!isDisplay)
         return null;

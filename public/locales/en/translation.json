@@ -27,6 +27,7 @@
 		"dismiss": "Dismiss"
 	},
 	"errorCode": {
+		"map/open": "We hit an error while opening this map.",
 		"auth/invalid-email": "Invalid email address.",
 		"auth/user-disabled": "Your user account has been disabled.",
 		"auth/user-not-found": "Couldn't find any user with that email address.",

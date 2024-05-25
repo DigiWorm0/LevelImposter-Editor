@@ -18,7 +18,7 @@ export default function convertLegacyMap(mapData: LIMap) {
     let duplicateDB: Record<string, GUID> = {};
 
     // Add Asset Function
-    const addAsset = (base64: string): GUID => {
+    const addAsset = (base64: string, type: "image" | "audio"): GUID => {
         // Check if already exists
         if (duplicateDB[base64] != undefined)
             return duplicateDB[base64];
@@ -29,6 +29,7 @@ export default function convertLegacyMap(mapData: LIMap) {
             id,
             blob: blob,
             url: URL.createObjectURL(blob),
+            type
         });
         duplicateDB[base64] = id;
         return id;
@@ -38,14 +39,14 @@ export default function convertLegacyMap(mapData: LIMap) {
         // SpriteData
         if (element.properties.spriteData != undefined) {
             console.log(`Converting SpriteData of ${element.id}`);
-            element.properties.spriteID = addAsset(element.properties.spriteData);
+            element.properties.spriteID = addAsset(element.properties.spriteData, "image");
             element.properties.spriteData = undefined;
         }
 
         // Meeting Background
         if (element.properties.meetingBackground != undefined) {
             console.log(`Converting MeetingBackground of ${element.id}`);
-            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground);
+            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground, "image");
             element.properties.meetingBackground = undefined;
         }
 
@@ -59,7 +60,7 @@ export default function convertLegacyMap(mapData: LIMap) {
                     sound.presetID = sound.data;
                     sound.data = undefined;
                 } else {
-                    sound.dataID = addAsset(sound.data);
+                    sound.dataID = addAsset(sound.data, "audio");
                     sound.data = undefined;
                 }
             }
@@ -70,7 +71,7 @@ export default function convertLegacyMap(mapData: LIMap) {
             for (const minigame of element.properties.minigames) {
                 if (minigame.spriteData != undefined) {
                     console.log(`Converting Minigame of ${minigame.id}`);
-                    minigame.spriteID = addAsset(minigame.spriteData);
+                    minigame.spriteID = addAsset(minigame.spriteData, "image");
                     minigame.spriteData = undefined;
                 }
             }

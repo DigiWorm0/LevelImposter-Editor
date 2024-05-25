@@ -1,28 +1,31 @@
 import { useTranslation } from "react-i18next";
-import { useElementValue } from "../../../hooks/elements/useElements";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
-import DoorSelect from "../input/DoorSelect";
-import NumericPanelInput from "../input/NumericPanelInput";
+import DoorSelect from "../input/select/DoorSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import useElementIDExists from "../../../hooks/elements/useElementIDExists";
 
 export default function DecontaminationPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
-    const doorA = useElementValue(selectedElem?.properties.doorA);
-    const doorB = useElementValue(selectedElem?.properties.doorB);
+    const isDecontamination = useIsSelectedElemType("util-decontamination");
+    const doorIDA = useSelectedElemPropValue<MaybeGUID>("doorA");
+    const doorIDB = useSelectedElemPropValue<MaybeGUID>("doorB");
+    const doorExistsA = useElementIDExists(doorIDA);
+    const doorExistsB = useElementIDExists(doorIDB);
 
-    if (!selectedElem || selectedElem.type !== "util-decontamination")
+    if (!isDecontamination)
         return null;
-
     return (
         <>
             <PanelContainer title={t("decontamination.title") as string}>
                 <DoorSelect prop={"doorA"} />
                 <DoorSelect prop={"doorB"} />
-                <NumericPanelInput
-                    name={"decontamination.duration"}
+                <ElementPropNumericInput
+                    name={t("decontamination.duration")}
                     prop={"deconDuration"}
                     label={"seconds"}
                     defaultValue={3}
@@ -35,7 +38,7 @@ export default function DecontaminationPanel() {
                     defaultSoundURL="decontamSound.wav"
                 />
             </PanelContainer>
-            <MapError isVisible={doorA === undefined || doorB === undefined}>
+            <MapError isVisible={!doorExistsA || !doorExistsB}>
                 {t("decontamination.errorMissingDoor") as string}
             </MapError>
         </>

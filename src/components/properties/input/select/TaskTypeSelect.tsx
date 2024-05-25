@@ -1,8 +1,8 @@
 import { Autocomplete, Box, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
-import { AUTaskLengthDB, TaskLength } from "../../../types/generic/TaskLength";
+import useSelectedElem from "../../../../hooks/elements/useSelectedElem";
+import { AUTaskLengthDB, TaskLength } from "../../../../types/generic/TaskLength";
 
 export default function TaskTypeSelect() {
     const { t } = useTranslation();

@@ -5,11 +5,11 @@ import AUMinigameDB from "../../../types/db/AUMinigameDB";
 import { DoorType } from "../../../types/generic/DoorType";
 import MinigameEditorPanel from "../editors/MinigameEditorPanel";
 import ColorPanelInput from "../input/ColorPanelInput";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import TextPanelInput from "../input/TextPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import MinigamePropSwitch from "../input/minigame/MinigamePropSwitch";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",
@@ -110,9 +110,9 @@ export default function MinigamePanel() {
                     />
                 )}
                 {isTelescope && (
-                    <SwitchPanelInput
-                        name={"minigame.starfieldEnabled"}
-                        minigameProp={"isStarfieldEnabled"}
+                    <MinigamePropSwitch
+                        name={t("minigame.starfieldEnabled")}
+                        prop={"isStarfieldEnabled"}
                         defaultValue={true}
                     />
                 )}

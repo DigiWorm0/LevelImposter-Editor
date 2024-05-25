@@ -1,9 +1,14 @@
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
+import useSelectedElem from "../../../../hooks/elements/useSelectedElem";
 import ElementSelect from "./ElementSelect";
 
-export default function TeleSelect() {
+export interface RoomSelectProps {
+    useDefault: boolean;
+    label?: string;
+}
+
+export default function RoomSelect(props: RoomSelectProps) {
     const { t } = useTranslation();
     const [selectedElem, setSelectedElem] = useSelectedElem();
 
@@ -18,20 +23,21 @@ export default function TeleSelect() {
             }}
         >
             <ElementSelect
-                typeFilter="util-tele"
-                noElementsText={t("tele.errorNoTeles") as string}
-                defaultText={t("tele.noConnection")}
-                selectedID={selectedElem.properties.teleporter}
-                onPick={(vent) => {
+                label={props.label}
+                typeFilter="util-room"
+                noElementsText={t("room.errorNoRooms")}
+                defaultText={props.useDefault ? t("room.default") : t("room.none")}
+                selectedID={selectedElem.properties.parent}
+                onPick={(room) => {
                     setSelectedElem({
                         ...selectedElem,
-                        properties: { ...selectedElem.properties, teleporter: vent.id }
+                        properties: { ...selectedElem.properties, parent: room.id }
                     });
                 }}
                 onReset={() => {
                     setSelectedElem({
                         ...selectedElem,
-                        properties: { ...selectedElem.properties, teleporter: undefined }
+                        properties: { ...selectedElem.properties, parent: undefined }
                     });
                 }}
             />

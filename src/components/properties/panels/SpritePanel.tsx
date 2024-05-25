@@ -5,10 +5,10 @@ import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import MapAsset from "../../../types/li/MapAsset";
 import getIsConsole from "../../../utils/getIsConsole";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -105,8 +105,8 @@ export default function SpritePanel() {
                     onColorChange={onColorChange}
                 />
                 {isGIF && (
-                    <SwitchPanelInput
-                        name="sprite.loop"
+                    <ElementPropSwitch
+                        name={t("sprite.loop")}
                         prop="loopGIF"
                         defaultValue={!isCustomAnim}
                         disabled={isCustomAnim}

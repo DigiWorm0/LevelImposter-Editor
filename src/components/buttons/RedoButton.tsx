@@ -12,9 +12,11 @@ export default function RedoButton() {
 
     return (
         <Tooltip title={t("edit.redo")}>
-            <IconButton onClick={redo} disabled={!canRedo}>
-                <Redo />
-            </IconButton>
+            <span>
+                <IconButton onClick={redo} disabled={!canRedo}>
+                    <Redo />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 }

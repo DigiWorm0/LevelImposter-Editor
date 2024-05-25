@@ -25,7 +25,6 @@ export const selectedElementAtom = atom(
             const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem?.type ?? ""));
             globalProps.forEach((globalProp) => {
                 const prop = globalProp.prop as keyof LIProperties;
-                console.log(prop);
                 elements.forEach((e, index) => {
                     if (globalProp.types.includes(e.type) && e.id !== elem?.id) {
                         elements[index] = {

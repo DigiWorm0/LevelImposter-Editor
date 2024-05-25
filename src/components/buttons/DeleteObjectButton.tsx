@@ -16,13 +16,15 @@ export default function DeleteObjectButton(props: DeleteObjectButtonProps) {
 
     return (
         <Tooltip title={t("object.delete")}>
-            <IconButton
-                onClick={removeSelectedElement}
-                disabled={!isElementSelected}
-                {...props.buttonProps}
-            >
-                <Delete />
-            </IconButton>
+            <span>
+                <IconButton
+                    onClick={removeSelectedElement}
+                    disabled={!isElementSelected}
+                    {...props.buttonProps}
+                >
+                    <Delete />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 }

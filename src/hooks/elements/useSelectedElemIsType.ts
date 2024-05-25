@@ -6,7 +6,7 @@ import { selectedElementAtom } from "./useSelectedElem";
 export const selectedElementIsTypeAtom = atomFamily((type: string) => {
     return atom((get) => {
         const selectedElement = get(selectedElementAtom);
-        return selectedElement && selectedElement.type === type;
+        return selectedElement && type === selectedElement.type;
     });
 });
 

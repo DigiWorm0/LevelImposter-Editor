@@ -5,11 +5,11 @@ import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import { useConnections } from "../../../hooks/elements/useConnections";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useElementType } from "../../../hooks/elements/useTypes";
-import NumericPanelInput from "../input/NumericPanelInput";
-import RoomSelect from "../input/RoomSelect";
+import RoomSelect from "../input/select/RoomSelect";
 import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 const timerElems = [
     "sab-reactorleft",
@@ -74,14 +74,12 @@ export default function SabPanel() {
                     icon={"Comment"}
                 />
                 {showTimer && (
-                    <NumericPanelInput
+                    <ElementPropNumericInput
+                        name={t("sab.duration")}
                         prop="sabDuration"
-                        name={"sab.duration"}
                         defaultValue={selectedElem.type === "sab-btnmixup" ? 10 : 45}
                         min={0}
-                        minorStepSize={1}
                         stepSize={5}
-                        majorStepSize={15}
                         label={"seconds"}
                         icon="Timer"
                     />

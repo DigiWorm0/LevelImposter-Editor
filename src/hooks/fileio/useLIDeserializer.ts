@@ -1,16 +1,8 @@
-import React from "react";
 import LIMap from "../../types/li/LIMap";
 import GUID from "../../types/generic/GUID";
 import convertLegacyMap from "../../utils/convertLegacyMap";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import { DEFAULT_GUID } from "../../utils/generateGUID";
-
-/// @deprecated Hook unnecessary, use `deserializeMap` instead
-export default function useLIDeserializer() {
-    return React.useCallback((file: Blob) => {
-        return deserializeMap(file);
-    }, []);
-}
 
 export function deserializeMap(file: Blob) {
     return new Promise<LIMap>((resolve, reject) => {
@@ -49,8 +41,6 @@ function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
     const jsonString = textDecoder.decode(buffer);
     const mapData = JSON.parse(jsonString) as LIMap;
 
-    console.log(`JSON: ${jsonString.length} bytes`);
-
     // Convert
     convertLegacyMap(mapData);
 
@@ -70,8 +60,6 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     const jsonString = textDecoder.decode(buffer.slice(4, 4 + jsonLength));
     const mapData = JSON.parse(jsonString) as LIMap;
     mapData.assets = [];
-
-    console.log(`JSON: ${jsonLength} bytes`, mapData);
 
     // Read Assets
     let position = 4 + jsonLength;
@@ -126,7 +114,6 @@ function parseAssetType(asset: ArrayBuffer) {
     const isWAV = asset.byteLength > 11 &&
         textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
         textDecoder.decode(asset.slice(8, 11)) === "WAV";
-    console.log(textDecoder.decode(asset.slice(0, 4)), textDecoder.decode(asset.slice(8, 11)), isWAV);
 
     if (isGIF) return "image/gif";
     if (isPNG) return "image/png";

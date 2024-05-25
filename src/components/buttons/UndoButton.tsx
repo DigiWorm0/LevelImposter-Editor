@@ -12,9 +12,11 @@ export default function UndoButton() {
 
     return (
         <Tooltip title={t("edit.undo")}>
-            <IconButton onClick={undo} disabled={!canUndo}>
-                <Undo />
-            </IconButton>
+            <span>
+                <IconButton onClick={undo} disabled={!canUndo}>
+                    <Undo />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SettingsSwitchInput from "../properties/input/SettingsSwitchInput";
 import SettingsNumericInput from "../properties/input/SettingsNumericInput";
-import SettingsLocalizationInput from "../properties/input/SettingsLocalizationInput";
+import SettingsLocalizationInput from "../properties/input/select/SettingsLocalizationInput";
 import GenericModal from "./GenericModal";
 
 export interface SettingsModalProps {

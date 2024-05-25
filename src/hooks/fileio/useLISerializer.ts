@@ -61,8 +61,6 @@ export async function serializeMap(map: LIMap, onError?: (error: string) => void
         offset += size;
     }
 
-    console.log(`Serialized: ${offset} bytes`, rawData);
-
     return rawData;
 }
 

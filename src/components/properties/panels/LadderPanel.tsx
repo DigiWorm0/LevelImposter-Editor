@@ -1,27 +1,25 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { DEFAULT_LADDER_HEIGHTS } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { DEFAULT_LADDER_HEIGHTS } from "../../../types/generic/Constants";
 
 export default function LadderPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isLadder1 = useIsSelectedElemType("util-ladder1");
+    const isLadder2 = useIsSelectedElemType("util-ladder2");
 
-    if (!selectedElem || !selectedElem.type.startsWith("util-ladder"))
+    if (!isLadder1 && !isLadder2)
         return null;
-
     return (
         <PanelContainer title={t("ladder.title") as string}>
-            <NumericPanelInput
-                name="ladder.height"
+            <ElementPropNumericInput
+                name={t("ladder.height")}
                 prop="ladderHeight"
-                defaultValue={DEFAULT_LADDER_HEIGHTS[selectedElem.type]}
+                defaultValue={isLadder1 ? DEFAULT_LADDER_HEIGHTS["util-ladder1"] : DEFAULT_LADDER_HEIGHTS["util-ladder2"]}
                 icon="SwapVert"
                 min={0}
-                minorStepSize={0.05}
                 stepSize={0.1}
-                majorStepSize={0.5}
                 color="warning"
             />
         </PanelContainer>

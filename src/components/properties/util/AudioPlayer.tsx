@@ -23,21 +23,20 @@ export default function AudioPlayer(props: AudioPlayerProps) {
     /*
         Update progress bar
      */
-    const updateProgress = () => {
-
+    React.useEffect(() => {
         // Update progress
-        if (audioRef.current) {
-            setProgress(audioRef.current.currentTime);
-            setDuration(audioRef.current.duration);
+        const updateProgress = () => {
+            if (audioRef.current) {
+                const { currentTime, duration } = audioRef.current;
+                setProgress(isNaN(currentTime) ? 0 : currentTime);
+                setDuration(isNaN(duration) ? 0 : duration);
+            }
         }
 
-        // Loop
-        animRef.current = requestAnimationFrame(updateProgress);
-    }
-    React.useEffect(() => {
-        animRef.current = requestAnimationFrame(updateProgress);
-        return () => cancelAnimationFrame(animRef.current);
-    }, []);
+        // Update progress every few milliseconds
+        const id = setInterval(updateProgress, 100);
+        return () => clearInterval(id);
+    }, [audioRef.current]);
 
     /*
         Update Volume
