@@ -3,13 +3,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import { useConnections } from "../../../hooks/elements/useConnections";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 
 const timerElems = [
     "sab-reactorleft",
@@ -23,32 +24,29 @@ const timerElems = [
 
 export default function SabPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
-    const [sabName, setSabName] = React.useState("");
-    const sprite = useSpriteOfType(selectedElem?.type);
+    const selectedType = useSelectedElemType();
+    const parentID = useSelectedElemPropValue("parent");
+    const sprite = useSpriteOfType(selectedType);
     const roomElems = useElementsOfType("util-room");
-    const [, sourceConnections] = useConnections(selectedElem?.properties.parent);
+    const [, sourceConnections] = useConnections(parentID);
 
     const otherSab = React.useMemo(() => {
-        if (selectedElem?.type.startsWith("sab-btn"))
+        if (selectedType?.startsWith("sab-btn"))
             return undefined;
-        return sourceConnections?.find((c) => c.type.startsWith("sab-") && c.id !== selectedElem?.id && !c.type.startsWith("sab-btn"));
-    }, [sourceConnections, selectedElem]);
-
-    React.useEffect(() => {
-        setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
-    }, [selectedElem]);
+        return sourceConnections?.find((c) => c.type.startsWith("sab-") && !c.type.startsWith("sab-btn"));
+    }, [sourceConnections, selectedType]);
 
     const parentRoom = React.useMemo(() => {
-        return roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    }, [roomElems, selectedElem]);
+        return roomElems.find((e) => e.id === parentID);
+    }, [roomElems, parentID]);
+    
     const showTimer = React.useMemo(() => {
-        return timerElems.includes(selectedElem?.type ?? "");
-    }, [selectedElem]);
+        return timerElems.includes(selectedType ?? "");
+    }, [selectedType]);
 
-    if (!selectedElem
-        || !selectedElem.type.startsWith("sab-")
-        || selectedElem.type.startsWith("sab-door"))
+    if (!selectedType
+        || !selectedType.startsWith("sab-")
+        || selectedType.startsWith("sab-door"))
         return null;
 
     return (
@@ -58,13 +56,13 @@ export default function SabPanel() {
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
                         src={sprite?.src}
-                        alt={selectedElem.name}
+                        alt={selectedType}
                     />
                     <Typography variant={"subtitle2"}>
-                        {sabName}
+                        {t(`au.${selectedType}`)}
                     </Typography>
                     <Typography variant={"body2"} sx={{ color: "text.secondary" }}>
-                        {selectedElem.type}
+                        {selectedType}
                     </Typography>
                 </div>
                 <RoomSelect useDefault={true} />
@@ -77,7 +75,7 @@ export default function SabPanel() {
                     <ElementPropNumericInput
                         name={t("sab.duration")}
                         prop="sabDuration"
-                        defaultValue={selectedElem.type === "sab-btnmixup" ? 10 : 45}
+                        defaultValue={selectedType === "sab-btnmixup" ? 10 : 45}
                         min={0}
                         stepSize={5}
                         label={"seconds"}
@@ -93,7 +91,7 @@ export default function SabPanel() {
                 {t("sab.errorNoRoom") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "sab-btndoors"}
+                isVisible={selectedType === "sab-btndoors"}
                 info
                 icon="Room"
             >

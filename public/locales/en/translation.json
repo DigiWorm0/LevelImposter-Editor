@@ -525,6 +525,8 @@
 		"delete": "Delete",
 		"unlock": "Unlock",
 		"lock": "Lock",
+		"show": "Show",
+		"hide": "Hide",
 		"autoFix": "Auto-Fix",
 		"errorInvisible": "This object will not be visible in-game.",
 		"errorNoSprite": "This object will not be visible in-game unless you attach a sprite.",

@@ -1,5 +1,14 @@
-import { Delete, Lock, LockOpen, RotateLeft, SwapHoriz, SwapVert } from "@mui/icons-material";
-import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
+import {
+    Delete,
+    Lock,
+    LockOpen,
+    RotateLeft,
+    SwapHoriz,
+    SwapVert,
+    Visibility,
+    VisibilityOff
+} from "@mui/icons-material";
+import { Button, ButtonGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
 import { useSettingsValue } from "../../../hooks/useSettings";
@@ -23,6 +32,7 @@ export default function TransformPanel() {
     const [xScale] = useSelectedElemTransform<number>("xScale");
     const [yScale] = useSelectedElemTransform<number>("yScale");
     const [isLocked, setLocked] = useSelectedElemProp("isLocked");
+    const [isVisible, setVisible] = useSelectedElemProp("isVisible");
     const selectedElemID = useSelectedElemIDValue();
     const elemVisibility = useElementVisibility(selectedElemID);
 
@@ -89,22 +99,33 @@ export default function TransformPanel() {
                     </InputGroup>
                     <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={"RotateLeft"} />
                     <ButtonGroup style={{ marginTop: 10 }} fullWidth>
-                        <Button
-                            variant={"text"}
-                            color={"inherit"}
-                            startIcon={isLocked ? <Lock /> : <LockOpen />}
-                            onClick={() => setLocked(!isLocked)}
-                        >
-                            {isLocked ? t("transform.unlock") : t("transform.lock")}
-                        </Button>
-                        <Button
-                            variant={"text"}
-                            color={"inherit"}
-                            startIcon={<Delete />}
-                            onClick={removeSelectedElement}
-                        >
-                            {t("transform.delete") as string}
-                        </Button>
+                        <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={() => setVisible(!isVisible)}
+                            >
+                                {isVisible ? <VisibilityOff /> : <Visibility />}
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={() => setLocked(!isLocked)}
+                            >
+                                {isLocked ? <Lock /> : <LockOpen />}
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title={t("transform.delete")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={removeSelectedElement}
+                            >
+                                <Delete />
+                            </Button>
+                        </Tooltip>
                     </ButtonGroup>
                 </>)}
             </PanelContainer>

@@ -6,7 +6,7 @@ import AUTextDB from "../../../types/db/AUTextDB";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
-import { Clear, Notes } from "@mui/icons-material";
+import { Clear } from "@mui/icons-material";
 
 export default function CustomTextPanel() {
     const { t } = useTranslation();
@@ -24,18 +24,12 @@ export default function CustomTextPanel() {
                     <TextField
                         key={id}
                         label={t(`customText.${id}`)}
-                        placeholder={t(`customText.${id}`)}
                         value={customText?.[id] ?? ""}
                         onChange={(e) => setCustomText({ ...customText, [id]: e.target.value })}
                         fullWidth
                         size={"small"}
                         sx={{ mt: 1 }}
                         InputProps={{
-                            startAdornment: (
-                                <InputAdornment position={"start"}>
-                                    <Notes />
-                                </InputAdornment>
-                            ),
                             endAdornment: (
                                 <InputAdornment position={"end"}>
                                     <IconButton>

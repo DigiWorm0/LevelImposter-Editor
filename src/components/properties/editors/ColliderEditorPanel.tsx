@@ -1,13 +1,13 @@
-import { Check, Delete, ExpandLess } from "@mui/icons-material";
+import { Check, Delete } from "@mui/icons-material";
 import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useCollider from "../../../hooks/elements/colliders/useCollider";
 import useDeleteCollider from "../../../hooks/elements/colliders/useDeleteCollider";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import InputGroup from "../input/InputGroup";
 import FlexNumericInput from "../util/FlexNumericInput";
+import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;
@@ -20,7 +20,6 @@ interface ColliderEditorProps {
 
 export default function ColliderEditorPanel(props: ColliderEditorProps) {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
     const deleteCollider = useDeleteCollider();
     const [collider, setCollider] = useCollider(props.colliderID);
@@ -41,16 +40,15 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
             return;
         const points = collider.points;
         if (count > points.length) {
-            for (let i = points.length; i < count; i++) {
+            for (let i = points.length; i < count; i++)
                 points.push({ x: 0, y: 0 });
-            }
         } else {
             points.splice(count);
         }
         setCollider({ ...collider, points });
     }, [collider, setCollider]);
 
-    if (!selectedElem || !collider)
+    if (!collider)
         return null;
 
     return (
@@ -61,9 +59,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                 placeholder={t("collider.name") as string}
                 value={collider.name}
                 onChange={(e) => setCollider({ ...collider, name: e.target.value })}
-                sx={{
-                    mb: 1
-                }}
+                sx={{ mb: 1 }}
             />
             <FormControlLabel
                 label={t("collider.solid") as string}
@@ -71,10 +67,7 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     <Switch
                         checked={collider.isSolid}
                         disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                        onChange={(e) => {
-                            collider.isSolid = e.currentTarget.checked;
-                            setSelectedElem({ ...selectedElem });
-                        }}
+                        onChange={(e) => setCollider({ ...collider, isSolid: e.currentTarget.checked })}
                     />
                 }
             />
@@ -87,18 +80,12 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                         disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
                         onChange={(e) => setCollider({ ...collider, blocksLight: e.currentTarget.checked })}
                     />
-                } />
+                }
+            />
             <Button
                 fullWidth
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                endIcon={
-                    <ExpandLess
-                        style={{
-                            transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)",
-                            transition: "transform 0.2s"
-                        }}
-                    />
-                }
+                endIcon={<AnimatedCaretIcon up={!isCollapsed} />}
             >
                 {t("collider.points") as string}
             </Button>

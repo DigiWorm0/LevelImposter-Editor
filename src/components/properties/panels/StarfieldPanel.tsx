@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_STARFIELD_COUNT,
     DEFAULT_STARFIELD_HEIGHT,
@@ -10,14 +9,14 @@ import {
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function StarfieldPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isStarfield = useIsSelectedElemType("util-starfield");
 
-    if (!selectedElem || selectedElem.type !== "util-starfield")
+    if (!isStarfield)
         return null;
-
     return (
         <PanelContainer title={t("starfield.title") as string}>
             <ElementPropNumericInput

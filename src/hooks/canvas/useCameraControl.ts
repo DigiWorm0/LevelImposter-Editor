@@ -85,8 +85,9 @@ export default function useCameraControl() {
         if (!stage)
             return;
 
-        const mouseX = (e.clientX - stage.x()) / stage.scaleX();
-        const mouseY = (e.clientY - stage.y()) / stage.scaleY();
+        const mousePos = stage.getPointerPosition() ?? { x: 0, y: 0 };
+        const mouseX = (mousePos.x - stage.x()) / stage.scaleX();
+        const mouseY = (mousePos.y - stage.y()) / stage.scaleY();
 
         setMouse({
             x: mouseX / UNITY_SCALE,

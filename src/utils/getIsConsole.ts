@@ -1,8 +1,8 @@
 export default function getIsConsole(type: string) {
     const isVent = type.startsWith("util-vent");
     const isSpore = type === "util-spore";
-    const isConsole = type.startsWith("task-")
-        || (type.startsWith("sab-") && !type.startsWith("sab-btn"))
+    return type.startsWith("task-")
+        || (type.startsWith("sab-") && !type.startsWith("sab-btn") && !type.startsWith("sab-door"))
         || type.startsWith("util-button")
         || type.startsWith("util-cams")
         || type === "util-admin"
@@ -11,5 +11,4 @@ export default function getIsConsole(type: string) {
         || type === "util-triggerconsole"
         || isVent
         || isSpore;
-    return isConsole;
 }

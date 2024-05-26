@@ -1,23 +1,25 @@
 import { atom, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../../types/generic/GUID";
-import { selectedElementAtom } from "../useSelectedElem";
+import { selectedColliderIDAtom } from "./useSelectedCollider";
+import { selectedElementPropAtom } from "../useSelectedElemProperty";
+import LICollider from "../../../types/li/LICollider";
 
 export const deleteColliderAtom = atom(null, (get, set, colliderID: MaybeGUID) => {
     if (!colliderID)
         return;
 
-    const selectedElem = get(selectedElementAtom);
-    if (!selectedElem)
+    // Get the colliders
+    const colliderAtom = selectedElementPropAtom("colliders");
+    const colliders = get(colliderAtom) as LICollider[];
+    if (!colliders)
         return;
 
-    const filteredColliders = selectedElem.properties.colliders?.filter(c => c.id !== colliderID);
-    set(selectedElementAtom, {
-        ...selectedElem,
-        properties: {
-            ...selectedElem.properties,
-            colliders: filteredColliders
-        }
-    });
+    // Remove the collider
+    const filteredColliders = colliders.filter(c => c.id !== colliderID);
+    set(colliderAtom, filteredColliders);
+
+    // Unselect the collider
+    set(selectedColliderIDAtom, undefined);
 });
 
 export default function useDeleteCollider() {

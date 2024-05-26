@@ -79,7 +79,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                     setDraggingID(element.id);
                     e.dataTransfer.setData("text/plain", element.id);
                 }}
-                onDragEnd={(e) => {
+                onDragEnd={() => {
                     setDragOver(false);
                     setDraggingID(undefined);
                 }}
@@ -121,16 +121,19 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 )}
             >
                 <ListItemButton
-                    sx={{ pe: props.depth + 1 }}
+                    sx={{ paddingLeft: props.depth * 2 + 2 }}
                     onClick={() => setSelectedElemID(element.id)}
                     disabled={isDisabled}
                     dense
                     selected={isSelected || isDragOver}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon sx={{ minWidth: 40 }}>
                         <SceneGraphElementIcon type={element.type} />
                     </ListItemIcon>
-                    <ListItemText primary={element.name} />
+                    <ListItemText
+                        primary={element.name}
+                        sx={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
+                    />
                 </ListItemButton>
             </ListItem>
             <Collapse in={isExpanded}>
