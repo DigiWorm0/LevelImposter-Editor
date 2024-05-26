@@ -5,25 +5,22 @@ import { InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText } 
 import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
-export interface SettingsNumericInputProps {
+export interface SettingsPercentInputProps {
     name: string;
     prop: keyof LISettings;
 
     icon?: IconName;
     disabled?: boolean;
-    min?: number;
-    max?: number;
-    stepSize?: number;
-    label?: string;
 }
 
-export default function SettingsNumericInput(props: SettingsNumericInputProps) {
+export default function SettingsPercentInput(props: SettingsPercentInputProps) {
     const [settings, setSettings] = useSettings();
 
     const onChange = React.useCallback((value: number) => {
+        const percent = value / 100;
         setSettings({
             ...settings,
-            [props.prop]: value
+            [props.prop]: percent
         });
     }, [settings, props.prop]);
 
@@ -33,16 +30,16 @@ export default function SettingsNumericInput(props: SettingsNumericInputProps) {
             disablePadding
             secondaryAction={
                 <FlexNumericInput
-                    value={settings[props.prop] as number}
+                    value={(settings[props.prop] as number) * 100}
                     onChange={onChange}
-                    min={props.min}
-                    max={props.max}
-                    stepSize={props.stepSize}
+                    min={0}
+                    max={100}
+                    stepSize={10}
                     inputProps={{
                         style: { width: 150 },
                         disabled: props.disabled,
                         InputProps: {
-                            endAdornment: (<InputAdornment position={"end"}>{props.label}</InputAdornment>)
+                            endAdornment: (<InputAdornment position={"end"}>%</InputAdornment>)
                         },
                         variant: "standard"
                     }}

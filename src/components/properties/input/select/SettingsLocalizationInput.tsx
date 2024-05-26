@@ -22,12 +22,14 @@ export default function SettingsLocalizationInput() {
 
     return (
         <ListItem
+            dense
             disablePadding
             secondaryAction={
                 <Select
                     value={settings.language}
                     onChange={(e) => setSettings({ ...settings, language: e.target.value })}
                     size={"small"}
+                    variant={"standard"}
                     style={{ width: 200 }}
                     ref={selectRef}
                 >

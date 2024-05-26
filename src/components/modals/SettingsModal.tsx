@@ -4,6 +4,7 @@ import SettingsSwitchInput from "../properties/input/settings/SettingsSwitchInpu
 import SettingsNumericInput from "../properties/input/settings/SettingsNumericInput";
 import SettingsLocalizationInput from "../properties/input/select/SettingsLocalizationInput";
 import GenericModal from "./GenericModal";
+import SettingsPercentInput from "../properties/input/settings/SettingsPercentInput";
 
 export interface SettingsModalProps {
     isOpen: boolean;
@@ -20,11 +21,6 @@ export default function SettingsModal(props: SettingsModalProps) {
             title={t("settings.interface.title") as string}
         >
             <SettingsSwitchInput
-                name={t("settings.interface.darkMode")}
-                prop="isDarkMode"
-                icon="ModeNight"
-            />
-            <SettingsSwitchInput
                 name={t("settings.interface.colliderPreview")}
                 prop="colliderPreview"
                 icon="ShapeLine"
@@ -34,9 +30,7 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="colliderHandleSize"
                 icon="AdsClick"
                 min={1}
-                minorStepSize={0.5}
                 stepSize={1}
-                majorStepSize={2}
                 label={"px"}
             />
             <SettingsSwitchInput
@@ -74,9 +68,7 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="gridSize"
                 icon="AspectRatio"
                 min={1}
-                minorStepSize={0.5}
                 stepSize={1}
-                majorStepSize={2}
                 label={"px"}
             />
             <SettingsNumericInput
@@ -84,9 +76,7 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="gridSpacing"
                 icon="LineWeight"
                 min={1}
-                minorStepSize={0.5}
                 stepSize={1}
-                majorStepSize={2}
                 label={"px"}
             />
             <SettingsSwitchInput
@@ -99,20 +89,13 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="gridSnapResolution"
                 icon="GridGoldenratio"
                 min={0}
-                minorStepSize={0.05}
                 stepSize={0.1}
-                majorStepSize={1}
                 label={"px"}
             />
-            <SettingsNumericInput
+            <SettingsPercentInput
                 name={t("settings.interface.invisibleOpacity")}
                 prop="invisibleOpacity"
                 icon="Visibility"
-                min={0}
-                minorStepSize={0.05}
-                stepSize={0.1}
-                majorStepSize={0.2}
-                label={"x100%"}
             />
             <SettingsLocalizationInput />
             <SettingsSwitchInput

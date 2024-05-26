@@ -1,5 +1,4 @@
-import { ExpandLess } from "@mui/icons-material";
-import { Collapse, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
 import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
@@ -11,6 +10,8 @@ import { IconName } from "../utils/MaterialIcon";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
+import { SceneGraphListItem } from "./SceneGraphListItem";
 
 const ICON_DB: Record<string, IconName> = {
     "util-blank": "Interests",
@@ -68,8 +69,9 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
 
     return (
         <>
-            <ListItem
+            <SceneGraphListItem
                 id={props.elementID}
+                isGroup={isGroup}
                 draggable
                 disablePadding
                 onDragStart={(e) => {
@@ -111,12 +113,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                             properties: { ...element.properties, isExpanded: !isExpanded }
                         })}
                     >
-                        <ExpandLess
-                            style={{
-                                transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
-                                transition: "transform 0.2s"
-                            }}
-                        />
+                        <AnimatedCaretIcon up={!isExpanded} />
                     </IconButton>
                 )}
             >
@@ -132,10 +129,9 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                     </ListItemIcon>
                     <ListItemText
                         primary={element.name}
-                        sx={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
                     />
                 </ListItemButton>
-            </ListItem>
+            </SceneGraphListItem>
             <Collapse in={isExpanded}>
                 {childIDs.map((childID) => (
                     <SceneGraphElement

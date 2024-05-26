@@ -7,7 +7,7 @@ import { SnackbarProvider } from "notistack";
 
 const darkTheme = createTheme({
     palette: {
-        mode: 'dark',
+        mode: 'dark'
     },
     typography: {
         h1: { fontWeight: "bold" },

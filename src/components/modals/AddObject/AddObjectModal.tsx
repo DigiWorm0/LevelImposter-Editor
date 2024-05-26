@@ -1,15 +1,14 @@
-import { Close, Search } from "@mui/icons-material";
-import { Dialog, DialogContent, IconButton, InputAdornment, List, ListSubheader, TextField } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Close } from "@mui/icons-material";
+import { Dialog, DialogContent, IconButton, List } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSetSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
 import useAddElementAtMouse from "../../../hooks/elements/useAddElementAtMouse";
 import { useSetSelectedElemID } from "../../../hooks/elements/useSelectedElem";
-import useHiddenTypes from "../../../hooks/elements/useSingleTypes";
-import AUElementDB from "../../../types/db/AUElementDB";
 import generateGUID from '../../../utils/generateGUID';
 import AddObjectModalButton from "./AddObjectModalButton";
+import AddObjectModalCategory from "./AddObjectModalCategory";
+import AddObjectModalSearch from "./AddObjectModalSearch";
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -30,19 +29,6 @@ export default function AddObjectModal(props: AddObjectModalProps) {
     const addElement = useAddElementAtMouse();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
-    const hiddenTypes = useHiddenTypes();
-    const [searchQuery, setSearchQuery] = React.useState("");
-
-    const filteredTypes = React.useMemo(() => {
-        if (searchQuery.length === 0)
-            return AUElementDB;
-
-        const upperCaseQuery = searchQuery.toUpperCase();
-
-        return AUElementDB.filter(type =>
-            type.toUpperCase().includes(upperCaseQuery) ||
-            t(`au.${type}`).toUpperCase().includes(upperCaseQuery));
-    }, [searchQuery]);
 
     // Handle when an element is clicked
     const onClick = React.useCallback((type: string) => {
@@ -72,17 +58,7 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             maxWidth="sm"
             PaperProps={{ elevation: 1 }}
         >
-            <TextField
-                variant="outlined"
-                fullWidth
-                autoFocus
-                placeholder={t("object.search")}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                InputProps={{
-                    startAdornment: <InputAdornment position={"start"}><Search /></InputAdornment>
-                }}
-            />
+            <AddObjectModalSearch />
             <IconButton
                 onClick={props.onClose}
                 sx={{
@@ -100,34 +76,16 @@ export default function AddObjectModal(props: AddObjectModalProps) {
                         key={`add-new-object`}
                         type={"util-blank"}
                         onClick={onClick}
-                        hiddenTypes={hiddenTypes}
                     />
 
-                    {TYPE_CATEGORIES.map((category) => {
-                        const types = filteredTypes.filter(type => type.startsWith(category.type));
-
-                        if (types.length === 0)
-                            return null;
-                        return (
-                            <div key={category.type}>
-                                <ListSubheader
-                                    sx={{
-                                        backgroundColor: grey[900],
-                                    }}
-                                >
-                                    {category.name}
-                                </ListSubheader>
-                                {types.map((type) => (
-                                    <AddObjectModalButton
-                                        key={`add-object-${type}`}
-                                        type={type}
-                                        onClick={onClick}
-                                        hiddenTypes={hiddenTypes}
-                                    />
-                                ))}
-                            </div>
-                        );
-                    })}
+                    {TYPE_CATEGORIES.map((category) =>
+                        <AddObjectModalCategory
+                            key={category.name}
+                            name={category.name}
+                            typeFilter={category.type}
+                            onClick={onClick}
+                        />
+                    )}
                 </List>
             </DialogContent>
         </Dialog>

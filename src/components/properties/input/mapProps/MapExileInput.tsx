@@ -12,6 +12,7 @@ export default function MapExileInput() {
 
     return (
         <ListItem
+            dense
             disablePadding
             secondaryAction={
                 <Select
@@ -19,6 +20,7 @@ export default function MapExileInput() {
                     value={properties.exileID}
                     onChange={(e) => setProperties({ ...properties, exileID: e.target.value })}
                     style={{ width: 200 }}
+                    variant={"standard"}
                 >
                     {EXILE_IDS.map((exileID) => (
                         <MenuItem key={exileID} value={exileID}>{exileID}</MenuItem>

@@ -31,11 +31,13 @@ export default function TransformPanel() {
     const [name, setName] = useSelectedElemTransform<string>("name");
     const [xScale] = useSelectedElemTransform<number>("xScale");
     const [yScale] = useSelectedElemTransform<number>("yScale");
-    const [isLocked, setLocked] = useSelectedElemProp("isLocked");
-    const [isVisible, setVisible] = useSelectedElemProp("isVisible");
+    const [_isLocked, setLocked] = useSelectedElemProp("isLocked");
+    const [_isVisible, setVisible] = useSelectedElemProp("isVisible");
     const selectedElemID = useSelectedElemIDValue();
     const elemVisibility = useElementVisibility(selectedElemID);
 
+    const isLocked = _isLocked ?? false;
+    const isVisible = _isVisible ?? true;
     const removeSelectedElement = useRemoveSelectedElement();
     const { isDevMode } = useSettingsValue();
     const fixSprite = useFixSpriteScaling();
@@ -105,7 +107,7 @@ export default function TransformPanel() {
                                 color={"inherit"}
                                 onClick={() => setVisible(!isVisible)}
                             >
-                                {isVisible ? <VisibilityOff /> : <Visibility />}
+                                {isVisible ? <Visibility /> : <VisibilityOff />}
                             </Button>
                         </Tooltip>
                         <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
