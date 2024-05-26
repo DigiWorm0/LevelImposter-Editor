@@ -1,7 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/elements/useTypes";
 import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
 import { DoorType } from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
@@ -11,28 +9,35 @@ import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { useElementValue } from "../../../hooks/elements/useElements";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import LISound from "../../../types/li/LISound";
+import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
 
 export default function DoorPanel() {
     const { t } = useTranslation();
-    const roomElems = useElementType("util-room");
-    const doorElems = useElementType("sab-door");
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+
+    const doorElemCount = useElementTypeCount("sab-door");
+
+    const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
+    const parentRoomID = useSelectedElemPropValue<MaybeGUID>("parent");
+    const sounds = useSelectedElemPropValue<LISound[]>("sounds") || [];
+    const parentRoom = useElementValue(parentRoomID);
+
+    const isDoorV = useIsSelectedElemType("sab-doorv");
+    const isDoorH = useIsSelectedElemType("sab-doorh");
+
     const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
-    const doorType = React.useMemo(() => selectedElem?.properties.doorType ?? DoorType.Skeld, [selectedElem]);
-    const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === selectedElem?.properties.parent), [selectedElem, roomElems]);
-    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_OPEN_SOUND), [sounds]);
     const hasCloseSound = React.useMemo(() => sounds.some((s) => s.type === DOOR_CLOSE_SOUND), [sounds]);
 
-    const isNotWav = React.useMemo(() => {
-        return sounds.some((s) => !s.data?.startsWith("data:audio/wav;base64,"));
-    }, [sounds]);
-
-    if (!selectedElem || !selectedElem.type.startsWith("sab-door"))
+    if (!isDoorV && !isDoorH)
         return null;
 
     return (
@@ -73,21 +78,15 @@ export default function DoorPanel() {
                 />
             </PanelContainer>
             <MapError
-                isVisible={parentRoom === undefined}
+                isVisible={!parentRoom}
                 icon="Room"
             >
                 {t("door.errorNoRoom")}
             </MapError>
             <MapError
-                isVisible={doorElems.length > MAX_DOOR_COUNT - 10}
+                isVisible={doorElemCount > MAX_DOOR_COUNT - 10}
             >
-                {t("door.errorMaxDoors", { count: doorElems.length, max: MAX_DOOR_COUNT })}
-            </MapError>
-            <MapError
-                isVisible={isNotWav}
-                icon="VolumeMute"
-            >
-                {t("audio.errorNotWav")}
+                {t("door.errorMaxDoors", { count: doorElemCount, max: MAX_DOOR_COUNT })}
             </MapError>
         </>
     );

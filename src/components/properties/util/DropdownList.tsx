@@ -21,37 +21,38 @@ export interface DropdownListProps<T> {
 }
 
 export default function DropdownList<T>(props: DropdownListProps<T>) {
-    return props.elements?.map((element, index) => (
-        <div key={element.id + "-" + index}>
-            {index === 0 && <Divider sx={{ width: "100%" }} />}
-            <Button
-                fullWidth
-                variant={props.selectedID === element.id ? "contained" : "text"}
-                size={"small"}
-                color={element.intent ?? "primary"}
-                onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
-                disabled={element.isDisabled}
-                style={{ margin: 1 }}
-                endIcon={
-                    <ExpandLess
-                        style={{
-                            transform: props.selectedID === element.id ? "rotate(180deg)" : "rotate(0deg)",
-                            transition: "transform 0.2s ease-in-out"
-                        }}
-                    />
-                }
-            >
-                {element.name}
-            </Button>
+    return (<>
+        <Divider sx={{ width: "100%" }} />
 
-            <Collapse
-                in={props.selectedID === element.id && !element.isDisabled}
-            >
-                {props.children}
-                {props.renderElement && props.renderElement(element)}
-            </Collapse>
+        {props.elements?.map((element) => (
+            <div key={element.id as string}>
+                <Button
+                    fullWidth
+                    variant={props.selectedID === element.id ? "contained" : "text"}
+                    size={"small"}
+                    color={element.intent ?? "primary"}
+                    onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
+                    disabled={element.isDisabled}
+                    style={{ margin: 1 }}
+                    endIcon={
+                        <ExpandLess
+                            style={{
+                                transform: props.selectedID === element.id ? "rotate(180deg)" : "rotate(0deg)",
+                                transition: "transform 0.2s ease-in-out"
+                            }}
+                        />
+                    }
+                >
+                    {element.name}
+                </Button>
 
-            <Divider sx={{ width: "100%" }} />
-        </div>
-    ));
+                <Collapse in={props.selectedID === element.id && !element.isDisabled}>
+                    {props.children}
+                    {props.renderElement && props.renderElement(element)}
+                </Collapse>
+
+                <Divider sx={{ width: "100%" }} />
+            </div>
+        ))}
+    </>);
 }

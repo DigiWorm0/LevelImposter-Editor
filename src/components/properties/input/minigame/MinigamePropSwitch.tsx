@@ -1,5 +1,5 @@
 import React from "react";
-import SwitchPanelInput, { ChildSwitchInputProps } from "../generic/SwitchPanelInput";
+import SwitchPanelInput, { ChildSwitchInputProps } from "../panel/SwitchPanelInput";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import LIMinigameProps from "../../../../types/li/LIMinigameProps";
 

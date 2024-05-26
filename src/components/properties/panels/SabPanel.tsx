@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import { useConnections } from "../../../hooks/elements/useConnections";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/elements/useTypes";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
-import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 
 const timerElems = [
     "sab-reactorleft",
@@ -26,7 +26,7 @@ export default function SabPanel() {
     const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
     const sprite = useSpriteOfType(selectedElem?.type);
-    const roomElems = useElementType("util-room");
+    const roomElems = useElementsOfType("util-room");
     const [, sourceConnections] = useConnections(selectedElem?.properties.parent);
 
     const otherSab = React.useMemo(() => {
@@ -68,9 +68,9 @@ export default function SabPanel() {
                     </Typography>
                 </div>
                 <RoomSelect useDefault={true} />
-                <TextPanelInput
+                <ElementPropTextInput
+                    name={t("sab.description")}
                     prop="description"
-                    name={"sab.description"}
                     icon={"Comment"}
                 />
                 {showTimer && (

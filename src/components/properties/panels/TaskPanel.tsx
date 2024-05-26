@@ -3,20 +3,20 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/elements/useTypes";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import TaskTypeSelect from "../input/select/TaskTypeSelect";
-import TextPanelInput from "../input/TextPanelInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
-    const roomElems = useElementType("util-room");
-    const taskElems = useElementType("task-");
+    const roomElems = useElementsOfType("util-room");
+    const taskElems = useElementsOfType("task-");
     const selectedElem = useSelectedElemValue();
-    const typeElems = useElementType(selectedElem?.type ?? "");
+    const typeElems = useElementsOfType(selectedElem?.type ?? "");
     const sprite = useSpriteOfType(selectedElem?.type);
 
     const parentRoom = React.useMemo(() => {
@@ -62,9 +62,9 @@ export default function TaskPanel() {
                 />
                 <TaskTypeSelect />
                 {selectedElem.type !== "task-nodeswitch" && (
-                    <TextPanelInput
+                    <ElementPropTextInput
                         prop="description"
-                        name={"task.description"}
+                        name={t("task.description")}
                         icon={"Notes"}
                     />
                 )}

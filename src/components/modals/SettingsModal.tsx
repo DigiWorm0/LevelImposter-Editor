@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import SettingsSwitchInput from "../properties/input/SettingsSwitchInput";
-import SettingsNumericInput from "../properties/input/SettingsNumericInput";
+import SettingsSwitchInput from "../properties/input/settings/SettingsSwitchInput";
+import SettingsNumericInput from "../properties/input/settings/SettingsNumericInput";
 import SettingsLocalizationInput from "../properties/input/select/SettingsLocalizationInput";
 import GenericModal from "./GenericModal";
 

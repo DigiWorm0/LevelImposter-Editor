@@ -16,6 +16,7 @@ const INVISIBLE_TYPES = [
     "util-sabotages",
     "util-onewaycollider",
     "util-ghostcollider",
+    "util-decontamination",
 ]
 
 const INVISIBLE_TYPES_NO_SPRITE = [

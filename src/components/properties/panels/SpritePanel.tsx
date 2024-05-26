@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import LIColor from "../../../types/li/LIColor";
 import MapAsset from "../../../types/li/MapAsset";
 import getIsConsole from "../../../utils/getIsConsole";
@@ -9,6 +8,9 @@ import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import { MaybeGUID } from "../../../types/generic/GUID";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -37,72 +39,39 @@ const TYPE_BLACKLIST = [
 
 export default function SpritePanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
-    const asset = useMapAssetValue(selectedElem?.properties.spriteID);
+    const [spriteID, setSpriteID] = useSelectedElemProp<MaybeGUID>("spriteID");
+    const [color, setColor] = useSelectedElemProp<LIColor | undefined>("color");
+    const selectedType = useSelectedElemType();
+    const asset = useMapAssetValue(spriteID);
 
-    const isConsole = React.useMemo(() => {
-        return getIsConsole(selectedElem?.type || "");
-    }, [selectedElem]);
-
-    const isGIF = React.useMemo(() => {
-        return asset?.blob.type === "image/gif";
-    }, [selectedElem]);
-    const isCustomAnim = React.useMemo(() => {
-        return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
-    }, [selectedElem]);
+    const isConsole = selectedType !== undefined && getIsConsole(selectedType);
+    const isGIF = asset?.blob.type === "image/gif";
+    const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
 
     const onUpload = React.useCallback((asset: MapAsset) => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                spriteID: asset.id,
-                color: undefined
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setSpriteID(asset.id);
+        setColor(undefined);
+    }, [setSpriteID, setColor]);
 
     const onReset = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                spriteID: undefined,
-                color: undefined
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setSpriteID(undefined);
+        setColor(undefined);
+    }, [setSpriteID, setColor]);
 
-    const onColorChange = React.useCallback((color: LIColor) => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                color
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
-
-    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
+    if (!selectedType || TYPE_BLACKLIST.includes(selectedType))
         return null;
 
     return (
         <>
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
-                    name={selectedElem.name}
-                    defaultSpriteURL={`/sprites/${selectedElem.type}.png`}
-                    assetID={selectedElem.properties.spriteID}
+                    name={selectedType}
+                    defaultSpriteURL={`/sprites/${selectedType}.png`}
+                    assetID={spriteID}
                     onUpload={onUpload}
                     onReset={onReset}
-                    color={selectedElem.properties.color}
-                    onColorChange={onColorChange}
+                    color={color}
+                    onColorChange={setColor}
                 />
                 {isGIF && (
                     <ElementPropSwitch
@@ -115,35 +84,35 @@ export default function SpritePanel() {
             </PanelContainer>
             <MapError
                 info
-                isVisible={selectedElem.type.startsWith("util-vent")}
+                isVisible={selectedType?.startsWith("util-vent")}
                 icon="PlayArrow"
             >
                 {t("sprite.ventInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type.startsWith("sab-door")}
+                isVisible={selectedType?.startsWith("sab-door")}
                 icon="PlayArrow"
             >
                 {t("sprite.doorInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type === "util-cam"}
+                isVisible={selectedType === "util-cam"}
                 icon="PlayArrow"
             >
                 {t("sprite.camInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.properties.spriteID !== undefined && isConsole}
+                isVisible={spriteID !== undefined && isConsole}
                 icon="Padding"
             >
                 {t("sprite.paddingInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type === "util-filter"}
+                isVisible={selectedType === "util-filter"}
                 icon="Visibility"
             >
                 {t("sprite.filterInfo") as string}

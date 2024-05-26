@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { DEFAULT_SPORE_GAS_RANGE, DEFAULT_SPORE_RANGE } from "../../../types/generic/Constants";
-import ColorPanelInput from "../input/ColorPanelInput";
+import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
@@ -33,7 +33,7 @@ export default function SporePanel() {
                     stepSize={0.1}
                     color="primary"
                 />
-                <ColorPanelInput
+                <ElementPropColorInput
                     name={t("spore.gasColor") as string}
                     prop="gasColor"
                     defaultValue={{ r: 221, g: 0, b: 217, a: 0.498 }} // Purple

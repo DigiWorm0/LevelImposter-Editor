@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
@@ -11,6 +10,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import LISound from "../../../types/li/LISound";
+import FlexNumericInput from "../util/FlexNumericInput";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
@@ -36,31 +36,31 @@ export default function StepSoundPanel() {
                     stepSize={10}
                 />
                 <SoundPresetSelect />
-                <TextField
-                    fullWidth
-                    label={t("stepSound.soundCount")}
+                <FlexNumericInput
                     value={sounds.length}
-                    type={"number"}
-                    onChange={(e) => {
-                        const stringValue = e.target.value;
-                        if (stringValue === "")
-                            return;
-                        const value = parseInt(stringValue);
-                        if (value < 0)
-                            return;
+                    inputProps={{
+                        label: t("stepSound.soundCount"),
+                        fullWidth: true,
+                        sx: { mt: 1, mb: 1 }
+                    }}
+                    onChange={(value) => {
+                        // Expand the array
                         for (let i = 0; i < value; i++) {
-                            if (sounds[i] == null)
+                            if (!sounds[i]) {
                                 sounds[i] = {
                                     id: generateGUID(),
                                     presetID: undefined,
                                     volume: DEFAULT_VOLUME,
                                     isPreset: false
                                 };
+                            }
                         }
-                        for (let i = sounds.length - 1; i >= value; i--)
-                            sounds.splice(i, 1);
+
+                        // Shrink the array
+                        sounds.splice(value, sounds.length - value);
                         setSounds([...sounds]);
                     }}
+                    min={0}
                 />
 
                 <DropdownList

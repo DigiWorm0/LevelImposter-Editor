@@ -1,20 +1,13 @@
 import { Box, MenuItem, Select } from "@mui/material";
-import { atom, useAtomValue } from "jotai";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useElement from "../../../hooks/elements/useElements";
-import useSelectedElem, { selectedElementIDAtom } from "../../../hooks/elements/useSelectedElem";
-import { elementsAtom } from "../../../hooks/map/useMap";
 import { InputTriggerDB } from "../../../types/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import DevInfo from "../../utils/DevInfo";
 import ElementSelect from "../input/select/ElementSelect";
-
-const triggerInputsAtom = atom((get) => {
-    const elements = get(elementsAtom);
-    const selectedElemID = get(selectedElementIDAtom);
-    return elements.filter((elem) => elem.type in InputTriggerDB && elem.id !== selectedElemID);
-});
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useTriggerInputs from "../../../hooks/elements/triggers/useTriggerInputs";
 
 interface TriggerEditorProps {
     triggerID: string;
@@ -23,15 +16,18 @@ interface TriggerEditorProps {
 
 export default function TriggerEditorPanel(props: TriggerEditorProps) {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
-    const inputableTargets = useAtomValue(triggerInputsAtom);
+    const [triggers, setTriggers] = useSelectedElemProp<LITrigger[]>("triggers");
+    const inputableTargets = useTriggerInputs();
+
     const trigger = React.useMemo(() => {
-        return selectedElem?.properties.triggers?.find(trigger => trigger.id === props.triggerID) || {
+        return triggers?.find(trigger => trigger.id === props.triggerID) ?? {
             id: props.triggerID,
             triggerID: undefined,
             elemID: undefined,
         };
-    }, [selectedElem, props.triggerID]);
+    }, [triggers, props.triggerID]);
+
+    // The target element that the trigger will be set to
     const [targetElem, setTargetElem] = useElement(trigger?.elemID);
 
     // All Inputs that the selected element can trigger
@@ -40,32 +36,19 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
             return InputTriggerDB[(targetElem?.type ?? "") as keyof typeof InputTriggerDB];
     }, [targetElem]);
 
-    // Checks if a trigger is active
-    const isTriggerSelected = React.useMemo(() => {
-        return targetInputs?.includes(trigger.triggerID || "") ?? false;
-    }, [targetInputs, trigger.triggerID]);
-
     // Sets the trigger target
     const setTrigger = React.useCallback((trigger: LITrigger) => {
-        if (!selectedElem)
-            return;
-
-        const newTriggers = selectedElem.properties.triggers?.map((t) => {
+        const newTriggers = triggers?.map((t) => {
             if (t.id === trigger.id)
                 return trigger;
             return t;
         }) ?? [];
+
         if (!newTriggers.some((t) => t.id === trigger.id))
             newTriggers.push(trigger);
 
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                triggers: newTriggers,
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setTriggers(newTriggers);
+    }, [triggers, setTriggers]);
 
     // Adds the trigger to the target if it doesn't exist
     React.useEffect(() => {
@@ -90,9 +73,6 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
             }
         });
     }, [trigger, targetElem, setTargetElem]);
-
-    if (!selectedElem)
-        return null;
 
     return (
         <Box sx={{ p: 1 }}>

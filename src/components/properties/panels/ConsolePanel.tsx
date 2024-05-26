@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_CONSOLE_RANGE } from "../../../types/generic/Constants";
-import ColorPanelInput from "../input/ColorPanelInput";
+import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
@@ -35,7 +35,7 @@ export default function ConsolePanel() {
                     color="warning"
                 />
                 {selectedElem.type === "util-triggerconsole" && (
-                    <ColorPanelInput
+                    <ElementPropColorInput
                         name={t("console.highlightColor") as string}
                         prop="highlightColor"
                         defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow

@@ -1,5 +1,5 @@
 import React from "react";
-import NumericPanelInput, { ChildNumericInputProps } from "../generic/NumericPanelInput";
+import NumericPanelInput, { ChildNumericInputProps } from "../panel/NumericPanelInput";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import LIProperties from "../../../../types/li/LIProperties";
 

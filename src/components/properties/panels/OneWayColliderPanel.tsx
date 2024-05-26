@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useElementType } from "../../../hooks/elements/useTypes";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
@@ -13,7 +13,7 @@ export default function OneWayColliderPanel() {
     const { t } = useTranslation();
     const isOneWayCollider = useIsSelectedElemType("util-onewaycollider");
     const parentID = useSelectedElemPropValue<MaybeGUID>("parent")
-    const roomElems = useElementType("util-room");
+    const roomElems = useElementsOfType("util-room");
     const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === parentID), [roomElems, parentID]);
 
     if (!isOneWayCollider)

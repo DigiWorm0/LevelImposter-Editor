@@ -1,15 +1,15 @@
 import React from "react";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import LIMinigameProps from "../../../../types/li/LIMinigameProps";
-import NumericPanelInput, { ChildNumericInputProps } from "../panel/NumericPanelInput";
+import TextPanelInput, { ChildTextInputProps } from "../panel/TextPanelInput";
 
 
-export default function MinigamePropNumericInput(props: ChildNumericInputProps<LIMinigameProps>) {
+export default function MinigamePropTextInput(props: ChildTextInputProps<LIMinigameProps>) {
     const [minigameProps, setMinigameProps] = useSelectedElemProp<LIMinigameProps>("minigameProps")
 
     return (
-        <NumericPanelInput
-            value={minigameProps?.[props.prop] ?? props.defaultValue}
+        <TextPanelInput
+            value={minigameProps?.[props.prop] ?? props.defaultValue ?? ""}
             onChange={(value) => {
                 setMinigameProps({
                     ...minigameProps,

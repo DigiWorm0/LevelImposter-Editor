@@ -2,6 +2,7 @@ import { atom, useAtomValue } from "jotai/index";
 import { atomFamily } from "jotai/utils";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { elementsAtom } from "../map/useMap";
+import compareArrays from "../../utils/compareArrays";
 
 export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
     let prevValue: MaybeGUID[] = [];
@@ -11,10 +12,8 @@ export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
             const filteredValues = elements.filter(elem => elem.parentID === id).map((elem) => elem.id);
 
             // HACK: Only update if the values have changed
-            if (filteredValues.length !== prevValue.length ||
-                filteredValues.some((value, index) => value !== prevValue[index])) {
+            if (!compareArrays(filteredValues, prevValue))
                 prevValue = filteredValues;
-            }
 
             return prevValue;
         }

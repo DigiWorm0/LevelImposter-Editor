@@ -159,6 +159,7 @@
 	},
 	"stepSound": {
 		"title": "Step Sound",
+		"soundCount": "Sound Count",
 		"presets": "Sound Presets",
 		"priority": "Priority",
 		"variants": "Variants",
