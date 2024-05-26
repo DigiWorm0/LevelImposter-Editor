@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp, { useSelectedElemPropValue } from "../../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../../types/generic/GUID";
 
 export interface VentSelectProps {
     prop: "leftVent" | "middleVent" | "rightVent";
@@ -9,10 +8,10 @@ export interface VentSelectProps {
 
 export default function VentSelect(props: VentSelectProps) {
     const { t } = useTranslation();
-    const [ventID, setVentID] = useSelectedElemProp<MaybeGUID>(props.prop)
-    const leftVent = useSelectedElemPropValue<MaybeGUID>("leftVent");
-    const middleVent = useSelectedElemPropValue<MaybeGUID>("middleVent");
-    const rightVent = useSelectedElemPropValue<MaybeGUID>("rightVent");
+    const [ventID, setVentID] = useSelectedElemProp(props.prop)
+    const leftVent = useSelectedElemPropValue("leftVent");
+    const middleVent = useSelectedElemPropValue("middleVent");
+    const rightVent = useSelectedElemPropValue("rightVent");
 
     return (
         <ElementSelect

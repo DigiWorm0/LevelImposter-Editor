@@ -13,7 +13,7 @@ export interface ColorInputProps {
 }
 
 export default function MinigamePropColorInput(props: ColorInputProps) {
-    const [minigameProps, setMinigameProps] = useSelectedElemProp<LIMinigameProps>("minigameProps");
+    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps");
 
     const value = minigameProps?.[props.prop] as LIColor;
 

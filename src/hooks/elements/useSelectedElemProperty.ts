@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { LIPropName } from "../../types/li/LIProperties";
+import LIProperties, { LIPropName } from "../../types/li/LIProperties";
 import { selectedElementAtom } from "./useSelectedElem";
 
 // Atoms
@@ -18,14 +18,14 @@ export const selectedElementPropAtom = atomFamily((propName: LIPropName) => {
 });
 
 // Hooks
-export default function useSelectedElemProp<T>(propName: LIPropName) {
-    return useAtom(selectedElementPropAtom(propName)) as [T | undefined, (newValue: T) => void];
+export default function useSelectedElemProp<T extends LIPropName>(propName: T) {
+    return useAtom(selectedElementPropAtom(propName)) as [LIProperties[T] | undefined, (newValue: LIProperties[T]) => void];
 }
 
-export function useSetSelectedElemProp<T>(propName: LIPropName) {
-    return useSetAtom(selectedElementPropAtom(propName)) as (newValue: T) => void;
+export function useSetSelectedElemProp<T extends LIPropName>(propName: T) {
+    return useSetAtom(selectedElementPropAtom(propName)) as (newValue: LIProperties[T]) => void;
 }
 
-export function useSelectedElemPropValue<T>(propName: LIPropName) {
-    return useAtomValue(selectedElementPropAtom(propName)) as T | undefined;
+export function useSelectedElemPropValue<T extends LIPropName>(propName: T) {
+    return useAtomValue(selectedElementPropAtom(propName)) as LIProperties[T] | undefined;
 }

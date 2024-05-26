@@ -4,11 +4,10 @@ import { PRESET_RESOURCE_IDS } from "../../../../types/db/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../../types/generic/Constants";
 import generateGUID from "../../../../utils/generateGUID";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
-import LISound from "../../../../types/li/LISound";
 
 export default function SoundPresetSelect() {
     const { t } = useTranslation();
-    const [sounds, setSounds] = useSelectedElemProp<LISound[]>("sounds");
+    const [sounds, setSounds] = useSelectedElemProp("sounds");
 
     return (
         <Select

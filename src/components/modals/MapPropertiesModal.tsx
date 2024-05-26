@@ -1,6 +1,6 @@
-import MapSwitchInput from "../properties/input/MapSwitchInput";
-import MapSkyboxInput from "../properties/input/MapSkyboxInput";
-import MapExileInput from "../properties/input/MapExileInput";
+import MapSwitchInput from "../properties/input/mapProps/MapSwitchInput";
+import MapSkyboxInput from "../properties/input/mapProps/MapSkyboxInput";
+import MapExileInput from "../properties/input/mapProps/MapExileInput";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "./GenericModal";

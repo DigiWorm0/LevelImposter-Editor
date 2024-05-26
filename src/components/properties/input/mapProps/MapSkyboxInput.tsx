@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useMapProperties } from "../../../hooks/map/useMap";
-import ColorPicker from "../../utils/ColorPicker";
-import LIColor from "../../../types/li/LIColor";
+import { useMapProperties } from "../../../../hooks/map/useMap";
+import ColorPicker from "../../../utils/ColorPicker";
+import LIColor from "../../../../types/li/LIColor";
 import { Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Palette, Refresh } from "@mui/icons-material";
 

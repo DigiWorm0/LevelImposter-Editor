@@ -1,11 +1,10 @@
 import { useTranslation } from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../../types/generic/GUID";
 
 export default function TeleSelect() {
     const { t } = useTranslation();
-    const [teleporterID, setTeleporterID] = useSelectedElemProp<MaybeGUID>("teleporter");
+    const [teleporterID, setTeleporterID] = useSelectedElemProp("teleporter");
 
     return (
         <ElementSelect

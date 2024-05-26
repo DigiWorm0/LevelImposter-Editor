@@ -8,7 +8,6 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import LISound from "../../../types/li/LISound";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";
@@ -18,7 +17,7 @@ export default function VentPanel() {
     const isVent1 = useIsSelectedElemType("util-vent1");
     const isVent2 = useIsSelectedElemType("util-vent2");
     const isVent3 = useIsSelectedElemType("util-vent3");
-    const sounds = useSelectedElemPropValue<LISound[]>("sounds") ?? [];
+    const sounds = useSelectedElemPropValue("sounds") ?? [];
     const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === VENT_OPEN_SOUND), [sounds]);

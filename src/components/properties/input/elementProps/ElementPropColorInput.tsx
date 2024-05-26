@@ -13,7 +13,8 @@ export interface ColorInputProps {
 }
 
 export default function ElementPropColorInput(props: ColorInputProps) {
-    const [color, setColor] = useSelectedElemProp<LIColor>(props.prop);
+    const [_color, setColor] = useSelectedElemProp(props.prop);
+    const color = _color as LIColor;
 
     return (
         <Box sx={{ textAlign: "center" }}>

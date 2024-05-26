@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
-import LIColor from "../../../types/li/LIColor";
 import MapAsset from "../../../types/li/MapAsset";
 import getIsConsole from "../../../utils/getIsConsole";
 import ImageUpload from "../util/ImageUpload";
@@ -9,7 +8,6 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../types/generic/GUID";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 
 const TYPE_BLACKLIST = [
@@ -39,8 +37,8 @@ const TYPE_BLACKLIST = [
 
 export default function SpritePanel() {
     const { t } = useTranslation();
-    const [spriteID, setSpriteID] = useSelectedElemProp<MaybeGUID>("spriteID");
-    const [color, setColor] = useSelectedElemProp<LIColor | undefined>("color");
+    const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
+    const [color, setColor] = useSelectedElemProp("color");
     const selectedType = useSelectedElemType();
     const asset = useMapAssetValue(spriteID);
 

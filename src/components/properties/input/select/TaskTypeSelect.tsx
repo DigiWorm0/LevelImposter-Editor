@@ -8,7 +8,7 @@ import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemPrope
 export default function TaskTypeSelect() {
     const { t } = useTranslation();
     const type = useSelectedElemType();
-    const [taskLength, setTaskLength] = useSelectedElemProp<TaskLength | undefined>("taskLength");
+    const [taskLength, setTaskLength] = useSelectedElemProp("taskLength");
 
     const defaultTaskLength = React.useMemo(() => {
         if (!type)

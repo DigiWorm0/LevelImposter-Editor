@@ -7,12 +7,11 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../types/generic/GUID";
 
 export default function OneWayColliderPanel() {
     const { t } = useTranslation();
     const isOneWayCollider = useIsSelectedElemType("util-onewaycollider");
-    const parentID = useSelectedElemPropValue<MaybeGUID>("parent")
+    const parentID = useSelectedElemPropValue("parent")
     const roomElems = useElementsOfType("util-room");
     const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === parentID), [roomElems, parentID]);
 

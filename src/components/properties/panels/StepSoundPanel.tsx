@@ -9,13 +9,12 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import LISound from "../../../types/li/LISound";
 import FlexNumericInput from "../util/FlexNumericInput";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
     const isStepSound = useIsSelectedElemType("util-sound2");
-    const [_sounds, setSounds] = useSelectedElemProp<LISound[]>("sounds");
+    const [_sounds, setSounds] = useSelectedElemProp("sounds");
     const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
     const sounds = _sounds ?? [];

@@ -10,7 +10,6 @@ import MinigamePropSwitch from "../input/minigame/MinigamePropSwitch";
 import MinigamePropTextInput from "../input/minigame/MinigamePropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import LIMinigameSprite from "../../../types/li/LIMinigameSprite";
 import MinigamePropColorInput from "../input/minigame/MinigamePropColorInput";
 
 const POLUS_DOOR_MINIGAMES = [
@@ -23,8 +22,8 @@ const POLUS_DOOR_MINIGAMES = [
 export default function MinigamePanel() {
     const { t } = useTranslation();
     const selectedType = useSelectedElemType();
-    const doorType = useSelectedElemPropValue<DoorType>("doorType") ?? DoorType.Skeld;
-    const minigames = useSelectedElemPropValue<LIMinigameSprite[]>("minigames") || [];
+    const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
+    const minigames = useSelectedElemPropValue("minigames") || [];
     const [selectedMinigameType, setSelectedMinigameType] = React.useState<string | undefined>(undefined);
 
     const minigameSprites = AUMinigameDB.filter((mg) => mg.split("_")[0] === selectedType);

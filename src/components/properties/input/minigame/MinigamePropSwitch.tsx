@@ -5,7 +5,7 @@ import LIMinigameProps from "../../../../types/li/LIMinigameProps";
 
 
 export default function MinigamePropSwitch(props: ChildSwitchInputProps<LIMinigameProps>) {
-    const [minigameProps, setMinigameProps] = useSelectedElemProp<LIMinigameProps>("minigameProps")
+    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps")
 
     return (
         <SwitchPanelInput

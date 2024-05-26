@@ -1,17 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import LISound from "../../../types/li/LISound";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SoundUpload from "../util/SoundUpload";
 import useSelectedElemProp, { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import LICollider from "../../../types/li/LICollider";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function SoundPanel() {
     const { t } = useTranslation();
-    const [sounds, setSounds] = useSelectedElemProp<LISound[]>("sounds");
-    const colliders = useSelectedElemPropValue<LICollider[]>("colliders");
+    const [sounds, setSounds] = useSelectedElemProp("sounds");
+    const colliders = useSelectedElemPropValue("colliders");
     const isSound = useIsSelectedElemType("util-sound1");
     const isTriggerSound = useIsSelectedElemType("util-triggersound");
 

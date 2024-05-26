@@ -1,37 +1,43 @@
 import { Delete, Lock, LockOpen, RotateLeft, SwapHoriz, SwapVert } from "@mui/icons-material";
 import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
 import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
-import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import AUElementDB from "../../../types/db/AUElementDB";
-import getIsConsole from "../../../utils/getIsConsole";
-import getElemVisibility, { ElemVisibility } from "../../../utils/getMapVisibility";
+import { ElemVisibility } from "../../../utils/getMapVisibility";
 import InputGroup from "../input/InputGroup";
-import FlexNumericInput from "../util/FlexNumericInput";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
+import { useSelectedElemIDValue } from "../../../hooks/elements/useSelectedElem";
+import useElementVisibility from "../../../hooks/elements/useElementVisibility";
+import TransformNumericInput from "../input/TransformNumericInput";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
+import getIsConsole from "../../../utils/getIsConsole";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
+    const [type, setType] = useSelectedElemTransform<string>("type");
+    const [name, setName] = useSelectedElemTransform<string>("name");
+    const [xScale] = useSelectedElemTransform<number>("xScale");
+    const [yScale] = useSelectedElemTransform<number>("yScale");
+    const [isLocked, setLocked] = useSelectedElemProp("isLocked");
+    const selectedElemID = useSelectedElemIDValue();
+    const elemVisibility = useElementVisibility(selectedElemID);
+
     const removeSelectedElement = useRemoveSelectedElement();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
     const { isDevMode } = useSettingsValue();
     const fixSprite = useFixSpriteScaling();
 
     // Gets if the selected element is a console object
-    const isConsole = getIsConsole(selectedElem?.type || "");
+    const isConsole = getIsConsole(type || "");
 
     // Gets if the selected element is a camera object
-    const isCamera = selectedElem?.type === "util-cam";
+    const isCamera = type === "util-cam";
 
-    // Gets the visibility of the selected element
-    const elemVisibility = getElemVisibility(selectedElem);
-
-    if (!selectedElem)
+    if (!selectedElemID)
         return null;
-
     return (
         <>
             <PanelContainer
@@ -39,11 +45,11 @@ export default function TransformPanel() {
                 style={{ paddingTop: 0 }}
             >
                 <TextField
-                    key={selectedElem.id + "-type"}
+                    key={selectedElemID + "-type"}
                     disabled={!isDevMode}
                     size={"small"}
                     variant={"standard"}
-                    defaultValue={selectedElem.type}
+                    defaultValue={type}
                     placeholder={t("transform.type") as string}
                     InputProps={{
                         startAdornment: (
@@ -53,128 +59,43 @@ export default function TransformPanel() {
                         ),
                         endAdornment: (
                             <InputAdornment position={"end"}>
-                                {AUElementDB.includes(selectedElem.type) ? t(`au.${selectedElem.type}`) : "?"}
+                                {AUElementDB.includes(type || "") ? t(`au.${type}`) : "?"}
                             </InputAdornment>
                         )
                     }}
                     onChange={(e) => {
-                        setSelectedElem({ ...selectedElem, type: e.target.value });
+                        setType(e.target.value);
                     }}
                     sx={{ marginBottom: 1 }}
                 />
                 <TextField
                     style={{ marginBottom: 5 }}
-                    key={selectedElem.id + "-name"}
+                    key={selectedElemID + "-name"}
                     size={"small"}
-                    value={selectedElem.name}
+                    value={name}
                     placeholder={t("transform.name") as string}
                     fullWidth
-                    onChange={(e) => {
-                        setSelectedElem({ ...selectedElem, name: e.target.value });
-                    }}
+                    onChange={(e) => setName(e.target.value)}
                 />
-                {selectedElem.type !== "util-layer" && (<>
+                {type !== "util-layer" && (<>
                     <InputGroup>
-                        <FlexNumericInput
-                            value={selectedElem.x}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, x: val });
-                            }}
-                            stepSize={0.1}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.x") as string,
-                            }}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.y}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, y: val });
-                            }}
-                            stepSize={0.1}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.y") as string,
-                            }}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.z}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, z: val });
-                            }}
-                            stepSize={0.1}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.z") as string,
-                            }}
-                        />
+                        <TransformNumericInput name={t("transform.x")} prop={"x"} />
+                        <TransformNumericInput name={t("transform.y")} prop={"y"} />
+                        <TransformNumericInput name={t("transform.z")} prop={"z"} />
                     </InputGroup>
                     <InputGroup>
-                        <FlexNumericInput
-                            value={selectedElem.xScale}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, xScale: val });
-                            }}
-                            stepSize={0.25}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.xScale") as string,
-                                InputProps: {
-                                    endAdornment: (<InputAdornment position={"end"}><SwapHoriz /></InputAdornment>)
-                                },
-                            }}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.yScale}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, yScale: val });
-                            }}
-                            stepSize={0.25}
-                            inputProps={{
-                                size: "small",
-                                fullWidth: true,
-                                placeholder: t("transform.yScale") as string,
-                                InputProps: {
-                                    endAdornment: (<InputAdornment position={"end"}><SwapVert /></InputAdornment>)
-                                }
-                            }}
-                        />
+                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={"SwapHoriz"} />
+                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={"SwapVert"} />
                     </InputGroup>
-                    <FlexNumericInput
-                        value={selectedElem.rotation}
-                        onChange={(val) => {
-                            setSelectedElem({ ...selectedElem, rotation: val });
-                        }}
-                        stepSize={45}
-                        inputProps={{
-                            size: "small",
-                            fullWidth: true,
-                            placeholder: t("transform.rotation") as string,
-                            InputProps: {
-                                endAdornment: (<InputAdornment position={"end"}><RotateLeft /></InputAdornment>)
-                            },
-                        }}
-                    />
+                    <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={"RotateLeft"} />
                     <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                         <Button
                             variant={"text"}
                             color={"inherit"}
-                            startIcon={selectedElem.properties.isLocked ? <Lock /> : <LockOpen />}
-                            onClick={() => {
-                                setSelectedElem({
-                                    ...selectedElem,
-                                    properties: {
-                                        ...selectedElem.properties,
-                                        isLocked: !selectedElem.properties.isLocked
-                                    }
-                                });
-                            }}
+                            startIcon={isLocked ? <Lock /> : <LockOpen />}
+                            onClick={() => setLocked(!isLocked)}
                         >
-                            {selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
+                            {isLocked ? t("transform.unlock") : t("transform.lock")}
                         </Button>
                         <Button
                             variant={"text"}
@@ -198,7 +119,7 @@ export default function TransformPanel() {
                 {elemVisibility === ElemVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
             </MapError>
             <MapError
-                isVisible={isConsole && (Math.abs(selectedElem.xScale) != 1 || Math.abs(selectedElem.yScale) != 1)}
+                isVisible={isConsole && (Math.abs(xScale || 1) != 1 || Math.abs(yScale || 1) != 1)}
                 buttonText={t("transform.autoFix") as string}
                 buttonIcon="Build"
                 onButtonClick={fixSprite}

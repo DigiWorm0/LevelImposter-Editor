@@ -14,6 +14,10 @@ import { Scope } from "../../hooks/input/useHotkeysHandler";
 import { Paper } from "@mui/material";
 import useDeselectAll from "../../hooks/map/useDeselectAll";
 
+const TOP_PADDING = 50;
+const LEFT_PADDING = 250;
+const RIGHT_PADDING = 316;
+
 export default function Canvas() {
     const stageRef = useCameraControl();
     const [windowWidth, windowHeight] = useWindowSize();
@@ -21,6 +25,8 @@ export default function Canvas() {
     const { enableScope, disableScope } = useHotkeysContext();
     const deselectAll = useDeselectAll();
 
+    const canvasWidth = windowWidth - LEFT_PADDING - RIGHT_PADDING;
+    const canvasHeight = windowHeight - TOP_PADDING;
 
     return (
         <Paper
@@ -31,19 +37,19 @@ export default function Canvas() {
             onBlur={() => disableScope(Scope.Canvas)}
             sx={{
                 position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
+                top: TOP_PADDING,
+                left: LEFT_PADDING,
+                right: RIGHT_PADDING,
                 bottom: 0,
                 zIndex: -1
             }}
         >
             <Stage
                 id="canvas"
-                width={windowWidth}
-                height={windowHeight}
-                x={windowWidth / 2}
-                y={windowHeight / 2}
+                width={canvasWidth}
+                height={canvasHeight}
+                x={canvasWidth / 2}
+                y={canvasHeight / 2}
                 ref={stageRef}
                 perfectDrawEnabled={false}
                 imageSmoothingEnabled={properties.pixelArtMode !== true}
@@ -52,13 +58,12 @@ export default function Canvas() {
                 <Provider store={primaryStore}>
                     <Layer>
                         <MapElementsRenderer />
-                        <CanvasGrid />
                         <SelectedMapElement />
-                        <MapSorter />
+                        <CanvasGrid />
                     </Layer>
                 </Provider>
-
             </Stage>
+            <MapSorter />
         </Paper>
     );
 }

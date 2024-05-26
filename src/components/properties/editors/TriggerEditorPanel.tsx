@@ -16,7 +16,7 @@ interface TriggerEditorProps {
 
 export default function TriggerEditorPanel(props: TriggerEditorProps) {
     const { t } = useTranslation();
-    const [triggers, setTriggers] = useSelectedElemProp<LITrigger[]>("triggers");
+    const [triggers, setTriggers] = useSelectedElemProp("triggers");
     const inputableTargets = useTriggerInputs();
 
     const trigger = React.useMemo(() => {

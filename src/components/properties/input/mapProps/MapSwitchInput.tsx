@@ -1,8 +1,8 @@
 import React from "react";
-import LIMapProperties from "../../../types/li/LIMapProperties";
-import { useMapProperties } from "../../../hooks/map/useMap";
+import LIMapProperties from "../../../../types/li/LIMapProperties";
+import { useMapProperties } from "../../../../hooks/map/useMap";
 import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
+import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 
 export interface MapSwitchInputProps {
     name: string;

@@ -13,7 +13,7 @@ export default function MinimapPanel() {
     const { t } = useTranslation();
     const [isVisible, setVisible] = React.useState(false);
     const isMinimap = useIsSelectedElemType("util-minimap");
-    const spriteID = useSelectedElemPropValue<string>("spriteID");
+    const spriteID = useSelectedElemPropValue("spriteID");
 
     if (!isMinimap)
         return null;

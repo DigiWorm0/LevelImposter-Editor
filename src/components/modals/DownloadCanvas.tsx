@@ -6,11 +6,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Stage } from 'react-konva';
 import { useSelectedElemValue } from '../../hooks/elements/useSelectedElem';
-import { useElementIDs } from '../../hooks/map/useMap';
 import primaryStore from '../../hooks/primaryStore';
 import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
 import MapElement from '../canvas/MapElement';
 import GenericModal from "./GenericModal";
+import useElementIDs from "../../hooks/elements/useElementIDs";
 
 export default function DownloadCanvasDialog(props: { isVisible: boolean, setVisible: (isVisible: boolean) => void }) {
     const minimap = useSelectedElemValue();

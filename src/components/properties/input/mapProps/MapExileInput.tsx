@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useMapProperties } from "../../../hooks/map/useMap";
+import { useMapProperties } from "../../../../hooks/map/useMap";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select } from "@mui/material";
 import { ExitToApp } from "@mui/icons-material";
-import { EXILE_IDS } from "../../../types/db/AUElementDB";
+import { EXILE_IDS } from "../../../../types/db/AUElementDB";
 
 
 export default function MapExileInput() {

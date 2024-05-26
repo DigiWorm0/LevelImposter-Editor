@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../../types/generic/GUID";
 
 export interface RoomSelectProps {
     useDefault: boolean;
@@ -10,7 +9,7 @@ export interface RoomSelectProps {
 
 export default function RoomSelect(props: RoomSelectProps) {
     const { t } = useTranslation();
-    const [parent, setParent] = useSelectedElemProp<MaybeGUID>("parent");
+    const [parent, setParent] = useSelectedElemProp("parent");
 
     return (
         <ElementSelect

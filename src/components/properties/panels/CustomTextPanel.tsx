@@ -5,14 +5,13 @@ import PanelContainer from "../util/PanelContainer";
 import AUTextDB from "../../../types/db/AUTextDB";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import LICustomText from "../../../types/li/LICustomText";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import { Clear, Notes } from "@mui/icons-material";
 
 export default function CustomTextPanel() {
     const { t } = useTranslation();
     const selectedType = useSelectedElemType();
-    const [customText, setCustomText] = useSelectedElemProp<LICustomText>("customText")
+    const [customText, setCustomText] = useSelectedElemProp("customText")
 
     const customTextIDs = AUTextDB[selectedType ?? ""] ?? [];
 

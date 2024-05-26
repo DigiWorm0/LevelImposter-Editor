@@ -5,15 +5,14 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../types/generic/GUID";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useElementIDExists from "../../../hooks/elements/useElementIDExists";
 
 export default function DecontaminationPanel() {
     const { t } = useTranslation();
     const isDecontamination = useIsSelectedElemType("util-decontamination");
-    const doorIDA = useSelectedElemPropValue<MaybeGUID>("doorA");
-    const doorIDB = useSelectedElemPropValue<MaybeGUID>("doorB");
+    const doorIDA = useSelectedElemPropValue("doorA");
+    const doorIDB = useSelectedElemPropValue("doorB");
     const doorExistsA = useElementIDExists(doorIDA);
     const doorExistsB = useElementIDExists(doorIDB);
 

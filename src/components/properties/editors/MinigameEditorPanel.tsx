@@ -5,7 +5,6 @@ import MapAsset from "../../../types/li/MapAsset";
 import generateGUID from "../../../utils/generateGUID";
 import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import LIMinigameSprite from "../../../types/li/LIMinigameSprite";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -15,7 +14,7 @@ interface MinigameEditorPanelProps {
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const { t } = useTranslation();
-    const [minigames, setMinigames] = useSelectedElemProp<LIMinigameSprite[]>("minigames");
+    const [minigames, setMinigames] = useSelectedElemProp("minigames");
 
     const minigameType = props.minigameType;
     const splitMinigameType = minigameType.split("_");
@@ -45,7 +44,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
 
         // Update the minigames
         setMinigames(newMinigames);
-        
+
     }, [minigames, minigame, setMinigames]);
 
     return (

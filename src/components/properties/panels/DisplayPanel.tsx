@@ -13,8 +13,8 @@ const MAX_PIXELS = 1920 * 1080;
 export default function CamPanel() {
     const { t } = useTranslation();
 
-    const displayWidth = useSelectedElemPropValue<number>("displayWidth") ?? DEFAULT_DISPLAY_WIDTH;
-    const displayHeight = useSelectedElemPropValue<number>("displayHeight") ?? DEFAULT_DISPLAY_HEIGHT;
+    const displayWidth = useSelectedElemPropValue("displayWidth") ?? DEFAULT_DISPLAY_WIDTH;
+    const displayHeight = useSelectedElemPropValue("displayHeight") ?? DEFAULT_DISPLAY_HEIGHT;
     const isDisplay = useIsSelectedElemType("util-display");
 
     const pixelCount = displayWidth * displayHeight;

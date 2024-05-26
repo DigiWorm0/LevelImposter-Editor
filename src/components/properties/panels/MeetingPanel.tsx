@@ -4,14 +4,13 @@ import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import { MaybeGUID } from "../../../types/generic/GUID";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { Box } from "@mui/material";
 
 export default function MeetingPanel() {
     const { t } = useTranslation();
     const isMeeting = useIsSelectedElemType("util-meeting");
-    const [meetingBackgroundID, setMeetingBackgroundID] = useSelectedElemProp<MaybeGUID>("meetingBackgroundID");
+    const [meetingBackgroundID, setMeetingBackgroundID] = useSelectedElemProp("meetingBackgroundID");
 
     if (!isMeeting)
         return null;

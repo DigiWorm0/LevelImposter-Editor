@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { MaybeGUID } from "../../../../types/generic/GUID";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
@@ -9,7 +8,7 @@ export interface DoorSelectProps {
 
 export default function DoorSelect(props: DoorSelectProps) {
     const { t } = useTranslation();
-    const [doorID, setDoorID] = useSelectedElemProp<MaybeGUID>(props.prop);
+    const [doorID, setDoorID] = useSelectedElemProp(props.prop);
 
     return (
         <ElementSelect

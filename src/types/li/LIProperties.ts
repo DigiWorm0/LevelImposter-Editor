@@ -143,3 +143,6 @@ export default interface LIProperties {
 };
 
 export type LIPropName = keyof LIProperties;
+export type LIPropNameType<T> = {
+    [K in keyof LIProperties]: LIProperties[K] extends T ? K : never;
+}[keyof LIProperties];

@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useSelectedTriggerID } from "../../../hooks/elements/useSelectedTrigger";
-import { useElementIDs } from "../../../hooks/map/useMap";
 import { OutputTriggerDB } from "../../../types/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import DropdownList from "../util/DropdownList";
@@ -10,6 +9,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useElementIDs from "../../../hooks/elements/useElementIDs";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",

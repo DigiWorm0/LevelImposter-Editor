@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
 import { DoorType } from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
-import DoorTypeSelect from "../input/DoorTypeSelect";
+import DoorTypeSelect from "../input/select/DoorTypeSelect";
 import RoomSelect from "../input/select/RoomSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -12,8 +12,6 @@ import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import { useElementValue } from "../../../hooks/elements/useElements";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import LISound from "../../../types/li/LISound";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
 
 const DOOR_OPEN_SOUND = "doorOpen";
@@ -25,8 +23,8 @@ export default function DoorPanel() {
     const doorElemCount = useElementTypeCount("sab-door");
 
     const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
-    const parentRoomID = useSelectedElemPropValue<MaybeGUID>("parent");
-    const sounds = useSelectedElemPropValue<LISound[]>("sounds") || [];
+    const parentRoomID = useSelectedElemPropValue("parent");
+    const sounds = useSelectedElemPropValue("sounds") || [];
     const parentRoom = useElementValue(parentRoomID);
 
     const isDoorV = useIsSelectedElemType("sab-doorv");

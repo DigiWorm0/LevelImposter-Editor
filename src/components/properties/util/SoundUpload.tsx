@@ -9,7 +9,7 @@ import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";
 import { Check, CloudUpload, Refresh } from "@mui/icons-material";
-import { Button, ButtonGroup, Select, Typography } from "@mui/material";
+import { Button, ButtonGroup, MenuItem, Select, Typography } from "@mui/material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 
 interface SoundUploadProps {
@@ -101,25 +101,6 @@ export default function SoundUpload(props: SoundUploadProps) {
                 </Typography>
             )}
 
-            {/* Channel */}
-            {props.editChannel && (
-                <Select
-                    fullWidth
-                    onChange={(e) => {
-                        const channel = e.target.value as LISoundChannel;
-                        if (props.sound)
-                            props.onChange({
-                                ...props.sound,
-                                channel
-                            });
-                    }}
-                >
-                    {Object.values(LISoundChannel).map((channel) =>
-                        t(`audio.${channel ?? LISoundChannel.SFX}`)
-                    )}
-                </Select>
-            )}
-
             {/* Buttons */}
             <ButtonGroup fullWidth>
                 <Button
@@ -149,6 +130,31 @@ export default function SoundUpload(props: SoundUploadProps) {
                     <Refresh />
                 </Button>
             </ButtonGroup>
+
+            {/* Channel */}
+            {props.editChannel && (
+                <Select
+                    sx={{ mt: 1 }}
+                    size={"small"}
+                    fullWidth
+                    value={props.sound?.channel ?? LISoundChannel.SFX}
+                    onChange={(e) => {
+                        const channel = e.target.value as LISoundChannel;
+                        if (props.sound) {
+                            props.onChange({
+                                ...props.sound,
+                                channel
+                            });
+                        }
+                    }}
+                >
+                    {Object.values(LISoundChannel).map((channel) =>
+                        <MenuItem key={channel} value={channel}>
+                            {t(`audio.${channel}`)}
+                        </MenuItem>
+                    )}
+                </Select>
+            )}
 
             {/* Drag & Drop File Upload */}
             <div

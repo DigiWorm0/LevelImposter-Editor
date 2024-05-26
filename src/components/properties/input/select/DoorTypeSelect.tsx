@@ -1,12 +1,12 @@
 import { QuestionMark } from "@mui/icons-material";
 import { IconButton, MenuItem, Select, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import InputGroup from "./InputGroup";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import InputGroup from "../InputGroup";
+import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
 export default function DoorTypeSelect() {
     const { t } = useTranslation();
-    const [doorType, setDoorType] = useSelectedElemProp<string>("doorType");
+    const [doorType, setDoorType] = useSelectedElemProp("doorType");
 
     return (
         <InputGroup>

@@ -4,8 +4,8 @@ import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../types/gener
 
 export default function DisplayRender() {
     const isDisplay = useIsSelectedElemType("util-display");
-    const displayHeight = useSelectedElemPropValue<number>("displayHeight");
-    const displayWidth = useSelectedElemPropValue<number>("displayWidth");
+    const displayHeight = useSelectedElemPropValue("displayHeight");
+    const displayWidth = useSelectedElemPropValue("displayWidth");
 
     if (!isDisplay)
         return null;

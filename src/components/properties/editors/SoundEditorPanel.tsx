@@ -15,7 +15,7 @@ interface SoundEditorProps {
 }
 
 export default function SoundEditorPanel(props: SoundEditorProps) {
-    const [sounds, setSounds] = useSelectedElemProp<LISound[]>("sounds");
+    const [sounds, setSounds] = useSelectedElemProp("sounds");
 
     const sound = React.useMemo(() => {
         if (props.soundType)
