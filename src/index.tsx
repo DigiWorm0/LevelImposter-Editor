@@ -6,7 +6,7 @@ import '@fontsource/roboto/700.css';
 import { createRoot } from 'react-dom/client';
 import App from './components/screens/App';
 import './utils/Localization';
-import './style/index.css';
+import './style/style.css';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
