@@ -1,12 +1,12 @@
 import { atom, useAtomValue } from "jotai";
 import { atomFamily } from "jotai/utils";
-import { selectedElementAtom } from "./useSelectedElem";
+import { selectedElementTypeAtom } from "./useSelectedElemType";
 
 // Atoms
 export const selectedElementIsTypeAtom = atomFamily((type: string) => {
     return atom((get) => {
-        const selectedElement = get(selectedElementAtom);
-        return selectedElement && type === selectedElement.type;
+        const selectedElementType = get(selectedElementTypeAtom);
+        return type === selectedElementType;
     });
 });
 

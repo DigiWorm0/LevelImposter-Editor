@@ -15,7 +15,7 @@ interface AudioPlayerProps {
 export default function AudioPlayer(props: AudioPlayerProps) {
     const { t } = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
-    const animRef = React.useRef<number>(0);
+    
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
     const [isPlaying, setIsPlaying] = React.useState(false);

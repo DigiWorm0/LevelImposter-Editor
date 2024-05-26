@@ -5,6 +5,7 @@ import LIMinigameProps from "./LIMinigameProps";
 import LIMinigameSprite from "./LIMinigameSprite";
 import LISound from "./LISound";
 import LITrigger from "./LITrigger";
+import LICustomText from "./LICustomText";
 
 export default interface LIProperties {
 
@@ -27,6 +28,9 @@ export default interface LIProperties {
     // Minigame
     minigames?: LIMinigameSprite[];
     minigameProps?: LIMinigameProps;
+
+    // Texts
+    customText?: LICustomText;
 
     // Sprite
     spriteID?: GUID;

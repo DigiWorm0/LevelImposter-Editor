@@ -30,6 +30,7 @@ import DecontaminationPanel from "../properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../properties/panels/SabotagesPanel";
 import SporePanel from "../properties/panels/SporePanel";
 import { Box, Paper } from "@mui/material";
+import CustomTextPanel from "../properties/panels/CustomTextPanel";
 
 export default function RightSidebar() {
     return (
@@ -84,6 +85,7 @@ export default function RightSidebar() {
                 <DecontaminationPanel />
                 <SporePanel />
 
+                <CustomTextPanel />
                 <TriggerPanel />
                 <ColliderPanel />
                 <MinimapPanel />
