@@ -1,4 +1,4 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomWithReset, useResetAtom } from "jotai/utils";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
@@ -32,9 +32,6 @@ export const mapIsPublicAtom = focusAtom(mapAtom, (optic) => optic.prop("isPubli
 export const mapAuthorNameAtom = focusAtom(mapAtom, (optic) => optic.prop("authorName"));
 export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
-export const elementIDsAtom = atom((get) => {
-    return get(elementsAtom).map((e) => e.id);
-});
 
 // Hooks
 export default function useMap() {
@@ -75,10 +72,6 @@ export function useMapProperties() {
 
 export function useResetMap() {
     return useResetAtom(mapAtom);
-}
-
-export function useElementIDs() {
-    return useAtomValue(elementIDsAtom);
 }
 
 export function useElements() {
