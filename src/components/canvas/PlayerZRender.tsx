@@ -1,11 +1,12 @@
 import { Image, Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
-import useSprite, { useSpriteType } from "../../hooks/canvas/useSprite";
+import useSprite from "../../hooks/canvas/sprite/useSprite";
+import useSpriteOfType from "../../hooks/canvas/sprite/useSpriteOfType";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { PLAYER_POS, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function PlayerZRender() {
     const selectedElem = useSelectedElemValue();
-    const dummySprite = useSpriteType("util-dummy");
+    const dummySprite = useSpriteOfType("util-dummy");
     const elemSprite = useSprite(selectedElem?.id);
 
     const inRange = Math.abs((selectedElem?.z || 0) - PLAYER_POS) <= 0.1;

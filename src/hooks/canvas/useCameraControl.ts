@@ -1,70 +1,68 @@
 import React from "react";
 import { KonvaEventObject } from "konva/lib/Node";
 import Konva from "konva";
-import useWindowSize from "./useWindowSize";
-import Camera from "../../types/generic/Camera";
+import { UNITY_SCALE } from "../../types/generic/Constants";
+import useSetMouse from "../input/useMouse";
+import { useSetCameraScale } from "./useCameraScale";
 
 const ZOOM_SPEED = 1.002;
-const DEFAULT_CAMERA: Camera = { x: 0, y: 0, scale: 1 };
 
 export default function useCameraControl() {
-    const [windowWidth, windowHeight] = useWindowSize();
     const stageRef = React.useRef<Konva.Stage>(null);
-    const layerRef = React.useRef<Konva.Layer>(null);
+    const setMouse = useSetMouse();
+    const setCameraScale = useSetCameraScale();
 
     // Utility Functions
-    const getCamera = React.useCallback(() => {
-        const stage = stageRef.current;
-        const layer = layerRef.current;
-        if (!stage || !layer)
-            return DEFAULT_CAMERA;
+    const zoom = React.useCallback((delta: number) => {
 
-        return {
-            x: stage.x(),
-            y: stage.y(),
-            scale: layer.scaleX(),
-        };
-    }, []);
-    const setCamera = React.useCallback((camera: { x: number, y: number, scale: number }) => {
+        // Get Stage
         const stage = stageRef.current;
-        const layer = layerRef.current;
-        if (!stage || !layer)
+        if (!stage)
             return;
 
-        stage.x(camera.x);
-        stage.y(camera.y);
-        layer.scaleX(camera.scale);
-        layer.scaleY(camera.scale);
+        // Get Mouse Position
+        const mousePos = stage.getPointerPosition();
+        if (!mousePos)
+            return;
+
+        // Calculate New Scale
+        const currentScale = stage.scaleX();
+        const scaleBy = Math.pow(ZOOM_SPEED, delta);
+        const newScale = currentScale * scaleBy;
+
+        // Calculate New Position
+        const mousePointTo = {
+            x: mousePos.x / currentScale - stage.x() / currentScale,
+            y: mousePos.y / currentScale - stage.y() / currentScale,
+        };
+        const newPos = {
+            x: mousePos.x - mousePointTo.x * newScale,
+            y: mousePos.y - mousePointTo.y * newScale,
+        };
+
+        // Set New Camera Position
+        stage.scale({ x: newScale, y: newScale });
+        stage.position(newPos);
+        setCameraScale(newScale);
     }, []);
-    const zoom = React.useCallback((delta: number, mouseX?: number, mouseY?: number) => {
 
-        // Get current camera
-        const camera = getCamera();
+    const getCenter = (p1: { x: number, y: number }, p2: { x: number, y: number }) => {
+        return {
+            x: (p1.x + p2.x) / 2,
+            y: (p1.y + p2.y) / 2,
+        };
+    }
+    const getDistance = (p1: { x: number, y: number }, p2: { x: number, y: number }) => {
+        return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+    }
 
-        // Calculate new scale
-        const newScale = camera.scale * Math.pow(ZOOM_SPEED, -delta);
-        const zoomDelta = newScale / camera.scale;
-
-        // Calculate Mouse Offset
-        const mouseOffsetX = mouseX ? (mouseX - windowWidth / 2) : 0;
-        const mouseOffsetY = mouseY ? (mouseY - windowHeight / 2) : 0;
-
-        // Calculate new position
-        const newX = camera.x - (mouseOffsetX - camera.x) * (zoomDelta - 1);
-        const newY = camera.y - (mouseOffsetY - camera.y) * (zoomDelta - 1);
-
-        // Set new camera
-        setCamera({ x: newX, y: newY, scale: newScale });
-
-    }, [getCamera, setCamera, windowWidth, windowHeight]);
-
-    // Zoom
+    /*
+     * Mouse Events
+     */
     const onScroll = React.useCallback((e: KonvaEventObject<WheelEvent>) => {
         e.evt.preventDefault();
-        zoom(e.evt.deltaY, e.evt.clientX, e.evt.clientY);
+        zoom(-e.evt.deltaY);
     }, [zoom]);
-
-    // Start/Stop Pan
     const onMouseDown = React.useCallback((e: KonvaEventObject<MouseEvent>) => {
         if (e.evt.button === 2) {
             e.target.stopDrag();
@@ -73,19 +71,107 @@ export default function useCameraControl() {
         }
     }, []);
     const onMouseUp = React.useCallback((e: KonvaEventObject<MouseEvent>) => {
+        const stage = stageRef.current;
+        if (!stage)
+            return;
+
         if (e.evt.button === 2) {
-            e.target.getStage()?.stopDrag();
+            stage?.stopDrag();
             e.evt.preventDefault();
         }
     }, []);
+    const onMouseMove = React.useCallback((e: MouseEvent) => {
+        const stage = stageRef.current;
+        if (!stage)
+            return;
 
-    // Touch Events
-    const onTouchStart = React.useCallback((e: KonvaEventObject<TouchEvent>) => {
-        e.target.stopDrag();
-        e.target.getStage()?.startDrag();
+        const mouseX = (e.clientX - stage.x()) / stage.scaleX();
+        const mouseY = (e.clientY - stage.y()) / stage.scaleY();
+
+        setMouse({
+            x: mouseX / UNITY_SCALE,
+            y: -mouseY / UNITY_SCALE
+        });
+    }, [setMouse]);
+
+    /*
+     * Touch Events
+     */
+    let lastCenter: { x: number, y: number } | null = null;
+    let lastDist = 0;
+
+    const onTouchMove = React.useCallback((e: KonvaEventObject<TouchEvent>) => {
         e.evt.preventDefault();
+        const touch1 = e.evt.touches[0];
+        const touch2 = e.evt.touches[1];
+        const stage = e.target.getStage();
+
+        // Ensure Stage Exists
+        if (!stage)
+            return;
+
+        // Drag if only one touch
+        if (touch1 && !touch2 && !stage.isDragging()) {
+            stage.startDrag();
+        }
+
+        // Zoom if two touches
+        if (touch1 && touch2) {
+            // Stop dragging
+            if (stage.isDragging()) {
+                stage.stopDrag();
+            }
+
+            // Calculate center point and distance
+            const p1 = {
+                x: touch1.clientX,
+                y: touch1.clientY,
+            };
+            const p2 = {
+                x: touch2.clientX,
+                y: touch2.clientY,
+            };
+
+            const newCenter = getCenter(p1, p2);
+            const dist = getDistance(p1, p2);
+
+            // Get Last Center/Distance
+            if (!lastCenter) {
+                lastCenter = newCenter;
+                return; // Skip first frame
+            }
+            if (!lastDist)
+                lastDist = dist;
+
+            // local coordinates of center point
+            const pointTo = {
+                x: (newCenter.x - stage.x()) / stage.scaleX(),
+                y: (newCenter.y - stage.y()) / stage.scaleX(),
+            };
+
+            // Calculate New Scale
+            const scale = stage.scaleX() * (dist / lastDist);
+
+            // Calculate Delta Position
+            const dx = newCenter.x - lastCenter.x;
+            const dy = newCenter.y - lastCenter.y;
+            const newX = newCenter.x - pointTo.x * scale + dx;
+            const newY = newCenter.y - pointTo.y * scale + dy;
+
+            // Set New Camera Position
+            stage.scale({ x: scale, y: scale });
+            stage.position({ x: newX, y: newY });
+            setCameraScale(scale);
+
+            // Save Last Center/Distance
+            lastDist = dist;
+            lastCenter = newCenter;
+        }
     }, []);
     const onTouchEnd = React.useCallback((e: KonvaEventObject<TouchEvent>) => {
+        lastCenter = null;
+        lastDist = 0;
+
         e.target.getStage()?.stopDrag();
         e.evt.preventDefault();
     }, []);
@@ -99,11 +185,11 @@ export default function useCameraControl() {
     const onKeyDown = React.useCallback((e: KeyboardEvent) => {
         if (e.ctrlKey && e.key === "=") {
             e.preventDefault();
-            zoom(-100);
+            zoom(100);
         }
         if (e.ctrlKey && e.key === "-") {
             e.preventDefault();
-            zoom(100);
+            zoom(-100);
         }
     }, [zoom]);
 
@@ -117,27 +203,26 @@ export default function useCameraControl() {
             return () => {
             };
 
+        window.addEventListener("mousemove", onMouseMove);
         stage.on("wheel", onScroll);
         stage.on("mousedown", onMouseDown);
         stage.on("mouseup", onMouseUp);
         stage.on("contextmenu", onContextMenu);
-        stage.on("touchstart", onTouchStart);
+        stage.on("touchmove", onTouchMove);
         stage.on("touchend", onTouchEnd);
         window.addEventListener("keydown", onKeyDown);
 
         return () => {
+            window.removeEventListener("mousemove", onMouseMove);
             stage.off("wheel", onScroll);
             stage.off("mousedown", onMouseDown);
             stage.off("mouseup", onMouseUp);
             stage.off("contextmenu", onContextMenu);
-            stage.off("touchstart", onTouchStart);
+            stage.off("touchmove", onTouchMove);
             stage.off("touchend", onTouchEnd);
             window.removeEventListener("keydown", onKeyDown);
         };
     }, [onScroll, onMouseDown, onMouseUp, onContextMenu, onKeyDown]);
 
-    return {
-        stageRef,
-        layerRef
-    };
+    return stageRef;
 }

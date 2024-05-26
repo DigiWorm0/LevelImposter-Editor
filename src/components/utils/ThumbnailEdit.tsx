@@ -2,9 +2,10 @@ import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants
 import React from "react";
 import openUploadDialog from "../../utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
-import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/map/useMap";
+import { Box, Button, ButtonGroup, CardMedia, Typography } from "@mui/material";
+import { CloudUpload, Refresh } from "@mui/icons-material";
 
 export interface ThumbnailEditProps {
     thumbnail: Blob | null;
@@ -28,7 +29,7 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
         fetch(map.thumbnailURL)
             .then((response) => response.blob())
             .then((blob) => props.setThumbnail(blob))
-            .catch(console.error);
+            .catch(toaster.error);
     }, [map.thumbnailURL, props.setThumbnail]);
 
     /**
@@ -81,10 +82,7 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
             props.setThumbnail(resizedBlob);
         }
 
-        uploadThumbnail().catch((e) => {
-            console.error(e);
-            toaster.danger(e.message);
-        });
+        uploadThumbnail().catch(toaster.error);
     }, [props, resizeImage, toaster]);
 
     // Manage Object URL
@@ -104,39 +102,50 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
     }, [props.thumbnail]);
 
     return (
-        <FormGroup
-            disabled={props.isDisabled}
-            style={{ textAlign: "center" }}
-            label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+        <Box
+            sx={{
+                textAlign: "center",
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}
         >
-            <img
-                src={thumbnailURL}
-                alt={"Thumbnail"}
-                width={THUMBNAIL_WIDTH}
-                height={THUMBNAIL_HEIGHT}
-                style={{
-                    borderRadius: 5,
-                    border: "1px solid rgb(96, 96, 96)"
-                }}
-            />
-            <ButtonGroup minimal fill>
-                <Button
-                    fill
-                    minimal
-                    disabled={props.isDisabled}
-                    icon={"refresh"}
-                    text={t("publish.resetThumbnail") as string}
-                    onClick={() => props.setThumbnail(null)}
+            <Typography
+                variant={"subtitle2"}
+                color={"text.secondary"}
+            >
+                {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+            </Typography>
+            <Box sx={{ maxWidth: THUMBNAIL_WIDTH }}>
+                <CardMedia
+                    component={"img"}
+                    src={thumbnailURL}
+                    alt={"Thumbnail"}
+                    sx={{
+                        borderRadius: 1
+                    }}
                 />
-                <Button
-                    fill
-                    minimal
-                    disabled={props.isDisabled}
-                    icon={"upload"}
-                    text={t("publish.uploadThumbnail") as string}
-                    onClick={onUploadClick}
-                />
-            </ButtonGroup>
-        </FormGroup>
+                <ButtonGroup fullWidth>
+                    <Button
+                        disabled={props.isDisabled}
+                        startIcon={<CloudUpload />}
+                        onClick={onUploadClick}
+                        variant={"text"}
+                    >
+                        {t("publish.uploadThumbnail") as string}
+                    </Button>
+                    <Button
+                        disabled={props.isDisabled}
+                        startIcon={<Refresh />}
+                        onClick={() => props.setThumbnail(null)}
+                        color={"error"}
+                        variant={"text"}
+                    >
+                        {t("publish.resetThumbnail") as string}
+                    </Button>
+                </ButtonGroup>
+            </Box>
+        </Box>
     )
 }

@@ -1,15 +1,16 @@
-import { Button, ButtonGroup, Classes, Dialog, FormGroup } from "@blueprintjs/core";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useTranslation } from "react-i18next";
 import { auth } from "../../utils/Firebase";
-import { useSettingsValue } from "../../hooks/useSettings";
-import { useUserMaps } from "../../hooks/firebase/useUserMaps";
 import MapThumbnail from "../utils/MapThumbnail";
-import MapPublishButton from "../buttons/MapPublishButton";
 import SignInModal from "./SignInModal";
 import ProfileIcon from "../utils/ProfileIcon";
+import { Button, ButtonGroup, CircularProgress, Divider, Typography } from "@mui/material";
+import GenericModal from "./GenericModal";
+import { Logout, Share } from "@mui/icons-material";
+import useUserMaps from "../../hooks/firebase/useUserMaps";
+import useToaster from "../../hooks/useToaster";
 
 export interface AccountModalProps {
     isOpen: boolean;
@@ -18,10 +19,10 @@ export interface AccountModalProps {
 
 export default function AccountModal(props: AccountModalProps) {
     const { t } = useTranslation();
-    const { isDarkMode } = useSettingsValue();
     const [user] = useAuthState(auth);
-    const maps = useUserMaps(user?.uid);
+    const maps = useUserMaps();
     const isLoggedIn = user !== null;
+    const toaster = useToaster();
 
     return (
         <>
@@ -32,15 +33,13 @@ export default function AccountModal(props: AccountModalProps) {
             />
 
             {/* Account Dialog */}
-            <Dialog
-                isOpen={props.isOpen && isLoggedIn}
+            <GenericModal
+                open={props.isOpen && isLoggedIn}
                 onClose={props.onClose}
-                portalClassName={isDarkMode ? "bp5-dark" : ""}
             >
                 {/* Profile Header */}
                 <div
                     style={{
-                        marginTop: 30,
                         paddingRight: 30,
                         display: "flex",
                         flexDirection: "row",
@@ -50,36 +49,45 @@ export default function AccountModal(props: AccountModalProps) {
                 >
                     <ProfileIcon
                         style={{
-                            height: 85,
-                            width: 85,
+                            height: 100,
+                            width: 100,
                             borderRadius: 50,
                             objectFit: "cover",
-                            marginRight: 15
+                            marginRight: 25
                         }}
                     />
-                    <FormGroup>
-                        <h1 style={{ marginBottom: 15, marginTop: 10 }}>
+                    <div>
+                        <Typography
+                            variant={"h4"}
+                            sx={{
+                                marginBottom: 1,
+                                marginTop: 1,
+                                fontWeight: "bold"
+                            }}
+                        >
                             {user?.displayName}
-                        </h1>
+                        </Typography>
                         <ButtonGroup>
                             <Button
-                                rightIcon={"share"}
-                                text={t("account.viewProfile") as string}
-                                intent={"success"}
                                 onClick={() => {
                                     window.open("https://levelimposter.net/#/profile");
                                 }}
-                                style={{ marginRight: 5 }}
-                            />
+                                endIcon={<Share />}
+                            >
+                                {t("account.viewProfile")}
+                            </Button>
                             <Button
-                                rightIcon={"log-out"}
-                                text={t("account.signOut") as string}
-                                intent={"danger"}
-                                onClick={() => signOut(auth).catch(console.error)}
-                            />
+                                onClick={() => signOut(auth).catch(toaster.error)}
+                                color={"error"}
+                                endIcon={<Logout />}
+                            >
+                                {t("account.signOut")}
+                            </Button>
                         </ButtonGroup>
-                    </FormGroup>
+                    </div>
                 </div>
+
+                <Divider sx={{ mt: 2 }} />
 
                 {/* Maps */}
                 <div
@@ -88,16 +96,26 @@ export default function AccountModal(props: AccountModalProps) {
                         textAlign: "center"
                     }}
                 >
-                    <MapPublishButton />
-                    {maps.length <= 0 && (
-                        <p className={Classes.TEXT_MUTED} style={{ marginTop: 10 }}>
-                            {t("account.noMaps")}
-                        </p>
+                    {maps === undefined && (
+                        <CircularProgress
+                            sx={{ m: 1 }}
+                            color={"inherit"}
+                        />
                     )}
-                    {maps.map((map) => (<MapThumbnail map={map} key={map.id} />))}
+                    {maps?.length === 0 && (
+                        <Typography
+                            variant={"body1"}
+                            sx={{
+                                color: "text.secondary",
+                                marginTop: 2
+                            }}
+                        >
+                            {t("account.noMaps")}
+                        </Typography>
+                    )}
+                    {maps?.map((map) => (<MapThumbnail map={map} key={map.id} />))}
                 </div>
-
-            </Dialog>
+            </GenericModal>
         </>
     );
 }

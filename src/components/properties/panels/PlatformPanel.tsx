@@ -1,88 +1,80 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
+import {
+    DEFAULT_PLATFORM_ENTER,
+    DEFAULT_PLATFORM_EXIT,
+    DEFAULT_PLATFORM_OFFSET
+} from "../../../types/generic/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
+import InputGroup from "../input/InputGroup";
+import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 const PLATFORM_MOVE_SOUND = "platformMove";
 
 export default function PlatformPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const isPlatform = useIsSelectedElemType("util-platform");
 
-    if (!element || element.type !== "util-platform")
+    if (!isPlatform)
         return null;
 
     return (
         <PanelContainer title={t("platform.title") as string}>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="platform.translationX"
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("platform.translationX")}
                     prop="platformXOffset"
                     defaultValue={-DEFAULT_PLATFORM_OFFSET}
-                    icon="arrows-horizontal"
-                    minorStepSize={0.1}
+                    icon="SwapHoriz"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-                <NumericPanelInput
-                    name="platform.translationY"
+                <ElementPropNumericInput
+                    name={t("platform.translationY")}
                     prop="platformYOffset"
                     defaultValue={0}
-                    icon="arrows-vertical"
-                    minorStepSize={0.1}
+                    icon="SwapVert"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-            </ControlGroup>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="platform.enterOffsetX"
+            </InputGroup>
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("platform.enterOffsetX")}
                     prop="platformXEntranceOffset"
                     defaultValue={DEFAULT_PLATFORM_ENTER}
-                    icon="log-in"
-                    minorStepSize={0.1}
+                    icon="Login"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-                <NumericPanelInput
-                    name="platform.enterOffsetY"
+                <ElementPropNumericInput
+                    name={t("platform.enterOffsetY")}
                     prop="platformYEntranceOffset"
                     defaultValue={0}
-                    icon="log-in"
-                    minorStepSize={0.1}
+                    icon="Login"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-            </ControlGroup>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="platform.exitOffsetX"
+            </InputGroup>
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("platform.exitOffsetX")}
                     prop="platformXExitOffset"
                     defaultValue={DEFAULT_PLATFORM_EXIT}
-                    icon="log-out"
-                    minorStepSize={0.1}
+                    icon="Logout"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-                <NumericPanelInput
-                    name="platform.exitOffsetY"
+                <ElementPropNumericInput
+                    name={t("platform.exitOffsetY")}
                     prop="platformYExitOffset"
                     defaultValue={0}
-                    icon="log-out"
-                    minorStepSize={0.1}
+                    icon="Logout"
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"warning"}
+                    color={"warning"}
                 />
-            </ControlGroup>
+            </InputGroup>
             <SoundEditorPanel
                 title={t("platform.moveSound") as string}
                 soundType={PLATFORM_MOVE_SOUND}

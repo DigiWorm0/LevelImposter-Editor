@@ -1,17 +1,17 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useElement from "../../hooks/map/elements/useElements";
-import { useSetMouseCursor } from "../../hooks/input/useMouse";
-import { useIsSelectedCollider } from "../../hooks/map/elements/useSelectedCollider";
-import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSettingsValue } from "../../hooks/useSettings";
+import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
+import { useIsSelectedCollider } from "../../hooks/elements/colliders/useSelectedCollider";
+import useElement from "../../hooks/elements/useElements";
+import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import useEmbed from "../../hooks/embed/useEmbed";
-import useSprite from "../../hooks/canvas/useSprite";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
 import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
+import setCursor from "../../utils/setCursor";
+import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
-import useColoredSprite from "../../hooks/canvas/useColoredSprite";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -21,22 +21,20 @@ const SECONDARY_RENDER_TYPES = [
 
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
-    const setMouseCursor = useSetMouseCursor();
     const isEmbedded = useEmbed();
-    const sprite = useSprite(props.elementID);
     const isColliderSelected = useIsSelectedCollider();
     const isSelected = useIsSelectedElem(props.elementID);
     const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
-    const spriteRef = useColoredSprite(props.elementID);
+    const coloredSprite = useColoredSprite(props.elementID);
 
     if (!elem || elem.type === "util-layer")
         return null;
 
     const elemVisibility = getElemVisibility(elem);
-    const w = (sprite?.width ?? 0) * elem.xScale;
-    const h = (sprite?.height ?? 0) * elem.yScale;
+    const w = (coloredSprite?.width ?? 0) * elem.xScale;
+    const h = (coloredSprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
@@ -76,14 +74,15 @@ export default function MapElement(props: { elementID: GUID }) {
             onClick={(e) => {
                 e.target.getParent().stopDrag();
                 setSelectedID(props.elementID);
+                e.cancelBubble = true;
             }}
-            onMouseEnter={() => {
+            onMouseEnter={e => {
                 setHovering(true);
-                setMouseCursor(elem.properties.isLocked ? "default" : "pointer");
+                setCursor(e, elem.properties.isLocked ? "default" : "pointer");
             }}
-            onMouseLeave={() => {
+            onMouseLeave={e => {
                 setHovering(false);
-                setMouseCursor("default");
+                setCursor(e, "default");
             }}
             draggable={false}
             listening={!isColliderSelected && !isEmbedded && isVisible}
@@ -95,8 +94,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 y={-h / 2}
                 width={w}
                 height={h}
-                image={sprite as CanvasImageSource}
-                ref={spriteRef}
+                image={coloredSprite}
             />
 
             {(isSelected || isHovering) && (
@@ -115,6 +113,10 @@ export default function MapElement(props: { elementID: GUID }) {
             {isSelected && (
                 <SecondaryRender />
             )}
+
+            {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
+                <RoomText name={elem.name} />
+            }
         </Group>
     );
 }

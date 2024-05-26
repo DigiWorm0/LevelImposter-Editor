@@ -1,12 +1,12 @@
 import { Shape } from "react-konva";
-import getIsConsole from "../../utils/getIsConsole";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_CONSOLE_RANGE,
     DEFAULT_SPORE_RANGE,
     UNITY_SCALE,
     VENT_CONSOLE_RANGE
 } from "../../types/generic/Constants";
+import getIsConsole from "../../utils/getIsConsole";
 
 export default function ConsoleRange() {
     const selectedElem = useSelectedElemValue();

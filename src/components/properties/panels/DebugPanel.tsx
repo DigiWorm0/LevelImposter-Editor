@@ -1,17 +1,21 @@
-import { Button, Card, Intent, Menu } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
+import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
 
-const TYPE_INTENTS: Record<string, Intent> = {
-    "string": Intent.PRIMARY,
-    "number": Intent.SUCCESS,
-    "boolean": Intent.WARNING,
-    "object": Intent.DANGER,
-    "array": Intent.DANGER
+const TYPE_INTENTS = {
+    "string": "Primary",
+    "number": "Success",
+    "bigint": "Success",
+    "boolean": "Warning",
+    "object": "Error",
+    "array": "Error",
+    "symbol": "Error",
+    "function": "Error",
+    "undefined": "Error"
 };
 
 export default function DebugPanel() {
@@ -37,37 +41,40 @@ export default function DebugPanel() {
 
     return (
         <PanelContainer title={t("debug.title") as string}>
-            <Button
-                fill
-                text={t("debug.printToConsole") as string}
-                icon="console"
-                onClick={() => {
-                    console.log(selectedElem);
-                }}
-            />
-            <Menu>
+            <List dense>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    const stringValue = JSON.stringify(value);
+                    const stringValue = JSON.stringify(value, null, 2);
+
+                    // Icons
+                    const isArray = Array.isArray(value);
+                    const isObject = typeof value === "object" && !isArray;
+                    const isPrimitive = !isArray && !isObject;
+
                     return (
-                        <div key={`debug-${key}-${index}`}>
-                            <MenuItem2
-                                text={key}
-                                intent={TYPE_INTENTS[typeof value]}
-                                onClick={() => {
-                                    editKey(key);
-                                }}
+                        <ListItem key={`debug-${key}-${index}`} disablePadding>
+                            <ListItemIcon>
+                                {isArray && <DataArray />}
+                                {isObject && <DataObject />}
+                                {isPrimitive && <Abc />}
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={key}
+                                secondary={stringValue}
+                                color={TYPE_INTENTS[typeof value]}
                             />
-                            {selectedKey === key && (
-                                <Card style={{ overflowX: "scroll" }}>
-                                    <pre>{typeof value}</pre>
-                                    <pre>{stringValue}</pre>
-                                </Card>
-                            )}
-                        </div>
+                        </ListItem>
                     );
                 })}
-            </Menu>
+            </List>
+            <Button
+                fullWidth
+                startIcon={<Code />}
+                onClick={() => console.log(selectedElem)}
+                color={"secondary"}
+            >
+                {t("debug.printToConsole")}
+            </Button>
         </PanelContainer>
     );
 }

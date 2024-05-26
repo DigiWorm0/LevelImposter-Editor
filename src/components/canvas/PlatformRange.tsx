@@ -1,5 +1,5 @@
 import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_PLATFORM_ENTER,
     DEFAULT_PLATFORM_EXIT,

@@ -1,39 +1,36 @@
-import React from "react";
 import LIMap from "../../types/li/LIMap";
 import GUID from "../../types/generic/GUID";
 import convertLegacyMap from "../../utils/convertLegacyMap";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
 import { DEFAULT_GUID } from "../../utils/generateGUID";
 
-export default function useLIDeserializer() {
-    return React.useCallback((file: Blob) => {
-        return new Promise<LIMap>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                try {
-                    const result = reader.result as ArrayBuffer;
-                    const byteView = new Uint8Array(result);
+export function deserializeMap(file: Blob) {
+    return new Promise<LIMap>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            try {
+                const result = reader.result as ArrayBuffer;
+                const byteView = new Uint8Array(result);
 
-                    const firstByte = byteView[0];
-                    const lastByte = byteView[byteView.length - 1];
-                    const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
+                const firstByte = byteView[0];
+                const lastByte = byteView[byteView.length - 1];
+                const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
 
-                    const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
-                    if (mapData === undefined) {
-                        reject("Failed to deserialize file data");
-                        return;
-                    }
-                    resolve(mapData);
-                } catch (e) {
-                    reject(e);
+                const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
+                if (mapData === undefined) {
+                    reject("Failed to deserialize file data");
+                    return;
                 }
+                resolve(mapData);
+            } catch (e) {
+                reject(e);
             }
-            reader.onerror = () => {
-                reject(reader.error);
-            }
-            reader.readAsArrayBuffer(file);
-        });
-    }, []);
+        }
+        reader.onerror = () => {
+            reject(reader.error);
+        }
+        reader.readAsArrayBuffer(file);
+    });
 }
 
 function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
@@ -43,8 +40,6 @@ function deserializeLegacy(buffer: ArrayBuffer): LIMap | undefined {
     // Read JSON
     const jsonString = textDecoder.decode(buffer);
     const mapData = JSON.parse(jsonString) as LIMap;
-
-    console.log(`JSON: ${jsonString.length} bytes`);
 
     // Convert
     convertLegacyMap(mapData);
@@ -65,8 +60,6 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     const jsonString = textDecoder.decode(buffer.slice(4, 4 + jsonLength));
     const mapData = JSON.parse(jsonString) as LIMap;
     mapData.assets = [];
-
-    console.log(`JSON: ${jsonLength} bytes`, mapData);
 
     // Read Assets
     let position = 4 + jsonLength;
@@ -95,6 +88,8 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
         const assetURL = URL.createObjectURL(assetBlob);
         mapData.assets.push({
             id: guid,
+            type: assetType.startsWith("image/") ? "image" :
+                (assetType.startsWith("audio/") ? "audio" : "unknown"),
             blob: assetBlob,
             url: assetURL,
         });
@@ -115,11 +110,15 @@ function parseAssetType(asset: ArrayBuffer) {
     const isGIF = asset.byteLength > 3 && textDecoder.decode(asset.slice(0, 3)) === "GIF";
     const isPNG = asset.byteLength > 8 && textDecoder.decode(asset.slice(1, 8)) === "PNG\r\n\x1a\n";
     const isJPEG = asset.byteLength > 2 && textDecoder.decode(asset.slice(0, 2)) === "\xff\xd8";
-    const isWAV = asset.byteLength > 11 && textDecoder.decode(asset.slice(0, 11)) === "RIFF\x00\x00\x00\x00WAVEfmt ";
+    const isWEBP = asset.byteLength > 11 && textDecoder.decode(asset.slice(8, 11)) === "WEBP";
+    const isWAV = asset.byteLength > 11 &&
+        textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
+        textDecoder.decode(asset.slice(8, 11)) === "WAV";
 
     if (isGIF) return "image/gif";
     if (isPNG) return "image/png";
     if (isJPEG) return "image/jpeg";
+    if (isWEBP) return "image/webp";
     if (isWAV) return "audio/wav";
     console.warn("Unknown asset type");
     return "application/octet-stream";

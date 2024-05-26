@@ -6,11 +6,11 @@ export default function useLISerializer() {
     const toaster = useToaster();
 
     return React.useCallback((map: LIMap) => {
-        return serializeMap(map, toaster.warning);
+        return serializeMap(map, toaster.warn);
     }, []);
 }
 
-async function serializeMap(map: LIMap, onError?: (error: string) => void) {
+export async function serializeMap(map: LIMap, onError?: (error: string) => void) {
     const assets = map.assets ?? [];
 
     // Serialize JSON
@@ -60,8 +60,6 @@ async function serializeMap(map: LIMap, onError?: (error: string) => void) {
         }
         offset += size;
     }
-
-    console.log(`Serialized: ${offset} bytes`, rawData);
 
     return rawData;
 }

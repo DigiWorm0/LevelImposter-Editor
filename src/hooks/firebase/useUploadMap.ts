@@ -1,19 +1,24 @@
 import LIMap from "../../types/li/LIMap";
-import React from "react";
-import { useSetMap } from "../map/useMap";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db, storage } from "../../utils/Firebase";
+import { db, storage } from "../../utils/Firebase";
 import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
 import { collection, doc, setDoc } from "firebase/firestore";
-import useLISerializer from "../fileio/useLISerializer";
+import { serializeMap } from "../fileio/useLISerializer";
 import LIMetadata from "../../types/li/LIMetadata";
+import { atom, useSetAtom } from "jotai";
+import { userAtom } from "./useUser";
 
-export default function useUploadMap() {
-    const [user] = useAuthState(auth);
-    const setMap = useSetMap();
-    const serializeMap = useLISerializer();
+export interface UploadMapPayload {
+    map: LIMap;
+    thumbnail: Blob | null;
+    onProgress: (percent: number) => void;
+}
 
-    const uploadFileToStorage = React.useCallback(async (
+export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
+    const { map, thumbnail, onProgress } = payload;
+    const user = get(userAtom);
+
+    // Uploads file to firebase storage
+    const uploadFileToStorage = async (
         ref: StorageReference,
         data: Uint8Array | Blob | ArrayBuffer,
         onProgress: (percent: number) => void
@@ -22,14 +27,14 @@ export default function useUploadMap() {
         await new Promise<void>((resolve, reject) => {
             uploadTask.on(
                 "state_changed",
-                (s) => onProgress(s.bytesTransferred / s.totalBytes),
+                s => onProgress(s.bytesTransferred / s.totalBytes),
                 reject,
                 resolve
             );
         });
-    }, []);
+    }
 
-    return React.useCallback(async (
+    const upload = async (
         map: LIMap,
         thumbnail: Blob | null,
         onProgress: (percent: number) => void
@@ -51,7 +56,8 @@ export default function useUploadMap() {
         // Upload Map
         await uploadFileToStorage(mapStorageRef, mapBytes, onProgress);
 
-        // Get Metadata
+        // Collapse `LIMap` to `LIMetadata`
+        // Removes unnecessary data from the map
         const mapMetadata: LIMetadata = {
             v: map.v,
             id: map.id,
@@ -74,9 +80,13 @@ export default function useUploadMap() {
         const docRef = doc(storeRef, map.id);
         await setDoc(docRef, mapMetadata);
 
-        // Update Local Copy
-        setMap(map);
-
         return map.id;
-    }, [user, setMap, serializeMap, uploadFileToStorage]);
+    }
+
+    return upload(map, thumbnail, onProgress);
+});
+uploadMapAtom.debugLabel = "uploadMapAtom";
+
+export default function useUploadMap() {
+    return useSetAtom(uploadMapAtom)
 }

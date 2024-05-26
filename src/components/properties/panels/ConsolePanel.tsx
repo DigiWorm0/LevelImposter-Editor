@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import { DEFAULT_CONSOLE_RANGE } from "../../../types/generic/Constants";
-import ColorPanelInput from "../input/ColorPanelInput";
-import NumericPanelInput from "../input/NumericPanelInput";
-import SwitchPanelInput from "../input/SwitchPanelInput";
+import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 export default function ConsolePanel() {
     const { t } = useTranslation();
@@ -25,31 +25,29 @@ export default function ConsolePanel() {
     return (
         <>
             <PanelContainer title={t("console.title") as string}>
-                <NumericPanelInput
-                    name="console.range"
+                <ElementPropNumericInput
+                    name={t("console.range")}
                     prop="range"
                     defaultValue={DEFAULT_CONSOLE_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
-                    minorStepSize={0.05}
-                    stepSize={0.1}
-                    majorStepSize={0.5}
-                    intent="warning"
+                    stepSize={0.2}
+                    color="warning"
                 />
                 {selectedElem.type === "util-triggerconsole" && (
-                    <ColorPanelInput
+                    <ElementPropColorInput
                         name={t("console.highlightColor") as string}
                         prop="highlightColor"
                         defaultValue={{ r: 255, g: 255, b: 0, a: 1 }} // Yellow
                     />
                 )}
-                <SwitchPanelInput
-                    name="console.onlyFromBelow"
+                <ElementPropSwitch
+                    name={t("console.onlyFromBelow")}
                     prop="onlyFromBelow"
                     defaultValue={false}
                 />
-                <SwitchPanelInput
-                    name="console.checkCollision"
+                <ElementPropSwitch
+                    name={t("console.checkCollision")}
                     prop="checkCollision"
                     defaultValue={false}
                 />

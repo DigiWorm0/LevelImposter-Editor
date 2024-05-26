@@ -1,7 +1,8 @@
 import React from "react";
-import { Classes, Icon, IconName, SwitchCard } from "@blueprintjs/core";
 import LIMapProperties from "../../../types/li/LIMapProperties";
 import { useMapProperties } from "../../../hooks/map/useMap";
+import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
 
 export interface MapSwitchInputProps {
     name: string;
@@ -29,19 +30,33 @@ export default function MapSwitchInput(props: MapSwitchInputProps) {
         });
     }, [properties, props.prop, setProperties]);
 
+    const onClick = React.useCallback(() => {
+        if (props.prop === undefined)
+            return;
+        setProperties({
+            ...properties,
+            [props.prop]: !value
+        });
+    }, [properties, props.prop, setProperties, value]);
+
     return (
-        <SwitchCard
-            checked={value}
-            showAsSelectedWhenChecked={false}
-            onChange={onChange}
-            compact
+        <ListItem
+            dense
+            disablePadding
+            secondaryAction={
+                <Checkbox
+                    edge={"end"}
+                    checked={value}
+                    onChange={onChange}
+                />
+            }
         >
-            <Icon
-                icon={props.icon}
-                className={Classes.TEXT_MUTED}
-                style={{ marginRight: 8 }}
-            />
-            {props.name}
-        </SwitchCard>
-    )
+            <ListItemButton onClick={onClick}>
+                {props.icon && (
+                    <ListItemIcon><MaterialIcon icon={props.icon} /></ListItemIcon>
+                )}
+                <ListItemText primary={props.name} />
+            </ListItemButton>
+        </ListItem>
+    );
 }

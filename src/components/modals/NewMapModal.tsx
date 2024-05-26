@@ -1,10 +1,11 @@
-import { Button, Dialog } from "@blueprintjs/core";
+import { Add } from "@mui/icons-material";
+import { Button, DialogContentText } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/useSettings";
+import { useSetSelectedColliderID } from "../../hooks/elements/colliders/useSelectedCollider";
+import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import { useResetMap } from "../../hooks/map/useMap";
-import { useSetSelectedElemID } from "../../hooks/map/elements/useSelectedElem";
-import { useSetSelectedColliderID } from "../../hooks/map/elements/useSelectedCollider";
+import GenericModal from "./GenericModal";
 
 export interface NewMapDialogProps {
     isVisible: boolean;
@@ -13,7 +14,6 @@ export interface NewMapDialogProps {
 
 export default function NewMapModal(props: NewMapDialogProps) {
     const { t } = useTranslation();
-    const { isDarkMode } = useSettingsValue();
     const resetMap = useResetMap();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -26,27 +26,28 @@ export default function NewMapModal(props: NewMapDialogProps) {
     }, [resetMap, setSelectedID, setColliderID, props.onClose]);
 
     return (
-        <Dialog
-            isOpen={props.isVisible}
+        <GenericModal
+            open={props.isVisible}
             onClose={props.onClose}
-            title={t("map.new") as string}
-            portalClassName={isDarkMode ? "bp5-dark" : ""}
-        >
-            <div style={{ margin: 15 }}>
-                <p>
-                    {t("map.newDialogText") as string}
-                </p>
+            title={t("map.new")}
+            actions={<>
                 <Button
                     onClick={onClick}
-                    text={t("map.new") as string}
-                    intent="danger"
-                    style={{ marginRight: 10 }}
-                />
+                    startIcon={<Add />}
+                >
+                    {t("map.new")}
+                </Button>
                 <Button
                     onClick={props.onClose}
-                    text={t("map.newDialogCancel") as string}
-                />
-            </div>
-        </Dialog>
+                    color={"error"}
+                >
+                    {t("map.newDialogCancel")}
+                </Button>
+            </>}
+        >
+            <DialogContentText>
+                {t("map.newDialogText")}
+            </DialogContentText>
+        </GenericModal>
     )
 }

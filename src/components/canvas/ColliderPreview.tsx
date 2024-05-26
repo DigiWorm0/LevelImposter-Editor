@@ -1,21 +1,20 @@
 import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
+import { useSettingsValue } from "../../hooks/useSettings";
+import LICollider from "../../types/li/LICollider";
 
 export default function ColliderPreview() {
-    const elem = useSelectedElemValue();
+    const colliders = useSelectedElemPropValue<LICollider[]>("colliders");
     const { colliderPreview } = useSettingsValue();
     const { relativeToAbsolute } = useAdjustPoint();
 
-    if (!elem)
-        return null;
     if (!colliderPreview)
         return null;
-    if (!elem.properties.colliders)
+    if (!colliders)
         return null;
 
-    return elem.properties.colliders.map((collider) => {
+    return colliders.map((collider) => {
         return (
             <Shape
                 key={collider.id}

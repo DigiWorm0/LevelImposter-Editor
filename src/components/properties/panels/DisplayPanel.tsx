@@ -1,56 +1,51 @@
 import React from "react";
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
-import { DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT } from "../../../types/generic/Constants";
+import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../../types/generic/Constants";
+import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
+import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 
 const MAX_PIXELS = 1920 * 1080;
 
 export default function CamPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
 
-    const pixelCount = React.useMemo(() => {
-        const width = element?.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
-        const height = element?.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
-        return width * height;
-    }, [element]);
+    const displayWidth = useSelectedElemPropValue<number>("displayWidth") ?? DEFAULT_DISPLAY_WIDTH;
+    const displayHeight = useSelectedElemPropValue<number>("displayHeight") ?? DEFAULT_DISPLAY_HEIGHT;
+    const isDisplay = useIsSelectedElemType("util-display");
 
-    if (!element || element.type !== "util-display")
+    const pixelCount = displayWidth * displayHeight;
+
+    if (!isDisplay)
         return null;
-
     return (
         <>
             <PanelContainer title={t("display.title") as string}>
-                <ControlGroup fill>
-                    <NumericPanelInput
-                        name="display.width"
+                <InputGroup>
+                    <ElementPropNumericInput
+                        name={t("display.width")}
                         prop="displayWidth"
                         defaultValue={DEFAULT_DISPLAY_WIDTH}
-                        icon="arrows-horizontal"
-                        minorStepSize={1}
+                        icon="SwapHoriz"
                         stepSize={10}
-                        majorStepSize={100}
-                        intent={"primary"}
+                        color={"primary"}
                     />
-                    <NumericPanelInput
-                        name="display.height"
+                    <ElementPropNumericInput
+                        name={t("display.height")}
                         prop="displayHeight"
                         defaultValue={DEFAULT_DISPLAY_HEIGHT}
-                        icon="arrows-vertical"
-                        minorStepSize={1}
+                        icon="SwapVert"
                         stepSize={10}
-                        majorStepSize={100}
-                        intent={"primary"}
+                        color={"primary"}
                     />
-                </ControlGroup>
+                </InputGroup>
             </PanelContainer>
             <MapError
                 isVisible={pixelCount > MAX_PIXELS}
-                icon="desktop"
+                icon="ViewCompact"
             >
                 {t("display.errorResolution") as string}
             </MapError>

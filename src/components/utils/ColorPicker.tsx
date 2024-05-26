@@ -1,7 +1,8 @@
-import { Button, Icon, Intent, Popover } from "@blueprintjs/core";
 import React from "react";
-import { ChromePicker } from "react-color";
 import LIColor from "../../types/li/LIColor";
+import { Button, Popover } from "@mui/material";
+import { Palette } from "@mui/icons-material";
+import { RgbaColorPicker } from "react-colorful";
 
 interface ColorPickerProps {
     color: LIColor,
@@ -14,58 +15,38 @@ interface ColorPickerProps {
     style?: React.CSSProperties,
     disableAlpha?: boolean,
     title?: string,
-    intent?: Intent,
+    intent?: "primary" | "secondary" | "success" | "warning" | "error" | "info" | undefined
 }
 
 export default function ColorPicker(props: ColorPickerProps) {
     const [color, setColor] = React.useState(props.color);
+    const [buttonElement, setButtonElement] = React.useState<HTMLButtonElement | null>(null);
 
     React.useEffect(() => {
         setColor(props.color);
     }, [props.color]);
 
     return (
-        <Popover
-            fill={props.fill}
-            hasBackdrop={true}
-            onOpened={props.onOpen}
-            onClosed={props.onClose}
-            content={
-                <ChromePicker
-                    styles={{
-                        default: {
-                            body: {
-                                backgroundColor: "#2f343c"
-                            }
-                        }
-                    } as any}
+        <>
+            <Popover
+                open={buttonElement !== null}
+                onClose={() => setButtonElement(null)}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                anchorEl={buttonElement}
+            >
+                <RgbaColorPicker
                     color={color}
-                    disableAlpha={props.disableAlpha}
-                    onChange={(color) => {
-                        setColor(color.rgb as LIColor);
-                    }}
-                    onChangeComplete={(color) => {
-                        props.onChange(color.rgb as LIColor);
-                    }}
+                    onChange={props.onChange}
                 />
-            }
-            renderTarget={({ isOpen, ref, ...rest }) => (
-                <Button
-                    {...rest}
-                    ref={ref}
-                    fill={props.fill}
-                    minimal={props.minimal}
-                    intent={props.intent}
-                    icon={
-                        <Icon
-                            icon="tint"
-                            color={`rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`}
-                        />
-                    }
-                    text={props.title}
-                    style={props.style}
-                />
-            )}
-        />
+            </Popover>
+            <Button
+                color={props.intent ?? "primary"}
+                style={props.style}
+                onClick={(e) => setButtonElement(e.currentTarget)}
+            >
+                <Palette />
+            </Button>
+        </>
     );
 }

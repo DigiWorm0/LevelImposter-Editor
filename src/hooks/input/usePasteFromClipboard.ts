@@ -1,14 +1,14 @@
 /*
        Paste Operation
  */
-import { atom } from "jotai/index";
-import LIElement from "../../types/li/LIElement";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
-import generateGUID from "../../utils/generateGUID";
-import { addElementAtom } from "../map/elements/useElements";
-import { selectedElementIDAtom } from "../map/elements/useSelectedElem";
-import { clipboardAtom } from "./useClipboard";
 import { useSetAtom } from "jotai";
+import { atom } from "jotai/index";
+import GUID, { MaybeGUID } from "../../types/generic/GUID";
+import LIElement from "../../types/li/LIElement";
+import generateGUID from "../../utils/generateGUID";
+import { addElementAtom } from "../elements/useAddElement";
+import { selectedElementIDAtom } from "../elements/useSelectedElem";
+import { clipboardAtom } from "./useClipboard";
 
 const pasteFromClipboardAtom = atom(null, async (get, set) => {
     // Get the clipboard data

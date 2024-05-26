@@ -1,40 +1,47 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import SwitchPanelInput from "../input/SwitchPanelInput";
+import { selectedElementAtom } from "../../../hooks/elements/useSelectedElem";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import React from "react";
+import { atom, useAtomValue } from "jotai";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+
+const hasColliderAtom = atom((get) => {
+    const element = get(selectedElementAtom);
+    return element?.properties.colliders !== undefined && element.properties.colliders.length > 0;
+});
 
 export default function RoomPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const isRoom = useIsSelectedElemType("util-room");
+    const hasCollider = useAtomValue(hasColliderAtom);
 
-    if (!element || element.type !== "util-room")
+    if (!isRoom)
         return null;
-
-    const hasCollider = element.properties.colliders !== undefined && element.properties.colliders.length > 0;
 
     return (
         <>
             <PanelContainer title={t("room.title") as string}>
-                <SwitchPanelInput
-                    name="room.showName"
+                <ElementPropSwitch
+                    name={t("room.showName")}
                     prop="isRoomNameVisible"
                     defaultValue={true}
                 />
-                <SwitchPanelInput
-                    name="room.showOnAdmin"
+                <ElementPropSwitch
+                    name={t("room.showOnAdmin")}
                     prop="isRoomAdminVisible"
                     defaultValue={true}
                 />
-                <SwitchPanelInput
-                    name="room.showOnUI"
+                <ElementPropSwitch
+                    name={t("room.showOnUI")}
                     prop="isRoomUIVisible"
                     defaultValue={true}
                 />
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("room.errorNoCollider") as string}
             </MapError>

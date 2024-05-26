@@ -1,9 +1,15 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import {
+    DEFAULT_STARFIELD_COUNT,
+    DEFAULT_STARFIELD_HEIGHT,
+    DEFAULT_STARFIELD_LENGTH,
+    DEFAULT_STARFIELD_MAXSPEED,
+    DEFAULT_STARFIELD_MINSPEED
+} from "../../../types/generic/Constants";
+import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 
 export default function StarfieldPanel() {
     const { t } = useTranslation();
@@ -14,63 +20,53 @@ export default function StarfieldPanel() {
 
     return (
         <PanelContainer title={t("starfield.title") as string}>
-            <NumericPanelInput
-                name="starfield.count"
+            <ElementPropNumericInput
+                name={t("starfield.count")}
                 prop="starfieldCount"
                 defaultValue={DEFAULT_STARFIELD_COUNT}
-                icon="layout-sorted-clusters"
+                icon="Workspaces"
                 min={1}
-                minorStepSize={1}
                 stepSize={5}
-                majorStepSize={10}
                 max={10000}
             />
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="starfield.length"
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("starfield.length")}
                     prop="starfieldLength"
                     defaultValue={DEFAULT_STARFIELD_LENGTH}
-                    icon="arrows-horizontal"
+                    icon="SwapHoriz"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
-                    intent="warning"
+                    color="warning"
                 />
-                <NumericPanelInput
-                    name="starfield.height"
+                <ElementPropNumericInput
+                    name={t("starfield.height")}
                     prop="starfieldHeight"
                     defaultValue={DEFAULT_STARFIELD_HEIGHT}
-                    icon="arrows-vertical"
+                    icon="SwapVert"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
-                    intent="warning"
+                    color="warning"
                 />
-            </ControlGroup>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="starfield.minSpeed"
+            </InputGroup>
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("starfield.minSpeed")}
                     prop="starfieldMinSpeed"
                     defaultValue={DEFAULT_STARFIELD_MINSPEED}
-                    icon="double-chevron-down"
+                    icon="FastRewind"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                 />
-                <NumericPanelInput
-                    name="starfield.maxSpeed"
+                <ElementPropNumericInput
+                    name={t("starfield.maxSpeed")}
                     prop="starfieldMaxSpeed"
                     defaultValue={DEFAULT_STARFIELD_MAXSPEED}
-                    icon="double-chevron-up"
+                    icon="FastForward"
                     min={0}
-                    minorStepSize={0.1}
                     stepSize={1}
-                    majorStepSize={10}
                 />
-            </ControlGroup>
+            </InputGroup>
         </PanelContainer>
     );
 }

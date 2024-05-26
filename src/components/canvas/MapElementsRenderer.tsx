@@ -1,5 +1,5 @@
-import { useElementIDs } from "../../hooks/map/useMap";
 import MapElement from "./MapElement";
+import useElementIDs from "../../hooks/elements/useElementIDs";
 
 export default function MapElementsRenderer() {
     const elementIDs = useElementIDs();

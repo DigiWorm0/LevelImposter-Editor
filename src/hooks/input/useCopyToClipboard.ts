@@ -1,10 +1,10 @@
-import { atom } from "jotai/index";
-import { selectedElementAtom } from "../map/elements/useSelectedElem";
-import LIClipboard from "../../types/li/LIClipboard";
-import { mapAtom } from "../map/useMap";
-import LIElement from "../../types/li/LIElement";
-import { localClipboardAtom } from "./useClipboard";
 import { useSetAtom } from "jotai";
+import { atom } from "jotai/index";
+import LIClipboard from "../../types/li/LIClipboard";
+import LIElement from "../../types/li/LIElement";
+import { selectedElementAtom } from "../elements/useSelectedElem";
+import { mapAtom } from "../map/useMap";
+import { localClipboardAtom } from "./useClipboard";
 
 const copyToClipboardAtom = atom(null, (get, set) => {
 

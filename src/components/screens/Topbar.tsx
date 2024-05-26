@@ -1,4 +1,3 @@
-import { Navbar, NavbarDivider, NavbarGroup } from "@blueprintjs/core";
 import AddLayerButton from "../buttons/AddLayerButton";
 import AddObjectButton from "../buttons/AddObjectButton";
 import CopyButton from "../buttons/CopyButton";
@@ -14,39 +13,49 @@ import MapName from "../scenegraph/MapName";
 import MapAssetsButton from "../buttons/MapAssetsButton";
 import SettingsButton from "../buttons/SettingsButton";
 import MapPropertiesButton from "../buttons/MapPropertiesButton";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import NavDivider from "./NavDivider";
+import MapPublishButton from "../buttons/MapPublishButton";
 
 export default function Topbar() {
     return (
         <div className="topbar">
-            <Navbar
+            <AppBar
+                elevation={1}
                 className="topbar-navbar"
-                fixedToTop={true}
             >
-                <NavbarGroup>
+                <Toolbar
+                    style={{ minHeight: 50 }}
+                >
                     <MapName />
-                    <NavbarDivider />
+
+
+                    <NavDivider />
                     <OpenMapButton />
                     <NewMapButton />
                     <SaveMapButton />
-                    <NavbarDivider />
+                    <NavDivider />
                     <AddObjectButton />
                     <AddLayerButton />
-                    <NavbarDivider />
+                    <NavDivider />
                     <UndoButton />
                     <RedoButton />
-                    <NavbarDivider />
+                    <NavDivider />
                     <CopyButton />
                     <PasteButton />
                     <DeleteObjectButton />
-                    <NavbarDivider />
+                    <NavDivider />
                     <MapAssetsButton />
-                </NavbarGroup>
-                <NavbarGroup align="right">
+
+                    <Typography sx={{ flexGrow: 1 }} />
+
                     <SignInButton />
+                    <MapPublishButton />
                     <MapPropertiesButton />
                     <SettingsButton />
-                </NavbarGroup>
-            </Navbar>
+                </Toolbar>
+
+            </AppBar>
         </div>
     );
 }

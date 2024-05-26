@@ -1,9 +1,10 @@
-import { Button } from "@blueprintjs/core";
+import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import useSelectedElem from "../../../hooks/elements/useSelectedElem";
 import generateGUID from "../../../utils/generateGUID";
-import { useSelectedColliderID } from "../../../hooks/map/elements/useSelectedCollider";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -112,21 +113,22 @@ export default function ColliderPanel() {
         <>
             <PanelContainer title={t("collider.title") as string}>
                 <Button
-                    alignText="left"
-                    minimal
-                    fill
-                    icon="add"
-                    text={t("collider.add") as string}
+                    size={"small"}
+                    fullWidth
+                    endIcon={<Add />}
                     onClick={addCollider}
                     disabled={isAddDisabled}
+                    color={"inherit"}
                     style={{ marginTop: 5, marginBottom: 0 }}
-                />
+                >
+                    {t("collider.add") as string}
+                </Button>
                 <DropdownList
                     elements={selectedElem.properties.colliders?.map((collider, index) => ({
                         id: collider.id,
                         name: collider.name !== undefined ? collider.name : t("collider.defaultName", { index: index + 1 }) as string,
-                        intent: collider.blocksLight ? "danger" : "success",
-                        icon: "edit"
+                        intent: collider.blocksLight ? "error" : "success",
+                        icon: "Edit"
                     })) ?? []}
                     selectedID={selectedColliderID}
                     onSelectID={setSelectedColliderID}
@@ -147,70 +149,70 @@ export default function ColliderPanel() {
             <MapError
                 isVisible={selectedColliderID !== undefined}
                 info
-                icon="hand-up"
+                icon="HighlightAlt"
             >
                 {t("collider.colliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type.startsWith("sab-door")}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.doorInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-room"}
                 info
-                icon="area-of-interest"
+                icon="Room"
             >
                 {t("collider.roomInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type.startsWith("util-sound") || selectedElem.type === "util-triggersound"}
                 info
-                icon="volume-up"
+                icon="VolumeUp"
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerarea"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.triggerAreaInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-tele"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.teleInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-onewaycollider"}
                 info
-                icon="polygon-filter"
+                icon="HighlightAlt"
             >
                 {t("collider.oneWayColliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-decontamination"}
                 info
-                icon="volume-up"
+                icon="VolumeUp"
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-ghostcollider"}
                 info
-                icon="person"
+                icon="Person"
             >
                 {t("collider.ghostInfo") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-binocularscollider"}
                 info
-                icon="camera"
+                icon="CameraAlt"
             >
                 {t("collider.binocularsInfo") as string}
             </MapError>

@@ -1,15 +1,15 @@
-import { H5 } from "@blueprintjs/core";
+import { Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useConnections } from "../../../hooks/map/elements/useConnections";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
-import { useElementType } from "../../../hooks/map/elements/useTypes";
-import { useSpriteType } from "../../../hooks/canvas/useSprite";
-import NumericPanelInput from "../input/NumericPanelInput";
-import RoomSelect from "../input/RoomSelect";
-import TextPanelInput from "../input/TextPanelInput";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
+import { useConnections } from "../../../hooks/elements/useConnections";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
+import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 
 const timerElems = [
     "sab-reactorleft",
@@ -25,9 +25,9 @@ export default function SabPanel() {
     const { t } = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [sabName, setSabName] = React.useState("");
-    const sprite = useSpriteType(selectedElem?.type);
-    const roomElems = useElementType("util-room");
-    const [targetConnections, sourceConnections] = useConnections(selectedElem?.properties.parent);
+    const sprite = useSpriteOfType(selectedElem?.type);
+    const roomElems = useElementsOfType("util-room");
+    const [, sourceConnections] = useConnections(selectedElem?.properties.parent);
 
     const otherSab = React.useMemo(() => {
         if (selectedElem?.type.startsWith("sab-btn"))
@@ -60,40 +60,42 @@ export default function SabPanel() {
                         src={sprite?.src}
                         alt={selectedElem.name}
                     />
-                    <H5 style={{ marginBottom: 3 }}>{sabName}</H5>
-                    <p className="bp4-text-muted">{selectedElem.type}</p>
+                    <Typography variant={"subtitle2"}>
+                        {sabName}
+                    </Typography>
+                    <Typography variant={"body2"} sx={{ color: "text.secondary" }}>
+                        {selectedElem.type}
+                    </Typography>
                 </div>
                 <RoomSelect useDefault={true} />
-                <TextPanelInput
+                <ElementPropTextInput
+                    name={t("sab.description")}
                     prop="description"
-                    name={"sab.description"}
-                    icon={"comment"}
+                    icon={"Comment"}
                 />
                 {showTimer && (
-                    <NumericPanelInput
+                    <ElementPropNumericInput
+                        name={t("sab.duration")}
                         prop="sabDuration"
-                        name={"sab.duration"}
                         defaultValue={selectedElem.type === "sab-btnmixup" ? 10 : 45}
                         min={0}
-                        minorStepSize={1}
                         stepSize={5}
-                        majorStepSize={15}
                         label={"seconds"}
-                        icon="time"
+                        icon="Timer"
                     />
                 )}
             </PanelContainer>
 
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon="Room"
             >
                 {t("sab.errorNoRoom") as string}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "sab-btndoors"}
                 info
-                icon="map-marker"
+                icon="Room"
             >
                 {t("sab.doorInfo") as string}
             </MapError>

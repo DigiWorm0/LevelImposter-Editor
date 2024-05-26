@@ -1,43 +1,19 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useSetAtom } from "jotai";
 
-// Atoms
 export const mouseXAtom = atom(0);
 export const mouseYAtom = atom(0);
-export const mouseCursorAtom = atom("default");
 
-// Debug
-mouseXAtom.debugLabel = "mouseX";
-mouseYAtom.debugLabel = "mouseY";
-mouseCursorAtom.debugLabel = "mouseCursor";
-
-// Hooks
-export function useMouseCursor() {
-    return useAtom(mouseCursorAtom);
-}
-export function useSetMouseCursor() {
-    return useSetAtom(mouseCursorAtom);
-}
-export function useMouseCursorValue() {
-    return useAtomValue(mouseCursorAtom);
+export interface SetMousePayload {
+    x: number;
+    y: number;
 }
 
-export default function useMousePos() {
-    const x = useAtomValue(mouseXAtom);
-    const y = useAtomValue(mouseYAtom);
+export const setMouseAtom = atom(null, (_, set, payload: SetMousePayload) => {
+    set(mouseXAtom, payload.x);
+    set(mouseYAtom, payload.y);
+});
+setMouseAtom.debugLabel = "setMouseAtom";
 
-    return {
-        x,
-        y,
-    }
-}
-export function useSetMousePos(): (x: number, y: number) => void {
-    const setX = useSetAtom(mouseXAtom);
-    const setY = useSetAtom(mouseYAtom);
-
-    const setData = (x: number, y: number) => {
-        setX(x);
-        setY(y);
-    }
-
-    return setData;
+export default function useSetMouse() {
+    return useSetAtom(setMouseAtom);
 }

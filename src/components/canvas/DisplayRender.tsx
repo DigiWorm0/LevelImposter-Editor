@@ -1,19 +1,19 @@
-import { Group, Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/map/elements/useSelectedElem";
-import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
+import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
+import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH } from "../../types/generic/Constants";
 
 export default function DisplayRender() {
-    const selectedElem = useSelectedElemValue();
+    const isDisplay = useIsSelectedElemType("util-display");
+    const displayHeight = useSelectedElemPropValue<number>("displayHeight");
+    const displayWidth = useSelectedElemPropValue<number>("displayWidth");
 
-    if (!selectedElem
-        || selectedElem.type !== "util-display")
+    if (!isDisplay)
         return null;
 
-    const { x, y, xScale, yScale, rotation } = selectedElem;
+    const camHeight = displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
+    const camWidth = displayWidth ?? DEFAULT_DISPLAY_WIDTH;
 
-    const camHeight = selectedElem.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
-    const camWidth = selectedElem.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
-
+    /*
     return (
         <Group
             x={x * UNITY_SCALE}
@@ -35,4 +35,7 @@ export default function DisplayRender() {
             />
         </Group>
     );
+    */
+    // TODO: Fix Me
+    return null;
 }

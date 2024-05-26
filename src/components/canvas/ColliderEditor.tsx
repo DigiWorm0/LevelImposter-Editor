@@ -1,16 +1,16 @@
 import React from "react";
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/input/useMouse";
-import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/map/elements/useSelectedCollider";
-import { useSettingsValue } from "../../hooks/useSettings";
 import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useInsertPointAtMouse } from "../../hooks/elements/colliders/useInsertColliderPointAtMouse";
+import useSelectedCollider from "../../hooks/elements/colliders/useSelectedCollider";
+import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
+import setCursor from "../../utils/setCursor";
 
 
 export default function ColliderEditor() {
     const [collider, setCollider] = useSelectedCollider();
-    const setMouseCursor = useSetMouseCursor();
     const insertPointAtMouse = useInsertPointAtMouse();
     const { gridSnapResolution, colliderHandleSize, isGridSnapEnabled } = useSettingsValue();
     const { relativeToAbsolute, absoluteToRelative } = useAdjustPoint();
@@ -53,12 +53,13 @@ export default function ColliderEditor() {
                             ctx.lineTo(p2.x, p2.y);
                             ctx.fillStrokeShape(shape);
                         }}
-                        onMouseEnter={() => setMouseCursor("pointer")}
-                        onMouseLeave={() => setMouseCursor("default")}
+                        onMouseEnter={e => setCursor(e, "pointer")}
+                        onMouseLeave={e => setCursor(e, "default")}
                         stroke={collider.blocksLight ? "red" : "green"}
                         strokeWidth={5}
-                        onMouseDown={() => {
+                        onClick={(e) => {
                             insertPointAtMouse(index + 1);
+                            e.cancelBubble = true;
                         }}
                     />
                 )
@@ -82,12 +83,8 @@ export default function ColliderEditor() {
                                 setCollider({ ...collider });
                             }
                         }}
-                        onMouseEnter={() => {
-                            setMouseCursor("pointer");
-                        }}
-                        onMouseLeave={() => {
-                            setMouseCursor("default");
-                        }}
+                        onMouseEnter={e => setCursor(e, "pointer")}
+                        onMouseLeave={e => setCursor(e, "default")}
                         onDragMove={(e) => {
                             if (isGridSnapEnabled) {
                                 const snapPoint = snapPointToGrid({

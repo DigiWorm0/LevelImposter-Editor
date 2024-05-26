@@ -1,6 +1,9 @@
-import { AnchorButton, Tooltip } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useCanUndo, useUndo } from "../../hooks/map/useHistory";
+import { IconButton, Tooltip } from "@mui/material";
+import { Undo } from "@mui/icons-material";
+import React from "react";
+import { useUndo } from "../../hooks/map/history/useUndoRedo";
+import { useCanUndo } from "../../hooks/map/history/useCanUndoRedo";
 
 export default function UndoButton() {
     const { t } = useTranslation();
@@ -8,18 +11,12 @@ export default function UndoButton() {
     const canUndo = useCanUndo();
 
     return (
-        <Tooltip
-            fill
-            content={t("edit.undo") as string}
-            position="bottom">
-
-            <AnchorButton
-                fill
-                minimal
-                disabled={!canUndo}
-                icon={"undo"}
-                onClick={undo}
-            />
+        <Tooltip title={t("edit.undo")}>
+            <span>
+                <IconButton onClick={undo} disabled={!canUndo}>
+                    <Undo />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 }

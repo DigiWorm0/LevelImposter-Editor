@@ -1,43 +1,50 @@
-import { AnchorButton } from "@blueprintjs/core";
-import { Tooltip2 } from "@blueprintjs/popover2";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_GUID } from "../../utils/generateGUID";
 import { useMapValue } from "../../hooks/map/useMap";
 import useEmbed from "../../hooks/embed/useEmbed";
+import { Button, Tooltip } from "@mui/material";
+import { Launch } from "@mui/icons-material";
+import React from "react";
 
 export default function OpenInEditor() {
     const map = useMapValue();
     const isEmbed = useEmbed();
     const { t } = useTranslation();
 
+    const url = React.useMemo(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("embed");
+        url.searchParams.set("id", map.id);
+        return url.toString();
+    }, [map.id]);
+    
     if (!isEmbed || map.id === DEFAULT_GUID)
         return null;
-
-    const url = new URL(window.location.href);
-    url.searchParams.delete("embed");
-    url.searchParams.set("id", map.id);
-    const urlString = url.toString();
 
     const canRemix = map.properties.canRemix !== false;
 
     return (
-        <div className="open-in-editor">
+        <div
+            style={{
+                position: "absolute",
+                top: 10,
+                right: 10,
+                zIndex: 1
+            }}
+        >
 
-            <Tooltip2
-                content={!canRemix ? (t("map.errorRemix") as string) : undefined}
-                position="bottom">
-
-                <AnchorButton
-                    large
-                    text={t("embed.openInEditor")}
-                    onClick={() => {
-                        window.open(urlString, "_blank");
-                    }}
-                    icon="open-application"
+            <Tooltip
+                title={!canRemix ? t("map.errorRemix") : undefined}
+            >
+                <Button
+                    size={"large"}
+                    onClick={() => window.open(url, "_blank")}
+                    endIcon={<Launch />}
                     disabled={!canRemix}
-                />
-
-            </Tooltip2>
+                >
+                    {t("embed.openInEditor")}
+                </Button>
+            </Tooltip>
         </div>
     );
 }

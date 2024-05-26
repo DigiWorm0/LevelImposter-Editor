@@ -1,11 +1,11 @@
-import { H6 } from "@blueprintjs/core";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import MapAsset from "../../../types/li/MapAsset";
 import generateGUID from "../../../utils/generateGUID";
-import useSelectedElem from "../../../hooks/map/elements/useSelectedElem";
-import DevInfo from "../../utils/DevInfo";
 import ImageUpload from "../util/ImageUpload";
-import MapAsset from "../../../types/li/MapAssetDB";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import LIMinigameSprite from "../../../types/li/LIMinigameSprite";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -15,83 +15,54 @@ interface MinigameEditorPanelProps {
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const [minigames, setMinigames] = useSelectedElemProp<LIMinigameSprite[]>("minigames");
 
     const minigameType = props.minigameType;
     const splitMinigameType = minigameType.split("_");
-
-    const minigame = React.useMemo(() => {
-        return selectedElem?.properties.minigames?.find(mg => mg.type === minigameType);
-    }, [selectedElem, props.minigameType]);
+    const minigame = minigames?.find(mg => mg.type === minigameType);
 
     const onReset = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        const minigameList = selectedElem.properties.minigames?.filter(minigame => minigame.type !== minigameType) ?? [];
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                minigames: minigameList
-            }
-        });
-    }, [selectedElem, minigameType, setSelectedElem]);
+        const minigameList = minigames?.filter(minigame => minigame.type !== minigameType) ?? [];
+        setMinigames(minigameList);
+    }, [minigames, setMinigames]);
 
     const onUpload = React.useCallback((asset: MapAsset) => {
-        if (!selectedElem)
-            return;
-        const minigameList = selectedElem.properties.minigames?.map(mg => {
-            if (mg.id === minigame?.id)
-                return {
-                    ...mg,
-                    spriteID: asset.id,
-                }
-            return mg;
-        }) ?? [];
+
+        // Update the minigame sprite ID
+        const newMinigames = minigames?.map(mg => ({
+            ...mg,
+            spriteID: mg.id === minigame?.id ? asset.id : mg.spriteID
+        })) ?? [];
+
         // If the minigame is not in the list, add it
-        if (!minigameList?.find(mg => mg.type === minigameType)) {
-            minigameList?.push({
+        if (!newMinigames.find(mg => mg.type === minigameType)) {
+            newMinigames.push({
                 id: generateGUID(),
                 type: minigameType,
                 spriteID: asset.id,
             });
         }
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                minigames: minigameList
-            }
-        });
-    }, [selectedElem, minigame, setSelectedElem]);
 
-
-    console.log(splitMinigameType);
-
-    if (!selectedElem)
-        return null;
+        // Update the minigames
+        setMinigames(newMinigames);
+        
+    }, [minigames, minigame, setMinigames]);
 
     return (
-        <div style={{ padding: 20 }}>
+        <Box sx={{ p: 2 }}>
             {!props.hideName && (
-                <H6>
+                <Typography variant={"subtitle2"}>
                     {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
-                </H6>
+                </Typography>
             )}
-            <DevInfo>
-                {minigame?.id}
-                {minigame?.type}
-            </DevInfo>
-
             <ImageUpload
-                name={selectedElem.name}
+                name={minigameType}
                 defaultSpriteURL={`/minigames/${minigameType}.png`}
                 assetID={minigame?.spriteID}
                 onUpload={onUpload}
                 onReset={onReset}
                 onFinish={props.onFinish}
             />
-
-        </div>
+        </Box>
     )
 }

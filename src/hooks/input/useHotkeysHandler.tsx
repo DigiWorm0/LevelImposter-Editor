@@ -1,13 +1,13 @@
+import { useHotkeys } from "react-hotkeys-hook";
+import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
 import generateGUID from "../../utils/generateGUID";
-import { useAddElementAtMouse } from "../map/elements/useElements";
-import { useRedo, useUndo } from "../map/useHistory";
-import { useSelectedElemValue, useSetSelectedElemID } from "../map/elements/useSelectedElem";
+import useAddElementAtMouse from "../elements/useAddElementAtMouse";
+import { useRemoveSelectedElement } from "../elements/useRemoveElement";
+import { useSelectedElemValue, useSetSelectedElemID } from "../elements/useSelectedElem";
+import useSaveMap from "../fileio/useSaveMap";
+import { useRedo, useUndo } from "../map/history/useUndoRedo";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
-import useSaveMap from "../fileio/useSaveMap";
-import { useHotkeys } from "react-hotkeys-hook";
-import { useRemoveSelectedElement } from "../map/elements/useRemoveElement";
-import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
 import useCopyToClipboard from "./useCopyToClipboard";
 import usePasteFromClipboard from "./usePasteFromClipboard";
 

@@ -1,27 +1,19 @@
-import { Button, Tooltip } from "@blueprintjs/core";
-import { useSettingsValue } from "../../hooks/useSettings";
 import React from "react";
-import MapAssetsModal from "../modals/MapAssetsModal";
+import MapAssetsModal from "../modals/MapAssets/MapAssetsModal";
 import { useTranslation } from "react-i18next";
+import { IconButton, Tooltip } from "@mui/material";
+import { PermMedia } from "@mui/icons-material";
 
 export default function MapAssetsButton() {
-    const { isDevMode } = useSettingsValue();
     const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
 
-    if (!isDevMode)
-        return null;
     return (
         <>
-            <Tooltip
-                content={t("edit.mapAssets") as string}
-                position="bottom"
-            >
-                <Button
-                    minimal
-                    icon={"database"}
-                    onClick={() => setIsOpen(true)}
-                />
+            <Tooltip title={t("edit.mapAssets")}>
+                <IconButton onClick={() => setIsOpen(true)}>
+                    <PermMedia />
+                </IconButton>
             </Tooltip>
 
             <MapAssetsModal

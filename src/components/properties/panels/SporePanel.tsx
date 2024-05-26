@@ -1,43 +1,39 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/map/elements/useSelectedElem";
 import { DEFAULT_SPORE_GAS_RANGE, DEFAULT_SPORE_RANGE } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
+import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
-import ColorPanelInput from "../input/ColorPanelInput";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function SporePanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isSpore = useIsSelectedElemType("util-spore");
 
-    if (!selectedElem || selectedElem.type !== "util-spore")
+    if (!isSpore)
         return null;
 
     return (
         <>
             <PanelContainer title={t("spore.title") as string}>
-                <NumericPanelInput
-                    name="spore.activateRange"
+                <ElementPropNumericInput
+                    name={t("spore.activateRange")}
                     prop="range"
                     defaultValue={DEFAULT_SPORE_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
-                    minorStepSize={0.05}
                     stepSize={0.1}
-                    majorStepSize={0.5}
-                    intent="warning"
+                    color="warning"
                 />
-                <NumericPanelInput
-                    name="spore.gasRange"
+                <ElementPropNumericInput
+                    name={t("spore.gasRange")}
                     prop="sporeRange"
                     defaultValue={DEFAULT_SPORE_GAS_RANGE}
-                    icon="ring"
+                    icon="TripOrigin"
                     min={0}
-                    minorStepSize={0.05}
                     stepSize={0.1}
-                    majorStepSize={0.5}
-                    intent="primary"
+                    color="primary"
                 />
-                <ColorPanelInput
+                <ElementPropColorInput
                     name={t("spore.gasColor") as string}
                     prop="gasColor"
                     defaultValue={{ r: 221, g: 0, b: 217, a: 0.498 }} // Purple
