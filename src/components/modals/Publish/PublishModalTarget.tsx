@@ -14,10 +14,11 @@ import React from "react";
 import { Add, SwapVert } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import useUserMaps from "../../../hooks/firebase/useUserMaps";
+import usePublishTarget from "../../../hooks/firebase/publish/usePublishTarget";
 
 export default function PublishModalTarget() {
     const { t } = useTranslation();
-    const [targetID, setTargetID] = React.useState<string | null>(null);
+    const [targetID, setTargetID] = usePublishTarget();
     const maps = useUserMaps();
 
     // Revert non-existant map ID

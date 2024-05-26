@@ -6,7 +6,7 @@ export default function LeftSidebar() {
         <Paper
             elevation={1}
             sx={{
-                width: 250,
+                width: 270,
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",

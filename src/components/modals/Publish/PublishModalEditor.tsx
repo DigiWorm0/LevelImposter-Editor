@@ -6,16 +6,11 @@ import { useMapAuthorName, useMapDescription, useMapIsPublic, useMapName } from 
 import ThumbnailEdit from "../../utils/ThumbnailEdit";
 import { Box, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from "@mui/material";
 
-export interface PublishModalProps {
-    disabled?: boolean;
-}
-
-export default function PublishModalEditor(props: PublishModalProps) {
+export default function PublishModalEditor() {
     const { t } = useTranslation();
     const [user] = useAuthState(auth);
 
     // Edit Hooks
-    const [thumbnail, setThumbnail] = React.useState<Blob | null>(null);
     const [mapName, setMapName] = useMapName();
     const [description, setDescription] = useMapDescription();
     const [authorName, setAuthorName] = useMapAuthorName();
@@ -23,11 +18,7 @@ export default function PublishModalEditor(props: PublishModalProps) {
 
     return (
         <Box>
-            <ThumbnailEdit
-                isDisabled={props.disabled}
-                thumbnail={thumbnail}
-                setThumbnail={setThumbnail}
-            />
+            <ThumbnailEdit />
             <Box
                 sx={{
                     display: "flex",
@@ -43,13 +34,11 @@ export default function PublishModalEditor(props: PublishModalProps) {
                         control={<Radio color={"success"} />}
                         label={t("publish.public")}
                         value="public"
-                        disabled={props.disabled}
                     />
                     <FormControlLabel
                         control={<Radio color={"error"} />}
                         label={t("publish.private")}
                         value="private"
-                        disabled={props.disabled}
                     />
                 </RadioGroup>
             </Box>
@@ -57,7 +46,6 @@ export default function PublishModalEditor(props: PublishModalProps) {
                 <TextField
                     fullWidth
                     sx={{ mb: 1 }}
-                    disabled={props.disabled}
                     placeholder={t("publish.mapName")}
                     value={mapName}
                     onChange={(e) => setMapName(e.target.value)}
@@ -65,7 +53,6 @@ export default function PublishModalEditor(props: PublishModalProps) {
                 <TextField
                     fullWidth
                     sx={{ mb: 1 }}
-                    disabled={props.disabled}
                     placeholder={t("publish.authorName")}
                     value={authorName || user?.displayName || "Anonymous"}
                     onChange={(e) => setAuthorName(e.target.value)}
@@ -76,7 +63,6 @@ export default function PublishModalEditor(props: PublishModalProps) {
                 <TextField
                     fullWidth
                     size={"small"}
-                    disabled={props.disabled}
                     placeholder={t("publish.mapDescription")}
                     multiline
                     maxRows={12}

@@ -17,7 +17,7 @@ export default function OpenInEditor() {
         url.searchParams.set("id", map.id);
         return url.toString();
     }, [map.id]);
-    
+
     if (!isEmbed || map.id === DEFAULT_GUID)
         return null;
 
@@ -36,14 +36,18 @@ export default function OpenInEditor() {
             <Tooltip
                 title={!canRemix ? t("map.errorRemix") : undefined}
             >
-                <Button
-                    size={"large"}
-                    onClick={() => window.open(url, "_blank")}
-                    endIcon={<Launch />}
-                    disabled={!canRemix}
-                >
-                    {t("embed.openInEditor")}
-                </Button>
+                <span>
+                    <Button
+                        size={"large"}
+                        variant={"contained"}
+                        color={"inherit"}
+                        onClick={() => window.open(url, "_blank")}
+                        endIcon={<Launch />}
+                        disabled={!canRemix}
+                    >
+                        {t("embed.openInEditor")}
+                    </Button>
+                </span>
             </Tooltip>
         </div>
     );

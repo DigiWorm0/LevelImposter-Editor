@@ -14,7 +14,9 @@
 		"zh-CN": "Chinese (Simplified)"
 	},
 	"embed": {
-		"openInEditor": "Open in Editor"
+		"openInEditor": "Open in Editor",
+		"loadingMap": "Downloading map...",
+		"loadedMap": "Loaded {{name}} by {{author}}"
 	},
 	"warning": {
 		"title": "Warning",

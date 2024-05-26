@@ -35,7 +35,7 @@ export default function PublishModal(props: PublishModalProps) {
         >
             {step === 0 && <PublishModalEditor />}
             {step === 1 && <PublishModalTarget />}
-            {step === 2 && <PublishModalUpload />}
+            {step === 2 && <PublishModalUpload onClose={props.onClose} />}
 
             <Stepper
                 sx={{ mt: 1 }}

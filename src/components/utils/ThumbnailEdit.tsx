@@ -6,31 +6,27 @@ import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/map/useMap";
 import { Box, Button, ButtonGroup, CardMedia, Typography } from "@mui/material";
 import { CloudUpload, Refresh } from "@mui/icons-material";
+import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";
+import useMapThumbnailURL from "../../hooks/firebase/publish/useMapThumbnailURL";
 
-export interface ThumbnailEditProps {
-    thumbnail: Blob | null;
-    setThumbnail: (thumbnail: Blob | null) => void
-
-    isDisabled?: boolean;
-}
-
-export default function ThumbnailEdit(props: ThumbnailEditProps) {
+export default function ThumbnailEdit() {
     const map = useMapValue();
     const toaster = useToaster();
-    const [thumbnailURL, setThumbnailURL] = React.useState("/DefaultThumbnail.png");
+    const [thumbnail, setThumbnail] = useMapThumbnail();
+    const thumbnailURL = useMapThumbnailURL();
     const { t } = useTranslation();
 
     /**
      * Set default thumbnail.
      */
     React.useEffect(() => {
-        if (!map.thumbnailURL || props.thumbnail)
+        if (!map.thumbnailURL || thumbnail)
             return;
         fetch(map.thumbnailURL)
             .then((response) => response.blob())
-            .then((blob) => props.setThumbnail(blob))
+            .then((blob) => setThumbnail(blob))
             .catch(toaster.error);
-    }, [map.thumbnailURL, props.setThumbnail]);
+    }, [map.thumbnailURL, setThumbnail]);
 
     /**
      * Resizes an image to the specified width and height.
@@ -79,27 +75,11 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
         const uploadThumbnail = async () => {
             const imageBlob = await openUploadDialog("image/*");
             const resizedBlob = await resizeImage(imageBlob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
-            props.setThumbnail(resizedBlob);
+            setThumbnail(resizedBlob);
         }
 
         uploadThumbnail().catch(toaster.error);
-    }, [props, resizeImage, toaster]);
-
-    // Manage Object URL
-    React.useEffect(() => {
-        // Default Thumbnail
-        if (!props.thumbnail) {
-            setThumbnailURL("/DefaultThumbnail.png");
-            return;
-        }
-
-        // Set Object URL
-        const objectURL = URL.createObjectURL(props.thumbnail);
-        setThumbnailURL(objectURL);
-        return () => {
-            URL.revokeObjectURL(objectURL);
-        }
-    }, [props.thumbnail]);
+    }, [setThumbnail, resizeImage, toaster]);
 
     return (
         <Box
@@ -128,7 +108,6 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
                 />
                 <ButtonGroup fullWidth>
                     <Button
-                        disabled={props.isDisabled}
                         startIcon={<CloudUpload />}
                         onClick={onUploadClick}
                         variant={"text"}
@@ -136,9 +115,8 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
                         {t("publish.uploadThumbnail") as string}
                     </Button>
                     <Button
-                        disabled={props.isDisabled}
                         startIcon={<Refresh />}
-                        onClick={() => props.setThumbnail(null)}
+                        onClick={() => setThumbnail(null)}
                         color={"error"}
                         variant={"text"}
                     >

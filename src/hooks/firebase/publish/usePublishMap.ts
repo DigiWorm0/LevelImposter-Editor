@@ -1,19 +1,14 @@
-import { uploadMapAtom } from "./useUploadMap";
-import generateGUID from "../../utils/generateGUID";
-import { mapAtom } from "../map/useMap";
+import { uploadMapAtom } from "../useUploadMap";
+import generateGUID from "../../../utils/generateGUID";
+import { mapAtom } from "../../map/useMap";
 import { getI18n } from "react-i18next";
-import { remixAtom } from "../map/useIsRemix";
+import { remixAtom } from "../../map/useIsRemix";
 import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { userAtom } from "./useUser";
+import { userAtom } from "../useUser";
+import { mapThumbnailAtom } from "./useMapThumbnail";
+import { publishTargetAtom } from "./usePublishTarget";
 
-export interface PublishMapPayload {
-    thumbnail: Blob | null;
-    id: MaybeGUID;
-    onProgress: (percent: number) => void;
-}
-
-export const publishMapAtom = atom(null, (get, set, payload: PublishMapPayload) => {
+export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: number) => void) => {
     const map = get(mapAtom);
     const user = get(userAtom);
     const t = getI18n().t;
@@ -25,11 +20,13 @@ export const publishMapAtom = atom(null, (get, set, payload: PublishMapPayload) 
         throw new Error(t("publish.errorEmailNotVerified"));
 
     // Get Map Data
+    const thumbnail = get(mapThumbnailAtom);
+    const targetID = get(publishTargetAtom);
     const isRemix = get(remixAtom);
     const oldMapID = map.id;
 
     // Update Properties
-    map.id = payload.id ?? generateGUID();
+    map.id = targetID ?? generateGUID();
     map.idVersion = (map.idVersion ?? 0) + 1;
     map.remixOf = isRemix ? oldMapID : null;
 
@@ -44,10 +41,10 @@ export const publishMapAtom = atom(null, (get, set, payload: PublishMapPayload) 
     map.downloadCount = 0;
 
     // Upload Map
-    return set(uploadMapAtom, {
+    return await set(uploadMapAtom, {
         map,
-        thumbnail: payload.thumbnail,
-        onProgress: payload.onProgress
+        thumbnail,
+        onProgress
     });
 });
 publishMapAtom.debugLabel = "publishMapAtom";

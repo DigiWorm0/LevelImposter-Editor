@@ -1,9 +1,30 @@
-import { Box, Button, Typography } from "@mui/material";
-import { useMapValue } from "../../../hooks/map/useMap";
-import MapCard from "../../utils/MapCard";
+import { Box, Button, LinearProgress, Typography } from "@mui/material";
+import usePublishMap from "../../../hooks/firebase/publish/usePublishMap";
+import React from "react";
+import PublishModalUploadPreview from "./PublishModalUploadPreview";
+import useToaster from "../../../hooks/useToaster";
 
-export default function PublishModalUpload() {
-    const map = useMapValue();
+export interface PublishModalUploadProps {
+    onClose: () => void;
+}
+
+export default function PublishModalUpload(props: PublishModalUploadProps) {
+    const [isPublishing, setIsPublishing] = React.useState(false);
+    const [progress, setProgress] = React.useState(0);
+    const publishMap = usePublishMap();
+    const toaster = useToaster();
+
+    const onPublish = React.useCallback(() => {
+        setIsPublishing(true);
+        publishMap(setProgress).then((id) => {
+            setIsPublishing(false);
+            window.open(`https://levelimposter.net/#/map/${id}`, "_blank");
+            props.onClose();
+        }).catch((e) => {
+            setIsPublishing(false);
+            toaster.error(e);
+        });
+    }, [publishMap]);
 
     return (
         <Box
@@ -13,14 +34,25 @@ export default function PublishModalUpload() {
                 alignItems: "center"
             }}
         >
-            <MapCard map={map} />
-            <Button
-                variant={"contained"}
-                sx={{ m: 1 }}
-                fullWidth
-            >
-                Publish
-            </Button>
+            <PublishModalUploadPreview />
+            {isPublishing ? (
+                <Box sx={{ width: '100%', mt: 3, mb: 3 }}>
+                    <LinearProgress
+                        color={"primary"}
+                        variant={"determinate"}
+                        value={progress * 100}
+                    />
+                </Box>
+            ) : (
+                <Button
+                    variant={"contained"}
+                    sx={{ m: 1 }}
+                    fullWidth
+                    onClick={onPublish}
+                >
+                    Publish
+                </Button>
+            )}
             <Typography
                 variant={"body2"}
                 color={"textSecondary"}
@@ -33,8 +65,8 @@ export default function PublishModalUpload() {
                 </a>
                 {" "}
                 of the LevelImposter workshop.
-
             </Typography>
+
         </Box>
     );
 }

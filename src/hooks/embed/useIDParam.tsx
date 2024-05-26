@@ -1,10 +1,13 @@
 import React from "react";
 import GUID from "../../types/generic/GUID";
 import useLoadMapFromID from "../firebase/useLoadMapFromID";
+import useToaster from "../useToaster";
+import { useTranslation } from "react-i18next";
 
-// TODO: Toaster
 export default function useIDParam() {
     const loadMapFromID = useLoadMapFromID();
+    const toaster = useToaster();
+    const { t } = useTranslation();
 
     // Load Map From Params
     React.useEffect(() => {
@@ -13,12 +16,17 @@ export default function useIDParam() {
             return;
 
         const id = params.get("id") as GUID;
-        loadMapFromID({ id }).then(() => {
+        const toastID = toaster.info(t("embed.loadingMap"));
+        loadMapFromID({ id }).then((map) => {
             // Remove ID Param
             const params = new URLSearchParams(window.location.search);
             params.delete("id");
             window.history.replaceState({}, "", `?${params.toString()}`);
-        }).catch(console.error);
+
+            // Toast
+            toaster.dismiss(toastID);
+            toaster.success(t("embed.loadedMap", { name: map.name, author: map.authorName }));
+        }).catch(toaster.error);
     }, [loadMapFromID]);
 
     return null;
