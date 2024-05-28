@@ -609,6 +609,11 @@
 		"createDeadBodyTooltip": "Creates a dead body when the player die.",
 		"triggerDeathInfo": "No death animation will play and the player will die instantly, regardless of their role or protection."
 	},
+	"triggershake": {
+		"title": "Shake Trigger",
+		"shakePeriod": "Shake Speed",
+		"shakeAmount": "Shake Amount"
+	},
 	"room": {
 		"title": "Room",
 		"showName": "Show on Minimap",

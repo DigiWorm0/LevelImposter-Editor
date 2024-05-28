@@ -26,6 +26,10 @@ export default interface LIProperties {
     sounds?: LISound[];
     soundPriority?: number;
 
+    // Shake
+    shakeAmount?: number;
+    shakePeriod?: number;
+
     // Minigame
     minigames?: LIMinigameSprite[];
     minigameProps?: LIMinigameProps;

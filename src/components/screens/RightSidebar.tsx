@@ -32,6 +32,7 @@ import SporePanel from "../properties/panels/SporePanel";
 import { Box, Paper } from "@mui/material";
 import CustomTextPanel from "../properties/panels/CustomTextPanel";
 import DeathTriggerPanel from "../properties/panels/DeathTriggerPanel";
+import CameraShakePanel from "../properties/panels/CameraShakePanel";
 
 export default function RightSidebar() {
     return (
@@ -86,6 +87,7 @@ export default function RightSidebar() {
                 <DecontaminationPanel />
                 <SporePanel />
                 <DeathTriggerPanel />
+                <CameraShakePanel />
 
                 <CustomTextPanel />
                 <TriggerPanel />
