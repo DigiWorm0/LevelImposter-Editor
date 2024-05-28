@@ -13,7 +13,7 @@ export const colliderAtomFamily = atomFamily((id: MaybeGUID) => {
         if (!selectedElem)
             return;
 
-        const colliders = selectedElem.properties.colliders ?? [];
+        const colliders = [...(selectedElem.properties.colliders ?? [])];
         const index = colliders.findIndex(c => c.id === id);
         if (index === -1)
             return;
@@ -26,7 +26,7 @@ export const colliderAtomFamily = atomFamily((id: MaybeGUID) => {
             ...selectedElem,
             properties: {
                 ...selectedElem.properties,
-                colliders: [...colliders]
+                colliders
             }
         });
     });

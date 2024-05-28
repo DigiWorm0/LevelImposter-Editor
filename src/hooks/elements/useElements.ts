@@ -16,8 +16,9 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
             const elements = get(elementsAtom);
             const index = elements.findIndex((e) => e.id === elem?.id);
             if (index >= 0 && elem) {
-                elements[index] = { ...elem };
-                set(elementsAtom, [...elements]);
+                const clone = [...elements];
+                clone[index] = elem;
+                set(elementsAtom, clone);
                 set(saveHistoryAtom);
             }
         }

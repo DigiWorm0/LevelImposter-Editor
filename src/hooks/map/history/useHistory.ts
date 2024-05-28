@@ -18,7 +18,6 @@ export const saveHistoryAtom = atom(null, (get, set) => {
         history.splice(headIndex + 1, history.length - headIndex - 1);
 
     // Save current map state
-    // TODO: Clone current to prevent lingering references
     history.push(current);
 
     // Remove old history

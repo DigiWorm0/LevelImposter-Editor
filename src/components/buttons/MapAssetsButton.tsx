@@ -15,7 +15,7 @@ export default function MapAssetsButton() {
     return (
         <>
             <Tooltip title={t("edit.mapAssets")}>
-                <IconButton onClick={() => setIsOpen(true)} disabled={isDevMode}>
+                <IconButton onClick={() => setIsOpen(true)}>
                     <PermMedia />
                 </IconButton>
             </Tooltip>

@@ -239,6 +239,22 @@
 		"BeginDiagnostics": "Begin Diagnostics",
 		"PickAnomaly": "Pick Anomaly"
 	},
+	"mergeAssets": {
+		"title": "Merging Assets...",
+		"description": "Assets are being merged. This will merge any duplicate sounds/images to reduce the size of the map. This is a resource-intensive operation and may take a while to complete.",
+		"progress": "{{progress}}% · {{total}} assets merged",
+		"success": "Successfully merged {{assetCount}} assets with {{referenceCount}} references.",
+		"tooltip": "Merge duplicate sounds/images to reduce map size."
+	},
+	"trimAssets": {
+		"title": "Trimming Assets...",
+		"success": "Successfully trimmed {{assetCount}} assets.",
+		"tooltip": "Remove unused sounds/images to reduce map size."
+	},
+	"replaceAsset": {
+		"success": "Successfully replaced asset",
+		"tooltip": "Replace this asset with another file."
+	},
 	"minigame": {
 		"title": "Minigame",
 		"starfieldEnabled": "Starfield Enabled",

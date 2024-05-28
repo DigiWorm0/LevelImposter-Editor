@@ -11,15 +11,18 @@ const undoRedoAtomFamily = atomFamily((delta: number) => {
         const history = get(historyAtom);
         const headIndex = get(headIndexAtom) + delta;
 
+        // Check if we are within bounds
         if (headIndex < 0 || headIndex >= history.length)
             return;
 
+        // Get the new current map
         const current = history[headIndex];
 
+        // Update the map and head index
         set(mapAtom, current);
         set(headIndexAtom, headIndex);
-        set(historyAtom, [...history]);
 
+        // Deselect element if it was deleted
         const selectedID = get(selectedElementIDAtom);
         if (selectedID && !current.elements.find(e => e.id === selectedID)) {
             set(selectedElementIDAtom, undefined);

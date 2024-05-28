@@ -3,7 +3,7 @@ import { atom, useAtom } from "jotai";
 import LIElement from "../../types/li/LIElement";
 import { selectedElementAtom } from "./useSelectedElem";
 
-export const elementPropertyAtom = atomFamily((prop: keyof LIElement) => {
+export const selectedElemTransformAtomFamily = atomFamily((prop: keyof LIElement) => {
     return atom((get) => {
         const element = get(selectedElementAtom);
         return element?.[prop];
@@ -15,5 +15,5 @@ export const elementPropertyAtom = atomFamily((prop: keyof LIElement) => {
 });
 
 export default function useSelectedElemTransform<T>(prop: keyof LIElement) {
-    return useAtom(elementPropertyAtom(prop)) as [T | undefined, (update: T) => void];
+    return useAtom(selectedElemTransformAtomFamily(prop)) as [T | undefined, (update: T) => void];
 }

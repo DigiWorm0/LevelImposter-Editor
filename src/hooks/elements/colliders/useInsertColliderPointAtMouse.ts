@@ -11,11 +11,12 @@ export const insertColliderPointAtMouseAtom = atom(null, (get, set, index: numbe
     if (selectedCollider && selectedElem) {
         const mouseX = get(mouseXAtom);
         const mouseY = get(mouseYAtom);
-        selectedCollider.points.splice(index, 0, {
+        const points = [...selectedCollider.points];
+        points.splice(index, 0, {
             x: (mouseX - selectedElem.x) / selectedElem.xScale,
             y: (-mouseY + selectedElem.y) / selectedElem.yScale
         });
-        set(selectedColliderAtom, { ...selectedCollider });
+        set(selectedColliderAtom, { ...selectedCollider, points });
     }
 });
 

@@ -1,6 +1,6 @@
 import { MaybeGUID } from "../../../types/generic/GUID";
 import { Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
-import { CloudDownload, Delete, Image, Upload } from "@mui/icons-material";
+import { CloudDownload, Delete, Image } from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/toSizeString";
 import React from "react";
@@ -8,6 +8,8 @@ import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
 import useDeleteMapAsset from "../../../hooks/assets/useDeleteMapAsset";
+import useDownloadMapAsset from "../../../hooks/assets/useDownloadMapAsset";
+import ReplaceAssetButton from "../../buttons/ReplaceAssetButton";
 
 export interface MapAssetModalEditorProps {
     id: MaybeGUID;
@@ -17,7 +19,7 @@ export interface MapAssetModalEditorProps {
 export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
     const asset = useMapAssetValue(props.id);
     const deleteAsset = useDeleteMapAsset();
-
+    const downloadAsset = useDownloadMapAsset();
 
     return (
         <Box sx={{ flex: 1, padding: 2 }}>
@@ -72,21 +74,14 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                     {/* Actions */}
                     <ButtonGroup sx={{ mt: 1 }}>
                         <Button
-                            onClick={props.onClose}
+                            onClick={() => downloadAsset({ id: props.id })}
                             variant={"outlined"}
                             color={"success"}
                             endIcon={<CloudDownload />}
                         >
                             Download
                         </Button>
-                        <Button
-                            onClick={props.onClose}
-                            variant={"outlined"}
-                            color={"primary"}
-                            endIcon={<Upload />}
-                        >
-                            Replace
-                        </Button>
+                        <ReplaceAssetButton assetID={props.id} />
                         <Button
                             onClick={() => {
                                 deleteAsset(props.id);

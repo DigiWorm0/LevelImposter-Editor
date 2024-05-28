@@ -12,6 +12,8 @@ export const openMapAtom = atom(null, async (_, set) => {
     set(isSavedAtom, true);
     set(mapAtom, map);
     set(saveHistoryAtom);
+
+    return map;
 });
 openMapAtom.debugLabel = "openMapAtom";
 

@@ -5,7 +5,7 @@ import generateGUID from "../../utils/generateGUID";
 
 // Payload
 export interface CreateMapAssetPayload {
-    type: "image" | "audio";
+    type: "image" | "audio" | "unknown";
     blob: Blob;
 }
 

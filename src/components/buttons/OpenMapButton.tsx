@@ -10,9 +10,15 @@ export default function OpenMapButton() {
     const toaster = useToaster();
     const openMapFile = useOpenMap();
 
+    const onClick = React.useCallback(() => {
+        openMapFile().then((map) => {
+            toaster.success(t("map.opened", { name: map.name }));
+        }).catch(toaster.error);
+    }, [openMapFile, toaster, t]);
+
     return (
         <Tooltip title={t("map.open")}>
-            <IconButton onClick={() => openMapFile().catch(() => toaster.error({ code: "map/open" }))}>
+            <IconButton onClick={onClick}>
                 <FolderOutlined />
             </IconButton>
         </Tooltip>

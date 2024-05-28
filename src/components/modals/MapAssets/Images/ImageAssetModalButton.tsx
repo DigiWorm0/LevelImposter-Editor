@@ -35,6 +35,7 @@ export default function ImageAssetModalButton(props: MapAssetModalButtonProps) {
                     style={{
                         objectFit: "contain",
                         maxWidth: "100%",
+                        maxHeight: 150
                     }}
                 />
             </Button>
