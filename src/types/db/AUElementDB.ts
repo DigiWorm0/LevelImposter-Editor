@@ -125,6 +125,8 @@ const AUElementDB: string[] = [
     "util-triggertimer",
     "util-triggerstart",
     "util-triggerrand",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-onewaycollider",
     "util-decontamination",
     "util-sabotages",

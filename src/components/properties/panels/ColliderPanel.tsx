@@ -33,6 +33,8 @@ const SOLID_ONLY_TYPES = [
     "util-tele",
     "util-triggerarea",
     "util-triggersound",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-decontamination"
 ];
 
@@ -189,6 +191,20 @@ export default function ColliderPanel() {
                 icon="CameraAlt"
             >
                 {t("collider.binocularsInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={type === "util-triggerdeath"}
+                info
+                icon="HighlightAlt"
+            >
+                {t("collider.deathInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={type === "util-triggershake"}
+                info
+                icon="CameraAlt"
+            >
+                {t("collider.shakeInfo") as string}
             </MapError>
         </>
     );

@@ -599,7 +599,15 @@
 		"colliderInfo": "Left click on the line to add a point. Right click on a point to remove it.",
 		"binocularsInfo": "The collider will only block the binoculars camera from moving past.",
 		"ghostInfo": "The collider will block all players, including ghosts.",
+		"deathInfo": "All players within the collider area will die when this object is triggered.",
+		"shakeInfo": "All players' screens will shake while they're within this colliders.",
 		"errorOneOnly": "This object can only have 1 collider"
+	},
+	"triggerdeath": {
+		"title": "Death Trigger",
+		"createDeadBody": "Create Dead Body",
+		"createDeadBodyTooltip": "Creates a dead body when the player die.",
+		"triggerDeathInfo": "No death animation will play and the player will die instantly, regardless of their role or protection."
 	},
 	"room": {
 		"title": "Room",
@@ -826,7 +834,9 @@
 		"endReactor": "Fix Reactor",
 		"endLights": "Fix Lights",
 		"endComms": "Fix Comms",
-		"endMixup": "Fix Mixup"
+		"endMixup": "Fix Mixup",
+		"killArea": "Kill Players in Area",
+		"onKill": "On Kill"
 	},
 	"au": {
 		"undefined": "Unknown Object",
@@ -874,6 +884,8 @@
 		"util-triggertimer": "Trigger Timer",
 		"util-triggerstart": "Trigger Start",
 		"util-triggerrand": "Trigger Randomizer",
+		"util-triggerdeath": "Trigger Death",
+		"util-triggershake": "Trigger Screen Shake",
 		"util-onewaycollider": "One-Way Collider",
 		"util-decontamination": "Decontamination System",
 		"util-sabotages": "Sabotage Options",

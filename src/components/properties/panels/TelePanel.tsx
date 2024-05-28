@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
 import TeleSelect from "../input/select/TeleSelect";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
@@ -7,7 +6,6 @@ import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType
 
 export default function TelePanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
     const isTele = useIsSelectedElemType("util-tele");
 
     if (!isTele)

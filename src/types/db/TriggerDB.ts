@@ -51,7 +51,7 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onOpen",
         "onClose",
         "onUse",
-    ],
+    ]
 };
 
 const consoleTriggers = [
@@ -125,6 +125,13 @@ const InputTriggerDB: Record<string, string[]> = {
         "endComms",
         "endReactor",
         "endMixup"
+    ],
+    "util-triggerdeath": [
+        "killArea"
+    ],
+    "util-triggershake": [
+        "enable",
+        "disable"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

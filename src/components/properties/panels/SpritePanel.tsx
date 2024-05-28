@@ -26,6 +26,8 @@ const TYPE_BLACKLIST = [
     "util-triggerrand",
     "util-triggertimer",
     "util-triggerstart",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-dummy",
     "util-display",
     "util-onewaycollider",

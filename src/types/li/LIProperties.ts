@@ -20,6 +20,7 @@ export default interface LIProperties {
     highlightColor?: LIColor;
     triggerCount?: number;
     triggerLoop?: boolean;
+    createDeadBody?: boolean;
 
     // Sound
     sounds?: LISound[];
