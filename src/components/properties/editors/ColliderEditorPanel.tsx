@@ -1,13 +1,13 @@
 import { Check, Delete } from "@mui/icons-material";
-import { Box, Button, ButtonGroup, Collapse, FormControlLabel, Switch, TextField } from "@mui/material";
+import { Box, Button, ButtonGroup, FormControlLabel, Switch, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useCollider from "../../../hooks/elements/colliders/useCollider";
 import useDeleteCollider from "../../../hooks/elements/colliders/useDeleteCollider";
 import { MaybeGUID } from "../../../types/generic/GUID";
-import InputGroup from "../input/InputGroup";
-import FlexNumericInput from "../util/FlexNumericInput";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
+import LazyCollapse from "../util/LazyCollapse";
+import ColliderPointsEditorPanel from "./ColliderPointsEditorPanel";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;
@@ -23,30 +23,6 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
     const [isCollapsed, setIsCollapsed] = React.useState(false);
     const deleteCollider = useDeleteCollider();
     const [collider, setCollider] = useCollider(props.colliderID);
-
-    const updatePoint = React.useCallback((x: number, y: number, index: number) => {
-        if (!collider)
-            return;
-        const points = collider.points.map((p, i) => {
-            if (i === index)
-                return { x, y };
-            return p;
-        });
-        setCollider({ ...collider, points });
-    }, [collider, setCollider]);
-
-    const updatePointCount = React.useCallback((count: number) => {
-        if (!collider)
-            return;
-        const points = collider.points;
-        if (count > points.length) {
-            for (let i = points.length; i < count; i++)
-                points.push({ x: 0, y: 0 });
-        } else {
-            points.splice(count);
-        }
-        setCollider({ ...collider, points });
-    }, [collider, setCollider]);
 
     if (!collider)
         return null;
@@ -90,27 +66,9 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                 {t("collider.points") as string}
             </Button>
 
-            <Collapse in={isCollapsed}>
-                <FlexNumericInput
-                    value={collider.points.length}
-                    onChange={(value) => updatePointCount(value)}
-                    inputProps={{
-                        fullWidth: true
-                    }}
-                />
-                {collider.points.map((point, index) => (
-                    <InputGroup key={index}>
-                        <FlexNumericInput
-                            value={point.x}
-                            onChange={(value) => updatePoint(value, point.y, index)}
-                        />
-                        <FlexNumericInput
-                            value={point.y}
-                            onChange={(value) => updatePoint(point.x, value, index)}
-                        />
-                    </InputGroup>
-                ))}
-            </Collapse>
+            <LazyCollapse in={isCollapsed}>
+                <ColliderPointsEditorPanel colliderID={props.colliderID} />
+            </LazyCollapse>
 
             <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                 <Button

@@ -17,7 +17,7 @@ export const selectedElementAtom = atom(
         return get(elemAtom);
     },
     (get, set, elem: MaybeLIElement) => {
-        const elements = get(elementsAtom);
+        const elements = [...get(elementsAtom)];
         const index = elements.findIndex((e) => e.id === elem?.id);
         if (index >= 0 && elem) {
             elements[index] = { ...elem };
@@ -38,7 +38,7 @@ export const selectedElementAtom = atom(
                 });
             });
 
-            set(elementsAtom, [...elements]);
+            set(elementsAtom, elements);
             set(saveHistoryAtom);
         }
     }

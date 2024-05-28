@@ -1,6 +1,7 @@
-import { Button, Collapse, Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { ExpandLess } from "@mui/icons-material";
 import React from "react";
+import LazyCollapse from "./LazyCollapse";
 
 export interface DropdownElement<T> {
     id: T;
@@ -45,10 +46,10 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
                     {element.name}
                 </Button>
 
-                <Collapse in={props.selectedID === element.id && !element.isDisabled}>
+                <LazyCollapse in={props.selectedID === element.id && !element.isDisabled}>
                     {props.children}
                     {props.renderElement && props.renderElement(element)}
-                </Collapse>
+                </LazyCollapse>
 
                 <Divider sx={{ width: "100%" }} />
             </div>

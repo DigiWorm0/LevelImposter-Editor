@@ -1,6 +1,5 @@
 import LIElement from "../../../types/li/LIElement";
 import FlexNumericInput from "../util/FlexNumericInput";
-import { useSelectedElemIDValue } from "../../../hooks/elements/useSelectedElem";
 import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
 import { InputAdornment } from "@mui/material";
 import React from "react";
@@ -12,7 +11,6 @@ export interface TransformNumericInputProps {
 }
 
 export default function TransformNumericInput(props: TransformNumericInputProps) {
-    const selectedElementID = useSelectedElemIDValue();
     const [value, setValue] = useSelectedElemTransform<number>(props.prop);
 
     if (value === undefined)

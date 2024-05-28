@@ -7,7 +7,7 @@ import { PermMedia } from "@mui/icons-material";
 export default function MapAssetsButton() {
     const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
-    
+
     return (
         <>
             <Tooltip title={t("edit.mapAssets")}>

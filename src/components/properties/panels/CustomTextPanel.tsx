@@ -3,15 +3,17 @@ import { useTranslation } from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import AUTextDB from "../../../types/db/AUTextDB";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
-import { Clear, Notes } from "@mui/icons-material";
+import { Notes, OpenInNew } from "@mui/icons-material";
+import DropdownList from "../util/DropdownList";
+import CustomTextEditorPanel from "../editors/CustomTextEditorPanel";
 
 export default function CustomTextPanel() {
     const { t } = useTranslation();
     const selectedType = useSelectedElemType();
-    const [customText, setCustomText] = useSelectedElemProp("customText")
+    const customText = useSelectedElemPropValue("customText");
+    const [selectedTextID, setSelectedTextID] = React.useState<string | undefined>(undefined);
 
     const customTextIDs = AUTextDB[selectedType ?? ""] ?? [];
 
@@ -20,30 +22,25 @@ export default function CustomTextPanel() {
     return (
         <>
             <PanelContainer title={t("customText.title")}>
-                {customTextIDs.map((id) => (
-                    <TextField
-                        key={id}
-                        label={t(`customText.${id}`)}
-                        value={customText?.[id] ?? ""}
-                        onChange={(e) => setCustomText({ ...customText, [id]: e.target.value })}
-                        fullWidth
-                        size={"small"}
-                        sx={{ mt: 1 }}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position={"end"}>
-                                    <IconButton>
-                                        <Clear />
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                ))}
+                <DropdownList
+                    elements={customTextIDs.map(id => ({
+                        id,
+                        name: t(`customText.${id}`).replaceAll("\n", " "),
+                        intent: customText?.[id] ? "success" : "error"
+                    }))}
+                    onSelectID={setSelectedTextID}
+                    selectedID={selectedTextID}
+                    renderElement={(element) => (
+                        <CustomTextEditorPanel id={element.id} />
+                    )}
+                />
             </PanelContainer>
             <MapError
                 info
                 icon={<Notes />}
+                buttonIcon={<OpenInNew />}
+                buttonText={t("customText.learnMore")}
+                onButtonClick={() => window.open("http://digitalnativestudios.com/textmeshpro/docs/rich-text/")}
             >
                 {t("customText.customTextInfo")}
             </MapError>

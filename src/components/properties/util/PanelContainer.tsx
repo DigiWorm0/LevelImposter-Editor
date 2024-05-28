@@ -6,38 +6,35 @@ interface PanelContainerProps {
     children: React.ReactNode;
     title?: string;
     style?: React.CSSProperties;
-    isOpen?: boolean;
 }
 
 export default function PanelContainer(props: PanelContainerProps) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
-        <Collapse in={props.isOpen ?? true}>
-            <Card
-                elevation={3}
-                sx={{
-                    padding: 0,
-                    marginTop: 1,
-                    boxShadow: "none",
-                    borderRadius: 0
-                }}
+        <Card
+            elevation={3}
+            sx={{
+                padding: 0,
+                marginTop: 1,
+                boxShadow: "none",
+                borderRadius: 0
+            }}
+        >
+            <Button
+                fullWidth
+                endIcon={<AnimatedCaretIcon up={!isOpen} />}
+                size={"large"}
+                onClick={() => setIsOpen(!isOpen)}
+                style={{ fontWeight: 600 }}
             >
-                <Button
-                    fullWidth
-                    endIcon={<AnimatedCaretIcon up={!isOpen} />}
-                    size={"large"}
-                    onClick={() => setIsOpen(!isOpen)}
-                    style={{ fontWeight: 600 }}
-                >
-                    {props.title}
-                </Button>
-                <Collapse in={isOpen}>
-                    <CardContent sx={{ paddingTop: 0 }} style={{ paddingBottom: 10 }}>
-                        {props.children}
-                    </CardContent>
-                </Collapse>
-            </Card>
-        </Collapse>
+                {props.title}
+            </Button>
+            <Collapse in={isOpen}>
+                <CardContent sx={{ paddingTop: 0 }} style={{ paddingBottom: 10 }}>
+                    {props.children}
+                </CardContent>
+            </Collapse>
+        </Card>
     );
 }

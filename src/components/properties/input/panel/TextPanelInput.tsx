@@ -32,7 +32,7 @@ export default function TextPanelInput(props: TextPanelInputProps) {
                         onChange={(e) => props.onChange(e.target.value)}
                         color={props.color ?? "primary"}
                         size={"small"}
-                        placeholder={props.label}
+                        label={props.name}
                         fullWidth
                         sx={{ ps: 1, pe: 1 }}
                         InputProps={{
