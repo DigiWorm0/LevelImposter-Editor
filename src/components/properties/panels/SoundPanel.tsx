@@ -5,6 +5,7 @@ import PanelContainer from "../util/PanelContainer";
 import SoundUpload from "../util/SoundUpload";
 import useSelectedElemProp, { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { HighlightAlt, VolumeOff } from "@mui/icons-material";
 
 export default function SoundPanel() {
     const { t } = useTranslation();
@@ -21,7 +22,7 @@ export default function SoundPanel() {
 
     return (
         <>
-            <PanelContainer title={t("audio.soundPlayer") as string}>
+            <PanelContainer title={t("audio.soundPlayer")}>
                 <SoundUpload
                     title={""}
                     sound={sound}
@@ -33,15 +34,15 @@ export default function SoundPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon="HighlightAlt"
+                icon={<HighlightAlt />}
             >
-                {t("audio.errorNoCollider") as string}
+                {t("audio.errorNoCollider")}
             </MapError>
             <MapError
                 isVisible={!sound}
-                icon="VolumeOff"
+                icon={<VolumeOff />}
             >
-                {t("audio.errorNoSound") as string}
+                {t("audio.errorNoSound")}
             </MapError>
         </>
     );

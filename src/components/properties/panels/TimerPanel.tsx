@@ -3,6 +3,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { Timer } from "@mui/icons-material";
 
 export default function TimerPanel() {
     const { t } = useTranslation();
@@ -17,7 +18,7 @@ export default function TimerPanel() {
                 name={t("timer.duration")}
                 prop="triggerTime"
                 defaultValue={1}
-                icon="Timer"
+                icon={<Timer />}
                 label="seconds"
                 min={0}
                 stepSize={1}

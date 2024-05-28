@@ -11,6 +11,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { Notes, Room, Workspaces } from "@mui/icons-material";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
@@ -24,7 +25,7 @@ export default function TaskPanel() {
     const parentRoom = React.useMemo(() => {
         return roomElems.find((e) => e.id === parentID);
     }, [roomElems, parentID]);
-    
+
     const hasDuplicateTempTask = React.useMemo(() => {
         const tempTasks = taskElems.filter((e) => e.type.startsWith("task-temp"));
         const filteredTempTasks = tempTasks.filter((e) => e.properties.parent === parentID);
@@ -63,7 +64,7 @@ export default function TaskPanel() {
                     <ElementPropTextInput
                         prop="description"
                         name={t("task.description")}
-                        icon={"Notes"}
+                        icon={<Notes />}
                     />
                 )}
 
@@ -71,7 +72,7 @@ export default function TaskPanel() {
                     <ElementPropNumericInput
                         name={t("task.towelPickupCount")}
                         prop={"towelPickupCount"}
-                        icon={"Workspaces"}
+                        icon={<Workspaces />}
                         defaultValue={Math.floor(towelCount / 2)}
                         min={0}
                         stepSize={1}
@@ -87,13 +88,13 @@ export default function TaskPanel() {
             </MapError>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="Room"
+                icon={<Room />}
             >
                 {t("task.errorNoRoom")}
             </MapError>
             <MapError
                 isVisible={hasDuplicateTempTask}
-                icon="Room"
+                icon={<Room />}
             >
                 {t("task.errorTemp")}
             </MapError>

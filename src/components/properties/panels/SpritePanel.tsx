@@ -9,6 +9,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { Padding, PlayArrow, Visibility } from "@mui/icons-material";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -85,35 +86,35 @@ export default function SpritePanel() {
             <MapError
                 info
                 isVisible={selectedType?.startsWith("util-vent")}
-                icon="PlayArrow"
+                icon={<PlayArrow />}
             >
                 {t("sprite.ventInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedType?.startsWith("sab-door")}
-                icon="PlayArrow"
+                icon={<PlayArrow />}
             >
                 {t("sprite.doorInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedType === "util-cam"}
-                icon="PlayArrow"
+                icon={<PlayArrow />}
             >
                 {t("sprite.camInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={spriteID !== undefined && isConsole}
-                icon="Padding"
+                icon={<Padding />}
             >
                 {t("sprite.paddingInfo") as string}
             </MapError>
             <MapError
                 info
                 isVisible={selectedType === "util-filter"}
-                icon="Visibility"
+                icon={<Visibility />}
             >
                 {t("sprite.filterInfo") as string}
             </MapError>

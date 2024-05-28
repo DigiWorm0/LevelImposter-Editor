@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, CardContent, Collapse } from "@mui/material";
-import { ExpandLess } from "@mui/icons-material";
+import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 
 interface PanelContainerProps {
     children: React.ReactNode;
@@ -25,14 +25,7 @@ export default function PanelContainer(props: PanelContainerProps) {
             >
                 <Button
                     fullWidth
-                    endIcon={
-                        <ExpandLess
-                            style={{
-                                transform: isOpen ? "rotate(180deg)" : "",
-                                transition: "transform 0.2s"
-                            }}
-                        />
-                    }
+                    endIcon={<AnimatedCaretIcon up={!isOpen} />}
                     size={"large"}
                     onClick={() => setIsOpen(!isOpen)}
                     style={{ fontWeight: 600 }}

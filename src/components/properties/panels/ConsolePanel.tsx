@@ -6,6 +6,7 @@ import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import getIsConsole from "../../../utils/getIsConsole";
+import { TripOrigin } from "@mui/icons-material";
 
 export default function ConsolePanel() {
     const { t } = useTranslation();
@@ -22,7 +23,7 @@ export default function ConsolePanel() {
                 name={t("console.range")}
                 prop="range"
                 defaultValue={DEFAULT_CONSOLE_RANGE}
-                icon="TripOrigin"
+                icon={<TripOrigin />}
                 min={0}
                 stepSize={0.2}
                 color="warning"

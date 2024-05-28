@@ -7,6 +7,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useElementIDExists from "../../../hooks/elements/useElementIDExists";
+import { Timer } from "@mui/icons-material";
 
 export default function DecontaminationPanel() {
     const { t } = useTranslation();
@@ -29,7 +30,7 @@ export default function DecontaminationPanel() {
                     label={"seconds"}
                     defaultValue={3}
                     min={0}
-                    icon={"Timer"}
+                    icon={<Timer />}
                 />
                 <SoundEditorPanel
                     title={t("decontamination.sound") as string}

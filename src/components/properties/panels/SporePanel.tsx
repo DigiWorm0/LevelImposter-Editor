@@ -4,6 +4,7 @@ import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { TripOrigin } from "@mui/icons-material";
 
 export default function SporePanel() {
     const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function SporePanel() {
                     name={t("spore.activateRange")}
                     prop="range"
                     defaultValue={DEFAULT_SPORE_RANGE}
-                    icon="TripOrigin"
+                    icon={<TripOrigin />}
                     min={0}
                     stepSize={0.1}
                     color="warning"
@@ -28,7 +29,7 @@ export default function SporePanel() {
                     name={t("spore.gasRange")}
                     prop="sporeRange"
                     defaultValue={DEFAULT_SPORE_GAS_RANGE}
-                    icon="TripOrigin"
+                    icon={<TripOrigin />}
                     min={0}
                     stepSize={0.1}
                     color="primary"

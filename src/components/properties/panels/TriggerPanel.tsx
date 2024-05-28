@@ -10,6 +10,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
+import { HighlightAlt, SettingsInputAntenna, Shuffle } from "@mui/icons-material";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",
@@ -69,7 +70,7 @@ export default function TriggerPanel() {
                         prop="triggerCount"
                         label={randomPercentage}
                         defaultValue={2}
-                        icon="SettingsInputAntenna"
+                        icon={<SettingsInputAntenna />}
                         min={2}
                         stepSize={1}
                     />
@@ -113,20 +114,20 @@ export default function TriggerPanel() {
             <MapError
                 isVisible={selectedElem.type === "util-triggerrand"}
                 info
-                icon="Shuffle"
+                icon={<Shuffle />}
             >
                 {t("trigger.randomInfo")}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerrepeat"}
                 info
-                icon="SettingsInputAntenna"
+                icon={<SettingsInputAntenna />}
             >
                 {t("trigger.repeatInfo")}
             </MapError>
             <MapError
                 isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}
-                icon="HighlightAlt"
+                icon={<HighlightAlt />}
             >
                 {t("trigger.errorNoCollider")}
             </MapError>

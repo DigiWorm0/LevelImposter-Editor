@@ -1,12 +1,11 @@
 import { Button, Collapse, Divider } from "@mui/material";
 import { ExpandLess } from "@mui/icons-material";
-import { IconName } from "../../utils/MaterialIcon";
 import React from "react";
 
 export interface DropdownElement<T> {
     id: T;
     name: string;
-    icon?: IconName;
+    icon?: React.ReactNode;
     intent?: "primary" | "secondary" | "success" | "warning" | "error" | "inherit";
     isDisabled?: boolean;
 }

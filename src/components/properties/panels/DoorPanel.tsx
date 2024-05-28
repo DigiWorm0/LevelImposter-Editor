@@ -13,6 +13,7 @@ import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import { useElementValue } from "../../../hooks/elements/useElements";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
+import { VolumeUp } from "@mui/icons-material";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
@@ -54,13 +55,13 @@ export default function DoorPanel() {
                         {
                             id: DOOR_OPEN_SOUND,
                             name: t(`door.${DOOR_OPEN_SOUND}`) as string,
-                            icon: "VolumeUp",
+                            icon: <VolumeUp />,
                             intent: hasOpenSound ? "success" : "error",
                         },
                         {
                             id: DOOR_CLOSE_SOUND,
                             name: t(`door.${DOOR_CLOSE_SOUND}`) as string,
-                            icon: "VolumeUp",
+                            icon: <VolumeUp />,
                             intent: hasCloseSound ? "success" : "error",
                         }
                     ]}

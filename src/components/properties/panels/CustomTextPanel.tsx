@@ -6,7 +6,7 @@ import AUTextDB from "../../../types/db/AUTextDB";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
-import { Clear } from "@mui/icons-material";
+import { Clear, Notes } from "@mui/icons-material";
 
 export default function CustomTextPanel() {
     const { t } = useTranslation();
@@ -43,7 +43,7 @@ export default function CustomTextPanel() {
             </PanelContainer>
             <MapError
                 info
-                icon="Notes"
+                icon={<Notes />}
             >
                 {t("customText.customTextInfo")}
             </MapError>

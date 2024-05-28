@@ -1,6 +1,5 @@
 import { FormGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
 import React from "react";
-import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 
 // TODO: Remove duplicate code
 export interface ChildTextInputProps<T> {
@@ -8,7 +7,7 @@ export interface ChildTextInputProps<T> {
     prop: keyof T;
     defaultValue?: string;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
     label?: string;
     color?: "primary" | "secondary" | "success" | "error" | "info" | "warning" | undefined
 }
@@ -18,7 +17,7 @@ export interface TextPanelInputProps {
     value: string | any;
     onChange: (value: string) => void;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
     label?: string;
     color?: "primary" | "secondary" | "success" | "error" | "info" | "warning" | undefined
 }
@@ -39,7 +38,7 @@ export default function TextPanelInput(props: TextPanelInputProps) {
                         InputProps={{
                             startAdornment: props.icon && (
                                 <InputAdornment position={"start"}>
-                                    <MaterialIcon size={20} icon={props.icon} />
+                                    {props.icon}
                                 </InputAdornment>
                             ),
                             endAdornment: props.label && (

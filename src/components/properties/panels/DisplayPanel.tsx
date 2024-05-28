@@ -7,6 +7,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { SwapHoriz, SwapVert } from "@mui/icons-material";
 
 const MAX_PIXELS = 1920 * 1080;
 
@@ -29,7 +30,7 @@ export default function CamPanel() {
                         name={t("display.width")}
                         prop="displayWidth"
                         defaultValue={DEFAULT_DISPLAY_WIDTH}
-                        icon="SwapHoriz"
+                        icon={<SwapHoriz />}
                         stepSize={10}
                         color={"primary"}
                     />
@@ -37,7 +38,7 @@ export default function CamPanel() {
                         name={t("display.height")}
                         prop="displayHeight"
                         defaultValue={DEFAULT_DISPLAY_HEIGHT}
-                        icon="SwapVert"
+                        icon={<SwapVert />}
                         stepSize={10}
                         color={"primary"}
                     />

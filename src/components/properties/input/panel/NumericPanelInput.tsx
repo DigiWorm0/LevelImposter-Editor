@@ -1,6 +1,5 @@
 import { FormGroup, InputAdornment, Tooltip } from "@mui/material";
 import React from "react";
-import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
 // TODO: Remove duplicate code
@@ -9,7 +8,7 @@ export interface ChildNumericInputProps<T> {
     prop: keyof T;
     defaultValue: number;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
     label?: string;
     min?: number;
     max?: number;
@@ -22,7 +21,7 @@ export interface NumericPanelInputProps {
     value: number | any;
     onChange: (value: number) => void;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
     label?: string;
     min?: number;
     max?: number;
@@ -48,7 +47,7 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                             InputProps: {
                                 startAdornment: props.icon && (
                                     <InputAdornment position={"start"}>
-                                        <MaterialIcon size={20} icon={props.icon} />
+                                        {props.icon}
                                     </InputAdornment>
                                 ),
                                 endAdornment: props.label && (

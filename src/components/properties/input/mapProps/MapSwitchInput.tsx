@@ -2,14 +2,13 @@ import React from "react";
 import LIMapProperties from "../../../../types/li/LIMapProperties";
 import { useMapProperties } from "../../../../hooks/map/useMap";
 import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 
 export interface MapSwitchInputProps {
     name: string;
     prop?: keyof LIMapProperties;
     defaultValue: boolean;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
 }
 
 export default function MapSwitchInput(props: MapSwitchInputProps) {
@@ -52,9 +51,7 @@ export default function MapSwitchInput(props: MapSwitchInputProps) {
             }
         >
             <ListItemButton onClick={onClick}>
-                {props.icon && (
-                    <ListItemIcon><MaterialIcon icon={props.icon} /></ListItemIcon>
-                )}
+                {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>

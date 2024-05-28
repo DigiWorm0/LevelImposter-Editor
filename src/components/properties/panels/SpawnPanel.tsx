@@ -4,6 +4,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { TripOrigin } from "@mui/icons-material";
 
 export default function SpawnPanel() {
     const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function SpawnPanel() {
                 name={t("spawn.radius")}
                 prop="range"
                 defaultValue={DEFAULT_SPAWN_RANGE}
-                icon="TripOrigin"
+                icon={<TripOrigin />}
                 stepSize={0.1}
                 color="warning"
             />

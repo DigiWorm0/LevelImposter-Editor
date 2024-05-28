@@ -1,14 +1,14 @@
-import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
 import LIElement from "../../../types/li/LIElement";
 import FlexNumericInput from "../util/FlexNumericInput";
 import { useSelectedElemIDValue } from "../../../hooks/elements/useSelectedElem";
 import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
 import { InputAdornment } from "@mui/material";
+import React from "react";
 
 export interface TransformNumericInputProps {
     name: string;
     prop: keyof LIElement;
-    icon?: IconName;
+    icon?: React.ReactNode;
 }
 
 export default function TransformNumericInput(props: TransformNumericInputProps) {
@@ -26,9 +26,9 @@ export default function TransformNumericInput(props: TransformNumericInputProps)
                 size: "small",
                 fullWidth: true,
                 placeholder: props.name,
-                InputProps: props.icon && {
-                    endAdornment: (<InputAdornment position={"end"}><MaterialIcon icon={props.icon} /></InputAdornment>)
-                }
+                InputProps: props.icon ? {
+                    endAdornment: (<InputAdornment position={"end"}>{props.icon}</InputAdornment>)
+                } : undefined
             }}
         />
     )

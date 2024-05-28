@@ -10,14 +10,12 @@ export default function SabotagesPanel() {
     if (!isSabotage)
         return null;
     return (
-        <>
-            <PanelContainer title={t("sabotages.title") as string}>
-                <SoundEditorPanel
-                    title={t("sabotages.sound") as string}
-                    soundType="sabotageSound"
-                    defaultSoundURL="sabotageSound.wav"
-                />
-            </PanelContainer>
-        </>
+        <PanelContainer title={t("sabotages.title") as string}>
+            <SoundEditorPanel
+                title={t("sabotages.sound") as string}
+                soundType="sabotageSound"
+                defaultSoundURL="sabotageSound.wav"
+            />
+        </PanelContainer>
     );
 }

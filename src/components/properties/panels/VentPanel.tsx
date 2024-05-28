@@ -8,6 +8,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { VolumeDown, VolumeUp } from "@mui/icons-material";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";
@@ -46,13 +47,13 @@ export default function VentPanel() {
                                     name: t(`vent.${VENT_OPEN_SOUND}`) as string,
                                     id: VENT_OPEN_SOUND,
                                     intent: hasOpenSound ? "success" : "error",
-                                    icon: hasOpenSound ? "VolumeUp" : "VolumeDown"
+                                    icon: hasOpenSound ? <VolumeUp /> : <VolumeDown />
                                 },
                                 {
                                     name: t(`vent.${VENT_MOVE_SOUND}`) as string,
                                     id: VENT_MOVE_SOUND,
                                     intent: hasOpenSound ? "success" : "error",
-                                    icon: hasOpenSound ? "VolumeUp" : "VolumeDown"
+                                    icon: hasOpenSound ? <VolumeUp /> : <VolumeDown />
                                 },
                             ]}
                             selectedID={selectedSoundType}
@@ -71,7 +72,7 @@ export default function VentPanel() {
             <MapError
                 isVisible={isVent2}
                 info
-                icon="VolumeUp"
+                icon={<VolumeUp />}
             >
                 {t("vent.ventSoundInfo")}
             </MapError>

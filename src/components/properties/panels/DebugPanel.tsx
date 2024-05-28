@@ -22,14 +22,6 @@ export default function DebugPanel() {
     const { t } = useTranslation();
     const { isDevMode } = useSettingsValue();
     const selectedElem = useSelectedElemValue();
-    const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
-
-    const editKey = React.useCallback((key: string) => {
-        if (selectedKey === key)
-            setSelectedKey(undefined);
-        else
-            setSelectedKey(key);
-    }, [selectedKey]);
 
     const keys = React.useMemo(() => Object.keys(selectedElem?.properties ?? {}), [selectedElem]);
     const values = React.useMemo(() => Object.values(selectedElem?.properties ?? {}), [selectedElem]);
@@ -44,7 +36,8 @@ export default function DebugPanel() {
             <List dense>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    const stringValue = JSON.stringify(value, null, 2);
+                    let stringValue = JSON.stringify(value, null, 2);
+                    stringValue = stringValue.substring(0, 100) + (stringValue.length > 100 ? "..." : "");
 
                     // Icons
                     const isArray = Array.isArray(value);

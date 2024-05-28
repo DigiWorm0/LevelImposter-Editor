@@ -1,4 +1,4 @@
-import { CloudDownload } from "@mui/icons-material";
+import { AspectRatio, CloudDownload, Image, PlayArrow } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -30,7 +30,7 @@ export default function MinimapPanel() {
                     name={t("minimap.scale")}
                     prop="minimapScale"
                     defaultValue={1}
-                    icon="AspectRatio"
+                    icon={<AspectRatio />}
                     min={0.1}
                     stepSize={0.1}
                     color="warning"
@@ -47,13 +47,13 @@ export default function MinimapPanel() {
 
             <MapError
                 info
-                icon="Image"
+                icon={<Image />}
             >
                 {t("minimap.infoSprite") as string}
             </MapError>
             <MapError
                 isVisible={spriteID === undefined}
-                icon="PlayArrow"
+                icon={<PlayArrow />}
             >
                 {t("minimap.errorNoSprite") as string}
             </MapError>

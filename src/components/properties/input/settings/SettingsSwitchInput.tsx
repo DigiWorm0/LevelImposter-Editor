@@ -2,12 +2,11 @@ import React from "react";
 import LISettings from "../../../../types/li/LISettings";
 import useSettings from "../../../../hooks/useSettings";
 import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 
 export interface SettingsSwitchInputProps {
     name: string;
     prop: keyof LISettings;
-    icon?: IconName;
+    icon?: React.ReactNode;
 }
 
 export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
@@ -42,7 +41,7 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
             }
         >
             <ListItemButton onClick={onClick}>
-                {props.icon && <ListItemIcon><MaterialIcon icon={props.icon} /></ListItemIcon>}
+                {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>

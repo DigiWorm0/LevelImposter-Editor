@@ -2,14 +2,13 @@ import React from "react";
 import LISettings from "../../../../types/li/LISettings";
 import useSettings from "../../../../hooks/useSettings";
 import { InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import MaterialIcon, { IconName } from "../../../utils/MaterialIcon";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
 export interface SettingsNumericInputProps {
     name: string;
     prop: keyof LISettings;
 
-    icon?: IconName;
+    icon?: React.ReactNode;
     disabled?: boolean;
     min?: number;
     max?: number;
@@ -50,7 +49,7 @@ export default function SettingsNumericInput(props: SettingsNumericInputProps) {
             }
         >
             <ListItemButton>
-                {props.icon && <ListItemIcon><MaterialIcon icon={props.icon} /></ListItemIcon>}
+                {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>

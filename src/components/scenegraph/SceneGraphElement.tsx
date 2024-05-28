@@ -6,35 +6,11 @@ import useElement from "../../hooks/elements/useElements";
 import useIsDroppable from "../../hooks/elements/useIsDroppable";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { MaybeGUID } from "../../types/generic/GUID";
-import { IconName } from "../utils/MaterialIcon";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import { SceneGraphListItem } from "./SceneGraphListItem";
-
-const ICON_DB: Record<string, IconName> = {
-    "util-blank": "Interests",
-    "util-minimap": "Map",
-    "util-cam": "Camera",
-    "util-dummy": "Person",
-    "util-vitals": "MonitorHeart",
-    "util-room": "Room",
-    "util-computer": "Computer",
-    "util-admin": "Language",
-    "util-platform": "SwapHoriz",
-    "util-ladder1": "SwapVert",
-    "util-ladder2": "SwapVert",
-    "util-starfield": "Star",
-    "util-button1": "CrisisAlert",
-    "util-button2": "CrisisAlert",
-    "util-spawn1": "Flag",
-    "util-spawn2": "Flag",
-    "util-cams1": "PlayArrow",
-    "util-cams2": "PlayArrow",
-    "util-cams3": "PlayArrow",
-    "util-layer": "Folder"
-}
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;

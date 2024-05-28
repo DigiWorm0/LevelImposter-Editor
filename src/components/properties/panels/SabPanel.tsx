@@ -11,6 +11,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { Comment, Room, Timer } from "@mui/icons-material";
 
 const timerElems = [
     "sab-reactorleft",
@@ -39,7 +40,7 @@ export default function SabPanel() {
     const parentRoom = React.useMemo(() => {
         return roomElems.find((e) => e.id === parentID);
     }, [roomElems, parentID]);
-    
+
     const showTimer = React.useMemo(() => {
         return timerElems.includes(selectedType ?? "");
     }, [selectedType]);
@@ -69,7 +70,7 @@ export default function SabPanel() {
                 <ElementPropTextInput
                     name={t("sab.description")}
                     prop="description"
-                    icon={"Comment"}
+                    icon={<Comment />}
                 />
                 {showTimer && (
                     <ElementPropNumericInput
@@ -79,21 +80,21 @@ export default function SabPanel() {
                         min={0}
                         stepSize={5}
                         label={"seconds"}
-                        icon="Timer"
+                        icon={<Timer />}
                     />
                 )}
             </PanelContainer>
 
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="Room"
+                icon={<Room />}
             >
                 {t("sab.errorNoRoom") as string}
             </MapError>
             <MapError
                 isVisible={selectedType === "sab-btndoors"}
                 info
-                icon="Room"
+                icon={<Room />}
             >
                 {t("sab.doorInfo") as string}
             </MapError>

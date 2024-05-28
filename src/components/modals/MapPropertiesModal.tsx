@@ -5,6 +5,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "./GenericModal";
 import { List } from "@mui/material";
+import { Info, PlayArrow, Shuffle, TextSnippet, ViewCompact } from "@mui/icons-material";
 
 export interface MapPropertiesModalProps {
     isOpen: boolean;
@@ -25,31 +26,31 @@ export default function MapPropertiesModal(props: MapPropertiesModalProps) {
                     name={t("settings.map.showPingTracker")}
                     prop="showPingIndicator"
                     defaultValue={true}
-                    icon="Info"
+                    icon={<Info />}
                 />
                 <MapSwitchInput
                     name={t("settings.map.pixelArtMode")}
                     prop="pixelArtMode"
                     defaultValue={false}
-                    icon="ViewCompact"
+                    icon={<ViewCompact />}
                 />
                 <MapSwitchInput
                     name={t("settings.map.preloadAllGIFs")}
                     prop="preloadAllGIFs"
                     defaultValue={false}
-                    icon="PlayArrow"
+                    icon={<PlayArrow />}
                 />
                 <MapSwitchInput
                     name={t("settings.map.triggerLogging")}
                     prop="triggerLogging"
                     defaultValue={true}
-                    icon="TextSnippet"
+                    icon={<TextSnippet />}
                 />
                 <MapSwitchInput
                     name={t("settings.map.canRemix")}
                     prop="canRemix"
                     defaultValue={true}
-                    icon="Shuffle"
+                    icon={<Shuffle />}
                 />
                 <MapSkyboxInput />
                 <MapExileInput />

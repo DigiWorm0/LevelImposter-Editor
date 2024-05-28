@@ -11,6 +11,7 @@ import MinigamePropTextInput from "../input/minigame/MinigamePropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import MinigamePropColorInput from "../input/minigame/MinigamePropColorInput";
+import { Code, PlayArrow, Warning } from "@mui/icons-material";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",
@@ -54,7 +55,7 @@ export default function MinigamePanel() {
                         return {
                             id: type,
                             name: t(`minigame.${type.split("_")[1]}`, { index: type.split("_")[2] }) as string,
-                            icon: (isDisabled && hasSprite) ? 'Warning' : 'Code',
+                            icon: (isDisabled && hasSprite) ? <Warning /> : <Code />,
                             intent: hasSprite ? 'success' : 'error',
                             isDisabled: isDisabled
                         };
@@ -135,7 +136,7 @@ export default function MinigamePanel() {
             </PanelContainer>
             <MapError
                 info
-                icon="PlayArrow"
+                icon={<PlayArrow />}
             >
                 {t("minigame.saveInfo")}
             </MapError>

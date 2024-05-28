@@ -6,6 +6,7 @@ import React from "react";
 import { atom, useAtomValue } from "jotai";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import { HighlightAlt } from "@mui/icons-material";
 
 const hasColliderAtom = atom((get) => {
     const element = get(selectedElementAtom);
@@ -41,7 +42,7 @@ export default function RoomPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon="HighlightAlt"
+                icon={<HighlightAlt />}
             >
                 {t("room.errorNoCollider") as string}
             </MapError>

@@ -1,10 +1,12 @@
 import {
+    Build,
     Delete,
     Lock,
     LockOpen,
     RotateLeft,
     SwapHoriz,
     SwapVert,
+    TextSnippet,
     Visibility,
     VisibilityOff
 } from "@mui/icons-material";
@@ -96,10 +98,10 @@ export default function TransformPanel() {
                         <TransformNumericInput name={t("transform.z")} prop={"z"} />
                     </InputGroup>
                     <InputGroup>
-                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={"SwapHoriz"} />
-                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={"SwapVert"} />
+                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz />} />
+                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert />} />
                     </InputGroup>
-                    <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={"RotateLeft"} />
+                    <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={<RotateLeft />} />
                     <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                         <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
                             <Button
@@ -134,7 +136,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={elemVisibility !== ElemVisibility.Visible}
                 info
-                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? "Visibility" : "VisibilityOff"}
+                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? <Visibility /> : <VisibilityOff />}
             >
                 {elemVisibility === ElemVisibility.Invisible ? t("transform.errorInvisible") : null}
                 {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
@@ -144,7 +146,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isConsole && (Math.abs(xScale || 1) != 1 || Math.abs(yScale || 1) != 1)}
                 buttonText={t("transform.autoFix") as string}
-                buttonIcon="Build"
+                buttonIcon={<Build />}
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
@@ -153,7 +155,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isCamera}
                 info
-                icon={"TextSnippet"}
+                icon={<TextSnippet />}
             >
                 {t("cameras.nameInfo")}
             </MapError>

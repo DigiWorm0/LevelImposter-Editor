@@ -7,6 +7,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { Room } from "@mui/icons-material";
 
 export default function OneWayColliderPanel() {
     const { t } = useTranslation();
@@ -31,7 +32,7 @@ export default function OneWayColliderPanel() {
             </PanelContainer>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="Room"
+                icon={<Room />}
             >
                 {t("onewaycollider.errorNoRoom")}
             </MapError>

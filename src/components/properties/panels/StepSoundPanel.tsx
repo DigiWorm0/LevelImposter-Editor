@@ -10,6 +10,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import FlexNumericInput from "../util/FlexNumericInput";
+import { PriorityHigh, VolumeUp } from "@mui/icons-material";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
@@ -28,7 +29,7 @@ export default function StepSoundPanel() {
                 <ElementPropNumericInput
                     name={t("stepSound.priority")}
                     prop={"soundPriority"}
-                    icon="PriorityHigh"
+                    icon={<PriorityHigh />}
                     defaultValue={0}
                     min={0}
                     max={1000}
@@ -66,7 +67,7 @@ export default function StepSoundPanel() {
                     elements={sounds?.map((sound, index) => ({
                         id: sound.id,
                         name: t("stepSound.default", { index: index + 1 }) as string,
-                        icon: "VolumeUp"
+                        icon: <VolumeUp />
                     })) ?? []}
                     selectedID={selectedSoundID}
                     onSelectID={setSelectedSoundID}

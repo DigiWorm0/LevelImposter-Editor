@@ -3,6 +3,7 @@ import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import { SwapHoriz, SwapVert, ZoomIn } from "@mui/icons-material";
 
 export default function CamPanel() {
     const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function CamPanel() {
                     name={t("cameras.offsetx")}
                     prop="camXOffset"
                     defaultValue={0}
-                    icon="SwapHoriz"
+                    icon={<SwapHoriz />}
                     stepSize={0.5}
                     color={"success"}
                 />
@@ -28,7 +29,7 @@ export default function CamPanel() {
                     name={t("cameras.offsety")}
                     prop="camYOffset"
                     defaultValue={0}
-                    icon="SwapVert"
+                    icon={<SwapVert />}
                     stepSize={0.5}
                     color={"success"}
                 />
@@ -37,7 +38,7 @@ export default function CamPanel() {
                 name={t("cameras.zoom")}
                 prop="camZoom"
                 defaultValue={3}
-                icon="ZoomIn"
+                icon={<ZoomIn />}
                 min={0}
                 stepSize={0.5}
                 color={"success"}

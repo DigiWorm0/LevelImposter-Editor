@@ -5,6 +5,22 @@ import SettingsNumericInput from "../properties/input/settings/SettingsNumericIn
 import SettingsLocalizationInput from "../properties/input/select/SettingsLocalizationInput";
 import GenericModal from "./GenericModal";
 import SettingsPercentInput from "../properties/input/settings/SettingsPercentInput";
+import {
+    AdsClick,
+    Article,
+    AspectRatio,
+    Code,
+    Grid3x3,
+    GridGoldenratio,
+    GridOn,
+    Info,
+    Layers,
+    LineWeight,
+    ShapeLine,
+    SwapVert,
+    Visibility,
+    VolumeUp
+} from "@mui/icons-material";
 
 export interface SettingsModalProps {
     isOpen: boolean;
@@ -23,12 +39,12 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.colliderPreview")}
                 prop="colliderPreview"
-                icon="ShapeLine"
+                icon={<ShapeLine />}
             />
             <SettingsNumericInput
                 name={t("settings.interface.colliderHandleSize")}
                 prop="colliderHandleSize"
-                icon="AdsClick"
+                icon={<AdsClick />}
                 min={1}
                 stepSize={1}
                 label={"px"}
@@ -36,37 +52,37 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.scrollToSelection")}
                 prop="scrollToSelection"
-                icon="SwapVert"
+                icon={<SwapVert />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.objNesting")}
                 prop="elementNesting"
-                icon="Layers"
+                icon={<Layers />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.showRoomName")}
                 prop="isRoomNameVisible"
-                icon="Article"
+                icon={<Article />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.showInfo")}
                 prop="isInfoVisible"
-                icon="Info"
+                icon={<Info />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.audioDownmix")}
                 prop="isAudioDownmixEnabled"
-                icon="VolumeUp"
+                icon={<VolumeUp />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.grid")}
                 prop="isGridVisible"
-                icon="GridOn"
+                icon={<GridOn />}
             />
             <SettingsNumericInput
                 name={t("settings.interface.gridSize")}
                 prop="gridSize"
-                icon="AspectRatio"
+                icon={<AspectRatio />}
                 min={1}
                 stepSize={1}
                 label={"px"}
@@ -74,7 +90,7 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsNumericInput
                 name={t("settings.interface.gridSpacing")}
                 prop="gridSpacing"
-                icon="LineWeight"
+                icon={<LineWeight />}
                 min={1}
                 stepSize={1}
                 label={"px"}
@@ -82,12 +98,12 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsSwitchInput
                 name={t("settings.interface.snapToGrid")}
                 prop="isGridSnapEnabled"
-                icon="Grid3x3"
+                icon={<Grid3x3 />}
             />
             <SettingsNumericInput
                 name={t("settings.interface.snapResolution")}
                 prop="gridSnapResolution"
-                icon="GridGoldenratio"
+                icon={<GridGoldenratio />}
                 min={0}
                 stepSize={0.1}
                 label={"px"}
@@ -95,13 +111,13 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsPercentInput
                 name={t("settings.interface.invisibleOpacity")}
                 prop="invisibleOpacity"
-                icon="Visibility"
+                icon={<Visibility />}
             />
             <SettingsLocalizationInput />
             <SettingsSwitchInput
                 name={t("settings.interface.devMode")}
                 prop="isDevMode"
-                icon="Code"
+                icon={<Code />}
             />
         </GenericModal>
     );

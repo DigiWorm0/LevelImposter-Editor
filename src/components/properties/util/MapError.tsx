@@ -1,16 +1,15 @@
 import React from 'react';
 import { useSettingsValue } from '../../../hooks/useSettings';
-import MaterialIcon, { IconName } from "../../utils/MaterialIcon";
 import { Alert, Button, Collapse } from "@mui/material";
 
 export interface MapErrorProps {
     isVisible?: boolean,
     info?: boolean,
-    icon?: IconName,
+    icon?: React.ReactNode,
     children: React.ReactNode
 
     buttonText?: string,
-    buttonIcon?: IconName,
+    buttonIcon?: React.ReactNode,
     onButtonClick?: () => void
 }
 
@@ -24,7 +23,7 @@ export default function MapError(props: MapErrorProps) {
         <Collapse in={isVisible}>
             <Alert
                 severity={props.info ? "info" : "warning"}
-                icon={props.icon && (<MaterialIcon icon={props.icon} />)}
+                icon={props.icon}
                 style={{
                     borderBottom: `3px solid ${props.info ? "rgb(37, 93, 128)" : "rgb(146, 100, 53)"}`,
                     borderRadius: 0
@@ -34,7 +33,7 @@ export default function MapError(props: MapErrorProps) {
 
                 {props.onButtonClick && props.buttonText && (
                     <Button
-                        endIcon={props.buttonIcon && (<MaterialIcon icon={props.buttonIcon} />)}
+                        endIcon={props.buttonIcon}
                         onClick={props.onButtonClick}
                         color={props.info ? "primary" : "warning"}
                         sx={{ mt: 1 }}
