@@ -41,7 +41,7 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                         inputProps={{
                             color: props.color ?? "primary",
                             size: "small",
-                            placeholder: props.label,
+                            label: props.name,
                             fullWidth: true,
                             sx: { ps: 1, pe: 1 },
                             InputProps: {

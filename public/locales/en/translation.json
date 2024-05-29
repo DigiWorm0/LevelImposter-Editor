@@ -892,6 +892,7 @@
 		"util-triggerrand": "Trigger Randomizer",
 		"util-triggerdeath": "Trigger Death",
 		"util-triggershake": "Trigger Screen Shake",
+		"util-triggerfilter": "Trigger Filter",
 		"util-onewaycollider": "One-Way Collider",
 		"util-decontamination": "Decontamination System",
 		"util-sabotages": "Sabotage Options",

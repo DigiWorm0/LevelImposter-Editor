@@ -10,6 +10,8 @@ const INVISIBLE_TYPES = [
     "util-triggerstart",
     "util-triggersound",
     "util-triggerrand",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-sound1",
     "util-sound2",
     "util-meeting",

@@ -11,9 +11,9 @@ import { TripOrigin } from "@mui/icons-material";
 export default function ConsolePanel() {
     const { t } = useTranslation();
     const selectedType = useSelectedElemType();
-    const isConsole = getIsConsole(selectedType || "");
-
-    // TODO: Remove non-editable console types
+    const isConsole = getIsConsole(selectedType || "")
+        && !selectedType?.startsWith("util-vent");
+        // <-- Don't allow editing vent consoles, it won't work
 
     if (!isConsole)
         return null;
