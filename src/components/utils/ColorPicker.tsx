@@ -23,8 +23,9 @@ export default function ColorPicker(props: ColorPickerProps) {
     const [buttonElement, setButtonElement] = React.useState<HTMLButtonElement | null>(null);
 
     React.useEffect(() => {
-        setColor(props.color);
-    }, [props.color]);
+        if (buttonElement == null)
+            setColor(props.color);
+    }, [buttonElement, props.color]);
 
     return (
         <>
@@ -41,11 +42,13 @@ export default function ColorPicker(props: ColorPickerProps) {
                 />
             </Popover>
             <Button
+                size={"small"}
                 color={props.intent ?? "primary"}
                 style={props.style}
                 onClick={(e) => setButtonElement(e.currentTarget)}
+                endIcon={props.title ? <Palette /> : null}
             >
-                <Palette />
+                {props.title ? props.title : <Palette />}
             </Button>
         </>
     );
