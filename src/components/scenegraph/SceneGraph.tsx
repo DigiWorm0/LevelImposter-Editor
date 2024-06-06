@@ -24,7 +24,7 @@ export default function SceneGraph() {
                     }}
                 />
             </Box>
-            <SceneGraphElements searchQuery={searchQuery} />
+            <SceneGraphElements searchQuery={searchQuery.toLowerCase()} />
             <Divider />
             <SceneGraphButtons />
         </>

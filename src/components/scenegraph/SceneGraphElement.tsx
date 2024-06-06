@@ -35,8 +35,8 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const isGroup = element.type === "util-layer";
     const isDisabled = !((isGroup || elementNesting) && isDroppable) && draggingID !== undefined;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
-    const isMatchName = element.name.toLowerCase().includes(props.searchQuery.toLowerCase());
-    const isMatchType = element.type.toLowerCase().includes(props.searchQuery.toLowerCase());
+    const isMatchName = element.name.toLowerCase().includes(props.searchQuery);
+    const isMatchType = element.type.toLowerCase().includes(props.searchQuery);
     const isMatchID = element.id.startsWith(props.searchQuery);
     const isMatch = isMatchName || isMatchType || isMatchID;
 
@@ -94,7 +94,13 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 )}
             >
                 <ListItemButton
-                    sx={{ paddingLeft: props.depth * 2 + 2 }}
+                    sx={{
+                        paddingLeft: props.depth * 2 + 2,
+                        borderWidth: 1,
+                        borderStyle: "solid",
+                        borderColor: props.searchQuery ? "primary" : "transparent",
+                        borderRadius: 2
+                    }}
                     onClick={() => setSelectedElemID(element.id)}
                     disabled={isDisabled}
                     dense
