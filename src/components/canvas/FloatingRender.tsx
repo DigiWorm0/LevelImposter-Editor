@@ -1,8 +1,8 @@
 import React from "react";
 import { Line } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { DEFAULT_FLOATING_HEIGHT } from "../../types/generic/Constants";
-import useAdjustPoint from "../../hooks/useAdjustPoint";
 
 export default function FloatingRender() {
     const selectedElem = useSelectedElemValue();
@@ -20,8 +20,11 @@ export default function FloatingRender() {
         ];
     }, [selectedElem, relativeToAbsolute]);
 
-    if (!selectedElem || selectedElem.type !== "util-blankfloat")
+    if (!selectedElem)
         return null;
+    if (selectedElem.type !== "util-blankfloat")
+        return null;
+    
     return (
         <Line
             points={linePoints}

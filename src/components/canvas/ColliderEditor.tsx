@@ -1,31 +1,19 @@
 import React from "react";
 import { Rect, Shape } from "react-konva";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
-import useSelectedCollider, { useInsertPointAtMouse } from "../../hooks/jotai/useSelectedCollider";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useAdjustPoint from "../../hooks/useAdjustPoint";
-import { DEFAULT_COLLIDER_HANDLE_SIZE, DEFAULT_GRID_SNAP_RESOLUTION, UNITY_SCALE } from "../../types/generic/Constants";
+import useAdjustPoint from "../../hooks/canvas/useAdjustPoint";
+import { useInsertPointAtMouse } from "../../hooks/elements/colliders/useInsertColliderPointAtMouse";
+import useSelectedCollider from "../../hooks/elements/colliders/useSelectedCollider";
+import { useSettingsValue } from "../../hooks/useSettings";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
+import setCursor from "../../utils/setCursor";
 
 
 export default function ColliderEditor() {
-    const elem = useSelectedElemValue();
     const [collider, setCollider] = useSelectedCollider();
-    const setMouseCursor = useSetMouseCursor();
     const insertPointAtMouse = useInsertPointAtMouse();
-    const settings = useSettingsValue();
+    const { gridSnapResolution, colliderHandleSize, isGridSnapEnabled } = useSettingsValue();
     const { relativeToAbsolute, absoluteToRelative } = useAdjustPoint();
-
-    // Resolution of the grid snap
-    const gridSnapResolution = React.useMemo(() => {
-        return settings.gridSnapResolution === undefined ? DEFAULT_GRID_SNAP_RESOLUTION : settings.gridSnapResolution;
-    }, [settings.gridSnapResolution]);
-
-    // Size of the collider handles
-    const handleSize = React.useMemo(() => {
-        return settings.colliderHandleSize || DEFAULT_COLLIDER_HANDLE_SIZE;
-    }, [settings.colliderHandleSize]);
 
     // Snap the point to the grid
     const snapPointToGrid = React.useCallback((p: Point) => {
@@ -65,12 +53,13 @@ export default function ColliderEditor() {
                             ctx.lineTo(p2.x, p2.y);
                             ctx.fillStrokeShape(shape);
                         }}
-                        onMouseEnter={() => setMouseCursor("pointer")}
-                        onMouseLeave={() => setMouseCursor("default")}
+                        onMouseEnter={e => setCursor(e, "pointer")}
+                        onMouseLeave={e => setCursor(e, "default")}
                         stroke={collider.blocksLight ? "red" : "green"}
                         strokeWidth={5}
-                        onMouseDown={() => {
+                        onClick={(e) => {
                             insertPointAtMouse(index + 1);
+                            e.cancelBubble = true;
                         }}
                     />
                 )
@@ -81,11 +70,11 @@ export default function ColliderEditor() {
                 return (
                     <Rect
                         key={collider.id + "-" + index}
-                        x={p1.x - handleSize / 2}
-                        y={p1.y - handleSize / 2}
-                        width={handleSize}
-                        height={handleSize}
-                        strokeWidth={handleSize / 8}
+                        x={p1.x - colliderHandleSize / 2}
+                        y={p1.y - colliderHandleSize / 2}
+                        width={colliderHandleSize}
+                        height={colliderHandleSize}
+                        strokeWidth={colliderHandleSize / 8}
                         fill={"blue"}
                         stroke={"white"}
                         onMouseDown={(e) => {
@@ -94,26 +83,22 @@ export default function ColliderEditor() {
                                 setCollider({ ...collider });
                             }
                         }}
-                        onMouseEnter={(e) => {
-                            setMouseCursor("pointer");
-                        }}
-                        onMouseLeave={(e) => {
-                            setMouseCursor("default");
-                        }}
+                        onMouseEnter={e => setCursor(e, "pointer")}
+                        onMouseLeave={e => setCursor(e, "default")}
                         onDragMove={(e) => {
-                            if (settings.isGridSnapEnabled != false) {
+                            if (isGridSnapEnabled) {
                                 const snapPoint = snapPointToGrid({
-                                    x: e.target.x() + handleSize / 2,
-                                    y: e.target.y() + handleSize / 2
+                                    x: e.target.x() + colliderHandleSize / 2,
+                                    y: e.target.y() + colliderHandleSize / 2
                                 });
                                 e.target.position({
-                                    x: snapPoint.x - handleSize / 2,
-                                    y: snapPoint.y - handleSize / 2
+                                    x: snapPoint.x - colliderHandleSize / 2,
+                                    y: snapPoint.y - colliderHandleSize / 2
                                 });
                             }
 
-                            const targetX = e.target.x() + handleSize / 2;
-                            const targetY = e.target.y() + handleSize / 2;
+                            const targetX = e.target.x() + colliderHandleSize / 2;
+                            const targetY = e.target.y() + colliderHandleSize / 2;
                             const relative = absoluteToRelative({ x: targetX, y: targetY });
                             p.x = relative.x;
                             p.y = relative.y;

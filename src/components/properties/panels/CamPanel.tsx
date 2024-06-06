@@ -1,50 +1,47 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
+import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import { SwapHoriz, SwapVert, ZoomIn } from "@mui/icons-material";
 
 export default function CamPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const isCamera = useIsSelectedElemType("util-cam");
+    const isBinoculars = useIsSelectedElemType("util-cams4");
+    const isDisplay = useIsSelectedElemType("util-display");
 
-    if (!element || (element.type !== "util-cam" && element.type !== "util-cams4" && element.type !== "util-display"))
+    if (!isCamera && !isBinoculars && !isDisplay)
         return null;
 
     return (
         <PanelContainer title={t("cameras.title") as string}>
-            <ControlGroup fill>
-                <NumericPanelInput
-                    name="cameras.offsetx"
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("cameras.offsetx")}
                     prop="camXOffset"
                     defaultValue={0}
-                    icon="arrows-horizontal"
-                    minorStepSize={0.1}
+                    icon={<SwapHoriz />}
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"success"}
+                    color={"success"}
                 />
-                <NumericPanelInput
-                    name="cameras.offsety"
+                <ElementPropNumericInput
+                    name={t("cameras.offsety")}
                     prop="camYOffset"
                     defaultValue={0}
-                    icon="arrows-vertical"
-                    minorStepSize={0.1}
+                    icon={<SwapVert />}
                     stepSize={0.5}
-                    majorStepSize={1}
-                    intent={"success"}
+                    color={"success"}
                 />
-            </ControlGroup>
-            <NumericPanelInput
-                name="cameras.zoom"
+            </InputGroup>
+            <ElementPropNumericInput
+                name={t("cameras.zoom")}
                 prop="camZoom"
                 defaultValue={3}
-                icon="zoom-in"
+                icon={<ZoomIn />}
                 min={0}
-                minorStepSize={0.1}
                 stepSize={0.5}
-                majorStepSize={1}
-                intent={"success"}
+                color={"success"}
             />
         </PanelContainer>
     );

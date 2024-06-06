@@ -1,18 +1,20 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useAutoSave from "../../hooks/useAutoSave";
-import useEmbed from "../../hooks/useEmbed";
-import useIDParam from "../../hooks/useIDParam";
-import useKeyboardInput from "../../hooks/useKeyboardInput";
+import { useSettingsValue } from "../../hooks/useSettings";
+import useEmbed from "../../hooks/embed/useEmbed";
+import useIDParam from "../../hooks/embed/useIDParam";
+import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
+import { _useUserAtom } from "../../hooks/firebase/useUser";
+import { useAtomsDebugValue } from "jotai-devtools";
 
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
-    const settings = useSettingsValue();
+    const { language } = useSettingsValue();
     const isEmbedded = useEmbed();
-    useKeyboardInput();
+    useHotkeysHandler();
     useIDParam();
-    useAutoSave();
+    _useUserAtom();
+    useAtomsDebugValue();
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -29,11 +31,9 @@ export default function GlobalHooks() {
     }, [isEmbedded]);
 
     React.useEffect(() => {
-        if (settings.language === "auto")
-            i18n.changeLanguage(navigator.language);
-        else
-            i18n.changeLanguage(settings.language);
-    }, [settings.language]);
+        const newLanguage = language === "auto" ? navigator.language : language;
+        i18n.changeLanguage(newLanguage).catch(console.error);
+    }, [language]);
 
     return null;
 }

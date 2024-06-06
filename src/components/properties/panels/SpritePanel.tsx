@@ -1,14 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import getIsConsole from "../../../hooks/utils/getIsConsole";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
-import LIColor from "../../../types/li/LIColor";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import MapAsset from "../../../types/li/MapAsset";
+import getIsConsole from "../../../utils/getIsConsole";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import MapAsset from "../../../types/li/MapAssetDB";
-import { useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { Padding, PlayArrow, Visibility } from "@mui/icons-material";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -26,6 +27,8 @@ const TYPE_BLACKLIST = [
     "util-triggerrand",
     "util-triggertimer",
     "util-triggerstart",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-dummy",
     "util-display",
     "util-onewaycollider",
@@ -37,76 +40,43 @@ const TYPE_BLACKLIST = [
 
 export default function SpritePanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
-    const asset = useMapAssetValue(selectedElem?.properties.spriteID);
+    const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
+    const [color, setColor] = useSelectedElemProp("color");
+    const selectedType = useSelectedElemType();
+    const asset = useMapAssetValue(spriteID);
 
-    const isConsole = React.useMemo(() => {
-        return getIsConsole(selectedElem?.type || "");
-    }, [selectedElem]);
-
-    const isGIF = React.useMemo(() => {
-        return asset?.blob.type === "image/gif";
-    }, [selectedElem]);
-    const isCustomAnim = React.useMemo(() => {
-        return selectedElem?.type.startsWith("sab-door") || selectedElem?.type.startsWith("util-vent");
-    }, [selectedElem]);
+    const isConsole = selectedType !== undefined && getIsConsole(selectedType);
+    const isGIF = asset?.blob.type === "image/gif";
+    const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
 
     const onUpload = React.useCallback((asset: MapAsset) => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                spriteID: asset.id,
-                color: undefined
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setSpriteID(asset.id);
+        setColor(undefined);
+    }, [setSpriteID, setColor]);
 
     const onReset = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                spriteID: undefined,
-                color: undefined
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setSpriteID(undefined);
+        setColor(undefined);
+    }, [setSpriteID, setColor]);
 
-    const onColorChange = React.useCallback((color: LIColor) => {
-        if (!selectedElem)
-            return;
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                color
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
-
-    if (!selectedElem || TYPE_BLACKLIST.includes(selectedElem.type))
+    if (!selectedType || TYPE_BLACKLIST.includes(selectedType))
         return null;
 
     return (
         <>
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
-                    name={selectedElem.name}
-                    defaultSpriteURL={`/sprites/${selectedElem.type}.png`}
-                    assetID={selectedElem.properties.spriteID}
+                    name={selectedType}
+                    defaultSpriteURL={`/sprites/${selectedType}.png`}
+                    assetID={spriteID}
                     onUpload={onUpload}
                     onReset={onReset}
-                    color={selectedElem.properties.color}
-                    onColorChange={onColorChange}
+                    color={color}
+                    onColorChange={setColor}
                 />
                 {isGIF && (
-                    <SwitchPanelInput
-                        name="sprite.loop"
+                    <ElementPropSwitch
+                        name={t("sprite.loop")}
                         prop="loopGIF"
                         defaultValue={!isCustomAnim}
                         disabled={isCustomAnim}
@@ -115,36 +85,36 @@ export default function SpritePanel() {
             </PanelContainer>
             <MapError
                 info
-                isVisible={selectedElem.type.startsWith("util-vent")}
-                icon="play"
+                isVisible={selectedType?.startsWith("util-vent")}
+                icon={<PlayArrow />}
             >
                 {t("sprite.ventInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type.startsWith("sab-door")}
-                icon="play"
+                isVisible={selectedType?.startsWith("sab-door")}
+                icon={<PlayArrow />}
             >
                 {t("sprite.doorInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type === "util-cam"}
-                icon="play"
+                isVisible={selectedType === "util-cam"}
+                icon={<PlayArrow />}
             >
                 {t("sprite.camInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.properties.spriteID !== undefined && isConsole}
-                icon="vertical-inbetween"
+                isVisible={spriteID !== undefined && isConsole}
+                icon={<Padding />}
             >
                 {t("sprite.paddingInfo") as string}
             </MapError>
             <MapError
                 info
-                isVisible={selectedElem.type === "util-filter"}
-                icon="eye-open"
+                isVisible={selectedType === "util-filter"}
+                icon={<Visibility />}
             >
                 {t("sprite.filterInfo") as string}
             </MapError>

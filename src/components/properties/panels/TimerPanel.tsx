@@ -1,35 +1,33 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
-import SwitchPanelInput from "../input/SwitchPanelInput";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { Timer } from "@mui/icons-material";
 
 export default function TimerPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isTimer = useIsSelectedElemType("util-triggertimer");
 
-    if (!selectedElem || selectedElem.type !== "util-triggertimer")
+    if (!isTimer)
         return null;
 
     return (
         <PanelContainer title={t("timer.title") as string}>
-            <NumericPanelInput
-                key="duration"
-                name="timer.duration"
+            <ElementPropNumericInput
+                name={t("timer.duration")}
                 prop="triggerTime"
                 defaultValue={1}
-                icon="time"
+                icon={<Timer />}
                 label="seconds"
                 min={0}
-                minorStepSize={0.1}
                 stepSize={1}
-                majorStepSize={10}
             />
-            <SwitchPanelInput
+            <ElementPropSwitch
                 prop={"triggerLoop"}
-                name={"timer.isRepeat"}
+                name={t("timer.isRepeat")}
                 defaultValue={false}
-                tooltip={"timer.isRepeatTooltip"}
+                tooltip={t("timer.isRepeatTooltip")}
             />
         </PanelContainer>
     );

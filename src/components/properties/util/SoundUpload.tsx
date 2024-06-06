@@ -1,18 +1,16 @@
-import { Button, ButtonGroup, Icon } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
-import { ItemRenderer, Select2 } from "@blueprintjs/select";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import openUploadDialog from "../../../hooks/utils/openUploadDialog";
-import useAudioDownmixer from "../../../hooks/useAudioDownmixer";
+import generateGUID from "../../../utils/generateGUID";
+import openUploadDialog from "../../../utils/openUploadDialog";
+import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
-import SizeTag from "../../utils/SizeTag";
-import AudioPlayer from "./AudioPlayer";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
+import AudioEditor from "./AudioEditor";
+import { Check, CloudUpload, Refresh } from "@mui/icons-material";
+import { Button, ButtonGroup, MenuItem, Select, Typography } from "@mui/material";
+import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -31,17 +29,15 @@ export default function SoundUpload(props: SoundUploadProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
-    const asset = useMapAssetValue(props.sound?.dataID);
     const createMapAsset = useCreateMapAsset();
 
-    const soundSize = React.useMemo(() => {
-        return props.sound?.isPreset ? 0 : (asset?.blob.size ?? 0);
-    }, [props.sound]);
-
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("audio/*").then((blob) => {
+        return openUploadDialog("audio/*").then((blob) => {
             downmixAudio(blob).then((downmixedBlob) => {
-                const asset = createMapAsset(downmixedBlob);
+                const asset = createMapAsset({
+                    type: "audio",
+                    blob: downmixedBlob
+                });
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
                     type: props.soundType,
@@ -49,10 +45,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     volume: DEFAULT_VOLUME,
                     isPreset: false
                 });
-            }).catch((e) => {
-                console.error(e);
-                toaster.danger(e);
-            });
+            }).catch(toaster.error);
         });
     }, [props.onChange]);
 
@@ -64,7 +57,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
                 downmixAudio(file).then((downmixedBlob) => {
-                    const asset = createMapAsset(downmixedBlob);
+                    const asset = createMapAsset({ blob: downmixedBlob, type: "audio" });
                     props.onChange({
                         id: props.sound?.id ?? generateGUID(),
                         type: props.soundType,
@@ -72,26 +65,12 @@ export default function SoundUpload(props: SoundUploadProps) {
                         volume: DEFAULT_VOLUME,
                         isPreset: false
                     });
-                }).catch((e) => {
-                    console.error(e);
-                    toaster.danger(e);
-                });
+                }).catch(toaster.error);
             } else {
-                toaster.danger(t("audio.errorInvalidType"));
+                toaster.error(t("audio.errorInvalidType"));
             }
         }
     }, [props.onChange]);
-
-    const selectChannelRenderer: ItemRenderer<string> = (channel, props) => (
-        <MenuItem2
-            key={props.index + "-channel"}
-            text={t(`audio.${channel}`)}
-            active={props.modifiers.active}
-            disabled={props.modifiers.disabled}
-            onClick={props.handleClick}
-            onFocus={props.handleFocus}
-        />
-    );
 
     return (
         <div
@@ -107,81 +86,75 @@ export default function SoundUpload(props: SoundUploadProps) {
         >
             {/* Sound Preview */}
             {props.sound ? (
-                <AudioPlayer
+                <AudioEditor
                     title={props.title}
                     sound={props.sound}
                     onSoundChange={props.onChange}
                     loop={props.loop}
                 />
             ) : (
-                <p
-                    style={{
-                        textAlign: "center",
-                        paddingTop: 10
-                    }}
+                <Typography
+                    variant={"subtitle2"}
+                    sx={{ textAlign: "center", m: 2 }}
                 >
                     {t("audio.notUploaded")}
-                </p>
+                </Typography>
             )}
+
+            {/* Buttons */}
+            <ButtonGroup fullWidth>
+                <Button
+                    color={"primary"}
+                    onClick={() => onUploadClick()}
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <CloudUpload />
+                </Button>
+                <Button
+                    color={"success"}
+                    disabled={!props.onFinish}
+                    onClick={props.onFinish}
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <Check />
+                </Button>
+                <Button
+                    color={"error"}
+                    onClick={props.onReset}
+                    disabled={props.sound === undefined}
+                    variant={"contained"}
+                    size={"small"}
+                >
+                    <Refresh />
+                </Button>
+            </ButtonGroup>
 
             {/* Channel */}
             {props.editChannel && (
-                <Select2
-                    fill
-                    filterable={false}
-                    items={Object.values(LISoundChannel) as string[]}
-                    itemRenderer={selectChannelRenderer}
-                    onItemSelect={(item) => {
+                <Select
+                    sx={{ mt: 1 }}
+                    size={"small"}
+                    fullWidth
+                    value={props.sound?.channel ?? LISoundChannel.SFX}
+                    onChange={(e) => {
+                        const channel = e.target.value as LISoundChannel;
                         if (props.sound) {
                             props.onChange({
                                 ...props.sound,
-                                channel: item as LISoundChannel
+                                channel
                             });
                         }
                     }}
                 >
-                    <Button
-                        icon={"music"}
-                        rightIcon={"caret-down"}
-                        text={t(`audio.${props.sound?.channel ?? LISoundChannel.SFX}`)}
-                        fill
-                        minimal
-                    />
-                </Select2>
+                    {Object.values(LISoundChannel).map((channel) =>
+                        <MenuItem key={channel} value={channel}>
+                            {t(`audio.${channel}`)}
+                        </MenuItem>
+                    )}
+                </Select>
             )}
-
-            {/* Size Tag */}
-            <div style={{ textAlign: "center", margin: 10 }}>
-                <SizeTag
-                    sizeBytes={soundSize}
-                    warningMsg={t("audio.errorSize") as string}
-                    okMsg={t("audio.okSize") as string}
-                />
-            </div>
-
-            {/* Buttons */}
-            <ButtonGroup fill>
-                <Button
-                    icon="cloud-upload"
-                    intent="primary"
-                    onClick={() => onUploadClick()}
-                    style={{ margin: 3 }}
-                />
-                <Button
-                    icon="tick"
-                    intent="success"
-                    style={{ margin: 3 }}
-                    disabled={!props.onFinish}
-                    onClick={props.onFinish}
-                />
-                <Button
-                    icon="refresh"
-                    intent="danger"
-                    onClick={props.onReset}
-                    style={{ margin: 3 }}
-                    disabled={props.sound === undefined}
-                />
-            </ButtonGroup>
 
             {/* Drag & Drop File Upload */}
             <div
@@ -204,10 +177,8 @@ export default function SoundUpload(props: SoundUploadProps) {
                     pointerEvents: "none",
                 }}
             >
-                <Icon
-                    icon="cloud-upload"
-                    size={40}
-                    style={{ marginRight: 10 }}
+                <CloudUpload
+                    style={{ marginRight: 10, fontSize: 40 }}
                 />
                 <span
                     style={{

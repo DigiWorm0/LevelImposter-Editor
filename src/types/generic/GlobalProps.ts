@@ -89,6 +89,13 @@ const GLOBAL_PROPERTIES: GlobalProp[] = [
             "task-towels4",
             "task-towels5",
         ]
+    },
+    {
+        prop: "customText",
+        types: [
+            "util-button1",
+            "util-button2",
+        ]
     }
 ];
 

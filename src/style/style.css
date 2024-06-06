@@ -1,0 +1,18 @@
+:root {
+    color-scheme: dark;
+}
+
+
+body, html {
+    font-family: Roboto, Arial, sans-serif;
+}
+
+.download-canvas .konvajs-content,
+.download-canvas canvas {
+    width: 500px !important;
+    height: 300px !important;
+}
+
+.MuiLinearProgress-bar {
+    transition: none;
+}

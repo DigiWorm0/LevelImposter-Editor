@@ -1,30 +1,30 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import TeleSelect from "../input/TeleSelect";
+import TeleSelect from "../input/select/TeleSelect";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function TelePanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isTele = useIsSelectedElemType("util-tele");
 
-    if (!selectedElem || selectedElem.type !== "util-tele")
+    if (!isTele)
         return null;
 
     return (
         <PanelContainer title={t("tele.title") as string}>
             <TeleSelect />
-            <SwitchPanelInput
+            <ElementPropSwitch
                 prop={"preserveOffset"}
-                name={"tele.preserveOffset"}
+                name={t("tele.preserveOffset")}
                 defaultValue={true}
-                tooltip={"tele.preserveOffsetTooltip"}
+                tooltip={t("tele.preserveOffsetTooltip")}
             />
-            <SwitchPanelInput
+            <ElementPropSwitch
                 prop={"isGhostEnabled"}
-                name={"tele.ghostEnabled"}
+                name={t("tele.ghostEnabled")}
                 defaultValue={true}
-                tooltip={"tele.ghostEnabledTooltip"}
+                tooltip={t("tele.ghostEnabledTooltip")}
             />
         </PanelContainer>
     );

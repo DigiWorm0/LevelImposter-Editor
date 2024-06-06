@@ -5,7 +5,13 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
-        react(),
+        react({
+            babel: {
+                plugins: [
+                    "jotai/babel/plugin-debug-label"
+                ]
+            }
+        }),
         viteTsconfigPaths(),
     ],
 });

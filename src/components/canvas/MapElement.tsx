@@ -1,17 +1,17 @@
 import React from "react";
 import { Group, Image, Rect } from "react-konva";
-import useElement from "../../hooks/jotai/useElements";
-import { useSetMouseCursor } from "../../hooks/jotai/useMouse";
-import { useIsSelectedCollider } from "../../hooks/jotai/useSelectedCollider";
-import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
-import useEmbed from "../../hooks/useEmbed";
-import useSprite from "../../hooks/useSprite";
-import { DEFAULT_GRID_SNAP_RESOLUTION, DEFAULT_INVISIBLE_OPACITY, UNITY_SCALE } from "../../types/generic/Constants";
+import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
+import { useIsSelectedCollider } from "../../hooks/elements/colliders/useSelectedCollider";
+import useElement from "../../hooks/elements/useElements";
+import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import useEmbed from "../../hooks/embed/useEmbed";
+import { useSettingsValue } from "../../hooks/useSettings";
+import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, { ElemVisibility } from "../../hooks/utils/getMapVisibility";
+import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
+import setCursor from "../../utils/setCursor";
+import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
-import useColoredSprite from "../../hooks/useColoredSprite";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -21,25 +21,21 @@ const SECONDARY_RENDER_TYPES = [
 
 export default function MapElement(props: { elementID: GUID }) {
     const setSelectedID = useSetSelectedElemID();
-    const setMouseCursor = useSetMouseCursor();
-    const isEmbeded = useEmbed();
-    const sprite = useSprite(props.elementID);
+    const isEmbedded = useEmbed();
     const isColliderSelected = useIsSelectedCollider();
     const isSelected = useIsSelectedElem(props.elementID);
-    const settings = useSettingsValue();
+    const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
-    const spriteRef = useColoredSprite(props.elementID);
+    const coloredSprite = useColoredSprite(props.elementID);
 
     if (!elem || elem.type === "util-layer")
         return null;
 
     const elemVisibility = getElemVisibility(elem);
-    const w = (sprite?.width ?? 0) * elem.xScale;
-    const h = (sprite?.height ?? 0) * elem.yScale;
+    const w = (coloredSprite?.width ?? 0) * elem.xScale;
+    const h = (coloredSprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
-    const gridSnapResolution = settings.gridSnapResolution ?? DEFAULT_GRID_SNAP_RESOLUTION;
-    const invisibleOpacity = settings.invisibleOpacity ?? DEFAULT_INVISIBLE_OPACITY;
     const opacity =
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
@@ -62,7 +58,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 setSelectedID(props.elementID);
             }}
             onDragMove={(e) => {
-                if (settings.isGridSnapEnabled ?? true) {
+                if (isGridSnapEnabled) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
                         y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
@@ -78,17 +74,18 @@ export default function MapElement(props: { elementID: GUID }) {
             onClick={(e) => {
                 e.target.getParent().stopDrag();
                 setSelectedID(props.elementID);
+                e.cancelBubble = true;
             }}
-            onMouseEnter={() => {
+            onMouseEnter={e => {
                 setHovering(true);
-                setMouseCursor(elem.properties.isLocked ? "default" : "pointer");
+                setCursor(e, elem.properties.isLocked ? "default" : "pointer");
             }}
-            onMouseLeave={() => {
+            onMouseLeave={e => {
                 setHovering(false);
-                setMouseCursor("default");
+                setCursor(e, "default");
             }}
             draggable={false}
-            listening={!isColliderSelected && !isEmbeded && isVisible}
+            listening={!isColliderSelected && !isEmbedded && isVisible}
         >
 
             <Image
@@ -97,8 +94,7 @@ export default function MapElement(props: { elementID: GUID }) {
                 y={-h / 2}
                 width={w}
                 height={h}
-                image={sprite as CanvasImageSource}
-                ref={spriteRef}
+                image={coloredSprite}
             />
 
             {(isSelected || isHovering) && (
@@ -117,6 +113,10 @@ export default function MapElement(props: { elementID: GUID }) {
             {isSelected && (
                 <SecondaryRender />
             )}
+
+            {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
+                <RoomText name={elem.name} />
+            }
         </Group>
     );
 }

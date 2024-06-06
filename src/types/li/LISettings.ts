@@ -1,19 +1,39 @@
 export default interface LISettings {
-    isDevMode?: boolean;
-    isDarkMode?: boolean;
-    isGridVisible?: boolean;
-    gridSize?: number;
-    gridSnapResolution?: number;
-    isGridSnapEnabled?: boolean;
-    isBrowserAccepted?: boolean;
-    isRoomNameVisible?: boolean;
-    invisibleOpacity?: number;
-    colliderHandleSize?: number;
-    colliderPreview?: boolean;
-    language?: string;
-    scrollToSelection?: boolean;
-    elementNesting?: boolean;
-    autosave?: boolean;
-    isInfoVisible?: boolean;
-    isAudioDownmixEnabled?: boolean;
+    isDevMode: boolean;
+    isDarkMode: boolean;
+    isGridVisible: boolean;
+    gridSize: number;
+    gridSpacing: number;
+    gridSnapResolution: number;
+    isGridSnapEnabled: boolean;
+    isBrowserAccepted: boolean;
+    isRoomNameVisible: boolean;
+    invisibleOpacity: number;
+    colliderHandleSize: number;
+    colliderPreview: boolean;
+    language: string;
+    scrollToSelection: boolean;
+    elementNesting: boolean;
+    isInfoVisible: boolean;
+    isAudioDownmixEnabled: boolean;
+}
+
+export const DEFAULT_SETTINGS: LISettings = {
+    isDevMode: false,
+    isDarkMode: true,
+    isGridVisible: true,
+    gridSize: 25,
+    gridSpacing: 100,
+    gridSnapResolution: 0.1,
+    isGridSnapEnabled: true,
+    isBrowserAccepted: false,
+    isRoomNameVisible: false,
+    invisibleOpacity: 0.3,
+    colliderHandleSize: 8,
+    colliderPreview: false,
+    language: "auto",
+    scrollToSelection: true,
+    elementNesting: false,
+    isInfoVisible: true,
+    isAudioDownmixEnabled: true,
 }

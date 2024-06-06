@@ -1,26 +1,28 @@
-import { Group, Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
 import { DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import { Group, Rect } from "react-konva";
 
 export default function DisplayRender() {
+    const isDisplay = useIsSelectedElemType("util-display");
     const selectedElem = useSelectedElemValue();
+    const displayHeight = useSelectedElemPropValue("displayHeight");
+    const displayWidth = useSelectedElemPropValue("displayWidth");
 
-    if (!selectedElem
-        || selectedElem.type !== "util-display")
+    if (!isDisplay || !selectedElem)
         return null;
 
-    const { x, y, xScale, yScale, rotation } = selectedElem;
-
-    const camHeight = selectedElem.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
-    const camWidth = selectedElem.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
+    const camHeight = displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
+    const camWidth = displayWidth ?? DEFAULT_DISPLAY_WIDTH;
 
     return (
         <Group
-            x={x * UNITY_SCALE}
-            y={-y * UNITY_SCALE}
-            scaleX={xScale}
-            scaleY={yScale}
-            rotation={-rotation}
+            x={selectedElem.x * UNITY_SCALE}
+            y={-selectedElem.y * UNITY_SCALE}
+            scaleX={selectedElem.xScale}
+            scaleY={selectedElem.yScale}
+            rotation={-selectedElem.rotation}
             listening={false}
         >
             <Rect

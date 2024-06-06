@@ -1,9 +1,9 @@
-import { H6, Tag } from "@blueprintjs/core";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import LISound from "../../../types/li/LISound";
+import generateGUID from "../../../utils/generateGUID";
 import SoundUpload from "../util/SoundUpload";
-import generateGUID from "../../../hooks/utils/generateGUID";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 
 interface SoundEditorProps {
     title: string;
@@ -15,77 +15,51 @@ interface SoundEditorProps {
 }
 
 export default function SoundEditorPanel(props: SoundEditorProps) {
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const [sounds, setSounds] = useSelectedElemProp("sounds");
 
     const sound = React.useMemo(() => {
         if (props.soundType)
-            return selectedElem?.properties.sounds?.find(sound => sound.type === props.soundType);
+            return sounds?.find(sound => sound.type === props.soundType);
         else
-            return selectedElem?.properties.sounds?.find(sound => sound.id === props.soundID);
-    }, [selectedElem, props.soundType]);
-    const defaultSound = React.useMemo(() => (props.defaultSoundURL ? {
-        id: generateGUID(),
-        type: props.soundType,
-        presetID: props.defaultSoundURL,
-        volume: 1,
-        isPreset: true
-    } : undefined), [props.defaultSoundURL, props.soundType]);
+            return sounds?.find(sound => sound.id === props.soundID);
+    }, [sounds, props.soundType]);
+
+    const defaultSound = React.useMemo(() => (
+        props.defaultSoundURL ? ({
+            id: generateGUID(),
+            type: props.soundType,
+            presetID: props.defaultSoundURL,
+            volume: 1,
+            isPreset: true
+        }) : undefined
+    ), [props.defaultSoundURL, props.soundType]);
 
     const onDeleteClick = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        const sounds = selectedElem.properties.sounds?.filter(s => s.id !== sound?.id) ?? [];
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                sounds
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
+        setSounds(sounds?.filter(s => s.id !== sound?.id) ?? []);
+    }, [sounds]);
 
     const onSoundChange = React.useCallback((sound: LISound) => {
-        if (!selectedElem)
-            return;
-        const sounds = selectedElem.properties.sounds?.map(s => {
+
+        // Update the sound
+        const newSounds = sounds?.map(s => {
             if (s.id === sound.id)
                 return sound;
             return s;
         }) ?? [];
-        if (!sounds.some(s => s.id === sound.id))
-            sounds.push(sound);
-        setSelectedElem({
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                sounds
-            }
-        });
-    }, [selectedElem, setSelectedElem]);
 
-    if (!selectedElem)
-        return null;
+        // If the sound is not in the list, add it
+        if (!newSounds.some(s => s.id === sound.id))
+            newSounds.push(sound);
+
+        // Update the sounds
+        setSounds(newSounds);
+    }, [sounds]);
 
     return (
-        <div style={{ padding: 20 }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <H6 style={{
-                    marginTop: 2
-                }}>
-                    {props.title}
-                </H6>
-                {sound?.isPreset && (
-                    <Tag
-                        intent="success"
-                        style={{
-                            marginBottom: 10,
-                        }}
-                    >
-                        {sound.presetID}
-                    </Tag>
-                )}
-            </div>
-
+        <Box sx={{ p: 2 }}>
+            <Typography variant={"subtitle2"}>
+                {props.title}
+            </Typography>
             <SoundUpload
                 title={props.title}
                 sound={sound ?? defaultSound}
@@ -95,6 +69,6 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
                 onFinish={props.onFinish}
                 loop={props.loop}
             />
-        </div>
+        </Box>
     )
 }

@@ -1,5 +1,5 @@
 import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
 
 export default function MinimapPreview() {
@@ -9,7 +9,7 @@ export default function MinimapPreview() {
         || elem.type !== "util-minimap")
         return null;
 
-    const scale = elem?.properties.minimapScale === undefined ? 1 : elem.properties.minimapScale;
+    const scale = elem?.properties.minimapScale ?? 1;
 
     return (
         <>

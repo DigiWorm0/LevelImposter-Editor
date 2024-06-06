@@ -1,32 +1,31 @@
-import { ControlGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import NumericPanelInput from "../input/NumericPanelInput";
-import PanelContainer from "../util/PanelContainer";
 import { DEFAULT_SPAWN_RANGE } from "../../../types/generic/Constants";
-import SwitchPanelInput from "../input/SwitchPanelInput";
+import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { TripOrigin } from "@mui/icons-material";
 
 export default function SpawnPanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const isSpawn1 = useIsSelectedElemType("util-spawn");
+    const isSpawn2 = useIsSelectedElemType("util-spawn2");
 
-    if (!element || !element.type.startsWith("util-spawn"))
+    if (!isSpawn1 && !isSpawn2)
         return null;
 
     return (
         <PanelContainer title={t("spawn.title") as string}>
-            <NumericPanelInput
-                name="spawn.radius"
+            <ElementPropNumericInput
+                name={t("spawn.radius")}
                 prop="range"
                 defaultValue={DEFAULT_SPAWN_RANGE}
-                icon="circle"
-                minorStepSize={0.01}
+                icon={<TripOrigin />}
                 stepSize={0.1}
-                majorStepSize={0.5}
-                intent="warning"
+                color="warning"
             />
-            <SwitchPanelInput
-                name="spawn.spawnDummies"
+            <ElementPropSwitch
+                name={t("spawn.spawnDummies")}
                 prop="spawnDummies"
                 defaultValue={false}
             />

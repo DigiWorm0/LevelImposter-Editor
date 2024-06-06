@@ -1,5 +1,5 @@
 import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_CAM_ASPECT,
     DEFAULT_CAM_SIZE,
@@ -11,10 +11,15 @@ import {
 export default function CameraRender() {
     const selectedElem = useSelectedElemValue();
 
-    if (!selectedElem
-        || (selectedElem.type !== "util-cam" && selectedElem.type !== "util-cams4" && selectedElem.type !== "util-display"))
+    // Check if selected element is a camera
+    if (!selectedElem)
+        return null;
+    if (selectedElem.type !== "util-cam" &&
+        selectedElem.type !== "util-cams4" &&
+        selectedElem.type !== "util-display")
         return null;
 
+    // Camera Properties
     const { camXOffset, camYOffset, camZoom } = selectedElem.properties;
     const { x, y } = selectedElem;
 
@@ -29,6 +34,7 @@ export default function CameraRender() {
     const camHeight = (camZoom ? camZoom * 2 : DEFAULT_CAM_SIZE) * UNITY_SCALE;
     const camWidth = camHeight * aspectRatio;
 
+    // Position
     const camX = (camXOffset ? (camXOffset + x) : x) * UNITY_SCALE;
     const camY = (camYOffset ? (-camYOffset - y) : -y) * UNITY_SCALE;
 

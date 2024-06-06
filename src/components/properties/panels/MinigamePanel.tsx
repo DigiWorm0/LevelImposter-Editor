@@ -1,15 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import AUMinigameDB from "../../../types/au/AUMinigameDB";
+import AUMinigameDB from "../../../types/db/AUMinigameDB";
+import { DoorType } from "../../../types/generic/DoorType";
 import MinigameEditorPanel from "../editors/MinigameEditorPanel";
-import ColorPanelInput from "../input/ColorPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import { DoorType } from "../../../types/generic/DoorType";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import TextPanelInput from "../input/TextPanelInput";
+import MinigamePropSwitch from "../input/minigame/MinigamePropSwitch";
+import MinigamePropTextInput from "../input/minigame/MinigamePropTextInput";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import MinigamePropColorInput from "../input/minigame/MinigamePropColorInput";
+import { Code, PlayArrow, Warning } from "@mui/icons-material";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",
@@ -20,21 +22,22 @@ const POLUS_DOOR_MINIGAMES = [
 
 export default function MinigamePanel() {
     const { t } = useTranslation();
-    const element = useSelectedElemValue();
+    const selectedType = useSelectedElemType();
+    const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
+    const minigames = useSelectedElemPropValue("minigames") || [];
     const [selectedMinigameType, setSelectedMinigameType] = React.useState<string | undefined>(undefined);
 
-    const minigameSprites = React.useMemo(() => AUMinigameDB.filter((mg) => mg.split("_")[0] === element?.type), [element]);
+    const minigameSprites = AUMinigameDB.filter((mg) => mg.split("_")[0] === selectedType);
 
-    const isReactor = React.useMemo(() => element?.type.startsWith("sab-reactor"), [element]);
-    const isLights = React.useMemo(() => element?.type === "sab-electric", [element]);
-    const isFuel = React.useMemo(() => element?.type.startsWith("task-fuel"), [element]);
-    const isDoor = React.useMemo(() => element?.type.startsWith("sab-door"), [element]);
-    const isTelescope = React.useMemo(() => element?.type === "task-telescope", [element]);
-    const isWeapons = React.useMemo(() => element?.type === "task-weapons", [element]);
-    const isBoardingPass = React.useMemo(() => element?.type === "task-pass", [element]);
-    const doorType = React.useMemo(() => element?.properties.doorType ?? DoorType.Skeld, [element]);
+    const isReactor = selectedType?.startsWith("sab-reactor");
+    const isLights = selectedType === "sab-electric";
+    const isFuel = selectedType?.startsWith("task-fuel");
+    const isDoor = selectedType?.startsWith("sab-door");
+    const isTelescope = selectedType === "task-telescope";
+    const isWeapons = selectedType === "task-weapons";
+    const isBoardingPass = selectedType === "task-pass";
 
-    if (!element || minigameSprites.length === 0)
+    if (!selectedType || minigameSprites.length === 0)
         return null;
 
     return (
@@ -42,7 +45,7 @@ export default function MinigamePanel() {
             <PanelContainer title={t("minigame.title") as string}>
                 <DropdownList
                     elements={minigameSprites.map((type) => {
-                        const hasSprite = element.properties.minigames?.find((m) => m.type === type)?.spriteID !== undefined;
+                        const hasSprite = minigames?.find((m) => m.type === type)?.spriteID !== undefined;
                         const isDisabled = isDoor && (
                             doorType === DoorType.Skeld ||
                             (doorType === DoorType.Polus && !POLUS_DOOR_MINIGAMES.includes(type)) ||
@@ -52,8 +55,8 @@ export default function MinigamePanel() {
                         return {
                             id: type,
                             name: t(`minigame.${type.split("_")[1]}`, { index: type.split("_")[2] }) as string,
-                            icon: (isDisabled && hasSprite) ? 'warning-sign' : 'code-block',
-                            intent: hasSprite ? 'success' : 'danger',
+                            icon: (isDisabled && hasSprite) ? <Warning /> : <Code />,
+                            intent: hasSprite ? 'success' : 'error',
                             isDisabled: isDisabled
                         };
                     })}
@@ -68,72 +71,72 @@ export default function MinigamePanel() {
                     )}
                 />
                 {isReactor && (
-                    <ColorPanelInput
-                        name={t("minigame.reactorColorGood") as string}
-                        minigameProp={"reactorColorGood"}
+                    <MinigamePropColorInput
+                        name={t("minigame.reactorColorGood")}
+                        prop={"reactorColorGood"}
                         defaultValue={{ r: 77, g: 226, b: 255, a: 255 }}
                     />
                 )}
                 {isReactor && (
-                    <ColorPanelInput
-                        name={t("minigame.reactorColorBad") as string}
-                        minigameProp={"reactorColorBad"}
+                    <MinigamePropColorInput
+                        name={t("minigame.reactorColorBad")}
+                        prop={"reactorColorBad"}
                         defaultValue={{ r: 255, g: 41, b: 0, a: 255 }}
                     />
                 )}
                 {isLights && (
-                    <ColorPanelInput
-                        name={t("minigame.lightsColorOn") as string}
-                        minigameProp={"lightsColorOn"}
+                    <MinigamePropColorInput
+                        name={t("minigame.lightsColorOn")}
+                        prop={"lightsColorOn"}
                         defaultValue={{ r: 0, g: 255, b: 0, a: 255 }}
                     />
                 )}
                 {isLights && (
-                    <ColorPanelInput
-                        name={t("minigame.lightsColorOff") as string}
-                        minigameProp={"lightsColorOff"}
+                    <MinigamePropColorInput
+                        name={t("minigame.lightsColorOff")}
+                        prop={"lightsColorOff"}
                         defaultValue={{ r: 26, g: 77, b: 26, a: 255 }}
                     />
                 )}
                 {isFuel && (
-                    <ColorPanelInput
-                        name={t("minigame.fuelColor") as string}
-                        minigameProp={"fuelColor"}
+                    <MinigamePropColorInput
+                        name={t("minigame.fuelColor")}
+                        prop={"fuelColor"}
                         defaultValue={{ r: 197, g: 170, b: 20, a: 255 }}
                     />
                 )}
                 {isFuel && (
-                    <ColorPanelInput
-                        name={t("minigame.bgColor") as string}
-                        minigameProp={"fuelBgColor"}
+                    <MinigamePropColorInput
+                        name={t("minigame.bgColor")}
+                        prop={"fuelBgColor"}
                         defaultValue={{ r: 0, g: 0, b: 0, a: 255 }}
                     />
                 )}
                 {isTelescope && (
-                    <SwitchPanelInput
-                        name={"minigame.starfieldEnabled"}
-                        minigameProp={"isStarfieldEnabled"}
+                    <MinigamePropSwitch
+                        name={t("minigame.starfieldEnabled")}
+                        prop={"isStarfieldEnabled"}
                         defaultValue={true}
                     />
                 )}
                 {isWeapons && (
-                    <ColorPanelInput
-                        name={t("minigame.weaponsColor") as string}
-                        minigameProp={"weaponsColor"}
+                    <MinigamePropColorInput
+                        name={t("minigame.weaponsColor")}
+                        prop={"weaponsColor"}
                         defaultValue={{ r: 22, g: 72, b: 46, a: 255 }}
                     />
                 )}
                 {isBoardingPass && (
-                    <TextPanelInput
-                        name={"minigame.qrCodeText"}
-                        minigameProp={"qrCodeText"}
+                    <MinigamePropTextInput
+                        name={t("minigame.qrCodeText")}
+                        prop={"qrCodeText"}
                     />
                 )}
 
             </PanelContainer>
             <MapError
                 info
-                icon="media"
+                icon={<PlayArrow />}
             >
                 {t("minigame.saveInfo")}
             </MapError>

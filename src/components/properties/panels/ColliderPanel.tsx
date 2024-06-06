@@ -1,13 +1,15 @@
-import { Button } from "@blueprintjs/core";
+import { Add, CameraAlt, HighlightAlt, Person, Room, VolumeUp } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import { useSelectedColliderID } from "../../../hooks/jotai/useSelectedCollider";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
+import { useSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import generateGUID from "../../../utils/generateGUID";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",
@@ -31,6 +33,8 @@ const SOLID_ONLY_TYPES = [
     "util-tele",
     "util-triggerarea",
     "util-triggersound",
+    "util-triggerdeath",
+    "util-triggershake",
     "util-decontamination"
 ];
 
@@ -51,34 +55,17 @@ const SINGULAR_TYPES = [
 
 export default function ColliderPanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const type = useSelectedElemType();
+    const [_colliders, setColliders] = useSelectedElemProp("colliders");
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
 
-    const isSolidOnly = React.useMemo(() => {
-        return SOLID_ONLY_TYPES.includes(selectedElem?.type || "");
-    }, [selectedElem?.type]);
-
-    const isShadowOnly = React.useMemo(() => {
-        return SHADOW_ONLY_TYPES.includes(selectedElem?.type || "");
-    }, [selectedElem?.type]);
-
-    const isEdgeOnly = React.useMemo(() => {
-        return EDGE_ONLY_TYPES.includes(selectedElem?.type || "");
-    }, [selectedElem?.type]);
-
-    const isAddDisabled = React.useMemo(() => {
-        return selectedElem
-            && SINGULAR_TYPES.includes(selectedElem?.type)
-            && selectedElem.properties.colliders
-            && selectedElem.properties.colliders.length > 0;
-    }, [selectedElem?.properties?.colliders]);
+    const colliders = _colliders ?? [];
+    const isSolidOnly = SOLID_ONLY_TYPES.includes(type || "");
+    const isShadowOnly = SHADOW_ONLY_TYPES.includes(type || "");
+    const isEdgeOnly = EDGE_ONLY_TYPES.includes(type || "");
+    const isAddDisabled = type !== undefined && SINGULAR_TYPES.includes(type) && colliders.length > 0;
 
     const addCollider = React.useCallback(() => {
-        if (!selectedElem)
-            return;
-        if (selectedElem.properties.colliders === undefined)
-            selectedElem.properties.colliders = [];
-
         const collider = {
             id: generateGUID(),
             blocksLight: !isSolidOnly && !isEdgeOnly,
@@ -91,42 +78,33 @@ export default function ColliderPanel() {
             ]
         };
 
-        const elem = {
-            ...selectedElem,
-            properties: {
-                ...selectedElem.properties,
-                colliders: [
-                    ...selectedElem.properties.colliders,
-                    collider
-                ]
-            }
-        };
-        setSelectedElem(elem);
+        setColliders([...(colliders ?? []), collider]);
         setSelectedColliderID(collider?.id);
-    }, [selectedElem, setSelectedElem, setSelectedColliderID, isSolidOnly]);
+    }, [colliders, isSolidOnly, isEdgeOnly, setColliders, setSelectedColliderID]);
 
-    if (!selectedElem || BLACKLISTED_TYPES.includes(selectedElem.type))
+    if (!type || BLACKLISTED_TYPES.includes(type))
         return null;
 
     return (
         <>
             <PanelContainer title={t("collider.title") as string}>
                 <Button
-                    alignText="left"
-                    minimal
-                    fill
-                    icon="add"
-                    text={t("collider.add") as string}
+                    size={"small"}
+                    fullWidth
+                    endIcon={<Add />}
                     onClick={addCollider}
                     disabled={isAddDisabled}
+                    color={"inherit"}
                     style={{ marginTop: 5, marginBottom: 0 }}
-                />
+                >
+                    {t("collider.add") as string}
+                </Button>
                 <DropdownList
-                    elements={selectedElem.properties.colliders?.map((collider, index) => ({
+                    elements={colliders.map((collider, index) => ({
                         id: collider.id,
                         name: collider.name !== undefined ? collider.name : t("collider.defaultName", { index: index + 1 }) as string,
-                        intent: collider.blocksLight ? "danger" : "success",
-                        icon: "edit"
+                        intent: collider.blocksLight ? "error" : "success",
+                        icon: "Edit"
                     })) ?? []}
                     selectedID={selectedColliderID}
                     onSelectID={setSelectedColliderID}
@@ -147,72 +125,86 @@ export default function ColliderPanel() {
             <MapError
                 isVisible={selectedColliderID !== undefined}
                 info
-                icon="hand-up"
+                icon={<HighlightAlt />}
             >
                 {t("collider.colliderInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type.startsWith("sab-door")}
+                isVisible={type.startsWith("sab-door")}
                 info
-                icon="polygon-filter"
+                icon={<HighlightAlt />}
             >
                 {t("collider.doorInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-room"}
+                isVisible={type === "util-room"}
                 info
-                icon="area-of-interest"
+                icon={<Room />}
             >
                 {t("collider.roomInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type.startsWith("util-sound") || selectedElem.type === "util-triggersound"}
+                isVisible={type.startsWith("util-sound") || type === "util-triggersound"}
                 info
-                icon="volume-up"
+                icon={<VolumeUp />}
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-triggerarea"}
+                isVisible={type === "util-triggerarea"}
                 info
-                icon="polygon-filter"
+                icon={<HighlightAlt />}
             >
                 {t("collider.triggerAreaInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-tele"}
+                isVisible={type === "util-tele"}
                 info
-                icon="polygon-filter"
+                icon={<HighlightAlt />}
             >
                 {t("collider.teleInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-onewaycollider"}
+                isVisible={type === "util-onewaycollider"}
                 info
-                icon="polygon-filter"
+                icon={<HighlightAlt />}
             >
                 {t("collider.oneWayColliderInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-decontamination"}
+                isVisible={type === "util-decontamination"}
                 info
-                icon="volume-up"
+                icon={<VolumeUp />}
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-ghostcollider"}
+                isVisible={type === "util-ghostcollider"}
                 info
-                icon="person"
+                icon={<Person />}
             >
                 {t("collider.ghostInfo") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "util-binocularscollider"}
+                isVisible={type === "util-binocularscollider"}
                 info
-                icon="camera"
+                icon={<CameraAlt />}
             >
                 {t("collider.binocularsInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={type === "util-triggerdeath"}
+                info
+                icon={<HighlightAlt />}
+            >
+                {t("collider.deathInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={type === "util-triggershake"}
+                info
+                icon={<CameraAlt />}
+            >
+                {t("collider.shakeInfo") as string}
             </MapError>
         </>
     );

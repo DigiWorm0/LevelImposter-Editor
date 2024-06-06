@@ -1,18 +1,21 @@
-import { Button } from "@blueprintjs/core";
+import { AspectRatio, CloudDownload, Image, PlayArrow } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import DownloadCanvasDialog from "../../dialogs/DownloadCanvas";
-import NumericPanelInput from "../input/NumericPanelInput";
+import DownloadCanvasDialog from "../../modals/DownloadCanvas";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 
 export default function MinimapPanel() {
     const { t } = useTranslation();
     const [isVisible, setVisible] = React.useState(false);
-    const element = useSelectedElemValue();
+    const isMinimap = useIsSelectedElemType("util-minimap");
+    const spriteID = useSelectedElemPropValue("spriteID");
 
-    if (!element || element.type !== "util-minimap")
+    if (!isMinimap)
         return null;
 
     return (
@@ -23,36 +26,34 @@ export default function MinimapPanel() {
             />
 
             <PanelContainer title={t("minimap.title") as string}>
-                <NumericPanelInput
-                    name="minimap.scale"
+                <ElementPropNumericInput
+                    name={t("minimap.scale")}
                     prop="minimapScale"
                     defaultValue={1}
-                    icon="maximize"
+                    icon={<AspectRatio />}
                     min={0.1}
-                    minorStepSize={0.01}
                     stepSize={0.1}
-                    majorStepSize={1}
-                    intent="warning"
+                    color="warning"
                 />
                 <Button
-                    fill
-                    minimal
-                    icon="download"
-                    text={t("minimap.download") as string}
+                    fullWidth
+                    startIcon={<CloudDownload />}
                     disabled={isVisible}
                     onClick={() => setVisible(true)}
-                />
+                >
+                    {t("minimap.download") as string}
+                </Button>
             </PanelContainer>
 
             <MapError
                 info
-                icon="tint"
+                icon={<Image />}
             >
                 {t("minimap.infoSprite") as string}
             </MapError>
             <MapError
-                isVisible={element.properties.spriteID === undefined}
-                icon="media"
+                isVisible={spriteID === undefined}
+                icon={<PlayArrow />}
             >
                 {t("minimap.errorNoSprite") as string}
             </MapError>

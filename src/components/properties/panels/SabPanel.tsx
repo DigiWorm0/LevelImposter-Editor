@@ -1,15 +1,17 @@
-import { H5 } from "@blueprintjs/core";
+import { Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useConnections } from "../../../hooks/jotai/useConnections";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../../hooks/jotai/useTypes";
-import { useSpriteType } from "../../../hooks/useSprite";
-import NumericPanelInput from "../input/NumericPanelInput";
-import RoomSelect from "../input/RoomSelect";
-import TextPanelInput from "../input/TextPanelInput";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
+import { useConnections } from "../../../hooks/elements/useConnections";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
+import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { Comment, Room, Timer } from "@mui/icons-material";
 
 const timerElems = [
     "sab-reactorleft",
@@ -23,32 +25,29 @@ const timerElems = [
 
 export default function SabPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
-    const [sabName, setSabName] = React.useState("");
-    const sprite = useSpriteType(selectedElem?.type);
-    const roomElems = useElementType("util-room");
-    const [targetConnections, sourceConnections] = useConnections(selectedElem?.properties.parent);
+    const selectedType = useSelectedElemType();
+    const parentID = useSelectedElemPropValue("parent");
+    const sprite = useSpriteOfType(selectedType);
+    const roomElems = useElementsOfType("util-room");
+    const [, sourceConnections] = useConnections(parentID);
 
     const otherSab = React.useMemo(() => {
-        if (selectedElem?.type.startsWith("sab-btn"))
+        if (selectedType?.startsWith("sab-btn"))
             return undefined;
-        return sourceConnections?.find((c) => c.type.startsWith("sab-") && c.id !== selectedElem?.id && !c.type.startsWith("sab-btn"));
-    }, [sourceConnections, selectedElem]);
-
-    React.useEffect(() => {
-        setSabName(t(`au.${selectedElem?.type}`) || selectedElem?.name || "");
-    }, [selectedElem]);
+        return sourceConnections?.find((c) => c.type.startsWith("sab-") && !c.type.startsWith("sab-btn"));
+    }, [sourceConnections, selectedType]);
 
     const parentRoom = React.useMemo(() => {
-        return roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    }, [roomElems, selectedElem]);
-    const showTimer = React.useMemo(() => {
-        return timerElems.includes(selectedElem?.type ?? "");
-    }, [selectedElem]);
+        return roomElems.find((e) => e.id === parentID);
+    }, [roomElems, parentID]);
 
-    if (!selectedElem
-        || !selectedElem.type.startsWith("sab-")
-        || selectedElem.type.startsWith("sab-door"))
+    const showTimer = React.useMemo(() => {
+        return timerElems.includes(selectedType ?? "");
+    }, [selectedType]);
+
+    if (!selectedType
+        || !selectedType.startsWith("sab-")
+        || selectedType.startsWith("sab-door"))
         return null;
 
     return (
@@ -58,42 +57,44 @@ export default function SabPanel() {
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
                         src={sprite?.src}
-                        alt={selectedElem.name}
+                        alt={selectedType}
                     />
-                    <H5 style={{ marginBottom: 3 }}>{sabName}</H5>
-                    <p className="bp4-text-muted">{selectedElem.type}</p>
+                    <Typography variant={"subtitle2"}>
+                        {t(`au.${selectedType}`)}
+                    </Typography>
+                    <Typography variant={"body2"} sx={{ color: "text.secondary" }}>
+                        {selectedType}
+                    </Typography>
                 </div>
                 <RoomSelect useDefault={true} />
-                <TextPanelInput
+                <ElementPropTextInput
+                    name={t("sab.description")}
                     prop="description"
-                    name={"sab.description"}
-                    icon={"comment"}
+                    icon={<Comment />}
                 />
                 {showTimer && (
-                    <NumericPanelInput
+                    <ElementPropNumericInput
+                        name={t("sab.duration")}
                         prop="sabDuration"
-                        name={"sab.duration"}
-                        defaultValue={selectedElem.type === "sab-btnmixup" ? 10 : 45}
+                        defaultValue={selectedType === "sab-btnmixup" ? 10 : 45}
                         min={0}
-                        minorStepSize={1}
                         stepSize={5}
-                        majorStepSize={15}
                         label={"seconds"}
-                        icon="time"
+                        icon={<Timer />}
                     />
                 )}
             </PanelContainer>
 
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon={<Room />}
             >
                 {t("sab.errorNoRoom") as string}
             </MapError>
             <MapError
-                isVisible={selectedElem.type === "sab-btndoors"}
+                isVisible={selectedType === "sab-btndoors"}
                 info
-                icon="map-marker"
+                icon={<Room />}
             >
                 {t("sab.doorInfo") as string}
             </MapError>

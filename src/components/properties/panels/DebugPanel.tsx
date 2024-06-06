@@ -1,71 +1,73 @@
-import { Button, Card, Intent, Menu } from "@blueprintjs/core";
-import { MenuItem2 } from "@blueprintjs/popover2";
+import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
+import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../../hooks/jotai/useSettings";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useSettingsValue } from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
 
-const TYPE_INTENTS: Record<string, Intent> = {
-    "string": Intent.PRIMARY,
-    "number": Intent.SUCCESS,
-    "boolean": Intent.WARNING,
-    "object": Intent.DANGER,
-    "array": Intent.DANGER
+const TYPE_INTENTS = {
+    "string": "Primary",
+    "number": "Success",
+    "bigint": "Success",
+    "boolean": "Warning",
+    "object": "Error",
+    "array": "Error",
+    "symbol": "Error",
+    "function": "Error",
+    "undefined": "Error"
 };
 
 export default function DebugPanel() {
     const { t } = useTranslation();
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
     const selectedElem = useSelectedElemValue();
-    const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
-
-    const editKey = React.useCallback((key: string) => {
-        if (selectedKey === key)
-            setSelectedKey(undefined);
-        else
-            setSelectedKey(key);
-    }, [selectedKey]);
 
     const keys = React.useMemo(() => Object.keys(selectedElem?.properties ?? {}), [selectedElem]);
     const values = React.useMemo(() => Object.values(selectedElem?.properties ?? {}), [selectedElem]);
 
-    if (!selectedElem || !settings.isDevMode)
+    if (!selectedElem)
+        return null;
+    if (!isDevMode)
         return null;
 
     return (
         <PanelContainer title={t("debug.title") as string}>
-            <Button
-                fill
-                text={t("debug.printToConsole") as string}
-                icon="console"
-                onClick={() => {
-                    console.log(selectedElem);
-                }}
-            />
-            <Menu>
+            <List dense>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    const stringValue = JSON.stringify(value);
+                    let stringValue = JSON.stringify(value, null, 2);
+                    stringValue = stringValue.substring(0, 100) + (stringValue.length > 100 ? "..." : "");
+
+                    // Icons
+                    const isArray = Array.isArray(value);
+                    const isObject = typeof value === "object" && !isArray;
+                    const isPrimitive = !isArray && !isObject;
+
                     return (
-                        <div key={`debug-${key}-${index}`}>
-                            <MenuItem2
-                                text={key}
-                                intent={TYPE_INTENTS[typeof value]}
-                                onClick={() => {
-                                    editKey(key);
-                                }}
+                        <ListItem key={`debug-${key}-${index}`} disablePadding>
+                            <ListItemIcon>
+                                {isArray && <DataArray />}
+                                {isObject && <DataObject />}
+                                {isPrimitive && <Abc />}
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={key}
+                                secondary={stringValue}
+                                color={TYPE_INTENTS[typeof value]}
                             />
-                            {selectedKey === key && (
-                                <Card style={{ overflowX: "scroll" }}>
-                                    <pre>{typeof value}</pre>
-                                    <pre>{stringValue}</pre>
-                                </Card>
-                            )}
-                        </div>
+                        </ListItem>
                     );
                 })}
-            </Menu>
+            </List>
+            <Button
+                fullWidth
+                startIcon={<Code />}
+                onClick={() => console.log(selectedElem)}
+                color={"secondary"}
+            >
+                {t("debug.printToConsole")}
+            </Button>
         </PanelContainer>
     );
 }

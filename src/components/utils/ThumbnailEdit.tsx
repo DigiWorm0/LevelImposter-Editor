@@ -1,35 +1,32 @@
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import React from "react";
-import openUploadDialog from "../../hooks/utils/openUploadDialog";
+import openUploadDialog from "../../utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
-import { Button, ButtonGroup, FormGroup } from "@blueprintjs/core";
 import { useTranslation } from "react-i18next";
-import { useMapValue } from "../../hooks/jotai/useMap";
+import { useMapValue } from "../../hooks/map/useMap";
+import { Box, Button, ButtonGroup, CardMedia, Typography } from "@mui/material";
+import { CloudUpload, Refresh } from "@mui/icons-material";
+import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";
+import useMapThumbnailURL from "../../hooks/firebase/publish/useMapThumbnailURL";
 
-export interface ThumbnailEditProps {
-    thumbnail: Blob | null;
-    setThumbnail: (thumbnail: Blob | null) => void
-
-    isDisabled?: boolean;
-}
-
-export default function ThumbnailEdit(props: ThumbnailEditProps) {
+export default function ThumbnailEdit() {
     const map = useMapValue();
     const toaster = useToaster();
-    const [thumbnailURL, setThumbnailURL] = React.useState("/DefaultThumbnail.png");
+    const [thumbnail, setThumbnail] = useMapThumbnail();
+    const thumbnailURL = useMapThumbnailURL();
     const { t } = useTranslation();
 
     /**
      * Set default thumbnail.
      */
     React.useEffect(() => {
-        if (!map.thumbnailURL || props.thumbnail)
+        if (!map.thumbnailURL || thumbnail)
             return;
         fetch(map.thumbnailURL)
             .then((response) => response.blob())
-            .then((blob) => props.setThumbnail(blob))
-            .catch(console.error);
-    }, [map.thumbnailURL, props.setThumbnail]);
+            .then((blob) => setThumbnail(blob))
+            .catch(toaster.error);
+    }, [map.thumbnailURL, setThumbnail]);
 
     /**
      * Resizes an image to the specified width and height.
@@ -78,65 +75,55 @@ export default function ThumbnailEdit(props: ThumbnailEditProps) {
         const uploadThumbnail = async () => {
             const imageBlob = await openUploadDialog("image/*");
             const resizedBlob = await resizeImage(imageBlob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
-            props.setThumbnail(resizedBlob);
+            setThumbnail(resizedBlob);
         }
 
-        uploadThumbnail().catch((e) => {
-            console.error(e);
-            toaster.danger(e.message);
-        });
-    }, [props, resizeImage, toaster]);
-
-    // Manage Object URL
-    React.useEffect(() => {
-        // Default Thumbnail
-        if (!props.thumbnail) {
-            setThumbnailURL("/DefaultThumbnail.png");
-            return;
-        }
-
-        // Set Object URL
-        const objectURL = URL.createObjectURL(props.thumbnail);
-        setThumbnailURL(objectURL);
-        return () => {
-            URL.revokeObjectURL(objectURL);
-        }
-    }, [props.thumbnail]);
+        uploadThumbnail().catch(toaster.error);
+    }, [setThumbnail, resizeImage, toaster]);
 
     return (
-        <FormGroup
-            disabled={props.isDisabled}
-            style={{ textAlign: "center" }}
-            label={`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+        <Box
+            sx={{
+                textAlign: "center",
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}
         >
-            <img
-                src={thumbnailURL}
-                alt={"Thumbnail"}
-                width={THUMBNAIL_WIDTH}
-                height={THUMBNAIL_HEIGHT}
-                style={{
-                    borderRadius: 5,
-                    border: "1px solid rgb(96, 96, 96)"
-                }}
-            />
-            <ButtonGroup minimal fill>
-                <Button
-                    fill
-                    minimal
-                    disabled={props.isDisabled}
-                    icon={"refresh"}
-                    text={t("publish.resetThumbnail") as string}
-                    onClick={() => props.setThumbnail(null)}
+            <Typography
+                variant={"subtitle2"}
+                color={"text.secondary"}
+            >
+                {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
+            </Typography>
+            <Box sx={{ maxWidth: THUMBNAIL_WIDTH }}>
+                <CardMedia
+                    component={"img"}
+                    src={thumbnailURL}
+                    alt={"Thumbnail"}
+                    sx={{
+                        borderRadius: 1
+                    }}
                 />
-                <Button
-                    fill
-                    minimal
-                    disabled={props.isDisabled}
-                    icon={"upload"}
-                    text={t("publish.uploadThumbnail") as string}
-                    onClick={onUploadClick}
-                />
-            </ButtonGroup>
-        </FormGroup>
+                <ButtonGroup fullWidth>
+                    <Button
+                        startIcon={<CloudUpload />}
+                        onClick={onUploadClick}
+                        variant={"text"}
+                    >
+                        {t("publish.uploadThumbnail") as string}
+                    </Button>
+                    <Button
+                        startIcon={<Refresh />}
+                        onClick={() => setThumbnail(null)}
+                        color={"error"}
+                        variant={"text"}
+                    >
+                        {t("publish.resetThumbnail") as string}
+                    </Button>
+                </ButtonGroup>
+            </Box>
+        </Box>
     )
 }

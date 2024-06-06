@@ -1,47 +1,50 @@
-import { Button, Callout, Collapse, IconName } from '@blueprintjs/core';
 import React from 'react';
-import { useSettingsValue } from '../../../hooks/jotai/useSettings';
+import { useSettingsValue } from '../../../hooks/useSettings';
+import { Alert, Button } from "@mui/material";
 
 export interface MapErrorProps {
     isVisible?: boolean,
     info?: boolean,
-    icon?: IconName,
+    icon?: React.ReactNode,
     children: React.ReactNode
 
     buttonText?: string,
-    buttonIcon?: IconName,
+    buttonIcon?: React.ReactNode,
     onButtonClick?: () => void
 }
 
 export default function MapError(props: MapErrorProps) {
-    const settings = useSettingsValue();
+    const { isInfoVisible } = useSettingsValue();
 
+    const isVisible = (props.isVisible ?? true) &&
+        (isInfoVisible || !(props.info ?? false));
+
+    if (!isVisible)
+        return null;
     return (
-        <Collapse isOpen={(props.isVisible ?? true) && ((settings.isInfoVisible ?? true) || !(props.info ?? false))}>
-            <Callout
-                intent={props.info ? "primary" : "warning"}
-                icon={props.icon}
-                style={{
-                    borderBottom: `3px solid ${props.info ? "rgb(37, 93, 128)" : "rgb(146, 100, 53)"}`,
-                    borderRadius: 0
-                }}
-            >
-                <p style={{ marginBottom: 0 }}>
-                    {props.children}
-                </p>
+        <Alert
+            severity={props.info ? "info" : "warning"}
+            icon={props.icon}
+            style={{
+                borderBottom: `3px solid ${props.info ? "rgb(37, 93, 128)" : "rgb(146, 100, 53)"}`,
+                borderRadius: 0
+            }}
+        >
+            {props.children}
 
-                {props.buttonText && props.onButtonClick && (
-                    <Button
-                        icon={props.buttonIcon}
-                        onClick={props.onButtonClick}
-                        intent={props.info ? "primary" : "warning"}
-                        small
-                        style={{ marginTop: 5 }}
-                    >
-                        {props.buttonText}
-                    </Button>
-                )}
-            </Callout>
-        </Collapse>
+            {props.onButtonClick && props.buttonText && (
+                <Button
+                    endIcon={props.buttonIcon}
+                    onClick={props.onButtonClick}
+                    color={props.info ? "primary" : "warning"}
+                    sx={{ mt: 1 }}
+                    size={"small"}
+                    variant={"outlined"}
+                    fullWidth
+                >
+                    {props.buttonText}
+                </Button>
+            )}
+        </Alert>
     )
 }

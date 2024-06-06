@@ -1,9 +1,9 @@
-import { useSettingsValue } from "../../hooks/jotai/useSettings";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function DevInfo(props: { children: React.ReactNode }) {
-    const settings = useSettingsValue();
+    const { isDevMode } = useSettingsValue();
 
-    if (!settings.isDevMode)
+    if (!isDevMode)
         return null;
 
     return (

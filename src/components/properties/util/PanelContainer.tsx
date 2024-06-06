@@ -1,52 +1,40 @@
-import { Button, Card, Collapse } from "@blueprintjs/core";
 import React from "react";
+import { Button, Card, CardContent, Collapse } from "@mui/material";
+import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 
 interface PanelContainerProps {
     children: React.ReactNode;
     title?: string;
     style?: React.CSSProperties;
-    isOpen?: boolean;
 }
 
 export default function PanelContainer(props: PanelContainerProps) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
-        <Collapse isOpen={props.isOpen ?? true}>
-            <Card
-                style={{
-                    padding: 0,
-                    marginTop: 10,
-                    boxShadow: "none",
-                    borderRadius: 0
-                }}
+        <Card
+            elevation={3}
+            sx={{
+                padding: 0,
+                marginTop: 1,
+                boxShadow: "none",
+                borderRadius: 0
+            }}
+        >
+            <Button
+                fullWidth
+                endIcon={<AnimatedCaretIcon up={!isOpen} />}
+                size={"large"}
+                onClick={() => setIsOpen(!isOpen)}
+                style={{ fontWeight: 600 }}
             >
-                <Button
-                    fill
-                    large
-                    minimal
-                    rightIcon={isOpen ? "chevron-up" : "chevron-down"}
-                    onClick={() => setIsOpen(!isOpen)}
-                    text={props.title}
-                    alignText="left"
-                    style={{ fontWeight: 600 }}
-                />
-                <Collapse
-                    isOpen={isOpen}
-                    keepChildrenMounted={true}
-                >
-                    <div
-                        style={{
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingBottom: 10,
-                            ...props.style
-                        }}
-                    >
-                        {props.children}
-                    </div>
-                </Collapse>
-            </Card>
-        </Collapse>
+                {props.title}
+            </Button>
+            <Collapse in={isOpen}>
+                <CardContent sx={{ paddingTop: 0 }} style={{ paddingBottom: 10 }}>
+                    {props.children}
+                </CardContent>
+            </Collapse>
+        </Card>
     );
 }

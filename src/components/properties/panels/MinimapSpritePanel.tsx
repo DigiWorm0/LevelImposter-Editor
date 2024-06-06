@@ -1,19 +1,19 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import SwitchPanelInput from "../input/SwitchPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 
 export default function MinimapSpritePanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isMinimapSprite = useIsSelectedElemType("util-minimapsprite");
 
-    if (!selectedElem || selectedElem.type !== "util-minimapsprite")
+    if (!isMinimapSprite)
         return null;
 
     return (
         <PanelContainer title={t("minimap.minimapSprite") as string}>
-            <SwitchPanelInput
-                name="minimap.imposterOnly"
+            <ElementPropSwitch
+                name={t("minimap.imposterOnly")}
                 prop="imposterOnly"
                 defaultValue={false}
             />

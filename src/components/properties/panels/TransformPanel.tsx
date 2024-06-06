@@ -1,185 +1,142 @@
-import React from "react";
-import { Button, ButtonGroup, ControlGroup, InputGroup } from "@blueprintjs/core";
+import {
+    Build,
+    Delete,
+    Lock,
+    LockOpen,
+    RotateLeft,
+    SwapHoriz,
+    SwapVert,
+    TextSnippet,
+    Visibility,
+    VisibilityOff
+} from "@mui/icons-material";
+import { Button, ButtonGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import getElemVisibility, { ElemVisibility } from "../../../hooks/utils/getMapVisibility";
-import useSelectedElem, { useRemoveElement, useSetSelectedElemID } from "../../../hooks/jotai/useSelectedElem";
-import { useSettingsValue } from "../../../hooks/jotai/useSettings";
-import GUID from "../../../types/generic/GUID";
+import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
+import { useSettingsValue } from "../../../hooks/useSettings";
+import AUElementDB from "../../../types/db/AUElementDB";
+import { ElemVisibility } from "../../../utils/getMapVisibility";
+import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import getIsConsole from "../../../hooks/utils/getIsConsole";
-import useFixSprite from "../../../hooks/useFixSprite";
-import FlexNumericInput from "../util/FlexNumericInput";
+import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
+import { useSelectedElemIDValue } from "../../../hooks/elements/useSelectedElem";
+import useElementVisibility from "../../../hooks/elements/useElementVisibility";
+import TransformNumericInput from "../input/TransformNumericInput";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
+import getIsConsole from "../../../utils/getIsConsole";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
-    const setSelectedID = useSetSelectedElemID();
-    const removeElement = useRemoveElement();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
-    const settings = useSettingsValue();
-    const fixSprite = useFixSprite();
+    const [type, setType] = useSelectedElemTransform<string>("type");
+    const [name, setName] = useSelectedElemTransform<string>("name");
+    const [xScale] = useSelectedElemTransform<number>("xScale");
+    const [yScale] = useSelectedElemTransform<number>("yScale");
+    const [_isLocked, setLocked] = useSelectedElemProp("isLocked");
+    const [_isVisible, setVisible] = useSelectedElemProp("isVisible");
+    const selectedElemID = useSelectedElemIDValue();
+    const elemVisibility = useElementVisibility(selectedElemID);
+
+    const isLocked = _isLocked ?? false;
+    const isVisible = _isVisible ?? true;
+    const removeSelectedElement = useRemoveSelectedElement();
+    const { isDevMode } = useSettingsValue();
+    const fixSprite = useFixSpriteScaling();
 
     // Gets if the selected element is a console object
-    const isConsole = React.useMemo(() => {
-        return getIsConsole(selectedElem?.type || "");
-    }, [selectedElem]);
+    const isConsole = getIsConsole(type || "");
 
     // Gets if the selected element is a camera object
-    const isCamera = React.useMemo(() => {
-        return selectedElem?.type === "util-cam";
-    }, [selectedElem]);
+    const isCamera = type === "util-cam";
 
-    // Gets the visibility of the selected element
-    const elemVisibility = React.useMemo(() => {
-        return getElemVisibility(selectedElem);
-    }, [selectedElem]);
-
-    if (!selectedElem)
+    if (!selectedElemID)
         return null;
-
     return (
         <>
             <PanelContainer
                 title={t("transform.title") as string}
-                style={{ paddingTop: 0 }}>
-                {settings.isDevMode ? (
-                    <InputGroup
-                        key={selectedElem.id + "-type-dev"}
-                        defaultValue={selectedElem.type}
-                        placeholder={t("transform.type") as string}
-                        leftElement={<Button minimal disabled>{t("transform.type")}</Button>}
-                        onChange={(e) => {
-                            setSelectedElem({ ...selectedElem, type: e.target.value });
-                        }}
-                    />
-                ) : (
-                    <InputGroup
-                        style={{ backgroundColor: "var(--color-bg-2)" }}
-                        key={selectedElem.id + "-type"}
-                        defaultValue={t(`au.${selectedElem?.type}`) as string}
-                        placeholder={t("transform.type") as string}
-                        leftElement={<Button minimal disabled>{t("transform.type")}:</Button>}
-                        rightElement={<Button minimal disabled>{selectedElem.type}</Button>}
-                        disabled
-                    />
-                )}
-                <InputGroup
-                    style={{ marginBottom: 5 }}
-                    key={selectedElem.id + "-name"}
-                    value={selectedElem.name}
-                    placeholder={t("transform.name") as string}
-                    large
-                    onChange={(e) => {
-                        setSelectedElem({ ...selectedElem, name: e.target.value });
+                style={{ paddingTop: 0 }}
+            >
+                <TextField
+                    key={selectedElemID + "-type"}
+                    disabled={!isDevMode}
+                    size={"small"}
+                    variant={"standard"}
+                    defaultValue={type}
+                    placeholder={t("transform.type") as string}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position={"start"}>
+                                {t("transform.type")}
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position={"end"}>
+                                {AUElementDB.includes(type || "") ? t(`au.${type}`) : "?"}
+                            </InputAdornment>
+                        )
                     }}
+                    onChange={(e) => {
+                        setType(e.target.value);
+                    }}
+                    sx={{ marginBottom: 1 }}
                 />
-                {selectedElem.type !== "util-layer" && (<>
-                    <ControlGroup fill>
-                        <FlexNumericInput
-                            value={selectedElem.x}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, x: val });
-                            }}
-                            fill
-                            placeholder={t("transform.x") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.y}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, y: val });
-                            }}
-                            fill
-                            placeholder={t("transform.y") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.z}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, z: val });
-                            }}
-                            fill
-                            placeholder={t("transform.z") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
-                        />
-                    </ControlGroup>
-                    <ControlGroup fill>
-                        <FlexNumericInput
-                            value={selectedElem.xScale}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, xScale: val });
-                            }}
-                            fill
-                            leftIcon="arrows-horizontal"
-                            placeholder={t("transform.xScale") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
-                        />
-                        <FlexNumericInput
-                            value={selectedElem.yScale}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, yScale: val });
-                            }}
-                            fill
-                            leftIcon="arrows-vertical"
-                            placeholder={t("transform.yScale") as string}
-                            minorStepSize={0.001}
-                            stepSize={0.1}
-                            majorStepSize={1}
-                        />
-                    </ControlGroup>
-                    <ControlGroup fill>
-                        <FlexNumericInput
-                            value={selectedElem.rotation}
-                            onChange={(val) => {
-                                setSelectedElem({ ...selectedElem, rotation: val });
-                            }}
-                            fill
-                            leftIcon="refresh"
-                            placeholder={t("transform.rotation") as string}
-                            minorStepSize={1}
-                            stepSize={45}
-                            majorStepSize={90}
-                        />
-                    </ControlGroup>
-                    <ButtonGroup minimal style={{ marginTop: 10 }} fill>
-                        <Button
-                            fill
-                            icon={selectedElem.properties.isLocked ? "lock" : "unlock"}
-                            text={selectedElem.properties.isLocked ? t("transform.unlock") : t("transform.lock")}
-                            onClick={() => {
-                                setSelectedElem({
-                                    ...selectedElem,
-                                    properties: {
-                                        ...selectedElem.properties,
-                                        isLocked: !selectedElem.properties.isLocked
-                                    }
-                                });
-                            }}
-                        />
-                        <Button
-                            fill
-                            icon="trash"
-                            text={t("transform.delete") as string}
-                            onClick={() => {
-                                removeElement(selectedElem.id);
-                                setSelectedID("" as GUID)
-                            }}
-                        />
+                <TextField
+                    style={{ marginBottom: 5 }}
+                    key={selectedElemID + "-name"}
+                    size={"small"}
+                    value={name}
+                    placeholder={t("transform.name") as string}
+                    fullWidth
+                    onChange={(e) => setName(e.target.value)}
+                />
+                {type !== "util-layer" && (<>
+                    <InputGroup>
+                        <TransformNumericInput name={t("transform.x")} prop={"x"} />
+                        <TransformNumericInput name={t("transform.y")} prop={"y"} />
+                        <TransformNumericInput name={t("transform.z")} prop={"z"} />
+                    </InputGroup>
+                    <InputGroup>
+                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz />} />
+                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert />} />
+                    </InputGroup>
+                    <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={<RotateLeft />} />
+                    <ButtonGroup style={{ marginTop: 10 }} fullWidth>
+                        <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={() => setVisible(!isVisible)}
+                            >
+                                {isVisible ? <Visibility /> : <VisibilityOff />}
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={() => setLocked(!isLocked)}
+                            >
+                                {isLocked ? <Lock /> : <LockOpen />}
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title={t("transform.delete")}>
+                            <Button
+                                variant={"text"}
+                                color={"inherit"}
+                                onClick={removeSelectedElement}
+                            >
+                                <Delete />
+                            </Button>
+                        </Tooltip>
                     </ButtonGroup>
                 </>)}
             </PanelContainer>
             <MapError
                 isVisible={elemVisibility !== ElemVisibility.Visible}
                 info
-                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? "eye-open" : "eye-off"}
+                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? <Visibility /> : <VisibilityOff />}
             >
                 {elemVisibility === ElemVisibility.Invisible ? t("transform.errorInvisible") : null}
                 {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
@@ -187,9 +144,9 @@ export default function TransformPanel() {
                 {elemVisibility === ElemVisibility.InvisibleFreeplay ? t("transform.errorFreeplay") : null}
             </MapError>
             <MapError
-                isVisible={isConsole && (Math.abs(selectedElem.xScale) != 1 || Math.abs(selectedElem.yScale) != 1)}
+                isVisible={isConsole && (Math.abs(xScale || 1) != 1 || Math.abs(yScale || 1) != 1)}
                 buttonText={t("transform.autoFix") as string}
-                buttonIcon="wrench"
+                buttonIcon={<Build />}
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
@@ -198,7 +155,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isCamera}
                 info
-                icon={"paragraph"}
+                icon={<TextSnippet />}
             >
                 {t("cameras.nameInfo")}
             </MapError>

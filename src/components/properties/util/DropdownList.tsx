@@ -1,11 +1,13 @@
-import {Collapse, Icon, IconName, Intent, Menu} from "@blueprintjs/core";
-import {MenuItem2} from "@blueprintjs/popover2";
+import { Button, Divider } from "@mui/material";
+import { ExpandLess } from "@mui/icons-material";
+import React from "react";
+import LazyCollapse from "./LazyCollapse";
 
 export interface DropdownElement<T> {
     id: T;
     name: string;
-    icon?: IconName;
-    intent?: Intent;
+    icon?: React.ReactNode;
+    intent?: "primary" | "secondary" | "success" | "warning" | "error" | "inherit";
     isDisabled?: boolean;
 }
 
@@ -19,34 +21,38 @@ export interface DropdownListProps<T> {
 }
 
 export default function DropdownList<T>(props: DropdownListProps<T>) {
-    return (
-        <Menu style={{backgroundColor: "revert", paddingTop: 0}}>
-            {props.elements?.map((element, index) => (
-                <div key={element.id + "-" + index}>
-                    <MenuItem2
-                        icon={element.icon}
-                        text={element.name}
-                        labelElement={(
-                            <Icon
-                                icon="chevron-up"
-                                style={{
-                                    transform: props.selectedID == element.id ? "rotate(180deg)" : "rotate(0deg)",
-                                    transition: "transform 0.2s ease-in-out"
-                                }}
-                            />
-                        )}
-                        onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
-                        active={props.selectedID == element.id}
-                        intent={element.intent}
-                        disabled={element.isDisabled}
-                    />
+    return (<>
+        <Divider sx={{ width: "100%" }} />
 
-                    <Collapse isOpen={props.selectedID == element.id && !element.isDisabled}>
-                        {props.children}
-                        {props.renderElement && props.renderElement(element)}
-                    </Collapse>
-                </div>
-            ))}
-        </Menu>
-    );
+        {props.elements?.map((element) => (
+            <div key={element.id as string}>
+                <Button
+                    fullWidth
+                    variant={props.selectedID === element.id ? "contained" : "text"}
+                    size={"small"}
+                    color={element.intent ?? "primary"}
+                    onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
+                    disabled={element.isDisabled}
+                    style={{ margin: 1 }}
+                    endIcon={
+                        <ExpandLess
+                            style={{
+                                transform: props.selectedID === element.id ? "rotate(180deg)" : "rotate(0deg)",
+                                transition: "transform 0.2s ease-in-out"
+                            }}
+                        />
+                    }
+                >
+                    {element.name}
+                </Button>
+
+                <LazyCollapse in={props.selectedID === element.id && !element.isDisabled}>
+                    {props.children}
+                    {props.renderElement && props.renderElement(element)}
+                </LazyCollapse>
+
+                <Divider sx={{ width: "100%" }} />
+            </div>
+        ))}
+    </>);
 }

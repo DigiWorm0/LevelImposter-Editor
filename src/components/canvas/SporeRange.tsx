@@ -1,12 +1,13 @@
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
 import { Shape } from "react-konva";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import { DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE } from "../../types/generic/Constants";
+import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
 
 export default function SporeRange() {
     const selectedElem = useSelectedElemValue();
-
-    const isSpore = selectedElem?.type === "util-spore";
-    const radius = selectedElem?.properties.sporeRange ?? DEFAULT_SPORE_GAS_RANGE;
+    const isSpore = useIsSelectedElemType("util-spore");
+    const radius = useSelectedElemPropValue("sporeRange") ?? DEFAULT_SPORE_GAS_RANGE;
 
     if (!selectedElem || !isSpore)
         return null;

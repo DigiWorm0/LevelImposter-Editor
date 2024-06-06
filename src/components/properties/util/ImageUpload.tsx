@@ -1,15 +1,16 @@
-import { Button, ButtonGroup, H6, Icon } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import openUploadDialog from "../../../hooks/utils/openUploadDialog";
+import openUploadDialog from "../../../utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
-import SizeTag from "../../utils/SizeTag";
-import MapAsset from "../../../types/li/MapAssetDB";
+import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/generic/GUID";
-import { useCreateMapAsset, useMapAssetValue } from "../../../hooks/jotai/useMapAssets";
-import duplicateBlob from "../../../hooks/utils/duplicateBlob";
+import duplicateBlob from "../../../utils/duplicateBlob";
+import { Button, ButtonGroup } from "@mui/material";
+import { CloudUpload, Done, Refresh } from "@mui/icons-material";
+import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
+import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 
 interface ImageUploadProps {
     name: string;
@@ -32,21 +33,13 @@ export default function ImageUpload(props: ImageUploadProps) {
     const asset = useMapAssetValue(props.assetID);
     const createMapAsset = useCreateMapAsset();
 
-    // Get the size of the sprite in bytes
-    const spriteSize = React.useMemo(() => {
-        return asset?.blob?.size ?? 0;
-    }, [asset]);
-
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
         openUploadDialog("image/*").then((blob) => {
             return duplicateBlob(blob);
         }).then((blob) => {
-            props.onUpload(createMapAsset(blob));
-        }).catch((e) => {
-            console.warn(e);
-            toaster.warning(e);
-        });
+            props.onUpload(createMapAsset({ type: "image", blob }));
+        }).catch(toaster.warn);
     }, [props.onUpload]);
 
     // Handle Drag & Drop
@@ -58,13 +51,13 @@ export default function ImageUpload(props: ImageUploadProps) {
             const file = files[0];
             if (file.type.startsWith("image/")) {
                 duplicateBlob(file).then((blob) => {
-                    props.onUpload(createMapAsset(blob));
-                }).catch((e) => {
-                    console.warn(e);
-                    toaster.warning(e);
-                });
+                    props.onUpload(createMapAsset({
+                        type: "image",
+                        blob
+                    }));
+                }).catch(toaster.warn);
             } else {
-                toaster.danger(t("sprite.errorInvalidType"));
+                toaster.error(t("sprite.errorInvalidType"));
             }
         }
     }, [props.onUpload]);
@@ -83,11 +76,11 @@ export default function ImageUpload(props: ImageUploadProps) {
         >
             {/* Title */}
             {props.showName && (
-                <H6 style={{
+                <h4 style={{
                     marginTop: 2
                 }}>
                     {props.name}
-                </H6>
+                </h4>
             )}
 
             {/* Image Preview */}
@@ -102,47 +95,37 @@ export default function ImageUpload(props: ImageUploadProps) {
                 />
             </div>
 
-            {/* Size Tag */}
-            <div style={{ textAlign: "center", marginBottom: 10 }}>
-                <SizeTag
-                    sizeBytes={spriteSize}
-                    warningMsg={t("sprite.errorSize") as string}
-                    okMsg={t("sprite.okSize") as string}
-                />
-            </div>
-
             {/* Buttons */}
-            <ButtonGroup fill>
+            <ButtonGroup fullWidth>
                 <Button
-                    icon="cloud-upload"
-                    intent="primary"
-                    onClick={() => onUploadClick()}
-                    style={{ margin: 3 }}
-                />
+                    color={"primary"}
+                    onClick={onUploadClick}
+                >
+                    <CloudUpload />
+                </Button>
                 {props.onColorChange ? (
                     <ColorPicker
                         intent="success"
                         color={props.color ?? props.defaultColor ?? { r: 255, g: 255, b: 255, a: 255 }}
-                        style={{ margin: 3 }}
                         onChange={props.onColorChange}
                     />
                 ) : (
                     <Button
-                        icon="tick"
-                        intent="success"
-                        style={{ margin: 3 }}
+                        color="success"
                         disabled={!props.onFinish}
                         onClick={props.onFinish}
-                    />
+                    >
+                        <Done />
+                    </Button>
                 )}
 
                 <Button
-                    icon="refresh"
-                    intent="danger"
+                    color={"error"}
                     onClick={props.onReset}
-                    style={{ margin: 3 }}
                     disabled={props.color === undefined && asset === undefined}
-                />
+                >
+                    <Refresh />
+                </Button>
             </ButtonGroup>
 
             {/* Drag & Drop File Upload */}
@@ -166,10 +149,8 @@ export default function ImageUpload(props: ImageUploadProps) {
                     pointerEvents: "none",
                 }}>
 
-                <Icon
-                    icon="cloud-upload"
-                    size={40}
-                    style={{ marginRight: 10 }}
+                <CloudUpload
+                    style={{ marginRight: 10, fontSize: 40 }}
                 />
                 <span style={{
                     fontSize: 20,

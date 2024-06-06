@@ -5,6 +5,7 @@ import LIMinigameProps from "./LIMinigameProps";
 import LIMinigameSprite from "./LIMinigameSprite";
 import LISound from "./LISound";
 import LITrigger from "./LITrigger";
+import LICustomText from "./LICustomText";
 
 export default interface LIProperties {
 
@@ -19,14 +20,22 @@ export default interface LIProperties {
     highlightColor?: LIColor;
     triggerCount?: number;
     triggerLoop?: boolean;
+    createDeadBody?: boolean;
 
     // Sound
     sounds?: LISound[];
     soundPriority?: number;
 
+    // Shake
+    shakeAmount?: number;
+    shakePeriod?: number;
+
     // Minigame
     minigames?: LIMinigameSprite[];
     minigameProps?: LIMinigameProps;
+
+    // Texts
+    customText?: LICustomText;
 
     // Sprite
     spriteID?: GUID;
@@ -137,3 +146,8 @@ export default interface LIProperties {
     isVisible?: boolean;
     isExpanded?: boolean;
 };
+
+export type LIPropName = keyof LIProperties;
+export type LIPropNameType<T> = {
+    [K in keyof LIProperties]: LIProperties[K] extends T ? K : never;
+}[keyof LIProperties];

@@ -1,8 +1,8 @@
-import { Button, InputGroup } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import isDefaultName from "../../hooks/utils/isDefaultMapName";
-import { useMapName } from "../../hooks/jotai/useMap";
+import isDefaultName from "../../utils/isDefaultMapName";
+import { useMapName } from "../../hooks/map/useMap";
+import { Button, TextField } from "@mui/material";
 
 export default function MapName() {
     const { t, i18n } = useTranslation();
@@ -30,30 +30,36 @@ export default function MapName() {
         return (
             <div className="map-name">
                 <Button
-                    style={{ fontWeight: 600 }}
-                    minimal
-                    large
-                    onClick={() => setIsEditingName(true)}>
-
+                    style={{
+                        fontWeight: 600,
+                        textTransform: "none"
+                    }}
+                    size={"large"}
+                    color={"inherit"}
+                    onClick={() => setIsEditingName(true)}
+                >
                     {mapName}
-
                 </Button>
             </div>
         );
     } else {
         return (
             <div className="map-name">
-                <InputGroup
+                <TextField
                     autoFocus
-                    large
+                    variant="standard"
                     value={name}
-                    maxLength={32}
                     onChange={(e) => setName(e.target.value)}
                     onBlur={() => setIsEditingName(false)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
+                        if (e.key === "Enter")
                             setIsEditingName(false);
-                        }
+                    }}
+                    onFocus={(e) => {
+                        e.target.select();
+                    }}
+                    inputProps={{
+                        maxLength: 32
                     }}
                 />
             </div>

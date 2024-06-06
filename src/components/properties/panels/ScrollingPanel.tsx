@@ -1,35 +1,31 @@
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
 import { DEFAULT_SCROLL_X_SPEED, DEFAULT_SCROLL_Y_SPEED } from "../../../types/generic/Constants";
-import NumericPanelInput from "../input/NumericPanelInput";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import { SwapHoriz, SwapVert } from "@mui/icons-material";
 
 export default function ScrollingPanel() {
     const { t } = useTranslation();
-    const selectedElem = useSelectedElemValue();
+    const isScroll = useIsSelectedElemType("util-blankscroll");
 
-    if (!selectedElem || selectedElem.type !== "util-blankscroll")
+    if (!isScroll)
         return null;
-
     return (
         <PanelContainer title={t("scrolling.title") as string}>
-            <NumericPanelInput
-                name="scrolling.xspeed"
+            <ElementPropNumericInput
+                name={t("scrolling.xspeed")}
                 prop="scrollingXSpeed"
                 defaultValue={DEFAULT_SCROLL_X_SPEED}
-                icon="arrows-horizontal"
-                minorStepSize={0.01}
+                icon={<SwapHoriz />}
                 stepSize={0.1}
-                majorStepSize={1}
             />
-            <NumericPanelInput
-                name="scrolling.yspeed"
+            <ElementPropNumericInput
+                name={t("scrolling.yspeed")}
                 prop="scrollingYSpeed"
                 defaultValue={DEFAULT_SCROLL_Y_SPEED}
-                icon="arrows-vertical"
-                minorStepSize={0.01}
+                icon={<SwapVert />}
                 stepSize={0.1}
-                majorStepSize={1}
             />
         </PanelContainer>
     );

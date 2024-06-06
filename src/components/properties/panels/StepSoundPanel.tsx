@@ -1,73 +1,73 @@
-import { FormGroup, NumericInput } from "@blueprintjs/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../hooks/utils/generateGUID";
-import useSelectedElem from "../../../hooks/jotai/useSelectedElem";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import generateGUID from "../../../utils/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
-import NumericPanelInput from "../input/NumericPanelInput";
-import SoundPresetSelect from "../input/SoundPresetSelect";
+import SoundPresetSelect from "../input/select/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import FlexNumericInput from "../util/FlexNumericInput";
+import { PriorityHigh, VolumeUp } from "@mui/icons-material";
 
 export default function StepSoundPanel() {
     const { t } = useTranslation();
-    const [selectedElem, setSelectedElem] = useSelectedElem();
+    const isStepSound = useIsSelectedElemType("util-sound2");
+    const [_sounds, setSounds] = useSelectedElemProp("sounds");
     const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
 
-    const sounds = React.useMemo(() => selectedElem?.properties.sounds || [], [selectedElem]);
+    const sounds = _sounds ?? [];
 
-    if (!selectedElem || selectedElem.type !== "util-sound2")
+    if (!isStepSound)
         return null;
 
     return (
         <>
             <PanelContainer title={t("stepSound.title") as string}>
-                <NumericPanelInput
+                <ElementPropNumericInput
                     name={t("stepSound.priority")}
                     prop={"soundPriority"}
-                    icon="sort"
+                    icon={<PriorityHigh />}
                     defaultValue={0}
                     min={0}
                     max={1000}
-                    minorStepSize={1}
                     stepSize={10}
-                    majorStepSize={100}
                 />
-                <FormGroup label={t("stepSound.variants")} style={{ marginTop: 10 }}>
-                    <SoundPresetSelect />
-                    <NumericInput
-                        fill
-                        min={0}
-                        value={sounds.length}
-                        onValueChange={(value) => {
-                            if (value < 0)
-                                return;
-                            for (let i = 0; i < value; i++) {
-                                if (sounds[i] == null)
-                                    sounds[i] = {
-                                        id: generateGUID(),
-                                        presetID: undefined,
-                                        volume: DEFAULT_VOLUME,
-                                        isPreset: false
-                                    };
+                <SoundPresetSelect />
+                <FlexNumericInput
+                    value={sounds.length}
+                    inputProps={{
+                        label: t("stepSound.soundCount"),
+                        fullWidth: true,
+                        sx: { mt: 1, mb: 1 }
+                    }}
+                    onChange={(value) => {
+                        // Expand the array
+                        for (let i = 0; i < value; i++) {
+                            if (!sounds[i]) {
+                                sounds[i] = {
+                                    id: generateGUID(),
+                                    presetID: undefined,
+                                    volume: DEFAULT_VOLUME,
+                                    isPreset: false
+                                };
                             }
-                            for (let i = sounds.length - 1; i >= value; i--) {
-                                sounds.splice(i, 1);
-                            }
-                            setSelectedElem({
-                                ...selectedElem,
-                                properties: { ...selectedElem.properties, sounds: sounds }
-                            });
-                        }}
-                    />
-                </FormGroup>
+                        }
+
+                        // Shrink the array
+                        sounds.splice(value, sounds.length - value);
+                        setSounds([...sounds]);
+                    }}
+                    min={0}
+                />
 
                 <DropdownList
-                    elements={selectedElem.properties.sounds?.map((sound, index) => ({
+                    elements={sounds?.map((sound, index) => ({
                         id: sound.id,
                         name: t("stepSound.default", { index: index + 1 }) as string,
-                        icon: "volume-up"
+                        icon: <VolumeUp />
                     })) ?? []}
                     selectedID={selectedSoundID}
                     onSelectID={setSelectedSoundID}

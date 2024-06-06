@@ -1,72 +1,78 @@
-import { H5 } from "@blueprintjs/core";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useElementType } from "../../../hooks/jotai/useTypes";
-import { useSpriteType } from "../../../hooks/useSprite";
-import RoomSelect from "../input/RoomSelect";
-import TaskTypeSelect from "../input/TaskTypeSelect";
-import TextPanelInput from "../input/TextPanelInput";
+import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
+import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
+import RoomSelect from "../input/select/RoomSelect";
+import TaskTypeSelect from "../input/select/TaskTypeSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import NumericPanelInput from "../input/NumericPanelInput";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
+import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
+import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
+import { Notes, Room, Workspaces } from "@mui/icons-material";
 
 export default function TaskPanel() {
     const { t } = useTranslation();
-    const roomElems = useElementType("util-room");
-    const taskElems = useElementType("task-");
-    const selectedElem = useSelectedElemValue();
-    const typeElems = useElementType(selectedElem?.type ?? "");
-    const sprite = useSpriteType(selectedElem?.type);
+    const selectedType = useSelectedElemType();
+    const roomElems = useElementsOfType("util-room");
+    const taskElems = useElementsOfType("task-");
+    const typeElems = useElementsOfType(selectedType ?? "");
+    const parentID = useSelectedElemPropValue("parent");
+    const sprite = useSpriteOfType(selectedType);
 
     const parentRoom = React.useMemo(() => {
-        return roomElems.find((e) => e.id === selectedElem?.properties.parent);
-    }, [roomElems, selectedElem]);
-
-    const taskName = React.useMemo(() => {
-        return t(`au.${selectedElem?.type}`) || selectedElem?.name || "";
-    }, [selectedElem]);
+        return roomElems.find((e) => e.id === parentID);
+    }, [roomElems, parentID]);
 
     const hasDuplicateTempTask = React.useMemo(() => {
         const tempTasks = taskElems.filter((e) => e.type.startsWith("task-temp"));
-        const filteredTempTasks = tempTasks.filter((e) => e.properties.parent === selectedElem?.properties.parent);
-        return filteredTempTasks.length > 1 && selectedElem?.type.startsWith("task-temp");
-    }, [taskElems, selectedElem]);
+        const filteredTempTasks = tempTasks.filter((e) => e.properties.parent === parentID);
+        return filteredTempTasks.length > 1 && selectedType?.startsWith("task-temp");
+    }, [taskElems, selectedType]);
 
     const towelCount = React.useMemo(() => {
         return taskElems.filter((e) => e.type.startsWith("task-towels") && e.type !== "task-towels1").length;
     }, [taskElems]);
 
-    if (!selectedElem || !selectedElem.type.startsWith("task-"))
+    if (!selectedType || !selectedType.startsWith("task-"))
         return null;
 
     return (
         <>
             <PanelContainer title={t("task.title") as string}>
-                <div style={{ textAlign: "center", padding: 15 }}>
+                <Box sx={{ textAlign: "center", padding: 2 }}>
                     <img
                         style={{ maxHeight: 100, maxWidth: 100 }}
                         src={sprite?.src}
-                        alt={selectedElem.name}
+                        alt={selectedType}
                     />
-                    <H5 style={{ marginBottom: 3 }}>{taskName}</H5>
-                    <p className="bp4-text-muted">{selectedElem.type}</p>
-                </div>
-                <RoomSelect useDefault={true} />
+                    <Typography variant={"subtitle2"}>
+                        {t(`au.${selectedType}`)}
+                    </Typography>
+                    <Typography variant={"body2"} color={"text.secondary"}>
+                        {selectedType}
+                    </Typography>
+                </Box>
+                <RoomSelect
+                    useDefault={true}
+                    label={t("task.room")}
+                />
                 <TaskTypeSelect />
-                {selectedElem.type !== "task-nodeswitch" && (
-                    <TextPanelInput
+                {selectedType !== "task-nodeswitch" && (
+                    <ElementPropTextInput
                         prop="description"
-                        name={"task.description"}
-                        icon={"comment"}
+                        name={t("task.description")}
+                        icon={<Notes />}
                     />
                 )}
 
-                {selectedElem.type.startsWith("task-towels") && (
-                    <NumericPanelInput
-                        name={"task.towelPickupCount"}
+                {selectedType.startsWith("task-towels") && (
+                    <ElementPropNumericInput
+                        name={t("task.towelPickupCount")}
                         prop={"towelPickupCount"}
-                        icon={"numerical"}
+                        icon={<Workspaces />}
                         defaultValue={Math.floor(towelCount / 2)}
                         min={0}
                         stepSize={1}
@@ -76,19 +82,19 @@ export default function TaskPanel() {
             </PanelContainer>
 
             <MapError
-                isVisible={selectedElem.type === "task-fuel2" && typeElems.length === 1}
+                isVisible={selectedType === "task-fuel2" && typeElems.length === 1}
             >
                 {t("task.errorNoFuel")}
             </MapError>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon="map-marker"
+                icon={<Room />}
             >
                 {t("task.errorNoRoom")}
             </MapError>
             <MapError
                 isVisible={hasDuplicateTempTask}
-                icon="map-marker"
+                icon={<Room />}
             >
                 {t("task.errorTemp")}
             </MapError>

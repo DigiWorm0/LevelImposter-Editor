@@ -1,15 +1,14 @@
 import { atom, useAtomValue } from "jotai";
 import { Image } from "react-konva";
-import { elementsAtom } from "../../hooks/jotai/useMap";
-import { useSelectedElemValue } from "../../hooks/jotai/useSelectedElem";
-import useSprite from "../../hooks/useSprite";
+import useSprite from "../../hooks/canvas/sprite/useSprite";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import { elementsAtom } from "../../hooks/map/useMap";
 import { MINIMAP_BUTTON_SIZE, UNITY_SCALE } from "../../types/generic/Constants";
 
 const minimapScaleAtom = atom((get) => {
     const elems = get(elementsAtom);
     const minimap = elems.find((e) => e.type === "util-minimap");
-    const scale = minimap?.properties.minimapScale === undefined ? 1 : minimap.properties.minimapScale;
-    return scale;
+    return minimap?.properties.minimapScale ?? 1;
 });
 
 export default function MinimapElement() {

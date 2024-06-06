@@ -1,15 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useElementIDs } from "../../../hooks/jotai/useMap";
-import { useSelectedElemValue } from "../../../hooks/jotai/useSelectedElem";
-import { useSelectedTriggerID } from "../../../hooks/jotai/useSelectedTrigger";
-import { OutputTriggerDB } from "../../../types/au/TriggerDB";
+import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
+import { useSelectedTriggerID } from "../../../hooks/elements/useSelectedTrigger";
+import { OutputTriggerDB } from "../../../types/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
-import SwitchPanelInput from "../input/SwitchPanelInput";
-import NumericPanelInput from "../input/NumericPanelInput";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
+import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useElementIDs from "../../../hooks/elements/useElementIDs";
+import { HighlightAlt, SettingsInputAntenna, Shuffle } from "@mui/icons-material";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",
@@ -64,15 +65,14 @@ export default function TriggerPanel() {
         <>
             <PanelContainer title={"Trigger"}>
                 {selectedElem.type === "util-triggerrand" && (
-                    <NumericPanelInput
+                    <ElementPropNumericInput
                         name={t("trigger.count")}
-                        label={randomPercentage}
                         prop="triggerCount"
+                        label={randomPercentage}
                         defaultValue={2}
-                        icon="antenna"
+                        icon={<SettingsInputAntenna />}
                         min={2}
                         stepSize={1}
-
                     />
                 )}
                 <DropdownList
@@ -81,8 +81,8 @@ export default function TriggerPanel() {
                         return {
                             id: triggerID,
                             name: t(`t.${split[0]}`, { index: split[1] ?? 1 }),
-                            intent: isTriggerActive(triggerID) ? "success" : "danger",
-                            icon: "antenna"
+                            intent: isTriggerActive(triggerID) ? "success" : "error",
+                            icon: "SettingsInputAntenna"
                         };
                     })}
                     selectedID={selectedTriggerID}
@@ -96,15 +96,15 @@ export default function TriggerPanel() {
                 />
 
                 {CLIENT_SIDE_TYPES.includes(selectedElem.type) && (
-                    <SwitchPanelInput
-                        name="trigger.isClientSide"
+                    <ElementPropSwitch
+                        name={t("trigger.isClientSide")}
                         prop="triggerClientSide"
                         defaultValue={true}
                     />
                 )}
                 {GHOST_TYPES.includes(selectedElem.type) && (
-                    <SwitchPanelInput
-                        name="trigger.isGhostEnabled"
+                    <ElementPropSwitch
+                        name={t("trigger.isGhostEnabled")}
                         prop="isGhostEnabled"
                         defaultValue={false}
                     />
@@ -114,20 +114,20 @@ export default function TriggerPanel() {
             <MapError
                 isVisible={selectedElem.type === "util-triggerrand"}
                 info
-                icon="random"
+                icon={<Shuffle />}
             >
                 {t("trigger.randomInfo")}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerrepeat"}
                 info
-                icon="antenna"
+                icon={<SettingsInputAntenna />}
             >
                 {t("trigger.repeatInfo")}
             </MapError>
             <MapError
                 isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}
-                icon="polygon-filter"
+                icon={<HighlightAlt />}
             >
                 {t("trigger.errorNoCollider")}
             </MapError>
