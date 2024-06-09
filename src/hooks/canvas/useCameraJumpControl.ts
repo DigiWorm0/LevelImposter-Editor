@@ -5,13 +5,13 @@ import atomWithListeners from "../../utils/jotai/atomWithListeners";
 import { elementFamilyAtom } from "../elements/useElements";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 
-const [cameraElementIDAtom, useCameraElementIDListener] = atomWithListeners<MaybeGUID>(null);
+const [cameraElementIDAtom, useCameraElementIDListener] = atomWithListeners<MaybeGUID>(undefined);
 export { cameraElementIDAtom };
 
 const ANIM_DURATION = 300;
 
 export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Stage>) {
-    useCameraElementIDListener((get, _, cameraElementID) => {
+    useCameraElementIDListener((get, set, cameraElementID) => {
         const cameraElement = get(elementFamilyAtom(cameraElementID));
         if (!cameraElement)
             return;
@@ -32,8 +32,8 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
         */
 
         // Get Start/End Position
-        const startPosition = stage.position();
-        const startScale = stage.scale();
+        const startPosition = stage.position() ?? { x: 0, y: 0 };
+        const startScale = stage.scale()?.x ?? 1;
         const endPosition = {
             x: -cameraElement.x * UNITY_SCALE + (window.innerWidth / 2),
             y: cameraElement.y * UNITY_SCALE + (window.innerHeight / 2)
@@ -57,8 +57,8 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
 
             // Animate Scale
             stage.scale({
-                x: startScale.x + (endScale - startScale.x) * curvedProgress,
-                y: startScale.y + (endScale - startScale.y) * curvedProgress
+                x: startScale + (endScale - startScale) * curvedProgress,
+                y: startScale + (endScale - startScale) * curvedProgress
             });
 
             // Stop Animation
@@ -66,6 +66,9 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
                 animation.stop();
         });
         animation.start();
+
+        // Reset Camera Element
+        set(cameraElementIDAtom, undefined);
 
     });
 }
