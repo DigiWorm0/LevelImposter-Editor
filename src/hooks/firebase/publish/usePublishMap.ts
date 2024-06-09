@@ -8,6 +8,8 @@ import { userAtom } from "../useUser";
 import { mapThumbnailAtom } from "./useMapThumbnail";
 import { publishTargetAtom } from "./usePublishTarget";
 
+const MAX_VALUE = 2147483647;
+
 export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: number) => void) => {
     const map = get(mapAtom);
     const user = get(userAtom);
@@ -27,7 +29,7 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
 
     // Update Properties
     map.id = targetID ?? generateGUID();
-    map.idVersion = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
+    map.idVersion = Math.round(Math.random() * MAX_VALUE);
     map.remixOf = isRemix ? oldMapID : null;
 
     map.authorID = user?.uid ?? "";
