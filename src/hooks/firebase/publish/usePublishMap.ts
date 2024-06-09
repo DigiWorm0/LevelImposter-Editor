@@ -27,10 +27,9 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
 
     // Update Properties
     map.id = targetID ?? generateGUID();
-    map.idVersion = (map.idVersion ?? 0) + 1;
+    map.idVersion = Math.random();
     map.remixOf = isRemix ? oldMapID : null;
 
-    map.idVersion = (map.idVersion ?? 0) + 1;
     map.authorID = user?.uid ?? "";
     map.authorName = map.authorName || user?.displayName || "Anonymous";
     map.createdAt = new Date().getTime();

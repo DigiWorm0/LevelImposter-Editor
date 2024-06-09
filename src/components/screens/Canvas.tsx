@@ -2,24 +2,37 @@ import { Provider } from 'jotai';
 import React from 'react';
 import { Layer, Stage } from 'react-konva';
 import CanvasGrid from '../canvas/CanvasGrid';
-import { MapSorter } from '../canvas/MapSorter';
 import SelectedMapElement from '../canvas/SelectedMapElement';
 import primaryStore from '../../hooks/primaryStore';
 import { useMapProperties } from '../../hooks/map/useMap';
-import useCameraControl from "../../hooks/canvas/useCameraControl";
+import useCameraMouseControl from "../../hooks/canvas/useCameraMouseControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
 import MapElementsRenderer from "../canvas/MapElementsRenderer";
 import { useHotkeysContext } from "react-hotkeys-hook";
 import { Scope } from "../../hooks/input/useHotkeysHandler";
 import { Paper } from "@mui/material";
 import useDeselectAll from "../../hooks/map/useDeselectAll";
+import useCameraKeyboardControl from "../../hooks/canvas/useCameraKeyboardControl";
+import useCameraTouchControl from "../../hooks/canvas/useCameraTouchControl";
+import useCameraEmbedControl from "../../hooks/canvas/useCameraEmbedControl";
+import Konva from "konva";
+import useCameraJumpControl from "../../hooks/canvas/useCameraJumpControl";
 
 export default function Canvas() {
-    const stageRef = useCameraControl();
     const [windowWidth, windowHeight] = useWindowSize();
     const [properties] = useMapProperties();
     const { enableScope, disableScope } = useHotkeysContext();
     const deselectAll = useDeselectAll();
+
+    // Camera Controls
+    const stageRef = React.useRef<Konva.Stage>(null);
+    useCameraMouseControl(stageRef);
+    useCameraKeyboardControl(stageRef);
+    useCameraTouchControl(stageRef);
+    useCameraEmbedControl(stageRef);
+    useCameraJumpControl(stageRef);
+
+    console.log("Canvas Render");
 
     return (
         <Paper
@@ -56,7 +69,6 @@ export default function Canvas() {
                     </Layer>
                 </Provider>
             </Stage>
-            <MapSorter />
         </Paper>
     );
 }

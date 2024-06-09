@@ -6,6 +6,7 @@ import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
 import { _useUserAtom } from "../../hooks/firebase/useUser";
 import { useAtomsDebugValue } from "jotai-devtools";
+import useSortMap from "../../hooks/map/useSortMap";
 
 export default function GlobalHooks() {
     const { i18n } = useTranslation();
@@ -15,6 +16,7 @@ export default function GlobalHooks() {
     useIDParam();
     _useUserAtom();
     useAtomsDebugValue();
+    useSortMap();
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
