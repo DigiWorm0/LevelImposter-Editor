@@ -27,7 +27,7 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
 
     // Update Properties
     map.id = targetID ?? generateGUID();
-    map.idVersion = Math.random();
+    map.idVersion = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
     map.remixOf = isRemix ? oldMapID : null;
 
     map.authorID = user?.uid ?? "";
