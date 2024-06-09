@@ -43,6 +43,10 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
         // Create Animation
         const animation = new Konva.Animation((frame) => {
 
+            // Nullity Check Frame
+            if (!frame)
+                return;
+
             // 0 >>> 1
             const progress = frame.time / ANIM_DURATION;
 
