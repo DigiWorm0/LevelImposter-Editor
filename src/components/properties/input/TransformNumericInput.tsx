@@ -8,6 +8,7 @@ export interface TransformNumericInputProps {
     name: string;
     prop: keyof LIElement;
     icon?: React.ReactNode;
+    stepSize?: number;
 }
 
 export default function TransformNumericInput(props: TransformNumericInputProps) {
@@ -19,7 +20,7 @@ export default function TransformNumericInput(props: TransformNumericInputProps)
         <FlexNumericInput
             value={value}
             onChange={setValue}
-            stepSize={0.1}
+            stepSize={props.stepSize ?? 0.1}
             inputProps={{
                 size: "small",
                 fullWidth: true,

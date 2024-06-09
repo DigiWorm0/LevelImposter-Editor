@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { connectAuthEmulator, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDRFJtLxCXTL7Iq61ldJ8tNi4TOplhMOVY",
@@ -17,6 +17,14 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Emulation
+const USE_FIREBASE_EMULATOR = false;
+if (USE_FIREBASE_EMULATOR) {
+    connectAuthEmulator(auth, "http://localhost:9099");
+    connectFirestoreEmulator(db, "localhost", 8080);
+    connectStorageEmulator(storage, "localhost", 9199);
+}
 
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();

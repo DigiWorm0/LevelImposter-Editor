@@ -101,7 +101,12 @@ export default function TransformPanel() {
                         <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz />} />
                         <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert />} />
                     </InputGroup>
-                    <TransformNumericInput name={t("transform.rotation")} prop={"rotation"} icon={<RotateLeft />} />
+                    <TransformNumericInput
+                        name={t("transform.rotation")}
+                        prop={"rotation"}
+                        icon={<RotateLeft />}
+                        stepSize={5}
+                    />
                     <ButtonGroup style={{ marginTop: 10 }} fullWidth>
                         <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
                             <Button
