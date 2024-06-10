@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import openUploadDialog from "../../../utils/openUploadDialog";
+import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/generic/GUID";
-import duplicateBlob from "../../../utils/duplicateBlob";
+import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import { Button, ButtonGroup } from "@mui/material";
 import { CloudUpload, Done, Refresh } from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";

@@ -28,7 +28,7 @@ export default function downloadFromURL(url: string, onProgress?: (percent: numb
                 if (xhr.responseType === "arraybuffer")
                     resolve(xhr.response);
                 else
-                    reject(new Error("Failed to download file: Invalid response type"));
+                    reject(new Error("Failed to download file: Invalid response strings"));
             } else {
                 reject(new Error(`Failed to download file: ${xhr.statusText}`));
             }

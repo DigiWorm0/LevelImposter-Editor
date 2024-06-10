@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import generateGUID from "../../../utils/generateGUID";
-import openUploadDialog from "../../../utils/openUploadDialog";
+import generateGUID from "../../../utils/strings/generateGUID";
+import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";

@@ -2,7 +2,7 @@ import { MaybeGUID } from "../../../types/generic/GUID";
 import { Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
 import { CloudDownload, Delete, Image } from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
-import toSizeString from "../../../utils/toSizeString";
+import toSizeString from "../../../utils/strings/toSizeString";
 import React from "react";
 import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";

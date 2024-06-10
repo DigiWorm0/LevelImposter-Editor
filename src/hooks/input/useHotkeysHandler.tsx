@@ -1,6 +1,6 @@
 import { useHotkeys } from "react-hotkeys-hook";
 import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
-import generateGUID from "../../utils/generateGUID";
+import generateGUID from "../../utils/strings/generateGUID";
 import useAddElementAtMouse from "../elements/useAddElementAtMouse";
 import { useRemoveSelectedElement } from "../elements/useRemoveElement";
 import { useSelectedElemValue, useSetSelectedElemID } from "../elements/useSelectedElem";

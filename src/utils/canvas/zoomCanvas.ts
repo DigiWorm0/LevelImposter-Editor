@@ -1,4 +1,4 @@
-import Point from "../types/generic/Point";
+import Point from "../../types/generic/Point";
 import Konva from "konva";
 
 const ZOOM_SPEED = 1.002;

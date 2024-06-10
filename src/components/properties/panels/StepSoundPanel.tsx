@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
-import generateGUID from "../../../utils/generateGUID";
+import generateGUID from "../../../utils/strings/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import SoundPresetSelect from "../input/select/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";

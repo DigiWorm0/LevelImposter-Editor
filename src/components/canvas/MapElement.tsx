@@ -8,8 +8,8 @@ import useEmbed from "../../hooks/embed/useEmbed";
 import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
-import setCursor from "../../utils/setCursor";
+import getElemVisibility, { ElemVisibility } from "../../utils/map/getMapVisibility";
+import setCursor from "../../utils/canvas/setCursor";
 import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Konva from "konva";
-import zoomCanvas from "../../utils/zoomCanvas";
+import zoomCanvas from "../../utils/canvas/zoomCanvas";
 
 const ZOOM_SPEED = 100;
 const PAN_SPEED = 100;

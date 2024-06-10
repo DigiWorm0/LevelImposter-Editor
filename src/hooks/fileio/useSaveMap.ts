@@ -1,7 +1,7 @@
 import { serializeMap } from "./useLISerializer";
 import { mapAtom } from "../map/useMap";
 import { isSavedAtom } from "./useIsSaved";
-import { saveFileFromBlob } from "../../utils/saveFileFromURL";
+import { saveFileFromBlob } from "../../utils/fileio/saveFileFromURL";
 import { atom, useSetAtom } from "jotai";
 
 export const saveMapAtom = atom(null, async (get, set) => {

@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
 import { useSettingsValue } from "../../../hooks/useSettings";
 import AUElementDB from "../../../types/db/AUElementDB";
-import { ElemVisibility } from "../../../utils/getMapVisibility";
+import { ElemVisibility } from "../../../utils/map/getMapVisibility";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
@@ -25,7 +25,7 @@ import useElementVisibility from "../../../hooks/elements/useElementVisibility";
 import TransformNumericInput from "../input/TransformNumericInput";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
-import getIsConsole from "../../../utils/getIsConsole";
+import getIsConsole from "../../../utils/map/getIsConsole";
 
 export default function TransformPanel() {
     const { t } = useTranslation();
@@ -59,16 +59,16 @@ export default function TransformPanel() {
                 style={{ paddingTop: 0 }}
             >
                 <TextField
-                    key={selectedElemID + "-type"}
+                    key={selectedElemID + "-strings"}
                     disabled={!isDevMode}
                     size={"small"}
                     variant={"standard"}
                     defaultValue={type}
-                    placeholder={t("transform.type") as string}
+                    placeholder={t("transform.strings") as string}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position={"start"}>
-                                {t("transform.type")}
+                                {t("transform.strings")}
                             </InputAdornment>
                         ),
                         endAdornment: (

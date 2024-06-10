@@ -1,8 +1,8 @@
 import LIMap from "../../types/li/LIMap";
 import GUID from "../../types/generic/GUID";
-import convertLegacyMap from "../../utils/convertLegacyMap";
+import convertLegacyMap from "../../utils/map/convertLegacyMap";
 import { MAP_FORMAT_VER } from "../../types/generic/Constants";
-import { DEFAULT_GUID } from "../../utils/generateGUID";
+import { DEFAULT_GUID } from "../../utils/strings/generateGUID";
 
 export function deserializeMap(file: Blob) {
     return new Promise<LIMap>((resolve, reject) => {
@@ -120,7 +120,7 @@ function parseAssetType(asset: ArrayBuffer) {
     if (isJPEG) return "image/jpeg";
     if (isWEBP) return "image/webp";
     if (isWAV) return "audio/wav";
-    console.warn("Unknown asset type");
+    console.warn("Unknown asset strings");
     return "application/octet-stream";
 }
 

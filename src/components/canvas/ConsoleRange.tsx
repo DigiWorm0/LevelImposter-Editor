@@ -6,7 +6,7 @@ import {
     UNITY_SCALE,
     VENT_CONSOLE_RANGE
 } from "../../types/generic/Constants";
-import getIsConsole from "../../utils/getIsConsole";
+import getIsConsole from "../../utils/map/getIsConsole";
 
 export default function ConsoleRange() {
     const selectedElem = useSelectedElemValue();

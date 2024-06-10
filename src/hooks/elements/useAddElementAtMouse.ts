@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { atom } from "jotai/index";
 import LIElement from "../../types/li/LIElement";
-import getDefaultZ from "../../utils/getDefaultZ";
+import getDefaultZ from "../../utils/map/getDefaultZ";
 import { mouseXAtom, mouseYAtom } from "../input/useMouse";
 import { addElementAtom } from "./useAddElement";
 

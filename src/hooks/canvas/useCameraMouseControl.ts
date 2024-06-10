@@ -3,7 +3,7 @@ import { KonvaEventObject } from "konva/lib/Node";
 import Konva from "konva";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import useSetMouse from "../input/useMouse";
-import zoomCanvas from "../../utils/zoomCanvas";
+import zoomCanvas from "../../utils/canvas/zoomCanvas";
 
 export default function useCameraMouseControl(stageRef: React.RefObject<Konva.Stage>) {
     const setMouse = useSetMouse();

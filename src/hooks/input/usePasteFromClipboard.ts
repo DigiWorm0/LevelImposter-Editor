@@ -5,7 +5,7 @@ import { useSetAtom } from "jotai";
 import { atom } from "jotai/index";
 import GUID, { MaybeGUID } from "../../types/generic/GUID";
 import LIElement from "../../types/li/LIElement";
-import generateGUID from "../../utils/generateGUID";
+import generateGUID from "../../utils/strings/generateGUID";
 import { addElementAtom } from "../elements/useAddElement";
 import { selectedElementIDAtom } from "../elements/useSelectedElem";
 import { clipboardAtom } from "./useClipboard";

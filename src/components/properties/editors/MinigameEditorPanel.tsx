@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import MapAsset from "../../../types/li/MapAsset";
-import generateGUID from "../../../utils/generateGUID";
+import generateGUID from "../../../utils/strings/generateGUID";
 import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 

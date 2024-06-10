@@ -5,7 +5,7 @@ import LIMetadata from "../../types/li/LIMetadata";
 import { db, storage } from "../../utils/Firebase";
 import { deserializeMap } from "../fileio/useLIDeserializer";
 import { mapAtom } from "../map/useMap";
-import downloadFromURL from "../../utils/downloadFromURL";
+import downloadFromURL from "../../utils/fileio/downloadFromURL";
 import { atom, useSetAtom } from "jotai";
 
 export interface LoadMapFromIDPayload {

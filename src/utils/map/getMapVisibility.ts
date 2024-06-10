@@ -1,4 +1,4 @@
-import LIElement from "../types/li/LIElement";
+import LIElement from "../../types/li/LIElement";
 
 const INVISIBLE_TYPES = [
     "util-spawn1",

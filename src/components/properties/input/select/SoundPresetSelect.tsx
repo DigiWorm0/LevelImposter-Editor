@@ -2,7 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { PRESET_RESOURCE_IDS } from "../../../../types/db/AUElementDB";
 import { DEFAULT_VOLUME } from "../../../../types/generic/Constants";
-import generateGUID from "../../../../utils/generateGUID";
+import generateGUID from "../../../../utils/strings/generateGUID";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
 export default function SoundPresetSelect() {

@@ -8,7 +8,7 @@ import { TripOrigin } from "@mui/icons-material";
 
 export default function SpawnPanel() {
     const { t } = useTranslation();
-    const isSpawn1 = useIsSelectedElemType("util-spawn");
+    const isSpawn1 = useIsSelectedElemType("util-spawn1");
     const isSpawn2 = useIsSelectedElemType("util-spawn2");
 
     if (!isSpawn1 && !isSpawn2)

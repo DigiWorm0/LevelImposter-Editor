@@ -1,6 +1,6 @@
 import useEmbed from "../embed/useEmbed";
 import React from "react";
-import zoomCanvas from "../../utils/zoomCanvas";
+import zoomCanvas from "../../utils/canvas/zoomCanvas";
 import Konva from "konva";
 
 export default function useCameraEmbedControl(stageRef: React.RefObject<Konva.Stage>) {

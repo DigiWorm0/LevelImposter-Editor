@@ -1,6 +1,6 @@
-import LIMap from "../types/li/LIMap";
-import generateGUID from "./generateGUID";
-import GUID from "../types/generic/GUID";
+import LIMap from "../../types/li/LIMap";
+import generateGUID from "../strings/generateGUID";
+import GUID from "../../types/generic/GUID";
 import convertOldLegacyMap from "./convertOldLegacyMap";
 
 /**

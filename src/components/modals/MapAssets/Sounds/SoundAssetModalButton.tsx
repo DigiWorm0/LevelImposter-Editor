@@ -3,8 +3,8 @@ import React from "react";
 import GUID from "../../../../types/generic/GUID";
 import { useMapAssetValue } from "../../../../hooks/assets/useMapAsset";
 import { VolumeUp } from "@mui/icons-material";
-import toSizeString from "../../../../utils/toSizeString";
-import toDurationString from "../../../../utils/toDurationString";
+import toSizeString from "../../../../utils/strings/toSizeString";
+import toDurationString from "../../../../utils/strings/toDurationString";
 
 export interface SoundAssetModalButtonProps {
     id: GUID;

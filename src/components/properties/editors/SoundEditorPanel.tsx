@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import LISound from "../../../types/li/LISound";
-import generateGUID from "../../../utils/generateGUID";
+import generateGUID from "../../../utils/strings/generateGUID";
 import SoundUpload from "../util/SoundUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 

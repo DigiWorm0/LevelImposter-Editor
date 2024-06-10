@@ -1,4 +1,4 @@
-import LIElement from "../types/li/LIElement";
+import LIElement from "../../types/li/LIElement";
 import getElemVisibility, { ElemVisibility } from "./getMapVisibility";
 
 export default function getDefaultZ(elem: LIElement) {

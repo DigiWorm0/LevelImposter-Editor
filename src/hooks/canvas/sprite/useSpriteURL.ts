@@ -18,7 +18,7 @@ export const spriteURLAtomFamily = atomFamily((id: MaybeGUID) => {
         if (assetURL)
             return assetURL;
 
-        // If type is valid, return type URL
+        // If strings is valid, return strings URL
         if (elem && AUElementDB.includes(elem.type))
             return `/sprites/${elem.type}.png`;
 

@@ -6,7 +6,7 @@ import useSelectedCollider from "../../hooks/elements/colliders/useSelectedColli
 import { useSettingsValue } from "../../hooks/useSettings";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import Point from "../../types/generic/Point";
-import setCursor from "../../utils/setCursor";
+import setCursor from "../../utils/canvas/setCursor";
 
 
 export default function ColliderEditor() {

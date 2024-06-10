@@ -3,7 +3,7 @@ import { isSavedAtom } from "./useIsSaved";
 import { deserializeMap } from "./useLIDeserializer";
 import { mapAtom } from "../map/useMap";
 import { atom, useSetAtom } from "jotai";
-import openUploadDialog from "../../utils/openUploadDialog";
+import openUploadDialog from "../../utils/fileio/openUploadDialog";
 
 export const openMapAtom = atom(null, async (_, set) => {
     const file = await openUploadDialog(".lim, .lim2, .json");

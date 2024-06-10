@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
 import MapAsset from "../../../types/li/MapAsset";
-import getIsConsole from "../../../utils/getIsConsole";
+import getIsConsole from "../../../utils/map/getIsConsole";
 import ImageUpload from "../util/ImageUpload";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";

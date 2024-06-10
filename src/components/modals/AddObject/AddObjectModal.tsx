@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSetSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
 import useAddElementAtMouse from "../../../hooks/elements/useAddElementAtMouse";
 import { useSetSelectedElemID } from "../../../hooks/elements/useSelectedElem";
-import generateGUID from '../../../utils/generateGUID';
+import generateGUID from '../../../utils/strings/generateGUID';
 import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalCategory from "./AddObjectModalCategory";
 import AddObjectModalSearch from "./AddObjectModalSearch";

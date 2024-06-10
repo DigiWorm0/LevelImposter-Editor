@@ -1,6 +1,6 @@
 import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
 import React from "react";
-import openUploadDialog from "../../utils/openUploadDialog";
+import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import { useTranslation } from "react-i18next";
 import { useMapValue } from "../../hooks/map/useMap";

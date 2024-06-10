@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import isDefaultName from "../../utils/isDefaultMapName";
+import isDefaultName from "../../utils/map/isDefaultMapName";
 import { useMapName } from "../../hooks/map/useMap";
 import { Button, TextField } from "@mui/material";
 
