@@ -37,7 +37,8 @@
 		"react-helmet": "^6.1.0",
 		"react-hotkeys-hook": "^4.5.0",
 		"react-i18next": "^13.0.1",
-		"react-konva": "^18.2.10"
+		"react-konva": "^18.2.10",
+		"typescript-eslint": "^7.13.0"
 	},
 	"browserslist": {
 		"production": [
@@ -52,6 +53,9 @@
 		]
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.5.0",
+		"@nabla/vite-plugin-eslint": "^2.0.4",
+		"@stylistic/eslint-plugin": "^2.2.0",
 		"@types/jest": "^29.4.0",
 		"@types/node": "^18.13.0",
 		"@types/react": "^18.0.15",
@@ -59,6 +63,7 @@
 		"@types/react-dom": "^18.0.6",
 		"@types/react-helmet": "^6.1.6",
 		"@vitejs/plugin-react": "^4.2.0",
+		"eslint": "^9.4.0",
 		"gh-pages": "^5.0.0",
 		"typescript": "^5.1.5",
 		"vite": "^5.2.11",
