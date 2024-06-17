@@ -9,7 +9,7 @@ export const DEFAULT_CAM_ASPECT = 330 / 230;
 export const DEFAULT_LADDER_HEIGHTS: Record<string, number> = {
     "util-ladder1": 3,
     "util-ladder2": 1.5,
-}
+};
 
 export const DEFAULT_DISPLAY_HEIGHT = 230;
 export const DEFAULT_DISPLAY_WIDTH = 330;

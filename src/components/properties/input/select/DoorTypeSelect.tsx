@@ -30,5 +30,5 @@ export default function DoorTypeSelect() {
                 </IconButton>
             </Tooltip>
         </InputGroup>
-    )
+    );
 }

@@ -7,7 +7,7 @@ export default function duplicateBlob(blob: Blob): Promise<Blob> {
             } else {
                 reject("No file selected");
             }
-        }
+        };
         reader.readAsArrayBuffer(blob);
     });
 }

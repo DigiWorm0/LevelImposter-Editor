@@ -109,5 +109,5 @@ export default function PublishModalTarget() {
                 <Divider sx={{ m: 1 }} />
             </List>
         </Box>
-    )
+    );
 }

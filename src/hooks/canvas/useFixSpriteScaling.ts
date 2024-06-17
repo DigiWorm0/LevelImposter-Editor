@@ -59,7 +59,7 @@ export const fixSpriteScalingAtom = atom(null, async (get, set) => {
                 x: point.x * xScale,
                 y: point.y * yScale
             }))
-        }
+        };
     });
 
     // Fix Element

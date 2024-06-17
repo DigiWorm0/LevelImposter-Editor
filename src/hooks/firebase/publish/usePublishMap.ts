@@ -35,7 +35,7 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
     map.authorID = user?.uid ?? "";
     map.authorName = map.authorName || user?.displayName || "Anonymous";
     map.createdAt = new Date().getTime();
-    map.thumbnailURL = null
+    map.thumbnailURL = null;
 
     map.isVerified = false;
     map.likeCount = 0;

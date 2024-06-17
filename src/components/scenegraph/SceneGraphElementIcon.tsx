@@ -46,7 +46,7 @@ const ICON_DB: Record<string, JSX.Element> = {
     "util-cams2": <PlayArrow />,
     "util-cams3": <PlayArrow />,
     "util-layer": <Folder />
-}
+};
 
 export default function SceneGraphElementIcon(props: SceneGraphElementIconProps) {
 
@@ -57,13 +57,13 @@ export default function SceneGraphElementIcon(props: SceneGraphElementIconProps)
 
     // Other Types
     if (props.type.startsWith("task-"))
-        return <Handyman />
+        return <Handyman />;
     else if (props.type.startsWith("sab-"))
-        return <Warning />
+        return <Warning />;
     else if (props.type.startsWith("util-"))
-        return <Build />
+        return <Build />;
     else if (props.type.startsWith("dec-") || props.type.startsWith("room-"))
-        return <Chair />
+        return <Chair />;
     else
-        return <Help />
+        return <Help />;
 }

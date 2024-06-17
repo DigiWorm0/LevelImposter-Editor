@@ -45,7 +45,7 @@ export default function ElemConnections() {
         );
 
         ctx.closePath();
-    }
+    };
 
     if (!selectedElem)
         return null;

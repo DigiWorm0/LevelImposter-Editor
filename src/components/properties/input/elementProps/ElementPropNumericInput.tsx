@@ -4,7 +4,7 @@ import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemPrope
 import LIProperties from "../../../../types/li/LIProperties";
 
 export default function ElementPropNumericInput(props: ChildNumericInputProps<LIProperties>) {
-    const [prop, setProp] = useSelectedElemProp(props.prop)
+    const [prop, setProp] = useSelectedElemProp(props.prop);
 
     return (
         <NumericPanelInput
@@ -12,5 +12,5 @@ export default function ElementPropNumericInput(props: ChildNumericInputProps<LI
             onChange={setProp}
             {...props}
         />
-    )
+    );
 }

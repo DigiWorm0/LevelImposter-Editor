@@ -22,7 +22,7 @@ export default function VentPanel() {
     const [selectedSoundType, setSelectedSoundType] = React.useState<string | undefined>(undefined);
 
     const hasOpenSound = React.useMemo(() => sounds.some((s) => s.type === VENT_OPEN_SOUND), [sounds]);
-    const hasMoveSound = React.useMemo(() => sounds.some((s) => s.type === VENT_MOVE_SOUND), [sounds]);
+    //const hasMoveSound = React.useMemo(() => sounds.some((s) => s.type === VENT_MOVE_SOUND), [sounds]);
 
     if (!isVent1 && !isVent2 && !isVent3)
         return null;

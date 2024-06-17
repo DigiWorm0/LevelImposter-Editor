@@ -16,7 +16,7 @@ export default function openUploadDialog(fileTypes: string): Promise<Blob> {
             } else {
                 reject("No file selected");
             }
-        }
+        };
         input.click();
     });
 }

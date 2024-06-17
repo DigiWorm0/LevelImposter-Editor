@@ -63,5 +63,5 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 onFinish={props.onFinish}
             />
         </Box>
-    )
+    );
 }

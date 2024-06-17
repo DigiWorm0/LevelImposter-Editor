@@ -5,10 +5,10 @@ export default interface SceneGraphListItemProps extends ListItemProps {
     isGroup?: boolean;
 }
 
-const SUCCESS_BG = '#193d1d';
-const SUCCESS_FG = 'success.light';
-const PRIMARY_BG = '#19333d';
-const PRIMARY_FG = 'primary.main';
+const SUCCESS_BG = "#193d1d";
+const SUCCESS_FG = "success.light";
+const PRIMARY_BG = "#19333d";
+const PRIMARY_FG = "primary.main";
 
 export function SceneGraphListItem(props: SceneGraphListItemProps) {
     const foreground = props.isGroup ? PRIMARY_FG : SUCCESS_FG;
@@ -18,21 +18,21 @@ export function SceneGraphListItem(props: SceneGraphListItemProps) {
             {...props}
             sx={{
                 // Selected
-                '&& .Mui-selected, && .Mui-selected:hover': {
+                "&& .Mui-selected, && .Mui-selected:hover": {
                     bgcolor: background
                 },
                 // Hover
-                '& .MuiListItemButton-root:hover': {
+                "& .MuiListItemButton-root:hover": {
                     bgcolor: background
                 },
                 // Text
                 color: foreground,
                 // Left Icon
-                '& .MuiListItemIcon-root': {
+                "& .MuiListItemIcon-root": {
                     color: foreground
                 },
                 // Second Icon
-                '& .MuiIconButton-root': {
+                "& .MuiIconButton-root": {
                     color: foreground
                 },
             }}

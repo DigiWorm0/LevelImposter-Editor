@@ -1,4 +1,4 @@
-import Point from '../generic/Point';
+import Point from "../generic/Point";
 
 export default interface LILegacyFile {
     name: string;

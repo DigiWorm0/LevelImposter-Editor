@@ -32,7 +32,7 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
                 resolve
             );
         });
-    }
+    };
 
     const upload = async (
         map: LIMap,
@@ -81,12 +81,12 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
         await setDoc(docRef, mapMetadata);
 
         return map.id;
-    }
+    };
 
     return upload(map, thumbnail, onProgress);
 });
 uploadMapAtom.debugLabel = "uploadMapAtom";
 
 export default function useUploadMap() {
-    return useSetAtom(uploadMapAtom)
+    return useSetAtom(uploadMapAtom);
 }

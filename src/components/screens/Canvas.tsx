@@ -1,10 +1,10 @@
-import { Provider } from 'jotai';
-import React from 'react';
-import { Layer, Stage } from 'react-konva';
-import CanvasGrid from '../canvas/CanvasGrid';
-import SelectedMapElement from '../canvas/SelectedMapElement';
-import primaryStore from '../../hooks/primaryStore';
-import { useMapProperties } from '../../hooks/map/useMap';
+import { Provider } from "jotai";
+import React from "react";
+import { Layer, Stage } from "react-konva";
+import CanvasGrid from "../canvas/CanvasGrid";
+import SelectedMapElement from "../canvas/SelectedMapElement";
+import primaryStore from "../../hooks/primaryStore";
+import { useMapProperties } from "../../hooks/map/useMap";
 import useCameraMouseControl from "../../hooks/canvas/useCameraMouseControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
 import MapElementsRenderer from "../canvas/MapElementsRenderer";

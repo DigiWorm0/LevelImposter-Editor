@@ -51,5 +51,5 @@ export default function TextPanelInput(props: TextPanelInputProps) {
                 </span>
             </Tooltip>
         </FormGroup>
-    )
+    );
 }

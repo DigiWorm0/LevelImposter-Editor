@@ -59,5 +59,5 @@ export default function ColliderPointsEditorPanel(props: ColliderPointsEditorPan
                 </InputGroup>
             ))}
         </>
-    )
+    );
 }

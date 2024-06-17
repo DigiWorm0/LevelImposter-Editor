@@ -48,7 +48,7 @@ export default function convertOldLegacyMap(mapData: any) {
                         return {
                             x: p.x / legacyObj.xScale,
                             y: p.y / legacyObj.yScale
-                        }
+                        };
                     });
                     if (legacyCollider.isClosed && points.length > 1)
                         points.push(points[0]);
@@ -57,7 +57,7 @@ export default function convertOldLegacyMap(mapData: any) {
                         blocksLight: type === "util-room" ? false : legacyCollider.blocksLight,
                         isSolid: type === "util-room",
                         points,
-                    }
+                    };
                 })
             }
         };

@@ -19,7 +19,7 @@ export const droppableBlacklistAtom = atom((get) => {
     const draggingElementID = get(draggingElementIDAtom);
     blacklistChildren(draggingElementID);
     return blacklist;
-})
+});
 export const isDroppableAtomFamily = atomFamily((id: MaybeGUID) => {
     const isDroppableAtom = atom(
         (get) => {

@@ -31,5 +31,5 @@ export default function MinigamePropColorInput(props: ColorInputProps) {
                 disableAlpha={props.disableAlpha}
             />
         </Box>
-    )
+    );
 }

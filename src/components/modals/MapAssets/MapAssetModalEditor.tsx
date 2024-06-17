@@ -123,5 +123,5 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                 </Box>
             )}
         </Box>
-    )
+    );
 }

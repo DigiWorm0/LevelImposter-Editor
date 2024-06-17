@@ -1,14 +1,14 @@
 import { CloudDownload } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { Provider } from 'jotai';
-import Konva from 'konva';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Layer, Stage } from 'react-konva';
-import { useSelectedElemValue } from '../../hooks/elements/useSelectedElem';
-import primaryStore from '../../hooks/primaryStore';
-import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from '../../types/generic/Constants';
-import MapElement from '../canvas/MapElement';
+import { Provider } from "jotai";
+import Konva from "konva";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Layer, Stage } from "react-konva";
+import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import primaryStore from "../../hooks/primaryStore";
+import { MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
+import MapElement from "../canvas/MapElement";
 import GenericModal from "./GenericModal";
 import useElementIDs from "../../hooks/elements/useElementIDs";
 
@@ -24,8 +24,8 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
         const stage = stageRef.current;
         if (!stage)
             return;
-        const link = document.createElement('a');
-        link.download = 'map.png';
+        const link = document.createElement("a");
+        link.download = "map.png";
         link.href = stage.toDataURL();
         link.click();
     };
@@ -57,8 +57,8 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                     height={MINIMAP_HEIGHT * scale * UNITY_SCALE}
                     className="download-canvas"
                     style={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: "flex",
+                        justifyContent: "center",
                         margin: 10
                     }}
                     listening={false}>

@@ -10,7 +10,7 @@ export const saveMapAtom = atom(null, async (get, set) => {
     const blob = new Blob([mapData], { type: "application/levelimposter.map" });
     saveFileFromBlob(blob, `${map.name}.lim2`);
     set(isSavedAtom, true);
-})
+});
 
 export default function useSaveMap() {
     return useSetAtom(saveMapAtom);

@@ -5,7 +5,7 @@ import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemPrope
 
 
 export default function ElementPropSwitch(props: ChildSwitchInputProps<LIProperties>) {
-    const [prop, setProp] = useSelectedElemProp(props.prop)
+    const [prop, setProp] = useSelectedElemProp(props.prop);
 
     return (
         <SwitchPanelInput
@@ -13,5 +13,5 @@ export default function ElementPropSwitch(props: ChildSwitchInputProps<LIPropert
             onChange={setProp}
             {...props}
         />
-    )
+    );
 }

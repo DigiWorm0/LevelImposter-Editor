@@ -34,7 +34,7 @@ export default function GenericModal(props: GenericModalProps) {
                 <IconButton
                     onClick={props.onClose}
                     sx={{
-                        position: 'absolute',
+                        position: "absolute",
                         right: 8,
                         top: 8
                     }}
@@ -56,5 +56,5 @@ export default function GenericModal(props: GenericModalProps) {
                 </DialogActions>
             )}
         </Dialog>
-    )
+    );
 }

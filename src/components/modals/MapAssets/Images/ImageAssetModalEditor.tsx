@@ -25,7 +25,7 @@ export default function ImageAssetModalEditor(props: ImageAssetModalEditorProps)
 
         return () => {
             img.onload = null;
-        }
+        };
     }, [asset]);
 
     if (asset?.type !== "image")
@@ -95,5 +95,5 @@ export default function ImageAssetModalEditor(props: ImageAssetModalEditorProps)
                 </Button>
             </ButtonGroup>
         </Box>
-    )
+    );
 }

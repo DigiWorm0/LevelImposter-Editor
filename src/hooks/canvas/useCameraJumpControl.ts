@@ -37,7 +37,7 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
         const endPosition = {
             x: -cameraElement.x * UNITY_SCALE + (window.innerWidth / 2),
             y: cameraElement.y * UNITY_SCALE + (window.innerHeight / 2)
-        }
+        };
         const endScale = 1;
 
         // Create Animation

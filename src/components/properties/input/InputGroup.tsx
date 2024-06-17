@@ -15,5 +15,5 @@ export default function InputGroup(props: InputGroupProps) {
         >
             {props.children}
         </div>
-    )
+    );
 }

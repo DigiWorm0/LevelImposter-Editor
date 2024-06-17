@@ -62,7 +62,7 @@ export default function MapElement(props: { elementID: GUID }) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
                         y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
-                    })
+                    });
                 }
             }}
             onDragEnd={(e) => {

@@ -13,5 +13,5 @@ export default function AnimatedCaretIcon(props: AnimatedCaretIconProps) {
                 transition: "transform 0.2s"
             }}
         />
-    )
+    );
 }

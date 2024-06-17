@@ -14,7 +14,7 @@ export function deserializeMap(file: Blob) {
 
                 const firstByte = byteView[0];
                 const lastByte = byteView[byteView.length - 1];
-                const isLegacy = firstByte === '{'.charCodeAt(0) && lastByte === '}'.charCodeAt(0);
+                const isLegacy = firstByte === "{".charCodeAt(0) && lastByte === "}".charCodeAt(0);
 
                 const mapData = isLegacy ? deserializeLegacy(result) : deserialize(result);
                 if (mapData === undefined) {
@@ -25,10 +25,10 @@ export function deserializeMap(file: Blob) {
             } catch (e) {
                 reject(e);
             }
-        }
+        };
         reader.onerror = () => {
             reject(reader.error);
-        }
+        };
         reader.readAsArrayBuffer(file);
     });
 }
@@ -65,12 +65,12 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     let position = 4 + jsonLength;
     while (position < buffer.byteLength) {
         // Read GUID
-        let guidSlice = buffer.slice(position, position + 36);
-        let guid = textDecoder.decode(guidSlice) as GUID;
+        const guidSlice = buffer.slice(position, position + 36);
+        const guid = textDecoder.decode(guidSlice) as GUID;
         position += 36;
 
         // Read Length
-        let assetLength = dataView.getInt32(position, true);
+        const assetLength = dataView.getInt32(position, true);
         position += 4;
 
         // Check Length

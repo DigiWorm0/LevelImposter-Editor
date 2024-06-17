@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslation } from "react-i18next";
 import { auth, githubProvider, googleProvider, microsoftProvider } from "../../utils/Firebase";
 import useToaster from "../../hooks/useToaster";
@@ -26,23 +26,23 @@ export default function SignInModal(props: SignInModalProps) {
 
     const signInWithGithub = () => {
         signInWithPopup(auth, githubProvider).catch(toaster.error);
-    }
+    };
 
     const signInWithGoogle = () => {
         signInWithPopup(auth, googleProvider).catch(toaster.error);
-    }
+    };
 
     const signInWithEmail = () => {
         signInWithEmailAndPassword(auth, email, password).catch(toaster.error);
-    }
+    };
 
     const signInWithMicrosoft = () => {
         signInWithPopup(auth, microsoftProvider).catch(toaster.error);
-    }
+    };
 
     const signUp = () => {
         window.open(SIGN_UP_PAGE, "_blank");
-    }
+    };
 
     return (
         <GenericModal

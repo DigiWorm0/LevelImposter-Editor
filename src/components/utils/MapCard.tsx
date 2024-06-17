@@ -40,5 +40,5 @@ export default function MapCard(props: MapCardProps) {
                 </Typography>
             </CardContent>
         </Card>
-    )
+    );
 }

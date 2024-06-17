@@ -76,7 +76,7 @@ export default function ThumbnailEdit() {
             const imageBlob = await openUploadDialog("image/*");
             const resizedBlob = await resizeImage(imageBlob, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
             setThumbnail(resizedBlob);
-        }
+        };
 
         uploadThumbnail().catch(toaster.error);
     }, [setThumbnail, resizeImage, toaster]);
@@ -125,5 +125,5 @@ export default function ThumbnailEdit() {
                 </ButtonGroup>
             </Box>
         </Box>
-    )
+    );
 }

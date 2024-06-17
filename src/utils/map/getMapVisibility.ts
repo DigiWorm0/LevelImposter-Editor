@@ -19,7 +19,7 @@ const INVISIBLE_TYPES = [
     "util-onewaycollider",
     "util-ghostcollider",
     "util-decontamination",
-]
+];
 
 const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blank",
@@ -28,7 +28,7 @@ const INVISIBLE_TYPES_NO_SPRITE = [
     "util-starfield",
     "util-triggerconsole",
     "util-blanktrigger"
-]
+];
 
 const INVISIBLE_TYPES_MINIMAP = [
     "util-minimap",
@@ -38,7 +38,7 @@ const INVISIBLE_TYPES_MINIMAP = [
     "sab-btnlights",
     "sab-btncomms",
     "sab-btndoors",
-]
+];
 
 export enum ElemVisibility {
     Visible,

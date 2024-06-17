@@ -27,5 +27,5 @@ export default function ElementPropColorInput(props: ColorInputProps) {
                 disableAlpha={props.disableAlpha}
             />
         </Box>
-    )
+    );
 }

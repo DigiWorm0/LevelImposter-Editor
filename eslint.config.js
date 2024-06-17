@@ -15,6 +15,7 @@ export default [
             "@stylistic/semi": ["warn", "always"],
             "@stylistic/quotes": ["warn", "double"],
             "@stylistic/indent": ["warn", 4],
+            "@typescript-eslint/no-explicit-any": ["off"],
         }
     }
 ];

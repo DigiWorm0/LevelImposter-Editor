@@ -31,7 +31,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 setProgress(isNaN(currentTime) ? 0 : currentTime);
                 setDuration(isNaN(duration) ? 0 : duration);
             }
-        }
+        };
 
         // Update progress every few milliseconds
         const id = setInterval(updateProgress, 100);
@@ -63,7 +63,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         return () => {
             audioRef.current?.removeEventListener("play", onPlay);
             audioRef.current?.removeEventListener("pause", onPause);
-        }
+        };
     }, [audioRef.current]);
 
     const onChangeProgress = React.useCallback((value: number) => {

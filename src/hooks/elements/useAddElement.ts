@@ -20,7 +20,7 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
                         ...elem.properties,
                         [prop]: e.properties[prop],
                     },
-                }
+                };
                 return;
             }
         });

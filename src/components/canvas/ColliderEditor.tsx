@@ -62,7 +62,7 @@ export default function ColliderEditor() {
                             e.cancelBubble = true;
                         }}
                     />
-                )
+                );
             })}
 
             {collider.points.map((p, index) => {

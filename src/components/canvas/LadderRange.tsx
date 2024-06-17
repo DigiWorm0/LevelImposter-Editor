@@ -27,7 +27,7 @@ export default function LadderRange() {
                             Math.PI * 2,
                             false
                         );
-                    }
+                    };
 
                     ctx.beginPath();
                     drawCircle(true);

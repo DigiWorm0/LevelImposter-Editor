@@ -12,7 +12,7 @@ import { Room } from "@mui/icons-material";
 export default function OneWayColliderPanel() {
     const { t } = useTranslation();
     const isOneWayCollider = useIsSelectedElemType("util-onewaycollider");
-    const parentID = useSelectedElemPropValue("parent")
+    const parentID = useSelectedElemPropValue("parent");
     const roomElems = useElementsOfType("util-room");
     const parentRoom = React.useMemo(() => roomElems.find((e) => e.id === parentID), [roomElems, parentID]);
 

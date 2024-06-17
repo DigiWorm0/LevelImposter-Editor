@@ -1,6 +1,6 @@
 import AddLayerButton from "./AddLayerButton";
-import AddObjectButton from './AddObjectButton';
-import DeleteObjectButton from './DeleteObjectButton';
+import AddObjectButton from "./AddObjectButton";
+import DeleteObjectButton from "./DeleteObjectButton";
 import { Box } from "@mui/material";
 
 export default function SceneGraphButtons() {

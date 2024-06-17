@@ -45,5 +45,5 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>
-    )
+    );
 }

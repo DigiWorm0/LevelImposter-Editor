@@ -43,5 +43,5 @@ export default function ImageAssetModalList(props: ImageAssetModalListProps) {
                 )}
             </ImageList>
         </MapAssetModalDropdown>
-    )
+    );
 }

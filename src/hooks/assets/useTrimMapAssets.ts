@@ -21,7 +21,7 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     const filteredAssets = mapAssets.filter((a) => assetIDs.includes(a.id));
 
     // Update Atom
-    let trimAmount = mapAssets.length - filteredAssets.length;
+    const trimAmount = mapAssets.length - filteredAssets.length;
     if (trimAmount > 0) {
         set(mapAssetsAtom, filteredAssets);
         set(saveHistoryAtom);

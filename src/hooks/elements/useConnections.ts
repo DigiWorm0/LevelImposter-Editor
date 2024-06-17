@@ -41,7 +41,7 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
     });
     connectionsAtom.debugLabel = `connectionsAtomFamily(${elemID})`;
     return connectionsAtom;
-})
+});
 export const selectedConnectionsAtom = atom((get) => {
     const selectedElemID = get(selectedElementIDAtom);
     return get(connectionsAtomFamily(selectedElemID));

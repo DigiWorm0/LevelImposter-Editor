@@ -30,5 +30,5 @@ export default function TransformNumericInput(props: TransformNumericInputProps)
                 } : undefined
             }}
         />
-    )
+    );
 }

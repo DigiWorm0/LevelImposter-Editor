@@ -70,5 +70,5 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
                 loop={props.loop}
             />
         </Box>
-    )
+    );
 }

@@ -37,5 +37,5 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
                 />
             </Tooltip>
         </Box>
-    )
+    );
 }

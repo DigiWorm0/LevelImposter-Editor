@@ -26,7 +26,7 @@ export default function SoundAssetModalButton(props: SoundAssetModalButtonProps)
         return () => {
             audio.onloadeddata = null;
             audio.remove();
-        }
+        };
     }, [asset]);
 
     if (!asset)

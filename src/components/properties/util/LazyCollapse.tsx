@@ -1,8 +1,6 @@
 import { Collapse, CollapseProps } from "@mui/material";
 import React from "react";
 
-const MOUNT_TIMEOUT = 300;
-
 export default function LazyCollapse(props: CollapseProps) {
     const [isMounted, setIsMounted] = React.useState(false);
 
@@ -17,5 +15,5 @@ export default function LazyCollapse(props: CollapseProps) {
             {/* Render children only when the Collapse is open */}
             {props.in || isMounted ? props.children : null}
         </Collapse>
-    )
+    );
 }

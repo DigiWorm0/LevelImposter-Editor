@@ -39,7 +39,7 @@ export const loadMapFromIDAtom = atom(null, async (_, set, payload: LoadMapFromI
 
         set(mapAtom, map);
         return map;
-    }
+    };
 
     // Download & Deserialize
     // Fallback to legacy if needed

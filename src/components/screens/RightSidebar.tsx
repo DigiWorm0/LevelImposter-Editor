@@ -4,7 +4,7 @@ import ColliderPanel from "../properties/panels/ColliderPanel";
 import ConsolePanel from "../properties/panels/ConsolePanel";
 import DebugPanel from "../properties/panels/DebugPanel";
 import DisplayPanel from "../properties/panels/DisplayPanel";
-import FloatingPanel from '../properties/panels/FloatingPanel';
+import FloatingPanel from "../properties/panels/FloatingPanel";
 import LadderPanel from "../properties/panels/LadderPanel";
 import MinimapPanel from "../properties/panels/MinimapPanel";
 import PlatformPanel from "../properties/panels/PlatformPanel";

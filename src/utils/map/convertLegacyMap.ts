@@ -15,7 +15,7 @@ export default function convertLegacyMap(mapData: LIMap) {
 
     // Reset
     mapData.assets = [];
-    let duplicateDB: Record<string, GUID> = {};
+    const duplicateDB: Record<string, GUID> = {};
 
     // Add Asset Function
     const addAsset = (base64: string, type: "image" | "audio"): GUID => {
@@ -33,7 +33,7 @@ export default function convertLegacyMap(mapData: LIMap) {
         });
         duplicateDB[base64] = id;
         return id;
-    }
+    };
 
     for (const element of mapData.elements) {
         // SpriteData

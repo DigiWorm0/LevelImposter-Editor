@@ -61,5 +61,5 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                 </span>
             </Tooltip>
         </FormGroup>
-    )
+    );
 }

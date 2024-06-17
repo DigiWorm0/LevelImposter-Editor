@@ -1,5 +1,5 @@
-import WavAudioEncoder from '../../lib/WavAudioEncoder';
-import { settingsAtom } from '../useSettings';
+import WavAudioEncoder from "../../lib/WavAudioEncoder";
+import { settingsAtom } from "../useSettings";
 import duplicateBlob from "../../utils/fileio/duplicateBlob";
 import { atom, useSetAtom } from "jotai";
 

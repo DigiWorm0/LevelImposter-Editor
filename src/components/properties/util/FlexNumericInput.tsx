@@ -75,5 +75,5 @@ export default function FlexNumericInput(props: FlexNumericInputProps) {
             size={"small"}
             {...props.inputProps}
         />
-    )
+    );
 }

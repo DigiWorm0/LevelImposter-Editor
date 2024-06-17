@@ -56,7 +56,7 @@ export default function MinigamePanel() {
                             id: type,
                             name: t(`minigame.${type.split("_")[1]}`, { index: type.split("_")[2] }) as string,
                             icon: (isDisabled && hasSprite) ? <Warning /> : <Code />,
-                            intent: hasSprite ? 'success' : 'error',
+                            intent: hasSprite ? "success" : "error",
                             isDisabled: isDisabled
                         };
                     })}

@@ -17,5 +17,5 @@ export default function ImageAsset(props: ImageAssetProps) {
             alt={props.assetID}
             src={asset?.url}
         />
-    )
+    );
 }

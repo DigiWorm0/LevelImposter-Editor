@@ -58,5 +58,5 @@ export default function MergeAssetsButton() {
                 assetsMerged={assetsMerged}
             />
         </>
-    )
+    );
 }

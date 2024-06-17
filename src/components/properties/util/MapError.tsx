@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSettingsValue } from '../../../hooks/useSettings';
+import React from "react";
+import { useSettingsValue } from "../../../hooks/useSettings";
 import { Alert, Button } from "@mui/material";
 
 export interface MapErrorProps {
@@ -46,5 +46,5 @@ export default function MapError(props: MapErrorProps) {
                 </Button>
             )}
         </Alert>
-    )
+    );
 }

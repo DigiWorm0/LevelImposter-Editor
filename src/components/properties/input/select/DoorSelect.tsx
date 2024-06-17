@@ -19,5 +19,5 @@ export default function DoorSelect(props: DoorSelectProps) {
             onPick={(elem) => setDoorID(elem.id)}
             onReset={() => setDoorID(undefined)}
         />
-    )
+    );
 }

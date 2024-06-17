@@ -8,5 +8,5 @@ export default function NavDivider() {
             flexItem
             sx={{ marginLeft: 1, marginRight: 1 }}
         />
-    )
+    );
 }

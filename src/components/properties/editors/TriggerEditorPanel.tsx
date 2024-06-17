@@ -116,5 +116,5 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                 ))}
             </Select>
         </Box>
-    )
+    );
 }

@@ -15,5 +15,5 @@ export default function TeleSelect() {
             onPick={(elem) => setTeleporterID(elem.id)}
             onReset={() => setTeleporterID(undefined)}
         />
-    )
+    );
 }

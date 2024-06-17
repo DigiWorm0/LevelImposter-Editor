@@ -19,7 +19,7 @@ export default function downloadFromURL(url: string, onProgress?: (percent: numb
                     const percent = e.loaded / e.total;
                     onProgress(percent);
                 }
-            }
+            };
         }
 
         // On Load
@@ -32,12 +32,12 @@ export default function downloadFromURL(url: string, onProgress?: (percent: numb
             } else {
                 reject(new Error(`Failed to download file: ${xhr.statusText}`));
             }
-        }
+        };
 
         // On Error
         xhr.onerror = () => {
             reject(new Error("Failed to download file"));
-        }
+        };
 
         // Send Request
         xhr.send();

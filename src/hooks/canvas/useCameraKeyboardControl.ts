@@ -15,11 +15,11 @@ export default function useCameraKeyboardControl(stageRef: React.RefObject<Konva
 
         if (e.ctrlKey && e.key === "=") {
             e.preventDefault();
-            zoomCanvas(stage, ZOOM_SPEED)
+            zoomCanvas(stage, ZOOM_SPEED);
         }
         if (e.ctrlKey && e.key === "-") {
             e.preventDefault();
-            zoomCanvas(stage, -ZOOM_SPEED)
+            zoomCanvas(stage, -ZOOM_SPEED);
         }
         if (e.shiftKey && e.key === "ArrowUp") {
             e.preventDefault();

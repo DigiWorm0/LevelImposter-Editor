@@ -1,13 +1,13 @@
-import { Provider as StateProvider } from 'jotai';
-import primaryStore from '../../hooks/primaryStore';
-import Content from './Content';
+import { Provider as StateProvider } from "jotai";
+import primaryStore from "../../hooks/primaryStore";
+import Content from "./Content";
 import { HotkeysProvider } from "react-hotkeys-hook";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 
 const darkTheme = createTheme({
     palette: {
-        mode: 'dark'
+        mode: "dark"
     },
     typography: {
         h1: { fontWeight: "bold" },

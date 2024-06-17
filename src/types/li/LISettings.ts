@@ -36,4 +36,4 @@ export const DEFAULT_SETTINGS: LISettings = {
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
-}
+};

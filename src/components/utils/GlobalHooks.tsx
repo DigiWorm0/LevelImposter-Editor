@@ -29,7 +29,7 @@ export default function GlobalHooks() {
 
         return () => {
             window.removeEventListener("beforeunload", onBeforeUnload);
-        }
+        };
     }, [isEmbedded]);
 
     React.useEffect(() => {

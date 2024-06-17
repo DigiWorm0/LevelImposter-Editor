@@ -6,7 +6,7 @@ import { Button, TextField } from "@mui/material";
 
 export default function MapName() {
     const { t, i18n } = useTranslation();
-    const [mapName, setMapName] = useMapName()
+    const [mapName, setMapName] = useMapName();
     const [isEditingName, setIsEditingName] = React.useState(false);
     const [name, setName] = React.useState(mapName);
 
@@ -17,14 +17,14 @@ export default function MapName() {
     React.useEffect(() => {
         if (!isEditingName)
             setMapName(name);
-    }, [isEditingName])
+    }, [isEditingName]);
 
     React.useEffect(() => {
         if (isDefaultName(name)) {
             setName(t("map.new") as string);
             setMapName(t("map.new") as string);
         }
-    }, [i18n.language])
+    }, [i18n.language]);
 
     if (!isEditingName) {
         return (

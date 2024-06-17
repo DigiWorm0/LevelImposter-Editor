@@ -15,5 +15,5 @@ export default function ExpandText(props: ExpandTextProps) {
         <span onClick={() => setExpanded(!expanded)}>
             {text}
         </span>
-    )
+    );
 }

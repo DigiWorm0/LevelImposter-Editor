@@ -36,7 +36,7 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
             e.evt.preventDefault();
         }
     }, []);
-    const onMouseMove = React.useCallback((e: MouseEvent) => {
+    const onMouseMove = React.useCallback(() => {
         const stage = stageRef.current;
         if (!stage)
             return;
@@ -64,11 +64,11 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
 
         if (e.ctrlKey && e.key === "=") {
             e.preventDefault();
-            zoomCanvas(stage, 100)
+            zoomCanvas(stage, 100);
         }
         if (e.ctrlKey && e.key === "-") {
             e.preventDefault();
-            zoomCanvas(stage, -100)
+            zoomCanvas(stage, -100);
         }
     }, []);
 
