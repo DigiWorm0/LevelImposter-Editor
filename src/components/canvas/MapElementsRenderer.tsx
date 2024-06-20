@@ -1,10 +1,14 @@
 import MapElement from "./MapElement";
 import useElementIDs from "../../hooks/elements/useElementIDs";
+import ErrorBoundary from "../utils/ErrorBoundary";
+import MapElementError from "./MapElementError";
 
 export default function MapElementsRenderer() {
     const elementIDs = useElementIDs();
 
     return elementIDs.map(elementID => (
-        <MapElement key={elementID} elementID={elementID} />
+        <ErrorBoundary fallback={<MapElementError elementID={elementID} />} key={elementID}>
+            <MapElement elementID={elementID} />
+        </ErrorBoundary>
     ));
 }

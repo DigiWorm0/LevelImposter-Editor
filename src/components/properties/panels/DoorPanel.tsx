@@ -13,7 +13,7 @@ import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType
 import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
 import { useElementValue } from "../../../hooks/elements/useElements";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
-import { VolumeUp } from "@mui/icons-material";
+import { Room, VolumeUp } from "@mui/icons-material";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
@@ -78,7 +78,7 @@ export default function DoorPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!parentRoom}
-                icon="Room"
+                icon={<Room />}
             >
                 {t("door.errorNoRoom")}
             </MapError>
