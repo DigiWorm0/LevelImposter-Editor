@@ -4,6 +4,7 @@ import Konva from "konva";
 import atomWithListeners from "../../utils/jotai/atomWithListeners";
 import { elementFamilyAtom } from "../elements/useElements";
 import { UNITY_SCALE } from "../../types/generic/Constants";
+import useUpdateCameraPos from "./useCameraPos";
 
 const [cameraElementIDAtom, useCameraElementIDListener] = atomWithListeners<MaybeGUID>(undefined);
 export { cameraElementIDAtom };
@@ -11,6 +12,8 @@ export { cameraElementIDAtom };
 const ANIM_DURATION = 300;
 
 export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Stage>) {
+    const updateCameraPos = useUpdateCameraPos(stageRef);
+
     useCameraElementIDListener((get, set, cameraElementID) => {
         const cameraElement = get(elementFamilyAtom(cameraElementID));
         if (!cameraElement)
@@ -19,17 +22,6 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
         const stage = stageRef.current;
         if (!stage)
             return;
-
-        /*
-        stage.position({
-            x: -cameraElement.x * UNITY_SCALE + (window.innerWidth / 2),
-            y: cameraElement.y * UNITY_SCALE + (window.innerHeight / 2)
-        });
-        stage.scale({
-            x: 1,
-            y: 1
-        });
-        */
 
         // Get Start/End Position
         const startPosition = stage.position() ?? { x: 0, y: 0 };
@@ -64,6 +56,9 @@ export default function useCameraJumpControl(stageRef: React.RefObject<Konva.Sta
                 x: startScale + (endScale - startScale) * curvedProgress,
                 y: startScale + (endScale - startScale) * curvedProgress
             });
+
+            // Update Camera Position
+            updateCameraPos();
 
             // Stop Animation
             if (progress >= 1)

@@ -1,7 +1,7 @@
 import { useHotkeys } from "react-hotkeys-hook";
 import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
 import generateGUID from "../../utils/strings/generateGUID";
-import useAddElementAtMouse from "../elements/useAddElementAtMouse";
+import useAddElementAtCamera from "../elements/useAddElementAtCamera";
 import { useRemoveSelectedElement } from "../elements/useRemoveElement";
 import { useSelectedElemValue, useSetSelectedElemID } from "../elements/useSelectedElem";
 import useSaveMap from "../fileio/useSaveMap";
@@ -21,7 +21,7 @@ export default function useHotkeysHandler() {
     const undo = useUndo();
     const redo = useRedo();
     const selectedElem = useSelectedElemValue();
-    const addElementAtMouse = useAddElementAtMouse();
+    const addElementAtMouse = useAddElementAtCamera();
     const removeSelectedElement = useRemoveSelectedElement();
     const [settings, setSettings] = useSettings();
     const setSelectedID = useSetSelectedElemID();

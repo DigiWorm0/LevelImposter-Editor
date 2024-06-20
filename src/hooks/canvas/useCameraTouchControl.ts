@@ -4,8 +4,10 @@ import Konva from "konva";
 import getCenter from "../../utils/math/getCenter";
 import getDistance from "../../utils/math/getDistance";
 import Point from "../../types/generic/Point";
+import useUpdateCameraPos from "./useCameraPos";
 
 export default function useCameraTouchControl(stageRef: React.RefObject<Konva.Stage>) {
+    const updateCameraPos = useUpdateCameraPos(stageRef);
     let lastCenter: Point | null = null;
     let lastDist = 0;
 
@@ -71,6 +73,7 @@ export default function useCameraTouchControl(stageRef: React.RefObject<Konva.St
             // Set New Camera Position
             stage.scale({ x: scale, y: scale });
             stage.position({ x: newX, y: newY });
+            updateCameraPos();
 
             // Save Last Center/Distance
             lastDist = dist;

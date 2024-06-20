@@ -36,7 +36,7 @@ export default function MapElementError(props: SelectedObjectErrorProps) {
                 text={"See console for more details"}
                 fill={"#802929"}
                 stroke={"#000"}
-                strokeWidth={0.8}
+                strokeWidth={0.75}
                 fontSize={30}
                 x={x - window.innerWidth / 2}
                 y={-y - window.innerHeight / 2 + 35}

@@ -4,8 +4,10 @@ import Konva from "konva";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import useSetMouse from "../input/useMouse";
 import zoomCanvas from "../../utils/canvas/zoomCanvas";
+import useUpdateCameraPos from "./useCameraPos";
 
 export default function useCameraMouseControl(stageRef: React.RefObject<Konva.Stage>) {
+    const updateCameraPos = useUpdateCameraPos(stageRef);
     const setMouse = useSetMouse();
 
     // Zoom
@@ -16,6 +18,7 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
 
         e.evt.preventDefault();
         zoomCanvas(stage, -e.evt.deltaY);
+        updateCameraPos();
     }, []);
 
     // Click and Drag
@@ -49,27 +52,12 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
             x: mouseX / UNITY_SCALE,
             y: -mouseY / UNITY_SCALE
         });
+        updateCameraPos();
     }, [setMouse]);
 
     // Prevent Right Click
     const onContextMenu = React.useCallback((e: KonvaEventObject<MouseEvent>) => {
         e.evt.preventDefault();
-    }, []);
-
-    // Keybinds
-    const onKeyDown = React.useCallback((e: KeyboardEvent) => {
-        const stage = stageRef.current;
-        if (!stage)
-            return;
-
-        if (e.ctrlKey && e.key === "=") {
-            e.preventDefault();
-            zoomCanvas(stage, 100);
-        }
-        if (e.ctrlKey && e.key === "-") {
-            e.preventDefault();
-            zoomCanvas(stage, -100);
-        }
     }, []);
 
     React.useEffect(() => {
@@ -87,7 +75,6 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
         stage.on("mousedown", onMouseDown);
         stage.on("mouseup", onMouseUp);
         stage.on("contextmenu", onContextMenu);
-        window.addEventListener("keydown", onKeyDown);
 
         return () => {
             window.removeEventListener("mousemove", onMouseMove);
@@ -95,7 +82,6 @@ export default function useCameraMouseControl(stageRef: React.RefObject<Konva.St
             stage.off("mousedown", onMouseDown);
             stage.off("mouseup", onMouseUp);
             stage.off("contextmenu", onContextMenu);
-            window.removeEventListener("keydown", onKeyDown);
         };
-    }, [onScroll, onMouseDown, onMouseUp, onMouseMove, onContextMenu, onKeyDown, stageRef]);
+    }, [onScroll, onMouseDown, onMouseUp, onMouseMove, onContextMenu, stageRef]);
 }

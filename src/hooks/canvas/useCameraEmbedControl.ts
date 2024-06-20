@@ -2,9 +2,11 @@ import useEmbed from "../embed/useEmbed";
 import React from "react";
 import zoomCanvas from "../../utils/canvas/zoomCanvas";
 import Konva from "konva";
+import useUpdateCameraPos from "./useCameraPos";
 
 export default function useCameraEmbedControl(stageRef: React.RefObject<Konva.Stage>) {
     const isEmbedded = useEmbed();
+    const updateCameraPos = useUpdateCameraPos(stageRef);
 
     // Embed
     React.useEffect(() => {
@@ -16,5 +18,6 @@ export default function useCameraEmbedControl(stageRef: React.RefObject<Konva.St
             x: window.innerWidth / 2,
             y: window.innerHeight / 2
         });
+        updateCameraPos();
     }, [isEmbedded]);
 }
