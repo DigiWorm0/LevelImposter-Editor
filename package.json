@@ -21,6 +21,7 @@
 		"@mui/icons-material": "^5.15.17",
 		"@mui/material": "^5.15.17",
 		"firebase": "^10.12.2",
+		"gifler": "^0.1.0",
 		"i18next": "^23.2.3",
 		"i18next-browser-languagedetector": "^7.1.0",
 		"i18next-http-backend": "^2.2.1",

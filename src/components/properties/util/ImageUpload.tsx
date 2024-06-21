@@ -7,10 +7,11 @@ import ColorPicker from "../../utils/ColorPicker";
 import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/generic/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
-import { Button, ButtonGroup } from "@mui/material";
+import { Box, Button, ButtonGroup } from "@mui/material";
 import { CloudUpload, Done, Refresh } from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import SizeTag from "../../utils/SizeTag";
 
 interface ImageUploadProps {
     name: string;
@@ -78,13 +79,14 @@ export default function ImageUpload(props: ImageUploadProps) {
             {props.showName && (
                 <h4 style={{
                     marginTop: 2
-                }}>
+                }}
+                >
                     {props.name}
                 </h4>
             )}
 
             {/* Image Preview */}
-            <div style={{ textAlign: "center", padding: 15 }}>
+            <Box style={{ textAlign: "center", padding: 1 }}>
                 <img
                     style={{
                         maxHeight: 100,
@@ -93,7 +95,10 @@ export default function ImageUpload(props: ImageUploadProps) {
                     src={asset?.url ?? props.defaultSpriteURL}
                     alt={props.name}
                 />
-            </div>
+            </Box>
+
+            {/* Size Tag */}
+            <SizeTag assetID={props.assetID} />
 
             {/* Buttons */}
             <ButtonGroup fullWidth>
@@ -147,20 +152,25 @@ export default function ImageUpload(props: ImageUploadProps) {
                     textAlign: "center",
                     zIndex: 1000,
                     pointerEvents: "none",
-                }}>
+                }}
+            >
 
                 <CloudUpload
                     style={{ marginRight: 10, fontSize: 40 }}
                 />
-                <span style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                }}>
+                <span
+                    style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                    }}
+                >
                     {t("sprite.upload")}
                 </span>
-                <span style={{
-                    fontSize: 14,
-                }}>
+                <span
+                    style={{
+                        fontSize: 14,
+                    }}
+                >
                     {props.name}
                 </span>
             </div>

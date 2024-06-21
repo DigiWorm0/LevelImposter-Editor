@@ -61,7 +61,8 @@ export default function DownloadCanvasDialog(props: { isVisible: boolean, setVis
                         justifyContent: "center",
                         margin: 10
                     }}
-                    listening={false}>
+                    listening={false}
+                >
 
                     <Provider store={primaryStore}>
                         <Layer>

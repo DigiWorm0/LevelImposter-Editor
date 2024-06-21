@@ -42,7 +42,8 @@ export default function PanelContainer(props: PanelContainerProps) {
                             Error loading object, <br />
                             see console for more details
                         </Typography>
-                    }>
+                    }
+                    >
                         {props.children}
                     </ErrorBoundary>
                 </CardContent>

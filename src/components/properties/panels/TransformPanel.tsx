@@ -59,18 +59,13 @@ export default function TransformPanel() {
                 style={{ paddingTop: 0 }}
             >
                 <TextField
-                    key={selectedElemID + "-strings"}
+                    key={selectedElemID + "-type"}
                     disabled={!isDevMode}
                     size={"small"}
                     variant={"standard"}
                     defaultValue={type}
-                    placeholder={t("transform.strings") as string}
+                    placeholder={t("transform.type") as string}
                     InputProps={{
-                        startAdornment: (
-                            <InputAdornment position={"start"}>
-                                {t("transform.strings")}
-                            </InputAdornment>
-                        ),
                         endAdornment: (
                             <InputAdornment position={"end"}>
                                 {AUElementDB.includes(type || "") ? t(`au.${type}`) : "?"}

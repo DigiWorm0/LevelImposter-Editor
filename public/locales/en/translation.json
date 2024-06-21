@@ -773,6 +773,7 @@
 			"invisibleOpacity": "Invisible Opacity",
 			"localization": "Localization",
 			"showRoomName": "Show Room Name",
+			"animateGIF": "Animate GIFs",
 			"showInfo": "Show Inspector Tips",
 			"audioDownmix": "Audio Downmix"
 		},

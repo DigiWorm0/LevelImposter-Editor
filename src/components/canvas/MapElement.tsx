@@ -1,6 +1,5 @@
 import React from "react";
-import { Group, Image, Rect } from "react-konva";
-import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
+import { Group, Rect } from "react-konva";
 import { useIsSelectedCollider } from "../../hooks/elements/colliders/useSelectedCollider";
 import useElement from "../../hooks/elements/useElements";
 import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
@@ -12,6 +11,8 @@ import getElemVisibility, { ElemVisibility } from "../../utils/map/getMapVisibil
 import setCursor from "../../utils/canvas/setCursor";
 import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
+import MapElementImage from "./MapElementImage";
+import useSprite from "../../hooks/canvas/sprite/useSprite";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -27,7 +28,7 @@ export default function MapElement(props: { elementID: GUID }) {
     const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
-    const coloredSprite = useColoredSprite(props.elementID);
+    const coloredSprite = useSprite(props.elementID);
 
     if (!elem || elem.type === "util-layer")
         return null;
@@ -88,13 +89,9 @@ export default function MapElement(props: { elementID: GUID }) {
             listening={!isColliderSelected && !isEmbedded && isVisible}
         >
 
-            <Image
-                opacity={opacity}
-                x={-w / 2}
-                y={-h / 2}
-                width={w}
-                height={h}
-                image={coloredSprite}
+            <MapElementImage
+                elementID={props.elementID}
+                imageProps={{ opacity }}
             />
 
             {(isSelected || isHovering) && (

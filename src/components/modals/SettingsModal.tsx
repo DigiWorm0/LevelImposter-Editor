@@ -16,6 +16,7 @@ import {
     Info,
     Layers,
     LineWeight,
+    PlayCircle,
     ShapeLine,
     SwapVert,
     Visibility,
@@ -63,6 +64,11 @@ export default function SettingsModal(props: SettingsModalProps) {
                 name={t("settings.interface.showRoomName")}
                 prop="isRoomNameVisible"
                 icon={<Article />}
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.animateGIF")}
+                prop="animateGIFOnSelect"
+                icon={<PlayCircle />}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.showInfo")}
