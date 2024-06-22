@@ -11,11 +11,14 @@ const PRIMARY_BG = "#19333d";
 const PRIMARY_FG = "primary.main";
 
 export function SceneGraphListItem(props: SceneGraphListItemProps) {
+
+    const listItemProps = { ...props, isGroup: null };
+
     const foreground = props.isGroup ? PRIMARY_FG : SUCCESS_FG;
     const background = props.isGroup ? PRIMARY_BG : SUCCESS_BG;
     return (
         <ListItem
-            {...props}
+            {...listItemProps}
             sx={{
                 // Selected
                 "&& .Mui-selected, && .Mui-selected:hover": {

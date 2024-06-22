@@ -1,10 +1,10 @@
-import GUID from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/generic/GUID";
 import { Box, Chip } from "@mui/material";
 import { useMapAssetValue } from "../../hooks/assets/useMapAsset";
 import toSizeString from "../../utils/strings/toSizeString";
 
 export interface SizeTagProps {
-    assetID?: GUID;
+    assetID: MaybeGUID;
 }
 
 const GOOD_SIZE = 1000 * 1000 * 2; // 2MB
@@ -21,7 +21,6 @@ export default function SizeTag(props: SizeTagProps) {
 
     return (
         <Box sx={{ textAlign: "center", p: 1 }}>
-
             <Chip
                 color={sizeColor}
                 label={sizeString}

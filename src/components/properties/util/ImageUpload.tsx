@@ -77,10 +77,7 @@ export default function ImageUpload(props: ImageUploadProps) {
         >
             {/* Title */}
             {props.showName && (
-                <h4 style={{
-                    marginTop: 2
-                }}
-                >
+                <h4 style={{ marginTop: 2 }}>
                     {props.name}
                 </h4>
             )}

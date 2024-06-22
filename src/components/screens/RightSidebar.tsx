@@ -29,10 +29,12 @@ import OneWayColliderPanel from "../properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../properties/panels/SabotagesPanel";
 import SporePanel from "../properties/panels/SporePanel";
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import CustomTextPanel from "../properties/panels/CustomTextPanel";
 import DeathTriggerPanel from "../properties/panels/DeathTriggerPanel";
 import CameraShakePanel from "../properties/panels/CameraShakePanel";
+import React from "react";
+import ErrorBoundary from "../utils/ErrorBoundary";
 
 export default function RightSidebar() {
     return (
@@ -59,41 +61,55 @@ export default function RightSidebar() {
                     overflowY: "auto"
                 }}
             >
-                <TransformPanel />
-                <DebugPanel />
-                <SpritePanel />
-                <RoomPanel />
-                <TaskPanel />
-                <DoorPanel />
-                <SabPanel />
-                <MinigamePanel />
-                <ConsolePanel />
-                <StarfieldPanel />
-                <FloatingPanel />
-                <ScrollingPanel />
-                <LadderPanel />
-                <MeetingPanel />
-                <SabotagesPanel />
-                <VentPanel />
-                <TelePanel />
-                <DisplayPanel />
-                <CamPanel />
-                <SpawnPanel />
-                <PlatformPanel />
-                <SoundPanel />
-                <StepSoundPanel />
-                <TimerPanel />
-                <OneWayColliderPanel />
-                <DecontaminationPanel />
-                <SporePanel />
-                <DeathTriggerPanel />
-                <CameraShakePanel />
 
-                <CustomTextPanel />
-                <TriggerPanel />
-                <ColliderPanel />
-                <MinimapPanel />
-                <MinimapSpritePanel />
+                <ErrorBoundary
+                    fallback={
+                        <Typography
+                            variant={"body2"}
+                            color={"textSecondary"}
+                            sx={{ textAlign: "center", mt: 4 }}
+                        >
+                            Error loading inspector, <br />
+                            see console for more details
+                        </Typography>
+                    }
+                >
+                    <TransformPanel />
+                    <DebugPanel />
+                    <SpritePanel />
+                    <RoomPanel />
+                    <TaskPanel />
+                    <DoorPanel />
+                    <SabPanel />
+                    <MinigamePanel />
+                    <ConsolePanel />
+                    <StarfieldPanel />
+                    <FloatingPanel />
+                    <ScrollingPanel />
+                    <LadderPanel />
+                    <MeetingPanel />
+                    <SabotagesPanel />
+                    <VentPanel />
+                    <TelePanel />
+                    <DisplayPanel />
+                    <CamPanel />
+                    <SpawnPanel />
+                    <PlatformPanel />
+                    <SoundPanel />
+                    <StepSoundPanel />
+                    <TimerPanel />
+                    <OneWayColliderPanel />
+                    <DecontaminationPanel />
+                    <SporePanel />
+                    <DeathTriggerPanel />
+                    <CameraShakePanel />
+
+                    <CustomTextPanel />
+                    <TriggerPanel />
+                    <ColliderPanel />
+                    <MinimapPanel />
+                    <MinimapSpritePanel />
+                </ErrorBoundary>
 
                 <div style={{ minHeight: 150 }} />
             </Box>

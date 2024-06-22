@@ -36,8 +36,22 @@ export default function DebugPanel() {
             <List dense>
                 {keys.map((key, index) => {
                     const value = values[index];
-                    let stringValue = JSON.stringify(value, null, 2);
-                    stringValue = stringValue.substring(0, 100) + (stringValue.length > 100 ? "..." : "");
+                    let stringValue = "unknown";
+
+                    if (value === null)
+                        stringValue = "null";
+                    else if (typeof value === "undefined")
+                        stringValue = "undefined";
+                    else if (typeof value === "string")
+                        stringValue = value;
+                    else if (typeof value === "number")
+                        stringValue = value.toString();
+                    else if (typeof value === "boolean")
+                        stringValue = value ? "true" : "false";
+                    else if (typeof value === "object") {
+                        stringValue = JSON.stringify(value, null, 2) ?? "";
+                        stringValue = stringValue.substring(0, 100) + (stringValue.length > 100 ? "..." : "");
+                    }
 
                     // Icons
                     const isArray = Array.isArray(value);
