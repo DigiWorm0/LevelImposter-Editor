@@ -54,7 +54,7 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                                     <InputAdornment position={"end"}>
                                         {props.label}
                                     </InputAdornment>
-                                ),
+                                )
                             }
                         }}
                     />

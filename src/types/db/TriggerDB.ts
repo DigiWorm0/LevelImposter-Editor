@@ -30,6 +30,11 @@ const OutputTriggerDB: Record<string, string[]> = {
     "util-triggerstart": [
         "onStart",
     ],
+    "util-triggeranim": [
+        "onPlay",
+        "onPause",
+        "onStop",
+    ],
     "util-sabotages": [
         "onOxygenStart",
         "onLightsStart",
@@ -98,6 +103,11 @@ const InputTriggerDB: Record<string, string[]> = {
         "playonce",
         "playloop",
         "stop",
+    ],
+    "util-triggeranim": [
+        "playAnim",
+        "pauseAnim",
+        "stopAnim"
     ],
     "sab-doorv": [
         "open",

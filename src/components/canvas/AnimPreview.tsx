@@ -8,8 +8,9 @@ import { DEFAULT_KEYFRAMES } from "../../types/li/LIAnimKeyframe";
 export default function AnimPreview() {
     const isAnim = useIsSelectedElemType("util-triggeranim");
     const _animKeyframes = useSelectedElemPropValue("animKeyframes");
+    const targetID = useSelectedElemPropValue("animTargetID");
     const { animPreview } = useSettingsValue();
-    const { relativeToAbsolute } = useAdjustPoint();
+    const { relativeToAbsolute } = useAdjustPoint(targetID);
 
     const animKeyframes = _animKeyframes ?? DEFAULT_KEYFRAMES;
 
@@ -28,6 +29,7 @@ export default function AnimPreview() {
                     y: -(animKeyframes[0].y ?? 0)
                 });
 
+                ctx.ellipse(initialPoint.x, initialPoint.y, 2, 2, 0, 0, Math.PI * 2);
                 ctx.moveTo(initialPoint.x, initialPoint.y);
                 animKeyframes.forEach(k => {
                     const point = relativeToAbsolute({
@@ -35,12 +37,17 @@ export default function AnimPreview() {
                         y: -(k.y ?? 0)
                     });
                     ctx.lineTo(point.x, point.y);
+                    ctx.moveTo(point.x, point.y);
+                    ctx.ellipse(point.x, point.y, 2, 2, 0, 0, Math.PI * 2);
+                    ctx.moveTo(point.x, point.y);
                 });
 
                 ctx.fillStrokeShape(shape);
             }}
-            stroke={"green"}
-            strokeWidth={1}
+            stroke={"#1c983a"}
+            fill={"#1c983a"}
+            strokeWidth={2}
+            opacity={0.5}
             listening={false}
         />
     );

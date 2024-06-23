@@ -21,7 +21,8 @@ export default interface LIAnimKeyframe {
 export const DEFAULT_KEYFRAMES: LIAnimKeyframe[] = [
     { id: generateGUID(), t: 0 },
     { id: generateGUID(), t: 0.5, nextCurve: "easeInOut" },
-    { id: generateGUID(), t: 1.5, x: 1, y: 1, xScale: 2, yScale: 2, rotation: 90, nextCurve: "easeInOut" },
-    { id: generateGUID(), t: 2, x: 1, y: 0, xScale: 2, yScale: 2, rotation: 90, nextCurve: "easeInOut" },
-    { id: generateGUID(), t: 3 },
+    { id: generateGUID(), t: 1.5, x: 1, y: 1, xScale: 2, yScale: 0.5, rotation: 90, nextCurve: "easeIn" },
+    { id: generateGUID(), t: 2, x: 1, y: 0, xScale: 2, yScale: 0.5, rotation: 90 },
+    { id: generateGUID(), t: 2.25, x: 1, y: 0, xScale: 2, yScale: 0.5, rotation: 90, nextCurve: "easeInOut" },
+    { id: generateGUID(), t: 3.25 },
 ];

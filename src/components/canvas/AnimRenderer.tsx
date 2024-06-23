@@ -22,8 +22,8 @@ export default function AnimRenderer() {
     const imageRef = React.useRef<Konva.Group | null>(null);
 
     const animKeyframes = _animKeyframes ?? DEFAULT_KEYFRAMES;
-    const w = sprite?.width ?? 0;
-    const h = sprite?.height ?? 0;
+    const w = (sprite?.width ?? 0) * (animTarget?.xScale ?? 1);
+    const h = (sprite?.height ?? 0) * (animTarget?.yScale ?? 1);
 
     React.useEffect(() => {
         if (!isAnim || !animPreview || !sprite || !animKeyframes)
@@ -108,11 +108,15 @@ export default function AnimRenderer() {
             y={0}
             rotation={0}
             ref={imageRef}
+            listening={false}
         >
             <Image
                 image={sprite}
                 x={-w / 2}
                 y={-h / 2}
+                width={w}
+                height={h}
+
                 listening={false}
             />
         </Group>

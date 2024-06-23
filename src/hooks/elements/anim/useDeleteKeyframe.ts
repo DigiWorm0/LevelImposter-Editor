@@ -2,7 +2,7 @@ import { atom, useSetAtom } from "jotai";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import { selectedElementPropAtom } from "../useSelectedElemProperty";
 import { selectedKeyframeIDAtom } from "./useSelectedKeyframe";
-import LIAnimKeyframe from "../../../types/li/LIAnimKeyframe";
+import LIAnimKeyframe, { DEFAULT_KEYFRAMES } from "../../../types/li/LIAnimKeyframe";
 
 export const deleteKeyframeAtom = atom(null, (get, set, keyframeID: MaybeGUID) => {
     if (!keyframeID)
@@ -10,9 +10,7 @@ export const deleteKeyframeAtom = atom(null, (get, set, keyframeID: MaybeGUID) =
 
     // Get the keyframes
     const keyframesAtom = selectedElementPropAtom("animKeyframes");
-    const keyframes = get(keyframesAtom) as LIAnimKeyframe[];
-    if (!keyframes)
-        return;
+    const keyframes = (get(keyframesAtom) as LIAnimKeyframe[]) ?? DEFAULT_KEYFRAMES;
 
     // Remove the keyframes
     const filteredKeyframes = keyframes.filter(c => c.id !== keyframeID);

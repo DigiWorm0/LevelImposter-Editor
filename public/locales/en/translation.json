@@ -528,10 +528,15 @@
 	"anim": {
 		"title": "Animation",
 		"target": "Target",
+		"time": "Time (s)",
 		"keyframes": "Keyframes",
 		"addKeyframe": "Add Keyframe",
 		"noTargets": "No elements to animate",
-		"selectTarget": "Select target to animate"
+		"selectTarget": "Select target to animate",
+		"linear": "Linear",
+		"easeIn": "Ease In",
+		"easeOut": "Ease Out",
+		"easeInOut": "Ease In-Out"
 	},
 	"timer": {
 		"title": "Timer Trigger",
@@ -842,6 +847,9 @@
 		"onLightsEnd": "Lights Fixed",
 		"onCommsEnd": "Comms Fixed",
 		"onMixupEnd": "Mixup Fixed",
+		"onPlay": "On Play",
+		"onPause": "On Pause",
+		"onStop": "On Stop",
 		"startOxygen": "Sabotage Oxygen",
 		"startReactor": "Sabotage Reactor",
 		"startLights": "Sabotage Lights",
@@ -853,7 +861,10 @@
 		"endComms": "Fix Comms",
 		"endMixup": "Fix Mixup",
 		"killArea": "Kill Players in Area",
-		"onKill": "On Kill"
+		"onKill": "On Kill",
+		"playAnim": "Play Animation",
+		"pauseAnim": "Pause Animation",
+		"stopAnim": "Stop Animation"
 	},
 	"au": {
 		"undefined": "Unknown Object",
