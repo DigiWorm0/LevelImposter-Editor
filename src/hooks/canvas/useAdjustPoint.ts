@@ -7,6 +7,7 @@ export const relativeToAbsoluteAtom = atom(null, (get, _, point: Point) => {
 
     // Get Selected Element
     const selectedElem = get(selectedElementAtom);
+
     const { x, y, xScale, yScale, rotation } = selectedElem || { x: 0, y: 0, xScale: 1, yScale: 1, rotation: 0 };
 
     // Scale and Rotate Point

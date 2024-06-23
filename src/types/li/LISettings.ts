@@ -11,6 +11,8 @@ export default interface LISettings {
     invisibleOpacity: number;
     colliderHandleSize: number;
     colliderPreview: boolean;
+    animPreview: boolean;
+    connectionsPreview: boolean;
     animateGIFOnSelect: boolean;
     language: string;
     scrollToSelection: boolean;
@@ -32,6 +34,8 @@ export const DEFAULT_SETTINGS: LISettings = {
     invisibleOpacity: 0.3,
     colliderHandleSize: 8,
     colliderPreview: true,
+    animPreview: true,
+    connectionsPreview: true,
     animateGIFOnSelect: true,
     language: "auto",
     scrollToSelection: true,

@@ -13,6 +13,8 @@ import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
 import MapElementImage from "./MapElementImage";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
+import { useSelectedElemPropValue } from "../../hooks/elements/useSelectedElemProperty";
+import AnimRenderer from "./AnimRenderer";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -20,10 +22,16 @@ const SECONDARY_RENDER_TYPES = [
     "util-blankfloat"
 ];
 
-export default function MapElement(props: { elementID: GUID }) {
+export interface MapElementProps {
+    elementID: GUID;
+}
+
+export default function MapElement(props: MapElementProps) {
     const setSelectedID = useSetSelectedElemID();
     const isEmbedded = useEmbed();
     const isColliderSelected = useIsSelectedCollider();
+    const animTargetID = useSelectedElemPropValue("animTargetID");
+    const isAnimTarget = animTargetID === props.elementID;
     const isSelected = useIsSelectedElem(props.elementID);
     const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
@@ -107,9 +115,8 @@ export default function MapElement(props: { elementID: GUID }) {
             )}
 
 
-            {isSelected && (
-                <SecondaryRender />
-            )}
+            {isSelected && <SecondaryRender />}
+            {isAnimTarget && <AnimRenderer />}
 
             {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
                 <RoomText name={elem.name} />

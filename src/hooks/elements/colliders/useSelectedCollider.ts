@@ -21,11 +21,6 @@ export const isSelectedColliderAtom = atom(
     }
 );
 
-// Debug
-selectedColliderIDAtom.debugLabel = "selectedColliderIDAtom";
-selectedColliderAtom.debugLabel = "selectedColliderAtom";
-isSelectedColliderAtom.debugLabel = "isSelectedColliderAtom";
-
 // Hooks
 export function useSelectedColliderID() {
     return useAtom(selectedColliderIDAtom);

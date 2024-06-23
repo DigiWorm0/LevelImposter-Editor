@@ -35,6 +35,7 @@ import DeathTriggerPanel from "../properties/panels/DeathTriggerPanel";
 import CameraShakePanel from "../properties/panels/CameraShakePanel";
 import React from "react";
 import ErrorBoundary from "../utils/ErrorBoundary";
+import AnimationPanel from "../properties/panels/AnimationPanel";
 
 export default function RightSidebar() {
     return (
@@ -103,6 +104,7 @@ export default function RightSidebar() {
                     <SporePanel />
                     <DeathTriggerPanel />
                     <CameraShakePanel />
+                    <AnimationPanel />
 
                     <CustomTextPanel />
                     <TriggerPanel />

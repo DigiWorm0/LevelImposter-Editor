@@ -12,6 +12,7 @@ const INVISIBLE_TYPES = [
     "util-triggerrand",
     "util-triggerdeath",
     "util-triggershake",
+    "util-triggeranim",
     "util-sound1",
     "util-sound2",
     "util-meeting",

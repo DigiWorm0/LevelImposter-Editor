@@ -4,10 +4,12 @@ import { useSelectedConnections } from "../../hooks/elements/useConnections";
 import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
 import { UNITY_SCALE } from "../../types/generic/Constants";
 import LIElement from "../../types/li/LIElement";
+import { useSettingsValue } from "../../hooks/useSettings";
 
 export default function ElemConnections() {
     const selectedElem = useSelectedElemValue();
     const [targetConnections, sourceConnections] = useSelectedConnections();
+    const { connectionsPreview } = useSettingsValue();
 
     const drawArrow = (from: LIElement, to: LIElement, offset: number, ctx: Context) => {
         const x1 = from.x * UNITY_SCALE;
@@ -47,7 +49,7 @@ export default function ElemConnections() {
         ctx.closePath();
     };
 
-    if (!selectedElem)
+    if (!selectedElem || !connectionsPreview)
         return null;
 
     return (

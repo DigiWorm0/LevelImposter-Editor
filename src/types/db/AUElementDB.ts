@@ -128,6 +128,7 @@ const AUElementDB: string[] = [
     "util-triggerdeath",
     "util-triggershake",
     //"util-triggerfilter", // TODO: Implement Trigger Filter
+    "util-triggeranim",
     "util-onewaycollider",
     "util-decontamination",
     "util-sabotages",

@@ -15,6 +15,7 @@ import StarfieldRender from "./StarfieldRender";
 import SporeRange from "./SporeRange";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import MapElementError from "./MapElementError";
+import AnimPreview from "./AnimPreview";
 
 export default function SelectedMapElement() {
     return (
@@ -31,6 +32,7 @@ export default function SelectedMapElement() {
                 <MinimapElement />
                 <ColliderPreview />
                 <ColliderEditor />
+                <AnimPreview />
                 <PlayerZRender />
                 <FloatingRender />
                 <StarfieldRender />

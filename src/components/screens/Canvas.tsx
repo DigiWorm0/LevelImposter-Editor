@@ -1,9 +1,7 @@
-import { Provider } from "jotai";
 import React from "react";
 import { Layer, Stage } from "react-konva";
 import CanvasGrid from "../canvas/CanvasGrid";
 import SelectedMapElement from "../canvas/SelectedMapElement";
-import primaryStore from "../../hooks/primaryStore";
 import { useMapProperties } from "../../hooks/map/useMap";
 import useCameraMouseControl from "../../hooks/canvas/useCameraMouseControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
@@ -61,13 +59,11 @@ export default function Canvas() {
                 imageSmoothingEnabled={properties.pixelArtMode !== true}
                 onClick={deselectAll}
             >
-                <Provider store={primaryStore}>
-                    <Layer>
-                        <MapElementsRenderer />
-                        <SelectedMapElement />
-                        <CanvasGrid />
-                    </Layer>
-                </Provider>
+                <Layer>
+                    <MapElementsRenderer />
+                    <SelectedMapElement />
+                    <CanvasGrid />
+                </Layer>
             </Stage>
         </Paper>
     );

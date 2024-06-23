@@ -29,6 +29,7 @@ const TYPE_BLACKLIST = [
     "util-triggerstart",
     "util-triggerdeath",
     "util-triggershake",
+    "util-triggeranim",
     "util-dummy",
     "util-display",
     "util-onewaycollider",

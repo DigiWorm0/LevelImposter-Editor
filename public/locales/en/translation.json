@@ -525,6 +525,14 @@
 		"noConnection": "No Connection",
 		"errorNoTeles": "This map does not have any other teleporters."
 	},
+	"anim": {
+		"title": "Animation",
+		"target": "Target",
+		"keyframes": "Keyframes",
+		"addKeyframe": "Add Keyframe",
+		"noTargets": "No elements to animate",
+		"selectTarget": "Select target to animate"
+	},
 	"timer": {
 		"title": "Timer Trigger",
 		"duration": "Duration in seconds",
@@ -775,6 +783,8 @@
 			"showRoomName": "Show Room Name",
 			"animateGIF": "Animate GIFs",
 			"showInfo": "Show Inspector Tips",
+			"showConnections": "Show Connections",
+			"animPreview": "Animation Preview",
 			"audioDownmix": "Audio Downmix"
 		},
 		"map": {
@@ -894,6 +904,7 @@
 		"util-triggerdeath": "Trigger Death",
 		"util-triggershake": "Trigger Screen Shake",
 		"util-triggerfilter": "Trigger Filter",
+		"util-triggeranim": "Trigger Animation",
 		"util-onewaycollider": "One-Way Collider",
 		"util-decontamination": "Decontamination System",
 		"util-sabotages": "Sabotage Options",

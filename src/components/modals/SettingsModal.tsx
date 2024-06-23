@@ -76,6 +76,16 @@ export default function SettingsModal(props: SettingsModalProps) {
                 icon={<Info />}
             />
             <SettingsSwitchInput
+                name={t("settings.interface.showConnections")}
+                prop="connectionsPreview"
+                icon={<ShapeLine />}
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.animPreview")}
+                prop="animPreview"
+                icon={<PlayCircle />}
+            />
+            <SettingsSwitchInput
                 name={t("settings.interface.audioDownmix")}
                 prop="isAudioDownmixEnabled"
                 icon={<VolumeUp />}
