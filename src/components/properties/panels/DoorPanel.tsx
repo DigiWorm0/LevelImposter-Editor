@@ -1,7 +1,7 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { MAX_DOOR_COUNT } from "../../../types/generic/Constants";
-import { DoorType } from "../../../types/generic/DoorType";
+import {useTranslation} from "react-i18next";
+import {MAX_DOOR_COUNT} from "../../../types/generic/Constants";
+import {DoorType} from "../../../types/generic/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorTypeSelect from "../input/select/DoorTypeSelect";
 import RoomSelect from "../input/select/RoomSelect";
@@ -10,16 +10,16 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { useElementValue } from "../../../hooks/elements/useElements";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useElementValue} from "../../../hooks/elements/useElements";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
-import { Room, VolumeUp } from "@mui/icons-material";
+import {Room, VolumeUp} from "@mui/icons-material";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
 
 export default function DoorPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const doorElemCount = useElementTypeCount("sab-door");
 
@@ -42,8 +42,13 @@ export default function DoorPanel() {
     return (
         <>
             <PanelContainer title={t("door.title") as string}>
-                <RoomSelect useDefault={true} />
-                <DoorTypeSelect />
+                <RoomSelect useDefault={true}/>
+                <DoorTypeSelect/>
+                <ElementPropSwitch
+                    name={t("door.defaultClosed")}
+                    prop="isDoorClosed"
+                    defaultValue={false}
+                />
                 <ElementPropSwitch
                     name={t("door.isInteractable")}
                     prop="isDoorInteractable"
@@ -55,13 +60,13 @@ export default function DoorPanel() {
                         {
                             id: DOOR_OPEN_SOUND,
                             name: t(`door.${DOOR_OPEN_SOUND}`) as string,
-                            icon: <VolumeUp />,
+                            icon: <VolumeUp/>,
                             intent: hasOpenSound ? "success" : "error",
                         },
                         {
                             id: DOOR_CLOSE_SOUND,
                             name: t(`door.${DOOR_CLOSE_SOUND}`) as string,
-                            icon: <VolumeUp />,
+                            icon: <VolumeUp/>,
                             intent: hasCloseSound ? "success" : "error",
                         }
                     ]}
@@ -78,14 +83,14 @@ export default function DoorPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!parentRoom}
-                icon={<Room />}
+                icon={<Room/>}
             >
                 {t("door.errorNoRoom")}
             </MapError>
             <MapError
                 isVisible={doorElemCount > MAX_DOOR_COUNT - 10}
             >
-                {t("door.errorMaxDoors", { count: doorElemCount, max: MAX_DOOR_COUNT })}
+                {t("door.errorMaxDoors", {count: doorElemCount, max: MAX_DOOR_COUNT})}
             </MapError>
         </>
     );

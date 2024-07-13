@@ -22,6 +22,7 @@ export default interface LIProperties {
     triggerCount?: number;
     triggerLoop?: boolean;
     createDeadBody?: boolean;
+    triggerFadeTime?: number;
 
     // Animations
     animTargetID?: GUID;
@@ -101,6 +102,7 @@ export default interface LIProperties {
     // Door
     doorType?: string;
     isDoorInteractable?: boolean;
+    isDoorClosed?: boolean;
 
     // Platform
     platformXOffset?: number;
