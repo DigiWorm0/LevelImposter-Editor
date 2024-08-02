@@ -153,6 +153,7 @@
     "isInteractable": "可互动",
     "doorOpen": "打开音效",
     "doorClose": "关闭音效",
+    "defaultClosed": "默认关闭",
     "none": "没有门",
     "globalInfo": "门状态是全局的,只能根据地图进行更改。",
     "errorNoRoom": "这扇门不与房间相连。",
@@ -353,7 +354,7 @@
     "leverbase": "杠杆底座",
     "leverbar": "杠杆",
     "leverhandle": "杠杆手柄",
-    "leverhead": "Lever Head",
+    "leverhead": "杠杆头",
     "icon": "图标",
     "end": "结尾",
     "paneltop": "顶部面板",
@@ -506,7 +507,7 @@
     "title": "任务",
     "defaultLength": "默认长度",
     "description": "任务描述",
-    "length": "Task Length",
+    "length": "任务长度",
     "room": "任务室",
     "Short": "短",
     "Long": "长",
@@ -524,6 +525,19 @@
     "ghostEnabledTooltip": "允许鬼魂使用传送器。",
     "noConnection": "无连接",
     "errorNoTeles": "该地图没有任何其他传送器。"
+  },
+  "anim": {
+    "title": "动画",
+    "target": "目标",
+    "time": "时间（秒）",
+    "keyframes": "关键帧",
+    "addKeyframe": "添加关键帧",
+    "noTargets": "没有可动画的元素",
+    "selectTarget": "选择要动画的目标",
+    "linear": "线性 (Linear)",
+    "easeIn": "缓入",
+    "easeOut": "缓出",
+    "easeInOut": "缓入缓出"
   },
   "timer": {
     "title": "定时器触发器",
@@ -664,8 +678,8 @@
     "printToConsole": "输出到控制台"
   },
   "onewaycollider": {
-    "title": "单向碰撞机",
-    "ignoreImposter": "忽略冒名顶替者",
+    "title": "单向碰撞体",
+    "ignoreImposter": "忽略内鬼",
     "infoIgnoreImposter": "启用后，冒名顶替者将看不到此碰撞体。",
     "errorNoRoom": "该对象没有房间。碰撞体将无法正常工作。"
   },
@@ -681,7 +695,7 @@
     "converting": "正在转换旧地图，请稍候...",
     "opened": "打开 {0}",
     "new": "新建文件",
-    "play": "发射地图",
+    "play": "游玩地图",
     "save": "保存文件",
     "edit": "编辑地图",
     "unlisted": "其他",
@@ -773,7 +787,10 @@
       "invisibleOpacity": "不透明度",
       "localization": "语言",
       "showRoomName": "显示房间名称",
+      "animateGIF": "动画 GIF",
       "showInfo": "显示检查器提示",
+      "showConnections": "显示连接",
+      "animPreview": "动画预览",
       "audioDownmix": "音频缩混"
     },
     "map": {
@@ -831,6 +848,9 @@
     "onLightsEnd": "灯光修复后\n",
     "onCommsEnd": "通讯修复后",
     "onMixupEnd": "混淆修复",
+    "onPlay": "在游戏中",
+    "onPause": "暂停时",
+    "onStop": "停止",
     "startOxygen": "破坏氧气",
     "startReactor": "破坏反应堆",
     "startLights": "破坏灯光",
@@ -842,7 +862,10 @@
     "endComms": "修复通讯",
     "endMixup": "修复混淆",
     "killArea": "杀死区域内的玩家",
-    "onKill": "击杀"
+    "onKill": "击杀",
+    "playAnim": "播放动画",
+    "pauseAnim": "暂停动画",
+    "stopAnim": "停止动画"
   },
   "au": {
     "undefined": "未知物体",
@@ -893,6 +916,7 @@
     "util-triggerdeath": "触发死亡",
     "util-triggershake": "触发屏幕震动",
     "util-triggerfilter": "触发过滤器",
+    "util-triggeranim": "触发动画",
     "util-onewaycollider": "单向碰撞机",
     "util-decontamination": "净化系统",
     "util-sabotages": "破坏选项",
