@@ -29,7 +29,7 @@ import OneWayColliderPanel from "../properties/panels/OneWayColliderPanel";
 import DecontaminationPanel from "../properties/panels/DecontaminationPanel";
 import SabotagesPanel from "../properties/panels/SabotagesPanel";
 import SporePanel from "../properties/panels/SporePanel";
-import { Box, Paper, Typography } from "@mui/material";
+import {Box, Paper, Typography} from "@mui/material";
 import CustomTextPanel from "../properties/panels/CustomTextPanel";
 import DeathTriggerPanel from "../properties/panels/DeathTriggerPanel";
 import CameraShakePanel from "../properties/panels/CameraShakePanel";
@@ -41,79 +41,75 @@ export default function RightSidebar() {
     return (
         <Paper
             elevation={1}
+            square
             sx={{
                 width: 300,
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                position: "fixed",
-                top: 0,
-                right: 0,
-                bottom: 0,
-                padding: 1,
+                padding: "0 10px",
                 overflowX: "hidden",
                 overflowY: "auto",
+                pointerEvents: "auto"
             }}
         >
             <Box
                 sx={{
-                    marginTop: 5,
                     overflowX: "hidden",
                     overflowY: "auto"
                 }}
             >
-
                 <ErrorBoundary
                     fallback={
                         <Typography
                             variant={"body2"}
                             color={"textSecondary"}
-                            sx={{ textAlign: "center", mt: 4 }}
+                            sx={{textAlign: "center", mt: 4}}
                         >
-                            Error loading inspector, <br />
+                            Error loading inspector, <br/>
                             see console for more details
                         </Typography>
                     }
                 >
-                    <TransformPanel />
-                    <DebugPanel />
-                    <SpritePanel />
-                    <RoomPanel />
-                    <TaskPanel />
-                    <DoorPanel />
-                    <SabPanel />
-                    <MinigamePanel />
-                    <ConsolePanel />
-                    <StarfieldPanel />
-                    <FloatingPanel />
-                    <ScrollingPanel />
-                    <LadderPanel />
-                    <MeetingPanel />
-                    <SabotagesPanel />
-                    <VentPanel />
-                    <TelePanel />
-                    <DisplayPanel />
-                    <CamPanel />
-                    <SpawnPanel />
-                    <PlatformPanel />
-                    <SoundPanel />
-                    <StepSoundPanel />
-                    <TimerPanel />
-                    <OneWayColliderPanel />
-                    <DecontaminationPanel />
-                    <SporePanel />
-                    <DeathTriggerPanel />
-                    <CameraShakePanel />
-                    <AnimationPanel />
+                    <TransformPanel/>
+                    <DebugPanel/>
+                    <SpritePanel/>
+                    <RoomPanel/>
+                    <TaskPanel/>
+                    <DoorPanel/>
+                    <SabPanel/>
+                    <MinigamePanel/>
+                    <ConsolePanel/>
+                    <StarfieldPanel/>
+                    <FloatingPanel/>
+                    <ScrollingPanel/>
+                    <LadderPanel/>
+                    <MeetingPanel/>
+                    <SabotagesPanel/>
+                    <VentPanel/>
+                    <TelePanel/>
+                    <DisplayPanel/>
+                    <CamPanel/>
+                    <SpawnPanel/>
+                    <PlatformPanel/>
+                    <SoundPanel/>
+                    <StepSoundPanel/>
+                    <TimerPanel/>
+                    <OneWayColliderPanel/>
+                    <DecontaminationPanel/>
+                    <SporePanel/>
+                    <DeathTriggerPanel/>
+                    <CameraShakePanel/>
+                    <AnimationPanel/>
 
-                    <CustomTextPanel />
-                    <TriggerPanel />
-                    <ColliderPanel />
-                    <MinimapPanel />
-                    <MinimapSpritePanel />
+                    <CustomTextPanel/>
+                    <TriggerPanel/>
+                    <ColliderPanel/>
+                    <MinimapPanel/>
+                    <MinimapSpritePanel/>
                 </ErrorBoundary>
 
-                <div style={{ minHeight: 150 }} />
+                <div style={{minHeight: 150}}/>
             </Box>
         </Paper>
     );

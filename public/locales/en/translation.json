@@ -534,6 +534,7 @@
     "addKeyframe": "Add Keyframe",
     "noTargets": "No elements to animate",
     "selectTarget": "Select target to animate",
+    "showTimeline": "Show Timeline",
     "linear": "Linear",
     "easeIn": "Ease In",
     "easeOut": "Ease Out",

@@ -1,14 +1,14 @@
 import React from "react";
-import { Layer, Stage } from "react-konva";
+import {Layer, Stage} from "react-konva";
 import CanvasGrid from "../canvas/CanvasGrid";
 import SelectedMapElement from "../canvas/SelectedMapElement";
-import { useMapProperties } from "../../hooks/map/useMap";
+import {useMapProperties} from "../../hooks/map/useMap";
 import useCameraMouseControl from "../../hooks/canvas/useCameraMouseControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
 import MapElementsRenderer from "../canvas/MapElementsRenderer";
-import { useHotkeysContext } from "react-hotkeys-hook";
-import { Scope } from "../../hooks/input/useHotkeysHandler";
-import { Paper } from "@mui/material";
+import {useHotkeysContext} from "react-hotkeys-hook";
+import {Scope} from "../../hooks/input/useHotkeysHandler";
+import {Paper} from "@mui/material";
 import useDeselectAll from "../../hooks/map/useDeselectAll";
 import useCameraKeyboardControl from "../../hooks/canvas/useCameraKeyboardControl";
 import useCameraTouchControl from "../../hooks/canvas/useCameraTouchControl";
@@ -19,7 +19,7 @@ import useCameraJumpControl from "../../hooks/canvas/useCameraJumpControl";
 export default function Canvas() {
     const [windowWidth, windowHeight] = useWindowSize();
     const [properties] = useMapProperties();
-    const { enableScope, disableScope } = useHotkeysContext();
+    const {enableScope, disableScope} = useHotkeysContext();
     const deselectAll = useDeselectAll();
 
     // Camera Controls
@@ -34,7 +34,7 @@ export default function Canvas() {
 
     return (
         <Paper
-            style={properties.bgColor ? { backgroundColor: properties.bgColor } : undefined}
+            style={properties.bgColor ? {backgroundColor: properties.bgColor} : undefined}
             tabIndex={-1}
             elevation={0}
             onFocus={() => enableScope(Scope.Canvas)}
@@ -43,9 +43,9 @@ export default function Canvas() {
                 position: "absolute",
                 top: 0,
                 left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: -1
+                width: "100%",
+                height: "100%",
+                pointerEvents: "auto"
             }}
         >
             <Stage
@@ -60,9 +60,9 @@ export default function Canvas() {
                 onClick={deselectAll}
             >
                 <Layer>
-                    <MapElementsRenderer />
-                    <SelectedMapElement />
-                    <CanvasGrid />
+                    <MapElementsRenderer/>
+                    <SelectedMapElement/>
+                    <CanvasGrid/>
                 </Layer>
             </Stage>
         </Paper>

@@ -13,49 +13,54 @@ import MapName from "../scenegraph/MapName";
 import MapAssetsButton from "../buttons/MapAssetsButton";
 import SettingsButton from "../buttons/SettingsButton";
 import MapPropertiesButton from "../buttons/MapPropertiesButton";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import {Paper, Typography} from "@mui/material";
 import NavDivider from "./NavDivider";
 import MapPublishButton from "../buttons/MapPublishButton";
 
 export default function Topbar() {
     return (
-        <div className="topbar">
-            <AppBar
-                elevation={1}
-                className="topbar-navbar"
-            >
-                <Toolbar
-                    style={{ minHeight: 50 }}
-                >
-                    <MapName />
+        <Paper
+            elevation={1}
+            square
+            sx={{
+                flexShrink: 0,
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                padding: "5px 20px",
+                overflowX: "hidden",
+                overflowY: "auto",
+                pointerEvents: "auto",
+                boxShadow: "0 4px 4px rgba(0,0,0,0.2)",
+                zIndex: 2
+            }}
+        >
+            <MapName/>
 
+            <NavDivider/>
+            <OpenMapButton/>
+            <NewMapButton/>
+            <SaveMapButton/>
+            <NavDivider/>
+            <AddObjectButton/>
+            <AddLayerButton/>
+            <NavDivider/>
+            <UndoButton/>
+            <RedoButton/>
+            <NavDivider/>
+            <CopyButton/>
+            <PasteButton/>
+            <DeleteObjectButton/>
+            <NavDivider/>
+            <MapAssetsButton/>
 
-                    <NavDivider />
-                    <OpenMapButton />
-                    <NewMapButton />
-                    <SaveMapButton />
-                    <NavDivider />
-                    <AddObjectButton />
-                    <AddLayerButton />
-                    <NavDivider />
-                    <UndoButton />
-                    <RedoButton />
-                    <NavDivider />
-                    <CopyButton />
-                    <PasteButton />
-                    <DeleteObjectButton />
-                    <NavDivider />
-                    <MapAssetsButton />
+            <Typography sx={{flexGrow: 1}}/>
 
-                    <Typography sx={{ flexGrow: 1 }} />
+            <SignInButton/>
+            <MapPublishButton/>
+            <MapPropertiesButton/>
+            <SettingsButton/>
 
-                    <SignInButton />
-                    <MapPublishButton />
-                    <MapPropertiesButton />
-                    <SettingsButton />
-                </Toolbar>
-
-            </AppBar>
-        </div>
+        </Paper>
     );
 }
