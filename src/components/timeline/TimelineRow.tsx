@@ -4,6 +4,7 @@ import React from "react";
 export interface TimelineRowProps {
     header?: React.ReactNode;
     children?: React.ReactNode;
+    hideTimeline?: boolean;
 }
 
 export default function TimelineRow(props: TimelineRowProps) {
@@ -12,8 +13,7 @@ export default function TimelineRow(props: TimelineRowProps) {
             sx={{
                 display: "flex",
                 flexDirection: "row",
-                flexGrow: 1,
-                alignItems: "stretch"
+                alignItems: "stretch",
             }}
         >
             <Box
@@ -30,7 +30,8 @@ export default function TimelineRow(props: TimelineRowProps) {
                     display: "flex",
                     flexDirection: "column",
                     flexGrow: 1,
-                    alignItems: "stretch"
+                    alignItems: "stretch",
+                    position: "relative",
                 }}
             >
                 {props.children}

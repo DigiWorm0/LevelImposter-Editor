@@ -3,7 +3,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import useTimelineVisible from "../../../hooks/ui/useTimelineVisible";
+import useTimelineVisible from "../../../hooks/timeline/useTimelineVisible";
 
 export default function AnimationPanel() {
     const {t} = useTranslation();

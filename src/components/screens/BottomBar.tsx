@@ -1,15 +1,17 @@
 import React from "react";
 import {Paper} from "@mui/material";
-import useTimelineVisible from "../../hooks/ui/useTimelineVisible";
+import useTimelineVisible from "../../hooks/timeline/useTimelineVisible";
 import Timeline from "../timeline/Timeline";
 import LazyCollapse from "../properties/util/LazyCollapse";
+import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
 
 export default function BottomBar() {
     const [isTimelineVisible] = useTimelineVisible();
+    const isAnim = useIsSelectedElemType("util-triggeranim");
 
     return (
         <LazyCollapse
-            in={isTimelineVisible}
+            in={isTimelineVisible && isAnim}
             sx={{
                 flexShrink: 0,
                 width: "100%",

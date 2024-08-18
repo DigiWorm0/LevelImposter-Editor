@@ -1,28 +1,11 @@
-import LIAnimCurve from "./LIAnimCurve";
 import GUID from "../generic/GUID";
-import generateGUID from "../../utils/strings/generateGUID";
+import AnimProperty from "./AnimProperty";
 
 export default interface LIAnimKeyframe {
     id: GUID;
     t: number;
+    property: AnimProperty;
+    value: number;
 
-    nextCurve?: LIAnimCurve;
-
-    // Transform
-    x?: number;
-    y?: number;
-    z?: number;
-    xScale?: number;
-    yScale?: number;
-    rotation?: number;
+    //nextCurve?: LIAnimCurve;
 };
-
-
-export const DEFAULT_KEYFRAMES: LIAnimKeyframe[] = [
-    { id: generateGUID(), t: 0 },
-    { id: generateGUID(), t: 0.5, nextCurve: "easeInOut" },
-    { id: generateGUID(), t: 1.5, x: 1, y: 1, xScale: 2, yScale: 0.5, rotation: 90, nextCurve: "easeIn" },
-    { id: generateGUID(), t: 2, x: 1, y: 0, xScale: 2, yScale: 0.5, rotation: 90 },
-    { id: generateGUID(), t: 2.25, x: 1, y: 0, xScale: 2, yScale: 0.5, rotation: 90, nextCurve: "easeInOut" },
-    { id: generateGUID(), t: 3.25 },
-];

@@ -1,10 +1,12 @@
 import {Box} from "@mui/material";
+import {useSetPlayhead} from "../../hooks/timeline/usePlayhead";
 
 const TICK_INTERVAL = 8; // px
 const LABEL_INTERVAL = 10; // ticks
 const PADDING_LEFT = 6; // px
 
 export default function TimelineTimesteps() {
+    const setPlayhead = useSetPlayhead();
 
     const windowWidth = window.innerWidth;
     const maxTicks = windowWidth / TICK_INTERVAL;
@@ -47,7 +49,7 @@ export default function TimelineTimesteps() {
                         textAlign: "center"
                     }}
                 >
-                    <span>{i * 5}</span>
+                    <span>{i * 10}</span>
                 </div>
             ))}
         </Box>

@@ -6,7 +6,7 @@ import LIMinigameSprite from "./LIMinigameSprite";
 import LISound from "./LISound";
 import LITrigger from "./LITrigger";
 import LICustomText from "./LICustomText";
-import LIAnimKeyframe from "./LIAnimKeyframe";
+import LIAnimTarget from "./LIAnimTarget";
 
 export default interface LIProperties {
 
@@ -25,8 +25,7 @@ export default interface LIProperties {
     triggerFadeTime?: number;
 
     // Animations
-    animTargetID?: GUID;
-    animKeyframes?: LIAnimKeyframe[];
+    animTargets?: LIAnimTarget[];
 
     // Sound
     sounds?: LISound[];

@@ -1,24 +1,29 @@
 import {List, Paper} from "@mui/material";
 import TimelineElement from "./TimelineElement";
 import TimelineAddRow from "./TimelineAddRow";
-
-const TEMP_DATA = [0, 1];
+import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
 
 export default function TimelineBody() {
+    const animTargets = useSelectedElemPropValue("animTargets");
+
     return (
         <Paper
             elevation={2}
             sx={{
                 flexGrow: 1,
-                overflowY: "auto"
+                overflowY: "auto",
+                overflowX: "hidden"
             }}
         >
             <List
                 dense
                 sx={{padding: 0}}
             >
-                {TEMP_DATA.map((_, index) => (
-                    <TimelineElement key={index}/>
+                {animTargets?.map((target) => (
+                    <TimelineElement
+                        key={target.id}
+                        id={target.id}
+                    />
                 ))}
             </List>
 

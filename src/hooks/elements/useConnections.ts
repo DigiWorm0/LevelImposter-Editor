@@ -1,10 +1,10 @@
-import { atom, useAtomValue } from "jotai";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
+import {atom, useAtomValue} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/generic/GUID";
 import LIElement from "../../types/li/LIElement";
-import { elementsAtom } from "../map/useMap";
-import { elementFamilyAtom } from "./useElements";
-import { selectedElementIDAtom } from "./useSelectedElem";
+import {elementsAtom} from "../map/useMap";
+import {elementFamilyAtom} from "./useElements";
+import {selectedElementIDAtom} from "./useSelectedElem";
 
 // Atoms
 export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
@@ -21,20 +21,21 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const rightVent = mapElements.find(e => e.id === elem.properties.rightVent);
         const teleporter = mapElements.find(e => e.id === elem.properties.teleporter);
         const roomParent = mapElements.find(e => e.id === elem.properties.parent);
-        const animTarget = mapElements.find(e => e.id === elem.properties.animTargetID);
         const doorA = mapElements.find(e => e.id === elem.properties.doorA);
         const doorB = mapElements.find(e => e.id === elem.properties.doorB);
         const triggers = mapElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
+        const animTargets = mapElements.filter(e => elem.properties.animTargets?.find(t => t.elementID === e.id) != undefined);
+
         const targetConnections = [
             leftVent,
             middleVent,
             rightVent,
             teleporter,
             roomParent,
-            animTarget,
             doorA,
             doorB,
-            ...triggers
+            ...triggers,
+            ...animTargets
         ].filter(e => e != undefined) as LIElement[];
 
         const sourceConnections = mapElements.filter(e => {
@@ -43,10 +44,10 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
                 e.properties.rightVent === elem.id ||
                 e.properties.teleporter === elem.id ||
                 e.properties.parent === elem.id ||
-                e.properties.animTargetID === elem.id ||
                 e.properties.doorA === elem.id ||
                 e.properties.doorB === elem.id ||
-                e.properties.triggers?.some(t => t.elemID === elem.id);
+                e.properties.triggers?.some(t => t.elemID === elem.id) ||
+                e.properties.animTargets?.some(t => t.elementID === elem.id);
         });
 
         return [targetConnections, sourceConnections];

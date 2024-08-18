@@ -8,7 +8,7 @@ export default function Timeline() {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                minHeight: 0,
+                minHeight: 100,
                 flexGrow: 1,
             }}
         >
