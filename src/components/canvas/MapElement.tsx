@@ -46,6 +46,7 @@ export default function MapElement(props: MapElementProps) {
     const h = (coloredSprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
     const opacity =
+        (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
         (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity) * // If Element is Visible in Current Layer

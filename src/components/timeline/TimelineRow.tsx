@@ -18,7 +18,7 @@ export default function TimelineRow(props: TimelineRowProps) {
         >
             <Box
                 sx={{
-                    width: 300,
+                    width: 270,
                     display: "flex",
                     flexDirection: "column",
                 }}
@@ -32,6 +32,7 @@ export default function TimelineRow(props: TimelineRowProps) {
                     flexGrow: 1,
                     alignItems: "stretch",
                     position: "relative",
+                    overflow: "hidden"
                 }}
             >
                 {props.children}

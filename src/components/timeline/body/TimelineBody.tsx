@@ -1,7 +1,7 @@
 import {List, Paper} from "@mui/material";
 import TimelineElement from "./TimelineElement";
-import TimelineAddRow from "./TimelineAddRow";
-import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
+import TimelineAddRow from "../footer/TimelineAddRow";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 
 export default function TimelineBody() {
     const animTargets = useSelectedElemPropValue("animTargets");

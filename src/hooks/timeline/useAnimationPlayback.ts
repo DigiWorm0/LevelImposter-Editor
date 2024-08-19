@@ -1,50 +1,50 @@
-import {useSetPlayhead} from "./usePlayhead";
+import {playheadAtom, useSetPlayhead} from "./usePlayhead";
 import usePlayAnim from "./usePlayAnim";
 import React from "react";
-import useAnimDuration from "./useAnimDuration";
-import useLoopAnim from "./useLoopAnim";
+import {animDurationAtom} from "./useAnimDuration";
+import {loopAnimAtom} from "./useLoopAnim";
+import Konva from "konva";
+import primaryStore from "../primaryStore";
 
 export default function useAnimationPlayback() {
     const setPlayhead = useSetPlayhead();
     const [isPlaying, setIsPlaying] = usePlayAnim();
-    const [loop] = useLoopAnim();
-    const duration = useAnimDuration();
 
     React.useEffect(() => {
         if (isPlaying) {
-            let _isPlaying = true;
-            const startTime = Date.now();
 
-            const render = () => {
-                // If we're not playing, stop the loop
-                if (!_isPlaying)
+            let startT = primaryStore.get(playheadAtom);
+            if (startT >= primaryStore.get(animDurationAtom))
+                startT = 0;
+
+            const anim = new Konva.Animation((frame) => {
+                if (!frame)
                     return;
 
-                // Get the current time
-                const currentTime = Date.now();
-                let elapsedTime = currentTime - startTime; // ms
-                elapsedTime /= 1000; // ms -> s
+                // Update Values
+                const loop = primaryStore.get(loopAnimAtom);
+                const duration = primaryStore.get(animDurationAtom);
 
-                // Check if we've reached the end
-                if (elapsedTime >= duration && !loop) {
+                // Get the current time
+                const t = frame.time / 1000 + startT;
+
+                if (t >= duration && !loop) {
                     setPlayhead(duration);
                     setIsPlaying(false);
-                    _isPlaying = false;
+                    anim.stop();
                     return;
                 }
 
-                // Set the playhead
-                setPlayhead(elapsedTime % duration);
+                setPlayhead(t % duration);
+            });
 
-                // Request the next frame
-                requestAnimationFrame(render);
-            };
+            // Start Animation
+            anim.start();
 
-            requestAnimationFrame(render);
-
+            // Stop Animation when unmounting
             return () => {
-                _isPlaying = false;
+                anim.stop();
             };
         }
-    }, [isPlaying, duration, loop]);
+    }, [isPlaying]);
 }

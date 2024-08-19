@@ -1,23 +1,27 @@
-import usePlayhead from "../../hooks/timeline/usePlayhead";
+import usePlayhead from "../../../hooks/timeline/usePlayhead";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "../../hooks/timeline/useTimelineScale";
-import useTimelineInterval from "../../hooks/timeline/useTimelineInterval";
+import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
+import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
+import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 
 export default function TimelinePlayheadHandle() {
     const [t, setT] = usePlayhead();
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
+    const [timelineOffset] = useTimelineOffset();
 
     return (
         <Draggable
             axis="x"
             position={{
-                x: t * timelineScale,
+                x: (t - timelineOffset) * timelineScale,
                 y: 0
             }}
             grid={[timelineScale * timelineInterval, 0]}
             onDrag={(_, {x}) => {
-                let t = x / timelineScale;
+                let t = (x / timelineScale) + timelineOffset;
+
+                // Snap to the nearest interval
                 t = Math.round(t / timelineInterval) * timelineInterval;
                 setT(t);
             }}
@@ -28,14 +32,14 @@ export default function TimelinePlayheadHandle() {
                 style={{
                     position: "absolute",
                     bottom: 0,
-                    width: 12,
-                    height: 20,
+                    width: 14,
+                    height: 15,
                     zIndex: 10,
                     borderBottomLeftRadius: 4,
                     borderBottomRightRadius: 4,
 
                     backgroundColor: "red",
-                    cursor: "ew-resize"
+                    cursor: "grab",
                 }}
             />
         </Draggable>

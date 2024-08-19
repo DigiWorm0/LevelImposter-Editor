@@ -1,21 +1,21 @@
 import {IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import LazyCollapse from "../properties/util/LazyCollapse";
-import LIElement from "../../types/li/LIElement";
-import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
-import TimelineRow from "./TimelineRow";
+import LazyCollapse from "../../properties/util/LazyCollapse";
+import LIElement from "../../../types/li/LIElement";
+import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
+import TimelineRow from "../TimelineRow";
 import TimelineKeyframeRow from "./TimelineKeyframeRow";
 import TimelineProperty from "./TimelineProperty";
-import GUID from "../../types/generic/GUID";
-import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
-import {useElementValue} from "../../hooks/elements/useElements";
+import GUID from "../../../types/generic/GUID";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import {useElementValue} from "../../../hooks/elements/useElements";
 import {Delete} from "@mui/icons-material";
 import TimelinePlayhead from "./TimelinePlayhead";
 
 const PROPERTIES: (keyof LIElement)[] = [
     "x",
     "y",
-    "z",
+    //"z",
     "xScale",
     "yScale",
     "rotation",

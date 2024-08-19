@@ -1,5 +1,5 @@
-import TimelineHeader from "./TimelineHeader";
-import TimelineBody from "./TimelineBody";
+import TimelineHeader from "./header/TimelineHeader";
+import TimelineBody from "./body/TimelineBody";
 import {useSetTimelineScale} from "../../hooks/timeline/useTimelineScale";
 
 const SCROLL_SCALE = 1.002;

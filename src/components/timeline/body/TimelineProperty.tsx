@@ -1,16 +1,16 @@
 import {Box, IconButton} from "@mui/material";
 import TimelineKeyframeRow from "./TimelineKeyframeRow";
-import TimelineRow from "./TimelineRow";
+import TimelineRow from "../TimelineRow";
 import React from "react";
-import FlexNumericInput from "../properties/util/FlexNumericInput";
+import FlexNumericInput from "../../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
 import {Circle, CircleOutlined} from "@mui/icons-material";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../../types/generic/GUID";
 import TimelinePlayhead from "./TimelinePlayhead";
-import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
-import useIsCurrentKeyframe from "../../hooks/timeline/useIsCurrentKeyframe";
-import useAnimPropertyValue from "../../hooks/timeline/useAnimPropertyValue";
-import useAnimTargetProperty from "../../hooks/timeline/useAnimTargetProperty";
+import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import useIsCurrentKeyframe from "../../../hooks/timeline/useIsCurrentKeyframe";
+import useAnimPropertyValue from "../../../hooks/timeline/useAnimPropertyValue";
+import useAnimTargetProperty from "../../../hooks/timeline/useAnimTargetProperty";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
@@ -50,7 +50,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                         justifyContent: "space-between",
                     }}
                 >
-                    <span style={{marginRight: 10, fontWeight: "bold"}}>
+                    <span style={{marginRight: 10, textAlign: "center", flexGrow: 1}}>
                         {props.property}
                     </span>
                     <Box>

@@ -1,9 +1,9 @@
-import ElementSelect from "../properties/input/select/ElementSelect";
+import ElementSelect from "../../properties/input/select/ElementSelect";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import TimelineRow from "./TimelineRow";
-import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
-import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
+import TimelineRow from "../TimelineRow";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useAddAnimTarget from "../../../hooks/timeline/useAddAnimTarget";
 
 export default function TimelineAddRow() {
     const {t} = useTranslation();
