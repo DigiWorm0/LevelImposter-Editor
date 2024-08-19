@@ -2,7 +2,7 @@ import React from "react";
 import Draggable from "react-draggable";
 import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
-import DiamondSVG from "./DiamondSVG";
+import DiamondSVG from "../icons/DiamondSVG";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 
 export interface TimelineKeyframeIconProps {

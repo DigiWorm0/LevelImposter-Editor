@@ -13,6 +13,7 @@ export interface ElementSelectProps {
     blacklistedIDs?: MaybeGUID[];
     whitelistedIDs?: MaybeGUID[];
     placement?: PopperPlacementType;
+    disablePortal?: boolean;
 
     label?: string;
     noElementsText: string;
@@ -44,7 +45,7 @@ export default function ElementSelect(props: ElementSelectProps) {
                 <Autocomplete
                     key={props.selectedID}
                     fullWidth
-                    disablePortal
+                    disablePortal={props.disablePortal ?? true}
                     options={filteredElems}
                     disabled={filteredElems.length === 0 && !currentElem}
                     componentsProps={{

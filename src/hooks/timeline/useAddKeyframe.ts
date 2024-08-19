@@ -1,5 +1,4 @@
 import {atom, useSetAtom} from "jotai";
-import generateGUID from "../../utils/strings/generateGUID";
 import {MaybeGUID} from "../../types/generic/GUID";
 import {playheadAtom} from "./usePlayhead";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
@@ -32,9 +31,7 @@ export const addKeyframeAtom = atom(null, (get, set, options: AddKeyframeOptions
     set(animTargetPropertyAtom, {
         ...animTargetProperty,
         keyframes: [...animTargetProperty.keyframes, {
-            id: generateGUID(),
             t,
-            property,
             value: options.value ?? 0
         }]
     });

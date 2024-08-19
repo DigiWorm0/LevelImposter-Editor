@@ -4,13 +4,15 @@ import TimelineRow from "../TimelineRow";
 import React from "react";
 import FlexNumericInput from "../../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
-import {Circle, CircleOutlined} from "@mui/icons-material";
 import GUID from "../../../types/generic/GUID";
 import TimelinePlayhead from "./TimelinePlayhead";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 import useIsCurrentKeyframe from "../../../hooks/timeline/useIsCurrentKeyframe";
 import useAnimPropertyValue from "../../../hooks/timeline/useAnimPropertyValue";
 import useAnimTargetProperty from "../../../hooks/timeline/useAnimTargetProperty";
+import DiamondSVG from "../icons/DiamondSVG";
+import DiamondSVGOutline from "../icons/DiamondSVGOutline";
+import TimelineCurveButton from "./TimelineCurveButton";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
@@ -58,12 +60,14 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                             onClick={() => setValue(value ?? DEFAULT_VALUE)}
                         >
                             {isCurrentKeyframe ? (
-                                <Circle
-                                    sx={{fontSize: 12}}
+                                <DiamondSVG
+                                    size={10}
+                                    color={"white"}
                                 />
                             ) : (
-                                <CircleOutlined
-                                    sx={{fontSize: 12}}
+                                <DiamondSVGOutline
+                                    size={10}
+                                    color={"#999"}
                                 />
                             )}
                         </IconButton>
@@ -72,7 +76,13 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                             onChange={(value) => setValue(value)}
                             inputProps={{
                                 variant: "standard",
-                                sx: {width: 100, height: 24}
+                                sx: {width: 100, height: 24},
+                                InputProps: {
+                                    endAdornment: <TimelineCurveButton
+                                        property={props.property}
+                                        targetID={props.targetID}
+                                    />
+                                }
                             }}
                         />
                     </Box>

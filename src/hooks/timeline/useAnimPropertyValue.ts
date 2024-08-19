@@ -3,10 +3,10 @@ import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/generic/GUID";
 import {atom, useAtom} from "jotai";
 import {playheadAtom} from "./usePlayhead";
-import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import lerp from "../../utils/math/lerp";
 import {addKeyframeAtom} from "./useAddKeyframe";
-import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
+import {adjecentKeyframeAtomFamily} from "./useAdjecentKeyframe";
+import {currentCurveAtomFamily} from "./useCurrentCurve";
 
 export interface AnimPropertyValueOptions {
     targetID: GUID;
@@ -15,34 +15,27 @@ export interface AnimPropertyValueOptions {
 
 export const animPropertyValueAtom = atomFamily(
     (options: AnimPropertyValueOptions) => {
-        const animTargetPropertyAtom = animTargetPropertyAtomFamily(options);
+        const prevKeyframeAtom = adjecentKeyframeAtomFamily({
+            targetID: options.targetID,
+            property: options.property,
+            direction: "prev"
+        });
+        const nextKeyframeAtom = adjecentKeyframeAtomFamily({
+            targetID: options.targetID,
+            property: options.property,
+            direction: "next"
+        });
 
         return atom((get) => {
-            // Get the current anim target
-            const animTargetProperty = get(animTargetPropertyAtom);
-            if (!animTargetProperty)
-                return null;
-
-            // Check if there are any keyframes and sort them
-            const {keyframes} = animTargetProperty;
-            if (keyframes.length === 0)
-                return null;
-            keyframes.sort((a, b) => a.t - b.t);
-
             // Get the current playhead time
             const playhead = get(playheadAtom);
 
+            // Get the current curve
+            const curve = get(currentCurveAtomFamily(options));
+
             // Get the previous/next keyframe
-            let prevKeyframe: LIAnimKeyframe | null = null;
-            let nextKeyframe: LIAnimKeyframe | null = null;
-            for (const keyframe of keyframes) {
-                if (keyframe.t <= playhead)
-                    prevKeyframe = keyframe;
-                if (keyframe.t > playhead) {
-                    nextKeyframe = keyframe;
-                    break;
-                }
-            }
+            const prevKeyframe = get(prevKeyframeAtom);
+            const nextKeyframe = get(nextKeyframeAtom);
 
             // If there is no next keyframe, return the last keyframe
             if (!nextKeyframe)
@@ -54,16 +47,22 @@ export const animPropertyValueAtom = atomFamily(
 
             // Return the interpolated value
             const t = (playhead - prevKeyframe.t) / (nextKeyframe.t - prevKeyframe.t);
-            return lerp(prevKeyframe.value, nextKeyframe.value, t);
-        }, (get, set, value: number) => {
-            // Get the current anim target
-            const animTargetProperty = get(animTargetPropertyAtom);
-            if (!animTargetProperty)
-                return;
 
+            if (curve === "linear")
+                return lerp(prevKeyframe.value, nextKeyframe.value, t);
+            else if (curve === "easeIn")
+                return lerp(prevKeyframe.value, nextKeyframe.value, t * t);
+            else if (curve === "easeOut")
+                return lerp(prevKeyframe.value, nextKeyframe.value, t * (2 - t));
+            else if (curve === "easeInOut")
+                return lerp(prevKeyframe.value, nextKeyframe.value, t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+
+            return prevKeyframe.value;
+        }, (get, set, value: number) => {
             // Find a keyframe at the current playhead
             const playhead = get(playheadAtom);
-            const keyframe = animTargetProperty.keyframes.find(kf => kf.t === playhead);
+            const prevKeyframe = get(prevKeyframeAtom);
+            const keyframe = prevKeyframe && prevKeyframe.t === playhead ? prevKeyframe : null;
 
             // If there is no keyframe, create a new keyframe
             if (!keyframe) {
@@ -76,13 +75,9 @@ export const animPropertyValueAtom = atomFamily(
 
             // Otherwise, edit the existing keyframe
             else {
-                set(animTargetPropertyAtom, {
-                    ...animTargetProperty,
-                    keyframes: animTargetProperty.keyframes.map(kf => {
-                        if (kf === keyframe)
-                            return {...kf, value};
-                        return kf;
-                    })
+                set(prevKeyframeAtom, {
+                    ...keyframe,
+                    value
                 });
             }
         });

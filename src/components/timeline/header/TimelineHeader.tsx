@@ -3,13 +3,13 @@ import {Loop, Pause, PlayArrow, Stop} from "@mui/icons-material";
 import TimelineRow from "../TimelineRow";
 import TimelineTimesteps from "./TimelineTimesteps";
 import TimelinePlayheadHandle from "./TimelinePlayheadHandle";
-import useLoopAnim from "../../../hooks/timeline/useLoopAnim";
 import usePlayAnim from "../../../hooks/timeline/usePlayAnim";
 import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
 import TimelineTimestamp from "./TimelineTimestamp";
+import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 
 export default function TimelineHeader() {
-    const [isLoop, setLoop] = useLoopAnim();
+    const [isLoop, setLoop] = useSelectedElemProp("triggerLoop");
     const [playAnim, setPlayAnim] = usePlayAnim();
     const setPlayhead = useSetPlayhead();
 

@@ -11,7 +11,6 @@ export default function Timeline() {
             style={{
                 display: "flex",
                 flexDirection: "column",
-                minHeight: 100,
                 flexGrow: 1,
             }}
             onWheel={(e) => {

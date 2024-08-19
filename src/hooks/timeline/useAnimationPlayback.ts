@@ -2,9 +2,9 @@ import {playheadAtom, useSetPlayhead} from "./usePlayhead";
 import usePlayAnim from "./usePlayAnim";
 import React from "react";
 import {animDurationAtom} from "./useAnimDuration";
-import {loopAnimAtom} from "./useLoopAnim";
 import Konva from "konva";
 import primaryStore from "../primaryStore";
+import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 
 export default function useAnimationPlayback() {
     const setPlayhead = useSetPlayhead();
@@ -12,6 +12,7 @@ export default function useAnimationPlayback() {
 
     React.useEffect(() => {
         if (isPlaying) {
+            const loopAtom = selectedElementPropAtom("triggerLoop");
 
             let startT = primaryStore.get(playheadAtom);
             if (startT >= primaryStore.get(animDurationAtom))
@@ -22,7 +23,7 @@ export default function useAnimationPlayback() {
                     return;
 
                 // Update Values
-                const loop = primaryStore.get(loopAnimAtom);
+                const loop = primaryStore.get(loopAtom);
                 const duration = primaryStore.get(animDurationAtom);
 
                 // Get the current time

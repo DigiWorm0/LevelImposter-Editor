@@ -12,7 +12,7 @@ export default function TimelineBody() {
             sx={{
                 flexGrow: 1,
                 overflowY: "auto",
-                overflowX: "hidden"
+                overflowX: "hidden",
             }}
         >
             <List
@@ -25,9 +25,9 @@ export default function TimelineBody() {
                         id={target.id}
                     />
                 ))}
+                <TimelineAddRow/>
             </List>
 
-            <TimelineAddRow/>
         </Paper>
     );
 }

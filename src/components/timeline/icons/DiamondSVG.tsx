@@ -1,9 +1,9 @@
-export interface DiamondSVGProps {
+export interface SVGProps {
     size?: number;
     color?: string;
 }
 
-export default function DiamondSVG(props: DiamondSVGProps) {
+export default function DiamondSVG(props: SVGProps) {
     return (
         <svg
             width={props.size ?? 800}

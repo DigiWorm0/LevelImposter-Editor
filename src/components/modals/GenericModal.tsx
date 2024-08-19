@@ -1,6 +1,6 @@
-import { Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, IconButton } from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, IconButton} from "@mui/material";
 import React from "react";
-import { Close } from "@mui/icons-material";
+import {Close} from "@mui/icons-material";
 
 export interface GenericModalProps {
     open: boolean;
@@ -22,7 +22,7 @@ export default function GenericModal(props: GenericModalProps) {
             maxWidth="sm"
             scroll={"body"}
             PaperProps={{
-                elevation: 1,
+                elevation: 1
             }}
             disableEscapeKeyDown={props.preventClose}
             {...props.DialogProps}
@@ -39,12 +39,12 @@ export default function GenericModal(props: GenericModalProps) {
                         top: 8
                     }}
                 >
-                    <Close />
+                    <Close/>
                 </IconButton>
             )}
 
             <DialogContent
-                sx={{ paddingTop: 0 }}
+                sx={{paddingTop: 0}}
                 {...props.DialogContentProps}
             >
                 {props.children}

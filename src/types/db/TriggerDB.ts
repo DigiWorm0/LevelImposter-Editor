@@ -31,9 +31,8 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onStart",
     ],
     "util-triggeranim": [
-        "onPlay",
-        "onPause",
-        "onStop",
+        "onStart",
+        "onFinish",
     ],
     "util-sabotages": [
         "onOxygenStart",
@@ -150,4 +149,4 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-admin": consoleTriggers
 };
 
-export { InputTriggerDB, OutputTriggerDB };
+export {InputTriggerDB, OutputTriggerDB};
