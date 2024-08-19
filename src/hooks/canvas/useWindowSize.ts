@@ -2,11 +2,11 @@ import React from "react";
 
 export default function useWindowSize(): [number, number] {
     const [canvasWidth, setCanvasWidth] = React.useState<number>(window.innerWidth);
-    const [canvasHeight, setCanvasHeight] = React.useState<number>(window.innerHeight);
+    const [canvasHeight, setcanvasHeight] = React.useState<number>(window.innerHeight);
 
     const onResize = React.useCallback(() => {
         setCanvasWidth(window.innerWidth);
-        setCanvasHeight(window.innerHeight);
+        setcanvasHeight(window.innerHeight);
     }, []);
 
     React.useEffect(() => {

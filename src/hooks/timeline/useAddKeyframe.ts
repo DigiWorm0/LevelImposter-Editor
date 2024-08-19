@@ -1,13 +1,13 @@
 import {atom, useSetAtom} from "jotai";
 import generateGUID from "../../utils/strings/generateGUID";
 import {MaybeGUID} from "../../types/generic/GUID";
-import {animTargetAtomFamily} from "./useAnimTarget";
 import {playheadAtom} from "./usePlayhead";
-import AnimProperty from "../../types/li/AnimProperty";
+import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
+import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
 
 export interface AddKeyframeOptions {
     targetID: MaybeGUID;
-    property: AnimProperty;
+    property: LIAnimPropertyType;
     value?: number;
 }
 
@@ -16,19 +16,22 @@ export const addKeyframeAtom = atom(null, (get, set, options: AddKeyframeOptions
     if (!targetID)
         return;
 
-    // Get the target
-    const animTargetAtom = animTargetAtomFamily(targetID);
-    const animTarget = get(animTargetAtom);
-    if (!animTarget)
+    // Get the target properties
+    const animTargetPropertyAtom = animTargetPropertyAtomFamily({
+        targetID: targetID,
+        property: property
+    });
+    const animTargetProperty = get(animTargetPropertyAtom);
+    if (!animTargetProperty)
         return;
 
     // Get the current playhead
     const t = get(playheadAtom);
 
     // Add a new keyframe to the target
-    set(animTargetAtom, {
-        ...animTarget,
-        keyframes: [...animTarget.keyframes, {
+    set(animTargetPropertyAtom, {
+        ...animTargetProperty,
+        keyframes: [...animTargetProperty.keyframes, {
             id: generateGUID(),
             t,
             property,

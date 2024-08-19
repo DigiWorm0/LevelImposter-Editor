@@ -6,38 +6,35 @@ import FlexNumericInput from "../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
 import {Circle, CircleOutlined} from "@mui/icons-material";
 import GUID from "../../types/generic/GUID";
-import useAnimTarget from "../../hooks/timeline/useAnimTarget";
 import TimelinePlayhead from "./TimelinePlayhead";
-import useAddKeyframe from "../../hooks/timeline/useAddKeyframe";
-import AnimProperty from "../../types/li/AnimProperty";
+import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import useIsCurrentKeyframe from "../../hooks/timeline/useIsCurrentKeyframe";
 import useAnimPropertyValue from "../../hooks/timeline/useAnimPropertyValue";
+import useAnimTargetProperty from "../../hooks/timeline/useAnimTargetProperty";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
-    property: AnimProperty;
+    property: LIAnimPropertyType;
 }
 
 export default function TimelineProperty(props: TimelinePropertyProps) {
-    const [animTarget, setAnimTarget] = useAnimTarget(props.targetID);
-    const keyframes = animTarget?.keyframes.filter((k) => k.property === props.property) ?? [];
-    const addKeyframe = useAddKeyframe();
-    const isCurrentKeyframe = useIsCurrentKeyframe({
-        targetID: props.targetID,
-        property: props.property,
-    });
-    const [value, setValue] = useAnimPropertyValue({
-        property: props.property,
-        targetID: props.targetID,
-    });
+    const [animTargetProperty, setAnimTargetProperty] = useAnimTargetProperty(props);
+    const isCurrentKeyframe = useIsCurrentKeyframe(props);
+    const [value, setValue] = useAnimPropertyValue(props);
 
-    const setKeyframeT = (id: GUID, t: number) => {
-        if (!animTarget)
+    const DEFAULT_VALUE = (props.property === "yScale" || props.property === "xScale") ? 1 : 0;
+
+    const setKeyframeT = (index: number, t: number) => {
+        if (!animTargetProperty)
             return;
 
-        setAnimTarget({
-            ...animTarget,
-            keyframes: animTarget.keyframes.map((k) => k.id === id ? {...k, t} : k)
+        setAnimTargetProperty({
+            ...animTargetProperty,
+            keyframes: animTargetProperty.keyframes.map((k, i) => {
+                if (i === index)
+                    return {...k, t};
+                return k;
+            })
         });
     };
 
@@ -58,7 +55,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                     </span>
                     <Box>
                         <IconButton
-                            onClick={() => setValue(value ?? 0)}
+                            onClick={() => setValue(value ?? DEFAULT_VALUE)}
                         >
                             {isCurrentKeyframe ? (
                                 <Circle
@@ -71,7 +68,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                             )}
                         </IconButton>
                         <FlexNumericInput
-                            value={value ?? 0}
+                            value={value ?? DEFAULT_VALUE}
                             onChange={(value) => setValue(value)}
                             inputProps={{
                                 variant: "standard",
@@ -84,10 +81,11 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
         >
             <TimelineKeyframeRow>
                 <TimelinePlayhead/>
-                {keyframes.map((k) => (
+                {animTargetProperty?.keyframes.map((k, index) => (
                     <TimelineKeyframe
+                        key={index}
                         t={k.t}
-                        setT={(t) => setKeyframeT(k.id, t)}
+                        setT={(newT) => setKeyframeT(index, newT)}
                     />
                 ))}
             </TimelineKeyframeRow>

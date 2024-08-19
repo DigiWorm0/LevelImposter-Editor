@@ -30,7 +30,7 @@ export default function TimelineElement(props: TimelineElementProps) {
     const [isExpanded, setIsExpanded] = React.useState(false);
 
     const animTarget = animTargets?.find((t) => t.id === props.id);
-    const animTargetElem = useElementValue(animTarget?.elementID);
+    const animTargetElem = useElementValue(animTarget?.id);
 
     const deleteElement = () => {
         if (animTarget === undefined)
@@ -44,7 +44,9 @@ export default function TimelineElement(props: TimelineElementProps) {
             <TimelineRow
                 header={(
                     <ListItem
-                        sx={{padding: 0}}
+                        sx={{
+                            padding: 0
+                        }}
                         secondaryAction={(
                             <IconButton size={"small"} onClick={deleteElement}>
                                 <Delete fontSize={"small"}/>
@@ -53,6 +55,7 @@ export default function TimelineElement(props: TimelineElementProps) {
                     >
                         <ListItemButton
                             onClick={() => setIsExpanded(!isExpanded)}
+                            selected={isExpanded}
                         >
                             <ListItemIcon>
                                 <AnimatedCaretIcon up={!isExpanded}/>

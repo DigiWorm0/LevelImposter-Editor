@@ -13,6 +13,8 @@ import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
 import MapElementImage from "./MapElementImage";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
+import AnimRenderer from "./AnimRenderer";
+import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -33,11 +35,12 @@ export default function MapElement(props: MapElementProps) {
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
     const coloredSprite = useSprite(props.elementID);
-
+    const animTargets = useSelectedElemPropValue("animTargets");
 
     if (!elem || elem.type === "util-layer")
         return null;
 
+    const isAnimTarget = animTargets?.some(t => t.id === props.elementID);
     const elemVisibility = getElemVisibility(elem);
     const w = (coloredSprite?.width ?? 0) * elem.xScale;
     const h = (coloredSprite?.height ?? 0) * elem.yScale;
@@ -117,7 +120,7 @@ export default function MapElement(props: MapElementProps) {
 
 
             {isSelected && <SecondaryRender/>}
-            {/*{isAnimTarget && <AnimRenderer/>}*/}
+            {isAnimTarget && <AnimRenderer id={props.elementID}/>}
 
             {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
                 <RoomText name={elem.name}/>

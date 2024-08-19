@@ -1,29 +1,34 @@
 import {Circle} from "@mui/icons-material";
 import React from "react";
 import Draggable from "react-draggable";
-import {useSetPlayhead} from "../../hooks/timeline/usePlayhead";
+import {useTimelineScaleValue} from "../../hooks/timeline/useTimelineScale";
+import useTimelineInterval from "../../hooks/timeline/useTimelineInterval";
 
 export interface TimelineKeyframeIconProps {
     t: number;
     setT: (t: number) => void;
 }
 
-const TICK_INTERVAL = 8; // px
 const PADDING_LEFT = 6; // px
 
 export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
-    const setPlayheadT = useSetPlayhead();
+    const timelineScale = useTimelineScaleValue();
+    const timelineInterval = useTimelineInterval();
 
     return (
         <Draggable
             axis="x"
-            position={{x: props.t * TICK_INTERVAL + PADDING_LEFT, y: 0}}
-            grid={[TICK_INTERVAL, 0]}
-            onStop={(_, {x}) => {
-                const t = (x - PADDING_LEFT) / TICK_INTERVAL;
+            position={{
+                x: props.t * timelineScale,
+                y: 0
+            }}
+            grid={[timelineScale * timelineInterval, 0]}
+            onDrag={(_, {x}) => {
+                let t = x / timelineScale;
+                t = Math.round(t / timelineInterval) * timelineInterval;
                 props.setT(t);
             }}
-            positionOffset={{x: -7, y: 0}}
+            positionOffset={{x: 0, y: 0}}
             bounds={{left: 0}}
         >
             <div

@@ -1,22 +1,28 @@
 import usePlayhead from "../../hooks/timeline/usePlayhead";
 import Draggable from "react-draggable";
-
-const TICK_INTERVAL = 8; // px
-const PADDING_LEFT = 6; // px
+import {useTimelineScaleValue} from "../../hooks/timeline/useTimelineScale";
+import useTimelineInterval from "../../hooks/timeline/useTimelineInterval";
 
 export default function TimelinePlayheadHandle() {
     const [t, setT] = usePlayhead();
+    const timelineScale = useTimelineScaleValue();
+    const timelineInterval = useTimelineInterval();
 
     return (
         <Draggable
             axis="x"
-            position={{x: t * TICK_INTERVAL + PADDING_LEFT, y: 0}}
-            grid={[TICK_INTERVAL, 0]}
-            onDrag={(_, {x}) => {
-                setT((x - PADDING_LEFT) / TICK_INTERVAL);
+            position={{
+                x: t * timelineScale,
+                y: 0
             }}
-            positionOffset={{x: -6, y: 0}}
-            bounds={{left: PADDING_LEFT}}
+            grid={[timelineScale * timelineInterval, 0]}
+            onDrag={(_, {x}) => {
+                let t = x / timelineScale;
+                t = Math.round(t / timelineInterval) * timelineInterval;
+                setT(t);
+            }}
+            positionOffset={{x: 0, y: 0}}
+            bounds={{left: 0}}
         >
             <div
                 style={{

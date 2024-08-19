@@ -1,16 +1,18 @@
 import {Box} from "@mui/material";
-import {useSetPlayhead} from "../../hooks/timeline/usePlayhead";
+import React from "react";
+import useTimelineInterval from "../../hooks/timeline/useTimelineInterval";
+import useWindowSize from "../../hooks/canvas/useWindowSize";
+import {useTimelineScaleValue} from "../../hooks/timeline/useTimelineScale";
 
-const TICK_INTERVAL = 8; // px
-const LABEL_INTERVAL = 10; // ticks
+const LABEL_INTERVAL = 1; // ticks
 const PADDING_LEFT = 6; // px
 
 export default function TimelineTimesteps() {
-    const setPlayhead = useSetPlayhead();
+    const [windowWidth] = useWindowSize();
+    const timelineScale = useTimelineScaleValue();
+    const timelineInterval = useTimelineInterval();
 
-    const windowWidth = window.innerWidth;
-    const maxTicks = windowWidth / TICK_INTERVAL;
-    const maxLabels = windowWidth / (TICK_INTERVAL * LABEL_INTERVAL);
+    const tickCount = Math.ceil(windowWidth / timelineInterval / timelineScale);
 
     return (
         <Box
@@ -23,33 +25,33 @@ export default function TimelineTimesteps() {
             }}
         >
 
-            {Array.from({length: maxTicks}).map((_, i) => (
+            {Array.from({length: tickCount}).map((_, i) => (
                 <div
                     key={i}
                     style={{
                         width: 1,
-                        height: i % LABEL_INTERVAL === 0 ? 12 : 6,
-                        backgroundColor: i % LABEL_INTERVAL === 0 ? "#aaa" : "#888",
+                        height: i % 10 === 0 ? 12 : 6,
+                        backgroundColor: i % 10 === 0 ? "#aaa" : "#888",
                         position: "absolute",
-                        left: i * TICK_INTERVAL + PADDING_LEFT,
+                        left: i * timelineInterval * timelineScale + PADDING_LEFT,
                         bottom: 0
                     }}
                 />
             ))}
 
-            {Array.from({length: maxLabels}).map((_, i) => (
+            {Array.from({length: 10}).map((_, i) => (
                 <div
                     key={i}
                     style={{
                         color: "#bbb",
                         position: "absolute",
-                        left: i * LABEL_INTERVAL * TICK_INTERVAL - 50 + PADDING_LEFT,
+                        left: i * LABEL_INTERVAL * timelineScale - 50 + PADDING_LEFT,
                         top: 5,
                         width: 100,
                         textAlign: "center"
                     }}
                 >
-                    <span>{i * 10}</span>
+                    <span>{i}</span>
                 </div>
             ))}
         </Box>

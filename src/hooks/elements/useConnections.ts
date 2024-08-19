@@ -24,7 +24,7 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const doorA = mapElements.find(e => e.id === elem.properties.doorA);
         const doorB = mapElements.find(e => e.id === elem.properties.doorB);
         const triggers = mapElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
-        const animTargets = mapElements.filter(e => elem.properties.animTargets?.find(t => t.elementID === e.id) != undefined);
+        const animTargets = mapElements.filter(e => elem.properties.animTargets?.find(t => t.id === e.id) != undefined);
 
         const targetConnections = [
             leftVent,
@@ -47,7 +47,7 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
                 e.properties.doorA === elem.id ||
                 e.properties.doorB === elem.id ||
                 e.properties.triggers?.some(t => t.elemID === elem.id) ||
-                e.properties.animTargets?.some(t => t.elementID === elem.id);
+                e.properties.animTargets?.some(t => t.id === elem.id);
         });
 
         return [targetConnections, sourceConnections];

@@ -3,23 +3,12 @@ import {useTranslation} from "react-i18next";
 import React from "react";
 import TimelineRow from "./TimelineRow";
 import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
-import generateGUID from "../../utils/strings/generateGUID";
-import LIElement from "../../types/li/LIElement";
+import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
 
 export default function TimelineAddRow() {
     const {t} = useTranslation();
-    const [animTargets, setAnimTargets] = useSelectedElemProp("animTargets");
-
-    const addAnimTarget = (elem: LIElement) => {
-        setAnimTargets([
-            ...(animTargets ?? []),
-            {
-                id: generateGUID(),
-                elementID: elem.id,
-                keyframes: [],
-            }
-        ]);
-    };
+    const [animTargets,] = useSelectedElemProp("animTargets");
+    const addAnimTarget = useAddAnimTarget();
 
     return (
         <TimelineRow
@@ -29,8 +18,8 @@ export default function TimelineAddRow() {
                     noElementsText={t("anim.noTargets")}
                     defaultText={t("anim.selectTarget")}
                     selectedID={undefined}
-                    onPick={addAnimTarget}
-                    blacklistedIDs={animTargets?.map((t) => t.elementID)}
+                    onPick={(elem) => addAnimTarget(elem.id)}
+                    blacklistedIDs={animTargets?.map((t) => t.id)}
                     placement={"top"}
                     onReset={() => {
                     }}

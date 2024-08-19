@@ -1,8 +1,9 @@
 import GUID from "../generic/GUID";
-import LIAnimKeyframe from "./LIAnimKeyframe";
+import LIAnimPropertyType from "./LIAnimPropertyType";
+import LIAnimProperty from "./LIAnimProperty";
+
 
 export default interface LIAnimTarget {
     id: GUID;
-    elementID: GUID;
-    keyframes: LIAnimKeyframe[];
+    properties: { [key in LIAnimPropertyType]: LIAnimProperty };
 }

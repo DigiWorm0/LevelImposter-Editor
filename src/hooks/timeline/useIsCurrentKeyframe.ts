@@ -1,25 +1,25 @@
 import {atomFamily} from "jotai/utils";
 import {atom} from "jotai/index";
 import {useAtomValue} from "jotai";
-import {animTargetAtomFamily} from "./useAnimTarget";
 import {playheadAtom} from "./usePlayhead";
-import AnimProperty from "../../types/li/AnimProperty";
+import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/generic/GUID";
+import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
 
 export interface CurrentKeyframeOptions {
     targetID: GUID;
-    property: AnimProperty;
+    property: LIAnimPropertyType;
 }
 
 export const isCurrentKeyframeAtomFamily = atomFamily((options: CurrentKeyframeOptions) => {
     return atom((get) => {
         // Get the current anim target
-        const animTarget = get(animTargetAtomFamily(options.targetID));
+        const animTarget = get(animTargetPropertyAtomFamily(options));
         if (!animTarget)
             return null;
 
         // Get the keyframe of the current property
-        const keyframes = animTarget.keyframes.filter(kf => kf.property === options.property);
+        const {keyframes} = animTarget;
         if (keyframes.length === 0)
             return null;
 
