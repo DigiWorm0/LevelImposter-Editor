@@ -4,6 +4,7 @@ import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 import React from "react";
+import {useSettingsValue} from "../../../hooks/useSettings";
 
 export default function TimelinePlayheadHandle() {
     const nodeRef = React.useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ export default function TimelinePlayheadHandle() {
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
     const [timelineOffset] = useTimelineOffset();
+    const {isTimelineSnapEnabled} = useSettingsValue();
 
     return (
         <Draggable
@@ -20,12 +22,11 @@ export default function TimelinePlayheadHandle() {
                 x: (t - timelineOffset) * timelineScale,
                 y: 0
             }}
-            grid={[timelineScale * timelineInterval, 0]}
+            grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
                 let t = (x / timelineScale) + timelineOffset;
-
-                // Snap to the nearest interval
-                t = Math.round(t / timelineInterval) * timelineInterval;
+                if (isTimelineSnapEnabled)
+                    t = Math.round(t / timelineInterval) * timelineInterval;
                 setT(t);
             }}
             positionOffset={{x: 0, y: 0}}

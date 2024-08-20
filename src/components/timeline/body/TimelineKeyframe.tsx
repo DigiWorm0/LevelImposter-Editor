@@ -5,7 +5,7 @@ import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import DiamondSVG from "../icons/DiamondSVG";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
-import {useHotkeysContext} from "react-hotkeys-hook";
+import {useSettingsValue} from "../../../hooks/useSettings";
 
 export interface TimelineKeyframeIconProps {
     t: number;
@@ -21,7 +21,7 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
     const timelineInterval = useTimelineInterval();
     const [timelineOffset] = useTimelineOffset();
     const setPlayhead = useSetPlayhead();
-    const {enableScope, disableScope} = useHotkeysContext();
+    const {isTimelineSnapEnabled} = useSettingsValue();
 
     return (
         <Draggable
@@ -31,14 +31,15 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
                 x: (props.t - timelineOffset) * timelineScale,
                 y: 0
             }}
-            grid={[timelineScale * timelineInterval, 0]}
+            grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
                 const t = x / timelineScale;
                 setPlayhead(t);
             }}
             onStop={(_, {x}) => {
                 let t = x / timelineScale;
-                t = Math.round(t / timelineInterval) * timelineInterval;
+                if (isTimelineSnapEnabled)
+                    t = Math.round(t / timelineInterval) * timelineInterval;
                 props.setT(t);
             }}
             positionOffset={{x: 0, y: 0}}

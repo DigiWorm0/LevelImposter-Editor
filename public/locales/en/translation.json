@@ -786,6 +786,7 @@
       "gridSize": "Grid Size",
       "gridSpacing": "Grid Spacing",
       "snapToGrid": "Snap to Grid",
+      "snapToTimeline": "Snap to Timeline",
       "snapResolution": "Snap Resolution",
       "invisibleOpacity": "Invisible Opacity",
       "localization": "Localization",

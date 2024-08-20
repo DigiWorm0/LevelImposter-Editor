@@ -6,6 +6,7 @@ export default interface LISettings {
     gridSpacing: number;
     gridSnapResolution: number;
     isGridSnapEnabled: boolean;
+    isTimelineSnapEnabled: boolean;
     isBrowserAccepted: boolean;
     isRoomNameVisible: boolean;
     invisibleOpacity: number;
@@ -29,6 +30,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     gridSpacing: 100,
     gridSnapResolution: 0.1,
     isGridSnapEnabled: true,
+    isTimelineSnapEnabled: true,
     isBrowserAccepted: false,
     isRoomNameVisible: true,
     invisibleOpacity: 0.3,
