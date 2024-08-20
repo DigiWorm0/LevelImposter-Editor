@@ -4,10 +4,14 @@ import RightSidebar from "../screens/RightSidebar";
 import BrowserWarningModal from "../modals/BrowserWarningModal";
 import {Box} from "@mui/material";
 import BottomBar from "../screens/BottomBar";
+import MapHelmet from "../utils/MapHelmet";
 
 export default function EditorOverlay() {
     return (
         <>
+            {/* Helmet */}
+            <MapHelmet/>
+
             {/* Column */}
             <Box
                 sx={{

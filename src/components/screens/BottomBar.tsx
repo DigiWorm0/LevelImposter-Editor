@@ -6,6 +6,7 @@ import LazyCollapse from "../properties/util/LazyCollapse";
 import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
 
 export default function BottomBar() {
+    const timelineRef = React.useRef<HTMLDivElement>(null);
     const [isTimelineVisible] = useTimelineVisible();
     const isAnim = useIsSelectedElemType("util-triggeranim");
 
@@ -22,6 +23,7 @@ export default function BottomBar() {
             }}
         >
             <Paper
+                ref={timelineRef}
                 elevation={1}
                 square
             >

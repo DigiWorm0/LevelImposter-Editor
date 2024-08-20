@@ -3,8 +3,10 @@ import Draggable from "react-draggable";
 import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
+import React from "react";
 
 export default function TimelinePlayheadHandle() {
+    const nodeRef = React.useRef<HTMLDivElement>(null);
     const [t, setT] = usePlayhead();
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
@@ -12,6 +14,7 @@ export default function TimelinePlayheadHandle() {
 
     return (
         <Draggable
+            nodeRef={nodeRef}
             axis="x"
             position={{
                 x: (t - timelineOffset) * timelineScale,
@@ -29,6 +32,7 @@ export default function TimelinePlayheadHandle() {
             bounds={{left: 0}}
         >
             <div
+                ref={nodeRef}
                 style={{
                     position: "absolute",
                     bottom: 0,

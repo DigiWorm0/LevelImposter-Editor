@@ -1,21 +1,21 @@
-import { Provider as StateProvider } from "jotai";
+import {Provider as StateProvider} from "jotai";
 import primaryStore from "../../hooks/primaryStore";
 import Content from "./Content";
-import { HotkeysProvider } from "react-hotkeys-hook";
-import { createTheme, ThemeProvider } from "@mui/material";
-import { SnackbarProvider } from "notistack";
+import {HotkeysProvider} from "react-hotkeys-hook";
+import {createTheme, ThemeProvider} from "@mui/material";
+import {SnackbarProvider} from "notistack";
 
 const darkTheme = createTheme({
     palette: {
         mode: "dark"
     },
     typography: {
-        h1: { fontWeight: "bold" },
-        h2: { fontWeight: "bold" },
-        h3: { fontWeight: "bold" },
-        h4: { fontWeight: "bold" },
-        h5: { fontWeight: "bold" },
-        h6: { fontWeight: "bold" }
+        h1: {fontWeight: "bold"},
+        h2: {fontWeight: "bold"},
+        h3: {fontWeight: "bold"},
+        h4: {fontWeight: "bold"},
+        h5: {fontWeight: "bold"},
+        h6: {fontWeight: "bold"}
     }
 });
 
@@ -25,10 +25,11 @@ export default function App() {
 
     return (
         <StateProvider store={primaryStore}>
-            <HotkeysProvider>
+            {/* The empty scope prevents the default behavior of enabling all scopes */}
+            <HotkeysProvider initiallyActiveScopes={[""]}>
                 <ThemeProvider theme={darkTheme}>
                     <SnackbarProvider>
-                        <Content />
+                        <Content/>
                     </SnackbarProvider>
                 </ThemeProvider>
             </HotkeysProvider>

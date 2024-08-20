@@ -1,18 +1,20 @@
-import { useHotkeys } from "react-hotkeys-hook";
-import { Options as HotkeysHookOptions } from "react-hotkeys-hook/dist/types";
+import {useHotkeys} from "react-hotkeys-hook";
+import {Options as HotkeysHookOptions} from "react-hotkeys-hook/dist/types";
 import generateGUID from "../../utils/strings/generateGUID";
 import useAddElementAtCamera from "../elements/useAddElementAtCamera";
-import { useRemoveSelectedElement } from "../elements/useRemoveElement";
-import { useSelectedElemValue, useSetSelectedElemID } from "../elements/useSelectedElem";
+import {useRemoveSelectedElement} from "../elements/useRemoveElement";
+import {useSelectedElemValue, useSetSelectedElemID} from "../elements/useSelectedElem";
 import useSaveMap from "../fileio/useSaveMap";
-import { useRedo, useUndo } from "../map/history/useUndoRedo";
+import {useRedo, useUndo} from "../map/history/useUndoRedo";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
 import useCopyToClipboard from "./useCopyToClipboard";
 import usePasteFromClipboard from "./usePasteFromClipboard";
 
 export enum Scope {
-    Canvas = "Canvas"
+    SceneGraph = "SceneGraph",
+    Canvas = "Canvas",
+    Timeline = "Timeline"
 }
 
 export default function useHotkeysHandler() {
@@ -29,7 +31,19 @@ export default function useHotkeysHandler() {
     const saveMap = useSaveMap();
 
     // Options
-    const options: HotkeysHookOptions = { scopes: [Scope.Canvas], preventDefault: true };
+    const canvasOptions: HotkeysHookOptions = {
+        scopes: [Scope.Canvas, Scope.SceneGraph],
+        preventDefault: true
+    };
+    const timelineOptions: HotkeysHookOptions = {
+        scopes: [Scope.Timeline],
+        preventDefault: true
+    };
+
+    // Delete Keyframe
+    useHotkeys("delete", () => {
+        console.log("TODO: Delete Keyframe");
+    }, timelineOptions);
 
     // Grid Snap
     useHotkeys("ctrl+g", () => {
@@ -38,7 +52,7 @@ export default function useHotkeysHandler() {
             ...settings,
             isGridSnapEnabled: !settings.isGridSnapEnabled
         });
-    }, options, [toaster, settings, setSettings]);
+    }, canvasOptions, [toaster, settings, setSettings]);
 
     // Toggle Grid
     useHotkeys("ctrl+h", () => {
@@ -47,15 +61,15 @@ export default function useHotkeysHandler() {
             ...settings,
             isGridVisible: !settings.isGridVisible
         });
-    }, options, [toaster, settings, setSettings]);
+    }, canvasOptions, [toaster, settings, setSettings]);
 
     // Clipboard
-    useHotkeys("ctrl+c", copyElement, options, [copyElement]);
-    useHotkeys("ctrl+v", pasteElement, options, [pasteElement]);
+    useHotkeys("ctrl+c", copyElement, canvasOptions, [copyElement]);
+    useHotkeys("ctrl+v", pasteElement, canvasOptions, [pasteElement]);
     useHotkeys("ctrl+x", () => {
         copyElement();
         removeSelectedElement();
-    }, options, [copyElement, removeSelectedElement]);
+    }, canvasOptions, [copyElement, removeSelectedElement]);
 
     // Duplicate
     useHotkeys("ctrl+d", () => {
@@ -63,18 +77,18 @@ export default function useHotkeysHandler() {
             return;
         const id = generateGUID();
         const newElem = JSON.parse(JSON.stringify(selectedElem));
-        addElementAtMouse({ ...newElem, id });
+        addElementAtMouse({...newElem, id});
         setSelectedID(id);
-    }, options, [selectedElem, addElementAtMouse, setSelectedID]);
+    }, canvasOptions, [selectedElem, addElementAtMouse, setSelectedID]);
 
     // Delete
-    useHotkeys("delete", removeSelectedElement, options, [removeSelectedElement]);
-    useHotkeys("backspace", removeSelectedElement, options, [removeSelectedElement]);
+    useHotkeys("delete", removeSelectedElement, canvasOptions, [removeSelectedElement]);
+    useHotkeys("backspace", removeSelectedElement, canvasOptions, [removeSelectedElement]);
 
     // Save
-    useHotkeys("ctrl+s", saveMap, options, [saveMap]);
+    useHotkeys("ctrl+s", saveMap, canvasOptions, [saveMap]);
 
     // Undo/Redo
-    useHotkeys("ctrl+z", undo, options, [undo]);
-    useHotkeys("ctrl+y", redo, options, [redo]);
+    useHotkeys("ctrl+z", undo, canvasOptions, [undo]);
+    useHotkeys("ctrl+y", redo, canvasOptions, [redo]);
 }

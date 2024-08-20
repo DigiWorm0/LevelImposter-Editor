@@ -1,5 +1,5 @@
-import { ListItem } from "@mui/material";
-import { ListItemProps } from "@mui/material/ListItem/ListItem";
+import {ListItem} from "@mui/material";
+import {ListItemProps} from "@mui/material/ListItem/ListItem";
 
 export default interface SceneGraphListItemProps extends ListItemProps {
     isGroup?: boolean;
@@ -12,7 +12,8 @@ const PRIMARY_FG = "primary.main";
 
 export function SceneGraphListItem(props: SceneGraphListItemProps) {
 
-    const listItemProps = { ...props, isGroup: null };
+    const listItemProps = {...props};
+    delete listItemProps.isGroup;
 
     const foreground = props.isGroup ? PRIMARY_FG : SUCCESS_FG;
     const background = props.isGroup ? PRIMARY_BG : SUCCESS_BG;

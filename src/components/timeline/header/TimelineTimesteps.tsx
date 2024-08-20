@@ -8,6 +8,7 @@ import Draggable from "react-draggable";
 const LABEL_INTERVAL = 1; // ticks
 
 export default function TimelineTimesteps() {
+    const nodeRef = React.useRef<HTMLDivElement>(null);
     const [windowWidth] = useWindowSize();
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
@@ -38,6 +39,7 @@ export default function TimelineTimesteps() {
 
     return (
         <Draggable
+            nodeRef={nodeRef}
             axis="x"
             position={{
                 x: -timelineOffset * timelineScale,
@@ -50,6 +52,7 @@ export default function TimelineTimesteps() {
             bounds={{right: 0}}
         >
             <div
+                ref={nodeRef}
                 style={{
                     position: "relative",
                     display: "block",

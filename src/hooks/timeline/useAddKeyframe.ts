@@ -27,10 +27,14 @@ export const addKeyframeAtom = atom(null, (get, set, options: AddKeyframeOptions
     // Get the current playhead
     const t = get(playheadAtom);
 
+    // Get next id
+    const id = animTargetProperty.keyframes.reduce((max, k) => Math.max(max, k.id), 0) + 1;
+
     // Add a new keyframe to the target
     set(animTargetPropertyAtom, {
         ...animTargetProperty,
         keyframes: [...animTargetProperty.keyframes, {
+            id,
             t,
             value: options.value ?? 0
         }]

@@ -9,7 +9,7 @@ export default function AnimationPanel() {
     const {t} = useTranslation();
     const isAnim = useIsSelectedElemType("util-triggeranim");
     //const [animTargetID, setAnimTargetID] = useSelectedElemProp("animTargetID");
-    //const [selectedKeyframeID, setSelectedKeyframeID] = useSelectedKeyframeID();
+    //const [selectedKeyframeID, setSelectedKeyframeID] = useSelectedKeyframe();
     //const [_animKeyframes, setAnimKeyframes] = useSelectedElemProp("animKeyframes");
     //const animKeyframes: LIAnimKeyframe[] = _animKeyframes ?? DEFAULT_KEYFRAMES;
     const [isTimelineVisible, setTimelineVisible] = useTimelineVisible();

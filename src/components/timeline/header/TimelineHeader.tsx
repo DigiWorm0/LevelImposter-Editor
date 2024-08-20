@@ -7,11 +7,15 @@ import usePlayAnim from "../../../hooks/timeline/usePlayAnim";
 import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
 import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import {useSetTimelineScale} from "../../../hooks/timeline/useTimelineScale";
+import {useSetTimelineOffset} from "../../../hooks/timeline/useTimelineOffset";
 
 export default function TimelineHeader() {
     const [isLoop, setLoop] = useSelectedElemProp("triggerLoop");
     const [playAnim, setPlayAnim] = usePlayAnim();
     const setPlayhead = useSetPlayhead();
+    const setScale = useSetTimelineScale();
+    const setOffset = useSetTimelineOffset();
 
     return (
         <TimelineRow
@@ -31,6 +35,11 @@ export default function TimelineHeader() {
                             {playAnim ? <Pause/> : <PlayArrow/>}
                         </IconButton>
                         <IconButton
+                            onDoubleClick={() => {
+                                setScale(40);
+                                setOffset(0);
+                                setPlayhead(0);
+                            }}
                             onClick={() => {
                                 setPlayAnim(false);
                                 setPlayhead(0);

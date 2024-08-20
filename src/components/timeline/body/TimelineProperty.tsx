@@ -13,6 +13,7 @@ import useAnimTargetProperty from "../../../hooks/timeline/useAnimTargetProperty
 import DiamondSVG from "../icons/DiamondSVG";
 import DiamondSVGOutline from "../icons/DiamondSVGOutline";
 import TimelineCurveButton from "./TimelineCurveButton";
+import useSelectedKeyframe from "../../../hooks/timeline/useSelectedKeyframe";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
@@ -23,17 +24,30 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
     const [animTargetProperty, setAnimTargetProperty] = useAnimTargetProperty(props);
     const isCurrentKeyframe = useIsCurrentKeyframe(props);
     const [value, setValue] = useAnimPropertyValue(props);
+    const [selectedKeyframe, setSelectedKeyframe] = useSelectedKeyframe();
 
     const DEFAULT_VALUE = (props.property === "yScale" || props.property === "xScale") ? 1 : 0;
+    const isSelected = props.targetID === selectedKeyframe?.targetID && props.property === selectedKeyframe?.property;
 
-    const setKeyframeT = (index: number, t: number) => {
+    const selectKeyframe = (id: number) => {
+
+        // Select keyframe
+        setSelectedKeyframe({
+            keyframeID: id,
+            targetID: props.targetID,
+            property: props.property
+        });
+
+    };
+
+    const setKeyframeT = (id: number, t: number) => {
         if (!animTargetProperty)
             return;
 
         setAnimTargetProperty({
             ...animTargetProperty,
-            keyframes: animTargetProperty.keyframes.map((k, i) => {
-                if (i === index)
+            keyframes: animTargetProperty.keyframes.map(k => {
+                if (k.id === id)
                     return {...k, t};
                 return k;
             })
@@ -78,10 +92,12 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                                 variant: "standard",
                                 sx: {width: 100, height: 24},
                                 InputProps: {
-                                    endAdornment: <TimelineCurveButton
-                                        property={props.property}
-                                        targetID={props.targetID}
-                                    />
+                                    endAdornment: (
+                                        <TimelineCurveButton
+                                            property={props.property}
+                                            targetID={props.targetID}
+                                        />
+                                    )
                                 }
                             }}
                         />
@@ -91,11 +107,13 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
         >
             <TimelineKeyframeRow>
                 <TimelinePlayhead/>
-                {animTargetProperty?.keyframes.map((k, index) => (
+                {animTargetProperty?.keyframes.map(k => (
                     <TimelineKeyframe
-                        key={index}
+                        key={k.id}
                         t={k.t}
-                        setT={(newT) => setKeyframeT(index, newT)}
+                        setT={(newT) => setKeyframeT(k.id, newT)}
+                        selected={selectedKeyframe?.keyframeID === k.id && isSelected}
+                        select={() => selectKeyframe(k.id)}
                     />
                 ))}
             </TimelineKeyframeRow>

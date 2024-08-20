@@ -48,15 +48,25 @@ export const animPropertyValueAtom = atomFamily(
             // Return the interpolated value
             const t = (playhead - prevKeyframe.t) / (nextKeyframe.t - prevKeyframe.t);
 
+            // Interpolate the value based on the curve
+
+            // Lines
             if (curve === "linear")
                 return lerp(prevKeyframe.value, nextKeyframe.value, t);
+
+            // Ease in
             else if (curve === "easeIn")
                 return lerp(prevKeyframe.value, nextKeyframe.value, t * t);
+
+            // Ease out
             else if (curve === "easeOut")
                 return lerp(prevKeyframe.value, nextKeyframe.value, t * (2 - t));
+
+            // Ease in and out
             else if (curve === "easeInOut")
                 return lerp(prevKeyframe.value, nextKeyframe.value, t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
+            // No curve, default to previous keyframe
             return prevKeyframe.value;
         }, (get, set, value: number) => {
             // Find a keyframe at the current playhead

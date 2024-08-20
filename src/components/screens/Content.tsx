@@ -1,5 +1,4 @@
 import GlobalHooks from "../utils/GlobalHooks";
-import MapHelmet from "../utils/MapHelmet";
 import useEmbed from "../../hooks/embed/useEmbed";
 import Canvas from "./Canvas";
 import EmbeddedOverlay from "../overlays/EmbeddedOverlay";
@@ -10,10 +9,8 @@ export default function Content() {
 
     return (
         <div className={"app"}>
-
             {/* Meta Content */}
             <GlobalHooks/>
-            {!isEmbedded && <MapHelmet/>}
 
 
             {/* Overlays */}
