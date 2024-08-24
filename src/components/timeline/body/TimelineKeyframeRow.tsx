@@ -16,7 +16,7 @@ export default function TimelineKeyframeRow(props: TimelineKeyframeRowProps) {
                 borderBottom: "1px solid rgba(0,0,0,0.3)",
                 display: "flex",
                 flexDirection: "row",
-                position: "relative"
+                position: "relative",
             }}
         >
             {props.children}

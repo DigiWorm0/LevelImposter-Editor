@@ -15,9 +15,9 @@ export default function EaseInSVG(props: SVGProps) {
             <path
                 d="M3 20C11 20 21 4 21 4"
                 stroke={props.color ?? "currentColor"}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );

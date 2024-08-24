@@ -90,8 +90,8 @@ export default function TimelineHeader() {
                 </Box>
             )}
         >
-            <TimelinePlayheadHandle/>
             <TimelineTimesteps/>
+            <TimelinePlayheadHandle/>
 
         </TimelineRow>
     );

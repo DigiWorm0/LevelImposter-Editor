@@ -3,7 +3,6 @@ import Draggable from "react-draggable";
 import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import DiamondSVG from "../icons/DiamondSVG";
-import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
 import {useSettingsValue} from "../../../hooks/useSettings";
 
@@ -19,7 +18,6 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
     const nodeRef = React.useRef<HTMLDivElement>(null);
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
-    const [timelineOffset] = useTimelineOffset();
     const setPlayhead = useSetPlayhead();
     const {isTimelineSnapEnabled} = useSettingsValue();
     const [currentT, setCurrentT] = React.useState(props.t);
@@ -47,7 +45,7 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
                 y: 0
             }}
             positionOffset={{
-                x: -timelineOffset * timelineScale,
+                x: 0,
                 y: 0
             }}
             grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
@@ -57,19 +55,18 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
                 setCurrentT(t);
                 setIsDragging(true);
             }}
-            onStop={(_, {x}) => {
-                // Prevents bug where clicking on a keyframe would move it
-                if (isDragging) {
-                    const t = snapToInterval(x / timelineScale);
-                    props.setT(t);
-                    setCurrentT(t);
-                    setPlayhead(t);
-                }
-
+            onStop={() => {
+                if (!isDragging)
+                    return;
+                props.setT(currentT);
                 setIsDragging(false);
             }}
             bounds={{left: 0}}
-            onMouseDown={() => {
+            onMouseDown={(e) => {
+                if (e.button !== 0)
+                    return;
+                e.preventDefault();
+                e.stopPropagation();
                 props.select();
                 setPlayhead(props.t);
             }}

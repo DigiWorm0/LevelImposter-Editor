@@ -3,6 +3,8 @@ import {timelineScaleAtom} from "./useTimelineScale";
 import {timelineOffsetAtom} from "./useTimelineOffset";
 import {playheadAtom} from "./usePlayhead";
 
+const MIN_SCALE = 0.01;
+const MAX_SCALE = 40000;
 const SCROLL_SCALE = 1.002;
 
 const changeTimelineScaleAtom = atom(null, (get, set, delta: number) => {
@@ -19,9 +21,7 @@ const changeTimelineScaleAtom = atom(null, (get, set, delta: number) => {
     const playheadOffset = (playhead - prevOffset) * prevScale; // px
     const newOffset = playhead - playheadOffset / newScale; // s
 
-    // Clamp Offset
-
-    set(timelineScaleAtom, newScale);
+    set(timelineScaleAtom, Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale)));
     set(timelineOffsetAtom, Math.max(0, newOffset));
 });
 

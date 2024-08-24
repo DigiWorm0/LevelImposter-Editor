@@ -2,7 +2,6 @@ import usePlayhead from "../../../hooks/timeline/usePlayhead";
 import Draggable from "react-draggable";
 import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
-import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 import React from "react";
 import {useSettingsValue} from "../../../hooks/useSettings";
 
@@ -11,23 +10,31 @@ export default function TimelinePlayheadHandle() {
     const [t, setT] = usePlayhead();
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
-    const [timelineOffset] = useTimelineOffset();
     const {isTimelineSnapEnabled} = useSettingsValue();
+
+    // Snaps a time value to the timeline interval
+    const snapToInterval = (t: number) => {
+        if (isTimelineSnapEnabled)
+            return Math.round(t / timelineInterval) * timelineInterval;
+        return t;
+    };
 
     return (
         <Draggable
             nodeRef={nodeRef}
             axis="x"
             position={{
-                x: (t - timelineOffset) * timelineScale,
+                x: t * timelineScale,
                 y: 0
             }}
             grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
-                let t = (x / timelineScale) + timelineOffset;
-                if (isTimelineSnapEnabled)
-                    t = Math.round(t / timelineInterval) * timelineInterval;
+                const t = snapToInterval(x / timelineScale);
                 setT(t);
+            }}
+            onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
             }}
             positionOffset={{x: 0, y: 0}}
             bounds={{left: 0}}
@@ -38,7 +45,7 @@ export default function TimelinePlayheadHandle() {
                     position: "absolute",
                     bottom: 0,
                     width: 14,
-                    height: 15,
+                    height: 20,
                     zIndex: 10,
                     borderBottomLeftRadius: 4,
                     borderBottomRightRadius: 4,

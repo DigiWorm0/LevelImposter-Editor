@@ -3,16 +3,14 @@ import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";
 import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
-import Draggable from "react-draggable";
 
 const LABEL_INTERVAL = 1; // ticks
 
 export default function TimelineTimesteps() {
-    const nodeRef = React.useRef<HTMLDivElement>(null);
     const [windowWidth] = useWindowSize();
     const timelineScale = useTimelineScaleValue();
     const timelineInterval = useTimelineInterval();
-    const [timelineOffset, setTimelineOffset] = useTimelineOffset();
+    const [timelineOffset] = useTimelineOffset();
 
     const tickCount = Math.ceil(windowWidth / timelineInterval / timelineScale);
 
@@ -38,87 +36,70 @@ export default function TimelineTimesteps() {
     };
 
     return (
-        <Draggable
-            nodeRef={nodeRef}
-            axis="x"
-            position={{
-                x: -timelineOffset * timelineScale,
-                y: 0
+        <div
+            style={{
+                position: "relative",
+                display: "block",
+                height: "100%",
+                marginLeft: 6,
+                flexGrow: 0,
+                flexShrink: 0
             }}
-            onDrag={(_, {x}) => {
-                setTimelineOffset(-x / timelineScale);
-            }}
-            positionOffset={{x: 0, y: 0}}
-            bounds={{right: 0}}
-            allowAnyClick
         >
             <div
-                ref={nodeRef}
                 style={{
-                    position: "relative",
-                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "calc(infinity * 1px)",
                     height: "100%",
-                    marginLeft: 6,
-                    flexGrow: 0,
-                    flexShrink: 0
+                    zIndex: 10
                 }}
-            >
-                <div
-                    style={{
-                        cursor: "ew-resize",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: windowWidth + timelineOffset * timelineScale,
-                        height: "100%",
-                        zIndex: 10
-                    }}
-                />
+            />
 
-                {Array.from({length: tickCount}).map((_, i) => {
-                    const _index = i + Math.floor(timelineOffset / timelineInterval);
+            {Array.from({length: tickCount}).map((_, i) => {
+                const _index = i + Math.floor(timelineOffset / timelineInterval);
 
-                    return (
-                        <div
-                            key={i}
-                            style={{
-                                width: 1,
-                                height: _index % 100 === 0 ? 12 :
-                                    _index % 10 === 0 ? 10 :
-                                        _index % 5 === 0 ? 8 : 4,
-                                backgroundColor: "#888",
-                                position: "absolute",
-                                left: _index * timelineInterval * timelineScale,
-                                bottom: 0,
-                                opacity: _index % 100 !== 0 && _index % 10 !== 0 && _index % 5 !== 0 ?
-                                    timelineInterval * timelineScale * 0.05 : 1
-                            }}
-                        />
-                    );
-                })}
+                return (
+                    <div
+                        key={i}
+                        style={{
+                            width: 1,
+                            height: _index % 100 === 0 ? 12 :
+                                _index % 10 === 0 ? 10 :
+                                    _index % 5 === 0 ? 8 : 4,
+                            backgroundColor: "#888",
+                            position: "absolute",
+                            left: _index * timelineInterval * timelineScale,
+                            bottom: 0,
+                            opacity: _index % 100 !== 0 && _index % 10 !== 0 && _index % 5 !== 0 ?
+                                timelineInterval * timelineScale * 0.05 : 1
+                        }}
+                    />
+                );
+            })}
 
-                {Array.from({length: Math.ceil(tickCount / 10)}).map((_, i) => {
-                    const _index = i * 10 + Math.floor(timelineOffset / timelineInterval / 10) * 10;
-                    return (
-                        <div
-                            key={i}
-                            style={{
-                                color: "#888",
-                                position: "absolute",
-                                left: _index * timelineInterval * timelineScale - 50,
-                                top: 5,
-                                width: 101,
-                                textAlign: "center",
-                                fontWeight: "normal",
-                                opacity: _index % 100 ?
-                                    timelineInterval * timelineScale * 0.05 : 1
-                            }}
-                        >
-                            <span>{indexToTime(_index * LABEL_INTERVAL)}</span>
-                        </div>
-                    );
-                })}
-            </div>
-        </Draggable>
+            {Array.from({length: Math.ceil(tickCount / 10)}).map((_, i) => {
+                const _index = i * 10 + Math.floor(timelineOffset / timelineInterval / 10) * 10;
+                return (
+                    <div
+                        key={i}
+                        style={{
+                            color: "#888",
+                            position: "absolute",
+                            left: _index * timelineInterval * timelineScale - 50,
+                            top: 5,
+                            width: 101,
+                            textAlign: "center",
+                            fontWeight: "normal",
+                            opacity: _index % 100 ?
+                                timelineInterval * timelineScale * 0.05 : 1
+                        }}
+                    >
+                        <span>{indexToTime(_index * LABEL_INTERVAL)}</span>
+                    </div>
+                );
+            })}
+        </div>
     );
 }
