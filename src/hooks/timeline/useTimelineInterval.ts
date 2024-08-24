@@ -2,7 +2,7 @@ import {atom, useAtomValue} from "jotai";
 import {timelineScaleAtom} from "./useTimelineScale";
 
 const DEFAULT_TICK_INTERVAL = .01; // seconds
-const MAX_TICK_INTERVAL = 4; // px
+const BREAK_OFFSET = -0.8; // offset to break the scale into intervals
 
 export const timelineIntervalAtom = atom((get) => {
     // Get the current timeline scale
@@ -12,13 +12,11 @@ export const timelineIntervalAtom = atom((get) => {
     if (timelineScale <= 0)
         return DEFAULT_TICK_INTERVAL;
 
-    // Repeatedly shrink the interval until it is greater than 5
-    let interval = DEFAULT_TICK_INTERVAL;
-    while (interval * timelineScale < MAX_TICK_INTERVAL)
-        interval *= 10;
+    // Calculate the exponent of the scale
+    const exponent = Math.floor(Math.log10(timelineScale) + BREAK_OFFSET);
 
     // Return the interval
-    return interval;
+    return Math.pow(10, -exponent);
 });
 
 export default function useTimelineInterval() {

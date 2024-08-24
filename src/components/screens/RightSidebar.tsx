@@ -36,21 +36,28 @@ import CameraShakePanel from "../properties/panels/CameraShakePanel";
 import React from "react";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import AnimationPanel from "../properties/panels/AnimationPanel";
+import usePanelSize from "../../hooks/ui/usePanelSize";
 
 export default function RightSidebar() {
+    //const dragRef = React.useRef<HTMLDivElement>(null);
+    const [_size] = usePanelSize("right-sidebar");
+    const size = _size ?? 300;
+
     return (
         <Paper
             elevation={1}
             square
             sx={{
-                width: 300,
+                width: size,
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 padding: "0 10px",
                 overflowX: "hidden",
                 overflowY: "auto",
-                pointerEvents: "auto"
+                pointerEvents: "auto",
+                position: "relative",
+                zIndex: -10
             }}
         >
             <Box
@@ -111,6 +118,27 @@ export default function RightSidebar() {
 
                 <div style={{minHeight: 150}}/>
             </Box>
+
+            {/*<Draggable*/}
+            {/*    nodeRef={dragRef}*/}
+            {/*    axis="x"*/}
+            {/*    position={{x: -size, y: 0}}*/}
+            {/*    onDrag={(_, {x}) => setSize(-x)}*/}
+            {/*    bounds={{right: -220}}*/}
+            {/*>*/}
+            {/*    <div*/}
+            {/*        ref={dragRef}*/}
+            {/*        style={{*/}
+            {/*            position: "absolute",*/}
+            {/*            top: 0,*/}
+            {/*            right: 6,*/}
+            {/*            width: 12,*/}
+            {/*            height: "100%",*/}
+            {/*            cursor: "ew-resize",*/}
+            {/*            backgroundColor: "transparent"*/}
+            {/*        }}*/}
+            {/*    />*/}
+            {/*</Draggable>*/}
         </Paper>
     );
 }

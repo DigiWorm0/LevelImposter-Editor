@@ -50,6 +50,7 @@ export default function TimelineTimesteps() {
             }}
             positionOffset={{x: 0, y: 0}}
             bounds={{right: 0}}
+            allowAnyClick
         >
             <div
                 ref={nodeRef}

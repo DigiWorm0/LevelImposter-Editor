@@ -22,34 +22,56 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
     const [timelineOffset] = useTimelineOffset();
     const setPlayhead = useSetPlayhead();
     const {isTimelineSnapEnabled} = useSettingsValue();
+    const [currentT, setCurrentT] = React.useState(props.t);
+    const [isDragging, setIsDragging] = React.useState(false);
+
+    // Keep currentT in sync with props.t
+    // Seperated from t to prevent undo/redo history from being polluted
+    React.useEffect(() => {
+        setCurrentT(props.t);
+    }, [props.t]);
+
+    // Snaps a time value to the timeline interval
+    const snapToInterval = (t: number) => {
+        if (isTimelineSnapEnabled)
+            return Math.round(t / timelineInterval) * timelineInterval;
+        return t;
+    };
 
     return (
         <Draggable
             nodeRef={nodeRef}
             axis="x"
             position={{
-                x: (props.t - timelineOffset) * timelineScale,
+                x: currentT * timelineScale,
+                y: 0
+            }}
+            positionOffset={{
+                x: -timelineOffset * timelineScale,
                 y: 0
             }}
             grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
-                const t = x / timelineScale;
+                const t = snapToInterval(x / timelineScale);
                 setPlayhead(t);
+                setCurrentT(t);
+                setIsDragging(true);
             }}
             onStop={(_, {x}) => {
-                let t = x / timelineScale;
-                if (isTimelineSnapEnabled)
-                    t = Math.round(t / timelineInterval) * timelineInterval;
-                props.setT(t);
+                // Prevents bug where clicking on a keyframe would move it
+                if (isDragging) {
+                    const t = snapToInterval(x / timelineScale);
+                    props.setT(t);
+                    setCurrentT(t);
+                    setPlayhead(t);
+                }
+
+                setIsDragging(false);
             }}
-            positionOffset={{x: 0, y: 0}}
             bounds={{left: 0}}
-            onMouseDown={(e) => {
-                e.stopPropagation();
+            onMouseDown={() => {
                 props.select();
                 setPlayhead(props.t);
-                console.log("select", document.activeElement, nodeRef.current);
-                nodeRef.current?.focus();
             }}
         >
             <div
