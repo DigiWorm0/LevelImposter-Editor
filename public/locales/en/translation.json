@@ -540,7 +540,8 @@
     "linear": "Linear",
     "easeIn": "Ease In",
     "easeOut": "Ease Out",
-    "easeInOut": "Ease In-Out"
+    "easeInOut": "Ease In-Out",
+    "addTargetInfo": "You can only target Trigger Sprites (util-blanktrigger)"
   },
   "timer": {
     "title": "Timer Trigger",
@@ -772,6 +773,14 @@
     "gasColor": "Gas Color"
   },
   "settings": {
+    "experimentalInfo": "This feature is experimental and may not work as expected.",
+    "colliders": "Colliders",
+    "animation": "Animation",
+    "scenegraph": "Scene Graph",
+    "canvas": "Canvas",
+    "inspector": "Inspector",
+    "experimental": "Experimental",
+    "ui": "User Interface",
     "interface": {
       "title": "Settings",
       "subtitle": "Interface",
@@ -780,7 +789,7 @@
       "colliderPreview": "Collider Preview",
       "colliderHandleSize": "Collider Handle Size",
       "scrollToSelection": "Scroll to Selection",
-      "objNesting": "Object Nesting (Unstable)",
+      "objNesting": "Object Nesting",
       "grid": "Grid",
       "gridVisible": "Grid Visible",
       "gridSize": "Grid Size",
@@ -795,7 +804,9 @@
       "showInfo": "Show Inspector Tips",
       "showConnections": "Show Connections",
       "animPreview": "Animation Preview",
-      "audioDownmix": "Audio Downmix"
+      "animAnything": "Animate Any Object",
+      "audioDownmix": "Audio Downmix",
+      "editType": "Edit Object Type"
     },
     "map": {
       "title": "Map",

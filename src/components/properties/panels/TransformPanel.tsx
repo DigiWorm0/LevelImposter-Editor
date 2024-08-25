@@ -10,17 +10,17 @@ import {
     Visibility,
     VisibilityOff
 } from "@mui/icons-material";
-import { Button, ButtonGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { useRemoveSelectedElement } from "../../../hooks/elements/useRemoveElement";
-import { useSettingsValue } from "../../../hooks/useSettings";
+import {Button, ButtonGroup, InputAdornment, TextField, Tooltip} from "@mui/material";
+import {useTranslation} from "react-i18next";
+import {useRemoveSelectedElement} from "../../../hooks/elements/useRemoveElement";
+import {useSettingsValue} from "../../../hooks/useSettings";
 import AUElementDB from "../../../types/db/AUElementDB";
-import { ElemVisibility } from "../../../utils/map/getMapVisibility";
+import {ElemVisibility} from "../../../utils/map/getMapVisibility";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
-import { useSelectedElemIDValue } from "../../../hooks/elements/useSelectedElem";
+import {useSelectedElemIDValue} from "../../../hooks/elements/useSelectedElem";
 import useElementVisibility from "../../../hooks/elements/useElementVisibility";
 import TransformNumericInput from "../input/TransformNumericInput";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
@@ -28,7 +28,7 @@ import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
 import getIsConsole from "../../../utils/map/getIsConsole";
 
 export default function TransformPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [type, setType] = useSelectedElemTransform<string>("type");
     const [name, setName] = useSelectedElemTransform<string>("name");
     const [xScale] = useSelectedElemTransform<number>("xScale");
@@ -41,7 +41,7 @@ export default function TransformPanel() {
     const isLocked = _isLocked ?? false;
     const isVisible = _isVisible ?? true;
     const removeSelectedElement = useRemoveSelectedElement();
-    const { isDevMode } = useSettingsValue();
+    const {editType} = useSettingsValue();
     const fixSprite = useFixSpriteScaling();
 
     // Gets if the selected element is a console object
@@ -56,11 +56,11 @@ export default function TransformPanel() {
         <>
             <PanelContainer
                 title={t("transform.title") as string}
-                style={{ paddingTop: 0 }}
+                style={{paddingTop: 0}}
             >
                 <TextField
                     key={selectedElemID + "-type"}
-                    disabled={!isDevMode}
+                    disabled={!editType}
                     size={"small"}
                     variant={"standard"}
                     defaultValue={type}
@@ -75,10 +75,10 @@ export default function TransformPanel() {
                     onChange={(e) => {
                         setType(e.target.value);
                     }}
-                    sx={{ marginBottom: 1 }}
+                    sx={{marginBottom: 1}}
                 />
                 <TextField
-                    style={{ marginBottom: 5 }}
+                    style={{marginBottom: 5}}
                     key={selectedElemID + "-name"}
                     size={"small"}
                     value={name}
@@ -88,28 +88,28 @@ export default function TransformPanel() {
                 />
                 {type !== "util-layer" && (<>
                     <InputGroup>
-                        <TransformNumericInput name={t("transform.x")} prop={"x"} />
-                        <TransformNumericInput name={t("transform.y")} prop={"y"} />
-                        <TransformNumericInput name={t("transform.z")} prop={"z"} />
+                        <TransformNumericInput name={t("transform.x")} prop={"x"}/>
+                        <TransformNumericInput name={t("transform.y")} prop={"y"}/>
+                        <TransformNumericInput name={t("transform.z")} prop={"z"}/>
                     </InputGroup>
                     <InputGroup>
-                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz />} />
-                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert />} />
+                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz/>}/>
+                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert/>}/>
                     </InputGroup>
                     <TransformNumericInput
                         name={t("transform.rotation")}
                         prop={"rotation"}
-                        icon={<RotateLeft />}
+                        icon={<RotateLeft/>}
                         stepSize={5}
                     />
-                    <ButtonGroup style={{ marginTop: 10 }} fullWidth>
+                    <ButtonGroup style={{marginTop: 10}} fullWidth>
                         <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
                             <Button
                                 variant={"text"}
                                 color={"inherit"}
                                 onClick={() => setVisible(!isVisible)}
                             >
-                                {isVisible ? <Visibility /> : <VisibilityOff />}
+                                {isVisible ? <Visibility/> : <VisibilityOff/>}
                             </Button>
                         </Tooltip>
                         <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
@@ -118,7 +118,7 @@ export default function TransformPanel() {
                                 color={"inherit"}
                                 onClick={() => setLocked(!isLocked)}
                             >
-                                {isLocked ? <Lock /> : <LockOpen />}
+                                {isLocked ? <Lock/> : <LockOpen/>}
                             </Button>
                         </Tooltip>
                         <Tooltip title={t("transform.delete")}>
@@ -127,7 +127,7 @@ export default function TransformPanel() {
                                 color={"inherit"}
                                 onClick={removeSelectedElement}
                             >
-                                <Delete />
+                                <Delete/>
                             </Button>
                         </Tooltip>
                     </ButtonGroup>
@@ -136,7 +136,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={elemVisibility !== ElemVisibility.Visible}
                 info
-                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? <Visibility /> : <VisibilityOff />}
+                icon={elemVisibility == ElemVisibility.InvisibleMinimap ? <Visibility/> : <VisibilityOff/>}
             >
                 {elemVisibility === ElemVisibility.Invisible ? t("transform.errorInvisible") : null}
                 {elemVisibility === ElemVisibility.InvisibleNoSprite ? t("transform.errorNoSprite") : null}
@@ -146,7 +146,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isConsole && (Math.abs(xScale || 1) != 1 || Math.abs(yScale || 1) != 1)}
                 buttonText={t("transform.autoFix") as string}
-                buttonIcon={<Build />}
+                buttonIcon={<Build/>}
                 onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
@@ -155,7 +155,7 @@ export default function TransformPanel() {
             <MapError
                 isVisible={isCamera}
                 info
-                icon={<TextSnippet />}
+                icon={<TextSnippet/>}
             >
                 {t("cameras.nameInfo")}
             </MapError>

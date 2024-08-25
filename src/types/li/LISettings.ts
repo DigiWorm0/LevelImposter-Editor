@@ -13,6 +13,7 @@ export default interface LISettings {
     colliderHandleSize: number;
     colliderPreview: boolean;
     animPreview: boolean;
+    animAnything: boolean;
     connectionsPreview: boolean;
     animateGIFOnSelect: boolean;
     language: string;
@@ -20,6 +21,7 @@ export default interface LISettings {
     elementNesting: boolean;
     isInfoVisible: boolean;
     isAudioDownmixEnabled: boolean;
+    editType: boolean;
 }
 
 export const DEFAULT_SETTINGS: LISettings = {
@@ -37,6 +39,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     colliderHandleSize: 8,
     colliderPreview: true,
     animPreview: true,
+    animAnything: false,
     connectionsPreview: true,
     animateGIFOnSelect: true,
     language: "auto",
@@ -44,4 +47,5 @@ export const DEFAULT_SETTINGS: LISettings = {
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
+    editType: false
 };

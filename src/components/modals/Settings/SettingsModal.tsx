@@ -1,15 +1,17 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import SettingsSwitchInput from "../properties/input/settings/SettingsSwitchInput";
-import SettingsNumericInput from "../properties/input/settings/SettingsNumericInput";
-import SettingsLocalizationInput from "../properties/input/select/SettingsLocalizationInput";
-import GenericModal from "./GenericModal";
-import SettingsPercentInput from "../properties/input/settings/SettingsPercentInput";
+import SettingsSwitchInput from "../../properties/input/settings/SettingsSwitchInput";
+import SettingsNumericInput from "../../properties/input/settings/SettingsNumericInput";
+import SettingsLocalizationInput from "../../properties/input/select/SettingsLocalizationInput";
+import GenericModal from "../GenericModal";
+import SettingsPercentInput from "../../properties/input/settings/SettingsPercentInput";
 import {
     AdsClick,
+    Animation,
     Article,
     AspectRatio,
     Code,
+    Edit,
     Grid3x3,
     GridGoldenratio,
     GridOn,
@@ -23,6 +25,7 @@ import {
     Visibility,
     VolumeUp
 } from "@mui/icons-material";
+import SettingsHeader from "./SettingsHeader";
 
 export interface SettingsModalProps {
     isOpen: boolean;
@@ -38,6 +41,10 @@ export default function SettingsModal(props: SettingsModalProps) {
             onClose={props.onClose}
             title={t("settings.interface.title") as string}
         >
+            <SettingsLocalizationInput/>
+            <SettingsHeader>
+                {t("settings.colliders")}
+            </SettingsHeader>
             <SettingsSwitchInput
                 name={t("settings.interface.colliderPreview")}
                 prop="colliderPreview"
@@ -51,16 +58,17 @@ export default function SettingsModal(props: SettingsModalProps) {
                 stepSize={1}
                 label={"px"}
             />
+            <SettingsHeader>
+                {t("settings.scenegraph")}
+            </SettingsHeader>
             <SettingsSwitchInput
                 name={t("settings.interface.scrollToSelection")}
                 prop="scrollToSelection"
                 icon={<SwapVert/>}
             />
-            <SettingsSwitchInput
-                name={t("settings.interface.objNesting")}
-                prop="elementNesting"
-                icon={<Layers/>}
-            />
+            <SettingsHeader>
+                {t("settings.canvas")}
+            </SettingsHeader>
             <SettingsSwitchInput
                 name={t("settings.interface.showRoomName")}
                 prop="isRoomNameVisible"
@@ -80,21 +88,6 @@ export default function SettingsModal(props: SettingsModalProps) {
                 name={t("settings.interface.showConnections")}
                 prop="connectionsPreview"
                 icon={<ShapeLine/>}
-            />
-            <SettingsSwitchInput
-                name={t("settings.interface.animPreview")}
-                prop="animPreview"
-                icon={<PlayCircle/>}
-            />
-            <SettingsSwitchInput
-                name={t("settings.interface.audioDownmix")}
-                prop="isAudioDownmixEnabled"
-                icon={<VolumeUp/>}
-            />
-            <SettingsSwitchInput
-                name={t("settings.interface.snapToTimeline")}
-                prop="isTimelineSnapEnabled"
-                icon={<LinearScale/>}
             />
             <SettingsSwitchInput
                 name={t("settings.interface.grid")}
@@ -135,11 +128,52 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="invisibleOpacity"
                 icon={<Visibility/>}
             />
-            <SettingsLocalizationInput/>
+
+            <SettingsHeader>
+                {t("settings.animation")}
+            </SettingsHeader>
+            <SettingsSwitchInput
+                name={t("settings.interface.animPreview")}
+                prop="animPreview"
+                icon={<PlayCircle/>}
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.snapToTimeline")}
+                prop="isTimelineSnapEnabled"
+                icon={<LinearScale/>}
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.audioDownmix")}
+                prop="isAudioDownmixEnabled"
+                icon={<VolumeUp/>}
+            />
+
+            <SettingsHeader>
+                {t("settings.experimental")}
+            </SettingsHeader>
+            <SettingsSwitchInput
+                name={t("settings.interface.animAnything")}
+                prop="animAnything"
+                icon={<Animation/>}
+                experimental
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.objNesting")}
+                prop="elementNesting"
+                icon={<Layers/>}
+                experimental
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.editType")}
+                prop="editType"
+                icon={<Edit/>}
+                experimental
+            />
             <SettingsSwitchInput
                 name={t("settings.interface.devMode")}
                 prop="isDevMode"
                 icon={<Code/>}
+                experimental
             />
         </GenericModal>
     );

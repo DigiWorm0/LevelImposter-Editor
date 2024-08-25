@@ -5,8 +5,7 @@ import useSettings from "../useSettings";
 import useToaster from "../useToaster";
 import useCopyToClipboard from "./useCopyToClipboard";
 import usePasteFromClipboard from "./usePasteFromClipboard";
-import primaryStore from "../primaryStore";
-import {focusAtom, Scope} from "./useFocus";
+import {Scope} from "./useFocus";
 import useDuplicate from "./useDuplicate";
 import useFocusedHotkeys from "./useFocusedHotkeys";
 import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
@@ -23,9 +22,14 @@ export default function useHotkeysHandler() {
     const toaster = useToaster();
     const saveMap = useSaveMap();
 
-    useFocusedHotkeys("ctrl+/", () => {
-        console.log(primaryStore.get(focusAtom));
-    });
+    // Timeline Snap
+    useFocusedHotkeys("ctrl+g", () => {
+        toaster.info((settings.isTimelineSnapEnabled ? "Disabled" : "Enabled") + " Timeline Snap");
+        setSettings({
+            ...settings,
+            isTimelineSnapEnabled: !settings.isTimelineSnapEnabled
+        });
+    }, Scope.Timeline);
 
     // Delete Keyframe
     useFocusedHotkeys("delete", removeSelectedKeyframe, Scope.Timeline);

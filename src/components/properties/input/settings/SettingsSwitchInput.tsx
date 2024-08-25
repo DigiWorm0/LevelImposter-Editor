@@ -1,16 +1,19 @@
 import React from "react";
 import LISettings from "../../../../types/li/LISettings";
 import useSettings from "../../../../hooks/useSettings";
-import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 export interface SettingsSwitchInputProps {
     name: string;
     prop: keyof LISettings;
     icon?: React.ReactNode;
+    experimental?: boolean;
 }
 
 export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
     const [settings, setSettings] = useSettings();
+    const {t} = useTranslation();
 
     const value = settings[props.prop] as boolean;
 
@@ -29,21 +32,28 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
     }, [settings, props.prop, setSettings, value]);
 
     return (
-        <ListItem
-            dense
-            disablePadding
-            secondaryAction={
-                <Checkbox
-                    edge={"end"}
-                    checked={value}
-                    onChange={onChange}
-                />
-            }
+
+        <Tooltip
+            title={props.experimental ? t("settings.experimentalInfo") : undefined}
+            
         >
-            <ListItemButton onClick={onClick}>
-                {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
-                <ListItemText primary={props.name} />
-            </ListItemButton>
-        </ListItem>
+            <ListItem
+                dense
+                disablePadding
+                secondaryAction={
+                    <Checkbox
+                        edge={"end"}
+                        checked={value}
+                        onChange={onChange}
+                    />
+                }
+            >
+                <ListItemButton onClick={onClick}>
+                    {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
+                    <ListItemText primary={props.name}/>
+
+                </ListItemButton>
+            </ListItem>
+        </Tooltip>
     );
 }
