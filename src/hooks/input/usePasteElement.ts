@@ -1,23 +1,21 @@
-/*
-       Paste Operation
- */
-import { useSetAtom } from "jotai";
-import { atom } from "jotai/index";
-import GUID, { MaybeGUID } from "../../types/generic/GUID";
-import LIElement from "../../types/li/LIElement";
+import {useSetAtom} from "jotai";
+import {atom} from "jotai/index";
+import GUID, {MaybeGUID} from "../../types/generic/GUID";
 import generateGUID from "../../utils/strings/generateGUID";
-import { addElementAtom } from "../elements/useAddElement";
-import { selectedElementIDAtom } from "../elements/useSelectedElem";
-import { clipboardAtom } from "./useClipboard";
+import {addElementAtom} from "../elements/useAddElement";
+import {selectedElementIDAtom} from "../elements/useSelectedElem";
+import {clipboardAtom} from "./useClipboard";
 
-const pasteFromClipboardAtom = atom(null, async (get, set) => {
+const pasteElementAtom = atom(null, async (get, set) => {
     // Get the clipboard data
     const clipboardData = await get(clipboardAtom);
     if (!clipboardData)
         return;
 
     // Get Elements
-    const elements = clipboardData.data as LIElement[];
+    const elements = clipboardData.elem;
+    if (!elements)
+        return;
 
     // Map of old IDs to new IDs
     const newIDs = new Map<GUID, GUID>();
@@ -71,6 +69,6 @@ const pasteFromClipboardAtom = atom(null, async (get, set) => {
     set(selectedElementIDAtom, newIDs.get(elements[0].id));
 });
 
-export default function usePasteFromClipboard() {
-    return useSetAtom(pasteFromClipboardAtom);
+export default function usePasteElement() {
+    return useSetAtom(pasteElementAtom);
 }

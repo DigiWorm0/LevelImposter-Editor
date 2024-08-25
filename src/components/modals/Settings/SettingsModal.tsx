@@ -89,6 +89,15 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="connectionsPreview"
                 icon={<ShapeLine/>}
             />
+            <SettingsPercentInput
+                name={t("settings.interface.invisibleOpacity")}
+                prop="invisibleOpacity"
+                icon={<Visibility/>}
+            />
+
+            <SettingsHeader>
+                {t("settings.grid")}
+            </SettingsHeader>
             <SettingsSwitchInput
                 name={t("settings.interface.grid")}
                 prop="isGridVisible"
@@ -122,11 +131,6 @@ export default function SettingsModal(props: SettingsModalProps) {
                 min={0}
                 stepSize={0.1}
                 label={"px"}
-            />
-            <SettingsPercentInput
-                name={t("settings.interface.invisibleOpacity")}
-                prop="invisibleOpacity"
-                icon={<Visibility/>}
             />
 
             <SettingsHeader>

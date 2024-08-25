@@ -3,7 +3,11 @@ import Konva from "konva";
 
 const ZOOM_SPEED = 1.002;
 
-export default function zoomCanvas(stage: Konva.Stage, delta: number, mousePos?: Point) {
+export default function zoomCanvas(stage: Konva.Stage | null, delta: number, mousePos?: Point) {
+
+    // Check Stage Reference
+    if (!stage)
+        return;
 
     // Get Mouse Position
     const realMousePos = mousePos ?? stage.getPointerPosition();
@@ -26,6 +30,6 @@ export default function zoomCanvas(stage: Konva.Stage, delta: number, mousePos?:
     };
 
     // Set New Camera Position
-    stage.scale({ x: newScale, y: newScale });
+    stage.scale({x: newScale, y: newScale});
     stage.position(newPos);
 }

@@ -2,6 +2,8 @@ import React from "react";
 import Konva from "konva";
 import zoomCanvas from "../../utils/canvas/zoomCanvas";
 import useUpdateCameraPos from "./useCameraPos";
+import useFocusedHotkeys from "../input/useFocusedHotkeys";
+import {Scope} from "../input/useFocus";
 
 const ZOOM_SPEED = 100;
 const PAN_SPEED = 100;
@@ -9,42 +11,25 @@ const PAN_SPEED = 100;
 export default function useCameraKeyboardControl(stageRef: React.RefObject<Konva.Stage>) {
     const updateCameraPos = useUpdateCameraPos(stageRef);
 
-    // Keybinds
-    const onKeyDown = React.useCallback((e: KeyboardEvent) => {
-        const stage = stageRef.current;
+    // Get the stage
+    const stage = stageRef.current;
+
+    // Pan the camera
+    const pan = (x: number, y: number) => {
         if (!stage)
             return;
 
-        if (e.ctrlKey && e.key === "=") {
-            zoomCanvas(stage, ZOOM_SPEED);
-        } else if (e.ctrlKey && e.key === "-") {
-            zoomCanvas(stage, -ZOOM_SPEED);
-        } else if (e.shiftKey && e.key === "ArrowUp") {
-            stage.y(stage.y() + PAN_SPEED);
-        } else if (e.shiftKey && e.key === "ArrowDown") {
-            stage.y(stage.y() - PAN_SPEED);
-        } else if (e.shiftKey && e.key === "ArrowLeft") {
-            stage.x(stage.x() + PAN_SPEED);
-        } else if (e.shiftKey && e.key === "ArrowRight") {
-            stage.x(stage.x() - PAN_SPEED);
-        } else {
-            // Don't prevent default if no action
-            return;
-        }
+        stage.x(stage.x() + x);
+        stage.y(stage.y() + y);
+    };
 
-        e.preventDefault();
-        updateCameraPos();
-    }, []);
+    // Zoom
+    useFocusedHotkeys("ctrl+=", () => zoomCanvas(stage, ZOOM_SPEED), Scope.Canvas);
+    useFocusedHotkeys("ctrl+minus", () => zoomCanvas(stage, -ZOOM_SPEED), Scope.Canvas);
 
-    // Assign Events
-    React.useEffect(() => {
-        const stage = stageRef.current;
-        if (!stage)
-            return () => {
-            };
-
-        window.addEventListener("keydown", onKeyDown);
-
-        return () => window.removeEventListener("keydown", onKeyDown);
-    }, []);
+    // Pan
+    useFocusedHotkeys("up", () => pan(0, PAN_SPEED), Scope.Canvas);
+    useFocusedHotkeys("down", () => pan(0, -PAN_SPEED), Scope.Canvas);
+    useFocusedHotkeys("left", () => pan(PAN_SPEED, 0), Scope.Canvas);
+    useFocusedHotkeys("right", () => pan(-PAN_SPEED, 0), Scope.Canvas);
 }

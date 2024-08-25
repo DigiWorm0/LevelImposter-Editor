@@ -541,6 +541,7 @@
     "easeIn": "Ease In",
     "easeOut": "Ease Out",
     "easeInOut": "Ease In-Out",
+    "loop": "Loop Animation",
     "addTargetInfo": "You can only target Trigger Sprites (util-blanktrigger)"
   },
   "timer": {
@@ -781,6 +782,7 @@
     "inspector": "Inspector",
     "experimental": "Experimental",
     "ui": "User Interface",
+    "grid": "Grid",
     "interface": {
       "title": "Settings",
       "subtitle": "Interface",

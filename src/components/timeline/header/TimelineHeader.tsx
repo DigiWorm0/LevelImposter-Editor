@@ -1,5 +1,5 @@
-import {Box, IconButton} from "@mui/material";
-import {Loop, Pause, PlayArrow, Stop} from "@mui/icons-material";
+import {Box, IconButton, Tooltip} from "@mui/material";
+import {Pause, PlayArrow, Repeat, Stop} from "@mui/icons-material";
 import TimelineRow from "../TimelineRow";
 import TimelineTimesteps from "./TimelineTimesteps";
 import TimelinePlayheadHandle from "./TimelinePlayheadHandle";
@@ -12,12 +12,14 @@ import {timelineOffsetAtom, useSetTimelineOffset} from "../../../hooks/timeline/
 import Konva from "konva";
 import primaryStore from "../../../hooks/primaryStore";
 import lerp from "../../../utils/math/lerp";
+import {useTranslation} from "react-i18next";
 
 const ANIM_DURATION = 500;
 const ANIM_SCALE = 40;
 const ANIM_OFFSET = 0;
 
 export default function TimelineHeader() {
+    const {t} = useTranslation();
     const [isLoop, setLoop] = useSelectedElemProp("triggerLoop");
     const [playAnim, setPlayAnim] = usePlayAnim();
     const setPlayhead = useSetPlayhead();
@@ -64,9 +66,7 @@ export default function TimelineHeader() {
                     }}
                 >
                     <Box sx={{flexShrink: 0}}>
-                        <IconButton
-                            onClick={() => setPlayAnim(!playAnim)}
-                        >
+                        <IconButton onClick={() => setPlayAnim(!playAnim)}>
                             {playAnim ? <Pause/> : <PlayArrow/>}
                         </IconButton>
                         <IconButton
@@ -78,13 +78,15 @@ export default function TimelineHeader() {
                         >
                             <Stop/>
                         </IconButton>
-                        <IconButton
-                            onClick={() => setLoop(!isLoop)}
-                        >
-                            <Loop
-                                color={isLoop ? "success" : "error"}
-                            />
-                        </IconButton>
+
+                        <Tooltip title={t("anim.loop")}>
+                            <IconButton onClick={() => setLoop(!isLoop)}>
+                                {isLoop ?
+                                    <Repeat color={"success"}/> :
+                                    <Repeat color={"disabled"}/>
+                                }
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                     <TimelineTimestamp/>
                 </Box>

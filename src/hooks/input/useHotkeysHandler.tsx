@@ -3,16 +3,27 @@ import useSaveMap from "../fileio/useSaveMap";
 import {useRedo, useUndo} from "../map/history/useUndoRedo";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
-import useCopyToClipboard from "./useCopyToClipboard";
-import usePasteFromClipboard from "./usePasteFromClipboard";
+import useCopyElement from "./useCopyElement";
+import usePasteElement from "./usePasteElement";
 import {Scope} from "./useFocus";
 import useDuplicate from "./useDuplicate";
 import useFocusedHotkeys from "./useFocusedHotkeys";
 import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
+import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
+import useJumpTimelineTick from "./useJumpTimelineTick";
+import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
+import {useSetPlayAnim} from "../timeline/usePlayAnim";
+import {useSetPlayhead} from "../timeline/usePlayhead";
+import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
+import primaryStore from "../primaryStore";
+import useCopyKeyframe from "./useCopyKeyframe";
+import usePasteKeyframe from "./usePasteKeyframe";
+
+const TIMELINE_DELTA_SCALE = 100;
 
 export default function useHotkeysHandler() {
-    const copyElement = useCopyToClipboard();
-    const pasteElement = usePasteFromClipboard();
+    const copyElement = useCopyElement();
+    const pasteElement = usePasteElement();
     const undo = useUndo();
     const redo = useRedo();
     const duplicate = useDuplicate();
@@ -21,6 +32,14 @@ export default function useHotkeysHandler() {
     const [settings, setSettings] = useSettings();
     const toaster = useToaster();
     const saveMap = useSaveMap();
+    const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
+    const jumpTimelineTick = useJumpTimelineTick();
+    const changeTimelineScale = useChangeTimelineScale();
+    const setPlayAnim = useSetPlayAnim();
+    const setPlayhead = useSetPlayhead();
+    const setLoop = useSetSelectedElemProp("triggerLoop");
+    const copyKeyframe = useCopyKeyframe();
+    const pasteKeyframe = usePasteKeyframe();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -31,9 +50,34 @@ export default function useHotkeysHandler() {
         });
     }, Scope.Timeline);
 
+    // Pan
+    useFocusedHotkeys("up", () => jumpToAdjacentKeyframe(false), Scope.Timeline);
+    useFocusedHotkeys("down", () => jumpToAdjacentKeyframe(true), Scope.Timeline);
+    useFocusedHotkeys("left", () => jumpTimelineTick(true), Scope.Timeline);
+    useFocusedHotkeys("right", () => jumpTimelineTick(false), Scope.Timeline);
+
+    // Zoom
+    useFocusedHotkeys("ctrl+=", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
+    useFocusedHotkeys("ctrl+minus", () => changeTimelineScale(-TIMELINE_DELTA_SCALE), Scope.Timeline);
+
     // Delete Keyframe
     useFocusedHotkeys("delete", removeSelectedKeyframe, Scope.Timeline);
     useFocusedHotkeys("backspace", removeSelectedKeyframe, Scope.Timeline);
+
+    // Playback
+    useFocusedHotkeys("space", () => setPlayAnim((playAnim) => !playAnim), Scope.Timeline);
+    useFocusedHotkeys("ctrl+space", () => {
+        setPlayAnim(false);
+        setPlayhead(0);
+    }, Scope.Timeline);
+    useFocusedHotkeys("ctrl+l", () => {
+        const isLoop = primaryStore.get(selectedElementPropAtom("triggerLoop"));
+        setLoop(!isLoop);
+    }, Scope.Timeline);
+
+    // Copy/Paste Keyframe
+    useFocusedHotkeys("ctrl+c", copyKeyframe, Scope.Timeline);
+    useFocusedHotkeys("ctrl+v", pasteKeyframe, Scope.Timeline);
 
     // Grid Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -74,4 +118,5 @@ export default function useHotkeysHandler() {
     // Undo/Redo
     useFocusedHotkeys("ctrl+z", undo);
     useFocusedHotkeys("ctrl+y", redo);
+    useFocusedHotkeys("ctrl+shift+z", redo);
 }
