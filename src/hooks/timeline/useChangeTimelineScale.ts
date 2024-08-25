@@ -2,6 +2,7 @@ import {atom, useSetAtom} from "jotai";
 import {timelineScaleAtom} from "./useTimelineScale";
 import {timelineOffsetAtom} from "./useTimelineOffset";
 import {playheadAtom} from "./usePlayhead";
+import clamp from "../../utils/math/clamp";
 
 const MIN_SCALE = 0.01;
 const MAX_SCALE = 40000;
@@ -15,14 +16,18 @@ const changeTimelineScaleAtom = atom(null, (get, set, delta: number) => {
 
     // Calculate New Scale
     const scaleMultiplier = Math.pow(SCROLL_SCALE, delta);
-    const newScale = prevScale * scaleMultiplier; // px/s
+    const newScale = clamp(prevScale * scaleMultiplier, MIN_SCALE, MAX_SCALE); // px/s
+
+    // Prevent Adjustment if it's Already at the Limit
+    if (newScale === prevScale)
+        return;
 
     // Adjust Offset to Keep Playhead in the Same Position
     const playheadOffset = (playhead - prevOffset) * prevScale; // px
-    const newOffset = playhead - playheadOffset / newScale; // s
+    const newOffset = Math.max(playhead - playheadOffset / newScale, 0); // s
 
-    set(timelineScaleAtom, Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale)));
-    set(timelineOffsetAtom, Math.max(0, newOffset));
+    set(timelineScaleAtom, newScale);
+    set(timelineOffsetAtom, newOffset);
 });
 
 export function useChangeTimelineScale() {

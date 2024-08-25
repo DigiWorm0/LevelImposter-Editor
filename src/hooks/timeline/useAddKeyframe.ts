@@ -3,6 +3,7 @@ import {MaybeGUID} from "../../types/generic/GUID";
 import {playheadAtom} from "./usePlayhead";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
+import {selectedKeyframeAtom} from "./useSelectedKeyframe";
 
 export interface AddKeyframeOptions {
     targetID: MaybeGUID;
@@ -38,6 +39,13 @@ export const addKeyframeAtom = atom(null, (get, set, options: AddKeyframeOptions
             t,
             value: options.value ?? 0
         }]
+    });
+
+    // Set selected keyframe
+    set(selectedKeyframeAtom, {
+        keyframeID: id,
+        targetID: targetID,
+        property: property
     });
 });
 

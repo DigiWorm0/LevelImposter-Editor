@@ -1,94 +1,73 @@
-import {useHotkeys} from "react-hotkeys-hook";
-import {Options as HotkeysHookOptions} from "react-hotkeys-hook/dist/types";
-import generateGUID from "../../utils/strings/generateGUID";
-import useAddElementAtCamera from "../elements/useAddElementAtCamera";
 import {useRemoveSelectedElement} from "../elements/useRemoveElement";
-import {useSelectedElemValue, useSetSelectedElemID} from "../elements/useSelectedElem";
 import useSaveMap from "../fileio/useSaveMap";
 import {useRedo, useUndo} from "../map/history/useUndoRedo";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
 import useCopyToClipboard from "./useCopyToClipboard";
 import usePasteFromClipboard from "./usePasteFromClipboard";
-
-export enum Scope {
-    SceneGraph = "SceneGraph",
-    Canvas = "Canvas",
-    Timeline = "Timeline"
-}
+import primaryStore from "../primaryStore";
+import {focusAtom, Scope} from "./useFocus";
+import useDuplicate from "./useDuplicate";
+import useFocusedHotkeys from "./useFocusedHotkeys";
+import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
 
 export default function useHotkeysHandler() {
     const copyElement = useCopyToClipboard();
     const pasteElement = usePasteFromClipboard();
     const undo = useUndo();
     const redo = useRedo();
-    const selectedElem = useSelectedElemValue();
-    const addElementAtMouse = useAddElementAtCamera();
+    const duplicate = useDuplicate();
     const removeSelectedElement = useRemoveSelectedElement();
+    const removeSelectedKeyframe = useRemoveSelectedKeyframe();
     const [settings, setSettings] = useSettings();
-    const setSelectedID = useSetSelectedElemID();
     const toaster = useToaster();
     const saveMap = useSaveMap();
 
-    // Options
-    const canvasOptions: HotkeysHookOptions = {
-        scopes: [Scope.Canvas, Scope.SceneGraph],
-        preventDefault: true
-    };
-    const timelineOptions: HotkeysHookOptions = {
-        scopes: [Scope.Timeline],
-        preventDefault: true
-    };
+    useFocusedHotkeys("ctrl+/", () => {
+        console.log(primaryStore.get(focusAtom));
+    });
 
     // Delete Keyframe
-    useHotkeys("delete", () => {
-        console.log("TODO: Delete Keyframe");
-    }, timelineOptions);
+    useFocusedHotkeys("delete", removeSelectedKeyframe, Scope.Timeline);
+    useFocusedHotkeys("backspace", removeSelectedKeyframe, Scope.Timeline);
 
     // Grid Snap
-    useHotkeys("ctrl+g", () => {
+    useFocusedHotkeys("ctrl+g", () => {
         toaster.info((settings.isGridSnapEnabled ? "Disabled" : "Enabled") + " Grid Snap");
         setSettings({
             ...settings,
             isGridSnapEnabled: !settings.isGridSnapEnabled
         });
-    }, canvasOptions, [toaster, settings, setSettings]);
+    }, Scope.Canvas);
 
     // Toggle Grid
-    useHotkeys("ctrl+h", () => {
+    useFocusedHotkeys("ctrl+h", () => {
         toaster.info((settings.isGridVisible ? "Disabled" : "Enabled") + " Grid");
         setSettings({
             ...settings,
             isGridVisible: !settings.isGridVisible
         });
-    }, canvasOptions, [toaster, settings, setSettings]);
+    }, Scope.Canvas);
 
     // Clipboard
-    useHotkeys("ctrl+c", copyElement, canvasOptions, [copyElement]);
-    useHotkeys("ctrl+v", pasteElement, canvasOptions, [pasteElement]);
-    useHotkeys("ctrl+x", () => {
+    useFocusedHotkeys("ctrl+c", copyElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("ctrl+v", pasteElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("ctrl+x", () => {
         copyElement();
         removeSelectedElement();
-    }, canvasOptions, [copyElement, removeSelectedElement]);
+    }, Scope.Canvas, Scope.SceneGraph);
 
     // Duplicate
-    useHotkeys("ctrl+d", () => {
-        if (!selectedElem)
-            return;
-        const id = generateGUID();
-        const newElem = JSON.parse(JSON.stringify(selectedElem));
-        addElementAtMouse({...newElem, id});
-        setSelectedID(id);
-    }, canvasOptions, [selectedElem, addElementAtMouse, setSelectedID]);
+    useFocusedHotkeys("ctrl+d", duplicate, Scope.Canvas, Scope.SceneGraph);
 
     // Delete
-    useHotkeys("delete", removeSelectedElement, canvasOptions, [removeSelectedElement]);
-    useHotkeys("backspace", removeSelectedElement, canvasOptions, [removeSelectedElement]);
+    useFocusedHotkeys("delete", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("backspace", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
 
     // Save
-    useHotkeys("ctrl+s", saveMap, canvasOptions, [saveMap]);
+    useFocusedHotkeys("ctrl+s", saveMap);
 
     // Undo/Redo
-    useHotkeys("ctrl+z", undo, canvasOptions, [undo]);
-    useHotkeys("ctrl+y", redo, canvasOptions, [redo]);
+    useFocusedHotkeys("ctrl+z", undo);
+    useFocusedHotkeys("ctrl+y", redo);
 }

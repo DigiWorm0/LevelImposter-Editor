@@ -1,18 +1,18 @@
 import SceneGraph from "../scenegraph/SceneGraph";
 import {Paper} from "@mui/material";
 import React from "react";
-import {useHotkeysContext} from "react-hotkeys-hook";
-import {Scope} from "../../hooks/input/useHotkeysHandler";
 import usePanelSize from "../../hooks/ui/usePanelSize";
+import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 
 export default function LeftSidebar() {
-    const {enableScope, disableScope} = useHotkeysContext();
     const [size, setSize] = usePanelSize("left-sidebar");
+    const setFocus = useSetFocus();
 
     return (
         <Paper
             elevation={1}
             square
+            onMouseDown={() => setFocus(Scope.SceneGraph)}
             sx={{
                 width: size ?? 270,
                 height: "100%",
@@ -23,8 +23,6 @@ export default function LeftSidebar() {
                 position: "relative",
                 zIndex: -10
             }}
-            onFocus={() => enableScope(Scope.SceneGraph)}
-            onBlur={() => disableScope(Scope.SceneGraph)}
         >
             <SceneGraph/>
 

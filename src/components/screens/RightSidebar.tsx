@@ -37,11 +37,13 @@ import React from "react";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import AnimationPanel from "../properties/panels/AnimationPanel";
 import usePanelSize from "../../hooks/ui/usePanelSize";
+import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 
 export default function RightSidebar() {
     //const dragRef = React.useRef<HTMLDivElement>(null);
     const [_size] = usePanelSize("right-sidebar");
     const size = _size ?? 300;
+    const setFocus = useSetFocus();
 
     return (
         <Paper
@@ -59,6 +61,7 @@ export default function RightSidebar() {
                 position: "relative",
                 zIndex: -10
             }}
+            onMouseDown={() => setFocus(Scope.Inspector)}
         >
             <Box
                 sx={{

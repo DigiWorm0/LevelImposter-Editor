@@ -16,8 +16,10 @@ import MapPropertiesButton from "../buttons/MapPropertiesButton";
 import {Paper, Typography} from "@mui/material";
 import NavDivider from "./NavDivider";
 import MapPublishButton from "../buttons/MapPublishButton";
+import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 
 export default function Topbar() {
+    const setFocus = useSetFocus();
     return (
         <Paper
             elevation={1}
@@ -34,6 +36,7 @@ export default function Topbar() {
                 boxShadow: "0 4px 4px rgba(0,0,0,0.2)",
                 zIndex: 2
             }}
+            onMouseDown={() => setFocus(Scope.Navigation)}
         >
             <MapName/>
 
