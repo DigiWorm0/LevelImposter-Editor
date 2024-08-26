@@ -1,22 +1,28 @@
 import React from "react";
 import Konva from "konva";
 import "gifler";
-import { useMapAssetValue } from "../assets/useMapAsset";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { useSettingsValue } from "../useSettings";
+import {useMapAssetValue} from "../assets/useMapAsset";
+import {MaybeGUID} from "../../types/generic/GUID";
+import {useSettingsValue} from "../useSettings";
+import useImage from "./sprite/useImage";
 
 export default function useImageAnimator(spriteID: MaybeGUID, isAnimating: boolean) {
     const asset = useMapAssetValue(spriteID);
+    const defaultImage = useImage(asset?.url ?? "");
     const imageRef = React.useRef<Konva.Image | null>(null);
-    const { animateGIFOnSelect } = useSettingsValue();
+    const {animateGIFOnSelect} = useSettingsValue();
 
     React.useEffect(() => {
         if (!asset)
             return;
 
         // Fallback to normal image if not a gif
-        if (asset?.blob.type !== "image/gif" || !isAnimating || !animateGIFOnSelect)
+        if (asset?.blob.type !== "image/gif" || !isAnimating || !animateGIFOnSelect) {
+            const currentImage = imageRef.current?.image();
+            if (defaultImage && currentImage !== defaultImage)
+                imageRef.current?.image(defaultImage);
             return;
+        }
 
         // Load gif
         const bufferCanvas = document.createElement("canvas");
@@ -40,7 +46,7 @@ export default function useImageAnimator(spriteID: MaybeGUID, isAnimating: boole
             anim?.stop();
             bufferCanvas.remove();
         };
-    }, [asset, imageRef.current, isAnimating, animateGIFOnSelect]);
+    }, [asset, isAnimating, animateGIFOnSelect, defaultImage]);
 
     return imageRef;
 }
