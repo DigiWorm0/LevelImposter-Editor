@@ -7,13 +7,26 @@ import {UNITY_SCALE} from "../../types/generic/Constants";
 
 export const autoCropSpriteAtom = atom(null, async (get, set) => {
 
-    // Get Properties
+    // Get Element
     const element = get(selectedElementAtom);
-    const sprite = await get(spriteAtomFamily(element?.id));
-    const properties = get(mapPropsAtom);
 
-    // Exit if no element or sprite
-    if (!element || !sprite)
+    // Exit if no element
+    if (!element)
+        return;
+
+    // Exit if default sprite
+    if (!element.properties.spriteID)
+        return;
+
+    // Get Sprite
+    const sprite = await get(spriteAtomFamily(element?.id));
+
+    // Exit if no sprite
+    if (!sprite)
+        return;
+
+    // Exit if sprite is empty
+    if (sprite.width === 0 || sprite.height === 0)
         return;
 
     // Fix Sprite
@@ -24,8 +37,11 @@ export const autoCropSpriteAtom = atom(null, async (get, set) => {
     if (!ctx)
         throw new Error("Failed to create canvas context");
 
+    // Get Map Props
+    const {pixelArtMode} = get(mapPropsAtom);
+
     // Draw Sprite
-    ctx.imageSmoothingEnabled = !(properties.pixelArtMode ?? false);
+    ctx.imageSmoothingEnabled = !(pixelArtMode ?? false);
     ctx.drawImage(
         sprite,
         0,
@@ -52,6 +68,12 @@ export const autoCropSpriteAtom = atom(null, async (get, set) => {
             }
         }
     }
+
+    // Exit if no pixels
+    if (xPixels.length === 0 || yPixels.length === 0)
+        return;
+
+    // Sort Pixels to get Top Left and Bottom Right
     xPixels.sort(function (a, b) {
         return a - b;
     });
@@ -59,12 +81,22 @@ export const autoCropSpriteAtom = atom(null, async (get, set) => {
         return a - b;
     });
     const lastIndex = xPixels.length - 1;
-
     const topLeft = {x: xPixels[0], y: yPixels[0]};
     const bottomRight = {x: xPixels[lastIndex], y: yPixels[lastIndex]};
 
+    // Calculate New Width and Height
     const newWidth = bottomRight.x - topLeft.x;
     const newHeight = bottomRight.y - topLeft.y;
+
+    // Exit if no new width or height
+    if (newWidth === 0 || newHeight === 0)
+        return;
+
+    // Exit if new width or height is the same as the original
+    if (newWidth === sprite.width && newHeight === sprite.height)
+        return;
+
+    // Cut Image Data
     const cutImageData = ctx.getImageData(xPixels[0], yPixels[0], newWidth, newHeight);
 
     // Calculate Offset
@@ -77,8 +109,18 @@ export const autoCropSpriteAtom = atom(null, async (get, set) => {
         y: sprite.height / 2
     };
     const offset = {
-        x: (oldCenter.x - newCenter.x) / UNITY_SCALE,
-        y: (oldCenter.y - newCenter.y) / UNITY_SCALE
+        x: (oldCenter.x - newCenter.x),
+        y: (oldCenter.y - newCenter.y)
+    };
+    const rads = element.rotation * Math.PI / 180;
+    console.log(rads);
+    const rotatedOffset = {
+        x: offset.x * Math.cos(rads) - offset.y * Math.sin(rads),
+        y: offset.x * Math.sin(rads) + offset.y * Math.cos(rads)
+    };
+    const scaledOffset = {
+        x: rotatedOffset.x * element.xScale,
+        y: rotatedOffset.y * element.yScale
     };
 
     // Adjust Canvas
@@ -97,29 +139,27 @@ export const autoCropSpriteAtom = atom(null, async (get, set) => {
     const asset = set(createMapAssetAtom, {type: "image", blob});
 
     // Fix Colliders
-    /*
     const colliders = element.properties.colliders?.map(collider => {
         const {points} = collider;
         return {
             ...collider,
             points: points.map(point => ({
                 ...point,
-                x: point.x * xScale,
-                y: point.y * yScale
+                x: point.x + rotatedOffset.x / UNITY_SCALE,
+                y: point.y - rotatedOffset.y / UNITY_SCALE
             }))
         };
     });
-    */
 
     // Fix Element
     set(selectedElementAtom, {
         ...element,
-        x: element.x - offset.x,
-        y: element.y + offset.y,
+        x: element.x - scaledOffset.x / UNITY_SCALE,
+        y: element.y + scaledOffset.y / UNITY_SCALE,
         properties: {
             ...element.properties,
             spriteID: asset.id,
-            //colliders
+            colliders
         }
     });
 });

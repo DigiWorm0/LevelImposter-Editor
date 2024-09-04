@@ -1,12 +1,12 @@
-import { atom, useSetAtom } from "jotai";
-import { createMapAssetAtom } from "../assets/useCreateMapAsset";
-import { selectedElementAtom } from "../elements/useSelectedElem";
-import { mapPropsAtom } from "../map/useMap";
-import { spriteAtomFamily } from "./sprite/useSprite";
+import {atom, useSetAtom} from "jotai";
+import {createMapAssetAtom} from "../assets/useCreateMapAsset";
+import {selectedElementAtom} from "../elements/useSelectedElem";
+import {mapPropsAtom} from "../map/useMap";
+import {spriteAtomFamily} from "./sprite/useSprite";
 
 const SPRITE_PADDING = 10; // px
 
-export const fixSpriteScalingAtom = atom(null, async (get, set) => {
+export const autoScaleSpriteAtom = atom(null, async (get, set, scaleDownOnly?: boolean) => {
 
     // Get Properties
     const element = get(selectedElementAtom);
@@ -20,6 +20,14 @@ export const fixSpriteScalingAtom = atom(null, async (get, set) => {
     // Get Scale
     const xScale = Math.abs(element.xScale);
     const yScale = Math.abs(element.yScale);
+
+    // Exit if scale is 1 (no scaling)
+    if (xScale === 1 && yScale === 1)
+        return;
+
+    // Exit if scale down only and scale is greater than 1
+    if (scaleDownOnly && (xScale > 1 || yScale > 1))
+        return;
 
     // Fix Sprite
     const canvas = document.createElement("canvas");
@@ -47,11 +55,11 @@ export const fixSpriteScalingAtom = atom(null, async (get, set) => {
         throw new Error("Error converting canvas to blob");
 
     // Create Asset
-    const asset = set(createMapAssetAtom, { type: "image", blob });
+    const asset = set(createMapAssetAtom, {type: "image", blob});
 
     // Fix Colliders
     const colliders = element.properties.colliders?.map(collider => {
-        const { points } = collider;
+        const {points} = collider;
         return {
             ...collider,
             points: points.map(point => ({
@@ -80,6 +88,6 @@ export const fixSpriteScalingAtom = atom(null, async (get, set) => {
  * Also adds padding to the sprite to prevent clipping.
  * Useful to fix AU shader issues with malformed sprites.
  */
-export default function useFixSpriteScaling() {
-    return useSetAtom(fixSpriteScalingAtom);
+export default function useAutoScaleSprite() {
+    return useSetAtom(autoScaleSpriteAtom);
 }

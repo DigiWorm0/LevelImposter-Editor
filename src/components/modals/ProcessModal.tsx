@@ -1,40 +1,37 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { DialogContentText, LinearProgress, Typography } from "@mui/material";
+import {DialogContentText, LinearProgress, Typography} from "@mui/material";
 import GenericModal from "./GenericModal";
 
-export interface MergeAssetsModalProps {
+export interface ProcessModalProps {
+    title: string;
+    description?: string;
     isRunning: boolean;
     progress: number;
-    assetsMerged: number;
+    progressText?: string;
 }
 
-export default function MergeAssetsModal(props: MergeAssetsModalProps) {
-    const { t } = useTranslation();
-
+export default function ProcessModal(props: ProcessModalProps) {
     return (
         <GenericModal
             open={props.isRunning}
-            title={t("mergeAssets.title")}
+            title={props.title}
             preventClose
         >
             <DialogContentText>
-                {t("mergeAssets.description")}
+                {props.description}
             </DialogContentText>
             <LinearProgress
                 variant="determinate"
                 value={props.progress * 100}
-                sx={{ mt: 2 }}
+                sx={{mt: 2}}
             />
             <DialogContentText>
                 <Typography
                     variant={"caption"}
                     color={"textSecondary"}
                 >
-                    {t("mergeAssets.progress", {
-                        progress: Math.round(props.progress * 100),
-                        total: props.assetsMerged
-                    })}
+                    {props.progressText}
+                    {!props.progressText && `${Math.round(props.progress * 100)}%`}
                 </Typography>
             </DialogContentText>
         </GenericModal>

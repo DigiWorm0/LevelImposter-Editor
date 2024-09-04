@@ -10,7 +10,7 @@ import MinimapPanel from "../properties/panels/MinimapPanel";
 import PlatformPanel from "../properties/panels/PlatformPanel";
 import RoomPanel from "../properties/panels/RoomPanel";
 import SabPanel from "../properties/panels/SabPanel";
-import SpritePanel from "../properties/panels/SpritePanel";
+import SpritePanel from "../properties/panels/SpritePanel/SpritePanel";
 import StarfieldPanel from "../properties/panels/StarfieldPanel";
 import StepSoundPanel from "../properties/panels/StepSoundPanel";
 import TaskPanel from "../properties/panels/TaskPanel";

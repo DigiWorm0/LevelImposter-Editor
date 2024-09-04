@@ -24,7 +24,6 @@ import {useSelectedElemIDValue} from "../../../hooks/elements/useSelectedElem";
 import useElementVisibility from "../../../hooks/elements/useElementVisibility";
 import TransformNumericInput from "../input/TransformNumericInput";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import useFixSpriteScaling from "../../../hooks/canvas/useFixSpriteScaling";
 import getIsConsole from "../../../utils/map/getIsConsole";
 
 export default function TransformPanel() {
@@ -42,7 +41,6 @@ export default function TransformPanel() {
     const isVisible = _isVisible ?? true;
     const removeSelectedElement = useRemoveSelectedElement();
     const {editType} = useSettingsValue();
-    const fixSprite = useFixSpriteScaling();
 
     // Gets if the selected element is a console object
     const isConsole = getIsConsole(type || "");
@@ -147,7 +145,6 @@ export default function TransformPanel() {
                 isVisible={isConsole && (Math.abs(xScale || 1) != 1 || Math.abs(yScale || 1) != 1)}
                 buttonText={t("transform.autoFix") as string}
                 buttonIcon={<Build/>}
-                onButtonClick={fixSprite}
             >
                 {t("transform.errorScale")}
             </MapError>

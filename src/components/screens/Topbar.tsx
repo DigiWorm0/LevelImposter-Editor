@@ -17,6 +17,7 @@ import {Paper, Typography} from "@mui/material";
 import NavDivider from "./NavDivider";
 import MapPublishButton from "../buttons/MapPublishButton";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
+import CleanMapButton from "../buttons/CleanMapButton";
 
 export default function Topbar() {
     const setFocus = useSetFocus();
@@ -55,6 +56,7 @@ export default function Topbar() {
             <PasteButton/>
             <DeleteObjectButton/>
             <NavDivider/>
+            <CleanMapButton/>
             <MapAssetsButton/>
 
             <Typography sx={{flexGrow: 1}}/>
