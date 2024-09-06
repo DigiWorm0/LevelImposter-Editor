@@ -7,6 +7,7 @@ import LISound from "./LISound";
 import LITrigger from "./LITrigger";
 import LICustomText from "./LICustomText";
 import LIAnimTarget from "./LIAnimTarget";
+import {PRESET_RESOURCE_IDS} from "../db/AUElementDB";
 
 export default interface LIProperties {
 
@@ -27,8 +28,14 @@ export default interface LIProperties {
     // Animations
     animTargets?: LIAnimTarget[];
 
-    // Sound
+    // Sound Preset Type (Dirt, Metal, etc.)
+    soundPresetType?: keyof typeof PRESET_RESOURCE_IDS;
+
+    // Sound List
     sounds?: LISound[];
+
+    // Sound Priority Level
+    // TODO: Is this increasing or decreasing?
     soundPriority?: number;
 
     // Shake

@@ -179,6 +179,7 @@
     "Snow": "Snow",
     "Tile": "Tile",
     "Wood": "Wood",
+    "custom": "Custom",
     "okSize": "Your audio is small enough to not cause any issues.",
     "errorSize": "Larger sound files can sometimes freeze or crash the game. Try reducing the channel count or bitrate."
   },

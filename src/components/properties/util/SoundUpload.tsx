@@ -1,15 +1,15 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import generateGUID from "../../../utils/strings/generateGUID";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
-import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import {DEFAULT_VOLUME} from "../../../types/generic/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";
-import { Check, CloudUpload, Refresh } from "@mui/icons-material";
-import { Button, ButtonGroup, MenuItem, Select, Typography } from "@mui/material";
+import {Check, CloudUpload, Delete} from "@mui/icons-material";
+import {Button, ButtonGroup, MenuItem, Select, Typography} from "@mui/material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 
 interface SoundUploadProps {
@@ -25,7 +25,7 @@ interface SoundUploadProps {
 }
 
 export default function SoundUpload(props: SoundUploadProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
@@ -57,7 +57,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
                 downmixAudio(file).then((downmixedBlob) => {
-                    const asset = createMapAsset({ blob: downmixedBlob, type: "audio" });
+                    const asset = createMapAsset({blob: downmixedBlob, type: "audio"});
                     props.onChange({
                         id: props.sound?.id ?? generateGUID(),
                         type: props.soundType,
@@ -95,7 +95,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             ) : (
                 <Typography
                     variant={"subtitle2"}
-                    sx={{ textAlign: "center", m: 2 }}
+                    sx={{textAlign: "center", m: 2}}
                 >
                     {t("audio.notUploaded")}
                 </Typography>
@@ -109,7 +109,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     variant={"contained"}
                     size={"small"}
                 >
-                    <CloudUpload />
+                    <CloudUpload/>
                 </Button>
                 <Button
                     color={"success"}
@@ -118,7 +118,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     variant={"contained"}
                     size={"small"}
                 >
-                    <Check />
+                    <Check/>
                 </Button>
                 <Button
                     color={"error"}
@@ -127,14 +127,15 @@ export default function SoundUpload(props: SoundUploadProps) {
                     variant={"contained"}
                     size={"small"}
                 >
-                    <Refresh />
+                    <Delete/>
                 </Button>
             </ButtonGroup>
 
             {/* Channel */}
             {props.editChannel && (
                 <Select
-                    sx={{ mt: 1 }}
+                    variant={"outlined"}
+                    sx={{mt: 1}}
                     size={"small"}
                     fullWidth
                     value={props.sound?.channel ?? LISoundChannel.SFX}
@@ -178,7 +179,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                 }}
             >
                 <CloudUpload
-                    style={{ marginRight: 10, fontSize: 40 }}
+                    style={{marginRight: 10, fontSize: 40}}
                 />
                 <span
                     style={{

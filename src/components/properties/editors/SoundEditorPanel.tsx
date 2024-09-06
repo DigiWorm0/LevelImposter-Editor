@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import React from "react";
 import LISound from "../../../types/li/LISound";
 import generateGUID from "../../../utils/strings/generateGUID";
 import SoundUpload from "../util/SoundUpload";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp, {useSetSelectedElemProp} from "../../../hooks/elements/useSelectedElemProperty";
 
 interface SoundEditorProps {
     title: string;
@@ -16,6 +16,7 @@ interface SoundEditorProps {
 
 export default function SoundEditorPanel(props: SoundEditorProps) {
     const [sounds, setSounds] = useSelectedElemProp("sounds");
+    const setSoundType = useSetSelectedElemProp("soundPresetType");
 
     const sound = React.useMemo(() => {
         if (props.soundType)
@@ -53,10 +54,13 @@ export default function SoundEditorPanel(props: SoundEditorProps) {
 
         // Update the sounds
         setSounds(newSounds);
+
+        // Set Custom Sound Type
+        setSoundType("custom");
     }, [sounds]);
 
     return (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{p: 2}}>
             <Typography variant={"subtitle2"}>
                 {props.title}
             </Typography>
