@@ -2,7 +2,6 @@ import {useSetAtom} from "jotai";
 import {atom} from "jotai/index";
 import {clipboardAtom} from "./useClipboard";
 import {addKeyframeAtom} from "../timeline/useAddKeyframe";
-import {playheadAtom} from "../timeline/usePlayhead";
 
 const pasteKeyframeAtom = atom(null, async (get, set) => {
     // Get the clipboard data
@@ -16,9 +15,6 @@ const pasteKeyframeAtom = atom(null, async (get, set) => {
         return;
     if (keyframes.length === 0)
         return;
-
-    // Get playhead
-    const playhead = get(playheadAtom);
 
     // Add each keyframe
     keyframes.forEach(keyframe => {

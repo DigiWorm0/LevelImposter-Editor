@@ -5,7 +5,7 @@ import usePanelSize from "../../hooks/ui/usePanelSize";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 
 export default function LeftSidebar() {
-    const [size, setSize] = usePanelSize("left-sidebar");
+    const [size] = usePanelSize("left-sidebar");
     const setFocus = useSetFocus();
 
     return (

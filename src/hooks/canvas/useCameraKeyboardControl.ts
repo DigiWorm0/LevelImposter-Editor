@@ -1,7 +1,6 @@
 import React from "react";
 import Konva from "konva";
 import zoomCanvas from "../../utils/canvas/zoomCanvas";
-import useUpdateCameraPos from "./useCameraPos";
 import useFocusedHotkeys from "../input/useFocusedHotkeys";
 import {Scope} from "../input/useFocus";
 
@@ -9,8 +8,6 @@ const ZOOM_SPEED = 100;
 const PAN_SPEED = 100;
 
 export default function useCameraKeyboardControl(stageRef: React.RefObject<Konva.Stage>) {
-    const updateCameraPos = useUpdateCameraPos(stageRef);
-
     // Get the stage
     const stage = stageRef.current;
 
