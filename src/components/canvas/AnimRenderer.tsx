@@ -4,10 +4,11 @@ import {useElementValue} from "../../hooks/elements/useElements";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
 import GUID from "../../types/generic/GUID";
 import useAnimTarget from "../../hooks/timeline/useAnimTarget";
-import Konva from "konva";
 import {Group, Image} from "react-konva";
 import useAnimPropertyValue from "../../hooks/timeline/useAnimPropertyValue";
 import {UNITY_SCALE} from "../../types/generic/Constants";
+import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
+import AnimChildRenderer from "./AnimChildRenderer";
 
 export interface AnimRendererProps {
     id: GUID;
@@ -18,7 +19,7 @@ export default function AnimRenderer(props: AnimRendererProps) {
     const [animTarget] = useAnimTarget(props.id);
     const animTargetElem = useElementValue(animTarget?.id);
     const sprite = useSprite(animTarget?.id);
-    const imageRef = React.useRef<Konva.Group | null>(null);
+    const childIDs = useElementChildIDs(animTarget?.id);
 
     // Transform Values
     const [x] = useAnimPropertyValue({targetID: props.id, property: "x"});
@@ -29,7 +30,7 @@ export default function AnimRenderer(props: AnimRendererProps) {
 
     const w = (sprite?.width ?? 0) * (animTargetElem?.xScale ?? 1);
     const h = (sprite?.height ?? 0) * (animTargetElem?.yScale ?? 1);
-    
+
     if (!animTarget || !sprite || !animPreview)
         return null;
     if (!animPreview)
@@ -41,7 +42,6 @@ export default function AnimRenderer(props: AnimRendererProps) {
             rotation={rotation ?? 0}
             scaleX={scaleX ?? 1}
             scaleY={scaleY ?? 1}
-            ref={imageRef}
             listening={false}
         >
             <Image
@@ -53,6 +53,10 @@ export default function AnimRenderer(props: AnimRendererProps) {
 
                 listening={false}
             />
+
+            {childIDs.map((id) => (
+                <AnimChildRenderer elementID={id} key={id}/>
+            ))}
         </Group>
     );
 }

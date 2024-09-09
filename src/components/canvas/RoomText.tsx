@@ -1,13 +1,13 @@
-import { Text } from "react-konva";
-import { useSettingsValue } from "../../hooks/useSettings";
-import { ROOM_TEXT_HEIGHT, ROOM_TEXT_WIDTH, UNITY_SCALE } from "../../types/generic/Constants";
+import {Text} from "react-konva";
+import {useSettingsValue} from "../../hooks/useSettings";
+import {ROOM_TEXT_HEIGHT, ROOM_TEXT_WIDTH, UNITY_SCALE} from "../../types/generic/Constants";
 
 export interface RoomTextProps {
     name: string;
 }
 
 export default function RoomText(props: RoomTextProps) {
-    const { isRoomNameVisible } = useSettingsValue();
+    const {isRoomNameVisible} = useSettingsValue();
 
     if (!isRoomNameVisible)
         return null;

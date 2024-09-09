@@ -20,6 +20,7 @@ const INVISIBLE_TYPES = [
     "util-onewaycollider",
     "util-ghostcollider",
     "util-decontamination",
+    "util-layer"
 ];
 
 const INVISIBLE_TYPES_NO_SPRITE = [

@@ -7,20 +7,13 @@ import useEmbed from "../../hooks/embed/useEmbed";
 import {useSettingsValue} from "../../hooks/useSettings";
 import {UNITY_SCALE} from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, {ElemVisibility} from "../../utils/map/getMapVisibility";
 import setCursor from "../../utils/canvas/setCursor";
-import RoomText from "./RoomText";
-import SecondaryRender from "./SecondaryRender";
 import MapElementImage from "./MapElementImage";
 import useSprite from "../../hooks/canvas/sprite/useSprite";
-import AnimRenderer from "./AnimRenderer";
-import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
-
-const SECONDARY_RENDER_TYPES = [
-    "util-starfield",
-    "util-blankscroll",
-    "util-blankfloat"
-];
+import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
+import useMapElementOpacity from "../../hooks/canvas/useMapElementOpacity";
+import SecondaryRender from "./SecondaryRender";
+import RoomText from "./RoomText";
 
 export interface MapElementProps {
     elementID: GUID;
@@ -31,43 +24,36 @@ export default function MapElement(props: MapElementProps) {
     const isEmbedded = useEmbed();
     const isColliderSelected = useIsSelectedCollider();
     const isSelected = useIsSelectedElem(props.elementID);
-    const {isGridSnapEnabled, gridSnapResolution, invisibleOpacity} = useSettingsValue();
+    const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
     const coloredSprite = useSprite(props.elementID);
-    const animTargets = useSelectedElemPropValue("animTargets");
+    const childIDs = useElementChildIDs(props.elementID);
+    const opacity = useMapElementOpacity(props.elementID);
 
-    if (!elem || elem.type === "util-layer")
+    if (!elem)
         return null;
 
-    const isAnimTarget = animTargets?.some(t => t.id === props.elementID);
-    const elemVisibility = getElemVisibility(elem);
-    const w = (coloredSprite?.width ?? 0) * elem.xScale;
-    const h = (coloredSprite?.height ?? 0) * elem.yScale;
+    const w = coloredSprite?.width ?? 0;
+    const h = coloredSprite?.height ?? 0;
     const isVisible = elem.properties.isVisible ?? true;
-    const opacity =
-        (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
-        (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
-        (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
-        (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity) * // If Element is Visible in Current Layer
-        (SECONDARY_RENDER_TYPES.includes(elem.type) && isSelected ? invisibleOpacity : 1); // If Element has Secondary Render
+    const isLocked = elem.properties.isLocked ?? false;
+    const isLayer = elem.type === "util-layer";
 
     return (
         <Group
             x={elem.x * UNITY_SCALE}
             y={-elem.y * UNITY_SCALE}
-            scaleX={elem.xScale < 0 ? -1 : 1}
-            scaleY={elem.yScale < 0 ? -1 : 1}
+            scaleX={elem.xScale}
+            scaleY={elem.yScale}
             rotation={-elem.rotation}
-            onMouseDown={(e) => {
-                if (e.evt.button === 0 && !elem.properties.isLocked) {
-                    e.target.getParent().startDrag();
-                }
-            }}
-            onDragStart={() => {
+
+            onDragStart={(e) => {
+                e.cancelBubble = true;
                 setSelectedID(props.elementID);
             }}
             onDragMove={(e) => {
+                e.cancelBubble = true;
                 if (isGridSnapEnabled) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
@@ -76,37 +62,22 @@ export default function MapElement(props: MapElementProps) {
                 }
             }}
             onDragEnd={(e) => {
+                e.cancelBubble = true;
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 if (x !== elem.x || y !== elem.y)
                     setElement({...elem, x, y});
             }}
-            onClick={(e) => {
-                e.target.getParent().stopDrag();
-                setSelectedID(props.elementID);
-                e.cancelBubble = true;
-            }}
-            onMouseEnter={e => {
-                setHovering(true);
-                setCursor(e, elem.properties.isLocked ? "default" : "pointer");
-            }}
-            onMouseLeave={e => {
-                setHovering(false);
-                setCursor(e, "default");
-            }}
-            draggable={false}
-            listening={
-                !isColliderSelected &&
-                !isEmbedded &&
-                isVisible
-            }
-        >
 
+            draggable={false}
+        >
+            {/* Main Image */}
             <MapElementImage
                 elementID={props.elementID}
                 imageProps={{opacity}}
             />
 
+            {/* Selection Border */}
             {(isSelected || isHovering) && (
                 <Rect
                     x={-w / 2}
@@ -116,13 +87,57 @@ export default function MapElement(props: MapElementProps) {
                     stroke={isSelected ? "#CD4246" : "#C5CBD3"}
                     strokeWidth={2}
                     listening={false}
+                    strokeScaleEnabled={false}
                 />
             )}
 
+            {/* Click Area */}
+            <Rect
+                x={-w / 2}
+                y={-h / 2}
+                width={w}
+                height={h}
+                opacity={0}
+
+                onMouseDown={(e) => {
+                    const isLeftClick = e.evt.button === 0;
+                    if (isLeftClick && !isLocked) {
+                        e.cancelBubble = true;
+                        e.target.getParent().startDrag();
+                    }
+                }}
+                onClick={(e) => {
+                    e.cancelBubble = true;
+                    e.target.getParent().stopDrag();
+                    setSelectedID(props.elementID);
+                }}
+                onMouseEnter={e => {
+                    setHovering(true);
+                    setCursor(e, isLocked ? "default" : "pointer");
+                }}
+                onMouseLeave={e => {
+                    setHovering(false);
+                    setCursor(e, "default");
+                }}
+                draggable={false}
+                listening={
+                    !isColliderSelected &&
+                    !isEmbedded &&
+                    (!isLayer || isSelected) &&
+                    isVisible
+                }
+            />
+
+            {/* Children */}
+            {childIDs.map(childID => (
+                <MapElement
+                    key={childID}
+                    elementID={childID}
+                />
+            ))}
 
             {isSelected && <SecondaryRender/>}
-            {isAnimTarget && <AnimRenderer id={props.elementID}/>}
-
+            {/*{isAnimating && <AnimRenderer id={props.elementID}/>}*/}
             {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
                 <RoomText name={elem.name}/>
             }

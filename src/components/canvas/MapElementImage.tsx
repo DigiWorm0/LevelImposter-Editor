@@ -1,7 +1,6 @@
 import {MaybeGUID} from "../../types/generic/GUID";
 import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
 import {Image} from "react-konva";
-import {useElementValue} from "../../hooks/elements/useElements";
 import React from "react";
 
 export interface MapElementImageProps {
@@ -10,13 +9,10 @@ export interface MapElementImageProps {
 }
 
 export default function MapElementImage(props: MapElementImageProps) {
-    const elem = useElementValue(props.elementID);
     const sprite = useColoredSprite(props.elementID);
-    //const isSelected = useIsSelectedElem(props.elementID);
-    //const imageRef = useImageAnimator(elem?.properties.spriteID, isSelected);
 
-    const w = (sprite?.width ?? 0) * (elem?.xScale ?? 1);
-    const h = (sprite?.height ?? 0) * (elem?.yScale ?? 1);
+    const w = sprite?.width ?? 0;
+    const h = sprite?.height ?? 0;
 
     return (
         <Image
@@ -25,6 +21,7 @@ export default function MapElementImage(props: MapElementImageProps) {
             y={-h / 2}
             width={w}
             height={h}
+            listening={false}
 
             {...props.imageProps}
         />

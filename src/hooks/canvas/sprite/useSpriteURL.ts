@@ -1,9 +1,9 @@
-import { atom, useAtomValue } from "jotai";
-import { atomFamily } from "jotai/utils";
+import {atom, useAtomValue} from "jotai";
+import {atomFamily} from "jotai/utils";
 import AUElementDB from "../../../types/db/AUElementDB";
-import { MaybeGUID } from "../../../types/generic/GUID";
-import { mapAssetsAtomFamily } from "../../assets/useMapAsset";
-import { elementFamilyAtom } from "../../elements/useElements";
+import {MaybeGUID} from "../../../types/generic/GUID";
+import {mapAssetsAtomFamily} from "../../assets/useMapAsset";
+import {elementFamilyAtom} from "../../elements/useElements";
 
 // TODO: Put this in constants
 const DEFAULT_URL = "/sprites/util-unknown.png";
@@ -19,7 +19,8 @@ export const spriteURLAtomFamily = atomFamily((id: MaybeGUID) => {
             return assetURL;
 
         // If strings is valid, return strings URL
-        if (elem && AUElementDB.includes(elem.type))
+        const isValid = AUElementDB.includes(elem?.type ?? "") || elem?.type === "util-layer";
+        if (elem && isValid)
             return `/sprites/${elem.type}.png`;
 
         // Otherwise, return default URL

@@ -1,7 +1,6 @@
 import React from "react";
 import {Layer, Stage} from "react-konva";
 import CanvasGrid from "../canvas/CanvasGrid";
-import SelectedMapElement from "../canvas/SelectedMapElement";
 import {useMapProperties} from "../../hooks/map/useMap";
 import useCameraMouseControl from "../../hooks/canvas/useCameraMouseControl";
 import useWindowSize from "../../hooks/canvas/useWindowSize";
@@ -59,7 +58,7 @@ export default function Canvas() {
             >
                 <Layer>
                     <MapElementsRenderer/>
-                    <SelectedMapElement/>
+                    {/*<SelectedMapElement/>*/}
                     <CanvasGrid/>
                 </Layer>
             </Stage>

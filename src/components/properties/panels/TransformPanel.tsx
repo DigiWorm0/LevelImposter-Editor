@@ -84,52 +84,50 @@ export default function TransformPanel() {
                     fullWidth
                     onChange={(e) => setName(e.target.value)}
                 />
-                {type !== "util-layer" && (<>
-                    <InputGroup>
-                        <TransformNumericInput name={t("transform.x")} prop={"x"}/>
-                        <TransformNumericInput name={t("transform.y")} prop={"y"}/>
-                        <TransformNumericInput name={t("transform.z")} prop={"z"}/>
-                    </InputGroup>
-                    <InputGroup>
-                        <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz/>}/>
-                        <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert/>}/>
-                    </InputGroup>
-                    <TransformNumericInput
-                        name={t("transform.rotation")}
-                        prop={"rotation"}
-                        icon={<RotateLeft/>}
-                        stepSize={5}
-                    />
-                    <ButtonGroup style={{marginTop: 10}} fullWidth>
-                        <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
-                            <Button
-                                variant={"text"}
-                                color={"inherit"}
-                                onClick={() => setVisible(!isVisible)}
-                            >
-                                {isVisible ? <Visibility/> : <VisibilityOff/>}
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
-                            <Button
-                                variant={"text"}
-                                color={"inherit"}
-                                onClick={() => setLocked(!isLocked)}
-                            >
-                                {isLocked ? <Lock/> : <LockOpen/>}
-                            </Button>
-                        </Tooltip>
-                        <Tooltip title={t("transform.delete")}>
-                            <Button
-                                variant={"text"}
-                                color={"inherit"}
-                                onClick={removeSelectedElement}
-                            >
-                                <Delete/>
-                            </Button>
-                        </Tooltip>
-                    </ButtonGroup>
-                </>)}
+                <InputGroup>
+                    <TransformNumericInput name={t("transform.x")} prop={"x"}/>
+                    <TransformNumericInput name={t("transform.y")} prop={"y"}/>
+                    <TransformNumericInput name={t("transform.z")} prop={"z"}/>
+                </InputGroup>
+                <InputGroup>
+                    <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz/>}/>
+                    <TransformNumericInput name={t("transform.yScale")} prop={"yScale"} icon={<SwapVert/>}/>
+                </InputGroup>
+                <TransformNumericInput
+                    name={t("transform.rotation")}
+                    prop={"rotation"}
+                    icon={<RotateLeft/>}
+                    stepSize={5}
+                />
+                <ButtonGroup style={{marginTop: 10}} fullWidth>
+                    <Tooltip title={isVisible ? t("transform.hide") : t("transform.show")}>
+                        <Button
+                            variant={"text"}
+                            color={"inherit"}
+                            onClick={() => setVisible(!isVisible)}
+                        >
+                            {isVisible ? <Visibility/> : <VisibilityOff/>}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title={isLocked ? t("transform.unlock") : t("transform.lock")}>
+                        <Button
+                            variant={"text"}
+                            color={"inherit"}
+                            onClick={() => setLocked(!isLocked)}
+                        >
+                            {isLocked ? <Lock/> : <LockOpen/>}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title={t("transform.delete")}>
+                        <Button
+                            variant={"text"}
+                            color={"inherit"}
+                            onClick={removeSelectedElement}
+                        >
+                            <Delete/>
+                        </Button>
+                    </Tooltip>
+                </ButtonGroup>
             </PanelContainer>
             <MapError
                 isVisible={elemVisibility !== ElemVisibility.Visible}

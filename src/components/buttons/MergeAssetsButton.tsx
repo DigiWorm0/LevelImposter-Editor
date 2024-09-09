@@ -12,15 +12,13 @@ export default function MergeAssetsButton() {
     const mergeAssets = useMergeMapAssets();
     const [isRunning, setIsRunning] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
-    const [assetsMerged, setAssetsMerged] = React.useState(0);
 
     const onClick = React.useCallback(() => {
         setIsRunning(true);
-        mergeAssets((progress, assetsMerged) => {
+        mergeAssets((progress) => {
 
             // Progress Update
             setProgress(progress);
-            setAssetsMerged(assetsMerged);
 
         }).then((data) => {
 
@@ -38,7 +36,7 @@ export default function MergeAssetsButton() {
             toaster.error(err);
 
         });
-    }, [mergeAssets, setProgress, setAssetsMerged]);
+    }, [mergeAssets, setProgress]);
 
     return (
         <>
