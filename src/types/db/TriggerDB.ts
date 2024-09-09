@@ -79,6 +79,10 @@ const InputTriggerDB: Record<string, string[]> = {
         "show",
         "hide"
     ],
+    "util-starfield": [
+        "show",
+        "hide"
+    ],
     "util-tele": [
         "enable",
         "disable",
