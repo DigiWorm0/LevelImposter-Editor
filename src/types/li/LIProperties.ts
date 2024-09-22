@@ -106,6 +106,7 @@ export default interface LIProperties {
 
     // Ladder
     ladderHeight?: number;
+    ladderCooldown?: number;
 
     // Door
     doorType?: string;

@@ -680,7 +680,8 @@
   },
   "ladder": {
     "title": "Ladder",
-    "height": "Ladder Height"
+    "height": "Ladder Height",
+    "cooldown": "Climb Cooldown"
   },
   "debug": {
     "title": "Debug",
