@@ -2,7 +2,7 @@ import {Box, MenuItem, Select} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {InputTriggerDB} from "../../../types/db/TriggerDB";
+import {InputTriggerDB} from "../../../db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import ElementSelect from "../input/select/ElementSelect";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";

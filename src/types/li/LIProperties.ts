@@ -7,7 +7,7 @@ import LISound from "./LISound";
 import LITrigger from "./LITrigger";
 import LICustomText from "./LICustomText";
 import LIAnimTarget from "./LIAnimTarget";
-import {PRESET_RESOURCE_IDS} from "../db/AUElementDB";
+import {PRESET_RESOURCE_IDS} from "../../db/AUElementDB";
 
 export default interface LIProperties {
 

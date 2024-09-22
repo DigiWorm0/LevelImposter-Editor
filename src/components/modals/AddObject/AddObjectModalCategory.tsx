@@ -1,8 +1,8 @@
-import { ListSubheader } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import {ListSubheader} from "@mui/material";
+import {grey} from "@mui/material/colors";
 import AddObjectModalButton from "./AddObjectModalButton";
 import React from "react";
-import AUElementDB from "../../../types/db/AUElementDB";
+import AUElementDB from "../../../db/AUElementDB";
 
 export interface AddObjectModalCategoryProps {
     name: string;
@@ -17,7 +17,7 @@ export default function AddObjectModalCategory(props: AddObjectModalCategoryProp
 
     return (
         <>
-            <ListSubheader sx={{ backgroundColor: grey[900] }}>
+            <ListSubheader sx={{backgroundColor: grey[900]}}>
                 {props.name}
             </ListSubheader>
             {filteredTypes.map((type) => (

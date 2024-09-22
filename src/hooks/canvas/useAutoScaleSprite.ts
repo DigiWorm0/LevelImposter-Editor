@@ -17,6 +17,10 @@ export const autoScaleSpriteAtom = atom(null, async (get, set, scaleDownOnly?: b
     if (!element || !sprite)
         return;
 
+    // Exit if no spriteID
+    if (!element.properties.spriteID)
+        return;
+
     // Get Scale
     const xScale = Math.abs(element.xScale);
     const yScale = Math.abs(element.yScale);

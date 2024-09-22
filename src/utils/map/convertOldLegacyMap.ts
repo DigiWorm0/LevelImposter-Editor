@@ -1,6 +1,6 @@
 import LIElement from "../../types/li/LIElement";
-import generateGUID, { DEFAULT_GUID } from "../strings/generateGUID";
-import { EXILE_IDS } from "../../types/db/AUElementDB";
+import generateGUID, {DEFAULT_GUID} from "../strings/generateGUID";
+import {EXILE_IDS} from "../../db/AUElementDB";
 
 const LEGACY_PORTS: Record<string, string> = {
     "util-player": "util-dummy",

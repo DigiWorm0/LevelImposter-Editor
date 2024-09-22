@@ -14,7 +14,7 @@ import {Button, ButtonGroup, InputAdornment, TextField, Tooltip} from "@mui/mate
 import {useTranslation} from "react-i18next";
 import {useRemoveSelectedElement} from "../../../hooks/elements/useRemoveElement";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import AUElementDB from "../../../types/db/AUElementDB";
+import AUElementDB from "../../../db/AUElementDB";
 import {ElemVisibility} from "../../../utils/map/getMapVisibility";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
