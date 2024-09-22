@@ -67,6 +67,8 @@ export default interface LIProperties {
 
     // Spore
     gasColor?: LIColor;
+    sporeDuration?: number;
+    sporeCooldown?: number;
 
     // Decontamination
     doorA?: GUID;

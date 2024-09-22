@@ -784,7 +784,9 @@
     "title": "Spore",
     "activateRange": "Activation Range",
     "gasRange": "Gas Range",
-    "gasColor": "Gas Color"
+    "gasColor": "Gas Color",
+    "duration": "Duration",
+    "cooldown": "Cooldown"
   },
   "settings": {
     "experimentalInfo": "This feature is experimental and may not work as expected.",
@@ -881,6 +883,7 @@
     "onPlay": "On Play",
     "onPause": "On Pause",
     "onStop": "On Stop",
+    "onActivate": "On Activate",
     "startOxygen": "Sabotage Oxygen",
     "startReactor": "Sabotage Reactor",
     "startLights": "Sabotage Lights",

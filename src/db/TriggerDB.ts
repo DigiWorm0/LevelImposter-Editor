@@ -34,6 +34,9 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onStart",
         "onFinish",
     ],
+    "util-spore": [
+        "onActivate",
+    ],
     "util-sabotages": [
         "onOxygenStart",
         "onLightsStart",
