@@ -1,10 +1,10 @@
-import { atom } from "jotai/index";
-import { elementsAtom } from "../../map/useMap";
-import { selectedElementIDAtom } from "../useSelectedElem";
-import { InputTriggerDB } from "../../../types/db/TriggerDB";
+import {atom} from "jotai/index";
+import {elementsAtom} from "../../map/useMap";
+import {selectedElementIDAtom} from "../useSelectedElem";
+import {InputTriggerDB} from "../../../db/TriggerDB";
 import LIElement from "../../../types/li/LIElement";
-import compareArrays from "../../../utils/compareArrays";
-import { useAtomValue } from "jotai";
+import compareArrays from "../../../utils/math/compareArrays";
+import {useAtomValue} from "jotai";
 
 let previousTriggerInputs: LIElement[] = [];
 

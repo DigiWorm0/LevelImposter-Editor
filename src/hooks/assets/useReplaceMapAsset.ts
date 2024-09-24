@@ -1,8 +1,8 @@
 import { atom, useSetAtom } from "jotai";
 import GUID from "../../types/generic/GUID";
 import { mapAssetsAtomFamily } from "./useMapAsset";
-import getFileExtension from "../../utils/getFileExtension";
-import openUploadDialog from "../../utils/openUploadDialog";
+import getFileExtension from "../../utils/fileio/getFileExtension";
+import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import { createMapAssetAtom } from "./useCreateMapAsset";
 import { replaceMapAssetIDAtom } from "./useReplaceMapAssetID";
 import { deleteMapAssetAtom } from "./useDeleteMapAsset";

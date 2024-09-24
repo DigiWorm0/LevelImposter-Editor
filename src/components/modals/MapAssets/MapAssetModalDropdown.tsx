@@ -33,5 +33,5 @@ export default function MapAssetModalDropdown(props: MapAssetModalDropdownProps)
                 </Box>
             </Collapse>
         </Paper>
-    )
+    );
 }

@@ -2,7 +2,7 @@ import { atom, useAtomValue } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { elementsAtom } from "../map/useMap";
 import LIElement from "../../types/li/LIElement";
-import compareArrays from "../../utils/compareArrays";
+import compareArrays from "../../utils/math/compareArrays";
 
 // Atom
 export const elementTypeAtom = atomFamily((typeFilter: string) => {

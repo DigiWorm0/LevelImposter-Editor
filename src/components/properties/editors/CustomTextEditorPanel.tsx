@@ -49,5 +49,5 @@ export default function CustomTextEditorPanel(props: CustomTextEditorPanelProps)
                 }}
             />
         </Box>
-    )
+    );
 }

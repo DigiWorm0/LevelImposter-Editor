@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { DEFAULT_GUID } from "../../utils/generateGUID";
+import { DEFAULT_GUID } from "../../utils/strings/generateGUID";
 import { useMapValue } from "../../hooks/map/useMap";
 import useEmbed from "../../hooks/embed/useEmbed";
 import { Button, Tooltip } from "@mui/material";

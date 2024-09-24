@@ -25,10 +25,10 @@ export default function ColliderPreview() {
 
                     const initialPoint = relativeToAbsolute(collider.points[0]);
                     ctx.moveTo(initialPoint.x, initialPoint.y);
-                    collider.points.forEach((p, _) => {
+                    collider.points.forEach(p => {
                         const point = relativeToAbsolute(p);
                         ctx.lineTo(point.x, point.y);
-                    })
+                    });
 
                     if (collider.isSolid)
                         ctx.closePath();
@@ -39,6 +39,6 @@ export default function ColliderPreview() {
                 strokeWidth={1}
                 listening={false}
             />
-        )
+        );
     });
 }

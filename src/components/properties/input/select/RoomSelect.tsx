@@ -21,5 +21,5 @@ export default function RoomSelect(props: RoomSelectProps) {
             onPick={(elem) => setParent(elem.id)}
             onReset={() => setParent(undefined)}
         />
-    )
+    );
 }

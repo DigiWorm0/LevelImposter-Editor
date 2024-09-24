@@ -45,21 +45,21 @@ export default function BrowserWarningModal() {
             onClose={onDismiss}
             title={t("warning.title") as string}
             actions={(<>
+                <Button
+                    onClick={onDismiss}
+                    color="primary"
+                >
+                    {t("warning.dismiss") as string}
+                </Button>
+                {link && (
                     <Button
-                        onClick={onDismiss}
-                        color="primary"
+                        onClick={() => window.open(link, "_blank")}
+                        endIcon={<Launch />}
                     >
-                        {t("warning.dismiss") as string}
+                        {t("warning.learnMore") as string}
                     </Button>
-                    {link && (
-                        <Button
-                            onClick={() => window.open(link, "_blank")}
-                            endIcon={<Launch />}
-                        >
-                            {t("warning.learnMore") as string}
-                        </Button>
-                    )}
-                </>
+                )}
+            </>
             )}
         >
             <DialogContentText>

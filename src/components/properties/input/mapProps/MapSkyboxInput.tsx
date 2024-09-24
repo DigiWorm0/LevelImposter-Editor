@@ -16,14 +16,14 @@ export default function MapSkyboxInput() {
         const g = parseInt(hex.substring(3, 5), 16);
         const b = parseInt(hex.substring(5, 7), 16);
         return { r, g, b, a: 1 };
-    }
+    };
 
     const colorToHex = (color: LIColor): string => {
         const r = Math.round(color.r).toString(16).padStart(2, "0");
         const g = Math.round(color.g).toString(16).padStart(2, "0");
         const b = Math.round(color.b).toString(16).padStart(2, "0");
         return `#${r}${g}${b}`;
-    }
+    };
 
     return (
         <ListItem

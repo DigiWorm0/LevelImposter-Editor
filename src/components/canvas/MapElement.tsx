@@ -1,17 +1,20 @@
 import React from "react";
-import { Group, Image, Rect } from "react-konva";
-import useColoredSprite from "../../hooks/canvas/sprite/useColoredSprite";
-import { useIsSelectedCollider } from "../../hooks/elements/colliders/useSelectedCollider";
+import {Group, Rect} from "react-konva";
+import {useIsSelectedCollider} from "../../hooks/elements/colliders/useSelectedCollider";
 import useElement from "../../hooks/elements/useElements";
-import { useIsSelectedElem, useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import {useIsSelectedElem, useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import useEmbed from "../../hooks/embed/useEmbed";
-import { useSettingsValue } from "../../hooks/useSettings";
-import { UNITY_SCALE } from "../../types/generic/Constants";
+import {useSettingsValue} from "../../hooks/useSettings";
+import {UNITY_SCALE} from "../../types/generic/Constants";
 import GUID from "../../types/generic/GUID";
-import getElemVisibility, { ElemVisibility } from "../../utils/getMapVisibility";
-import setCursor from "../../utils/setCursor";
+import getElemVisibility, {ElemVisibility} from "../../utils/map/getMapVisibility";
+import setCursor from "../../utils/canvas/setCursor";
 import RoomText from "./RoomText";
 import SecondaryRender from "./SecondaryRender";
+import MapElementImage from "./MapElementImage";
+import useSprite from "../../hooks/canvas/sprite/useSprite";
+import AnimRenderer from "./AnimRenderer";
+import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -19,24 +22,31 @@ const SECONDARY_RENDER_TYPES = [
     "util-blankfloat"
 ];
 
-export default function MapElement(props: { elementID: GUID }) {
+export interface MapElementProps {
+    elementID: GUID;
+}
+
+export default function MapElement(props: MapElementProps) {
     const setSelectedID = useSetSelectedElemID();
     const isEmbedded = useEmbed();
     const isColliderSelected = useIsSelectedCollider();
     const isSelected = useIsSelectedElem(props.elementID);
-    const { isGridSnapEnabled, gridSnapResolution, invisibleOpacity } = useSettingsValue();
+    const {isGridSnapEnabled, gridSnapResolution, invisibleOpacity} = useSettingsValue();
     const [elem, setElement] = useElement(props.elementID);
     const [isHovering, setHovering] = React.useState(false);
-    const coloredSprite = useColoredSprite(props.elementID);
+    const coloredSprite = useSprite(props.elementID);
+    const animTargets = useSelectedElemPropValue("animTargets");
 
     if (!elem || elem.type === "util-layer")
         return null;
 
+    const isAnimTarget = animTargets?.some(t => t.id === props.elementID);
     const elemVisibility = getElemVisibility(elem);
     const w = (coloredSprite?.width ?? 0) * elem.xScale;
     const h = (coloredSprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
     const opacity =
+        (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
         (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity) * // If Element is Visible in Current Layer
@@ -62,14 +72,14 @@ export default function MapElement(props: { elementID: GUID }) {
                     e.target.position({
                         x: Math.round(e.target.x() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution,
                         y: Math.round(e.target.y() / UNITY_SCALE / gridSnapResolution) * UNITY_SCALE * gridSnapResolution
-                    })
+                    });
                 }
             }}
             onDragEnd={(e) => {
                 const x = e.target.x() / UNITY_SCALE;
                 const y = -e.target.y() / UNITY_SCALE;
                 if (x !== elem.x || y !== elem.y)
-                    setElement({ ...elem, x, y });
+                    setElement({...elem, x, y});
             }}
             onClick={(e) => {
                 e.target.getParent().stopDrag();
@@ -85,16 +95,16 @@ export default function MapElement(props: { elementID: GUID }) {
                 setCursor(e, "default");
             }}
             draggable={false}
-            listening={!isColliderSelected && !isEmbedded && isVisible}
+            listening={
+                !isColliderSelected &&
+                !isEmbedded &&
+                isVisible
+            }
         >
 
-            <Image
-                opacity={opacity}
-                x={-w / 2}
-                y={-h / 2}
-                width={w}
-                height={h}
-                image={coloredSprite}
+            <MapElementImage
+                elementID={props.elementID}
+                imageProps={{opacity}}
             />
 
             {(isSelected || isHovering) && (
@@ -110,12 +120,11 @@ export default function MapElement(props: { elementID: GUID }) {
             )}
 
 
-            {isSelected && (
-                <SecondaryRender />
-            )}
+            {isSelected && <SecondaryRender/>}
+            {isAnimTarget && <AnimRenderer id={props.elementID}/>}
 
             {(elem.type === "util-room" && (elem.properties.isRoomNameVisible ?? true)) &&
-                <RoomText name={elem.name} />
+                <RoomText name={elem.name}/>
             }
         </Group>
     );

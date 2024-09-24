@@ -1,22 +1,25 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSettingsValue } from "../../hooks/useSettings";
+import {useTranslation} from "react-i18next";
+import {useSettingsValue} from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
-import { _useUserAtom } from "../../hooks/firebase/useUser";
-import { useAtomsDebugValue } from "jotai-devtools";
+import {_useUserAtom} from "../../hooks/firebase/useUser";
+import {useAtomsDebugValue} from "jotai-devtools";
 import useSortMap from "../../hooks/map/useSortMap";
+import useAnimationPlayback from "../../hooks/timeline/useAnimationPlayback";
 
 export default function GlobalHooks() {
-    const { i18n } = useTranslation();
-    const { language } = useSettingsValue();
+    const {i18n} = useTranslation();
+    const {language} = useSettingsValue();
     const isEmbedded = useEmbed();
     useHotkeysHandler();
     useIDParam();
     _useUserAtom();
     useAtomsDebugValue();
     useSortMap();
+    useAnimationPlayback();
+
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -29,7 +32,7 @@ export default function GlobalHooks() {
 
         return () => {
             window.removeEventListener("beforeunload", onBeforeUnload);
-        }
+        };
     }, [isEmbedded]);
 
     React.useEffect(() => {

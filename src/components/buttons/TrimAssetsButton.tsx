@@ -26,5 +26,5 @@ export default function TrimAssetsButton() {
                 Trim
             </Button>
         </Tooltip>
-    )
+    );
 }

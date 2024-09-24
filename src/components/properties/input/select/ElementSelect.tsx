@@ -1,9 +1,9 @@
-import { Autocomplete, TextField, Tooltip } from "@mui/material";
+import {Autocomplete, PopperPlacementType, TextField, Tooltip} from "@mui/material";
 import React from "react";
-import { useElementValue } from "../../../../hooks/elements/useElements";
-import { useSelectedElemIDValue } from "../../../../hooks/elements/useSelectedElem";
-import { useElementsOfType } from "../../../../hooks/elements/useElementsOfType";
-import { MaybeGUID } from "../../../../types/generic/GUID";
+import {useElementValue} from "../../../../hooks/elements/useElements";
+import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
+import {useElementsOfType} from "../../../../hooks/elements/useElementsOfType";
+import {MaybeGUID} from "../../../../types/generic/GUID";
 import LIElement from "../../../../types/li/LIElement";
 
 export interface ElementSelectProps {
@@ -12,6 +12,8 @@ export interface ElementSelectProps {
     allowSelected?: boolean;
     blacklistedIDs?: MaybeGUID[];
     whitelistedIDs?: MaybeGUID[];
+    placement?: PopperPlacementType;
+    disablePortal?: boolean;
 
     label?: string;
     noElementsText: string;
@@ -43,9 +45,14 @@ export default function ElementSelect(props: ElementSelectProps) {
                 <Autocomplete
                     key={props.selectedID}
                     fullWidth
-                    disablePortal
+                    disablePortal={props.disablePortal ?? true}
                     options={filteredElems}
                     disabled={filteredElems.length === 0 && !currentElem}
+                    componentsProps={{
+                        popper: {
+                            placement: props.placement
+                        }
+                    }}
                     renderInput={(params) => (
                         <TextField
                             {...params}
@@ -56,7 +63,7 @@ export default function ElementSelect(props: ElementSelectProps) {
                         />
                     )}
                     value={currentElem}
-                    style={{ marginTop: 5, marginBottom: 5 }}
+                    style={{marginTop: 5, marginBottom: 5}}
                     onChange={(_, elem) => {
                         if (elem)
                             props.onPick(elem);

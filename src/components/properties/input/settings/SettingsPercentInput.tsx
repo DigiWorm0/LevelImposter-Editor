@@ -50,5 +50,5 @@ export default function SettingsPercentInput(props: SettingsPercentInputProps) {
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>
-    )
+    );
 }

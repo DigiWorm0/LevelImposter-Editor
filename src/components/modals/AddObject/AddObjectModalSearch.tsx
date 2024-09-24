@@ -20,5 +20,5 @@ export default function AddObjectModalSearch() {
                 startAdornment: <InputAdornment position={"start"}><Search /></InputAdornment>
             }}
         />
-    )
+    );
 }

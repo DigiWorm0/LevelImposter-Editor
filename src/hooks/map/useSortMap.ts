@@ -5,12 +5,12 @@ import React from "react";
 
 const getZ = (elem: LIElement) => {
     return elem.z + (elem.y / 1000);
-}
+};
 
 export const sortMapAtom = atom(null, (get, set) => {
     const map = get(mapAtom);
 
-    let isSorted = map.elements.every((elem, i) => {
+    const isSorted = map.elements.every((elem, i) => {
         if (i === 0)
             return true;
         return getZ(map.elements[i - 1]) >= getZ(elem);

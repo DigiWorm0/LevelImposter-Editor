@@ -67,5 +67,5 @@ export async function serializeMap(map: LIMap, onError?: (error: string) => void
 // https://stackoverflow.com/questions/12271547/shouldnt-json-stringify-escape-unicode-characters
 // Fixes unicode characters in JSON
 function toUTF8(s: string) {
-    return s.replace(/[^\x20-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0)?.toString(16)).slice(-4))
+    return s.replace(/[^\x20-\x7F]/g, x => "\\u" + ("000" + x.codePointAt(0)?.toString(16)).slice(-4));
 }

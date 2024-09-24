@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card, CardContent, Collapse } from "@mui/material";
+import { Button, Card, CardContent, Collapse, Typography } from "@mui/material";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
+import ErrorBoundary from "../../utils/ErrorBoundary";
 
 interface PanelContainerProps {
     children: React.ReactNode;
@@ -32,7 +33,19 @@ export default function PanelContainer(props: PanelContainerProps) {
             </Button>
             <Collapse in={isOpen}>
                 <CardContent sx={{ paddingTop: 0 }} style={{ paddingBottom: 10 }}>
-                    {props.children}
+                    <ErrorBoundary fallback={
+                        <Typography
+                            variant={"body2"}
+                            color={"textSecondary"}
+                            sx={{ textAlign: "center" }}
+                        >
+                            Error loading object, <br />
+                            see console for more details
+                        </Typography>
+                    }
+                    >
+                        {props.children}
+                    </ErrorBoundary>
                 </CardContent>
             </Collapse>
         </Card>

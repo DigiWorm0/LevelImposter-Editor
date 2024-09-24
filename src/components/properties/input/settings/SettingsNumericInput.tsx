@@ -53,5 +53,5 @@ export default function SettingsNumericInput(props: SettingsNumericInputProps) {
                 <ListItemText primary={props.name} />
             </ListItemButton>
         </ListItem>
-    )
+    );
 }

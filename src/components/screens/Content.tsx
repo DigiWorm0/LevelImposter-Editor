@@ -1,36 +1,24 @@
-import BrowserWarningModal from "../modals/BrowserWarningModal";
 import GlobalHooks from "../utils/GlobalHooks";
-import MapHelmet from "../utils/MapHelmet";
 import useEmbed from "../../hooks/embed/useEmbed";
 import Canvas from "./Canvas";
-import LeftSidebar from "./LeftSidebar";
-import OpenInEditor from "./OpenInEditor";
-import RightSidebar from "./RightSidebar";
-import Topbar from "./Topbar";
+import EmbeddedOverlay from "../overlays/EmbeddedOverlay";
+import EditorOverlay from "../overlays/EditorOverlay";
 
 export default function Content() {
     const isEmbedded = useEmbed();
 
     return (
         <div className={"app"}>
-            <GlobalHooks />
+            {/* Meta Content */}
+            <GlobalHooks/>
 
-            {!isEmbedded && (<>
-                <MapHelmet />
-                <Topbar />
-                <LeftSidebar />
-            </>)}
 
-            <Canvas />
+            {/* Overlays */}
+            {!isEmbedded && <EditorOverlay/>}
+            {isEmbedded && <EmbeddedOverlay/>}
 
-            {!isEmbedded && (<>
-                <RightSidebar />
-                <BrowserWarningModal />
-            </>)}
-
-            {isEmbedded && (<>
-                <OpenInEditor />
-            </>)}
+            {/* Background Canvas */}
+            <Canvas/>
         </div>
     );
 }

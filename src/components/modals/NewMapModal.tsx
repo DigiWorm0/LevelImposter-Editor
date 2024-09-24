@@ -49,5 +49,5 @@ export default function NewMapModal(props: NewMapDialogProps) {
                 {t("map.newDialogText")}
             </DialogContentText>
         </GenericModal>
-    )
+    );
 }

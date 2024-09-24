@@ -6,16 +6,22 @@ export default interface LISettings {
     gridSpacing: number;
     gridSnapResolution: number;
     isGridSnapEnabled: boolean;
+    isTimelineSnapEnabled: boolean;
     isBrowserAccepted: boolean;
     isRoomNameVisible: boolean;
     invisibleOpacity: number;
     colliderHandleSize: number;
     colliderPreview: boolean;
+    animPreview: boolean;
+    animAnything: boolean;
+    connectionsPreview: boolean;
+    animateGIFOnSelect: boolean;
     language: string;
     scrollToSelection: boolean;
     elementNesting: boolean;
     isInfoVisible: boolean;
     isAudioDownmixEnabled: boolean;
+    editType: boolean;
 }
 
 export const DEFAULT_SETTINGS: LISettings = {
@@ -26,14 +32,20 @@ export const DEFAULT_SETTINGS: LISettings = {
     gridSpacing: 100,
     gridSnapResolution: 0.1,
     isGridSnapEnabled: true,
+    isTimelineSnapEnabled: true,
     isBrowserAccepted: false,
-    isRoomNameVisible: false,
+    isRoomNameVisible: true,
     invisibleOpacity: 0.3,
     colliderHandleSize: 8,
-    colliderPreview: false,
+    colliderPreview: true,
+    animPreview: true,
+    animAnything: false,
+    connectionsPreview: true,
+    animateGIFOnSelect: true,
     language: "auto",
     scrollToSelection: true,
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
-}
+    editType: false
+};

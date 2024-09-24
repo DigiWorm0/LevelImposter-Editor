@@ -1,8 +1,8 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { useSelectedTriggerID } from "../../../hooks/elements/useSelectedTrigger";
-import { OutputTriggerDB } from "../../../types/db/TriggerDB";
+import {useTranslation} from "react-i18next";
+import {useSelectedElemValue} from "../../../hooks/elements/useSelectedElem";
+import {useSelectedTriggerID} from "../../../hooks/elements/useSelectedTrigger";
+import {OutputTriggerDB} from "../../../db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -10,7 +10,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
-import { HighlightAlt, SettingsInputAntenna, Shuffle } from "@mui/icons-material";
+import {HighlightAlt, SettingsInputAntenna, Shuffle} from "@mui/icons-material";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",
@@ -22,7 +22,7 @@ const GHOST_TYPES = [
 ];
 
 export default function TriggerPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const selectedElem = useSelectedElemValue();
     const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
     const elementIDs = useElementIDs();
@@ -32,7 +32,7 @@ export default function TriggerPanel() {
         if ((selectedElem?.type ?? "") in OutputTriggerDB)
             return OutputTriggerDB[(selectedElem?.type ?? "") as keyof typeof OutputTriggerDB];
         if (selectedElem?.type == "util-triggerrand")
-            return Array.from({ length: selectedElem.properties.triggerCount ?? 2 }, (_, i) => `onRandom ${i + 1}`);
+            return Array.from({length: selectedElem.properties.triggerCount ?? 2}, (_, i) => `onRandom ${i + 1}`);
     }, [selectedElem]);
 
     // If the selected element has a collider
@@ -70,7 +70,7 @@ export default function TriggerPanel() {
                         prop="triggerCount"
                         label={randomPercentage}
                         defaultValue={2}
-                        icon={<SettingsInputAntenna />}
+                        icon={<SettingsInputAntenna/>}
                         min={2}
                         stepSize={1}
                     />
@@ -80,7 +80,7 @@ export default function TriggerPanel() {
                         const split = triggerID.split(" ");
                         return {
                             id: triggerID,
-                            name: t(`t.${split[0]}`, { index: split[1] ?? 1 }),
+                            name: t(`t.${split[0]}`, {index: split[1] ?? 1}),
                             intent: isTriggerActive(triggerID) ? "success" : "error",
                             icon: "SettingsInputAntenna"
                         };
@@ -114,20 +114,20 @@ export default function TriggerPanel() {
             <MapError
                 isVisible={selectedElem.type === "util-triggerrand"}
                 info
-                icon={<Shuffle />}
+                icon={<Shuffle/>}
             >
                 {t("trigger.randomInfo")}
             </MapError>
             <MapError
                 isVisible={selectedElem.type === "util-triggerrepeat"}
                 info
-                icon={<SettingsInputAntenna />}
+                icon={<SettingsInputAntenna/>}
             >
                 {t("trigger.repeatInfo")}
             </MapError>
             <MapError
                 isVisible={!hasCollider && selectedElem.type === "util-triggerarea"}
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("trigger.errorNoCollider")}
             </MapError>

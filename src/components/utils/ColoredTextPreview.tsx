@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -8,7 +8,7 @@ export interface ColoredTextPreviewProps {
 
 export default function ColoredTextPreview(props: ColoredTextPreviewProps) {
     const PLACEHOLDER_REGEX = /{(\d+)}/g;
-    const textSplitByLine = props.children.split('\n');
+    const textSplitByLine = props.children.split("\n");
 
     return (
         <Typography variant={"body2"}>

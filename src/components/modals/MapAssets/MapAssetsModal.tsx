@@ -4,7 +4,6 @@ import { Box, ButtonGroup } from "@mui/material";
 import ImageAssetModalList from "./Images/ImageAssetModalList";
 import { MaybeGUID } from "../../../types/generic/GUID";
 import MapAssetModalEditor from "./MapAssetModalEditor";
-import useTrimMapAssets from "../../../hooks/assets/useTrimMapAssets";
 import SoundAssetModalList from "./Sounds/SoundAssetModalList";
 import MergeAssetsButton from "../../buttons/MergeAssetsButton";
 import TrimAssetsButton from "../../buttons/TrimAssetsButton";
@@ -16,7 +15,6 @@ interface MapAssetsDialogProps {
 
 export default function MapAssetsModal(props: MapAssetsDialogProps) {
     const [selectedAssetID, setSelectedAssetID] = React.useState<MaybeGUID>(undefined);
-    const trimAssets = useTrimMapAssets();
 
     return (
         <GenericModal
@@ -54,5 +52,5 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
                 />
             </Box>
         </GenericModal>
-    )
+    );
 }

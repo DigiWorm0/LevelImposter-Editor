@@ -24,7 +24,7 @@ export default function TaskTypeSelect() {
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label={t(`task.length`)}
+                    label={t("task.length")}
                     fullWidth
                     size={"small"}
                 />
@@ -36,5 +36,5 @@ export default function TaskTypeSelect() {
                     setTaskLength(undefined);
             }}
         />
-    )
+    );
 }

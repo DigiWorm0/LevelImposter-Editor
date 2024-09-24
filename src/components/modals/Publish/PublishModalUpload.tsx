@@ -36,7 +36,7 @@ export default function PublishModalUpload(props: PublishModalUploadProps) {
         >
             <PublishModalUploadPreview />
             {isPublishing ? (
-                <Box sx={{ width: '100%', mt: 3, mb: 3 }}>
+                <Box sx={{ width: "100%", mt: 3, mb: 3 }}>
                     <LinearProgress
                         color={"primary"}
                         variant={"determinate"}

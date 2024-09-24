@@ -3,9 +3,9 @@ import { Dialog, DialogContent, IconButton, List } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSetSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
-import useAddElementAtMouse from "../../../hooks/elements/useAddElementAtMouse";
+import useAddElementAtCamera from "../../../hooks/elements/useAddElementAtCamera";
 import { useSetSelectedElemID } from "../../../hooks/elements/useSelectedElem";
-import generateGUID from '../../../utils/generateGUID';
+import generateGUID from "../../../utils/strings/generateGUID";
 import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalCategory from "./AddObjectModalCategory";
 import AddObjectModalSearch from "./AddObjectModalSearch";
@@ -22,11 +22,11 @@ const TYPE_CATEGORIES = [
     { type: "sab-", name: "Sabotage" },
     { type: "dec-", name: "Decoration" },
     { type: "room-", name: "Room" },
-]
+];
 
 export default function AddObjectModal(props: AddObjectModalProps) {
     const { t } = useTranslation();
-    const addElement = useAddElementAtMouse();
+    const addElement = useAddElementAtCamera();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
 
@@ -62,7 +62,7 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             <IconButton
                 onClick={props.onClose}
                 sx={{
-                    position: 'absolute',
+                    position: "absolute",
                     right: 8,
                     top: 8
                 }}
@@ -73,7 +73,7 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             <DialogContent sx={{ padding: 0 }}>
                 <List dense sx={{ paddingTop: 0 }}>
                     <AddObjectModalButton
-                        key={`add-new-object`}
+                        key={"add-new-object"}
                         type={"util-blank"}
                         onClick={onClick}
                     />
@@ -89,5 +89,5 @@ export default function AddObjectModal(props: AddObjectModalProps) {
                 </List>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

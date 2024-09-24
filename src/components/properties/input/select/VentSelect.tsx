@@ -8,7 +8,7 @@ export interface VentSelectProps {
 
 export default function VentSelect(props: VentSelectProps) {
     const { t } = useTranslation();
-    const [ventID, setVentID] = useSelectedElemProp(props.prop)
+    const [ventID, setVentID] = useSelectedElemProp(props.prop);
     const leftVent = useSelectedElemPropValue("leftVent");
     const middleVent = useSelectedElemPropValue("middleVent");
     const rightVent = useSelectedElemPropValue("rightVent");
@@ -23,5 +23,5 @@ export default function VentSelect(props: VentSelectProps) {
             onReset={() => setVentID(undefined)}
             blacklistedIDs={[leftVent, middleVent, rightVent]}
         />
-    )
+    );
 }

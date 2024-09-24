@@ -23,5 +23,5 @@ export default function ProfileIcon(props: ProfileIconProps) {
                 ...props.style
             }}
         />
-    )
+    );
 }

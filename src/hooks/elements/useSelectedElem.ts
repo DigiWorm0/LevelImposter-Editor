@@ -53,7 +53,7 @@ export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
                 return true;
             const parentID = get(elementFamilyAtom(childID))?.parentID;
             return searchParent(parentID);
-        }
+        };
         return searchParent(id);
     });
     selectedAtom.debugLabel = `isSelectedElemFamily(${id})`;

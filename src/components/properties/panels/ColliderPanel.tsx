@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
-import generateGUID from "../../../utils/generateGUID";
+import generateGUID from "../../../utils/strings/generateGUID";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -18,6 +18,7 @@ const BLACKLISTED_TYPES = [
     "util-triggertimer",
     "util-triggerstart",
     "util-triggerrand",
+    "util-triggeranim",
     "util-minimap",
     "util-minimapsprite",
     "util-layer",

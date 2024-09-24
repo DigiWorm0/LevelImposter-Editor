@@ -7,11 +7,11 @@ export type Toastable = string | Error | any;
 const DISABLED_CODES = [
     "auth/popup-closed-by-user",
     "auth/user-cancelled",
-]
+];
 
 export default function useToaster() {
     const { t, i18n } = useTranslation();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const toast = (message: Toastable, variant: "success" | "error" | "warning" | "info") => {
 
@@ -44,11 +44,11 @@ export default function useToaster() {
         return enqueueSnackbar(text, {
             variant,
             anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center'
+                vertical: "bottom",
+                horizontal: "center"
             }
         });
-    }
+    };
 
     const success = (message: Toastable) => toast(message, "success");
     const error = (message: Toastable) => toast(message, "error");

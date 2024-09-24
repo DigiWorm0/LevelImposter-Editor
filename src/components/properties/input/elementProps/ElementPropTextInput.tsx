@@ -4,7 +4,7 @@ import LIProperties from "../../../../types/li/LIProperties";
 import TextPanelInput, { ChildTextInputProps } from "../panel/TextPanelInput";
 
 export default function ElementPropTextInput(props: ChildTextInputProps<LIProperties>) {
-    const [prop, setProp] = useSelectedElemProp(props.prop)
+    const [prop, setProp] = useSelectedElemProp(props.prop);
 
     return (
         <TextPanelInput
@@ -12,5 +12,5 @@ export default function ElementPropTextInput(props: ChildTextInputProps<LIProper
             onChange={setProp}
             {...props}
         />
-    )
+    );
 }

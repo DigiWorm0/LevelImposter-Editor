@@ -17,7 +17,7 @@ export const replaceMapAssetIDAtom = atom(null, (get, set, payload: ReplaceMapAs
             return payload.toID;
         }
         return value;
-    }
+    };
 
     // Get Elements
     const elements = get(elementsAtom);

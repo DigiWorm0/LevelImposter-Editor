@@ -3,8 +3,8 @@ import { atom } from "jotai/index";
 import { useSetAtom } from "jotai";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { mapAssetsAtomFamily } from "./useMapAsset";
-import saveFileFromURL from "../../utils/saveFileFromURL";
-import getFileExtension from "../../utils/getFileExtension";
+import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
+import getFileExtension from "../../utils/fileio/getFileExtension";
 
 export interface DownloadAssetPayload {
     id: MaybeGUID;

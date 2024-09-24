@@ -21,7 +21,7 @@ const timerElems = [
     "sab-oxygen2",
     "sab-btnoxygen",
     "sab-btnmixup"
-]
+];
 
 export default function SabPanel() {
     const { t } = useTranslation();

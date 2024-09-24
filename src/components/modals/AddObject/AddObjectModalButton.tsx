@@ -1,6 +1,6 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import {ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import useIsTypeVisibleInSearch from "../../../hooks/useSearchQuery";
 import useIsTypeDisabledInSearch from "../../../hooks/elements/useIsTypeDisabledInSearch";
 
@@ -10,10 +10,10 @@ export interface AddObjectModalButtonProps {
 }
 
 export default function AddObjectModalButton(props: AddObjectModalButtonProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isVisible = useIsTypeVisibleInSearch(props.type);
     const isDisabled = useIsTypeDisabledInSearch(props.type);
-    const { type, onClick } = props;
+    const {type, onClick} = props;
 
     if (!isVisible)
         return null;
@@ -26,11 +26,16 @@ export default function AddObjectModalButton(props: AddObjectModalButtonProps) {
                 disabled={isDisabled}
                 onClick={() => onClick(type)}
             >
-                <ListItemIcon>
+                <ListItemIcon
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}
+                >
                     <img
                         alt={type}
-                        src={`/sprites/${type}.png`}
-                        style={{ maxWidth: 20, maxHeight: 20 }}
+                        src={`/sprites/${type}_thumb.png`}
+                        style={{maxWidth: 20, maxHeight: 20}}
                     />
                 </ListItemIcon>
                 <ListItemText

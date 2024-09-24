@@ -83,4 +83,4 @@ export const AUTaskLengthDB = {
     "task-sandcastle": TaskLength.Short,
     "task-marshmallow1": TaskLength.Common,
     "task-marshmallow2": TaskLength.Common,
-}
+};

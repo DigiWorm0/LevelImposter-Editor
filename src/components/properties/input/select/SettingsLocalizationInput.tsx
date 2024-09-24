@@ -13,12 +13,12 @@ export default function SettingsLocalizationInput() {
     // Gets the language name from the i18n code
     const getLanguageName = (i18nCode: string): string => {
         return i18nCode === "auto" ? t("language.auto") : i18n.t(`language.${i18nCode}`) as string;
-    }
+    };
 
-    const onClick = (e: React.MouseEvent) => {
+    const onClick = () => {
         // Show the dropdown
         selectRef.current?.click();
-    }
+    };
 
     return (
         <ListItem
@@ -44,5 +44,5 @@ export default function SettingsLocalizationInput() {
                 <ListItemText primary={t("settings.interface.localization")} />
             </ListItemButton>
         </ListItem>
-    )
+    );
 }

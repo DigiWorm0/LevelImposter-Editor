@@ -1,16 +1,17 @@
-import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import {Shape} from "react-konva";
+import {useSelectedElemValue} from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_CONSOLE_RANGE,
     DEFAULT_SPORE_RANGE,
     UNITY_SCALE,
     VENT_CONSOLE_RANGE
 } from "../../types/generic/Constants";
-import getIsConsole from "../../utils/getIsConsole";
+import getIsConsole from "../../utils/map/getIsConsole";
 
 export default function ConsoleRange() {
     const selectedElem = useSelectedElemValue();
 
+    const isDoor = selectedElem?.type.startsWith("sab-door");
     const isSpore = selectedElem?.type === "util-spore";
     const isVent = selectedElem?.type.startsWith("util-vent");
     const radius = selectedElem?.properties.range ?? (
@@ -19,7 +20,7 @@ export default function ConsoleRange() {
                 DEFAULT_CONSOLE_RANGE
     );
     const angle = selectedElem?.properties.onlyFromBelow ? Math.PI : Math.PI * 2;
-    const isConsole = getIsConsole(selectedElem?.type || "");
+    const isConsole = getIsConsole(selectedElem?.type || "") || isDoor;
 
     if (!selectedElem || !isConsole)
         return null;

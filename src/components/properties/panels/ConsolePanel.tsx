@@ -5,7 +5,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
-import getIsConsole from "../../../utils/getIsConsole";
+import getIsConsole from "../../../utils/map/getIsConsole";
 import { TripOrigin } from "@mui/icons-material";
 
 export default function ConsolePanel() {
@@ -13,7 +13,7 @@ export default function ConsolePanel() {
     const selectedType = useSelectedElemType();
     const isConsole = getIsConsole(selectedType || "")
         && !selectedType?.startsWith("util-vent");
-        // <-- Don't allow editing vent consoles, it won't work
+    // <-- Don't allow editing vent consoles, it won't work
 
     if (!isConsole)
         return null;

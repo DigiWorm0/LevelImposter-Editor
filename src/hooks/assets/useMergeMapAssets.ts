@@ -1,11 +1,11 @@
 // Trim Assets
-import { atom } from "jotai/index";
-import { mapAssetsAtom } from "./useMapAssets";
-import { useSetAtom } from "jotai";
-import { compareUInt8Arrays } from "../../types/compareBlobs";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { replaceMapAssetIDAtom } from "./useReplaceMapAssetID";
-import { deleteMapAssetAtom } from "./useDeleteMapAsset";
+import {atom} from "jotai/index";
+import {mapAssetsAtom} from "./useMapAssets";
+import {useSetAtom} from "jotai";
+import {compareUInt8Arrays} from "../../utils/compareBlobs";
+import {MaybeGUID} from "../../types/generic/GUID";
+import {replaceMapAssetIDAtom} from "./useReplaceMapAssetID";
+import {deleteMapAssetAtom} from "./useDeleteMapAsset";
 
 interface TempAsset {
     id: MaybeGUID;
@@ -16,7 +16,7 @@ interface TempAsset {
 export const mergeAssetsAtom = atom(null, async (
     get,
     set,
-    onProgress: (percent: number, assetCount: number, referenceCount: number) => void
+    onProgress?: (percent: number, assetCount: number, referenceCount: number) => void
 ) => {
 
     // Get Assets
@@ -30,7 +30,8 @@ export const mergeAssetsAtom = atom(null, async (
     let referenceCount = 0;
     for (let i = 0; i < assets.length; i++) {
         // Progress
-        onProgress(i / assets.length, assetCount, referenceCount);
+        if (onProgress)
+            onProgress(i / assets.length, assetCount, referenceCount);
 
         // Read Asset
         const asset = assets[i];
@@ -42,7 +43,7 @@ export const mergeAssetsAtom = atom(null, async (
 
         // No Duplicate Found
         if (existingAsset === undefined) {
-            checkedAssets.push({ id: asset.id, data });
+            checkedAssets.push({id: asset.id, data});
             continue;
         }
 
@@ -51,13 +52,13 @@ export const mergeAssetsAtom = atom(null, async (
 
         // Delete Duplicate
         assetCount++;
-        referenceCount += set(replaceMapAssetIDAtom, { fromID: asset.id, toID: existingAsset.id });
+        referenceCount += set(replaceMapAssetIDAtom, {fromID: asset.id, toID: existingAsset.id});
         set(deleteMapAssetAtom, asset.id); // <-- This automatically saves the undo/redo history
     }
 
     // Return Count
     console.log(`Merged ${assetCount} assets with ${referenceCount} references`);
-    return { assetCount, referenceCount };
+    return {assetCount, referenceCount};
 });
 mergeAssetsAtom.debugLabel = "mergeAssetsAtom";
 

@@ -5,7 +5,7 @@ import Konva from "konva";
 
 export default function CanvasGrid() {
     const { isGridVisible, gridSize, gridSpacing } = useSettingsValue();
-    const groupRef = React.useRef<Konva.Group>(null)
+    const groupRef = React.useRef<Konva.Group>(null);
 
 
     if (!isGridVisible)

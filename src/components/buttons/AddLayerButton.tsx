@@ -4,7 +4,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useAddElement from "../../hooks/elements/useAddElement";
 import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
-import generateGUID from "../../utils/generateGUID";
+import generateGUID from "../../utils/strings/generateGUID";
 
 export interface AddLayerButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>

@@ -35,5 +35,5 @@ export default function ReplaceAssetButton(props: ReplaceAssetButtonProps) {
                 Replace
             </Button>
         </Tooltip>
-    )
+    );
 }

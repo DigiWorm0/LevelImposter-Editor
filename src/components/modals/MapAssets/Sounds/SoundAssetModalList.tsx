@@ -40,5 +40,5 @@ export default function SoundAssetModalList(props: SoundAssetModalListProps) {
                 )}
             </List>
         </MapAssetModalDropdown>
-    )
+    );
 }

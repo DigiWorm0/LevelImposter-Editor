@@ -5,7 +5,7 @@ import TextPanelInput, { ChildTextInputProps } from "../panel/TextPanelInput";
 
 
 export default function MinigamePropTextInput(props: ChildTextInputProps<LIMinigameProps>) {
-    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps")
+    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps");
 
     return (
         <TextPanelInput
@@ -14,9 +14,9 @@ export default function MinigamePropTextInput(props: ChildTextInputProps<LIMinig
                 setMinigameProps({
                     ...minigameProps,
                     [props.prop]: value
-                })
+                });
             }}
             {...props}
         />
-    )
+    );
 }

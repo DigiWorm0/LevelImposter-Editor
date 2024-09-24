@@ -5,7 +5,7 @@ import NumericPanelInput, { ChildNumericInputProps } from "../panel/NumericPanel
 
 
 export default function MinigamePropNumericInput(props: ChildNumericInputProps<LIMinigameProps>) {
-    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps")
+    const [minigameProps, setMinigameProps] = useSelectedElemProp("minigameProps");
 
     return (
         <NumericPanelInput
@@ -14,9 +14,9 @@ export default function MinigamePropNumericInput(props: ChildNumericInputProps<L
                 setMinigameProps({
                     ...minigameProps,
                     [props.prop]: value
-                })
+                });
             }}
             {...props}
         />
-    )
+    );
 }

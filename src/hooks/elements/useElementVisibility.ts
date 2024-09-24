@@ -1,7 +1,7 @@
 import { atomFamily } from "jotai/utils";
 import { MaybeGUID } from "../../types/generic/GUID";
 import { atom, useAtomValue } from "jotai";
-import getElemVisibility from "../../utils/getMapVisibility";
+import getElemVisibility from "../../utils/map/getMapVisibility";
 import { elementFamilyAtom } from "./useElements";
 
 export const elementVisibilityAtomFamily = atomFamily((id: MaybeGUID) => {

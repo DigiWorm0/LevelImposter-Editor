@@ -1,5 +1,5 @@
 import { uploadMapAtom } from "../useUploadMap";
-import generateGUID from "../../../utils/generateGUID";
+import generateGUID from "../../../utils/strings/generateGUID";
 import { mapAtom } from "../../map/useMap";
 import { getI18n } from "react-i18next";
 import { remixAtom } from "../../map/useIsRemix";
@@ -35,7 +35,7 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
     map.authorID = user?.uid ?? "";
     map.authorName = map.authorName || user?.displayName || "Anonymous";
     map.createdAt = new Date().getTime();
-    map.thumbnailURL = null
+    map.thumbnailURL = null;
 
     map.isVerified = false;
     map.likeCount = 0;

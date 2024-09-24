@@ -54,12 +54,12 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                                     <InputAdornment position={"end"}>
                                         {props.label}
                                     </InputAdornment>
-                                ),
+                                )
                             }
                         }}
                     />
                 </span>
             </Tooltip>
         </FormGroup>
-    )
+    );
 }
