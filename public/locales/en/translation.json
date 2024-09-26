@@ -873,6 +873,7 @@
     "onStart": "On Start",
     "onFinish": "On Finish",
     "onEject": "On Eject",
+    "onSkip": "On Skip",
     "onRepeat": "Repeat {{index}}",
     "onRandom": "Random {{index}}",
     "onTrigger": "On Trigger",

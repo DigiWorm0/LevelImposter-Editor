@@ -1,6 +1,7 @@
 const OutputTriggerDB: Record<string, string[]> = {
     "util-eject": [
         "onEject",
+        "onSkip",
         "onFinish"
     ],
     "util-meeting": [
