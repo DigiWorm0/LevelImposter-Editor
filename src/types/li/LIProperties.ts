@@ -113,6 +113,11 @@ export default interface LIProperties {
     isDoorInteractable?: boolean;
     isDoorClosed?: boolean;
 
+    // Eject
+    ejectPreTextDuration?: number;
+    ejectTextDuration?: number;
+    ejectPostTextDuration?: number;
+
     // Platform
     platformXOffset?: number;
     platformYOffset?: number;

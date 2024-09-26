@@ -687,6 +687,14 @@
     "title": "Debug",
     "printToConsole": "Print to Console"
   },
+  "eject": {
+    "pretextduration": "Pre-Text Duration",
+    "textduration": "Text Duration",
+    "posttextduration": "Post-Text Duration",
+    "title": "Eject Animation",
+    "seconds": "seconds",
+    "infoEject": "Uses this camera when a player is ejected"
+  },
   "onewaycollider": {
     "title": "One-Way Collider",
     "ignoreImposter": "Ignore Imposter",
@@ -864,6 +872,7 @@
     "onUse": "On Use",
     "onStart": "On Start",
     "onFinish": "On Finish",
+    "onEject": "On Eject",
     "onRepeat": "Repeat {{index}}",
     "onRandom": "Random {{index}}",
     "onTrigger": "On Trigger",
@@ -955,6 +964,10 @@
     "util-decontamination": "Decontamination System",
     "util-sabotages": "Sabotage Options",
     "util-filter": "Render Filter",
+    "util-eject": "Eject Camera",
+    "util-ejectdummy": "Ejected Dummy",
+    "util-ejecthand": "Ejected Hand",
+    "util-ejectthumb": "Ejected Thumb",
     "task-id": "Card Swipe",
     "task-keys": "Keys",
     "task-pass": "Scan Pass",

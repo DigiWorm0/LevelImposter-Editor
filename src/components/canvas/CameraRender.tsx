@@ -1,5 +1,5 @@
-import { Rect } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
+import {Rect} from "react-konva";
+import {useSelectedElemValue} from "../../hooks/elements/useSelectedElem";
 import {
     DEFAULT_CAM_ASPECT,
     DEFAULT_CAM_SIZE,
@@ -16,17 +16,18 @@ export default function CameraRender() {
         return null;
     if (selectedElem.type !== "util-cam" &&
         selectedElem.type !== "util-cams4" &&
-        selectedElem.type !== "util-display")
+        selectedElem.type !== "util-display" &&
+        selectedElem.type !== "util-eject")
         return null;
 
     // Camera Properties
-    const { camXOffset, camYOffset, camZoom } = selectedElem.properties;
-    const { x, y } = selectedElem;
+    const {camXOffset, camYOffset, camZoom} = selectedElem.properties;
+    const {x, y} = selectedElem;
 
     // Aspect Ratio
     let aspectRatio = DEFAULT_CAM_ASPECT;
     if (selectedElem.type === "util-display") {
-        const { displayWidth, displayHeight } = selectedElem.properties;
+        const {displayWidth, displayHeight} = selectedElem.properties;
         aspectRatio = (displayWidth ?? DEFAULT_DISPLAY_WIDTH) / (displayHeight ?? DEFAULT_DISPLAY_HEIGHT);
     }
 

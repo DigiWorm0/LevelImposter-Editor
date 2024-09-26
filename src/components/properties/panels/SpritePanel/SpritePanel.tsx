@@ -39,6 +39,7 @@ const TYPE_BLACKLIST = [
     "util-sabotages",
     "util-binocularscollider",
     "util-ghostcollider",
+    "util-eject",
 ];
 
 export default function SpritePanel() {

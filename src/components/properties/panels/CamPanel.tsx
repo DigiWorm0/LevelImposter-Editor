@@ -1,17 +1,18 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import { SwapHoriz, SwapVert, ZoomIn } from "@mui/icons-material";
+import {SwapHoriz, SwapVert, ZoomIn} from "@mui/icons-material";
 
 export default function CamPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isCamera = useIsSelectedElemType("util-cam");
     const isBinoculars = useIsSelectedElemType("util-cams4");
     const isDisplay = useIsSelectedElemType("util-display");
+    const isEject = useIsSelectedElemType("util-eject");
 
-    if (!isCamera && !isBinoculars && !isDisplay)
+    if (!isCamera && !isBinoculars && !isDisplay && !isEject)
         return null;
 
     return (
@@ -21,16 +22,16 @@ export default function CamPanel() {
                     name={t("cameras.offsetx")}
                     prop="camXOffset"
                     defaultValue={0}
-                    icon={<SwapHoriz />}
-                    stepSize={0.5}
+                    icon={<SwapHoriz/>}
+                    stepSize={0.25}
                     color={"success"}
                 />
                 <ElementPropNumericInput
                     name={t("cameras.offsety")}
                     prop="camYOffset"
                     defaultValue={0}
-                    icon={<SwapVert />}
-                    stepSize={0.5}
+                    icon={<SwapVert/>}
+                    stepSize={0.25}
                     color={"success"}
                 />
             </InputGroup>
@@ -38,9 +39,9 @@ export default function CamPanel() {
                 name={t("cameras.zoom")}
                 prop="camZoom"
                 defaultValue={3}
-                icon={<ZoomIn />}
+                icon={<ZoomIn/>}
                 min={0}
-                stepSize={0.5}
+                stepSize={0.25}
                 color={"success"}
             />
         </PanelContainer>

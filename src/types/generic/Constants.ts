@@ -97,5 +97,6 @@ export const SINGLE_TYPES = [
     "sab-reactorleft",
     "sab-reactorright",
     "util-sabotages",
-    "util-cams4"
+    "util-cams4",
+    "util-eject"
 ];

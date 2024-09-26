@@ -38,6 +38,7 @@ import ErrorBoundary from "../utils/ErrorBoundary";
 import AnimationPanel from "../properties/panels/AnimationPanel";
 import usePanelSize from "../../hooks/ui/usePanelSize";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
+import EjectPanel from "../properties/panels/EjectPanel";
 
 export default function RightSidebar() {
     //const dragRef = React.useRef<HTMLDivElement>(null);
@@ -111,6 +112,7 @@ export default function RightSidebar() {
                     <DeathTriggerPanel/>
                     <CameraShakePanel/>
                     <AnimationPanel/>
+                    <EjectPanel/>
 
                     <CustomTextPanel/>
                     <TriggerPanel/>

@@ -45,6 +45,7 @@ export default function MapElement(props: MapElementProps) {
     const w = (coloredSprite?.width ?? 0) * elem.xScale;
     const h = (coloredSprite?.height ?? 0) * elem.yScale;
     const isVisible = elem.properties.isVisible ?? true;
+    const showOutline = isSelected || (isHovering && !elem.properties.isLocked);
     const opacity =
         (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
@@ -107,7 +108,7 @@ export default function MapElement(props: MapElementProps) {
                 imageProps={{opacity}}
             />
 
-            {(isSelected || isHovering) && (
+            {showOutline && (
                 <Rect
                     x={-w / 2}
                     y={-h / 2}
