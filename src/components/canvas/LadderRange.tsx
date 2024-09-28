@@ -1,16 +1,19 @@
-import { Shape } from "react-konva";
-import { useSelectedElemValue } from "../../hooks/elements/useSelectedElem";
-import { DEFAULT_LADDER_HEIGHTS, LADDER_RADIUS, LADDER_Y_OFFSET, UNITY_SCALE } from "../../types/generic/Constants";
+import {Shape} from "react-konva";
+import {useSelectedElemValue} from "../../hooks/elements/useSelectedElem";
+import {DEFAULT_LADDER_HEIGHTS, DEFAULT_LADDER_OFFSET, LADDER_RADIUS, UNITY_SCALE} from "../../types/generic/Constants";
+import {useSelectedElemPropValue} from "../../hooks/elements/useSelectedElemProperty";
 
 export default function LadderRange() {
     const selectedElem = useSelectedElemValue();
+    const ladderOffset = useSelectedElemPropValue("ladderOffset");
 
     if (!selectedElem || !selectedElem?.type.startsWith("util-ladder"))
         return null;
 
     const height = selectedElem?.properties.ladderHeight ?? DEFAULT_LADDER_HEIGHTS[selectedElem.type];
-    const topOffset = height + LADDER_Y_OFFSET;
-    const bottomOffset = -height + LADDER_Y_OFFSET;
+    const offset = ladderOffset ?? DEFAULT_LADDER_OFFSET;
+    const topOffset = height + offset;
+    const bottomOffset = -height + offset;
 
     return (
         <>

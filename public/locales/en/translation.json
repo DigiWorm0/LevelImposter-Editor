@@ -681,6 +681,7 @@
   "ladder": {
     "title": "Ladder",
     "height": "Ladder Height",
+    "offset": "Height Offset",
     "cooldown": "Climb Cooldown"
   },
   "debug": {
