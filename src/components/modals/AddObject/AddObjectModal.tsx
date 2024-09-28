@@ -1,14 +1,15 @@
-import { Close } from "@mui/icons-material";
-import { Dialog, DialogContent, IconButton, List } from "@mui/material";
+import {Close} from "@mui/icons-material";
+import {Box, Dialog, DialogContent, Divider, IconButton, List} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSetSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import {useTranslation} from "react-i18next";
+import {useSetSelectedColliderID} from "../../../hooks/elements/colliders/useSelectedCollider";
 import useAddElementAtCamera from "../../../hooks/elements/useAddElementAtCamera";
-import { useSetSelectedElemID } from "../../../hooks/elements/useSelectedElem";
+import {useSetSelectedElemID} from "../../../hooks/elements/useSelectedElem";
 import generateGUID from "../../../utils/strings/generateGUID";
 import AddObjectModalButton from "./AddObjectModalButton";
-import AddObjectModalCategory from "./AddObjectModalCategory";
 import AddObjectModalSearch from "./AddObjectModalSearch";
+import {Virtuoso} from "react-virtuoso";
+import AUElementDB from "../../../db/AUElementDB";
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -16,16 +17,8 @@ export interface AddObjectModalProps {
     onClose: () => void;
 }
 
-const TYPE_CATEGORIES = [
-    { type: "util-", name: "Utility" },
-    { type: "task-", name: "Task" },
-    { type: "sab-", name: "Sabotage" },
-    { type: "dec-", name: "Decoration" },
-    { type: "room-", name: "Room" },
-];
-
 export default function AddObjectModal(props: AddObjectModalProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const addElement = useAddElementAtCamera();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
@@ -56,9 +49,9 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             onClose={props.onClose}
             fullWidth
             maxWidth="sm"
-            PaperProps={{ elevation: 1 }}
+            PaperProps={{elevation: 1}}
         >
-            <AddObjectModalSearch />
+            <AddObjectModalSearch/>
             <IconButton
                 onClick={props.onClose}
                 sx={{
@@ -67,25 +60,33 @@ export default function AddObjectModal(props: AddObjectModalProps) {
                     top: 8
                 }}
             >
-                <Close />
+                <Close/>
             </IconButton>
 
-            <DialogContent sx={{ padding: 0 }}>
-                <List dense sx={{ paddingTop: 0 }}>
-                    <AddObjectModalButton
-                        key={"add-new-object"}
-                        type={"util-blank"}
-                        onClick={onClick}
-                    />
-
-                    {TYPE_CATEGORIES.map((category) =>
-                        <AddObjectModalCategory
-                            key={category.name}
-                            name={category.name}
-                            typeFilter={category.type}
+            <DialogContent sx={{padding: 0}}>
+                <List dense sx={{paddingTop: 0}}>
+                    <Box sx={{paddingTop: 1, paddingBottom: 1}}>
+                        <AddObjectModalButton
+                            key={"add-new-object"}
+                            type={"util-blank"}
                             onClick={onClick}
+                            alwaysVisible
                         />
-                    )}
+                    </Box>
+
+                    <Divider/>
+
+                    <Virtuoso
+                        totalCount={AUElementDB.length}
+                        itemContent={(index) => (
+                            <AddObjectModalButton
+                                key={AUElementDB[index]}
+                                type={AUElementDB[index]}
+                                onClick={onClick}
+                            />
+                        )}
+                        style={{height: 500}}
+                    />
                 </List>
             </DialogContent>
         </Dialog>

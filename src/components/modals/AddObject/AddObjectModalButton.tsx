@@ -6,6 +6,7 @@ import useIsTypeDisabledInSearch from "../../../hooks/elements/useIsTypeDisabled
 
 export interface AddObjectModalButtonProps {
     type: string;
+    alwaysVisible?: boolean;
     onClick: (type: string) => void;
 }
 
@@ -15,7 +16,7 @@ export default function AddObjectModalButton(props: AddObjectModalButtonProps) {
     const isDisabled = useIsTypeDisabledInSearch(props.type);
     const {type, onClick} = props;
 
-    if (!isVisible)
+    if (!isVisible && !props.alwaysVisible)
         return null;
     return (
         <ListItem
