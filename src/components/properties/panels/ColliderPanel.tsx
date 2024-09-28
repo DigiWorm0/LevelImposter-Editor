@@ -28,7 +28,9 @@ const BLACKLISTED_TYPES = [
     "util-eject",
     "util-ejectdummy",
     "util-ejecthand",
-    "util-ejectthumb"
+    "util-ejectthumb",
+    "util-triggergate",
+    "util-valuebool",
 ];
 
 const SOLID_ONLY_TYPES = [

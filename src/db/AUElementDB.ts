@@ -112,7 +112,7 @@ const AUElementDB: string[] = [
     "util-sound1",
     "util-sound2",
     "util-blankfloat",
-    //"util-blankscroll",
+    //"util-blankscroll", // TODO: Fix me
     "util-tele",
     "util-meeting",
     "util-display",
@@ -127,7 +127,6 @@ const AUElementDB: string[] = [
     "util-triggerrand",
     "util-triggerdeath",
     "util-triggershake",
-    //"util-triggerfilter", // TODO: Implement Trigger Filter
     "util-triggeranim",
     "util-onewaycollider",
     "util-decontamination",
@@ -137,6 +136,8 @@ const AUElementDB: string[] = [
     "util-ejectdummy",
     "util-ejecthand",
     "util-ejectthumb",
+    "util-valuebool",
+    "util-triggergate",
     "task-id",
     "task-keys",
     "task-pass",

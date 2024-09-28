@@ -24,6 +24,10 @@ export default interface LIProperties {
     triggerLoop?: boolean;
     createDeadBody?: boolean;
     triggerFadeTime?: number;
+    triggerGateValueID?: GUID;
+
+    // Value
+    defaultBoolValue?: boolean;
 
     // Animations
     animTargets?: LIAnimTarget[];

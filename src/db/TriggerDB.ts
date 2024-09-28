@@ -54,6 +54,13 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onReactorEnd",
         "onMixupEnd",
     ],
+    "util-valuebool": [
+        "onChange"
+    ],
+    "util-triggergate": [
+        "onTrue",
+        "onFalse"
+    ],
     "sab-doorv": [
         "onOpen",
         "onClose",
@@ -63,7 +70,7 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onOpen",
         "onClose",
         "onUse",
-    ]
+    ],
 };
 
 const consoleTriggers = [
@@ -153,6 +160,14 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-triggershake": [
         "enable",
         "disable"
+    ],
+    "util-valuebool": [
+        "setTrue",
+        "setFalse",
+        "toggle"
+    ],
+    "util-triggergate": [
+        "trigger"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

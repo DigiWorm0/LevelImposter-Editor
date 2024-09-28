@@ -648,6 +648,16 @@
     "none": "No Room",
     "default": "Default Room"
   },
+  "value": {
+    "title": "Value",
+    "defaultValue": "Default Value"
+  },
+  "triggergate": {
+    "title": "Trigger Gate",
+    "value": "Value",
+    "selectValue": "Select a value to check",
+    "noValues": "This map does not have any value objects. Add a value to the map to connect to this object."
+  },
   "meeting": {
     "title": "Meeting Options",
     "bg": "Background",
@@ -896,6 +906,9 @@
     "onPause": "On Pause",
     "onStop": "On Stop",
     "onActivate": "On Activate",
+    "onChange": "On Change",
+    "onTrue": "On True",
+    "onFalse": "On False",
     "startOxygen": "Sabotage Oxygen",
     "startReactor": "Sabotage Reactor",
     "startLights": "Sabotage Lights",
@@ -910,7 +923,9 @@
     "onKill": "On Kill",
     "playAnim": "Play Animation",
     "pauseAnim": "Pause Animation",
-    "stopAnim": "Stop Animation"
+    "stopAnim": "Stop Animation",
+    "setTrue": "Set True",
+    "setFalse": "Set False"
   },
   "au": {
     "undefined": "Unknown Object",
@@ -970,6 +985,8 @@
     "util-ejectdummy": "Ejected Dummy",
     "util-ejecthand": "Ejected Hand",
     "util-ejectthumb": "Ejected Thumb",
+    "util-valuebool": "Boolean Value",
+    "util-triggergate": "Trigger Gate",
     "task-id": "Card Swipe",
     "task-keys": "Keys",
     "task-pass": "Scan Pass",
