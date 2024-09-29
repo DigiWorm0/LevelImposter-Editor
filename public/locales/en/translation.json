@@ -652,6 +652,19 @@
     "title": "Value",
     "defaultValue": "Default Value"
   },
+  "comparator": {
+    "title": "Comparator",
+    "selectValue": "Select a value to compare",
+    "value1": "Value 1",
+    "value2": "Value 2",
+    "operation": "Operation",
+    "and": "AND",
+    "or": "OR",
+    "xor": "XOR",
+    "not": "NOT",
+    "equals": "Equals",
+    "noValues": "This map does not have any value objects. Add a value to the map to connect to this object."
+  },
   "triggergate": {
     "title": "Trigger Gate",
     "value": "Value",
@@ -986,6 +999,7 @@
     "util-ejecthand": "Ejected Hand",
     "util-ejectthumb": "Ejected Thumb",
     "util-valuebool": "Boolean Value",
+    "util-valuecomparator": "Comparator",
     "util-triggergate": "Trigger Gate",
     "task-id": "Card Swipe",
     "task-keys": "Keys",

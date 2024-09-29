@@ -41,6 +41,7 @@ import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import EjectPanel from "../properties/panels/EjectPanel";
 import ValuePanel from "../properties/panels/ValuePanel";
 import GatePanel from "../properties/panels/GatePanel";
+import ComparatorPanel from "../properties/panels/ComparatorPanel";
 
 export default function RightSidebar() {
     //const dragRef = React.useRef<HTMLDivElement>(null);
@@ -117,6 +118,7 @@ export default function RightSidebar() {
                     <EjectPanel/>
                     <ValuePanel/>
                     <GatePanel/>
+                    <ComparatorPanel/>
 
                     <CustomTextPanel/>
                     <TriggerPanel/>

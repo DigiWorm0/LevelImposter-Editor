@@ -14,6 +14,7 @@ export interface ElementSelectProps {
     whitelistedIDs?: MaybeGUID[];
     placement?: PopperPlacementType;
     disablePortal?: boolean;
+    disabled?: boolean;
 
     label?: string;
     noElementsText: string;
@@ -47,7 +48,7 @@ export default function ElementSelect(props: ElementSelectProps) {
                     fullWidth
                     disablePortal={props.disablePortal ?? true}
                     options={filteredElems}
-                    disabled={filteredElems.length === 0 && !currentElem}
+                    disabled={(filteredElems.length === 0 && !currentElem) || props.disabled}
                     componentsProps={{
                         popper: {
                             placement: props.placement

@@ -23,6 +23,7 @@ const INVISIBLE_TYPES = [
     "util-eject",
     "util-valuebool",
     "util-triggergate",
+    "util-valuecomparator"
 ];
 
 const INVISIBLE_TYPES_NO_SPRITE = [

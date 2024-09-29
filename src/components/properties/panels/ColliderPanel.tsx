@@ -31,6 +31,7 @@ const BLACKLISTED_TYPES = [
     "util-ejectthumb",
     "util-triggergate",
     "util-valuebool",
+    "util-valuecomparator"
 ];
 
 const SOLID_ONLY_TYPES = [

@@ -29,6 +29,11 @@ export default interface LIProperties {
     // Value
     defaultBoolValue?: boolean;
 
+    // Comparator
+    comparatorValueID1?: GUID;
+    comparatorValueID2?: GUID;
+    comparatorOperation?: string;
+
     // Animations
     animTargets?: LIAnimTarget[];
 
