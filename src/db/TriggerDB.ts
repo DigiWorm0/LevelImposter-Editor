@@ -162,12 +162,12 @@ const InputTriggerDB: Record<string, string[]> = {
         "disable"
     ],
     "util-valuebool": [
-        "setTrue",
-        "setFalse",
-        "toggle"
+        "setValueTrue",
+        "setValueFalse",
+        "toggleValue"
     ],
     "util-triggergate": [
-        "trigger"
+        "triggerGate"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,

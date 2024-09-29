@@ -891,6 +891,7 @@
     "playloop": "Play Loop",
     "teleportonce": "Teleport Once",
     "stop": "Stop",
+    "triggerGate": "Trigger Gate",
     "onEnter": "On Enter",
     "onExit": "On Exit",
     "onUse": "On Use",
@@ -937,8 +938,9 @@
     "playAnim": "Play Animation",
     "pauseAnim": "Pause Animation",
     "stopAnim": "Stop Animation",
-    "setTrue": "Set True",
-    "setFalse": "Set False"
+    "setValueTrue": "Set True",
+    "setValueFalse": "Set False",
+    "toggleValue": "Toggle Value"
   },
   "au": {
     "undefined": "Unknown Object",
