@@ -72,6 +72,7 @@ export default function ElementSelect(props: ElementSelectProps) {
                             props.onReset();
                     }}
                     getOptionLabel={(elem) => elem.name}
+                    getOptionKey={(elem) => elem.id}
                 />
             </span>
         </Tooltip>

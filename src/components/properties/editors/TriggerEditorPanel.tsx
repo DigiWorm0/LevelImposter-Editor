@@ -71,6 +71,7 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                 }}
             />
             <Select
+                variant={"outlined"}
                 size={"small"}
                 fullWidth
                 disabled={(targetInputs?.length ?? 0) === 0}
