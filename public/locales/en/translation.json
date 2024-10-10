@@ -648,6 +648,29 @@
     "none": "No Room",
     "default": "Default Room"
   },
+  "value": {
+    "title": "Value",
+    "defaultValue": "Default Value"
+  },
+  "comparator": {
+    "title": "Comparator",
+    "selectValue": "Select a value to compare",
+    "value1": "Value 1",
+    "value2": "Value 2",
+    "operation": "Operation",
+    "and": "AND",
+    "or": "OR",
+    "xor": "XOR",
+    "not": "NOT",
+    "equals": "Equals",
+    "noValues": "This map does not have any value objects. Add a value to the map to connect to this object."
+  },
+  "triggergate": {
+    "title": "Trigger Gate",
+    "value": "Value",
+    "selectValue": "Select a value to check",
+    "noValues": "This map does not have any value objects. Add a value to the map to connect to this object."
+  },
   "meeting": {
     "title": "Meeting Options",
     "bg": "Background",
@@ -681,11 +704,20 @@
   "ladder": {
     "title": "Ladder",
     "height": "Ladder Height",
+    "offset": "Height Offset",
     "cooldown": "Climb Cooldown"
   },
   "debug": {
     "title": "Debug",
     "printToConsole": "Print to Console"
+  },
+  "eject": {
+    "pretextduration": "Pre-Text Duration",
+    "textduration": "Text Duration",
+    "posttextduration": "Post-Text Duration",
+    "title": "Eject Animation",
+    "seconds": "seconds",
+    "infoEject": "Uses this camera when a player is ejected"
   },
   "onewaycollider": {
     "title": "One-Way Collider",
@@ -859,11 +891,14 @@
     "playloop": "Play Loop",
     "teleportonce": "Teleport Once",
     "stop": "Stop",
+    "triggerGate": "Trigger Gate",
     "onEnter": "On Enter",
     "onExit": "On Exit",
     "onUse": "On Use",
     "onStart": "On Start",
     "onFinish": "On Finish",
+    "onEject": "On Eject",
+    "onSkip": "On Skip",
     "onRepeat": "Repeat {{index}}",
     "onRandom": "Random {{index}}",
     "onTrigger": "On Trigger",
@@ -885,6 +920,9 @@
     "onPause": "On Pause",
     "onStop": "On Stop",
     "onActivate": "On Activate",
+    "onChange": "On Change",
+    "onTrue": "On True",
+    "onFalse": "On False",
     "startOxygen": "Sabotage Oxygen",
     "startReactor": "Sabotage Reactor",
     "startLights": "Sabotage Lights",
@@ -899,12 +937,15 @@
     "onKill": "On Kill",
     "playAnim": "Play Animation",
     "pauseAnim": "Pause Animation",
-    "stopAnim": "Stop Animation"
+    "stopAnim": "Stop Animation",
+    "setValueTrue": "Set True",
+    "setValueFalse": "Set False",
+    "toggleValue": "Toggle Value"
   },
   "au": {
     "undefined": "Unknown Object",
     "util-layer": "Group",
-    "util-blank": "Blank Object",
+    "util-blank": "Default Object",
     "util-button1": "Skeld / Polus Button",
     "util-button2": "Mira Button",
     "util-ladder1": "Tall Ladder",
@@ -955,6 +996,13 @@
     "util-decontamination": "Decontamination System",
     "util-sabotages": "Sabotage Options",
     "util-filter": "Render Filter",
+    "util-eject": "Eject Camera",
+    "util-ejectdummy": "Ejected Dummy",
+    "util-ejecthand": "Ejected Hand",
+    "util-ejectthumb": "Ejected Thumb",
+    "util-valuebool": "Boolean Value",
+    "util-valuecomparator": "Comparator",
+    "util-triggergate": "Trigger Gate",
     "task-id": "Card Swipe",
     "task-keys": "Keys",
     "task-pass": "Scan Pass",

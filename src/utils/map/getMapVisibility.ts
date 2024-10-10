@@ -20,6 +20,10 @@ const INVISIBLE_TYPES = [
     "util-onewaycollider",
     "util-ghostcollider",
     "util-decontamination",
+    "util-eject",
+    "util-valuebool",
+    "util-triggergate",
+    "util-valuecomparator"
 ];
 
 const INVISIBLE_TYPES_NO_SPRITE = [

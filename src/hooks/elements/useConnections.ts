@@ -23,6 +23,9 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const roomParent = mapElements.find(e => e.id === elem.properties.parent);
         const doorA = mapElements.find(e => e.id === elem.properties.doorA);
         const doorB = mapElements.find(e => e.id === elem.properties.doorB);
+        const triggerValue = mapElements.find(e => e.id === elem.properties.triggerGateValueID);
+        const comparatorValue1 = mapElements.find(e => e.id === elem.properties.comparatorValueID1);
+        const comparatorValue2 = mapElements.find(e => e.id === elem.properties.comparatorValueID2);
         const triggers = mapElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
         const animTargets = mapElements.filter(e => elem.properties.animTargets?.find(t => t.id === e.id) != undefined);
 
@@ -34,6 +37,9 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
             roomParent,
             doorA,
             doorB,
+            triggerValue,
+            comparatorValue1,
+            comparatorValue2,
             ...triggers,
             ...animTargets
         ].filter(e => e != undefined) as LIElement[];
@@ -46,6 +52,9 @@ export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
                 e.properties.parent === elem.id ||
                 e.properties.doorA === elem.id ||
                 e.properties.doorB === elem.id ||
+                e.properties.triggerGateValueID === elem.id ||
+                e.properties.comparatorValueID1 === elem.id ||
+                e.properties.comparatorValueID2 === elem.id ||
                 e.properties.triggers?.some(t => t.elemID === elem.id) ||
                 e.properties.animTargets?.some(t => t.id === elem.id);
         });

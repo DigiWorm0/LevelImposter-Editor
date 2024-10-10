@@ -1,11 +1,11 @@
-import { useSearchQuery } from "../../../hooks/useSearchQuery";
-import { InputAdornment, TextField } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import {useSearchQuery} from "../../../hooks/useSearchQuery";
+import {InputAdornment, TextField} from "@mui/material";
+import {Search} from "@mui/icons-material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 export default function AddObjectModalSearch() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [searchQuery, setSearchQuery] = useSearchQuery();
 
     return (
@@ -16,8 +16,9 @@ export default function AddObjectModalSearch() {
             placeholder={t("object.search")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={(e) => e.target.select()}
             InputProps={{
-                startAdornment: <InputAdornment position={"start"}><Search /></InputAdornment>
+                startAdornment: <InputAdornment position={"start"}><Search/></InputAdornment>
             }}
         />
     );

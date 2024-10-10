@@ -24,6 +24,15 @@ export default interface LIProperties {
     triggerLoop?: boolean;
     createDeadBody?: boolean;
     triggerFadeTime?: number;
+    triggerGateValueID?: GUID;
+
+    // Value
+    defaultBoolValue?: boolean;
+
+    // Comparator
+    comparatorValueID1?: GUID;
+    comparatorValueID2?: GUID;
+    comparatorOperation?: string;
 
     // Animations
     animTargets?: LIAnimTarget[];
@@ -107,11 +116,17 @@ export default interface LIProperties {
     // Ladder
     ladderHeight?: number;
     ladderCooldown?: number;
+    ladderOffset?: number;
 
     // Door
     doorType?: string;
     isDoorInteractable?: boolean;
     isDoorClosed?: boolean;
+
+    // Eject
+    ejectPreTextDuration?: number;
+    ejectTextDuration?: number;
+    ejectPostTextDuration?: number;
 
     // Platform
     platformXOffset?: number;

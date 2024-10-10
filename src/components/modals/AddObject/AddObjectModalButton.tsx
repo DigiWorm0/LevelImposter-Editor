@@ -1,4 +1,4 @@
-import {ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
+import {Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import useIsTypeVisibleInSearch from "../../../hooks/useSearchQuery";
@@ -6,6 +6,7 @@ import useIsTypeDisabledInSearch from "../../../hooks/elements/useIsTypeDisabled
 
 export interface AddObjectModalButtonProps {
     type: string;
+    alwaysVisible?: boolean;
     onClick: (type: string) => void;
 }
 
@@ -15,13 +16,10 @@ export default function AddObjectModalButton(props: AddObjectModalButtonProps) {
     const isDisabled = useIsTypeDisabledInSearch(props.type);
     const {type, onClick} = props;
 
-    if (!isVisible)
-        return null;
+    if (!isVisible && !props.alwaysVisible)
+        return <Box/>;
     return (
-        <ListItem
-            key={type}
-            disablePadding
-        >
+        <ListItem disablePadding>
             <ListItemButton
                 disabled={isDisabled}
                 onClick={() => onClick(type)}

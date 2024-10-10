@@ -13,6 +13,7 @@ export const DEFAULT_LADDER_HEIGHTS: Record<string, number> = {
     "util-ladder2": 1.5,
 };
 export const DEFAULT_LADDER_COOLDOWN = 5;
+export const DEFAULT_LADDER_OFFSET = -0.4;
 
 export const DEFAULT_DISPLAY_HEIGHT = 230;
 export const DEFAULT_DISPLAY_WIDTH = 330;
@@ -34,7 +35,6 @@ export const DEFAULT_FLOATING_SPEED = 2;
 export const DEFAULT_SCROLL_X_SPEED = 1;
 export const DEFAULT_SCROLL_Y_SPEED = 0;
 
-export const LADDER_Y_OFFSET = -0.4;
 export const LADDER_RADIUS = 0.5;
 export const GRID_SPACING = 100;
 export const DEFAULT_GRID_SIZE = 25;
@@ -97,5 +97,6 @@ export const SINGLE_TYPES = [
     "sab-reactorleft",
     "sab-reactorright",
     "util-sabotages",
-    "util-cams4"
+    "util-cams4",
+    "util-eject"
 ];

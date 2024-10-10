@@ -1,8 +1,8 @@
-import { Add, CameraAlt, HighlightAlt, Person, Room, VolumeUp } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import {Add, CameraAlt, HighlightAlt, Person, Room, VolumeUp} from "@mui/icons-material";
+import {Button} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSelectedColliderID } from "../../../hooks/elements/colliders/useSelectedCollider";
+import {useTranslation} from "react-i18next";
+import {useSelectedColliderID} from "../../../hooks/elements/colliders/useSelectedCollider";
 import generateGUID from "../../../utils/strings/generateGUID";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
@@ -25,6 +25,13 @@ const BLACKLISTED_TYPES = [
     "util-spawn1",
     "util-spawn2",
     "util-sabotages",
+    "util-eject",
+    "util-ejectdummy",
+    "util-ejecthand",
+    "util-ejectthumb",
+    "util-triggergate",
+    "util-valuebool",
+    "util-valuecomparator"
 ];
 
 const SOLID_ONLY_TYPES = [
@@ -55,7 +62,7 @@ const SINGULAR_TYPES = [
 ];
 
 export default function ColliderPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const type = useSelectedElemType();
     const [_colliders, setColliders] = useSelectedElemProp("colliders");
     const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
@@ -72,10 +79,10 @@ export default function ColliderPanel() {
             blocksLight: !isSolidOnly && !isEdgeOnly,
             isSolid: isSolidOnly && !isEdgeOnly,
             points: [
-                { x: -0.5, y: 0.5 },
-                { x: -0.5, y: -0.5 },
-                { x: 0.5, y: -0.5 },
-                { x: 0.5, y: 0.5 },
+                {x: -0.5, y: 0.5},
+                {x: -0.5, y: -0.5},
+                {x: 0.5, y: -0.5},
+                {x: 0.5, y: 0.5},
             ]
         };
 
@@ -92,18 +99,18 @@ export default function ColliderPanel() {
                 <Button
                     size={"small"}
                     fullWidth
-                    endIcon={<Add />}
+                    endIcon={<Add/>}
                     onClick={addCollider}
                     disabled={isAddDisabled}
                     color={"inherit"}
-                    style={{ marginTop: 5, marginBottom: 0 }}
+                    style={{marginTop: 5, marginBottom: 0}}
                 >
                     {t("collider.add") as string}
                 </Button>
                 <DropdownList
                     elements={colliders.map((collider, index) => ({
                         id: collider.id,
-                        name: collider.name !== undefined ? collider.name : t("collider.defaultName", { index: index + 1 }) as string,
+                        name: collider.name !== undefined ? collider.name : t("collider.defaultName", {index: index + 1}) as string,
                         intent: collider.blocksLight ? "error" : "success",
                         icon: "Edit"
                     })) ?? []}
@@ -126,84 +133,84 @@ export default function ColliderPanel() {
             <MapError
                 isVisible={selectedColliderID !== undefined}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.colliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={type.startsWith("sab-door")}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.doorInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-room"}
                 info
-                icon={<Room />}
+                icon={<Room/>}
             >
                 {t("collider.roomInfo") as string}
             </MapError>
             <MapError
                 isVisible={type.startsWith("util-sound") || type === "util-triggersound"}
                 info
-                icon={<VolumeUp />}
+                icon={<VolumeUp/>}
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-triggerarea"}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.triggerAreaInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-tele"}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.teleInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-onewaycollider"}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.oneWayColliderInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-decontamination"}
                 info
-                icon={<VolumeUp />}
+                icon={<VolumeUp/>}
             >
                 {t("collider.soundInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-ghostcollider"}
                 info
-                icon={<Person />}
+                icon={<Person/>}
             >
                 {t("collider.ghostInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-binocularscollider"}
                 info
-                icon={<CameraAlt />}
+                icon={<CameraAlt/>}
             >
                 {t("collider.binocularsInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-triggerdeath"}
                 info
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("collider.deathInfo") as string}
             </MapError>
             <MapError
                 isVisible={type === "util-triggershake"}
                 info
-                icon={<CameraAlt />}
+                icon={<CameraAlt/>}
             >
                 {t("collider.shakeInfo") as string}
             </MapError>

@@ -1,4 +1,9 @@
 const OutputTriggerDB: Record<string, string[]> = {
+    "util-eject": [
+        "onEject",
+        "onSkip",
+        "onFinish"
+    ],
     "util-meeting": [
         "onButton",
         "onReport"
@@ -49,6 +54,13 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onReactorEnd",
         "onMixupEnd",
     ],
+    "util-valuebool": [
+        "onChange"
+    ],
+    "util-triggergate": [
+        "onTrue",
+        "onFalse"
+    ],
     "sab-doorv": [
         "onOpen",
         "onClose",
@@ -58,7 +70,7 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onOpen",
         "onClose",
         "onUse",
-    ]
+    ],
 };
 
 const consoleTriggers = [
@@ -148,6 +160,14 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-triggershake": [
         "enable",
         "disable"
+    ],
+    "util-valuebool": [
+        "setValueTrue",
+        "setValueFalse",
+        "toggleValue"
+    ],
+    "util-triggergate": [
+        "triggerGate"
     ],
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,
