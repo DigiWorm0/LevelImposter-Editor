@@ -79,6 +79,16 @@ export default interface LIProperties {
     sporeDuration?: number;
     sporeCooldown?: number;
 
+    // Physics
+    physicsBounciness?: number;
+    physicsFriction?: number;
+    physicsMass?: number;
+    physicsDrag?: number;
+    physicsAngularDrag?: number;
+    physicsFreezeX?: boolean;
+    physicsFreezeY?: boolean;
+    physicsFreezeRotation?: boolean;
+
     // Decontamination
     doorA?: GUID;
     doorB?: GUID;

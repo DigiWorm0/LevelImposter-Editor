@@ -116,7 +116,7 @@ const AUElementDB: string[] = [
     "util-tele",
     "util-meeting",
     "util-display",
-    //"util-physics", // TODO: Networking
+    "util-physics",
     "util-blanktrigger",
     "util-triggerarea",
     "util-triggerconsole",

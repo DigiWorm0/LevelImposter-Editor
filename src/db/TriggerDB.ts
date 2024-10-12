@@ -71,6 +71,9 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onClose",
         "onUse",
     ],
+    "util-physics": [
+        "onCollision"
+    ]
 };
 
 const consoleTriggers = [
@@ -169,6 +172,7 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-triggergate": [
         "triggerGate"
     ],
+    "util-physics": consoleTriggers,
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,
     "util-button1": consoleTriggers,

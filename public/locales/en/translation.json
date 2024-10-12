@@ -821,6 +821,17 @@
     "duration": "Duration",
     "cooldown": "Cooldown"
   },
+  "physics": {
+    "title": "Physics Object",
+    "friction": "Friction",
+    "bounce": "Bounce",
+    "mass": "Mass",
+    "linearDrag": "Linear Drag",
+    "angularDrag": "Angular Drag",
+    "freezeX": "Freeze X",
+    "freezeY": "Freeze Y",
+    "freezeRotation": "Freeze Rotation"
+  },
   "settings": {
     "experimentalInfo": "This feature is experimental and may not work as expected.",
     "colliders": "Colliders",
@@ -923,6 +934,7 @@
     "onChange": "On Change",
     "onTrue": "On True",
     "onFalse": "On False",
+    "onCollision": "On Collision",
     "startOxygen": "Sabotage Oxygen",
     "startReactor": "Sabotage Reactor",
     "startLights": "Sabotage Lights",
