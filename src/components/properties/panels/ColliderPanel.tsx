@@ -27,6 +27,7 @@ const BLACKLISTED_TYPES = [
     "util-sabotages",
     "util-eject",
     "util-ejectdummy",
+    "util-ejectdummy2",
     "util-ejecthand",
     "util-ejectthumb",
     "util-triggergate",
