@@ -84,23 +84,21 @@ const consoleTriggers = [
     "toggle",
 ];
 
+const showHideTriggers = [
+    "show",
+    "hide"
+];
+
 const InputTriggerDB: Record<string, string[]> = {
-    "util-blanktrigger": [
-        "show",
-        "hide"
-    ],
-    "util-blankfloat": [
-        "show",
-        "hide"
-    ],
-    "util-blankscroll": [
-        "show",
-        "hide"
-    ],
-    "util-starfield": [
-        "show",
-        "hide"
-    ],
+    "util-blanktrigger": showHideTriggers,
+    "util-blankfloat": showHideTriggers,
+    "util-blankscroll": showHideTriggers,
+    "util-starfield": showHideTriggers,
+    "util-ejectdummy": showHideTriggers,
+    "util-ejectdummy2": showHideTriggers,
+    "util-ejecthand": showHideTriggers,
+    "util-ejectthumb": showHideTriggers,
+    "util-minimapsprite": showHideTriggers,
     "util-tele": [
         "enable",
         "disable",
@@ -137,10 +135,6 @@ const InputTriggerDB: Record<string, string[]> = {
     "sab-doorh": [
         "open",
         "close",
-    ],
-    "util-minimapsprite": [
-        "show",
-        "hide",
     ],
     "util-meeting": [
         "callMeeting",
