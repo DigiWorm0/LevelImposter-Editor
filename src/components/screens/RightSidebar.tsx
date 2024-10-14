@@ -42,6 +42,7 @@ import EjectPanel from "../properties/panels/EjectPanel";
 import ValuePanel from "../properties/panels/ValuePanel";
 import GatePanel from "../properties/panels/GatePanel";
 import ComparatorPanel from "../properties/panels/ComparatorPanel";
+import PhysicsPanel from "../properties/panels/PhysicsPanel";
 
 export default function RightSidebar() {
     //const dragRef = React.useRef<HTMLDivElement>(null);
@@ -98,6 +99,7 @@ export default function RightSidebar() {
                     <FloatingPanel/>
                     <ScrollingPanel/>
                     <LadderPanel/>
+                    <PhysicsPanel/>
                     <MeetingPanel/>
                     <SabotagesPanel/>
                     <VentPanel/>

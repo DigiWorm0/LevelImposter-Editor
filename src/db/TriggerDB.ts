@@ -71,6 +71,9 @@ const OutputTriggerDB: Record<string, string[]> = {
         "onClose",
         "onUse",
     ],
+    "util-physics": [
+        "onCollision"
+    ]
 };
 
 const consoleTriggers = [
@@ -81,23 +84,21 @@ const consoleTriggers = [
     "toggle",
 ];
 
+const showHideTriggers = [
+    "show",
+    "hide"
+];
+
 const InputTriggerDB: Record<string, string[]> = {
-    "util-blanktrigger": [
-        "show",
-        "hide"
-    ],
-    "util-blankfloat": [
-        "show",
-        "hide"
-    ],
-    "util-blankscroll": [
-        "show",
-        "hide"
-    ],
-    "util-starfield": [
-        "show",
-        "hide"
-    ],
+    "util-blanktrigger": showHideTriggers,
+    "util-blankfloat": showHideTriggers,
+    "util-blankscroll": showHideTriggers,
+    "util-starfield": showHideTriggers,
+    "util-ejectdummy": showHideTriggers,
+    "util-ejectdummy2": showHideTriggers,
+    "util-ejecthand": showHideTriggers,
+    "util-ejectthumb": showHideTriggers,
+    "util-minimapsprite": showHideTriggers,
     "util-tele": [
         "enable",
         "disable",
@@ -135,10 +136,6 @@ const InputTriggerDB: Record<string, string[]> = {
         "open",
         "close",
     ],
-    "util-minimapsprite": [
-        "show",
-        "hide",
-    ],
     "util-meeting": [
         "callMeeting",
     ],
@@ -169,6 +166,7 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-triggergate": [
         "triggerGate"
     ],
+    "util-physics": consoleTriggers,
     "util-triggerconsole": consoleTriggers,
     "util-vitals": consoleTriggers,
     "util-button1": consoleTriggers,

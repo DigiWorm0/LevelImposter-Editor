@@ -116,7 +116,7 @@ const AUElementDB: string[] = [
     "util-tele",
     "util-meeting",
     "util-display",
-    //"util-physics", // TODO: Networking
+    "util-physics",
     "util-blanktrigger",
     "util-triggerarea",
     "util-triggerconsole",
@@ -134,6 +134,7 @@ const AUElementDB: string[] = [
     //"util-filter",
     "util-eject",
     "util-ejectdummy",
+    "util-ejectdummy2",
     "util-ejecthand",
     "util-ejectthumb",
     "util-valuebool",

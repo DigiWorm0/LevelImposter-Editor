@@ -32,7 +32,8 @@ const INVISIBLE_TYPES_NO_SPRITE = [
     "util-blankscroll",
     "util-starfield",
     "util-triggerconsole",
-    "util-blanktrigger"
+    "util-blanktrigger",
+    "util-physics"
 ];
 
 const INVISIBLE_TYPES_MINIMAP = [
