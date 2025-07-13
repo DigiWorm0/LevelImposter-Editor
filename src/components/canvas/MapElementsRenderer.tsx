@@ -7,8 +7,11 @@ export default function MapElementsRenderer() {
     const elementIDs = useElementIDs();
 
     return elementIDs.map(elementID => (
-        <ErrorBoundary fallback={<MapElementError elementID={elementID} />} key={elementID}>
-            <MapElement elementID={elementID} />
+        <ErrorBoundary
+            key={elementID}
+            fallback={<MapElementError elementID={elementID}/>}
+        >
+            <MapElement elementID={elementID}/>
         </ErrorBoundary>
     ));
 }
