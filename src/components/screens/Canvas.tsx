@@ -7,7 +7,6 @@ import Canvas2 from "../canvas2/Canvas2";
 export default function Canvas() {
     // const [windowWidth, windowHeight] = useWindowSize();
     const [properties] = useMapProperties();
-    // const deselectAll = useDeselectAll();
     const setFocus = useSetFocus();
 
     // Camera Controls

@@ -31,6 +31,9 @@ export default function useViewportPosition() {
             return;
 
         const onMoved = () => {
+            if (!viewport._position)
+                return;
+
             setViewportPosition({
                 left: viewport.left,
                 right: viewport.right,

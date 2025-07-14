@@ -1,0 +1,35 @@
+import GUID from "../../../types/generic/GUID";
+import {useElementValue} from "../../../hooks/elements/useElements";
+import useViewportScale from "../../../hooks/canvas/useViewportScale";
+import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "../../../types/generic/Constants";
+
+export interface DisplayOverlayProps {
+    elementID: GUID;
+}
+
+export default function DisplayOverlay(props: DisplayOverlayProps) {
+    const element = useElementValue(props.elementID);
+    const scale = useViewportScale();
+
+    const camHeight = element?.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
+    const camWidth = element?.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
+
+    if (!element || element.type !== "util-display")
+        return null;
+    return (
+        <pixiGraphics
+            eventMode={"none"}
+            draw={(g) => {
+                g.clear();
+                g.rect(
+                    -camWidth / 2,
+                    -camHeight / 2,
+                    camWidth,
+                    camHeight
+                )
+                    .fill({color: "green", alpha: 0.4})
+                    .stroke({color: "green", width: 5 / scale, alignment: 0.5});
+            }}
+        />
+    )
+}

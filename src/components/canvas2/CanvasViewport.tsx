@@ -36,7 +36,7 @@ extend({ViewportWrapper});
 
 export default function CanvasViewport(props: PropsWithChildren<ViewportProps>) {
     const {app} = useApplication();
-    
+
     return (
         app?.renderer && (
             <pixiViewportWrapper app={app} {...props} />

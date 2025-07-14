@@ -15,6 +15,13 @@ import useDragMove from "../../../hooks/canvas/drag/useDragMove";
 import useStopDrag from "../../../hooks/canvas/drag/useStopDrag";
 import {Container} from "pixi.js";
 import MapElementSelectionOutline from "./MapElementSelectionOutline";
+import RoomOverlay from "../overlays/RoomOverlay";
+import ConsoleOverlay from "../overlays/ConsoleOverlay";
+import CameraOverlay from "../overlays/CameraOverlay";
+import DisplayOverlay from "../overlays/DisplayOverlay";
+import LadderOverlay from "../overlays/LadderOverlay";
+import ConnectionOverlay from "../overlays/ConnectionOverlay";
+import SporeOverlay from "../overlays/SporeOverlay";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -69,6 +76,14 @@ export default function MapElement(props: MapElementProps) {
                 !isEmbedded &&
                 isVisible ? "static" : "none"}
 
+                onClick={(e: MouseEvent) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+
+                    // Select the element
+                    setSelectedID(props.elementID);
+                }}
+
                 onPointerDown={(e: PointerEvent) => {
                     // Only allow left mouse button (right-clicks are for viewport controls)
                     if (e.button !== 0)
@@ -119,6 +134,14 @@ export default function MapElement(props: MapElementProps) {
                     elementID={id}
                 />
             ))}
+
+            <RoomOverlay elementID={elem.id}/>
+            {isSelected && <ConsoleOverlay elementID={elem.id}/>}
+            {isSelected && <CameraOverlay elementID={elem.id}/>}
+            {isSelected && <DisplayOverlay elementID={elem.id}/>}
+            {isSelected && <LadderOverlay elementID={elem.id}/>}
+            {isSelected && <ConnectionOverlay elementID={elem.id}/>}
+            {isSelected && <SporeOverlay elementID={elem.id}/>}
         </pixiContainer>
     );
 }
