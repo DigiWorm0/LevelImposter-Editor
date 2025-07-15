@@ -49,6 +49,10 @@ export const dragMoveAtom = atom(null, (get, set, data: DragMoveData) => {
         if (!element)
             continue;
 
+        // Don't drag if the element is locked
+        if (element.properties.isLocked)
+            continue;
+
         // Calculate new position based on the offset and world point
         let newX = offset.x + worldPoint.x;
         let newY = offset.y + worldPoint.y;

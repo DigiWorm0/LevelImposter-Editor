@@ -87,20 +87,7 @@ export default function MapElement(props: MapElementProps) {
                     // Only allow mouse pointer type (touch/pens are for viewport controls only)
                     if (e.pointerType !== "mouse")
                         return;
-
-                    // If unselected, select the element
-                    // if (!isSelected) {
-                    //     selectElementID({
-                    //         id: props.elementID,
-                    //         operation: e.ctrlKey || e.metaKey ? "toggle" :
-                    //             e.shiftKey ? "add" : "set"
-                    //     });
-                    // }
-
-                    // Only allow dragging if the element is not locked
-                    if (elem.properties.isLocked)
-                        return;
-
+                    
                     // Prevent default behavior and stop propagation
                     e.stopPropagation();
                     e.preventDefault();
@@ -128,7 +115,7 @@ export default function MapElement(props: MapElementProps) {
                 onGlobalPointerMove={(e: PointerEvent) => {
                     runDragMove({mouseX: e.clientX, mouseY: e.clientY});
                 }}
-                onPointerUp={(e: MouseEvent) => {
+                onPointerUp={() => {
                     runStopDrag();
                 }}
                 onPointerUpOutside={() => {
