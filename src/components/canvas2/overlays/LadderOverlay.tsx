@@ -6,7 +6,6 @@ import {
     LADDER_RADIUS,
     UNITY_SCALE
 } from "../../../types/generic/Constants";
-import useViewportScale from "../../../hooks/canvas/useViewportScale";
 
 export interface LadderOverlayProps {
     elementID: GUID;
@@ -14,7 +13,6 @@ export interface LadderOverlayProps {
 
 export default function LadderOverlay(props: LadderOverlayProps) {
     const element = useElementValue(props.elementID);
-    const scale = useViewportScale();
 
     const ladderOffset = element?.properties.ladderOffset ?? DEFAULT_LADDER_OFFSET;
     const height = element?.properties.ladderHeight ?? DEFAULT_LADDER_HEIGHTS[element?.type ?? "util-ladder1"];
@@ -40,7 +38,7 @@ export default function LadderOverlay(props: LadderOverlayProps) {
                         false
                     )
                         .fill({color: 0xffaa00, alpha: 0.4})
-                        .stroke({color: 0xffaa00, width: 4 / scale, alignment: 0.5})
+                        .stroke({color: 0xffaa00, width: 4, alignment: 0.5})
                         .closePath();
                 };
 
@@ -49,7 +47,7 @@ export default function LadderOverlay(props: LadderOverlayProps) {
 
                 g.moveTo(0, -topOffset * UNITY_SCALE)
                     .lineTo(0, -bottomOffset * UNITY_SCALE)
-                    .stroke({color: 0xffaa00, width: 4 / scale, alignment: 0.5});
+                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
 
                 g.closePath();
             }}

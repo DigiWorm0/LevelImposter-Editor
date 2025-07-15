@@ -1,15 +1,28 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/generic/GUID";
 import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
-import { MaybeLIElement } from "../../types/li/LIElement";
+import {MaybeLIElement} from "../../types/li/LIElement";
 import LIProperties from "../../types/li/LIProperties";
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { elementsAtom } from "../map/useMap";
-import { elementFamilyAtom } from "./useElements";
+import {saveHistoryAtom} from "../map/history/useHistory";
+import {elementsAtom} from "../map/useMap";
+import {elementFamilyAtom} from "./useElements";
+import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
+import {isElementSelectedAtomFamily} from "./useIsElementSelected";
 
 // Atoms
-export const selectedElementIDAtom = atom<MaybeGUID>(undefined);
+export const selectedElementIDAtom = atom((get) => {
+    const selectedIDs = get(selectedElementIDsAtom);
+    return selectedIDs.length === 1 ? selectedIDs[0] : undefined;
+}, (_, set, id: MaybeGUID) => {
+    if (id === undefined) {
+        set(selectedElementIDsAtom, []);
+        return;
+    }
+
+    set(selectedElementIDsAtom, [id]);
+});
+
 export const selectedElementAtom = atom(
     (get) => {
         const id = get(selectedElementIDAtom);
@@ -20,7 +33,7 @@ export const selectedElementAtom = atom(
         const elements = [...get(elementsAtom)];
         const index = elements.findIndex((e) => e.id === elem?.id);
         if (index >= 0 && elem) {
-            elements[index] = { ...elem };
+            elements[index] = {...elem};
 
             const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem?.type ?? ""));
             globalProps.forEach((globalProp) => {
@@ -45,11 +58,10 @@ export const selectedElementAtom = atom(
 );
 export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
     const selectedAtom = atom((get) => {
-        const selectedID = get(selectedElementIDAtom);
         const searchParent = (childID: MaybeGUID): boolean => {
             if (childID === undefined)
                 return false;
-            if (childID === selectedID)
+            if (get(isElementSelectedAtomFamily(childID)))
                 return true;
             const parentID = get(elementFamilyAtom(childID))?.parentID;
             return searchParent(parentID);

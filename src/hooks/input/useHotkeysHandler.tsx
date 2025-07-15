@@ -18,6 +18,7 @@ import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSe
 import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
+import useSelectAllElements from "./useSelectAllElements";
 
 const TIMELINE_DELTA_SCALE = 100;
 
@@ -40,6 +41,7 @@ export default function useHotkeysHandler() {
     const setLoop = useSetSelectedElemProp("triggerLoop");
     const copyKeyframe = useCopyKeyframe();
     const pasteKeyframe = usePasteKeyframe();
+    const selectAllElements = useSelectAllElements();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -119,4 +121,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("ctrl+z", undo);
     useFocusedHotkeys("ctrl+y", redo);
     useFocusedHotkeys("ctrl+shift+z", redo);
+
+    // Select All
+    useFocusedHotkeys("ctrl+a", selectAllElements, Scope.Canvas, Scope.SceneGraph);
 }

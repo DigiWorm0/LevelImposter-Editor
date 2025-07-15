@@ -1,6 +1,5 @@
 import GUID from "../../../types/generic/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import useViewportScale from "../../../hooks/canvas/useViewportScale";
 import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "../../../types/generic/Constants";
 
 export interface DisplayOverlayProps {
@@ -9,7 +8,6 @@ export interface DisplayOverlayProps {
 
 export default function DisplayOverlay(props: DisplayOverlayProps) {
     const element = useElementValue(props.elementID);
-    const scale = useViewportScale();
 
     const camHeight = element?.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;
     const camWidth = element?.properties.displayWidth ?? DEFAULT_DISPLAY_WIDTH;
@@ -28,7 +26,7 @@ export default function DisplayOverlay(props: DisplayOverlayProps) {
                     camHeight
                 )
                     .fill({color: "green", alpha: 0.4})
-                    .stroke({color: "green", width: 5 / scale, alignment: 0.5});
+                    .stroke({color: "green", width: 5, alignment: 0.5});
             }}
         />
     )

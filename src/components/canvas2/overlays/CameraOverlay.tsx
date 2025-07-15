@@ -7,7 +7,6 @@ import {
     DEFAULT_DISPLAY_WIDTH,
     UNITY_SCALE
 } from "../../../types/generic/Constants";
-import useViewportScale from "../../../hooks/canvas/useViewportScale";
 
 export interface CameraOverlayProps {
     elementID: GUID;
@@ -15,7 +14,6 @@ export interface CameraOverlayProps {
 
 export default function CameraOverlay(props: CameraOverlayProps) {
     const element = useElementValue(props.elementID);
-    const scale = useViewportScale();
 
     // Camera Properties
     const camXOffset = element?.properties.camXOffset ?? 0;
@@ -53,7 +51,7 @@ export default function CameraOverlay(props: CameraOverlayProps) {
                     camHeight
                 )
                     .fill({color: "green", alpha: 0.4})
-                    .stroke({color: "green", width: 5 / scale, alignment: 0.5});
+                    .stroke({color: "green", width: 5, alignment: 0.5});
             }}
         />
     )

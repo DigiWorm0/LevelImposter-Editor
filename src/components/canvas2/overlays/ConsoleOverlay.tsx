@@ -7,7 +7,6 @@ import {
     VENT_CONSOLE_RANGE
 } from "../../../types/generic/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
-import useViewportScale from "../../../hooks/canvas/useViewportScale";
 
 export interface ConsoleOverlayProps {
     elementID: GUID;
@@ -15,7 +14,6 @@ export interface ConsoleOverlayProps {
 
 export default function ConsoleOverlay(props: ConsoleOverlayProps) {
     const element = useElementValue(props.elementID);
-    const scale = useViewportScale();
 
     const isDoor = element?.type.startsWith("sab-door");
     const isSpore = element?.type === "util-spore";
@@ -40,7 +38,7 @@ export default function ConsoleOverlay(props: ConsoleOverlayProps) {
                 g.beginPath();
                 g.arc(0, 0, radius * UNITY_SCALE, 0, angle, false)
                     .fill({color: 0xffaa00, alpha: 0.4})
-                    .stroke({color: 0xffaa00, width: 4 / scale, alignment: 0.5});
+                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
                 g.closePath();
                 g.stroke();
             }}

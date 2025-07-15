@@ -1,6 +1,5 @@
 import GUID from "../../../types/generic/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import useViewportScale from "../../../hooks/canvas/useViewportScale";
 import {useConnections} from "../../../hooks/elements/useConnections";
 import LIElement from "../../../types/li/LIElement";
 import {UNITY_SCALE} from "../../../types/generic/Constants";
@@ -14,7 +13,6 @@ export interface ConnectionOverlayProps {
 export default function ConnectionOverlay(props: ConnectionOverlayProps) {
     const element = useElementValue(props.elementID);
     const [targetConnections, sourceConnections] = useConnections(props.elementID);
-    const scale = useViewportScale();
     const settings = useSettingsValue();
 
     const drawArrow = (
@@ -41,8 +39,8 @@ export default function ConnectionOverlay(props: ConnectionOverlayProps) {
         let toY = direction === "to" ? dy : 0;
 
         const angle = Math.atan2(fromY - toY, fromX - toX);
-        const arrowSize = 20 / scale;
-        const offset = 6 / scale;
+        const arrowSize = 10;
+        const offset = 6;
         const xOffset = offset * Math.cos(angle + Math.PI / 2);
         const yOffset = offset * Math.sin(angle + Math.PI / 2);
 
@@ -56,7 +54,7 @@ export default function ConnectionOverlay(props: ConnectionOverlayProps) {
         // Line
         g.moveTo(fromX, fromY)
             .lineTo(toX, toY)
-            .stroke({color, width: 8 / scale, alignment: 0.5, cap: "round"});
+            .stroke({color, width: 6, alignment: 0.5, cap: "round"});
 
 
         // Arrow Head

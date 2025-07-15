@@ -5,10 +5,10 @@ import {dragStateAtom} from "./useDragState";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {elementFamilyAtom} from "../../elements/useElements";
 import {settingsAtom} from "../../useSettings";
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {getMapElementRef} from "../useMapElementRef";
+import {selectedElementIDsAtom} from "../../selection/useSelectedElementIDs";
 
 export interface DragMoveData {
-    elementID: MaybeGUID;
     mouseX: number;
     mouseY: number;
 }
@@ -19,14 +19,14 @@ export const dragMoveAtom = atom(null, (get, set, data: DragMoveData) => {
     if (!dragState)
         return;
 
-    // Check if this is the correct element being dragged
-    if (dragState.elementID !== data.elementID)
-        return;
-
     // Get the viewport and ensure it exists
     const viewport = get(viewportAtom);
     if (!viewport)
         return;
+
+    // If not already dragging, call the onDragStart callback
+    if (!dragState.isDragging)
+        dragState.onDragStart();
 
     // Convert mouse coordinates to world coordinates
     const {mouseX, mouseY} = data;
@@ -34,34 +34,49 @@ export const dragMoveAtom = atom(null, (get, set, data: DragMoveData) => {
     worldPoint.x /= UNITY_SCALE;
     worldPoint.y /= -UNITY_SCALE;
 
-    // Update the drag state with the new cursor position
-    set(dragStateAtom, {
-        ...dragState,
-        cursorX: worldPoint.x,
-        cursorY: worldPoint.y
-    });
+    // Get the current drag offsets
+    let dragOffsets = dragState.offsets;
 
-    // Get the target element from the drag state
-    const element = get(elementFamilyAtom(dragState.elementID));
-    if (!element || !dragState.target)
-        return;
+    // Filter out any offsets that are no longer selected
+    const selectedElementIDs = get(selectedElementIDsAtom);
+    dragOffsets = dragOffsets.filter(offset => selectedElementIDs.includes(offset.id));
 
-    // Update target element position based on the current cursor position
-    let newX = dragState.elementOffsetX + worldPoint.x;
-    let newY = dragState.elementOffsetY + worldPoint.y;
-    const newZ = getGlobalZFromLocalZ(element.z, newY);
+    // Update each target element's position based on the current cursor position
+    for (const offset of dragOffsets) {
 
-    // Snap to grid if enabled
-    const {isGridSnapEnabled, gridSnapResolution} = get(settingsAtom);
-    if (isGridSnapEnabled && gridSnapResolution > 0) {
-        newX = Math.round(newX / gridSnapResolution) * gridSnapResolution;
-        newY = Math.round(newY / gridSnapResolution) * gridSnapResolution;
+        // Get the target element using the offset ID
+        const element = get(elementFamilyAtom(offset.id));
+        if (!element)
+            continue;
+
+        // Calculate new position based on the offset and world point
+        let newX = offset.x + worldPoint.x;
+        let newY = offset.y + worldPoint.y;
+        const newZ = getGlobalZFromLocalZ(element.z, newY);
+
+        // Snap to grid if enabled
+        const {isGridSnapEnabled, gridSnapResolution} = get(settingsAtom);
+        if (isGridSnapEnabled && gridSnapResolution > 0) {
+            newX = Math.round(newX / gridSnapResolution) * gridSnapResolution;
+            newY = Math.round(newY / gridSnapResolution) * gridSnapResolution;
+        }
+
+        // Update the target element's position
+        const ref = getMapElementRef(offset.id);
+        if (!ref.current)
+            continue;
+
+        ref.current.x = newX * UNITY_SCALE;
+        ref.current.y = -newY * UNITY_SCALE;
+        ref.current.zIndex = -newZ;
     }
 
-    // Update the target element's position
-    dragState.target.x = newX * UNITY_SCALE;
-    dragState.target.y = -newY * UNITY_SCALE;
-    dragState.target.zIndex = -newZ;
+    // Update the drag state to indicate dragging is in progress
+    set(dragStateAtom, {
+        ...dragState,
+        offsets: dragOffsets,
+        isDragging: true
+    });
 });
 
 export default function useDragMove() {

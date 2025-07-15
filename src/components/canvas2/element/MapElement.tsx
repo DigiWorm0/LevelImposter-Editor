@@ -2,7 +2,7 @@ import React from "react";
 import {MaybeGUID} from "../../../types/generic/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import usePixiAsset from "../../../hooks/canvas/usePixiAsset";
-import {useIsSelectedElem, useSetSelectedElemID} from "../../../hooks/elements/useSelectedElem";
+import {useIsSelectedElem} from "../../../hooks/elements/useSelectedElem";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "../../../types/generic/Constants";
@@ -13,7 +13,6 @@ import degToRad from "../../../utils/canvas/degToRad";
 import useStartDrag from "../../../hooks/canvas/drag/useStartDrag";
 import useDragMove from "../../../hooks/canvas/drag/useDragMove";
 import useStopDrag from "../../../hooks/canvas/drag/useStopDrag";
-import {Container} from "pixi.js";
 import MapElementSelectionOutline from "./MapElementSelectionOutline";
 import RoomOverlay from "../overlays/RoomOverlay";
 import ConsoleOverlay from "../overlays/ConsoleOverlay";
@@ -22,20 +21,23 @@ import DisplayOverlay from "../overlays/DisplayOverlay";
 import LadderOverlay from "../overlays/LadderOverlay";
 import ConnectionOverlay from "../overlays/ConnectionOverlay";
 import SporeOverlay from "../overlays/SporeOverlay";
+import useSelectElementID from "../../../hooks/selection/useSelectElementID";
+import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
 }
 
+
 export default function MapElement(props: MapElementProps) {
     const [isHovering, setIsHovering] = React.useState(false);
-    const containerRef = React.useRef<Container>(null);
     const childElementIDs = useElementChildIDs(props.elementID);
-    const setSelectedID = useSetSelectedElemID();
     const isSelected = useIsSelectedElem(props.elementID);
     const [elem] = useElement(props.elementID);
     const sprite = usePixiAsset(props.elementID);
     const opacity = useElementOpacity(props.elementID);
+    const selectElementID = useSelectElementID();
+    const containerRef = useMapElementRef(props.elementID);
 
     const startDrag = useStartDrag();
     const runDragMove = useDragMove();
@@ -45,8 +47,9 @@ export default function MapElement(props: MapElementProps) {
     const isEmbedded = useEmbed();
     const isVisible = elem?.properties.isVisible ?? true;
 
-    if (!elem)
+    if (!elem || !props.elementID)
         return null;
+
     return (
         <pixiContainer
             ref={containerRef}
@@ -76,44 +79,56 @@ export default function MapElement(props: MapElementProps) {
                 !isEmbedded &&
                 isVisible ? "static" : "none"}
 
-                onClick={(e: MouseEvent) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-
-                    // Select the element
-                    setSelectedID(props.elementID);
-                }}
-
                 onPointerDown={(e: PointerEvent) => {
-                    // Only allow left mouse button (right-clicks are for viewport controls)
+                    // Only allow left mouse button (right-clicks are for viewport controls only)
                     if (e.button !== 0)
                         return;
 
-                    e.stopPropagation();
-                    e.preventDefault();
+                    // Only allow mouse pointer type (touch/pens are for viewport controls only)
+                    if (e.pointerType !== "mouse")
+                        return;
 
-                    // Select the element
-                    setSelectedID(props.elementID);
+                    // If unselected, select the element
+                    // if (!isSelected) {
+                    //     selectElementID({
+                    //         id: props.elementID,
+                    //         operation: e.ctrlKey || e.metaKey ? "toggle" :
+                    //             e.shiftKey ? "add" : "set"
+                    //     });
+                    // }
 
+                    // Only allow dragging if the element is not locked
                     if (elem.properties.isLocked)
                         return;
 
+                    // Prevent default behavior and stop propagation
+                    e.stopPropagation();
+                    e.preventDefault();
+
                     // Start dragging the element if it's not locked
                     startDrag({
+                        elementID: elem.id,
                         mouseX: e.clientX,
                         mouseY: e.clientY,
-                        elementID: props.elementID,
-                        target: containerRef.current!
+                        onDragStart: () => {
+                            selectElementID({
+                                id: props.elementID,
+                                operation: e.ctrlKey || e.metaKey || e.shiftKey || isSelected ? "add" : "set"
+                            });
+                        },
+                        onClick: () => {
+                            selectElementID({
+                                id: props.elementID,
+                                operation: e.ctrlKey || e.metaKey ? "toggle" :
+                                    e.shiftKey ? "add" : "set"
+                            });
+                        }
                     });
                 }}
                 onGlobalPointerMove={(e: PointerEvent) => {
-                    runDragMove({
-                        mouseX: e.clientX,
-                        mouseY: e.clientY,
-                        elementID: props.elementID
-                    });
+                    runDragMove({mouseX: e.clientX, mouseY: e.clientY});
                 }}
-                onPointerUp={() => {
+                onPointerUp={(e: MouseEvent) => {
                     runStopDrag();
                 }}
                 onPointerUpOutside={() => {

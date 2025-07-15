@@ -1,6 +1,6 @@
-import { atom, useSetAtom } from "jotai";
-import { selectedColliderIDAtom } from "../elements/colliders/useSelectedCollider";
-import { selectedElementIDAtom } from "../elements/useSelectedElem";
+import {atom, useSetAtom} from "jotai";
+import {selectedColliderIDAtom} from "../elements/colliders/useSelectedCollider";
+import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
 
 export const deselectAllAtom = atom(null, (get, set) => {
     // Don't deselect if a collider is selected
@@ -9,7 +9,7 @@ export const deselectAllAtom = atom(null, (get, set) => {
         return;
 
     // Deselect the selected element
-    set(selectedElementIDAtom, undefined);
+    set(selectedElementIDsAtom, []);
 });
 deselectAllAtom.debugLabel = "deselectAllAtom";
 

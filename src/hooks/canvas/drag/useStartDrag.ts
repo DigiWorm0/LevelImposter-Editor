@@ -1,16 +1,17 @@
 import {atom, useSetAtom} from "jotai";
-import {MaybeGUID} from "../../../types/generic/GUID";
 import {viewportAtom} from "../useViewport";
 import {elementFamilyAtom} from "../../elements/useElements";
 import {UNITY_SCALE} from "../../../types/generic/Constants";
-import {dragStateAtom} from "./useDragState";
-import {Container} from "pixi.js";
+import {DragOffset, dragStateAtom} from "./useDragState";
+import {selectedElementIDsAtom} from "../../selection/useSelectedElementIDs";
+import GUID from "../../../types/generic/GUID";
 
 export interface StartDragData {
-    target: Container;
+    onClick: () => void;
+    onDragStart: () => void;
+    elementID: GUID;
     mouseX: number;
     mouseY: number;
-    elementID: MaybeGUID;
 }
 
 export const startDragAtom = atom(null, (get, set, data: StartDragData) => {
@@ -21,25 +22,41 @@ export const startDragAtom = atom(null, (get, set, data: StartDragData) => {
         return;
 
     // Convert mouse coordinates to world coordinates
-    const {target, mouseX, mouseY, elementID} = data;
+    const {mouseX, mouseY} = data;
     const worldPoint = viewport.toWorld(mouseX, mouseY);
     worldPoint.x /= UNITY_SCALE;
     worldPoint.y /= -UNITY_SCALE;
 
-    // Convert world coordinated to offset coordinates
-    const element = get(elementFamilyAtom(elementID));
-    if (!element || !elementID)
-        return;
+    // Get all selected element IDs
+    const elementIDs = new Set([
+        ...get(selectedElementIDsAtom),
+        data.elementID // Include the element being dragged
+    ]);
 
-    const offsetX = element.x - worldPoint.x;
-    const offsetY = element.y - worldPoint.y;
+    // Get drag offsets for each selected element
+    const dragOffsets: DragOffset[] = [];
+    for (const elementID of elementIDs) {
+        const element = get(elementFamilyAtom(elementID));
+        if (!element || !elementID)
+            continue;
+
+        // Convert world coordinated to offset coordinates
+        const offsetX = element.x - worldPoint.x;
+        const offsetY = element.y - worldPoint.y;
+
+        dragOffsets.push({
+            id: elementID,
+            x: offsetX,
+            y: offsetY
+        });
+    }
+
+    // Set the drag state with offsets and cursor position
     set(dragStateAtom, {
-        target,
-        elementID,
-        elementOffsetX: offsetX,
-        elementOffsetY: offsetY,
-        cursorX: worldPoint.x,
-        cursorY: worldPoint.y
+        onClick: data.onClick,
+        onDragStart: data.onDragStart,
+        isDragging: false,
+        offsets: dragOffsets
     });
 });
 
