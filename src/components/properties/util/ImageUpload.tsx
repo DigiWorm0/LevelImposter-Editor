@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
@@ -7,10 +7,10 @@ import ColorPicker from "../../utils/ColorPicker";
 import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/generic/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
-import { Box, Button, ButtonGroup } from "@mui/material";
-import { CloudUpload, Done, Refresh } from "@mui/icons-material";
+import {Box, Button, ButtonGroup} from "@mui/material";
+import {CloudUpload, Done, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
-import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
 import SizeTag from "../../utils/SizeTag";
 
 interface ImageUploadProps {
@@ -28,7 +28,7 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload(props: ImageUploadProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const asset = useMapAssetValue(props.assetID);
@@ -36,10 +36,15 @@ export default function ImageUpload(props: ImageUploadProps) {
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("image/*").then((blob) => {
-            return duplicateBlob(blob);
+        let isDDS = false;
+        openUploadDialog("image/*, .dds").then((file) => {
+            isDDS = file.name.toLowerCase().endsWith(".dds");   // TODO: Check file header for DDS
+            return duplicateBlob(file);
         }).then((blob) => {
-            props.onUpload(createMapAsset({ type: "image", blob }));
+            props.onUpload(createMapAsset({
+                type: isDDS ? "image/dds" : "image",
+                blob
+            }));
         }).catch(toaster.warn);
     }, [props.onUpload]);
 
@@ -77,13 +82,13 @@ export default function ImageUpload(props: ImageUploadProps) {
         >
             {/* Title */}
             {props.showName && (
-                <h4 style={{ marginTop: 2 }}>
+                <h4 style={{marginTop: 2}}>
                     {props.name}
                 </h4>
             )}
 
             {/* Image Preview */}
-            <Box style={{ textAlign: "center", padding: 1 }}>
+            <Box style={{textAlign: "center", padding: 1}}>
                 <img
                     style={{
                         maxHeight: 100,
@@ -95,7 +100,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             </Box>
 
             {/* Size Tag */}
-            <SizeTag assetID={props.assetID} />
+            <SizeTag assetID={props.assetID}/>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>
@@ -103,12 +108,12 @@ export default function ImageUpload(props: ImageUploadProps) {
                     color={"primary"}
                     onClick={onUploadClick}
                 >
-                    <CloudUpload />
+                    <CloudUpload/>
                 </Button>
                 {props.onColorChange ? (
                     <ColorPicker
                         intent="success"
-                        color={props.color ?? props.defaultColor ?? { r: 255, g: 255, b: 255, a: 255 }}
+                        color={props.color ?? props.defaultColor ?? {r: 255, g: 255, b: 255, a: 255}}
                         onChange={props.onColorChange}
                     />
                 ) : (
@@ -117,7 +122,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                         disabled={!props.onFinish}
                         onClick={props.onFinish}
                     >
-                        <Done />
+                        <Done/>
                     </Button>
                 )}
 
@@ -126,7 +131,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                     onClick={props.onReset}
                     disabled={props.color === undefined && asset === undefined}
                 >
-                    <Refresh />
+                    <Refresh/>
                 </Button>
             </ButtonGroup>
 
@@ -153,7 +158,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             >
 
                 <CloudUpload
-                    style={{ marginRight: 10, fontSize: 40 }}
+                    style={{marginRight: 10, fontSize: 40}}
                 />
                 <span
                     style={{

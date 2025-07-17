@@ -5,24 +5,15 @@ import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Canvas2 from "../canvas2/Canvas2";
 
 export default function Canvas() {
-    // const [windowWidth, windowHeight] = useWindowSize();
     const [properties] = useMapProperties();
     const setFocus = useSetFocus();
-
-    // Camera Controls
-    // const stageRef = React.useRef<Konva.Stage>(null);
-    // useCameraMouseControl(stageRef);
-    // useCameraKeyboardControl(stageRef);
-    // useCameraTouchControl(stageRef);
-    // useCameraEmbedControl(stageRef);
-    // useCameraJumpControl(stageRef);
 
     return (
         <Paper
             style={properties.bgColor ? {backgroundColor: properties.bgColor} : undefined}
             tabIndex={-1}
             elevation={0}
-            onMouseDown={() => setFocus(Scope.Canvas)}
+            onClick={() => setFocus(Scope.Canvas)}
 
             sx={{
                 position: "absolute",

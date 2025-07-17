@@ -3,7 +3,7 @@
  * @param fileTypes - Input accept types (e.g. "image/*")
  * @returns MapAsset of the uploaded file and a random identifier
  */
-export default function openUploadDialog(fileTypes: string): Promise<Blob> {
+export default function openUploadDialog(fileTypes: string): Promise<File> {
     return new Promise((resolve, reject) => {
         console.log("Showing Upload Dialog");
         const input = document.createElement("input");

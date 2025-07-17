@@ -5,8 +5,9 @@ import {saveHistoryAtom} from "../map/history/useHistory";
 import {elementsAtom} from "../map/useMap";
 import {selectedColliderIDAtom} from "./colliders/useSelectedCollider";
 import {elementFamilyAtom} from "./useElements";
-import {selectedElementAtom, selectedElementIDAtom} from "./useSelectedElem";
+import {selectedElementIDAtom} from "./useSelectedElem";
 import {elementChildIDsAtomFamily} from "./useElementChildIDs";
+import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
 
 export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
     const removeElement = (id: MaybeGUID) => {
@@ -15,9 +16,7 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
         set(elementsAtom, get(elementsAtom).filter((elem) => elem.id !== id));
 
         const childIDs = get(elementChildIDsAtomFamily(id));
-        childIDs.forEach((childID) => {
-            removeElement(childID);
-        });
+        childIDs.forEach(removeElement);
     };
     removeElement(id);
 
@@ -27,9 +26,9 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
 });
 
 export const removeSelectedElementAtom = atom(null, (get, set) => {
-    const selectedElem = get(selectedElementAtom);
-    if (selectedElem)
-        set(removeElementAtom, selectedElem.id);
+    const selectedElementIDs = get(selectedElementIDsAtom);
+    for (const id of selectedElementIDs)
+        set(removeElementAtom, id);
 });
 
 // Hooks

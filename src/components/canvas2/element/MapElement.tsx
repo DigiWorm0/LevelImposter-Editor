@@ -2,7 +2,6 @@ import React from "react";
 import {MaybeGUID} from "../../../types/generic/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import usePixiAsset from "../../../hooks/canvas/usePixiAsset";
-import {useIsSelectedElem} from "../../../hooks/elements/useSelectedElem";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "../../../types/generic/Constants";
@@ -14,15 +13,9 @@ import useStartDrag from "../../../hooks/canvas/drag/useStartDrag";
 import useDragMove from "../../../hooks/canvas/drag/useDragMove";
 import useStopDrag from "../../../hooks/canvas/drag/useStopDrag";
 import MapElementSelectionOutline from "./MapElementSelectionOutline";
-import RoomOverlay from "../overlays/RoomOverlay";
-import ConsoleOverlay from "../overlays/ConsoleOverlay";
-import CameraOverlay from "../overlays/CameraOverlay";
-import DisplayOverlay from "../overlays/DisplayOverlay";
-import LadderOverlay from "../overlays/LadderOverlay";
-import ConnectionOverlay from "../overlays/ConnectionOverlay";
-import SporeOverlay from "../overlays/SporeOverlay";
 import useSelectElementID from "../../../hooks/selection/useSelectElementID";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
+import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -32,7 +25,7 @@ export interface MapElementProps {
 export default function MapElement(props: MapElementProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const childElementIDs = useElementChildIDs(props.elementID);
-    const isSelected = useIsSelectedElem(props.elementID);
+    const isSelected = useIsElementSelected(props.elementID);
     const [elem] = useElement(props.elementID);
     const sprite = usePixiAsset(props.elementID);
     const opacity = useElementOpacity(props.elementID);
@@ -47,6 +40,9 @@ export default function MapElement(props: MapElementProps) {
     const isEmbedded = useEmbed();
     const isVisible = elem?.properties.isVisible ?? true;
 
+    // Check if sprite is loaded
+    if (!sprite || sprite.destroyed)
+        return null;
     if (!elem || !props.elementID)
         return null;
 
@@ -87,7 +83,7 @@ export default function MapElement(props: MapElementProps) {
                     // Only allow mouse pointer type (touch/pens are for viewport controls only)
                     if (e.pointerType !== "mouse")
                         return;
-                    
+
                     // Prevent default behavior and stop propagation
                     e.stopPropagation();
                     e.preventDefault();
@@ -137,13 +133,9 @@ export default function MapElement(props: MapElementProps) {
                 />
             ))}
 
-            <RoomOverlay elementID={elem.id}/>
-            {isSelected && <ConsoleOverlay elementID={elem.id}/>}
-            {isSelected && <CameraOverlay elementID={elem.id}/>}
-            {isSelected && <DisplayOverlay elementID={elem.id}/>}
-            {isSelected && <LadderOverlay elementID={elem.id}/>}
-            {isSelected && <ConnectionOverlay elementID={elem.id}/>}
-            {isSelected && <SporeOverlay elementID={elem.id}/>}
+            {/*<MapElementOverlays*/}
+            {/*    elementID={props.elementID}*/}
+            {/*/>*/}
         </pixiContainer>
     );
 }

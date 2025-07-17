@@ -7,6 +7,7 @@ import CanvasViewport from "./CanvasViewport";
 import CanvasGrid from "./grid/CanvasGrid";
 import MapElementsRenderer from "./element/MapElementsRenderer";
 import DeselectBackground from "./DeselectBackground";
+import "pixi.js/dds"; // <-- Import Direct Draw Surface (DDS) support for compressed textures
 
 // Pass used pixi components to the pixi-react renderer
 extend({
@@ -34,13 +35,7 @@ export default function Canvas2() {
                 disableOnContextMenu={true}
             >
                 <DeselectBackground/>
-                <pixiContainer
-                    sortableChildren={true}
-                    cullableChildren={true}
-                    cullable={true}
-                >
-                    <MapElementsRenderer/>
-                </pixiContainer>
+                <MapElementsRenderer/>
 
                 <CanvasGrid/>
             </CanvasViewport>

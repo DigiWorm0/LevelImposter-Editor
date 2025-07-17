@@ -1,10 +1,10 @@
 import getElemVisibility, {ElemVisibility} from "../../utils/map/getMapVisibility";
-import {useIsSelectedElem} from "../elements/useSelectedElem";
 import {useIsSelectedCollider} from "../elements/colliders/useSelectedCollider";
 import {useSettingsValue} from "../useSettings";
 import useElement from "../elements/useElements";
 import {useSelectedElemPropValue} from "../elements/useSelectedElemProperty";
 import {MaybeGUID} from "../../types/generic/GUID";
+import useIsElementSelected from "../elements/useIsElementSelected";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -14,7 +14,7 @@ const SECONDARY_RENDER_TYPES = [
 
 export default function useElementOpacity(elementID: MaybeGUID): number {
     const isColliderSelected = useIsSelectedCollider();
-    const isSelected = useIsSelectedElem(elementID);
+    const isSelected = useIsElementSelected(elementID);
     const {invisibleOpacity} = useSettingsValue();
     const [elem] = useElement(elementID);
     const animTargets = useSelectedElemPropValue("animTargets");

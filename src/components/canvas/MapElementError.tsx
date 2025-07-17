@@ -1,50 +1,54 @@
-import { Text } from "react-konva";
-import { useSelectedElemIDValue } from "../../hooks/elements/useSelectedElem";
-import { UNITY_SCALE } from "../../types/generic/Constants";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { useElementValue } from "../../hooks/elements/useElements";
+import {UNITY_SCALE} from "../../types/generic/Constants";
+import {MaybeGUID} from "../../types/generic/GUID";
+import useElement from "../../hooks/elements/useElements";
 
 export interface SelectedObjectErrorProps {
     elementID?: MaybeGUID;
 }
 
 export default function MapElementError(props: SelectedObjectErrorProps) {
-    const selectedElemID = useSelectedElemIDValue();
-    const elem = useElementValue(props.elementID ?? selectedElemID);
+    const [elem] = useElement(props.elementID);
 
     const x = (elem?.x ?? 0) * UNITY_SCALE;
-    const y = (elem?.y ?? 0.7) * UNITY_SCALE;
+    const y = (elem?.y ?? 0) * -UNITY_SCALE;
 
     return (
         <>
-            <Text
+            <pixiBitmapText
+                eventMode={"none"}
                 text={"Uh oh, something went wrong!"}
-                fontStyle={"bold"}
-                fill={"#ae2929"}
-                stroke={"#000"}
-                strokeWidth={1}
-                fontSize={40}
-                x={x - window.innerWidth / 2}
-                y={-y - window.innerHeight / 2}
-                width={window.innerWidth}
-                height={window.innerHeight}
-                align={"center"}
-                verticalAlign={"middle"}
-                listening={false}
+                x={x}
+                y={y}
+
+                anchor={0.5}
+
+                // alpha={0.5}
+                style={{
+                    fontFamily: "Arial",
+                    fontWeight: "bold",
+                    align: "center",
+                    fill: 0xae2929,
+                    stroke: {color: "black", width: 10},
+                    fontSize: 70,
+                }}
             />
-            <Text
+            <pixiBitmapText
+                eventMode={"none"}
                 text={"See console for more details"}
-                fill={"#802929"}
-                stroke={"#000"}
-                strokeWidth={0.75}
-                fontSize={30}
-                x={x - window.innerWidth / 2}
-                y={-y - window.innerHeight / 2 + 35}
-                width={window.innerWidth}
-                height={window.innerHeight}
-                align={"center"}
-                verticalAlign={"middle"}
-                listening={false}
+                x={x}
+                y={y + 70}
+
+                anchor={0.5}
+
+                // alpha={0.5}
+                style={{
+                    fontFamily: "Arial",
+                    fontWeight: "bold",
+                    align: "center",
+                    fill: 0x802929,
+                    stroke: {color: "black", width: 10},
+                    fontSize: 60,
+                }}
             />
         </>
     );
