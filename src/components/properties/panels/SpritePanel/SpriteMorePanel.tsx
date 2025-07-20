@@ -6,8 +6,8 @@ import React from "react";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
 import {AspectRatio, Crop} from "@mui/icons-material";
-import useAutoCropSprite from "../../../../hooks/canvas/useAutoCropSprite";
-import useAutoScaleSprite from "../../../../hooks/canvas/useAutoScaleSprite";
+import useAutoCropSprite from "../../../../hooks/canvas/actions/useAutoCropSprite";
+import useAutoScaleSprite from "../../../../hooks/canvas/actions/useAutoScaleSprite";
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();

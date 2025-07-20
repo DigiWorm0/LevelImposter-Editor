@@ -1,11 +1,12 @@
 import {atom, useSetAtom} from "jotai";
 import {elementIDsAtom} from "../elements/useElementIDs";
 import {selectedElementIDAtom} from "../elements/useSelectedElem";
-import {autoScaleSpriteAtom} from "./useAutoScaleSprite";
-import {autoCropSpriteAtom} from "./useAutoCropSprite";
+import {autoScaleSpriteAtom} from "./actions/useAutoScaleSprite";
+import {autoCropSpriteAtom} from "./actions/useAutoCropSprite";
 import {trimAssetsAtom} from "../assets/useTrimMapAssets";
 import {mergeAssetsAtom} from "../assets/useMergeMapAssets";
 import {saveHistoryAtom} from "../map/history/useHistory";
+import {encodeAssetsAtom} from "../assets/useEncodeAssets";
 
 export interface CleanMapOptions {
     autoScale?: boolean;
@@ -13,6 +14,7 @@ export interface CleanMapOptions {
     autoCrop?: boolean;
     trimAssets?: boolean;
     mergeAssets?: boolean;
+    encodeSprites?: boolean;
 
     onProgress?: (percent: number) => void;
 }
@@ -46,6 +48,8 @@ export const cleanMapAtom = atom(null, async (
         set(trimAssetsAtom);
     if (options.mergeAssets)
         await set(mergeAssetsAtom, onProgress);
+    if (options.encodeSprites)
+        await set(encodeAssetsAtom, onProgress);
 
     // Save History
     set(saveHistoryAtom);

@@ -13,10 +13,9 @@ export const spriteURLAtomFamily = atomFamily((id: MaybeGUID) => {
         const elem = get(elementFamilyAtom(id));
         const asset = get(mapAssetsAtomFamily(elem?.properties.spriteID));
 
-        // If asset is found, return asset URL
-        const assetURL = asset?.url;
-        if (assetURL)
-            return assetURL;
+        // If image asset found, return asset URL
+        if (asset?.type === "image")
+            return asset.url;
 
         // If strings is valid, return strings URL
         if (elem && AUElementDB.includes(elem.type))

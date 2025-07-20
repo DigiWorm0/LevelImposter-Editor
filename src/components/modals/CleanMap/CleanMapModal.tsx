@@ -19,6 +19,7 @@ export default function CleanMapModal(props: CleanMapModalProps) {
     const [autoCrop, setAutoCrop] = React.useState(false);
     const [autoMerge, setAutoMerge] = React.useState(false);
     const [autoTrim, setAutoTrim] = React.useState(false);
+    const [encodeSprites, setEncodeSprites] = React.useState(false);
 
     const onClean = React.useCallback(() => {
         props.onClean({
@@ -26,9 +27,10 @@ export default function CleanMapModal(props: CleanMapModalProps) {
             scaleDownOnly,
             autoCrop,
             mergeAssets: autoMerge,
-            trimAssets: autoTrim
+            trimAssets: autoTrim,
+            encodeSprites,
         });
-    }, [autoScale, scaleDownOnly, autoCrop, autoMerge, autoTrim, props]);
+    }, [autoScale, scaleDownOnly, autoCrop, autoMerge, autoTrim, props.onClean, encodeSprites]);
 
     return (
         <GenericModal
@@ -78,6 +80,12 @@ export default function CleanMapModal(props: CleanMapModalProps) {
                         setValue={setAutoTrim}
                         label={t("map.autoTrim")}
                         icon={<ContentCut/>}
+                    />
+                    <CleanMapOption
+                        value={encodeSprites}
+                        setValue={setEncodeSprites}
+                        label={t("map.encodeSprites")}
+                        icon={<PlayArrow/>}
                     />
                 </List>
 

@@ -16,10 +16,23 @@ export const pixiAssetAtomFamily = atomFamily((id: MaybeGUID) => {
             return await Assets.load(get(spriteURLAtomFamily(id)));
 
         // Otherwise, load the asset from the URL
-        return await Assets.load({
+        const texture = await Assets.load({
             src: asset.url,
-            loadParser: asset.type === "image/dds" ? "loadDDS" : "loadTextures",
+            loadParser: asset.type === "image/ddsFormat" ? "loadDDS" : "loadTextures"
         });
+        if (!texture)
+            return null;
+
+        // Flip the texture vertically if it's a DDS format (using UV coordinates)
+        if (asset.type === "image/ddsFormat") {
+            texture.uvs = {
+                x0: 0, y0: 1,
+                x1: 1, y1: 1,
+                x2: 1, y2: 0,
+                x3: 0, y3: 0
+            };
+        }
+        return texture;
     });
 });
 

@@ -1,9 +1,9 @@
 import {atom, useSetAtom} from "jotai";
-import {createMapAssetAtom} from "../assets/useCreateMapAsset";
-import {selectedElementAtom} from "../elements/useSelectedElem";
-import {mapPropsAtom} from "../map/useMap";
-import {spriteAtomFamily} from "./sprite/useSprite";
-import {UNITY_SCALE} from "../../types/generic/Constants";
+import {createMapAssetAtom} from "../../assets/useCreateMapAsset";
+import {selectedElementAtom} from "../../elements/useSelectedElem";
+import {mapPropsAtom} from "../../map/useMap";
+import {spriteAtomFamily} from "../sprite/useSprite";
+import {UNITY_SCALE} from "../../../types/generic/Constants";
 
 export const autoCropSpriteAtom = atom(null, async (get, set) => {
 

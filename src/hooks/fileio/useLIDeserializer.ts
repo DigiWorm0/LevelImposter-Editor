@@ -1,8 +1,8 @@
 import LIMap from "../../types/li/LIMap";
 import GUID from "../../types/generic/GUID";
 import convertLegacyMap from "../../utils/map/convertLegacyMap";
-import { MAP_FORMAT_VER } from "../../types/generic/Constants";
-import { DEFAULT_GUID } from "../../utils/strings/generateGUID";
+import {MAP_FORMAT_VER} from "../../types/generic/Constants";
+import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
 
 export function deserializeMap(file: Blob) {
     return new Promise<LIMap>((resolve, reject) => {
@@ -84,12 +84,13 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
         // Read Asset
         const assetSlice = buffer.slice(position, position + assetLength);
         const assetType = parseAssetType(assetSlice);
-        const assetBlob = new Blob([assetSlice], { type: assetType });
+        const assetBlob = new Blob([assetSlice], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
         mapData.assets.push({
             id: guid,
-            type: assetType.startsWith("image/") ? "image" :
-                (assetType.startsWith("audio/") ? "audio" : "unknown"),
+            type: assetType === "image/ddsFormat" ? "image/ddsFormat" :
+                assetType.startsWith("image/") ? "image" :
+                    (assetType.startsWith("audio/") ? "audio" : "unknown"),
             blob: assetBlob,
             url: assetURL,
         });
@@ -111,6 +112,7 @@ function parseAssetType(asset: ArrayBuffer) {
     const isPNG = asset.byteLength > 8 && textDecoder.decode(asset.slice(1, 8)) === "PNG\r\n\x1a\n";
     const isJPEG = asset.byteLength > 2 && textDecoder.decode(asset.slice(0, 2)) === "\xff\xd8";
     const isWEBP = asset.byteLength > 11 && textDecoder.decode(asset.slice(8, 11)) === "WEBP";
+    const isDDS = asset.byteLength > 4 && textDecoder.decode(asset.slice(0, 4)) === "DDS ";
     const isWAV = asset.byteLength > 11 &&
         textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
         textDecoder.decode(asset.slice(8, 11)) === "WAV";
@@ -119,6 +121,7 @@ function parseAssetType(asset: ArrayBuffer) {
     if (isPNG) return "image/png";
     if (isJPEG) return "image/jpeg";
     if (isWEBP) return "image/webp";
+    if (isDDS) return "image/ddsFormat";
     if (isWAV) return "audio/wav";
     console.warn("Unknown asset strings");
     return "application/octet-stream";

@@ -36,13 +36,11 @@ export default function ImageUpload(props: ImageUploadProps) {
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
-        let isDDS = false;
-        openUploadDialog("image/*, .dds").then((file) => {
-            isDDS = file.name.toLowerCase().endsWith(".dds");   // TODO: Check file header for DDS
+        openUploadDialog("image/*, .ddsFormat").then((file) => {
             return duplicateBlob(file);
         }).then((blob) => {
             props.onUpload(createMapAsset({
-                type: isDDS ? "image/dds" : "image",
+                type: "image",
                 blob
             }));
         }).catch(toaster.warn);
