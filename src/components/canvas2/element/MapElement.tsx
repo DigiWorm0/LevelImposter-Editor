@@ -1,7 +1,6 @@
 import React from "react";
 import {MaybeGUID} from "../../../types/generic/GUID";
 import useElement from "../../../hooks/elements/useElements";
-import usePixiAsset from "../../../hooks/canvas/usePixiAsset";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "../../../types/generic/Constants";
@@ -16,6 +15,7 @@ import MapElementSelectionOutline from "./MapElementSelectionOutline";
 import useSelectElementID from "../../../hooks/selection/useSelectElementID";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
+import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -27,7 +27,7 @@ export default function MapElement(props: MapElementProps) {
     const childElementIDs = useElementChildIDs(props.elementID);
     const isSelected = useIsElementSelected(props.elementID);
     const [elem] = useElement(props.elementID);
-    const sprite = usePixiAsset(props.elementID);
+    const sprite = useElementSprite(props.elementID);
     const opacity = useElementOpacity(props.elementID);
     const selectElementID = useSelectElementID();
     const containerRef = useMapElementRef(props.elementID);

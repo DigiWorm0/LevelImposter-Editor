@@ -3,6 +3,7 @@ import GUID from "../../types/generic/GUID";
 import convertLegacyMap from "../../utils/map/convertLegacyMap";
 import {MAP_FORMAT_VER} from "../../types/generic/Constants";
 import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
+import parseAssetType from "../../utils/fileio/parseAssetType";
 
 export function deserializeMap(file: Blob) {
     return new Promise<LIMap>((resolve, reject) => {
@@ -88,9 +89,7 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
         const assetURL = URL.createObjectURL(assetBlob);
         mapData.assets.push({
             id: guid,
-            type: assetType === "image/ddsFormat" ? "image/ddsFormat" :
-                assetType.startsWith("image/") ? "image" :
-                    (assetType.startsWith("audio/") ? "audio" : "unknown"),
+            type: assetType,
             blob: assetBlob,
             url: assetURL,
         });
@@ -103,28 +102,6 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     repairMap(mapData);
 
     return mapData;
-}
-
-function parseAssetType(asset: ArrayBuffer) {
-    const textDecoder = new TextDecoder();
-
-    const isGIF = asset.byteLength > 3 && textDecoder.decode(asset.slice(0, 3)) === "GIF";
-    const isPNG = asset.byteLength > 8 && textDecoder.decode(asset.slice(1, 8)) === "PNG\r\n\x1a\n";
-    const isJPEG = asset.byteLength > 2 && textDecoder.decode(asset.slice(0, 2)) === "\xff\xd8";
-    const isWEBP = asset.byteLength > 11 && textDecoder.decode(asset.slice(8, 11)) === "WEBP";
-    const isDDS = asset.byteLength > 4 && textDecoder.decode(asset.slice(0, 4)) === "DDS ";
-    const isWAV = asset.byteLength > 11 &&
-        textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
-        textDecoder.decode(asset.slice(8, 11)) === "WAV";
-
-    if (isGIF) return "image/gif";
-    if (isPNG) return "image/png";
-    if (isJPEG) return "image/jpeg";
-    if (isWEBP) return "image/webp";
-    if (isDDS) return "image/ddsFormat";
-    if (isWAV) return "audio/wav";
-    console.warn("Unknown asset strings");
-    return "application/octet-stream";
 }
 
 function repairMap(map: LIMap) {
@@ -142,4 +119,10 @@ function repairMap(map: LIMap) {
     map.remixOf = map.remixOf || null;
     if (map.remixOf === undefined)
         map.remixOf = null;
+
+    // Find any layers at Z=maxInt and set them to Z=0
+    for (const elem of map.elements) {
+        if (elem.type === "util-layer" && elem.z >= Number.MAX_SAFE_INTEGER)
+            elem.z = 0;
+    }
 }

@@ -4,6 +4,7 @@ import Content from "./Content";
 import {HotkeysProvider} from "react-hotkeys-hook";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {SnackbarProvider} from "notistack";
+import React from "react";
 
 const darkTheme = createTheme({
     palette: {
@@ -20,6 +21,20 @@ const darkTheme = createTheme({
 });
 
 export default function App() {
+
+    // Hide splash screen
+    React.useEffect(() => {
+        const splash = document.getElementById("splashscreen");
+        if (!splash) return;
+
+        // Fade out the splash screen
+        splash.style.opacity = "0";
+
+        // Remove from DOM after fade out
+        setTimeout(() => {
+            splash.style.display = "none";
+        }, 2000);
+    }, []);
 
     // How many providers is too many providers?
 

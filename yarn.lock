@@ -1962,11 +1962,6 @@
   resolved "https://registry.yarnpkg.com/@types/react-reconciler/-/react-reconciler-0.28.9.tgz#d24b4864c384e770c83275b3fe73fba00269c83b"
   integrity sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==
 
-"@types/react-reconciler@^0.32.0":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@types/react-reconciler/-/react-reconciler-0.32.0.tgz#2152cd4f3fe4aa4f2cc235cff05075470da15b2c"
-  integrity sha512-+WHarFkJevhH1s655qeeSEf/yxFST0dVRsmSqUgxG8mMOKqycgYBv2wVpyubBY7MX8KiX5FQ03rNIwrxfm7Bmw==
-
 "@types/react-transition-group@^4.4.10":
   version "4.4.11"
   resolved "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-4.4.11.tgz"
@@ -3321,13 +3316,6 @@ gh-pages@^5.0.0:
     fs-extra "^8.1.0"
     globby "^6.1.0"
 
-gifler@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/gifler/-/gifler-0.1.0.tgz"
-  integrity sha512-izxtvqo2IKOPif6KEaTZkLWpKcqJpAZ8+6+xhp75DgsFmYpk0BMi5ILjIMyN6zurqbrrWZHvHJXtPA4nc+pPug==
-  dependencies:
-    omggif "1.0.x"
-
 gifuct-js@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/gifuct-js/-/gifuct-js-2.1.2.tgz#06152437ba30ec914db8398bd838bd0fbc8a6ecd"
@@ -3882,11 +3870,6 @@ keyv@^4.5.4:
   dependencies:
     json-buffer "3.0.1"
 
-konva@^9.3.22:
-  version "9.3.22"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-9.3.22.tgz#aa979c410127dda20bf0788ab70a414648c25a91"
-  integrity sha512-yQI5d1bmELlD/fowuyfOp9ff+oamg26WOCkyqUyc+nczD/lhRa3EvD2MZOoc4c1293TAubW9n34fSQLgSeEgSw==
-
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz"
@@ -4144,7 +4127,7 @@ object.assign@^4.1.4:
     has-symbols "^1.1.0"
     object-keys "^1.1.1"
 
-omggif@1.0.x, omggif@^1.0.10:
+omggif@^1.0.10:
   version "1.0.10"
   resolved "https://registry.npmjs.org/omggif/-/omggif-1.0.10.tgz"
   integrity sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==
@@ -4611,29 +4594,12 @@ react-json-tree@^0.18.0:
     "@types/lodash" "^4.14.191"
     react-base16-styling "^0.9.1"
 
-react-konva@^19.0.7:
-  version "19.0.7"
-  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-19.0.7.tgz#07cf6d8d828a3e2140b0d00f1971e2dac5cb7c7a"
-  integrity sha512-uYWCpSv4ajLymTh8S8fV9396fHDX7eDTWiLGkYlBuawud5MoNiuGjapPhA5Avdy/Jfh9P2KaWuNf4i9PI1F9HQ==
-  dependencies:
-    "@types/react-reconciler" "^0.32.0"
-    its-fine "^2.0.0"
-    react-reconciler "0.32.0"
-    scheduler "0.26.0"
-
 react-reconciler@0.31.0:
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.31.0.tgz#6b7390fe8fab59210daf523d7400943973de1458"
   integrity sha512-7Ob7Z+URmesIsIVRjnLoDGwBEG/tVitidU0nMsqX/eeJaLY89RISO/10ERe0MqmzuKUUB1rmY+h1itMbUHg9BQ==
   dependencies:
     scheduler "^0.25.0"
-
-react-reconciler@0.32.0:
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.32.0.tgz#a08bcd8c454a4cd839164d6e05926e30a7a7fac2"
-  integrity sha512-2NPMOzgTlG0ZWdIf3qG+dcbLSoAc/uLfOwckc3ofy5sSK0pLJqnQLpUFxvGcN2rlXSjnVtGeeFLNimCQEj5gOQ==
-  dependencies:
-    scheduler "^0.26.0"
 
 react-refresh@^0.14.2:
   version "0.14.2"
@@ -4856,15 +4822,15 @@ sax@>=0.6.0:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.4.1.tgz#44cc8988377f126304d3b3fc1010c733b929ef0f"
   integrity sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==
 
-scheduler@0.26.0, scheduler@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.26.0.tgz#4ce8a8c2a2095f13ea11bf9a445be50c555d6337"
-  integrity sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==
-
 scheduler@^0.25.0:
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.25.0.tgz#336cd9768e8cceebf52d3c80e3dcf5de23e7e015"
   integrity sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==
+
+scheduler@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.26.0.tgz#4ce8a8c2a2095f13ea11bf9a445be50c555d6337"
+  integrity sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==
 
 semver@^6.0.0, semver@^6.3.1:
   version "6.3.1"

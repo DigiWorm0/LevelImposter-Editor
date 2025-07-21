@@ -5,7 +5,7 @@ import generateGUID from "../../utils/strings/generateGUID";
 
 // Payload
 export interface CreateMapAssetPayload {
-    type: "image/ddsFormat" | "image" | "audio" | "unknown";
+    type: string;
     blob: Blob;
 }
 

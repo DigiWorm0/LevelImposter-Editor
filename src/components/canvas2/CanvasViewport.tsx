@@ -27,6 +27,11 @@ class ViewportWrapper extends BaseViewport {
         this.left = -window.innerWidth / 2;
         this.top = -window.innerHeight / 2;
 
+        // Handle resize events
+        app.renderer.on("resize", () => {
+            this.resize(app.renderer.width, app.renderer.height);
+        });
+
         // Set initial viewport state from primary store
         primaryStore.set(viewportAtom, this);
     }

@@ -1,6 +1,6 @@
-import {UNITY_SCALE} from "../../types/generic/Constants";
-import {MaybeGUID} from "../../types/generic/GUID";
-import useElement from "../../hooks/elements/useElements";
+import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {MaybeGUID} from "../../../types/generic/GUID";
+import useElement from "../../../hooks/elements/useElements";
 
 export interface SelectedObjectErrorProps {
     elementID?: MaybeGUID;

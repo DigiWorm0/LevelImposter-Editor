@@ -7,6 +7,7 @@ import {mapAssetsAtom} from "./useMapAssets";
 import {replaceMapAssetIDAtom} from "./useReplaceMapAssetID";
 import {Jimp} from "jimp";
 import writeDXT5Texture from "../../utils/dds/write/writeDXT5Texture";
+import {imageAtomFamily} from "../canvas/legacy/useImage";
 
 export const encodeAssetsAtom = atom(null, async (
     get,
@@ -19,12 +20,23 @@ export const encodeAssetsAtom = atom(null, async (
     if (!assets)
         return;
 
-    // Filter for Sprites
-    const spriteAssets = assets.filter(asset => asset.type === "image");
+    // Cache Canvas
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx)
+        throw new Error("Failed to get canvas context");
 
+    // Count Asset/Reference Count
     let assetCount = 0;
     let referenceCount = 0;
 
+    // Filter for Sprites
+    const spriteAssets = assets.filter(asset =>
+        asset.type.startsWith("image/") &&  // Only image types
+        asset.type !== "image/dds" &&       // Don't re-encode DDS
+        asset.type !== "image/gif");        // Don't re-encode animated GIFs
+
+    // Iterate Over Sprite Assets
     for (const asset of spriteAssets) {
         try {
             // Update Progress
@@ -33,33 +45,47 @@ export const encodeAssetsAtom = atom(null, async (
                 onProgress(index / spriteAssets.length, assetCount, referenceCount);
             }
 
+            // Get Image
+            const image = await get(imageAtomFamily(asset.url));
+
+            // Re-encode Image to PNG
+            // HACK: Fixes issue with Jimp throwing an error with invalid image data
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+            const bitmap = ctx.getImageData(0, 0, image.width, image.height).data;
+
             // Import into Jimp
-            const image = await Jimp.read(asset.url);
-            if (!image)
-                return;
+            const jimpImage = await Jimp.fromBitmap({
+                data: bitmap,
+                width: image.width,
+                height: image.height
+            });
 
             // Round dimensions to nearest multiple of 4
-            const width = Math.floor(image.width / 4) * 4;
-            const height = Math.floor(image.height / 4) * 4;
-            image.crop({w: width, h: height, x: 0, y: 0});
+            const width = Math.floor(jimpImage.width / 4) * 4;
+            const height = Math.floor(jimpImage.height / 4) * 4;
+            jimpImage.crop({w: width, h: height, x: 0, y: 0});
 
             // Flip vertically (fixes Unity's interpretation of DXT1 textures)
-            image.flip({vertical: true, horizontal: false});
+            jimpImage.flip({vertical: true, horizontal: false});
 
             // Check if image has semi-transparency
             // If it does, we will use DXT5 instead of DXT1
-            const hasSemiTransparency = image.bitmap.data.some((value, index) => {
+            const hasSemiTransparency = jimpImage.bitmap.data.some((value: number, index: number) => {
                 // Check alpha channel (4th byte in RGBA)
                 return index % 4 === 3 && value < 255 && value > 0;
             });
             const format = hasSemiTransparency ? "DXT5" : "DXT1";
+            console.log(`Encoding asset ${asset.id} as ${format} (${width}x${height})`);
 
             // Convert Image to DDS (DXT1)
             const newHeader = createDDSHeader(width, height, format);
             const headerData = writeDDSHeader(newHeader);
             const textureData = format === "DXT5" ?
-                writeDXT5Texture(newHeader, image.bitmap.data) :
-                writeDXT1Texture(newHeader, image.bitmap.data);
+                writeDXT5Texture(newHeader, jimpImage.bitmap.data) :
+                writeDXT1Texture(newHeader, jimpImage.bitmap.data);
             const buffer = Buffer.concat([headerData, textureData]);
 
             // Convert Buffer to Blob
@@ -68,7 +94,7 @@ export const encodeAssetsAtom = atom(null, async (
                 throw new Error("Error converting buffer to blob");
 
             // Create Map Asset
-            const newAsset = set(createMapAssetAtom, {type: "image/ddsFormat", blob});
+            const newAsset = set(createMapAssetAtom, {type: "image/dds", blob});
             if (!newAsset)
                 throw new Error("Error creating map asset");
 
@@ -79,7 +105,7 @@ export const encodeAssetsAtom = atom(null, async (
                 toID: newAsset.id
             });
         } catch (error) {
-            console.warn("Error compressing sprite:", error);
+            console.warn(`Error encoding asset ${asset.id}:`, error);
         }
     }
 });

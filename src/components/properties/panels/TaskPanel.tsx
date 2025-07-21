@@ -1,8 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
-import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
+import {useTranslation} from "react-i18next";
+import {useElementsOfType} from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import TaskTypeSelect from "../input/select/TaskTypeSelect";
 import MapError from "../util/MapError";
@@ -10,17 +9,16 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
-import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { Notes, Room, Workspaces } from "@mui/icons-material";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {Notes, Room, Workspaces} from "@mui/icons-material";
 
 export default function TaskPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const selectedType = useSelectedElemType();
     const roomElems = useElementsOfType("util-room");
     const taskElems = useElementsOfType("task-");
     const typeElems = useElementsOfType(selectedType ?? "");
     const parentID = useSelectedElemPropValue("parent");
-    const sprite = useSpriteOfType(selectedType);
 
     const parentRoom = React.useMemo(() => {
         return roomElems.find((e) => e.id === parentID);
@@ -42,11 +40,19 @@ export default function TaskPanel() {
     return (
         <>
             <PanelContainer title={t("task.title") as string}>
-                <Box sx={{ textAlign: "center", padding: 2 }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        textAlign: "center",
+                        padding: 2
+                    }}
+                >
                     <img
-                        style={{ maxHeight: 100, maxWidth: 100 }}
-                        src={sprite?.src}
-                        alt={selectedType}
+                        alt={t(`au.${selectedType}`) as string}
+                        style={{maxWidth: 100, maxHeight: 100}}
+                        src={`/sprites/${selectedType}.png`}
                     />
                     <Typography variant={"subtitle2"}>
                         {t(`au.${selectedType}`)}
@@ -59,12 +65,12 @@ export default function TaskPanel() {
                     useDefault={true}
                     label={t("task.room")}
                 />
-                <TaskTypeSelect />
+                <TaskTypeSelect/>
                 {selectedType !== "task-nodeswitch" && (
                     <ElementPropTextInput
                         prop="description"
                         name={t("task.description")}
-                        icon={<Notes />}
+                        icon={<Notes/>}
                     />
                 )}
 
@@ -72,7 +78,7 @@ export default function TaskPanel() {
                     <ElementPropNumericInput
                         name={t("task.towelPickupCount")}
                         prop={"towelPickupCount"}
-                        icon={<Workspaces />}
+                        icon={<Workspaces/>}
                         defaultValue={Math.floor(towelCount / 2)}
                         min={0}
                         stepSize={1}
@@ -88,13 +94,13 @@ export default function TaskPanel() {
             </MapError>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon={<Room />}
+                icon={<Room/>}
             >
                 {t("task.errorNoRoom")}
             </MapError>
             <MapError
                 isVisible={hasDuplicateTempTask}
-                icon={<Room />}
+                icon={<Room/>}
             >
                 {t("task.errorTemp")}
             </MapError>

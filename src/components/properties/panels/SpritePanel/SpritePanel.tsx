@@ -72,7 +72,6 @@ export default function SpritePanel() {
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
                     name={selectedType}
-                    defaultSpriteURL={`/sprites/${selectedType}.png`}
                     assetID={spriteID}
                     onUpload={onUpload}
                     onReset={onReset}

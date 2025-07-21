@@ -70,5 +70,5 @@ export default function CanvasGrid() {
                 scale={scale}
             />
         </pixiContainer>
-    )
+    );
 }

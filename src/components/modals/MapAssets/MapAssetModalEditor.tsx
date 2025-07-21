@@ -1,10 +1,10 @@
-import { MaybeGUID } from "../../../types/generic/GUID";
-import { Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
-import { CloudDownload, Delete, Image } from "@mui/icons-material";
+import {MaybeGUID} from "../../../types/generic/GUID";
+import {Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
+import {CloudDownload, Delete, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/strings/toSizeString";
 import React from "react";
-import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
 import useDeleteMapAsset from "../../../hooks/assets/useDeleteMapAsset";
@@ -22,7 +22,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
     const downloadAsset = useDownloadMapAsset();
 
     return (
-        <Box sx={{ flex: 1, padding: 2 }}>
+        <Box sx={{flex: 1, padding: 2}}>
             {asset && (
                 <Box
                     sx={{
@@ -33,7 +33,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                     }}
                 >
                     {/* Image */}
-                    {asset.type === "image" && (
+                    {asset.type.startsWith("image/") && (
                         <ImageAsset
                             assetID={props.id}
                             style={{
@@ -58,7 +58,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                         <TableBody>
                             <TableRow>
                                 <TableCell align={"center"}>ID</TableCell>
-                                <TableCell align={"center"}><ExpandText text={asset.id} /></TableCell>
+                                <TableCell align={"center"}><ExpandText text={asset.id}/></TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell align={"center"}>Type</TableCell>
@@ -72,16 +72,16 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                     </Table>
 
                     {/* Actions */}
-                    <ButtonGroup sx={{ mt: 1 }}>
+                    <ButtonGroup sx={{mt: 1}}>
                         <Button
-                            onClick={() => downloadAsset({ id: props.id })}
+                            onClick={() => downloadAsset({id: props.id})}
                             variant={"outlined"}
                             color={"success"}
-                            endIcon={<CloudDownload />}
+                            endIcon={<CloudDownload/>}
                         >
                             Download
                         </Button>
-                        <ReplaceAssetButton assetID={props.id} />
+                        <ReplaceAssetButton assetID={props.id}/>
                         <Button
                             onClick={() => {
                                 deleteAsset(props.id);
@@ -89,7 +89,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                             }}
                             variant={"outlined"}
                             color={"error"}
-                            endIcon={<Delete />}
+                            endIcon={<Delete/>}
                         >
                             Delete
                         </Button>
@@ -111,7 +111,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                     }}
                 >
                     <Image
-                        sx={{ fontSize: 64 }}
+                        sx={{fontSize: 64}}
                         color={"disabled"}
                     />
                     <Typography

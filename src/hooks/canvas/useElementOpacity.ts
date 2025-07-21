@@ -19,7 +19,7 @@ export default function useElementOpacity(elementID: MaybeGUID): number {
     const [elem] = useElement(elementID);
     const animTargets = useSelectedElemPropValue("animTargets");
 
-    if (!elem || elem.type === "util-layer")
+    if (!elem)
         return 0;
 
     const isAnimTarget = animTargets?.some(t => t.id === elementID);

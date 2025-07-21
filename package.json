@@ -22,7 +22,6 @@
     "@mui/material": "^5.15.17",
     "@pixi/react": "^8.0.2",
     "firebase": "^10.13.0",
-    "gifler": "^0.1.0",
     "i18next": "^23.2.3",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.1",
@@ -30,7 +29,6 @@
     "jotai": "^2.8.0",
     "jotai-devtools": "^0.7.0",
     "jotai-optics": "^0.3.0",
-    "konva": "^9.3.22",
     "notistack": "^3.0.1",
     "optics-ts": "^2.4.0",
     "pixi-viewport": "^6.0.3",
@@ -42,8 +40,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-helmet": "^6.1.0",
     "react-hotkeys-hook": "^5.1.0",
-    "react-i18next": "^15.6.0",
-    "react-konva": "^19.0.7"
+    "react-i18next": "^15.6.0"
   },
   "browserslist": {
     "production": [

@@ -1,10 +1,10 @@
-import {Sprite} from "pixi.js";
+import {Texture} from "pixi.js";
 import useViewportScale from "../../../hooks/canvas/useViewportScale";
 
 export interface MapElementSelectionOutlineProps {
     isSelected?: boolean;
     isHovering?: boolean;
-    sprite: Sprite | null;
+    sprite: Texture | null;
 }
 
 export default function MapElementSelectionOutline(props: MapElementSelectionOutlineProps) {

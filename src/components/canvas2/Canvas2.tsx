@@ -1,7 +1,6 @@
 import {Application, extend} from "@pixi/react";
 import {BitmapText, Container, CullerPlugin, extensions, Graphics, Sprite, Text} from "pixi.js";
 import React from "react";
-import useWindowSize from "../../hooks/canvas/useWindowSize";
 import "../../pixi.d.ts";
 import CanvasViewport from "./CanvasViewport";
 import CanvasGrid from "./grid/CanvasGrid";
@@ -22,12 +21,10 @@ extend({
 extensions.add(CullerPlugin);
 
 export default function Canvas2() {
-    const [windowWidth, windowHeight] = useWindowSize();
 
     return (
         <Application
-            width={windowWidth}
-            height={windowHeight}
+            resizeTo={window}
             backgroundAlpha={0}
             antialias={true}
         >

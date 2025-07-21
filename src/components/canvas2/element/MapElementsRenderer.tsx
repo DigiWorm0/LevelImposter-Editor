@@ -1,9 +1,9 @@
 import MapElement from "./MapElement";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
-import MapElementError from "../../canvas/MapElementError";
+import MapElementError from "./MapElementError";
 import ErrorBoundary from "../../utils/ErrorBoundary";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
-import MapElementOverlays from "../overlays/MapElementOverlays";
+import MapElementOverlays from "./MapElementOverlays";
 
 export default function MapElementsRenderer() {
     // Element IDs that have no parent element
@@ -34,5 +34,5 @@ export default function MapElementsRenderer() {
                 </ErrorBoundary>
             ))}
         </pixiContainer>
-    )
+    );
 }

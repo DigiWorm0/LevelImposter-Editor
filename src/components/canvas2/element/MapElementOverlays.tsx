@@ -1,15 +1,23 @@
 import {MaybeGUID} from "../../../types/generic/GUID";
-import RoomOverlay from "./RoomOverlay";
-import ConsoleOverlay from "./ConsoleOverlay";
-import CameraOverlay from "./CameraOverlay";
-import DisplayOverlay from "./DisplayOverlay";
-import LadderOverlay from "./LadderOverlay";
-import ConnectionOverlay from "./ConnectionOverlay";
-import SporeOverlay from "./SporeOverlay";
+import RoomOverlay from "../overlays/RoomOverlay";
+import ConsoleOverlay from "../overlays/ConsoleOverlay";
+import CameraOverlay from "../overlays/CameraOverlay";
+import DisplayOverlay from "../overlays/DisplayOverlay";
+import LadderOverlay from "../overlays/LadderOverlay";
+import ConnectionOverlay from "../overlays/ConnectionOverlay";
+import SporeOverlay from "../overlays/SporeOverlay";
 import React from "react";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useViewport from "../../../hooks/canvas/useViewport";
+import PlayerZOverlay from "../overlays/PlayerZOverlay";
+import PlatformOverlay from "../overlays/PlatformOverlay";
+import SpawnOverlay from "../overlays/SpawnOverlay";
+import MinimapOverlay from "../overlays/MinimapOverlay";
+import FloatingOverlay from "../overlays/FloatingOverlay";
+import ColliderOverlay from "../overlays/ColliderOverlay";
+import AnimationOverlay from "../overlays/AnimationOverlay";
+import StarfieldOverlay from "../overlays/starfield/StarfieldOverlay";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -37,12 +45,20 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             y={(elementPosition.y - viewportPosition.y) / viewport.scale.y}
         >
             <RoomOverlay elementID={props.elementID}/>
+            <AnimationOverlay elementID={props.elementID}/>
             {isSelected && <ConsoleOverlay elementID={props.elementID}/>}
             {isSelected && <CameraOverlay elementID={props.elementID}/>}
             {isSelected && <DisplayOverlay elementID={props.elementID}/>}
             {isSelected && <LadderOverlay elementID={props.elementID}/>}
+            {isSelected && <PlatformOverlay elementID={props.elementID}/>}
             {isSelected && <ConnectionOverlay elementID={props.elementID}/>}
             {isSelected && <SporeOverlay elementID={props.elementID}/>}
+            {isSelected && <PlayerZOverlay elementID={props.elementID}/>}
+            {isSelected && <SpawnOverlay elementID={props.elementID}/>}
+            {isSelected && <MinimapOverlay elementID={props.elementID}/>}
+            {isSelected && <FloatingOverlay elementID={props.elementID}/>}
+            {isSelected && <ColliderOverlay elementID={props.elementID}/>}
+            {isSelected && <StarfieldOverlay elementID={props.elementID}/>}
         </pixiContainer>
-    )
+    );
 }

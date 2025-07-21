@@ -1,4 +1,4 @@
-import {calculateColorIndex, getMaxColor, getMinColor} from "./writeDXT1Texture";
+import {calculateColorIndex, getMaxColor, getMinColor, readBlockFromBitmap} from "./writeDXT1Texture";
 import {DDSHeader} from "../../../types/generic/DDSHeader";
 
 const BLOCK_SIZE = 16;
@@ -65,31 +65,7 @@ function encodeBlock(
     y: number): void {
 
     // Initialize a 4x4 array to hold the colors of the pixels in the block
-    const colors: number[][] = [];
-
-    // Read the 4x4 block of pixels from the bitmap
-    for (let yOffset = 0; yOffset < 4; yOffset++) {
-        for (let xOffset = 0; xOffset < 4; xOffset++) {
-
-            // Calculate the pixel index in the bitmap buffer
-            const pixelIndex = ((y + yOffset) * width + (x + xOffset)) * 4;
-
-            // Check out of bounds
-            if (pixelIndex >= bitmapBuffer.length || pixelIndex < 0) {
-                colors.push([0, 0, 0, 0]);
-                continue;
-            }
-
-            // Read the RGBA values from the bitmap buffer
-            colors.push([
-                bitmapBuffer[pixelIndex],     // R
-                bitmapBuffer[pixelIndex + 1], // G
-                bitmapBuffer[pixelIndex + 2], // B
-                bitmapBuffer[pixelIndex + 3]   // A
-            ]);
-        }
-    }
-
+    const colors = readBlockFromBitmap(bitmapBuffer, width, x, y);
 
     // Calculate min/max color
     const color0 = getMinColor(colors, false);
@@ -118,7 +94,7 @@ function encodeBlock(
     for (let j = 0; j < 4; j++) {
         for (let i = 0; i < 4; i++) {
 
-            // Calculate the pixel index in the 4x4 block
+            // Calculate the 2-bit pixel index closest to the pixel color
             const pixelColor = colors[j * 4 + i];
             const colorCode = calculateColorIndex(
                 pixelColor,
@@ -127,6 +103,7 @@ function encodeBlock(
                 color0Encoded === color1Encoded,
                 false);
 
+            // Calculate the 3-bit alpha index closest to the alpha value
             const alphaCode = calculateAlphaIndex(
                 pixelColor,
                 color0,
@@ -135,7 +112,6 @@ function encodeBlock(
 
             colorCodes.push(colorCode);
             alphaCodes.push(alphaCode);
-            // alphaCodes.push(7);
         }
     }
 
@@ -164,6 +140,10 @@ function encodeBlock(
     blockBuffer.writeUInt16LE(colorIndex & 0xFFFF, 14);
 }
 
+/**
+ * Packs an array of 16 3-bit values into a Uint8Array
+ * @param values - An array of 16 values, each in the range [0, 7].
+ */
 function pack3BitValues(values: number[]): Uint8Array {
     const buffer = new Uint8Array(6);
     let bitPos = 0;
