@@ -2,7 +2,7 @@ import FlexNumericInput from "../util/FlexNumericInput";
 import InputGroup from "../input/InputGroup";
 import React from "react";
 import useCollider from "../../../hooks/elements/colliders/useCollider";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../../types/common/GUID";
 
 export interface ColliderPointsEditorPanelProps {
     colliderID: MaybeGUID;

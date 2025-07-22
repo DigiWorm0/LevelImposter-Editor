@@ -1,4 +1,4 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_CAM_ASPECT,
@@ -6,7 +6,7 @@ import {
     DEFAULT_DISPLAY_HEIGHT,
     DEFAULT_DISPLAY_WIDTH,
     UNITY_SCALE
-} from "../../../types/generic/Constants";
+} from "../../../types/amongus/Constants";
 
 export interface CameraOverlayProps {
     elementID: GUID;
@@ -54,5 +54,5 @@ export default function CameraOverlay(props: CameraOverlayProps) {
                     .stroke({color: "green", width: 5, alignment: 0.5});
             }}
         />
-    )
+    );
 }

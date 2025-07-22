@@ -1,7 +1,7 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 interface RoomOverlayProps {
     elementID: GUID;
@@ -41,5 +41,5 @@ export default function RoomOverlay(props: RoomOverlayProps) {
                 fontSize: UNITY_SCALE,
             }}
         />
-    )
+    );
 }

@@ -1,7 +1,7 @@
-import { atom, useAtomValue } from "jotai";
-import { elementsAtom } from "../map/useMap";
-import GUID from "../../types/generic/GUID";
-import compareArrays from "../../utils/math/compareArrays";
+import {atom, useAtomValue} from "jotai";
+import {elementsAtom} from "../map/useMap";
+import GUID from "../../types/common/GUID";
+import compareArrays from "../../utils/common/compareArrays";
 
 let prevElementIDs: GUID[] = [];
 export const elementIDsAtom = atom((get) => {

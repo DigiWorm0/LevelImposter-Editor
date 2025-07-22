@@ -1,6 +1,6 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "../../../types/generic/Constants";
+import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "../../../types/amongus/Constants";
 
 export interface MinimapOverlayProps {
     elementID: GUID;
@@ -30,5 +30,5 @@ export default function MinimapOverlay(props: MinimapOverlayProps) {
                     .stroke({color: "green", width: 5, alignment: 0.5});
             }}
         />
-    )
+    );
 }

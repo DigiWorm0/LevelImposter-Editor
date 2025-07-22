@@ -3,7 +3,7 @@ import {useIsSelectedCollider} from "../elements/colliders/useSelectedCollider";
 import {useSettingsValue} from "../useSettings";
 import useElement from "../elements/useElements";
 import {useSelectedElemPropValue} from "../elements/useSelectedElemProperty";
-import {MaybeGUID} from "../../types/generic/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import useIsElementSelected from "../elements/useIsElementSelected";
 
 const SECONDARY_RENDER_TYPES = [

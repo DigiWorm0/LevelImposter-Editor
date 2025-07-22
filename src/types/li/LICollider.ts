@@ -1,12 +1,10 @@
-import GUID from "../generic/GUID";
-import Point from "../generic/Point";
+import GUID from "../common/GUID";
+import Vector2 from "../transform/Vector2";
 
 export default interface LICollider {
     id: GUID;
     name?: string;
     blocksLight: boolean;
     isSolid: boolean;
-    points: Point[];
+    points: Vector2[];
 }
-
-export type MaybeLICollider = LICollider | undefined;

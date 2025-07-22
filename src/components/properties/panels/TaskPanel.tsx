@@ -11,6 +11,7 @@ import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
 import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import {Notes, Room, Workspaces} from "@mui/icons-material";
+import TypePreviewImage from "../util/TypePreviewImage";
 
 export default function TaskPanel() {
     const {t} = useTranslation();
@@ -49,11 +50,7 @@ export default function TaskPanel() {
                         padding: 2
                     }}
                 >
-                    <img
-                        alt={t(`au.${selectedType}`) as string}
-                        style={{maxWidth: 100, maxHeight: 100}}
-                        src={`/sprites/${selectedType}.png`}
-                    />
+                    <TypePreviewImage type={selectedType}/>
                     <Typography variant={"subtitle2"}>
                         {t(`au.${selectedType}`)}
                     </Typography>

@@ -1,6 +1,6 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE} from "../../../types/generic/Constants";
+import {DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE} from "../../../types/amongus/Constants";
 
 export interface SporeOverlayProps {
     elementID: GUID;

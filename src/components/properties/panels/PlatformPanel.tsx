@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET} from "../../../types/generic/Constants";
+import {DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET} from "../../../types/amongus/Constants";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";

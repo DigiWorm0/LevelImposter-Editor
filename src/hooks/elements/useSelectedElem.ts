@@ -1,12 +1,12 @@
 import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/generic/GUID";
-import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
+import {MaybeGUID} from "../../types/common/GUID";
+import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
 import {MaybeLIElement} from "../../types/li/LIElement";
 import LIProperties from "../../types/li/LIProperties";
 import {saveHistoryAtom} from "../map/history/useHistory";
 import {elementsAtom} from "../map/useMap";
-import {elementFamilyAtom} from "./useElements";
+import {elementAtomFamily} from "./useElements";
 import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
 import {isElementSelectedAtomFamily} from "./useIsElementSelected";
 
@@ -26,7 +26,7 @@ export const selectedElementIDAtom = atom((get) => {
 export const selectedElementAtom = atom(
     (get) => {
         const id = get(selectedElementIDAtom);
-        const elemAtom = elementFamilyAtom(id);
+        const elemAtom = elementAtomFamily(id);
         return get(elemAtom);
     },
     (get, set, elem: MaybeLIElement) => {
@@ -63,7 +63,7 @@ export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
                 return false;
             if (get(isElementSelectedAtomFamily(childID)))
                 return true;
-            const parentID = get(elementFamilyAtom(childID))?.parentID;
+            const parentID = get(elementAtomFamily(childID))?.parentID;
             return searchParent(parentID);
         };
         return searchParent(id);

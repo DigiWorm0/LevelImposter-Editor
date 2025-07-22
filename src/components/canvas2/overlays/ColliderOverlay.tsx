@@ -1,7 +1,7 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 export interface ColliderOverlayProps {
     elementID: GUID;

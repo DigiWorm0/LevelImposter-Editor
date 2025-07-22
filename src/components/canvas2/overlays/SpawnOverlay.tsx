@@ -1,6 +1,6 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "../../../types/generic/Constants";
+import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 
 export interface SpawnOverlayProps {
@@ -38,5 +38,5 @@ export default function SpawnOverlay(props: SpawnOverlayProps) {
                 );
             })}
         </pixiContainer>
-    )
+    );
 }

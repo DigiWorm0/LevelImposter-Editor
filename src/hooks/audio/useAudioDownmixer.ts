@@ -1,7 +1,7 @@
 import WavAudioEncoder from "../../lib/WavAudioEncoder";
-import { settingsAtom } from "../useSettings";
+import {settingsAtom} from "../useSettings";
 import duplicateBlob from "../../utils/fileio/duplicateBlob";
-import { atom, useSetAtom } from "jotai";
+import {atom, useSetAtom} from "jotai";
 
 // Constants
 const TARGET_CHANNELS = 1;
@@ -10,7 +10,7 @@ const TARGET_SAMPLE_RATE = 16000; // 44100
 export const audioDownmixerAtom = atom(null, async (get, _, soundData: Blob) => {
 
     // If Audio Downmix is disabled, just duplicate the blob
-    const { isAudioDownmixEnabled } = get(settingsAtom);
+    const {isAudioDownmixEnabled} = get(settingsAtom);
     if (!isAudioDownmixEnabled)
         return await duplicateBlob(soundData);
 
@@ -26,9 +26,7 @@ export const audioDownmixerAtom = atom(null, async (get, _, soundData: Blob) => 
     });
 
     // Decode ArrayBuffer >>> AudioContext
-    const buffer = await new Promise<AudioBuffer>((resolve, reject) => {
-        audioCtx.decodeAudioData(audioData, resolve, reject);
-    });
+    const buffer = await audioCtx.decodeAudioData(audioData);
 
     // Create OfflineAudioContext w/ Parameters
     const offlineCtx = new OfflineAudioContext(

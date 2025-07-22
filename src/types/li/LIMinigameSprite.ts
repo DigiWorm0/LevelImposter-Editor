@@ -1,4 +1,4 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 
 export default interface LIMinigameSprite {
     id: GUID;
@@ -10,5 +10,3 @@ export default interface LIMinigameSprite {
      */
     spriteData?: string;
 }
-
-export type MaybeLIMinigameSprite = LIMinigameSprite | undefined;

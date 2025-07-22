@@ -1,6 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
+import {useTranslation} from "react-i18next";
+import {DEFAULT_VOLUME} from "../../../types/amongus/Constants";
 import generateGUID from "../../../utils/strings/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import SoundPresetSelect from "../input/select/SoundPresetSelect";
@@ -10,10 +10,10 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import FlexNumericInput from "../util/FlexNumericInput";
-import { PriorityHigh, VolumeUp } from "@mui/icons-material";
+import {PriorityHigh, VolumeUp} from "@mui/icons-material";
 
 export default function StepSoundPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isStepSound = useIsSelectedElemType("util-sound2");
     const [_sounds, setSounds] = useSelectedElemProp("sounds");
     const [selectedSoundID, setSelectedSoundID] = React.useState<string | undefined>(undefined);
@@ -29,19 +29,19 @@ export default function StepSoundPanel() {
                 <ElementPropNumericInput
                     name={t("stepSound.priority")}
                     prop={"soundPriority"}
-                    icon={<PriorityHigh />}
+                    icon={<PriorityHigh/>}
                     defaultValue={0}
                     min={0}
                     max={1000}
                     stepSize={10}
                 />
-                <SoundPresetSelect />
+                <SoundPresetSelect/>
                 <FlexNumericInput
                     value={sounds.length}
                     inputProps={{
                         label: t("stepSound.soundCount"),
                         fullWidth: true,
-                        sx: { mt: 1, mb: 1 }
+                        sx: {mt: 1, mb: 1}
                     }}
                     onChange={(value) => {
                         // Expand the array
@@ -66,8 +66,8 @@ export default function StepSoundPanel() {
                 <DropdownList
                     elements={sounds?.map((sound, index) => ({
                         id: sound.id,
-                        name: t("stepSound.default", { index: index + 1 }) as string,
-                        icon: <VolumeUp />
+                        name: t("stepSound.default", {index: index + 1}) as string,
+                        icon: <VolumeUp/>
                     })) ?? []}
                     selectedID={selectedSoundID}
                     onSelectID={setSelectedSoundID}

@@ -3,7 +3,7 @@ import {createMapAssetAtom} from "../../assets/useCreateMapAsset";
 import {selectedElementAtom} from "../../elements/useSelectedElem";
 import {mapPropsAtom} from "../../map/useMap";
 import {spriteAtomFamily} from "../legacy/useSprite";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 export const autoCropSpriteAtom = atom(null, async (get, set) => {
 

@@ -1,6 +1,6 @@
 import {atom, useSetAtom} from "jotai";
 import {dragStateAtom} from "./useDragState";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import {getMapElementRef} from "../useMapElementRef";
 import {elementsAtom} from "../../map/useMap";
 import {saveHistoryAtom} from "../../map/history/useHistory";

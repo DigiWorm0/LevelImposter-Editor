@@ -5,7 +5,7 @@ import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import MapAsset from "../../../types/li/MapAsset";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";

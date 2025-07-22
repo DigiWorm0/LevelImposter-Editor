@@ -24,7 +24,7 @@ export default function GlobalHooks() {
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
             e.preventDefault();
-            e.returnValue = "";
+            e.returnValue = ""; // This is necessary for some browsers to show the confirmation dialog
         };
 
         if (!isEmbedded)

@@ -1,11 +1,11 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_LADDER_HEIGHTS,
     DEFAULT_LADDER_OFFSET,
     LADDER_RADIUS,
     UNITY_SCALE
-} from "../../../types/generic/Constants";
+} from "../../../types/amongus/Constants";
 
 export interface LadderOverlayProps {
     elementID: GUID;

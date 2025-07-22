@@ -54,7 +54,7 @@ export default function useViewportPosition() {
         // Cleanup listener on unmount
         return () => {
             viewport.off("moved", onMoved);
-        }
+        };
     }, [viewport]);
 
     return viewportPosition;

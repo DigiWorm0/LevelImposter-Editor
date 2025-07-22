@@ -1,7 +1,7 @@
 import React from "react";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "../../../types/generic/Constants";
+import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 import {useTick} from "@pixi/react";
 import {Sprite} from "pixi.js";
@@ -58,5 +58,5 @@ export default function FloatingOverlay(props: FloatingOverlayProps) {
                 }}
             />
         </>
-    )
+    );
 }

@@ -1,11 +1,11 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import useAnimPropertyValue from "../../../hooks/timeline/useAnimPropertyValue";
 import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 import useAnimTarget from "../../../hooks/timeline/useAnimTarget";
-import degToRad from "../../../utils/canvas/degToRad";
+import degToRad from "../../../utils/common/degToRad";
 
 export interface AnimationOverlayProps {
     elementID: GUID;

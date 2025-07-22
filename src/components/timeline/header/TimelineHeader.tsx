@@ -9,9 +9,7 @@ import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {timelineScaleAtom, useSetTimelineScale} from "../../../hooks/timeline/useTimelineScale";
 import {timelineOffsetAtom, useSetTimelineOffset} from "../../../hooks/timeline/useTimelineOffset";
-import Konva from "konva";
 import primaryStore from "../../../hooks/primaryStore";
-import lerp from "../../../utils/math/lerp";
 import {useTranslation} from "react-i18next";
 
 const ANIM_DURATION = 500;
@@ -30,28 +28,29 @@ export default function TimelineHeader() {
         const startScale = primaryStore.get(timelineScaleAtom);
         const startOffset = primaryStore.get(timelineOffsetAtom);
 
-        const anim = new Konva.Animation((frame) => {
-            if (!frame)
-                return;
-
-            // Calculate t
-            const t = frame.time / ANIM_DURATION;
-            const curvedT = Math.sin(t * Math.PI / 2);
-
-            // Stop
-            if (t >= 1) {
-                setScale(ANIM_SCALE);
-                setOffset(ANIM_OFFSET);
-                anim.stop();
-                return;
-            }
-
-            // Set scale and offset
-            setScale(lerp(startScale, ANIM_SCALE, curvedT));
-            setOffset(lerp(startOffset, ANIM_OFFSET, curvedT));
-        });
-
-        anim.start();
+        // TODO: Fix me
+        // const anim = new Konva.Animation((frame) => {
+        //     if (!frame)
+        //         return;
+        //
+        //     // Calculate t
+        //     const t = frame.time / ANIM_DURATION;
+        //     const curvedT = Math.sin(t * Math.PI / 2);
+        //
+        //     // Stop
+        //     if (t >= 1) {
+        //         setScale(ANIM_SCALE);
+        //         setOffset(ANIM_OFFSET);
+        //         anim.stop();
+        //         return;
+        //     }
+        //
+        //     // Set scale and offset
+        //     setScale(lerp(startScale, ANIM_SCALE, curvedT));
+        //     setOffset(lerp(startOffset, ANIM_OFFSET, curvedT));
+        // });
+        //
+        // anim.start();
     };
 
     return (

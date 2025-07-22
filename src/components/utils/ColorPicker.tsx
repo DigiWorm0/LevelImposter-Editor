@@ -1,8 +1,8 @@
 import React from "react";
 import LIColor from "../../types/li/LIColor";
-import { Button, Popover } from "@mui/material";
-import { Palette } from "@mui/icons-material";
-import { RgbaColorPicker } from "react-colorful";
+import {Button, Popover} from "@mui/material";
+import {Palette} from "@mui/icons-material";
+import {RgbaColorPicker} from "react-colorful";
 
 interface ColorPickerProps {
     color: LIColor,
@@ -32,8 +32,8 @@ export default function ColorPicker(props: ColorPickerProps) {
             <Popover
                 open={buttonElement !== null}
                 onClose={() => setButtonElement(null)}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+                transformOrigin={{vertical: "top", horizontal: "center"}}
                 anchorEl={buttonElement}
             >
                 <RgbaColorPicker
@@ -45,10 +45,10 @@ export default function ColorPicker(props: ColorPickerProps) {
                 size={"small"}
                 color={props.intent ?? "primary"}
                 style={props.style}
-                onClick={(e) => setButtonElement(e.currentTarget)}
-                endIcon={props.title ? <Palette /> : null}
+                onClick={(e: Event) => setButtonElement(e.currentTarget as HTMLButtonElement)}
+                endIcon={props.title ? <Palette/> : null}
             >
-                {props.title ? props.title : <Palette />}
+                {props.title ? props.title : <Palette/>}
             </Button>
         </>
     );

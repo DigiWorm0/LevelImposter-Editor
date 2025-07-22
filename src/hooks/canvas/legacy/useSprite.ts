@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import {spriteURLAtomFamily} from "../sprite/useSpriteURL";
 import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";

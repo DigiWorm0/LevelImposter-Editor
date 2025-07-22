@@ -2,8 +2,8 @@
 import {atom} from "jotai/index";
 import {mapAssetsAtom} from "./useMapAssets";
 import {useSetAtom} from "jotai";
-import {compareUInt8Arrays} from "../../utils/compareBlobs";
-import {MaybeGUID} from "../../types/generic/GUID";
+import {compareUInt8Arrays} from "../../utils/common/compareBlobs";
+import {MaybeGUID} from "../../types/common/GUID";
 import {replaceMapAssetIDAtom} from "./useReplaceMapAssetID";
 import {deleteMapAssetAtom} from "./useDeleteMapAsset";
 

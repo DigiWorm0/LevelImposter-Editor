@@ -1,4 +1,4 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 
 export default interface MapAsset {
     id: GUID;
@@ -7,4 +7,4 @@ export default interface MapAsset {
     blob: Blob;
 }
 
-export type MaybeMapAsset = MapAsset | undefined;
+// export type MaybeMapAsset = MapAsset | undefined;

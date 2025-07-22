@@ -1,10 +1,10 @@
 import {atom, useSetAtom} from "jotai";
 import {viewportAtom} from "../useViewport";
-import {elementFamilyAtom} from "../../elements/useElements";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {elementAtomFamily} from "../../elements/useElements";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import {DragOffset, dragStateAtom} from "./useDragState";
 import {selectedElementIDsAtom} from "../../selection/useSelectedElementIDs";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 
 export interface StartDragData {
     onClick: () => void;
@@ -36,7 +36,7 @@ export const startDragAtom = atom(null, (get, set, data: StartDragData) => {
     // Get drag offsets for each selected element
     const dragOffsets: DragOffset[] = [];
     for (const elementID of elementIDs) {
-        const element = get(elementFamilyAtom(elementID));
+        const element = get(elementAtomFamily(elementID));
         if (!element || !elementID)
             continue;
 

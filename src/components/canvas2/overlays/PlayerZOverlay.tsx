@@ -1,6 +1,6 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
-import {PLAYER_POS, UNITY_SCALE} from "../../../types/generic/Constants";
+import {PLAYER_POS, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 

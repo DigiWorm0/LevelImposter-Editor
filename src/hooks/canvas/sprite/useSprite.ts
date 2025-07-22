@@ -27,6 +27,7 @@ export const spriteAtomFamily = atomFamily((url: string | undefined) => {
 
             // Flip the texture vertically if it's a DDS format (using UV coordinates)
             if (isDDS) {
+                // @ts-expect-error Manually editing texture UVs to fix DDS flipping issue
                 texture.uvs = {
                     x0: 0, y0: 1,
                     x1: 1, y1: 1,

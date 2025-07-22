@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { atom } from "jotai/index";
-import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
+import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
 import LIElement from "../../types/li/LIElement";
 import { saveHistoryAtom } from "../map/history/useHistory";
 import { elementsAtom } from "../map/useMap";

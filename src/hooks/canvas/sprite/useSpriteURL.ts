@@ -1,16 +1,16 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
 import AUElementDB from "../../../db/AUElementDB";
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import {mapAssetsAtomFamily} from "../../assets/useMapAsset";
-import {elementFamilyAtom} from "../../elements/useElements";
+import {elementAtomFamily} from "../../elements/useElements";
 
 // TODO: Put this in constants
 const DEFAULT_URL = "/sprites/util-unknown.png";
 
 export const spriteURLAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom(get => {
-        const elem = get(elementFamilyAtom(id));
+        const elem = get(elementAtomFamily(id));
         const asset = get(mapAssetsAtomFamily(elem?.properties.spriteID));
 
         // If image asset found, return asset URL

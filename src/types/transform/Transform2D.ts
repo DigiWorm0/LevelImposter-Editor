@@ -1,6 +1,6 @@
-import Vector3 from "../generic/Vector3";
-import Vector2 from "../generic/Vector2";
-import GUID from "../generic/GUID";
+import Vector3 from "./Vector3";
+import Vector2 from "./Vector2";
+import GUID from "../common/GUID";
 
 export default interface Transform2D {
     elementID: GUID;

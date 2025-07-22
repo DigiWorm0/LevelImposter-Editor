@@ -1,11 +1,11 @@
-import GUID from "../../../../types/generic/GUID";
+import GUID from "../../../../types/common/GUID";
 import {useElementValue} from "../../../../hooks/elements/useElements";
 import {
     DEFAULT_STARFIELD_COUNT,
     DEFAULT_STARFIELD_HEIGHT,
     DEFAULT_STARFIELD_LENGTH,
     UNITY_SCALE
-} from "../../../../types/generic/Constants";
+} from "../../../../types/amongus/Constants";
 import StarfieldOverlayStar from "./StarfieldOverlayStar";
 
 export interface StarfieldOverlayProps {

@@ -1,5 +1,5 @@
 import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/common/GUID";
 import { mapAssetsAtom } from "./useMapAssets";
 import { replaceMapAssetIDAtom } from "./useReplaceMapAssetID";
 import { saveHistoryAtom } from "../map/history/useHistory";

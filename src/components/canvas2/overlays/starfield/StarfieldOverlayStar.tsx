@@ -8,7 +8,7 @@ import {
     DEFAULT_STARFIELD_MAXSPEED,
     DEFAULT_STARFIELD_MINSPEED,
     UNITY_SCALE
-} from "../../../../types/generic/Constants";
+} from "../../../../types/amongus/Constants";
 import {useTick} from "@pixi/react";
 import {StarfieldOverlayProps} from "./StarfieldOverlay";
 

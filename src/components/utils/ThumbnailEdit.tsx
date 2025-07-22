@@ -1,11 +1,11 @@
-import { THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH } from "../../types/generic/Constants";
+import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "../../types/amongus/Constants";
 import React from "react";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
-import { useTranslation } from "react-i18next";
-import { useMapValue } from "../../hooks/map/useMap";
-import { Box, Button, ButtonGroup, CardMedia, Typography } from "@mui/material";
-import { CloudUpload, Refresh } from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
+import {useMapValue} from "../../hooks/map/useMap";
+import {Box, Button, ButtonGroup, CardMedia, Typography} from "@mui/material";
+import {CloudUpload, Refresh} from "@mui/icons-material";
 import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";
 import useMapThumbnailURL from "../../hooks/firebase/publish/useMapThumbnailURL";
 
@@ -14,7 +14,7 @@ export default function ThumbnailEdit() {
     const toaster = useToaster();
     const [thumbnail, setThumbnail] = useMapThumbnail();
     const thumbnailURL = useMapThumbnailURL();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     /**
      * Set default thumbnail.
@@ -97,25 +97,22 @@ export default function ThumbnailEdit() {
             >
                 {`${THUMBNAIL_WIDTH}x${THUMBNAIL_HEIGHT} ${t("publish.thumbnail")}`}
             </Typography>
-            <Box sx={{ maxWidth: THUMBNAIL_WIDTH }}>
+            <Box sx={{maxWidth: THUMBNAIL_WIDTH}}>
                 <CardMedia
                     component={"img"}
                     src={thumbnailURL}
-                    alt={"Thumbnail"}
-                    sx={{
-                        borderRadius: 1
-                    }}
+                    sx={{borderRadius: 1}}
                 />
                 <ButtonGroup fullWidth>
                     <Button
-                        startIcon={<CloudUpload />}
+                        startIcon={<CloudUpload/>}
                         onClick={onUploadClick}
                         variant={"text"}
                     >
                         {t("publish.uploadThumbnail") as string}
                     </Button>
                     <Button
-                        startIcon={<Refresh />}
+                        startIcon={<Refresh/>}
                         onClick={() => setThumbnail(null)}
                         color={"error"}
                         variant={"text"}

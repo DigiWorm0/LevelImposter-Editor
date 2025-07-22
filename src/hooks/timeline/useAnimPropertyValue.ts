@@ -1,9 +1,9 @@
 import {atomFamily} from "jotai/utils";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import {atom, useAtom} from "jotai";
 import {playheadAtom} from "./usePlayhead";
-import lerp from "../../utils/math/lerp";
+import lerp from "../../utils/common/lerp";
 import {addKeyframeAtom} from "./useAddKeyframe";
 import {adjecentKeyframeAtomFamily} from "./useAdjecentKeyframe";
 import {currentCurveAtomFamily} from "./useCurrentCurve";

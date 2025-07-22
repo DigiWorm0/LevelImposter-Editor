@@ -1,4 +1,4 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_PLATFORM_ENTER,
@@ -6,7 +6,7 @@ import {
     DEFAULT_PLATFORM_OFFSET,
     PLATFORM_RADIUS,
     UNITY_SCALE
-} from "../../../types/generic/Constants";
+} from "../../../types/amongus/Constants";
 
 export interface PlatformOverlayProps {
     elementID: GUID;
@@ -75,5 +75,5 @@ export default function PlatformOverlay(props: PlatformOverlayProps) {
                 g.closePath();
             }}
         />
-    )
+    );
 }

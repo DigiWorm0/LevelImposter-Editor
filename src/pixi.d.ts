@@ -1,4 +1,3 @@
-import {type Viewport} from "./Viewport";
 import {type PixiReactElementProps} from "@pixi/react";
 import {type Application} from "pixi.js";
 

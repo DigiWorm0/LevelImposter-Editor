@@ -1,6 +1,6 @@
 import LIElement from "./LIElement";
 import LIAnimKeyframe from "./LIAnimKeyframe";
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 import LIAnimPropertyType from "./LIAnimPropertyType";
 
 export default interface LIClipboard {

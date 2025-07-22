@@ -1,5 +1,5 @@
 import { atom, useSetAtom } from "jotai";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import { mapAssetsAtomFamily } from "./useMapAsset";
 import getFileExtension from "../../utils/fileio/getFileExtension";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";

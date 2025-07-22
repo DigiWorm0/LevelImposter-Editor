@@ -1,5 +1,5 @@
 import {calculateColorIndex, getMaxColor, getMinColor, readBlockFromBitmap} from "./writeDXT1Texture";
-import {DDSHeader} from "../../../types/generic/DDSHeader";
+import {DDSHeader} from "../../../types/dds/DDSHeader";
 
 const BLOCK_SIZE = 16;
 

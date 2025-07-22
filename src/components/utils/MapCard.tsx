@@ -1,5 +1,5 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { THUMBNAIL_WIDTH } from "../../types/generic/Constants";
+import {Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {THUMBNAIL_WIDTH} from "../../types/amongus/Constants";
 import LIMetadata from "../../types/li/LIMetadata";
 
 export interface MapCardProps {
@@ -7,7 +7,7 @@ export interface MapCardProps {
 }
 
 export default function MapCard(props: MapCardProps) {
-    const { map } = props;
+    const {map} = props;
     return (
         <Card
             elevation={3}
@@ -18,7 +18,6 @@ export default function MapCard(props: MapCardProps) {
             <CardMedia
                 component={"img"}
                 src={map.thumbnailURL || "/DefaultThumbnail.png"}
-                alt={map.name}
             />
             <CardContent>
 
@@ -34,7 +33,7 @@ export default function MapCard(props: MapCardProps) {
                 <Typography
                     variant={"body2"}
                     color={"textPrimary"}
-                    sx={{ mt: 1 }}
+                    sx={{mt: 1}}
                 >
                     {map.description.substring(0, 100) + "..."}
                 </Typography>

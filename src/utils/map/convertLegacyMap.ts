@@ -1,6 +1,6 @@
 import LIMap from "../../types/li/LIMap";
 import generateGUID from "../strings/generateGUID";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import convertOldLegacyMap from "./convertOldLegacyMap";
 import parseAssetType from "../fileio/parseAssetType";
 

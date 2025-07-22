@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import RoomOverlay from "../overlays/RoomOverlay";
 import ConsoleOverlay from "../overlays/ConsoleOverlay";
 import CameraOverlay from "../overlays/CameraOverlay";

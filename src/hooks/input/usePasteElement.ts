@@ -1,6 +1,6 @@
 import {useSetAtom} from "jotai";
 import {atom} from "jotai/index";
-import GUID, {MaybeGUID} from "../../types/generic/GUID";
+import GUID, {MaybeGUID} from "../../types/common/GUID";
 import generateGUID from "../../utils/strings/generateGUID";
 import {addElementAtom} from "../elements/useAddElement";
 import {selectedElementIDAtom} from "../elements/useSelectedElem";

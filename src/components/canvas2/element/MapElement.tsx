@@ -1,13 +1,13 @@
 import React from "react";
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import useElementOpacity from "../../../hooks/canvas/useElementOpacity";
 import {useIsSelectedCollider} from "../../../hooks/elements/colliders/useSelectedCollider";
 import useEmbed from "../../../hooks/embed/useEmbed";
-import degToRad from "../../../utils/canvas/degToRad";
+import degToRad from "../../../utils/common/degToRad";
 import useStartDrag from "../../../hooks/canvas/drag/useStartDrag";
 import useDragMove from "../../../hooks/canvas/drag/useDragMove";
 import useStopDrag from "../../../hooks/canvas/drag/useStopDrag";
@@ -51,6 +51,7 @@ export default function MapElement(props: MapElementProps) {
             ref={containerRef}
 
             cullable={true}
+            sortableChildren={true}
 
             x={elem.x * UNITY_SCALE}
             y={-elem.y * UNITY_SCALE}

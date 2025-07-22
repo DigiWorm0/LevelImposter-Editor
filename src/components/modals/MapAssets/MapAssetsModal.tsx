@@ -2,7 +2,7 @@ import React from "react";
 import GenericModal from "../GenericModal";
 import { Box, ButtonGroup } from "@mui/material";
 import ImageAssetModalList from "./Images/ImageAssetModalList";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../../types/common/GUID";
 import MapAssetModalEditor from "./MapAssetModalEditor";
 import SoundAssetModalList from "./Sounds/SoundAssetModalList";
 import MergeAssetsButton from "../../buttons/MergeAssetsButton";

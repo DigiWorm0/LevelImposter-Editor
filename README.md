@@ -1,26 +1,34 @@
 > ## ⚠️ WARNING:
-> LevelImposter is still in **early beta**. If you run into any bugs or issues, don\'t hesitate to report them in our [Discord](https://discord.gg/9jJEBQ4qJs).
+> LevelImposter is still in **early beta**. If you run into any bugs or issues, don't hesitate to report them in
+> our [Discord](https://discord.gg/9jJEBQ4qJs).
 
-<p align="center">
+<div style="text-align: center;">
   <a href="https://levelimposter.net/">
-  <img align="center" src="https://i.imgur.com/EfeQJh4.png">
+  <img src="https://i.imgur.com/EfeQJh4.png" alt="LevelImposter Logo">
   </a>
-</p>
-<h3 align="center">
-LevelImposter
-</h3>
-<p align="center">
-Custom Among Us Mapping Studio
-<br/>
-<a href="https://discord.gg/9jJEBQ4qJs">Discord</a>
-&middot;
-<a href="https://docs.levelimposter.net/en/latest/about/getting-started.html#">Installation</a>
-&middot;
-<a href="https://editor.levelimposter.net/">Map Editor</a>
-</p>
+    <h3>
+        LevelImposter
+    </h3>
+    <p>
+        Custom Among Us Mapping Studio
+        <br/>
+        <a href="https://discord.gg/9jJEBQ4qJs">
+            Discord
+        </a>
+        &middot;
+        <a href="https://docs.levelimposter.net/en/latest/about/getting-started.html#">
+            Installation
+        </a>
+        &middot;
+        <a href="https://editor.levelimposter.net/">
+            Map Editor
+        </a>
+    </p>
+</div>
 
 <hr />
-<p align="center">
+
+<div style="text-align: center;">
 	<a href="https://github.com/DigiWorm0/LevelImposter/releases">
 		<img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/DigiWorm0/LevelImposter/total">
 	</a>
@@ -45,10 +53,12 @@ Custom Among Us Mapping Studio
     <a href="https://gitlocalize.com/repo/8670">
         <img alt="GitLocalize" src="https://gitlocalize.com/repo/8670/whole_project/badge.svg" />
     </a>
-</p>
+</div>
+
 <hr />
 
 ## Features
+
 - 🗺️ Download from a [library of maps](https://levelimposter.net/#/maps) in-game
 - 🔀 Switch between any map within the lobby
 - 🚀 Play with any user with LevelImposter installed
@@ -59,77 +69,93 @@ Custom Among Us Mapping Studio
 
 1. Download `LevelImposter.zip` from the [latest release](https://github.com/DigiWorm0/LevelImposter/releases/latest)
 2. Extract the contents of the zip to the root folder of your Among Us
-3. Open Among Us *(It will take a couple minutes during the first launch)*
+3. Open Among Us *(It will take a couple of minutes during the first launch)*
 4. Select `Maps` on the Main Menu
 
 For more information or guides on making your own map, view our [documentation](https://docs.levelimposter.net/).
 
 ## Support
+
 - **Discord:** https://discord.gg/9jJEBQ4qJs
 - **Issues:** https://github.com/DigiWorm0/LevelImposter/issues
 
 ## Building:
 
 ### Prerequisites
+
 - [Node](https://nodejs.org/en/)
 
 1. Clone the repository
 2. Install dependencies
-```
-npm i
-```
+
+    ```
+    npm i
+    ```
+
 3. Run a development server with
-```
-npm start
-```
+
+    ```
+    npm start
+    ```
 
 ## Contributing
 
 ### Localization/Translation
+
 [GitLocalize Link](https://gitlocalize.com/repo/8670)
 
 ### Code
+
 1. Create a fork of the correct repository\
-[Among Us Mod](https://github.com/DigiWorm0/LevelImposter) (DigiWorm0/LevelImposter)\
-[Web Editor](https://github.com/DigiWorm0/LevelImposter-Editor) (DigiWorm0/LevelImposter-Editor)\
-[Main Website](https://github.com/DigiWorm0/LevelImposter-Web) (DigiWorm0/LevelImposter-Web)\
-[Documentation](https://github.com/DigiWorm0/LevelImposter-Docs) (DigiWorm0/LevelImposter-Docs)
+   [Among Us Mod](https://github.com/DigiWorm0/LevelImposter) (DigiWorm0/LevelImposter)\
+   [Web Editor](https://github.com/DigiWorm0/LevelImposter-Editor) (DigiWorm0/LevelImposter-Editor)\
+   [Main Website](https://github.com/DigiWorm0/LevelImposter-Web) (DigiWorm0/LevelImposter-Web)\
+   [Documentation](https://github.com/DigiWorm0/LevelImposter-Docs) (DigiWorm0/LevelImposter-Docs)
 
 2. Create a feature branch
-```
-git checkout -b feature/cool-feature
-```
+
+    ```
+    git checkout -b feature/cool-feature
+    ```
 
 3. Commit changes
-```
-git commit -am 'Added some really cool features'
-```
+
+    ```
+    git commit -am 'Added some really cool features'
+    ```
 
 4. Push your changes to our GitHub overlords
-```
-git push feature/cool-feature
-```
+
+    ```
+    git push feature/cool-feature
+    ```
 
 5. Create a [Pull Request](https://github.com/DigiWorm0/LevelImposter/pulls)
 
 ## Credits
 
 ### Contributors
+
 [Digi#0069](https://github.com/DigiWorm0) - Lead Developer\
-[Luque#5893](#) - New Editor Icons\
+[Luque#5893](https://www.youtube.com/sirluque) - New Editor Icons
 
 #### Translators
+
 [PAF_huier_cn#8777](https://github.com/MC-AS-Huier) - Simplified Chinese\
-[PalmForest#1404](https://github.com/RealPalmForest) & [TommyXL#9414](https://github.com/Tommy-XL) - Russian\
+[PalmForest#1404](https://github.com/RealPalmForest) & [TommyXL#9414](https://github.com/Tommy-XL) - Russian
 
 ### Dependencies
+
 [React](https://reactjs.org/) - UI Rendering\
 [Blueprint](https://blueprintjs.com/) - UI Components\
 [React-Konva](https://konvajs.org/) - Canvas Rendering
 
 ### License
+
 This software is distributed under the GNU GPLv3 License
 
 <hr />
 
-LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
+LevelImposter is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or
+otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. ©
+Innersloth LLC.

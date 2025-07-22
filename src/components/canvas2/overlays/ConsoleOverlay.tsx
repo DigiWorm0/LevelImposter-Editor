@@ -1,11 +1,11 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_CONSOLE_RANGE,
     DEFAULT_SPORE_RANGE,
     UNITY_SCALE,
     VENT_CONSOLE_RANGE
-} from "../../../types/generic/Constants";
+} from "../../../types/amongus/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
 
 export interface ConsoleOverlayProps {

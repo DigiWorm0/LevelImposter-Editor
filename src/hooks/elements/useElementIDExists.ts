@@ -1,5 +1,5 @@
 import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/common/GUID";
 import { atom, useAtomValue } from "jotai";
 import { mapAtom } from "../map/useMap";
 

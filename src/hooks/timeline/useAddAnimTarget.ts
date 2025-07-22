@@ -1,5 +1,5 @@
 import {atom, useSetAtom} from "jotai";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
 

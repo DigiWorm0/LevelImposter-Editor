@@ -3,7 +3,7 @@ import {atom} from "jotai/index";
 import {useAtomValue} from "jotai";
 import {playheadAtom} from "./usePlayhead";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
 
 export interface CurrentKeyframeOptions {

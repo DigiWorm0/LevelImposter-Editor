@@ -5,7 +5,7 @@ import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
 import useElement from "../../hooks/elements/useElements";
 import useIsDroppable from "../../hooks/elements/useIsDroppable";
 import { useSettingsValue } from "../../hooks/useSettings";
-import { MaybeGUID } from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";

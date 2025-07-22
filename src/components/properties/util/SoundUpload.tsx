@@ -4,7 +4,7 @@ import generateGUID from "../../../utils/strings/generateGUID";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
-import {DEFAULT_VOLUME} from "../../../types/generic/Constants";
+import {DEFAULT_VOLUME} from "../../../types/amongus/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";

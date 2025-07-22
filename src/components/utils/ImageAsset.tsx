@@ -1,4 +1,4 @@
-import { MaybeGUID } from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/common/GUID";
 import React from "react";
 import { useMapAssetValue } from "../../hooks/assets/useMapAsset";
 

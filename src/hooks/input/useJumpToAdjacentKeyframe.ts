@@ -1,7 +1,7 @@
 import {atom, useSetAtom} from "jotai";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import {playheadAtom} from "../timeline/usePlayhead";

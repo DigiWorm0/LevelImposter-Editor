@@ -1,12 +1,12 @@
 import React from "react";
 import useSettings from "../../../../hooks/useSettings";
-import { useTranslation } from "react-i18next";
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select } from "@mui/material";
-import { LANGUAGES } from "../../../../types/generic/Constants";
-import { Language } from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
+import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
+import {LANGUAGES} from "../../../../types/amongus/Constants";
+import {Language} from "@mui/icons-material";
 
 export default function SettingsLocalizationInput() {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const [settings, setSettings] = useSettings();
     const selectRef = React.useRef<HTMLSelectElement>(null);
 
@@ -27,10 +27,10 @@ export default function SettingsLocalizationInput() {
             secondaryAction={
                 <Select
                     value={settings.language}
-                    onChange={(e) => setSettings({ ...settings, language: e.target.value })}
+                    onChange={(e) => setSettings({...settings, language: e.target.value})}
                     size={"small"}
                     variant={"standard"}
-                    style={{ width: 200 }}
+                    style={{width: 200}}
                     ref={selectRef}
                 >
                     {LANGUAGES.map((lang) => (
@@ -40,8 +40,8 @@ export default function SettingsLocalizationInput() {
             }
         >
             <ListItemButton onClick={onClick}>
-                <ListItemIcon><Language /></ListItemIcon>
-                <ListItemText primary={t("settings.interface.localization")} />
+                <ListItemIcon><Language/></ListItemIcon>
+                <ListItemText primary={t("settings.interface.localization")}/>
             </ListItemButton>
         </ListItem>
     );

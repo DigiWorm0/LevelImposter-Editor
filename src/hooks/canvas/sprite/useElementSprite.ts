@@ -1,6 +1,6 @@
 import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
-import {MaybeGUID} from "../../../types/generic/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import {spriteURLAtomFamily} from "./useSpriteURL";
 import {spriteAtomFamily} from "./useSprite";
 

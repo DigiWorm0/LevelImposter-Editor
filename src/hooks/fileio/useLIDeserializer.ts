@@ -1,7 +1,7 @@
 import LIMap from "../../types/li/LIMap";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import convertLegacyMap from "../../utils/map/convertLegacyMap";
-import {MAP_FORMAT_VER} from "../../types/generic/Constants";
+import {MAP_FORMAT_VER} from "../../types/amongus/Constants";
 import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
 import parseAssetType from "../../utils/fileio/parseAssetType";
 
@@ -65,6 +65,7 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     // Read Assets
     let position = 4 + jsonLength;
     while (position < buffer.byteLength) {
+        
         // Read GUID
         const guidSlice = buffer.slice(position, position + 36);
         const guid = textDecoder.decode(guidSlice) as GUID;

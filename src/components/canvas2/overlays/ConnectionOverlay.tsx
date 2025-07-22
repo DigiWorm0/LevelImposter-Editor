@@ -1,8 +1,8 @@
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {useConnections} from "../../../hooks/elements/useConnections";
 import LIElement from "../../../types/li/LIElement";
-import {UNITY_SCALE} from "../../../types/generic/Constants";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import {Graphics} from "pixi.js";
 import {useSettingsValue} from "../../../hooks/useSettings";
 

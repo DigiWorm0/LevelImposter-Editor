@@ -1,9 +1,9 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { focusAtom } from "jotai-optics";
-import { atomWithReset, useResetAtom } from "jotai/utils";
-import { MAP_FORMAT_VER } from "../../types/generic/Constants";
+import {useAtom, useAtomValue, useSetAtom} from "jotai";
+import {focusAtom} from "jotai-optics";
+import {atomWithReset, useResetAtom} from "jotai/utils";
+import {MAP_FORMAT_VER} from "../../types/amongus/Constants";
 import LIMap from "../../types/li/LIMap";
-import { DEFAULT_GUID } from "../../utils/strings/generateGUID";
+import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
 
 const DEFAULT_MAP: LIMap = {
     v: MAP_FORMAT_VER,

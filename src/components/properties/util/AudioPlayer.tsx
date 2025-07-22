@@ -1,8 +1,8 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { DEFAULT_VOLUME } from "../../../types/generic/Constants";
-import { Box, ButtonGroup, IconButton, Slider, Stack } from "@mui/material";
-import { Pause, PlayArrow, SaveAlt, Stop, VolumeDown, VolumeUp } from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
+import {DEFAULT_VOLUME} from "../../../types/amongus/Constants";
+import {Box, ButtonGroup, IconButton, Slider, Stack} from "@mui/material";
+import {Pause, PlayArrow, SaveAlt, Stop, VolumeDown, VolumeUp} from "@mui/icons-material";
 
 interface AudioPlayerProps {
     url: string;
@@ -13,9 +13,9 @@ interface AudioPlayerProps {
 }
 
 export default function AudioPlayer(props: AudioPlayerProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const audioRef = React.useRef<HTMLAudioElement>(null);
-    
+
     const [progress, setProgress] = React.useState(0);
     const [duration, setDuration] = React.useState(0);
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -27,7 +27,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         // Update progress
         const updateProgress = () => {
             if (audioRef.current) {
-                const { currentTime, duration } = audioRef.current;
+                const {currentTime, duration} = audioRef.current;
                 setProgress(isNaN(currentTime) ? 0 : currentTime);
                 setDuration(isNaN(duration) ? 0 : duration);
             }
@@ -66,7 +66,7 @@ export default function AudioPlayer(props: AudioPlayerProps) {
         };
     }, [audioRef.current]);
 
-    const onChangeProgress = React.useCallback((value: number) => {
+    const onChangeProgress = React.useCallback((e: Event, value: number) => {
         setProgress(value);
         if (audioRef.current)
             audioRef.current.currentTime = value;
@@ -109,19 +109,19 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                         }
                     }}
                 >
-                    <Stop />
+                    <Stop/>
                 </IconButton>
                 {isPlaying ? (
                     <IconButton onClick={() => audioRef.current?.pause()}>
-                        <Pause />
+                        <Pause/>
                     </IconButton>
                 ) : (
                     <IconButton onClick={() => audioRef.current?.play().catch(console.error)}>
-                        <PlayArrow />
+                        <PlayArrow/>
                     </IconButton>
                 )}
                 <IconButton onClick={downloadSound}>
-                    <SaveAlt />
+                    <SaveAlt/>
                 </IconButton>
             </ButtonGroup>
 
@@ -130,26 +130,26 @@ export default function AudioPlayer(props: AudioPlayerProps) {
                 max={duration}
                 value={progress}
                 step={0.001}
-                onChange={(_, value) => onChangeProgress(value as number)}
+                onChange={onChangeProgress}
             />
 
             {props.onVolumeChange && (
                 <Stack
                     spacing={2}
                     direction="row"
-                    sx={{ mb: 1 }}
+                    sx={{mb: 1}}
                     alignItems="center"
                 >
-                    <VolumeDown />
+                    <VolumeDown/>
                     <Slider
                         min={0}
                         max={1}
                         step={0.01}
                         color={"success"}
                         value={props.volume ?? DEFAULT_VOLUME}
-                        onChange={(_, value) => props.onVolumeChange?.(value as number)}
+                        onChange={onChangeProgress}
                     />
-                    <VolumeUp />
+                    <VolumeUp/>
                 </Stack>
             )}
         </Box>

@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../types/generic/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import {atomFamily} from "jotai/utils";
 import {atom, useAtom} from "jotai";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
