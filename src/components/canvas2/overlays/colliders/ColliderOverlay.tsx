@@ -1,7 +1,7 @@
-import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
-import {useSettingsValue} from "../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
+import GUID from "../../../../types/common/GUID";
+import {useElementValue} from "../../../../hooks/elements/useElements";
+import {useSettingsValue} from "../../../../hooks/useSettings";
+import {UNITY_SCALE} from "../../../../types/amongus/Constants";
 
 export interface ColliderOverlayProps {
     elementID: GUID;
@@ -35,7 +35,7 @@ export default function ColliderOverlay(props: ColliderOverlayProps) {
 
                 // Color line along the collider
                 const color = collider.blocksLight ? "#ff0000" : "#00ff00";
-                g.stroke({color, width: 1, alignment: 0.5});
+                g.stroke({color, width: 2, alignment: 0.5});
 
                 // Solid colliders are filled with a semi-transparent color
                 if (collider.isSolid) {

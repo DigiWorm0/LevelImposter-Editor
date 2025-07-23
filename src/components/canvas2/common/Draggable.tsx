@@ -1,12 +1,11 @@
 import React, {RefObject} from "react";
 import useViewport from "../../../hooks/canvas/useViewport";
-import GUID from "../../../types/common/GUID";
 import {Container} from "pixi.js";
 import roundTo from "../../../utils/common/roundTo";
 import draggableEventEmitter from "../../../utils/canvas/draggableEventEmitter";
 
 export interface DraggableProps {
-    id: GUID;
+    id: string;
     x: number;
     y: number;
     zIndex?: number;
@@ -26,7 +25,7 @@ export interface DraggableProps {
 
 export interface DragState {
     isMouseDown: boolean;
-    targetID: GUID | null;
+    targetID: string | null;
     isDragging: boolean;
     mouseXOffset: number;
     mouseYOffset: number;

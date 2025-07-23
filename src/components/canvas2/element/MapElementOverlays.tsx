@@ -15,9 +15,10 @@ import PlatformOverlay from "../overlays/PlatformOverlay";
 import SpawnOverlay from "../overlays/SpawnOverlay";
 import MinimapOverlay from "../overlays/MinimapOverlay";
 import FloatingOverlay from "../overlays/FloatingOverlay";
-import ColliderOverlay from "../overlays/ColliderOverlay";
+import ColliderOverlay from "../overlays/colliders/ColliderOverlay";
 import AnimationOverlay from "../overlays/AnimationOverlay";
 import StarfieldOverlay from "../overlays/starfield/StarfieldOverlay";
+import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -44,8 +45,7 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             x={(elementPosition.x - viewportPosition.x) / viewport.scale.x}
             y={(elementPosition.y - viewportPosition.y) / viewport.scale.y}
         >
-            <RoomOverlay elementID={props.elementID}/>
-            <AnimationOverlay elementID={props.elementID}/>
+
             {isSelected && <ConsoleOverlay elementID={props.elementID}/>}
             {isSelected && <CameraOverlay elementID={props.elementID}/>}
             {isSelected && <DisplayOverlay elementID={props.elementID}/>}
@@ -59,6 +59,11 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             {isSelected && <FloatingOverlay elementID={props.elementID}/>}
             {isSelected && <ColliderOverlay elementID={props.elementID}/>}
             {isSelected && <StarfieldOverlay elementID={props.elementID}/>}
+            
+            <RoomOverlay elementID={props.elementID}/>
+            <AnimationOverlay elementID={props.elementID}/>
+
+            {isSelected && <ColliderEditorOverlay/>}
         </pixiContainer>
     );
 }

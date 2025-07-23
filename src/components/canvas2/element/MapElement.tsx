@@ -17,18 +17,12 @@ import Draggable from "../common/Draggable";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {mapElementsRenderLayerRefAtom} from "./MapElementsRenderLayer";
 import {useAtomValue} from "jotai";
+import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
 }
 
-function getSelectOperationFromEvent(e: PointerEvent) {
-    if (e.metaKey || e.ctrlKey)
-        return "toggle";
-    if (e.shiftKey)
-        return "add";
-    return "set";
-}
 
 export default function MapElement(props: MapElementProps) {
     const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
@@ -83,7 +77,7 @@ export default function MapElement(props: MapElementProps) {
             onClick={(e) => {
                 selectElementID({
                     id: element.id,
-                    operation: getSelectOperationFromEvent(e)   // toggle, add, set, etc.
+                    operation: getSelectOperationFromEvent(e)
                 });
             }}
 
@@ -93,16 +87,15 @@ export default function MapElement(props: MapElementProps) {
                     return;
                 selectElementID({
                     id: element.id,
-                    operation:
-                        e.pointerEvent?.metaKey ||
-                        e.pointerEvent?.ctrlKey ||
-                        e.pointerEvent?.shiftKey ||
-                        isSelected ? "add" : "set"
+                    operation: getSelectOperationFromEvent(e.pointerEvent, isSelected, true)
                 });
             }}
-            // onDragMove={(e) => {
-            // }}
-            onDragEnd={(e) => setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE})}
+            
+            onDragEnd={(e) => {
+                if (isLocked)
+                    return;
+                setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE})
+            }}
         >
             <pixiContainer
                 ref={containerRef}
@@ -139,10 +132,6 @@ export default function MapElement(props: MapElementProps) {
                         elementID={id}
                     />
                 ))}
-
-                {/*<MapElementOverlays*/}
-                {/*    elementID={props.elementID}*/}
-                {/*/>*/}
             </pixiContainer>
         </Draggable>
     );
