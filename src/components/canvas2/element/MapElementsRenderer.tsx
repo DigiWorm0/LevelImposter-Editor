@@ -4,6 +4,7 @@ import MapElementError from "./MapElementError";
 import ErrorBoundary from "../../utils/ErrorBoundary";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
 import MapElementOverlays from "./MapElementOverlays";
+import MapElementsRenderLayer from "./MapElementsRenderLayer";
 
 export default function MapElementsRenderer() {
     // Element IDs that have no parent element
@@ -11,11 +12,7 @@ export default function MapElementsRenderer() {
     const allElementIDs = useElementIDs();
 
     return (
-        <pixiContainer
-            sortableChildren={true}
-            cullableChildren={true}
-            cullable={true}
-        >
+        <pixiContainer>
             {orphanElementIDs.map(id => (
                 <ErrorBoundary
                     key={id}
@@ -24,6 +21,8 @@ export default function MapElementsRenderer() {
                     <MapElement elementID={id}/>
                 </ErrorBoundary>
             ))}
+
+            <MapElementsRenderLayer/>
 
             {allElementIDs.map(id => (
                 <ErrorBoundary

@@ -3,6 +3,12 @@ import {atom, useSetAtom} from "jotai";
 import {elementAtomFamily} from "../elements/useElements";
 import {viewportAtom} from "./useViewport";
 import {UNITY_SCALE} from "../../types/amongus/Constants";
+import {Ticker} from "pixi.js";
+
+const ticker = new Ticker();
+ticker.autoStart = true;
+
+const ANIM_DURATION = 15;
 
 export const jumpToElementAtom = atom(null, (get, set, elementID: MaybeGUID) => {
     if (!elementID)
@@ -18,13 +24,38 @@ export const jumpToElementAtom = atom(null, (get, set, elementID: MaybeGUID) => 
     if (!viewport)
         return;
 
+    // Get Start/End Position
+    const startPosition = viewport.center;
+    const endPosition = {x: element.x * UNITY_SCALE, y: -element.y * UNITY_SCALE};
+
+    // Animate the viewport to the element's position
+    let t = 0;
+    const animateToElement = () => {
+        // Update time/progress
+        t += ticker.deltaTime;
+        console.log(t);
+        const progress = t / ANIM_DURATION;
+
+        // Curves the progress to make it look more natural
+        const curvedProgress = Math.sin(progress * Math.PI / 2);
+
+        // Animate Position
+        viewport.moveCenter({
+            x: startPosition.x + (endPosition.x - startPosition.x) * curvedProgress,
+            y: startPosition.y + (endPosition.y - startPosition.y) * curvedProgress
+        });
+
+        // Ensure viewport position is updated by event listeners
+        viewport.emit("moved", {viewport, type: "snap"});
+
+        // Stop Animation
+        if (progress >= 1)
+            ticker.remove(animateToElement);
+    };
+    ticker.add(animateToElement);
+
     // Move the viewport to the element's position
     // TODO: Animate me
-    viewport.moveCenter({
-        x: element.x * UNITY_SCALE,
-        y: -element.y * UNITY_SCALE
-    });
-    viewport.emit("moved", {viewport, type: "snap"});
 
 });
 

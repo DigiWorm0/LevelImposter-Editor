@@ -35,6 +35,7 @@ export const selectedElementAtom = atom(
         if (index >= 0 && elem) {
             elements[index] = {...elem};
 
+            // TODO: Improve handling of global properties
             const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem?.type ?? ""));
             globalProps.forEach((globalProp) => {
                 const prop = globalProp.prop as keyof LIProperties;

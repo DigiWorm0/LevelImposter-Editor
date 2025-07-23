@@ -20,7 +20,10 @@ export default function SpawnOverlay(props: SpawnOverlayProps) {
     if (!element || !element.type.startsWith("util-spawn"))
         return null;
     return (
-        <pixiContainer sortableChildren={true}>
+        <pixiContainer
+            sortableChildren={true}
+            eventMode={"none"}
+        >
             {dummyArray.map((_, i) => {
                 const x = Math.cos(2 * Math.PI * (i / SPAWN_PLAYER_COUNT) + (Math.PI / 2)) * radius;
                 const y = Math.sin(2 * Math.PI * (i / SPAWN_PLAYER_COUNT) + (Math.PI / 2)) * radius;

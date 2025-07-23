@@ -11,6 +11,7 @@ export default function CanvasGridAxis(props: CanvasGridAxisProps) {
 
     return (
         <pixiGraphics
+            eventMode={"none"}
             x={0}
             y={0}
             draw={(g) => {

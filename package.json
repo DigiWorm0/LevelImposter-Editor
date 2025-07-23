@@ -21,6 +21,7 @@
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@pixi/react": "^8.0.2",
+    "eventemitter3": "^5.0.1",
     "firebase": "^10.13.0",
     "i18next": "^23.2.3",
     "i18next-browser-languagedetector": "^7.1.0",

@@ -5,6 +5,8 @@ import LIAnimPropertyType from "./LIAnimPropertyType";
 
 export default interface LIClipboard {
     elem?: LIElement[];
+    focusIDs?: GUID[];
+
     keyframe?: {
         targetID: GUID;
         property: LIAnimPropertyType;

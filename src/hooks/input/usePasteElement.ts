@@ -3,8 +3,8 @@ import {atom} from "jotai/index";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
 import generateGUID from "../../utils/strings/generateGUID";
 import {addElementAtom} from "../elements/useAddElement";
-import {selectedElementIDAtom} from "../elements/useSelectedElem";
 import {clipboardAtom} from "./useClipboard";
+import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
 
 const pasteElementAtom = atom(null, async (get, set) => {
     // Get the clipboard data
@@ -17,20 +17,25 @@ const pasteElementAtom = atom(null, async (get, set) => {
     if (!elements)
         return;
 
-    // Map of old IDs to new IDs
+    // Function to get a new ID from an old ID
+    // Generates a new ID if reference something in the same selection
+    // Otherwise, reuse the existing ID to maintain references to elements not in the selection
     const newIDs = new Map<GUID, GUID>();
 
-    // Gets the new ID from an old ID
-    const getID = (id: MaybeGUID) => {
+    const getNewIDFromOldID = (id: MaybeGUID, alwaysMakeNewID: boolean = false) => {
         if (id === undefined)
             return undefined;
+
         if (newIDs.has(id))
             return newIDs.get(id);
-        if (elements.find(e => e.id === id)) {
+
+        const elementIsInSelection = elements.some(elem => elem.id === id);
+        if (elementIsInSelection || alwaysMakeNewID) {
             const newID = generateGUID();
             newIDs.set(id, newID);
             return newID;
         }
+
         return id;
     };
 
@@ -39,9 +44,10 @@ const pasteElementAtom = atom(null, async (get, set) => {
     elements.forEach(elem => {
 
         // Generate a new name + id
-        const newID = generateGUID();
-        const newName = elem.name + " (copy)";
-        newIDs.set(elem.id, newID);
+        const newID = getNewIDFromOldID(elem.id, true) || generateGUID();
+
+        // Check if the parent is in the selection
+        const isParentInSelection = elements.some(e => e.id === elem.parentID);
 
         // Add the element to the map
         set(addElementAtom, {
@@ -49,24 +55,25 @@ const pasteElementAtom = atom(null, async (get, set) => {
 
             // New ID, name, and position
             id: newID,
-            name: newName,
-            x: elem.x + 1,
+            name: `${elem.name} (Copy)`,
+            x: isParentInSelection ? elem.x : elem.x + 1,
 
             // Set new IDs
-            parentID: getID(elem.parentID),
+            parentID: getNewIDFromOldID(elem.parentID),
             properties: {
                 ...elem.properties,
-                parent: getID(elem.properties.parent),
-                leftVent: getID(elem.properties.leftVent),
-                rightVent: getID(elem.properties.rightVent),
-                middleVent: getID(elem.properties.middleVent),
-                teleporter: getID(elem.properties.teleporter)
+                parent: getNewIDFromOldID(elem.properties.parent),
+                leftVent: getNewIDFromOldID(elem.properties.leftVent),
+                rightVent: getNewIDFromOldID(elem.properties.rightVent),
+                middleVent: getNewIDFromOldID(elem.properties.middleVent),
+                teleporter: getNewIDFromOldID(elem.properties.teleporter)
             }
         });
     });
 
     // Set the selected ID
-    set(selectedElementIDAtom, newIDs.get(elements[0].id));
+    if (clipboardData.focusIDs)
+        set(selectedElementIDsAtom, clipboardData.focusIDs.map(id => newIDs.get(id) || id)); // <-- Use new IDs for selected elements if they are in the selection
 });
 
 export default function usePasteElement() {

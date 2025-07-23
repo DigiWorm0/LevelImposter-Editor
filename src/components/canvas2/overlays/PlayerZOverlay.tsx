@@ -40,6 +40,7 @@ export default function PlayerZOverlay(props: PlayerZOverlayProps) {
                 }}
             />
             <pixiSprite
+                eventMode={"none"}
                 anchor={0.5}
                 alpha={0.3}
                 texture={playerSprite}

@@ -18,6 +18,7 @@ export default function CanvasGridSection(props: CanvasGridSectionProps) {
 
     return (
         <pixiGraphics
+            eventMode={"none"}
             x={gridX}
             y={gridY}
             draw={(g) => {

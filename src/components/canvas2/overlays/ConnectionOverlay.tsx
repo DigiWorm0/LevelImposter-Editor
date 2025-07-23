@@ -40,9 +40,9 @@ export default function ConnectionOverlay(props: ConnectionOverlayProps) {
 
         const angle = Math.atan2(fromY - toY, fromX - toX);
         const arrowSize = 10;
-        const offset = 6;
-        const xOffset = offset * Math.cos(angle + Math.PI / 2);
-        const yOffset = offset * Math.sin(angle + Math.PI / 2);
+        const sideOffset = targetConnections.length === 0 || sourceConnections.length === 0 ? 0 : 6; // <-- Offset for the arrow to avoid overlap with other connection arrows
+        const xOffset = sideOffset * Math.cos(angle + Math.PI / 2);
+        const yOffset = sideOffset * Math.sin(angle + Math.PI / 2);
 
         fromX += xOffset;
         fromY += yOffset;
