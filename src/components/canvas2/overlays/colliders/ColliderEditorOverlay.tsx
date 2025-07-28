@@ -1,22 +1,33 @@
 import React from "react";
 import useSelectedCollider from "../../../../hooks/elements/colliders/useSelectedCollider";
-import {useSettingsValue} from "../../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../../types/amongus/Constants";
-import Draggable from "../../common/Draggable";
-import {getSelectOperationFromEvent} from "../../../../utils/canvas/getSelectOperationFromEvent";
 import useSelectedColliderPointIndexes from "../../../../hooks/elements/colliders/useSelectedColliderPointIndexes";
+import {Graphics} from "pixi.js";
+import {drawColliderFill, drawColliderStroke} from "./ColliderOverlay";
+import LICollider from "../../../../types/li/LICollider";
+import ColliderEditorPoint from "./ColliderEditorPoint";
+import SelectOperation from "../../../../types/common/SelectOperation";
+
+function drawCollider(
+    g: Graphics,
+    collider: LICollider,
+    fill: boolean = true,
+    strokeWidth: number = 4
+) {
+    g.clear();
+    drawColliderStroke(g, collider, strokeWidth);
+    if (fill)
+        drawColliderFill(g, collider);
+}
 
 export default function ColliderEditorOverlay() {
     const [collider, setCollider] = useSelectedCollider();
     // const insertPointAtMouse = useInsertPointAtMouse();  // TODO: Add/remove points to collider
-    const {gridSnapResolution, colliderHandleSize, isGridSnapEnabled} = useSettingsValue();
     const [selectedIndexes, setSelectedIndexes] = useSelectedColliderPointIndexes();
 
-    const stroke = collider?.blocksLight ? "#ff0000" : "#00ff00";
-    const fillSelected = collider?.blocksLight ? "#990000" : "#009900";
-    const fill = collider?.blocksLight ? "#660000" : "#006600";
+    const strokeGraphicsRef = React.useRef<Graphics>(null);
+    const fillGraphicsRef = React.useRef<Graphics>(null);
 
-    const selectIndex = (index: number, operation: "set" | "add" | "toggle") => {
+    const selectIndex = (index: number, operation: SelectOperation) => {
         if (operation === "set") {
             setSelectedIndexes([index]);
         } else if (operation === "add") {
@@ -32,6 +43,8 @@ export default function ColliderEditorOverlay() {
                 }
                 return newIndexes;
             });
+        } else {
+            throw new Error(`Unknown select operation: ${operation}`);
         }
     };
 
@@ -39,58 +52,66 @@ export default function ColliderEditorOverlay() {
         return null;
     return (
         <pixiContainer>
-            {collider.points.map((point, index) => {
-                const id = `${collider.id}-${index}`;
-                const isSelected = selectedIndexes.includes(index);
-                const handleSize = colliderHandleSize * 0.7 * (isSelected ? 1.1 : 1);
+            {/* Interactable collider edge */}
+            <pixiGraphics
+                ref={strokeGraphicsRef}
+                draw={(g) => drawCollider(g, collider, false)}
+            />
 
-                return (
-                    <Draggable
-                        key={id}
-                        id={id}
+            {/* Draw the collider fill */}
+            <pixiGraphics
+                eventMode={"none"}
+                ref={fillGraphicsRef}
+                draw={(g) => drawCollider(g, collider, true)}
+            />
 
-                        draggable
-                        selected={isSelected}
+            {collider.points.map((point, index) => (
+                <ColliderEditorPoint
+                    key={`${collider.id}-${index}`}
+                    id={`${collider.id}-${index}`}
+                    selected={selectedIndexes.includes(index)}
 
-                        x={point.x * UNITY_SCALE}
-                        y={point.y * UNITY_SCALE}
+                    collider={collider}
+                    point={point}
 
-                        gridSnapResolution={isGridSnapEnabled ? gridSnapResolution * UNITY_SCALE : undefined}
+                    onUpdatePoint={(p) => {
+                        // Apply the new point coordinates
+                        point.x = p.x;
+                        point.y = p.y;
 
-                        onClick={(e) => {
-                            selectIndex(index, getSelectOperationFromEvent(e));
-                        }}
-                        onDragStart={(e) => {
-                            const isTarget = e.targetID === id;
-                            if (!isTarget)
-                                return;
-                            selectIndex(index, getSelectOperationFromEvent(e.pointerEvent, isSelected, true));
-                        }}
-                        onDragMove={(e) => {
-                            point.x = e.x / UNITY_SCALE;
-                            point.y = e.y / UNITY_SCALE;
-                        }}
-                        onDragEnd={() => {
-                            setCollider({
-                                ...collider,
-                                points: [...collider.points]
-                            });
-                        }}
-                    >
-                        <pixiGraphics
-                            eventMode={"static"}
-                            cursor={"pointer"}
-                            draw={(g) => {
-                                g.clear();
-                                g.beginPath();
-                                g.rect(handleSize * -0.5, handleSize * -0.5, handleSize, handleSize);
-                                g.stroke({color: stroke, width: isSelected ? 4 : 3, alignment: 0.5});
-                                g.fill({color: isSelected ? fillSelected : fill});
-                            }}
-                        />
-                    </Draggable>
-                );
-            })}
+                        // Force re-render of the collider
+                        setCollider({
+                            ...collider,
+                            points: [...collider.points]
+                        });
+                    }}
+
+                    onSelectPoint={(operation) => selectIndex(index, operation)}
+
+                    onRemovePoint={() => {
+                        // Splice the point out of the collider points array
+                        collider.points.splice(index, 1);
+
+                        // Force re-render of the collider
+                        setCollider({
+                            ...collider,
+                            points: [...collider.points]
+                        });
+
+                    }}
+
+                    onForceRedraw={() => {
+                        // Check if the graphics references are set
+                        if (!strokeGraphicsRef.current ||
+                            !fillGraphicsRef.current)
+                            return;
+
+                        // Redraw the colliders
+                        drawCollider(strokeGraphicsRef.current, collider, false);
+                        drawCollider(fillGraphicsRef.current, collider, true);
+                    }}
+                />
+            ))}
         </pixiContainer>
     )
 }

@@ -1,3 +1,5 @@
+import SelectOperation from "../../types/common/SelectOperation";
+
 /**
  * Determines the selection operation based on the pointer event and whether the user is dragging.
  * @param e - The pointer/drag event.
@@ -8,7 +10,7 @@
 export function getSelectOperationFromEvent(
     e: PointerEvent | null | undefined,
     isSelected: boolean = false,
-    isDragEvent: boolean = false) {
+    isDragEvent: boolean = false): SelectOperation {
 
     // Get the pointer event from the custom drag event if available
     if (!e)
@@ -29,5 +31,4 @@ export function getSelectOperationFromEvent(
             return "add";
         return "set";
     }
-
 }

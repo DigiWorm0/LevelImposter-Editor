@@ -77,7 +77,7 @@ export default function MapElement(props: MapElementProps) {
             onClick={(e) => {
                 selectElementID({
                     id: element.id,
-                    operation: getSelectOperationFromEvent(e)
+                    operation: getSelectOperationFromEvent(e.pointerEvent)
                 });
             }}
 
@@ -90,7 +90,7 @@ export default function MapElement(props: MapElementProps) {
                     operation: getSelectOperationFromEvent(e.pointerEvent, isSelected, true)
                 });
             }}
-            
+
             onDragEnd={(e) => {
                 if (isLocked)
                     return;

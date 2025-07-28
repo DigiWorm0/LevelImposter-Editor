@@ -17,7 +17,7 @@ export interface DraggableProps {
     onDragStart?: (e: DragEvent) => void;
     onDragMove?: (e: DragEvent) => void;
     onDragEnd?: (e: DragEvent) => void;
-    onClick?: (e: PointerEvent) => void;
+    onClick?: (e: DragEvent) => void;
 
     children?: React.ReactNode;
     ref?: RefObject<typeof Draggable>;
@@ -166,7 +166,7 @@ export default function Draggable(props: DraggableProps) {
 
             // Call onClick if provided
             if (props.onClick)
-                props.onClick(e);
+                props.onClick({...dragStateRef.current, pointerEvent: e});
         }
 
         dragStateRef.current.isMouseDown = false;
