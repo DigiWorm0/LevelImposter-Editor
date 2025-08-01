@@ -45,7 +45,6 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
 
             onClick={(e) => {
                 props.onSelectPoint(getSelectOperationFromEvent(e.pointerEvent));
-
             }}
             onDragStart={(e) => {
                 const isTarget = e.targetID === id;

@@ -57,18 +57,19 @@ export default function TransformPanel() {
                 style={{paddingTop: 0}}
             >
                 <TextField
-                    key={selectedElemID + "-type"}
                     disabled={!editType}
                     size={"small"}
                     variant={"standard"}
                     defaultValue={type}
                     placeholder={t("transform.type") as string}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position={"end"}>
-                                {AUElementDB.includes(type || "") ? t(`au.${type}`) : "?"}
-                            </InputAdornment>
-                        )
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position={"end"}>
+                                    {AUElementDB.includes(type || "") ? t(`au.${type}`) : "?"}
+                                </InputAdornment>
+                            )
+                        }
                     }}
                     onChange={(e) => {
                         setType(e.target.value);
@@ -77,7 +78,6 @@ export default function TransformPanel() {
                 />
                 <TextField
                     style={{marginBottom: 5}}
-                    key={selectedElemID + "-name"}
                     size={"small"}
                     value={name}
                     placeholder={t("transform.name") as string}

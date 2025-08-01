@@ -6,6 +6,7 @@ import {drawColliderFill, drawColliderStroke} from "./ColliderOverlay";
 import LICollider from "../../../../types/li/LICollider";
 import ColliderEditorPoint from "./ColliderEditorPoint";
 import SelectOperation from "../../../../types/common/SelectOperation";
+import {useInsertPointAtMouse} from "../../../../hooks/elements/colliders/useInsertColliderPointAtMouse";
 
 function drawCollider(
     g: Graphics,
@@ -21,7 +22,7 @@ function drawCollider(
 
 export default function ColliderEditorOverlay() {
     const [collider, setCollider] = useSelectedCollider();
-    // const insertPointAtMouse = useInsertPointAtMouse();  // TODO: Add/remove points to collider
+    const insertPointAtMouse = useInsertPointAtMouse();  // TODO: Add/remove points to collider
     const [selectedIndexes, setSelectedIndexes] = useSelectedColliderPointIndexes();
 
     const strokeGraphicsRef = React.useRef<Graphics>(null);
@@ -54,7 +55,10 @@ export default function ColliderEditorOverlay() {
         <pixiContainer>
             {/* Interactable collider edge */}
             <pixiGraphics
+                cursor={"pointer"}
+                eventMode={"static"}
                 ref={strokeGraphicsRef}
+                onMouseDown={(e: MouseEvent) => insertPointAtMouse(e)}
                 draw={(g) => drawCollider(g, collider, false)}
             />
 

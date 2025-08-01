@@ -48,6 +48,10 @@ export function drawColliderFill(
     if (!collider)
         return;
 
+    // Don't fill if the collider is not solid
+    if (!collider.isSolid)
+        return;
+
     // Don't draw if there are no points in the collider
     if (collider.points.length <= 0)
         return;

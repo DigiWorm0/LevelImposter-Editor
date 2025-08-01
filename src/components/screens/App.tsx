@@ -4,7 +4,7 @@ import Content from "./Content";
 import {HotkeysProvider} from "react-hotkeys-hook";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {SnackbarProvider} from "notistack";
-import React from "react";
+import React, {StrictMode} from "react";
 
 const darkTheme = createTheme({
     palette: {
@@ -39,15 +39,17 @@ export default function App() {
     // How many providers is too many providers?
 
     return (
-        <StateProvider store={primaryStore}>
-            {/* The empty scope prevents the default behavior of enabling all scopes */}
-            <HotkeysProvider initiallyActiveScopes={[""]}>
-                <ThemeProvider theme={darkTheme}>
-                    <SnackbarProvider>
-                        <Content/>
-                    </SnackbarProvider>
-                </ThemeProvider>
-            </HotkeysProvider>
-        </StateProvider>
+        <StrictMode>
+            <StateProvider store={primaryStore}>
+                {/* The empty scope prevents the default behavior of enabling all scopes */}
+                <HotkeysProvider initiallyActiveScopes={[""]}>
+                    <ThemeProvider theme={darkTheme}>
+                        <SnackbarProvider>
+                            <Content/>
+                        </SnackbarProvider>
+                    </ThemeProvider>
+                </HotkeysProvider>
+            </StateProvider>
+        </StrictMode>
     );
 }

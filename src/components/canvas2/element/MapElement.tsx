@@ -44,8 +44,6 @@ export default function MapElement(props: MapElementProps) {
     const isLocked = !isListening || element?.properties.isLocked;
 
     React.useEffect(() => {
-        console.log(props.elementID, containerRef.current, mapElementsRenderLayerRef);
-
         const container = containerRef.current;
         if (!container)
             return () => {
@@ -94,7 +92,7 @@ export default function MapElement(props: MapElementProps) {
             onDragEnd={(e) => {
                 if (isLocked)
                     return;
-                setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE})
+                setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE});
             }}
         >
             <pixiContainer
