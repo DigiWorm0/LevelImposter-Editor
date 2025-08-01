@@ -19,6 +19,8 @@ import ColliderOverlay from "../overlays/colliders/ColliderOverlay";
 import AnimationOverlay from "../overlays/AnimationOverlay";
 import StarfieldOverlay from "../overlays/starfield/StarfieldOverlay";
 import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
+import {useTick} from "@pixi/react";
+import {Container} from "pixi.js";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -26,24 +28,41 @@ interface MapElementOverlaysProps {
 
 export default function MapElementOverlays(props: MapElementOverlaysProps) {
     const isSelected = useIsElementSelected(props.elementID);
-    const elementRef = useMapElementRef(props.elementID);
     const viewport = useViewport();
+    const elementRef = useMapElementRef(props.elementID);
+    const containerRef = React.useRef<Container>(null);
+
+    useTick(() => {
+        if (!containerRef.current ||
+            !elementRef.current ||
+            !viewport)
+            return;
+
+        // Get the global position of the viewport and the map element
+        const viewportPosition = viewport.getGlobalPosition();
+        const elementPosition = elementRef.current.getGlobalPosition();
+
+        // Copy the position from the element to the container
+        // This ensures that overlays match position, but not rotation or scale
+        containerRef.current.position.set(
+            (elementPosition.x - viewportPosition.x) / viewport.scale.x,
+            (elementPosition.y - viewportPosition.y) / viewport.scale.y);
+    });
 
     // Check if the element exists and has an ID
     if (!props.elementID)
         return null;
-    if (!elementRef.current || !viewport)
-        return null;
 
-    const viewportPosition = viewport.getGlobalPosition();
-    const elementPosition = elementRef.current.getGlobalPosition();
+    // const viewportPosition = viewport.getGlobalPosition();
+    // const elementPosition = elementRef.current.getGlobalPosition();
 
     // Apply local rotation and scale
     return (
         <pixiContainer
+            ref={containerRef}
             zIndex={1000}
-            x={(elementPosition.x - viewportPosition.x) / viewport.scale.x}
-            y={(elementPosition.y - viewportPosition.y) / viewport.scale.y}
+            // x={(elementPosition.x - viewportPosition.x) / viewport.scale.x}
+            // y={(elementPosition.y - viewportPosition.y) / viewport.scale.y}
         >
 
             {isSelected && <ConsoleOverlay elementID={props.elementID}/>}
@@ -59,7 +78,7 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             {isSelected && <FloatingOverlay elementID={props.elementID}/>}
             {isSelected && <ColliderOverlay elementID={props.elementID}/>}
             {isSelected && <StarfieldOverlay elementID={props.elementID}/>}
-            
+
             <RoomOverlay elementID={props.elementID}/>
             <AnimationOverlay elementID={props.elementID}/>
 
