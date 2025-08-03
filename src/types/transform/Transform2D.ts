@@ -1,10 +1,8 @@
 import Vector3 from "./Vector3";
 import Vector2 from "./Vector2";
-import GUID from "../common/GUID";
+import {Matrix} from "pixi.js";
 
 export default interface Transform2D {
-    elementID: GUID;
-
     // Local properties
     localPosition: Vector3;
     localScale: Vector2;
@@ -15,6 +13,6 @@ export default interface Transform2D {
     scale: Vector2;
     rotation: number;
 
-    // Hierarchy
-    children: Transform2D[];
+    // Matrix representation
+    matrix: Matrix;
 }

@@ -5,7 +5,6 @@ import {autoScaleSpriteAtom} from "./actions/useAutoScaleSprite";
 import {autoCropSpriteAtom} from "./actions/useAutoCropSprite";
 import {trimAssetsAtom} from "../assets/useTrimMapAssets";
 import {mergeAssetsAtom} from "../assets/useMergeMapAssets";
-import {saveHistoryAtom} from "../map/history/useHistory";
 import {encodeAssetsAtom} from "../assets/useEncodeAssets";
 
 export interface CleanMapOptions {
@@ -50,9 +49,6 @@ export const cleanMapAtom = atom(null, async (
         await set(mergeAssetsAtom, onProgress);
     if (options.encodeSprites)
         await set(encodeAssetsAtom, onProgress);
-
-    // Save History
-    set(saveHistoryAtom);
 });
 
 export default function useCleanMap() {

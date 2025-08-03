@@ -3,7 +3,6 @@ import {dragStateAtom} from "./useDragState";
 import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import {getMapElementRef} from "../useMapElementRef";
 import {elementsAtom} from "../../map/useMap";
-import {saveHistoryAtom} from "../../map/history/useHistory";
 
 export const stopDragAtom = atom(null, (get, set) => {
     // Check if dragging is in progress
@@ -40,7 +39,6 @@ export const stopDragAtom = atom(null, (get, set) => {
 
     // Set the updated elements back to the atom
     set(elementsAtom, [...elements]);
-    set(saveHistoryAtom);
 
     // Call the onClick callback if didn't drag
     if (!dragState.isDragging)

@@ -1,8 +1,7 @@
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { isSavedAtom } from "./useIsSaved";
-import { deserializeMap } from "./useLIDeserializer";
-import { mapAtom } from "../map/useMap";
-import { atom, useSetAtom } from "jotai";
+import {isSavedAtom} from "./useIsSaved";
+import {deserializeMap} from "./useLIDeserializer";
+import {mapAtom} from "../map/useMap";
+import {atom, useSetAtom} from "jotai";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 
 export const openMapAtom = atom(null, async (_, set) => {
@@ -11,7 +10,6 @@ export const openMapAtom = atom(null, async (_, set) => {
 
     set(isSavedAtom, true);
     set(mapAtom, map);
-    set(saveHistoryAtom);
 
     return map;
 });

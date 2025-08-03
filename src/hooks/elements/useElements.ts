@@ -2,7 +2,6 @@ import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {MaybeLIElement} from "../../types/li/LIElement";
-import {saveHistoryAtom} from "../map/history/useHistory";
 import {elementsAtom} from "../map/useMap";
 
 // Atoms
@@ -19,7 +18,6 @@ export const elementAtomFamily = atomFamily((id: MaybeGUID) => {
                 const clone = [...elements];
                 clone[index] = elem;
                 set(elementsAtom, clone);
-                set(saveHistoryAtom);
             }
         }
     );

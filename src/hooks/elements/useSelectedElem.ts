@@ -4,7 +4,6 @@ import {MaybeGUID} from "../../types/common/GUID";
 import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
 import {MaybeLIElement} from "../../types/li/LIElement";
 import LIProperties from "../../types/li/LIProperties";
-import {saveHistoryAtom} from "../map/history/useHistory";
 import {elementsAtom} from "../map/useMap";
 import {elementAtomFamily} from "./useElements";
 import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
@@ -53,7 +52,6 @@ export const selectedElementAtom = atom(
             });
 
             set(elementsAtom, elements);
-            set(saveHistoryAtom);
         }
     }
 );

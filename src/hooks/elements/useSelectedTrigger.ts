@@ -1,6 +1,5 @@
 import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
 import {MaybeLITrigger} from "../../types/li/LITrigger";
-import {saveHistoryAtom} from "../map/history/useHistory";
 import {selectedElementAtom} from "./useSelectedElem";
 
 // Atoms
@@ -23,14 +22,12 @@ export const selectedTriggerAtom = atom(
                 ...selectedElem,
                 properties: {...selectedElem?.properties, triggers: [...triggers]}
             });
-            set(saveHistoryAtom);
         } else if (selectedElem && trigger != undefined) {
             triggers.push(trigger);
             set(selectedElementAtom, {
                 ...selectedElem,
                 properties: {...selectedElem?.properties, triggers: [...triggers]}
             });
-            set(saveHistoryAtom);
         }
     }
 );

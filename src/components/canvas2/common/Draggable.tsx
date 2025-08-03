@@ -9,6 +9,9 @@ export interface DraggableProps {
     x: number;
     y: number;
     zIndex?: number;
+    xScale?: number;
+    yScale?: number;
+    rotation?: number;
 
     gridSnapResolution?: number;
     draggable?: boolean;
@@ -20,6 +23,8 @@ export interface DraggableProps {
     onClick?: (e: DragEvent) => void;
 
     children?: React.ReactNode;
+    nonInteractableChildren?: React.ReactNode;
+
     ref?: RefObject<typeof Draggable>;
 }
 
@@ -191,20 +196,28 @@ export default function Draggable(props: DraggableProps) {
     return (
         <pixiContainer
             ref={containerRef}
-            eventMode={"static"}
-            onPointerDown={(e: PointerEvent) => onPointerDown(e, true)}
-
-            onPointerMove={onPointerMove}
-            onGlobalPointerMove={onPointerMove}
-
-            onPointerUp={(e: PointerEvent) => onPointerUp(e, true)}
-            onPointerUpOutside={(e: PointerEvent) => onPointerUp(e, true)}
-
             x={props.x}
             y={props.y}
-            zIndex={props.zIndex}
+            zIndex={props.zIndex ?? 0}
+            scale={{x: props.xScale ?? 1, y: props.yScale ?? 1}}
+            rotation={props.rotation ?? 0}
         >
-            {props.children}
+            {/* Interactable Children */}
+            <pixiContainer
+                eventMode={"static"}
+                onPointerDown={(e: PointerEvent) => onPointerDown(e, true)}
+
+                onPointerMove={onPointerMove}
+                onGlobalPointerMove={onPointerMove}
+
+                onPointerUp={(e: PointerEvent) => onPointerUp(e, true)}
+                onPointerUpOutside={(e: PointerEvent) => onPointerUp(e, true)}
+            >
+                {props.children}
+            </pixiContainer>
+
+            {/* Non-interactable Children */}
+            {props.nonInteractableChildren}
         </pixiContainer>
     );
 }

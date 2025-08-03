@@ -1,9 +1,8 @@
-import { useSetAtom } from "jotai";
-import { atom } from "jotai/index";
+import {useSetAtom} from "jotai";
+import {atom} from "jotai/index";
 import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
 import LIElement from "../../types/li/LIElement";
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { elementsAtom } from "../map/useMap";
+import {elementsAtom} from "../map/useMap";
 
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
 
@@ -28,7 +27,6 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
 
     // Add the element to the map
     set(elementsAtom, [...get(elementsAtom), elem]);
-    set(saveHistoryAtom);
 });
 
 // Debug

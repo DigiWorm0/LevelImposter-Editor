@@ -21,6 +21,7 @@ import StarfieldOverlay from "../overlays/starfield/StarfieldOverlay";
 import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
 import {useTick} from "@pixi/react";
 import {Container} from "pixi.js";
+import SelectionOutlineOverlay from "../overlays/SelectionOutlineOverlay";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -81,6 +82,7 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
 
             <RoomOverlay elementID={props.elementID}/>
             <AnimationOverlay elementID={props.elementID}/>
+            <SelectionOutlineOverlay elementID={props.elementID}/>
 
             {isSelected && <ColliderEditorOverlay/>}
         </pixiContainer>

@@ -1,7 +1,6 @@
 import {useSetAtom} from "jotai";
 import {atom} from "jotai/index";
 import {MaybeGUID} from "../../types/common/GUID";
-import {saveHistoryAtom} from "../map/history/useHistory";
 import {elementsAtom} from "../map/useMap";
 import {selectedColliderIDAtom} from "./colliders/useSelectedCollider";
 import {elementAtomFamily} from "./useElements";
@@ -22,7 +21,6 @@ export const removeElementAtom = atom(null, (get, set, id: MaybeGUID) => {
 
     set(selectedElementIDAtom, undefined);
     set(selectedColliderIDAtom, undefined);
-    set(saveHistoryAtom);
 });
 
 export const removeSelectedElementAtom = atom(null, (get, set) => {

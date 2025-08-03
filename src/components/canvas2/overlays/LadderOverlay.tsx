@@ -6,18 +6,27 @@ import {
     LADDER_RADIUS,
     UNITY_SCALE
 } from "../../../types/amongus/Constants";
+import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
+import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 
 export interface LadderOverlayProps {
     elementID: GUID;
 }
 
 export default function LadderOverlay(props: LadderOverlayProps) {
+    const mapElementRef = useMapElementRef(props.elementID);
     const element = useElementValue(props.elementID);
 
     const ladderOffset = element?.properties.ladderOffset ?? DEFAULT_LADDER_OFFSET;
     const height = element?.properties.ladderHeight ?? DEFAULT_LADDER_HEIGHTS[element?.type ?? "util-ladder1"];
-    const topOffset = height + ladderOffset;
-    const bottomOffset = -height + ladderOffset;
+    const topOffset = getOffsetFromElement(mapElementRef.current, {
+        x: 0,
+        y: (height + ladderOffset) * UNITY_SCALE
+    });
+    const bottomOffset = getOffsetFromElement(mapElementRef.current, {
+        x: 0,
+        y: (-height + ladderOffset) * UNITY_SCALE
+    });
 
     if (!element || !element?.type.startsWith("util-ladder"))
         return null;
@@ -28,10 +37,14 @@ export default function LadderOverlay(props: LadderOverlayProps) {
                 g.clear();
 
                 const drawCircle = (direction: "top" | "bottom") => {
-                    const yOffset = direction === "top" ? topOffset : bottomOffset;
+                    if (!mapElementRef.current)
+                        return;
+
+                    const offset = direction === "top" ? topOffset : bottomOffset;
+
                     g.arc(
-                        0,
-                        -yOffset * UNITY_SCALE,
+                        offset.x,
+                        offset.y,
                         LADDER_RADIUS * UNITY_SCALE,
                         0,
                         Math.PI * 2,
@@ -45,8 +58,8 @@ export default function LadderOverlay(props: LadderOverlayProps) {
                 drawCircle("top");
                 drawCircle("bottom");
 
-                g.moveTo(0, -topOffset * UNITY_SCALE)
-                    .lineTo(0, -bottomOffset * UNITY_SCALE)
+                g.moveTo(topOffset.x, topOffset.y)
+                    .lineTo(bottomOffset.x, bottomOffset.y)
                     .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
 
                 g.closePath();

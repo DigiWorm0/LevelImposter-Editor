@@ -5,7 +5,6 @@ import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 interface RoomOverlayProps {
     elementID: GUID;
-
 }
 
 export default function RoomOverlay(props: RoomOverlayProps) {

@@ -8,25 +8,21 @@ import useElementOpacity from "../../../hooks/canvas/useElementOpacity";
 import {useIsSelectedCollider} from "../../../hooks/elements/colliders/useSelectedCollider";
 import useEmbed from "../../../hooks/embed/useEmbed";
 import degToRad from "../../../utils/common/degToRad";
-import MapElementSelectionOutline from "./MapElementSelectionOutline";
 import useSelectElementID from "../../../hooks/selection/useSelectElementID";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 import Draggable from "../common/Draggable";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import {mapElementsRenderLayerRefAtom} from "./MapElementsRenderLayer";
-import {useAtomValue} from "jotai";
 import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
+import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
 }
 
-
 export default function MapElement(props: MapElementProps) {
     const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
-    const [isHovering, setIsHovering] = React.useState(false);
     const childElementIDs = useElementChildIDs(props.elementID);
     const isSelected = useIsElementSelected(props.elementID);
     const [element, setElement] = useElement(props.elementID);
@@ -34,7 +30,6 @@ export default function MapElement(props: MapElementProps) {
     const opacity = useElementOpacity(props.elementID);
     const selectElementID = useSelectElementID();
     const containerRef = useMapElementRef(props.elementID);
-    const mapElementsRenderLayerRef = useAtomValue(mapElementsRenderLayerRefAtom);
 
     const isColliderSelected = useIsSelectedCollider();
     const isEmbedded = useEmbed();
@@ -42,19 +37,6 @@ export default function MapElement(props: MapElementProps) {
 
     const isListening = !isColliderSelected && !isEmbedded && isVisible;
     const isLocked = !isListening || element?.properties.isLocked;
-
-    React.useEffect(() => {
-        const container = containerRef.current;
-        if (!container)
-            return () => {
-            };
-
-        mapElementsRenderLayerRef?.attach(container);
-
-        return () => {
-            mapElementsRenderLayerRef?.detach(container);
-        };
-    }, [containerRef, mapElementsRenderLayerRef]);
 
     // Check if sprite is loaded
     if (!sprite || sprite.destroyed)
@@ -67,6 +49,10 @@ export default function MapElement(props: MapElementProps) {
             id={props.elementID}
             x={element.x * UNITY_SCALE}
             y={-element.y * UNITY_SCALE}
+            zIndex={-getGlobalZFromLocalZ(element.z, element.y)}
+            xScale={element.xScale}
+            yScale={element.yScale}
+            rotation={-degToRad(element.rotation)}
 
             gridSnapResolution={isGridSnapEnabled ? gridSnapResolution * UNITY_SCALE : undefined}
             selected={isSelected}
@@ -94,18 +80,10 @@ export default function MapElement(props: MapElementProps) {
                     return;
                 setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE});
             }}
+
+            nonInteractableChildren={childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
         >
-            <pixiContainer
-                ref={containerRef}
-                rotation={-degToRad(element.rotation)}
-                scale={{x: element.xScale, y: element.yScale}}
-                zIndex={-getGlobalZFromLocalZ(element.z, element.y)}
-            >
-                <MapElementSelectionOutline
-                    isSelected={isSelected}
-                    isHovering={isHovering}
-                    sprite={sprite}
-                />
+            <pixiContainer ref={containerRef}>
                 <pixiSprite
                     anchor={0.5}
                     x={0}
@@ -115,21 +93,9 @@ export default function MapElement(props: MapElementProps) {
                     cursor={element.properties.isLocked ? "default" : "pointer"}
 
                     eventMode={isListening ? "static" : "none"}
-                    onMouseEnter={() => {
-                        if (!element.properties.isLocked)
-                            setIsHovering(true);
-                    }}
-                    onMouseLeave={() => {
-                        setIsHovering(false);
-                    }}
+                    onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
+                    onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
                 />
-
-                {childElementIDs.map((id) => (
-                    <MapElement
-                        key={id}
-                        elementID={id}
-                    />
-                ))}
             </pixiContainer>
         </Draggable>
     );
