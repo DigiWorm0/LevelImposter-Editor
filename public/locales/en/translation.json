@@ -735,10 +735,8 @@
   "map": {
     "importLegacy": "Import Legacy Map",
     "open": "Open Map",
-    "clean": "Clean Map",
-    "cleaning": "Cleaning Map...",
-    "cleanDesc": "Optimizes the map assets for deployment. This is a resource-intensive operation and may take a while to complete. In addition, this is potentially destructive and may move or modify existing objects.",
-    "cleanSuccess": "Successfully cleaned map",
+    "optimize": "Optimize Map",
+    "optimizeDesc": "Optimizes map assets to improve in-game performance.",
     "encodeSprites": "Encode Sprites",
     "autoScale": "Scale sprites to transform size",
     "scaleDownOnly": "Scale down, but not up",

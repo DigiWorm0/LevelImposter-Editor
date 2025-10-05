@@ -1,13 +1,12 @@
 import {MaybeGUID} from "../../../types/common/GUID";
 import {Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
-import {CloudDownload, Delete, Image} from "@mui/icons-material";
+import {CloudDownload, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/strings/toSizeString";
 import React from "react";
 import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
-import useDeleteMapAsset from "../../../hooks/assets/useDeleteMapAsset";
 import useDownloadMapAsset from "../../../hooks/assets/useDownloadMapAsset";
 import ReplaceAssetButton from "../../buttons/ReplaceAssetButton";
 
@@ -18,7 +17,6 @@ export interface MapAssetModalEditorProps {
 
 export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
     const asset = useMapAssetValue(props.id);
-    const deleteAsset = useDeleteMapAsset();
     const downloadAsset = useDownloadMapAsset();
 
     return (
@@ -82,17 +80,6 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                             Download
                         </Button>
                         <ReplaceAssetButton assetID={props.id}/>
-                        <Button
-                            onClick={() => {
-                                deleteAsset(props.id);
-                                props.onClose();
-                            }}
-                            variant={"outlined"}
-                            color={"error"}
-                            endIcon={<Delete/>}
-                        >
-                            Delete
-                        </Button>
                     </ButtonGroup>
                 </Box>
             )}

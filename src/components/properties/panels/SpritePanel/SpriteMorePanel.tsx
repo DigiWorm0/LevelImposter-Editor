@@ -6,16 +6,12 @@ import React from "react";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
 import {AspectRatio, Crop} from "@mui/icons-material";
-import useAutoCropSprite from "../../../../hooks/canvas/actions/useAutoCropSprite";
-import useAutoScaleSprite from "../../../../hooks/canvas/actions/useAutoScaleSprite";
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();
     const selectedType = useSelectedElemType();
     const spriteID = useSelectedElemPropValue("spriteID");
     const asset = useMapAssetValue(spriteID);
-    const autoCrop = useAutoCropSprite();
-    const autoScale = useAutoScaleSprite();
 
     const isGIF = asset?.blob.type === "image/gif";
     const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
@@ -29,7 +25,8 @@ export default function SpriteMorePanel() {
                         color={"secondary"}
                         size={"small"}
                         fullWidth
-                        onClick={() => autoScale()}
+                        onClick={() => {
+                        }}
                     >
                         <AspectRatio
                             sx={{marginRight: 0.5}}
@@ -42,7 +39,8 @@ export default function SpriteMorePanel() {
                         color={"secondary"}
                         size={"small"}
                         fullWidth
-                        onClick={autoCrop}
+                        onClick={() => {
+                        }}
                     >
                         <Crop
                             sx={{marginRight: 0.5}}

@@ -1,12 +1,10 @@
 import React from "react";
 import GenericModal from "../GenericModal";
-import { Box, ButtonGroup } from "@mui/material";
+import {Box} from "@mui/material";
 import ImageAssetModalList from "./Images/ImageAssetModalList";
-import { MaybeGUID } from "../../../types/common/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 import MapAssetModalEditor from "./MapAssetModalEditor";
 import SoundAssetModalList from "./Sounds/SoundAssetModalList";
-import MergeAssetsButton from "../../buttons/MergeAssetsButton";
-import TrimAssetsButton from "../../buttons/TrimAssetsButton";
 
 interface MapAssetsDialogProps {
     isOpen: boolean,
@@ -21,7 +19,7 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
             open={props.isOpen}
             onClose={props.onClose}
             title={"Map Assets"}
-            DialogProps={{ maxWidth: "md" }}
+            DialogProps={{maxWidth: "md"}}
         >
             <Box
                 sx={{
@@ -30,13 +28,7 @@ export default function MapAssetsModal(props: MapAssetsDialogProps) {
                     justifyContent: "space-evenly",
                 }}
             >
-                <Box sx={{ flex: 1 }}>
-                    <Box sx={{ p: 1 }}>
-                        <ButtonGroup fullWidth>
-                            <MergeAssetsButton />
-                            <TrimAssetsButton />
-                        </ButtonGroup>
-                    </Box>
+                <Box sx={{flex: 1}}>
                     <ImageAssetModalList
                         selectedID={selectedAssetID}
                         onClick={setSelectedAssetID}
