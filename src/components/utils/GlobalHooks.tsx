@@ -7,7 +7,6 @@ import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
 import {_useUserAtom} from "../../hooks/firebase/useUser";
 import {useAtomsDebugValue} from "jotai-devtools";
 import useSortMap from "../../hooks/map/useSortMap";
-import useAnimationPlayback from "../../hooks/timeline/useAnimationPlayback";
 
 export default function GlobalHooks() {
     const {i18n} = useTranslation();
@@ -18,8 +17,6 @@ export default function GlobalHooks() {
     _useUserAtom();
     useAtomsDebugValue();
     useSortMap();
-    useAnimationPlayback();
-
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {

@@ -76,5 +76,5 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
                 onMouseLeave={() => setIsHovering(false)}
             />
         </Draggable>
-    )
+    );
 }

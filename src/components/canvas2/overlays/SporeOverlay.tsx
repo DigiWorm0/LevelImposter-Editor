@@ -27,5 +27,5 @@ export default function SporeOverlay(props: SporeOverlayProps) {
                 g.stroke();
             }}
         />
-    )
+    );
 }

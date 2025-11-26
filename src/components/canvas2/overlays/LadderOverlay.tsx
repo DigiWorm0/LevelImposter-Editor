@@ -65,5 +65,5 @@ export default function LadderOverlay(props: LadderOverlayProps) {
                 g.closePath();
             }}
         />
-    )
+    );
 }

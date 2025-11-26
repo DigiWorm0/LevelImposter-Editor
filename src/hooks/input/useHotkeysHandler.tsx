@@ -12,7 +12,7 @@ import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
 import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
 import useJumpTimelineTick from "./useJumpTimelineTick";
 import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
-import {useSetPlayAnim} from "../timeline/usePlayAnim";
+import {useSetIsAnimPlaying} from "../timeline/useIsAnimPlaying";
 import {useSetPlayhead} from "../timeline/usePlayhead";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
 import primaryStore from "../primaryStore";
@@ -36,7 +36,7 @@ export default function useHotkeysHandler() {
     const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
     const jumpTimelineTick = useJumpTimelineTick();
     const changeTimelineScale = useChangeTimelineScale();
-    const setPlayAnim = useSetPlayAnim();
+    const setPlayAnim = useSetIsAnimPlaying();
     const setPlayhead = useSetPlayhead();
     const setLoop = useSetSelectedElemProp("triggerLoop");
     const copyKeyframe = useCopyKeyframe();

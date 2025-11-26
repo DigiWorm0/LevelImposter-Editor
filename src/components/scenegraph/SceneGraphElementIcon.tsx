@@ -67,6 +67,6 @@ const SceneGraphElementIcon = React.memo((props: SceneGraphElementIconProps) => 
         return <Chair/>;
     else
         return <Help/>;
-})
+});
 
 export default SceneGraphElementIcon;

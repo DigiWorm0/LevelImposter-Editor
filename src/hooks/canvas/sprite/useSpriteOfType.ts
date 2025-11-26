@@ -3,6 +3,8 @@ import {atomFamily, unwrap} from "jotai/utils";
 import {spriteAtomFamily} from "./useSprite";
 
 export const spriteOfTypeAtomFamily = atomFamily((type?: string) => {
+    if (type === "undefined" || !type)
+        return spriteAtomFamily(undefined);
     return spriteAtomFamily(`/sprites/${type}.png`);
 });
 

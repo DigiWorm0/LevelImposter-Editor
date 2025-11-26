@@ -2,7 +2,7 @@ import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import OptimizeMapModal from "../modals/OptimizeMap/OptimizeMapModal";
-import {Build} from "@mui/icons-material";
+import {CleaningServices} from "@mui/icons-material";
 
 export interface CleanMapButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>;
@@ -19,7 +19,7 @@ export default function OptimizeMapButton(props: CleanMapButtonProps) {
                     onClick={() => setIsModalOpen(true)}
                     {...props.buttonProps}
                 >
-                    <Build/>
+                    <CleaningServices/>
                 </IconButton>
             </Tooltip>
 

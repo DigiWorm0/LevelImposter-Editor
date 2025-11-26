@@ -60,5 +60,5 @@ export default function createDDSHeader(width: number, height: number, format: s
             cubemapNegativeZ: false,
             volume: false
         }
-    }
+    };
 }
