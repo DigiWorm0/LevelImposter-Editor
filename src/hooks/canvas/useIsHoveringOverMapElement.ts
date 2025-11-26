@@ -1,0 +1,30 @@
+import React from "react";
+import GUID, {MaybeGUID} from "../../types/common/GUID";
+import mapElementEventEmitter from "../../utils/canvas/mapElementEventEmitter";
+
+export default function useIsHoveringOverMapElement(elementID: MaybeGUID) {
+    const [isHovering, setIsHovering] = React.useState(false);
+
+    React.useEffect(() => {
+        const handleMouseOver = (id: GUID) => {
+            if (id === elementID)
+                setIsHovering(true);
+        };
+
+        const handleMouseOut = (id: GUID) => {
+            if (id === elementID)
+                setIsHovering(false);
+        };
+
+        mapElementEventEmitter.on("mouseOver", handleMouseOver);
+        mapElementEventEmitter.on("mouseOut", handleMouseOut);
+
+        return () => {
+            mapElementEventEmitter.off("mouseOver", handleMouseOver);
+            mapElementEventEmitter.off("mouseOut", handleMouseOut);
+        };
+
+    }, [elementID]);
+
+    return isHovering;
+}

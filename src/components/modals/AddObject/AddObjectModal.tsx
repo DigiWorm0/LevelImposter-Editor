@@ -44,11 +44,16 @@ export default function AddObjectModal(props: AddObjectModalProps) {
 
     return (
         <Dialog
+            disableRestoreFocus
             open={props.isVisible}
             onClose={props.onClose}
             fullWidth
             maxWidth="sm"
-            PaperProps={{elevation: 1}}
+            slotProps={{
+                paper: {
+                    elevation: 1,
+                }
+            }}
         >
             <AddObjectModalSearch/>
             <IconButton

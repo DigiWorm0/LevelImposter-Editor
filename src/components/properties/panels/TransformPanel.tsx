@@ -60,7 +60,7 @@ export default function TransformPanel() {
                     disabled={!editType}
                     size={"small"}
                     variant={"standard"}
-                    defaultValue={type}
+                    value={type}
                     placeholder={t("transform.type") as string}
                     slotProps={{
                         input: {

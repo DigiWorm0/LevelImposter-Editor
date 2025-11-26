@@ -13,7 +13,8 @@ export interface ColliderOverlayProps {
 export function drawColliderStroke(
     g: Graphics,
     collider?: LICollider,
-    strokeWidth: number = 2) {
+    strokeWidth: number = 2,
+    closePath: boolean = false) {
 
     // Check if the collider is defined
     if (!collider)
@@ -32,6 +33,10 @@ export function drawColliderStroke(
 
     // Draw lines to each point in the collider
     collider.points.forEach(p => g.lineTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE));
+
+    // Close the path if specified
+    if (closePath)
+        g.closePath();
 
     // Apply stroke style
     g.stroke({

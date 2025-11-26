@@ -17,8 +17,10 @@ export default function AddObjectModalSearch() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={(e) => e.target.select()}
-            InputProps={{
-                startAdornment: <InputAdornment position={"start"}><Search/></InputAdornment>
+            slotProps={{
+                input: {
+                    startAdornment: <InputAdornment position={"start"}><Search/></InputAdornment>
+                }
             }}
         />
     );

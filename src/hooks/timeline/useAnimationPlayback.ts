@@ -10,6 +10,7 @@ import lerp from "../../utils/common/lerp";
 import degToRad from "../../utils/common/degToRad";
 import {UNITY_SCALE} from "../../types/amongus/Constants";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
+import useIsAnimTarget from "./useIsAnimTarget";
 
 /**
  * Hook to update a Sprite's properties based on animation playback
@@ -20,7 +21,13 @@ export default function useAnimationPlayback(
     id: GUID,
     ref: RefObject<Sprite | null>
 ) {
+    const isAnimTarget = useIsAnimTarget(id);
+
     useTick(() => {
+        // Check if the target is an animation target
+        if (!isAnimTarget)
+            return;
+
         // Check if Sprite ref is valid
         if (!ref.current)
             return;
@@ -100,7 +107,6 @@ export function lerpBetweenKeyframes(
 
     // No curve, default to linear
     return lerp(prevKeyframe.value, nextKeyframe.value, interpT);
-
 }
 
 /**

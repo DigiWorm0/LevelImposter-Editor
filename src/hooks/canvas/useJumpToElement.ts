@@ -8,9 +8,9 @@ import {Ticker} from "pixi.js";
 const ticker = new Ticker();
 ticker.autoStart = true;
 
-const ANIM_DURATION = 15;
+const ANIM_DURATION = 20;
 
-export const jumpToElementAtom = atom(null, (get, set, elementID: MaybeGUID) => {
+export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) => {
     if (!elementID)
         return;
 
@@ -33,11 +33,12 @@ export const jumpToElementAtom = atom(null, (get, set, elementID: MaybeGUID) => 
     const animateToElement = () => {
         // Update time/progress
         t += ticker.deltaTime;
-        console.log(t);
         const progress = t / ANIM_DURATION;
 
         // Curves the progress to make it look more natural
-        const curvedProgress = Math.sin(progress * Math.PI / 2);
+        const curvedProgress = progress < 0.5 ?
+            2 * progress * progress :
+            -1 + (4 - 2 * progress) * progress;
 
         // Animate Position
         viewport.moveCenter({
