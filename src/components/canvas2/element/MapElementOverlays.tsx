@@ -4,12 +4,11 @@ import ConsoleOverlay from "../overlays/ConsoleOverlay";
 import CameraOverlay from "../overlays/CameraOverlay";
 import DisplayOverlay from "../overlays/DisplayOverlay";
 import LadderOverlay from "../overlays/LadderOverlay";
-import ConnectionOverlay from "../overlays/ConnectionOverlay";
+import ConnectionsOverlay from "../overlays/connections/ConnectionsOverlay";
 import SporeOverlay from "../overlays/SporeOverlay";
 import React from "react";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
-import useViewport from "../../../hooks/canvas/useViewport";
 import PlayerZOverlay from "../overlays/PlayerZOverlay";
 import PlatformOverlay from "../overlays/PlatformOverlay";
 import SpawnOverlay from "../overlays/SpawnOverlay";
@@ -22,6 +21,7 @@ import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
 import {useTick} from "@pixi/react";
 import {Container} from "pixi.js";
 import SelectionOutlineOverlay from "../overlays/SelectionOutlineOverlay";
+import useScreenToWorld from "../../../hooks/canvas/useScreenToWorld";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -29,25 +29,24 @@ interface MapElementOverlaysProps {
 
 export default function MapElementOverlays(props: MapElementOverlaysProps) {
     const isSelected = useIsElementSelected(props.elementID);
-    const viewport = useViewport();
     const elementRef = useMapElementRef(props.elementID);
     const containerRef = React.useRef<Container>(null);
+    const screenToWorld = useScreenToWorld();
 
     useTick(() => {
         if (!containerRef.current ||
-            !elementRef.current ||
-            !viewport)
+            !elementRef.current)
             return;
 
-        // Get the global position of the viewport and the map element
-        const viewportPosition = viewport.getGlobalPosition();
+        // Get the screen position of the map element
         const elementPosition = elementRef.current.getGlobalPosition();
+
+        // Convert the element position from screen to world coordinates
+        const worldPosition = screenToWorld(elementPosition);
 
         // Copy the position from the element to the container
         // This ensures that overlays match position, but not rotation or scale
-        containerRef.current.position.set(
-            (elementPosition.x - viewportPosition.x) / viewport.scale.x,
-            (elementPosition.y - viewportPosition.y) / viewport.scale.y);
+        containerRef.current.position.set(worldPosition.x, worldPosition.y);
     });
 
     // Check if the element exists and has an ID
@@ -71,7 +70,7 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             {isSelected && <DisplayOverlay elementID={props.elementID}/>}
             {isSelected && <LadderOverlay elementID={props.elementID}/>}
             {isSelected && <PlatformOverlay elementID={props.elementID}/>}
-            {isSelected && <ConnectionOverlay elementID={props.elementID}/>}
+            {isSelected && <ConnectionsOverlay elementID={props.elementID}/>}
             {isSelected && <SporeOverlay elementID={props.elementID}/>}
             {isSelected && <PlayerZOverlay elementID={props.elementID}/>}
             {isSelected && <SpawnOverlay elementID={props.elementID}/>}

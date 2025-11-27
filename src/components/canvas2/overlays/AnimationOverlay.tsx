@@ -1,11 +1,10 @@
 import React from "react";
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../hooks/useSettings";
-import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
-import {Sprite} from "pixi.js";
+import {Container} from "pixi.js";
 import useAnimationPlayback from "../../../hooks/timeline/useAnimationPlayback";
 import useIsAnimTarget from "../../../hooks/timeline/useIsAnimTarget";
+import StaticMapElement from "../element/StaticMapElement";
 
 export interface AnimationOverlayProps {
     elementID: GUID;
@@ -13,24 +12,17 @@ export interface AnimationOverlayProps {
 
 export default function AnimationOverlay(props: AnimationOverlayProps) {
     const isAnimTarget = useIsAnimTarget(props.elementID);
-    const element = useElementValue(props.elementID);
-    const sprite = useElementSprite(props.elementID);
     const {animPreview} = useSettingsValue();
-    const ref = React.useRef<Sprite>(null);
-    useAnimationPlayback(props.elementID, ref);
+    const containerRef = React.useRef<Container>(null);
+    useAnimationPlayback(props.elementID, containerRef);
 
     if (!isAnimTarget ||
-        !element ||
-        !sprite ||
-        sprite.destroyed ||
         !animPreview)
         return null;
     return (
-        <pixiSprite
-            ref={ref}
-            texture={sprite}
-            anchor={0.5}
-            eventMode={"none"}
+        <StaticMapElement
+            containerRef={containerRef}
+            elementID={props.elementID}
         />
     );
 }

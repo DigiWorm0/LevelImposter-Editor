@@ -1,5 +1,5 @@
 import {RefObject} from "react";
-import {Sprite} from "pixi.js";
+import {Container} from "pixi.js";
 import {useTick} from "@pixi/react";
 import primaryStore from "../primaryStore";
 import {playheadAtom} from "./usePlayhead";
@@ -19,7 +19,7 @@ import useIsAnimTarget from "./useIsAnimTarget";
  */
 export default function useAnimationPlayback(
     id: GUID,
-    ref: RefObject<Sprite | null>
+    ref: RefObject<Container | null>
 ) {
     const isAnimTarget = useIsAnimTarget(id);
 

@@ -36,11 +36,11 @@ const DEFAULT_OPTIONS: OptimizeMapOption[] = [
         isEnabled: true
     },
     {
-        label: "Convert Map Assets to DDS (DXT1 / DXT5)",
-        description: "DXT1/DXT5 allows assets to be decoded by the GPU instead of the CPU, improving CPU memory usage.",
+        label: "Encode Map Assets as DXT1 / DXT5",
+        description: "DXT1/DXT5 allows assets to be decoded by the GPU directly instead of going through the CPU which improves memory usage.",
         icon: <Schema/>,
         operation: EncodeToDDSOperation,
-        isEnabled: true,
+        isEnabled: false,
     }
 ];
 
@@ -95,7 +95,7 @@ export default function OptimizeMapPanel() {
     // On render, scroll to bottom of log
     React.useEffect(() => {
         if (bottomLogRef.current)
-            bottomLogRef.current.scrollIntoView({behavior: "smooth"});
+            bottomLogRef.current.scrollIntoView({behavior: "instant"});
     }, [optimizeLog]);
 
     return (

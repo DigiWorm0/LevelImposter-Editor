@@ -25,8 +25,8 @@ export default function DisplayOverlay(props: DisplayOverlayProps) {
                     camWidth,
                     camHeight
                 )
-                    .fill({color: "green", alpha: 0.4})
-                    .stroke({color: "green", width: 5, alignment: 0.5});
+                    .fill({color: "#2889de", alpha: 0.4})
+                    .stroke({color: "#2889de", width: 5, alignment: 0.5});
             }}
         />
     );

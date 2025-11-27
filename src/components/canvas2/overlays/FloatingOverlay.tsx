@@ -43,6 +43,10 @@ export default function FloatingOverlay(props: FloatingOverlayProps) {
                 x={0}
                 y={0}
                 anchor={0.5}
+                scale={{
+                    x: element.xScale,
+                    y: element.yScale
+                }}
             />
             <pixiGraphics
                 eventMode={"none"}
