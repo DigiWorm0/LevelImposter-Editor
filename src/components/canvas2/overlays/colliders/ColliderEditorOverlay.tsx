@@ -1,21 +1,24 @@
-import React from "react";
+import React, {RefObject} from "react";
 import useSelectedCollider from "../../../../hooks/elements/colliders/useSelectedCollider";
 import useSelectedColliderPointIndexes from "../../../../hooks/elements/colliders/useSelectedColliderPointIndexes";
-import {Graphics} from "pixi.js";
+import {Container, Graphics} from "pixi.js";
 import {drawColliderFill, drawColliderStroke} from "./ColliderOverlay";
 import LICollider from "../../../../types/li/LICollider";
 import ColliderEditorPoint from "./ColliderEditorPoint";
 import SelectOperation from "../../../../types/common/SelectOperation";
 import {useInsertPointAtMouse} from "../../../../hooks/elements/colliders/useInsertColliderPointAtMouse";
+import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
+import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
 
 function drawCollider(
     g: Graphics,
     collider: LICollider,
+    mapElementRef: RefObject<Container | null>,
     fill: boolean = true,
     strokeWidth: number = 4
 ) {
     g.clear();
-    drawColliderStroke(g, collider, strokeWidth);
+    drawColliderStroke(g, collider, mapElementRef, strokeWidth);
     if (fill)
         drawColliderFill(g, collider);
 }
@@ -24,6 +27,9 @@ export default function ColliderEditorOverlay() {
     const [collider, setCollider] = useSelectedCollider();
     const insertPointAtMouse = useInsertPointAtMouse();  // TODO: Add/remove points to collider
     const [selectedIndexes, setSelectedIndexes] = useSelectedColliderPointIndexes();
+
+    const selectedElementID = useSelectedElemIDValue();
+    const mapElementRef = useMapElementRef(selectedElementID);
 
     const strokeGraphicsRef = React.useRef<Graphics>(null);
     const fillGraphicsRef = React.useRef<Graphics>(null);
@@ -59,14 +65,14 @@ export default function ColliderEditorOverlay() {
                 eventMode={"static"}
                 ref={strokeGraphicsRef}
                 onMouseDown={(e: MouseEvent) => insertPointAtMouse(e)}
-                draw={(g) => drawCollider(g, collider, false)}
+                draw={(g) => drawCollider(g, collider, mapElementRef, false)}
             />
 
             {/* Draw the collider fill */}
             <pixiGraphics
                 eventMode={"none"}
                 ref={fillGraphicsRef}
-                draw={(g) => drawCollider(g, collider, true)}
+                draw={(g) => drawCollider(g, collider, mapElementRef, true)}
             />
 
             {collider.points.map((point, index) => (
@@ -111,8 +117,8 @@ export default function ColliderEditorOverlay() {
                             return;
 
                         // Redraw the colliders
-                        drawCollider(strokeGraphicsRef.current, collider, false);
-                        drawCollider(fillGraphicsRef.current, collider, true);
+                        drawCollider(strokeGraphicsRef.current, collider, mapElementRef, false);
+                        drawCollider(fillGraphicsRef.current, collider, mapElementRef, true);
                     }}
                 />
             ))}

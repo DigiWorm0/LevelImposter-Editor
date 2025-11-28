@@ -3,8 +3,12 @@ import {useElementValue} from "../../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../../hooks/useSettings";
 import {UNITY_SCALE} from "../../../../types/amongus/Constants";
 import {useSelectedColliderID} from "../../../../hooks/elements/colliders/useSelectedCollider";
-import {Graphics} from "pixi.js";
+import {Container, Graphics} from "pixi.js";
 import LICollider from "../../../../types/li/LICollider";
+import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
+import {RefObject} from "react";
+import getOffsetFromElement from "../../../../utils/canvas/getOffsetFromElement";
+import TickingGraphics from "../../common/TickingGraphics";
 
 export interface ColliderOverlayProps {
     elementID: GUID;
@@ -13,11 +17,16 @@ export interface ColliderOverlayProps {
 export function drawColliderStroke(
     g: Graphics,
     collider?: LICollider,
+    mapElementRef?: RefObject<Container | null>,
     strokeWidth: number = 2,
     closePath: boolean = false) {
 
     // Check if the collider is defined
     if (!collider)
+        return;
+
+    // Check if the map element is defined
+    if (!mapElementRef?.current)
         return;
 
     // Don't draw if there are no points in the collider
@@ -29,10 +38,22 @@ export function drawColliderStroke(
 
     // Go to the first point in the collider
     const initialPoint = collider.points[0];
-    g.moveTo(initialPoint.x * UNITY_SCALE, initialPoint.y * UNITY_SCALE);
+    const initialWorldPoint = getOffsetFromElement(mapElementRef.current, {
+        x: initialPoint.x * -UNITY_SCALE,
+        y: initialPoint.y * -UNITY_SCALE
+    });
+
+    g.moveTo(initialWorldPoint.x, initialWorldPoint.y);
 
     // Draw lines to each point in the collider
-    collider.points.forEach(p => g.lineTo(p.x * UNITY_SCALE, p.y * UNITY_SCALE));
+    collider.points.forEach(p => {
+        const worldPoint = getOffsetFromElement(mapElementRef.current, {
+            x: p.x * -UNITY_SCALE,
+            y: p.y * -UNITY_SCALE
+        });
+
+        g.lineTo(worldPoint.x, worldPoint.y);
+    });
 
     // Close the path if specified
     if (closePath)
@@ -73,19 +94,16 @@ export default function ColliderOverlay(props: ColliderOverlayProps) {
     const element = useElementValue(props.elementID);
     const {colliderPreview} = useSettingsValue();
     const [selectedColliderID] = useSelectedColliderID();
+    const mapElementRef = useMapElementRef(props.elementID);
 
     if (!colliderPreview)
         return null;
     if (!element)
         return null;
     return element.properties.colliders?.map((collider) => (
-        <pixiGraphics
+        <TickingGraphics
             key={collider.id}
-            eventMode={"none"}
             draw={(g) => {
-
-                // Reset the graphics context
-                g.clear();
 
                 // Don't draw if the collider is selected
                 // See: ColliderEditorOverlay.tsx
@@ -93,7 +111,7 @@ export default function ColliderOverlay(props: ColliderOverlayProps) {
                     return;
 
                 // Draw the collider edges
-                drawColliderStroke(g, collider);
+                drawColliderStroke(g, collider, mapElementRef);
 
                 // Solid colliders are filled with a semi-transparent color
                 if (collider.isSolid)
