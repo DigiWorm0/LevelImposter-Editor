@@ -139,6 +139,16 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-meeting": [
         "callMeeting",
     ],
+    "util-triggerarea": [
+        "enable",
+        "disable",
+        "toggle",
+    ],
+    "util-playermover": [
+        "enable",
+        "disable",
+        "toggle",
+    ],
     "util-sabotages": [
         "startOxygen",
         "startLights",

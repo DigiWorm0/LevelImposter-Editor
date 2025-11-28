@@ -28,6 +28,9 @@ export default function SelectionOutlineOverlay(props: SelectionOutlineOverlayPr
     return (
         <TickingGraphics
             draw={(g) => {
+                if (!mapElementRef.current)
+                    return;
+
                 const topLeft = getOffsetFromElement(mapElementRef.current, {
                     x: -spriteWidth / 2,
                     y: -spriteHeight / 2

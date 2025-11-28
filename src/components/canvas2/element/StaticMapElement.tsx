@@ -34,7 +34,7 @@ export default function StaticMapElement(props: StaticMapElementProps) {
                 x: props.disableTransformation ? 1 : element.xScale,
                 y: props.disableTransformation ? 1 : element.yScale
             }}
-            rotation={-degToRad(element.rotation)}
+            rotation={props.disableTransformation ? 0 : -degToRad(element.rotation)}
         >
             <pixiSprite
                 anchor={0.5}
