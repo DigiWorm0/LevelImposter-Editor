@@ -11,7 +11,7 @@ const BLOCK_SIZE = 16;
  */
 export default function writeDXT5Texture(
     header: DDSHeader,
-    bitmap: Buffer): Buffer {
+    bitmap: Uint8ClampedArray): Buffer {
 
     // Check if the header is valid for DXT1 format
     if (header.pixelFormat.fourCharacterCode !== "DXT5")
@@ -59,7 +59,7 @@ export default function writeDXT5Texture(
  */
 function encodeBlock(
     blockBuffer: Buffer,
-    bitmapBuffer: Buffer,
+    bitmapBuffer: Uint8ClampedArray,
     width: number,
     x: number,
     y: number): void {

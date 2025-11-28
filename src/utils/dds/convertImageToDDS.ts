@@ -1,5 +1,4 @@
 // Cached image canvas
-import {Jimp} from "jimp";
 import createDDSHeader from "./write/createDDSHeader";
 import writeDDSHeader from "./write/writeDDSHeader";
 import writeDXT5Texture from "./write/writeDXT5Texture";
@@ -14,35 +13,29 @@ const ctx = canvas.getContext("2d");
  */
 export default async function convertImageToDDS(image: HTMLImageElement): Promise<Blob> {
 
-    // Re-encode Image to PNG
-    // HACK: Fixes issue with Jimp throwing an error with invalid image data
-    canvas.width = image.width;
-    canvas.height = image.height;
+    // Round dimensions to nearest multiple of 4
+    const width = Math.floor(image.width / 4) * 4;
+    const height = Math.floor(image.height / 4) * 4;
+
+    // Create canvas and draw image
+    canvas.width = width;
+    canvas.height = height;
     if (!ctx)
         throw new Error("Failed to get canvas context");
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(image, 0, 0, image.width, image.height);
-    const bitmap = ctx.getImageData(0, 0, image.width, image.height).data;
-
-    // Import into Jimp
-    const jimpImage = await Jimp.fromBitmap({
-        data: bitmap,
-        width: image.width,
-        height: image.height
-    });
-
-    // Round dimensions to nearest multiple of 4
-    const width = Math.floor(jimpImage.width / 4) * 4;
-    const height = Math.floor(jimpImage.height / 4) * 4;
-    jimpImage.crop({w: width, h: height, x: 0, y: 0});
-
     // Flip vertically (fixes Unity's interpretation of DXT1 textures)
-    jimpImage.flip({vertical: true, horizontal: false});
+    ctx.clearRect(0, 0, width, height);
+    ctx.translate(0, height);
+    ctx.scale(1, -1);
+    ctx.drawImage(image, 0, 0, width, height);
+
+    // Get image bitmap data
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const bitmap = imageData.data;
 
     // Check if image has semi-transparency
     // If it does, we will use DXT5 instead of DXT1
-    const hasSemiTransparency = jimpImage.bitmap.data.some((value: number, index: number) => {
+    const hasSemiTransparency = bitmap.some((value: number, index: number) => {
         // Check alpha channel (4th byte in RGBA)
         return index % 4 === 3 && value < 255 && value > 0;
     });
@@ -52,8 +45,8 @@ export default async function convertImageToDDS(image: HTMLImageElement): Promis
     const newHeader = createDDSHeader(width, height, format);
     const headerData = writeDDSHeader(newHeader);
     const textureData = format === "DXT5" ?
-        writeDXT5Texture(newHeader, jimpImage.bitmap.data) :
-        writeDXT1Texture(newHeader, jimpImage.bitmap.data);
+        writeDXT5Texture(newHeader, bitmap) :
+        writeDXT1Texture(newHeader, bitmap);
     const buffer = Buffer.concat([headerData, textureData]);
 
     // Convert Buffer to Blob

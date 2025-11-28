@@ -10,7 +10,7 @@ const BLOCK_SIZE = 8;
  */
 export default function writeDXT1Texture(
     header: DDSHeader,
-    bitmap: Buffer): Buffer {
+    bitmap: Uint8ClampedArray): Buffer {
 
     // Check if the header is valid for DXT1 format
     if (header.pixelFormat.fourCharacterCode !== "DXT1")
@@ -60,7 +60,7 @@ export default function writeDXT1Texture(
  */
 function encodeBlock(
     blockBuffer: Buffer,
-    bitmapBuffer: Buffer,
+    bitmapBuffer: Uint8ClampedArray,
     width: number,
     x: number,
     y: number,
@@ -247,7 +247,7 @@ export function getMaxColor(colors: number[][], skipTransparentColors: boolean):
  * @param x - The x-coordinate of the block in the bitmap.
  * @param y - The y-coordinate of the block in the bitmap.
  */
-export function readBlockFromBitmap(bitmapBuffer: Buffer, width: number, x: number, y: number): number[][] {
+export function readBlockFromBitmap(bitmapBuffer: Uint8ClampedArray, width: number, x: number, y: number): number[][] {
     // Initialize a 4x4 array to hold the colors of the pixels in the block
     const colors: number[][] = [];
 

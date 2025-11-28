@@ -53,16 +53,11 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
     if (!props.elementID)
         return null;
 
-    // const viewportPosition = viewport.getGlobalPosition();
-    // const elementPosition = elementRef.current.getGlobalPosition();
-
     // Apply local rotation and scale
     return (
         <pixiContainer
             ref={containerRef}
             zIndex={1000}
-            // x={(elementPosition.x - viewportPosition.x) / viewport.scale.x}
-            // y={(elementPosition.y - viewportPosition.y) / viewport.scale.y}
         >
 
             {isSelected && <ConsoleOverlay elementID={props.elementID}/>}

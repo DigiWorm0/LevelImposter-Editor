@@ -25,13 +25,21 @@ export default function SizeTag(props: SizeTagProps) {
     if (!asset)
         return null;
 
-    const assetSize = asset?.blob.size ?? 0;
-    const sizeString = toSizeString(assetSize);
-    const sizeColor = assetSize < GOOD_SIZE ? "success" : assetSize < BAD_SIZE ? "warning" : "error";
     const typeString = asset.type in TYPES_TO_TEXT ?
         TYPES_TO_TEXT[asset.type as keyof typeof TYPES_TO_TEXT] :
         asset.type;
-    const typeColor = typeString !== "DDS" ? "error" : "primary";
+    
+    const isDDS = typeString === "DDS";
+
+    const assetSize = asset?.blob.size ?? 0;
+    const sizeString = toSizeString(assetSize);
+    const sizeColor = isDDS ? "primary" :
+        assetSize < GOOD_SIZE ? "success" :
+            assetSize < BAD_SIZE ? "warning" :
+                "error";
+
+
+    const typeColor = isDDS ? "success" : "error";
 
     return (
         <Box sx={{textAlign: "center", p: 1}}>
