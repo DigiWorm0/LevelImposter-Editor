@@ -626,6 +626,7 @@
     "ghostInfo": "The collider will block all players, including ghosts.",
     "deathInfo": "All players within the collider area will die when this object is triggered.",
     "shakeInfo": "All players' screens will shake while they're within this colliders.",
+    "playerMoverInfo": "All players within the collider are moved along with this object.",
     "errorOneOnly": "This object can only have 1 collider"
   },
   "triggerdeath": {
@@ -1016,6 +1017,7 @@
     "util-valuebool": "Boolean Value",
     "util-valuecomparator": "Comparator",
     "util-triggergate": "Trigger Gate",
+    "util-playermover": "Player Mover",
     "task-id": "Card Swipe",
     "task-keys": "Keys",
     "task-pass": "Scan Pass",

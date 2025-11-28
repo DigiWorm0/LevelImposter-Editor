@@ -44,7 +44,8 @@ const SOLID_ONLY_TYPES = [
     "util-triggersound",
     "util-triggerdeath",
     "util-triggershake",
-    "util-decontamination"
+    "util-decontamination",
+    "util-playermover"
 ];
 
 const SHADOW_ONLY_TYPES = [
@@ -214,6 +215,13 @@ export default function ColliderPanel() {
                 icon={<CameraAlt/>}
             >
                 {t("collider.shakeInfo") as string}
+            </MapError>
+            <MapError
+                isVisible={type === "util-playermover"}
+                info
+                icon={<Person/>}
+            >
+                {t("collider.playerMoverInfo") as string}
             </MapError>
         </>
     );

@@ -139,6 +139,7 @@ const AUElementDB: string[] = [
     "util-valuecomparator",
     "util-triggergate",
     "util-layer",
+    "util-playermover",
     "task-id",
     "task-keys",
     "task-pass",
