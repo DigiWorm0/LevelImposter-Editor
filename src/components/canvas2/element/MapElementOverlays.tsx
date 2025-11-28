@@ -10,18 +10,17 @@ import React from "react";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import PlayerZOverlay from "../overlays/PlayerZOverlay";
-import PlatformOverlay from "../overlays/PlatformOverlay";
+import PlatformPathOverlay from "../overlays/PlatformPathOverlay";
 import SpawnOverlay from "../overlays/SpawnOverlay";
 import MinimapOverlay from "../overlays/MinimapOverlay";
-import FloatingOverlay from "../overlays/FloatingOverlay";
+import FloatingPathOverlay from "../overlays/FloatingPathOverlay";
 import ColliderOverlay from "../overlays/colliders/ColliderOverlay";
-import AnimationOverlay from "../overlays/AnimationOverlay";
-import StarfieldOverlay from "../overlays/starfield/StarfieldOverlay";
 import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
 import {useTick} from "@pixi/react";
 import {Container} from "pixi.js";
 import SelectionOutlineOverlay from "../overlays/SelectionOutlineOverlay";
 import useScreenToWorld from "../../../hooks/canvas/useScreenToWorld";
+import StarfieldAreaOverlay from "../overlays/StarfieldAreaOverlay";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -64,18 +63,17 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
             {isSelected && <CameraOverlay elementID={props.elementID}/>}
             {isSelected && <DisplayOverlay elementID={props.elementID}/>}
             {isSelected && <LadderOverlay elementID={props.elementID}/>}
-            {isSelected && <PlatformOverlay elementID={props.elementID}/>}
+            {isSelected && <PlatformPathOverlay elementID={props.elementID}/>}
             {isSelected && <ConnectionsOverlay elementID={props.elementID}/>}
             {isSelected && <SporeOverlay elementID={props.elementID}/>}
             {isSelected && <PlayerZOverlay elementID={props.elementID}/>}
             {isSelected && <SpawnOverlay elementID={props.elementID}/>}
             {isSelected && <MinimapOverlay elementID={props.elementID}/>}
-            {isSelected && <FloatingOverlay elementID={props.elementID}/>}
+            {isSelected && <FloatingPathOverlay elementID={props.elementID}/>}
             {isSelected && <ColliderOverlay elementID={props.elementID}/>}
-            {isSelected && <StarfieldOverlay elementID={props.elementID}/>}
+            {isSelected && <StarfieldAreaOverlay elementID={props.elementID}/>}
 
             <RoomOverlay elementID={props.elementID}/>
-            <AnimationOverlay elementID={props.elementID}/>
             <SelectionOutlineOverlay elementID={props.elementID}/>
 
             {isSelected && <ColliderEditorOverlay/>}

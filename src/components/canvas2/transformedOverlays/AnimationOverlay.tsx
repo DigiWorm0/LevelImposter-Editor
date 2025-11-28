@@ -21,6 +21,7 @@ export default function AnimationOverlay(props: AnimationOverlayProps) {
         return null;
     return (
         <StaticMapElement
+            disableTransformation
             containerRef={containerRef}
             elementID={props.elementID}
         />

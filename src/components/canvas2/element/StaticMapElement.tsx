@@ -11,6 +11,7 @@ import {Container} from "pixi.js";
 export interface StaticMapElementProps {
     containerRef?: React.RefObject<Container | null>;
     elementID: MaybeGUID;
+    disableTransformation?: boolean;
 }
 
 export default function StaticMapElement(props: StaticMapElementProps) {
@@ -26,12 +27,12 @@ export default function StaticMapElement(props: StaticMapElementProps) {
     return (
         <pixiContainer
             ref={props.containerRef}
-            x={element.x * UNITY_SCALE}
-            y={-element.y * UNITY_SCALE}
-            zIndex={-getGlobalZFromLocalZ(element.z, element.y)}
+            x={props.disableTransformation ? 0 : element.x * UNITY_SCALE}
+            y={props.disableTransformation ? 0 : -element.y * UNITY_SCALE}
+            zIndex={props.disableTransformation ? 0 : -getGlobalZFromLocalZ(element.z, element.y)}
             scale={{
-                x: element.xScale,
-                y: element.yScale
+                x: props.disableTransformation ? 1 : element.xScale,
+                y: props.disableTransformation ? 1 : element.yScale
             }}
             rotation={-degToRad(element.rotation)}
         >

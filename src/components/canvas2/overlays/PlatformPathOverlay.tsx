@@ -7,13 +7,17 @@ import {
     PLATFORM_RADIUS,
     UNITY_SCALE
 } from "../../../types/amongus/Constants";
+import TickingGraphics from "../common/TickingGraphics";
+import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
+import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 
 export interface PlatformOverlayProps {
     elementID: GUID;
 }
 
-export default function PlatformOverlay(props: PlatformOverlayProps) {
+export default function PlatformPathOverlay(props: PlatformOverlayProps) {
     const element = useElementValue(props.elementID);
+    const mapElementRef = useMapElementRef(props.elementID);
 
     if (!element || !element.type.startsWith("util-platform"))
         return null;
@@ -38,41 +42,54 @@ export default function PlatformOverlay(props: PlatformOverlayProps) {
     const yExitOffset = platformYExitOffset ?? 0;
 
     return (
-        <pixiGraphics
-            eventMode={"none"}
+        <TickingGraphics
             draw={(g) => {
-                g.clear();
-                g.beginPath();
+                // Movement Path
+                const movementOffset = getOffsetFromElement(mapElementRef.current, {
+                    x: xOffset * -UNITY_SCALE,
+                    y: yOffset * UNITY_SCALE
+                });
+
                 g.moveTo(0, 0)
-                    .lineTo(xOffset * UNITY_SCALE, -yOffset * UNITY_SCALE)
-                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
-                g.closePath();
+                    .lineTo(movementOffset.x, movementOffset.y)
+                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5})
+                    .closePath();
 
-                g.beginPath();
+                // Entrance Offset
+                const entranceOffset = getOffsetFromElement(mapElementRef.current, {
+                    x: xEntranceOffset * -UNITY_SCALE,
+                    y: yEntranceOffset * UNITY_SCALE
+                });
+
                 g.arc(
-                    xEntranceOffset * UNITY_SCALE,
-                    -yEntranceOffset * UNITY_SCALE,
+                    entranceOffset.x,
+                    entranceOffset.y,
                     PLATFORM_RADIUS * UNITY_SCALE,
                     0,
                     2 * Math.PI,
                     false
                 )
                     .fill({color: 0xffaa00, alpha: 0.4})
-                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
-                g.closePath();
+                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5})
+                    .closePath();
 
-                g.beginPath();
+                // Exit Offset
+                const exitOffset = getOffsetFromElement(mapElementRef.current, {
+                    x: (xExitOffset + xOffset) * -UNITY_SCALE,
+                    y: (yExitOffset + yOffset) * UNITY_SCALE
+                });
+
                 g.arc(
-                    (xExitOffset + xOffset) * UNITY_SCALE,
-                    -(yExitOffset + yOffset) * UNITY_SCALE,
+                    exitOffset.x,
+                    exitOffset.y,
                     PLATFORM_RADIUS * UNITY_SCALE,
                     0,
                     2 * Math.PI,
                     false
                 )
                     .fill({color: 0xffaa00, alpha: 0.4})
-                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5});
-                g.closePath();
+                    .stroke({color: 0xffaa00, width: 4, alignment: 0.5})
+                    .closePath();
             }}
         />
     );

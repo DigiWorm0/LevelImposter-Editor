@@ -50,7 +50,7 @@ export default function StarfieldOverlayStar(props: StarfieldOverlayProps) {
         starState.current = {x, y, speed};
 
         // Update the sprite position
-        spriteRef.current.x = x * UNITY_SCALE;
+        spriteRef.current.x = -x * UNITY_SCALE;
         spriteRef.current.y = y * UNITY_SCALE;
     });
 

@@ -2,9 +2,9 @@ import React from "react";
 import GUID from "../../../../types/common/GUID";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {Graphics} from "pixi.js";
-import {useTick} from "@pixi/react";
 import useScreenToWorld from "../../../../hooks/canvas/useScreenToWorld";
 import Vector2 from "../../../../types/transform/Vector2";
+import TickingGraphics from "../../common/TickingGraphics";
 
 export interface ArrowOverlayProps {
     fromID: GUID;
@@ -19,37 +19,7 @@ const ARROW_HEAD_SIZE = 10;
 export default function ArrowOverlay(props: ArrowOverlayProps) {
     const fromRef = useMapElementRef(props.fromID);
     const toRef = useMapElementRef(props.toID);
-    const graphicsRef = React.useRef<Graphics>(null);
     const screenToWorld = useScreenToWorld();
-
-    useTick(() => {
-        if (!fromRef.current ||
-            !toRef.current ||
-            !graphicsRef.current)
-            return;
-
-        const fromScreenPos = fromRef.current.getGlobalPosition();
-        const toScreenPos = toRef.current.getGlobalPosition();
-
-        const fromWorldPos = screenToWorld(fromScreenPos);
-        const toWorldPos = screenToWorld(toScreenPos);
-
-        const deltaWorldPos = {
-            x: toWorldPos.x - fromWorldPos.x,
-            y: toWorldPos.y - fromWorldPos.y,
-        };
-
-        const g = graphicsRef.current;
-
-        g.clear();
-        drawArrow(
-            g,
-            {x: 0, y: 0},
-            deltaWorldPos,
-            props.arrowHeadPos,
-            props.color
-        );
-    });
 
     const drawArrow = (
         g: Graphics,
@@ -114,10 +84,31 @@ export default function ArrowOverlay(props: ArrowOverlayProps) {
     };
 
     return (
-        <pixiGraphics
-            eventMode={"none"}
-            ref={graphicsRef}
-            draw={() => {
+        <TickingGraphics
+            draw={(g) => {
+                if (!fromRef.current ||
+                    !toRef.current)
+                    return;
+
+                const fromScreenPos = fromRef.current.getGlobalPosition();
+                const toScreenPos = toRef.current.getGlobalPosition();
+
+                const fromWorldPos = screenToWorld(fromScreenPos);
+                const toWorldPos = screenToWorld(toScreenPos);
+
+                const deltaWorldPos = {
+                    x: toWorldPos.x - fromWorldPos.x,
+                    y: toWorldPos.y - fromWorldPos.y,
+                };
+
+                g.clear();
+                drawArrow(
+                    g,
+                    {x: 0, y: 0},   // <-- "from" is always centered on the current element (0,0)
+                    deltaWorldPos, // <-- "to" is relative to "from" (delta)
+                    props.arrowHeadPos,
+                    props.color
+                );
             }}
         />
     );

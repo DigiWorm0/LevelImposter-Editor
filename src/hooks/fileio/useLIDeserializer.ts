@@ -65,7 +65,7 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     // Read Assets
     let position = 4 + jsonLength;
     while (position < buffer.byteLength) {
-        
+
         // Read GUID
         const guidSlice = buffer.slice(position, position + 36);
         const guid = textDecoder.decode(guidSlice) as GUID;
@@ -106,7 +106,6 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
 }
 
 function repairMap(map: LIMap) {
-    map.v = MAP_FORMAT_VER;
     map.id = map.id || DEFAULT_GUID;
     map.name = map.name || "";
     map.description = map.description || "";
@@ -121,9 +120,11 @@ function repairMap(map: LIMap) {
     if (map.remixOf === undefined)
         map.remixOf = null;
 
-    // Find any layers at Z=maxInt and set them to Z=0
+    // Find any layers from V2 and fix them
     for (const elem of map.elements) {
-        if (elem.type === "util-layer" && elem.z >= Number.MAX_SAFE_INTEGER)
+        if (elem.type === "util-layer" && map.v <= 2)
             elem.z = 0;
     }
+
+    map.v = MAP_FORMAT_VER;
 }

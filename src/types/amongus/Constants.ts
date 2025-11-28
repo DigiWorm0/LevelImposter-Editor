@@ -56,7 +56,7 @@ export const DEFAULT_VOLUME = 1;
 export const THUMBNAIL_WIDTH = 412;
 export const THUMBNAIL_HEIGHT = 144;
 
-export const MAP_FORMAT_VER = 2;
+export const MAP_FORMAT_VER = 3;
 export const MAX_HISTORY_LENGTH = 20;
 export const MAX_DOOR_COUNT = 64;
 

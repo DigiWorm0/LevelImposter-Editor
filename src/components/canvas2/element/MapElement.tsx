@@ -16,6 +16,7 @@ import Draggable from "../common/Draggable";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
 import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter";
+import TransformedMapElementOverlays from "./TransformedMapElementOverlays";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -96,6 +97,8 @@ export default function MapElement(props: MapElementProps) {
                     onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
                     onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
                 />
+
+                <TransformedMapElementOverlays elementID={props.elementID}/>
             </pixiContainer>
         </Draggable>
     );
