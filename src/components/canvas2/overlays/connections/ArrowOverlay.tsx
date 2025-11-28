@@ -5,6 +5,7 @@ import {Graphics} from "pixi.js";
 import useScreenToWorld from "../../../../hooks/canvas/useScreenToWorld";
 import Vector2 from "../../../../types/transform/Vector2";
 import TickingGraphics from "../../common/TickingGraphics";
+import {useSettingsValue} from "../../../../hooks/useSettings";
 
 export interface ArrowOverlayProps {
     fromID: GUID;
@@ -14,12 +15,11 @@ export interface ArrowOverlayProps {
     color: number;
 }
 
-const ARROW_HEAD_SIZE = 10;
-
 export default function ArrowOverlay(props: ArrowOverlayProps) {
     const fromRef = useMapElementRef(props.fromID);
     const toRef = useMapElementRef(props.toID);
     const screenToWorld = useScreenToWorld();
+    const settings = useSettingsValue();
 
     const drawArrow = (
         g: Graphics,
@@ -48,7 +48,7 @@ export default function ArrowOverlay(props: ArrowOverlayProps) {
         // Line
         g.moveTo(from.x, from.y)
             .lineTo(to.x, to.y)
-            .stroke({color, width: 6, alignment: 0.5, cap: "round"});
+            .stroke({color, width: settings.connectionArrowWidth, alignment: 0.5, cap: "round"});
 
         // Arrow Head
         if (arrowHeadPos === "to")
@@ -64,19 +64,19 @@ export default function ArrowOverlay(props: ArrowOverlayProps) {
         angle: number,
         color: number,
     ) => {
-
-        // Arrow Head
+        const arrowHeadSize = settings.connectionArrowHeadSize;
+        
         g.moveTo(
-            pos.x - ARROW_HEAD_SIZE * Math.cos(angle),
-            pos.y - ARROW_HEAD_SIZE * Math.sin(angle)
+            pos.x - arrowHeadSize * Math.cos(angle),
+            pos.y - arrowHeadSize * Math.sin(angle)
         )
             .lineTo(
-                pos.x + ARROW_HEAD_SIZE * Math.cos(angle - Math.PI / 3),
-                pos.y + ARROW_HEAD_SIZE * Math.sin(angle - Math.PI / 3)
+                pos.x + arrowHeadSize * Math.cos(angle - Math.PI / 3),
+                pos.y + arrowHeadSize * Math.sin(angle - Math.PI / 3)
             )
             .lineTo(
-                pos.x + ARROW_HEAD_SIZE * Math.cos(angle + Math.PI / 3),
-                pos.y + ARROW_HEAD_SIZE * Math.sin(angle + Math.PI / 3)
+                pos.x + arrowHeadSize * Math.cos(angle + Math.PI / 3),
+                pos.y + arrowHeadSize * Math.sin(angle + Math.PI / 3)
             )
             .fill(color);
 

@@ -868,7 +868,10 @@
       "animPreview": "Animation Preview",
       "animAnything": "Animate Any Object",
       "audioDownmix": "Audio Downmix",
-      "editType": "Edit Object Type"
+      "editType": "Edit Object Type",
+      "showConnectionArrows": "Show Connection Arrows",
+      "connectionArrowHeadSize": "Arrow Size",
+      "connectionArrowWidth": "Arrow Width"
     },
     "map": {
       "title": "Map",

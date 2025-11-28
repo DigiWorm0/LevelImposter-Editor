@@ -15,7 +15,7 @@ export default function ConnectionsOverlay(props: ConnectionOverlayProps) {
     const [targetConnections, sourceConnections] = useConnections(props.elementID);
     const settings = useSettingsValue();
 
-    if (!element || !settings.connectionsPreview)
+    if (!element || !settings.showConnectionArrows)
         return null;
     return (
         <pixiContainer>

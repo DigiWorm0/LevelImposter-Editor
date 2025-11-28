@@ -2,8 +2,6 @@ export default interface LISettings {
     isDevMode: boolean;
     isDarkMode: boolean;
     isGridVisible: boolean;
-    gridSize: number;
-    gridSpacing: number;
     gridSnapResolution: number;
     isGridSnapEnabled: boolean;
     isTimelineSnapEnabled: boolean;
@@ -13,8 +11,6 @@ export default interface LISettings {
     colliderHandleSize: number;
     colliderPreview: boolean;
     animPreview: boolean;
-    animAnything: boolean;
-    connectionsPreview: boolean;
     animateGIFOnSelect: boolean;
     language: string;
     scrollToSelection: boolean;
@@ -22,14 +18,15 @@ export default interface LISettings {
     isInfoVisible: boolean;
     isAudioDownmixEnabled: boolean;
     editType: boolean;
+    showConnectionArrows: boolean;
+    connectionArrowHeadSize: number;
+    connectionArrowWidth: number;
 }
 
 export const DEFAULT_SETTINGS: LISettings = {
     isDevMode: false,
     isDarkMode: true,
     isGridVisible: true,
-    gridSize: 25,
-    gridSpacing: 100,
     gridSnapResolution: 0.1,
     isGridSnapEnabled: true,
     isTimelineSnapEnabled: true,
@@ -39,13 +36,14 @@ export const DEFAULT_SETTINGS: LISettings = {
     colliderHandleSize: 8,
     colliderPreview: true,
     animPreview: true,
-    animAnything: false,
-    connectionsPreview: true,
     animateGIFOnSelect: true,
     language: "auto",
     scrollToSelection: true,
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
-    editType: false
+    editType: false,
+    showConnectionArrows: true,
+    connectionArrowHeadSize: 10,
+    connectionArrowWidth: 6
 };

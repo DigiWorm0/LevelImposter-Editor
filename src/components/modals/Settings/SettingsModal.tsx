@@ -7,18 +7,18 @@ import GenericModal from "../GenericModal";
 import SettingsPercentInput from "../../properties/input/settings/SettingsPercentInput";
 import {
     AdsClick,
-    Animation,
     Article,
-    AspectRatio,
     Code,
     Edit,
     Grid3x3,
     GridGoldenratio,
     GridOn,
+    HorizontalRule,
+    ImportExport,
     Info,
     Layers,
     LinearScale,
-    LineWeight,
+    PlayArrow,
     PlayCircle,
     ShapeLine,
     SwapVert,
@@ -26,6 +26,8 @@ import {
     VolumeUp
 } from "@mui/icons-material";
 import SettingsHeader from "./SettingsHeader";
+import {Box} from "@mui/material";
+import {useSettingsValue} from "../../../hooks/useSettings";
 
 export interface SettingsModalProps {
     isOpen: boolean;
@@ -34,6 +36,7 @@ export interface SettingsModalProps {
 
 export default function SettingsModal(props: SettingsModalProps) {
     const {t} = useTranslation();
+    const settings = useSettingsValue();
 
     return (
         <GenericModal
@@ -84,16 +87,37 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="isInfoVisible"
                 icon={<Info/>}
             />
-            <SettingsSwitchInput
-                name={t("settings.interface.showConnections")}
-                prop="connectionsPreview"
-                icon={<ShapeLine/>}
-            />
             <SettingsPercentInput
                 name={t("settings.interface.invisibleOpacity")}
                 prop="invisibleOpacity"
                 icon={<Visibility/>}
             />
+            <SettingsSwitchInput
+                name={t("settings.interface.showConnectionArrows")}
+                prop="showConnectionArrows"
+                icon={<ImportExport/>}
+            />
+            <Box sx={{marginLeft: 2}}>
+                <SettingsNumericInput
+                    disabled={!settings.showConnectionArrows}
+                    name={t("settings.interface.connectionArrowHeadSize")}
+                    prop="connectionArrowHeadSize"
+                    icon={<PlayArrow/>}
+                    min={1}
+                    stepSize={1}
+                    label={"px"}
+                />
+                <SettingsNumericInput
+                    disabled={!settings.showConnectionArrows}
+                    name={t("settings.interface.connectionArrowWidth")}
+                    prop="connectionArrowWidth"
+                    icon={<HorizontalRule/>}
+                    min={1}
+                    stepSize={1}
+                    label={"px"}
+                />
+
+            </Box>
 
             <SettingsHeader>
                 {t("settings.grid")}
@@ -103,35 +127,22 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="isGridVisible"
                 icon={<GridOn/>}
             />
-            <SettingsNumericInput
-                name={t("settings.interface.gridSize")}
-                prop="gridSize"
-                icon={<AspectRatio/>}
-                min={1}
-                stepSize={1}
-                label={"px"}
-            />
-            <SettingsNumericInput
-                name={t("settings.interface.gridSpacing")}
-                prop="gridSpacing"
-                icon={<LineWeight/>}
-                min={1}
-                stepSize={1}
-                label={"px"}
-            />
             <SettingsSwitchInput
                 name={t("settings.interface.snapToGrid")}
                 prop="isGridSnapEnabled"
                 icon={<Grid3x3/>}
             />
-            <SettingsNumericInput
-                name={t("settings.interface.snapResolution")}
-                prop="gridSnapResolution"
-                icon={<GridGoldenratio/>}
-                min={0}
-                stepSize={0.1}
-                label={"px"}
-            />
+            <Box sx={{marginLeft: 2}}>
+                <SettingsNumericInput
+                    disabled={!settings.isGridSnapEnabled}
+                    name={t("settings.interface.snapResolution")}
+                    prop="gridSnapResolution"
+                    icon={<GridGoldenratio/>}
+                    min={0}
+                    stepSize={0.1}
+                    label={"px"}
+                />
+            </Box>
 
             <SettingsHeader>
                 {t("settings.animation")}
@@ -155,12 +166,6 @@ export default function SettingsModal(props: SettingsModalProps) {
             <SettingsHeader>
                 {t("settings.experimental")}
             </SettingsHeader>
-            <SettingsSwitchInput
-                name={t("settings.interface.animAnything")}
-                prop="animAnything"
-                icon={<Animation/>}
-                experimental
-            />
             <SettingsSwitchInput
                 name={t("settings.interface.objNesting")}
                 prop="elementNesting"
