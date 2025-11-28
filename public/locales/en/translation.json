@@ -877,6 +877,7 @@
       "pixelArtMode": "Pixel Art Mode",
       "preloadAllGIFs": "Preload All GIFs",
       "triggerLogging": "Trigger Logging",
+      "triggerDetectStackOverflow": "Abort if infinite trigger loop detected",
       "canRemix": "Allow Remix-ing",
       "skyboxColor": "Skybox Color",
       "setColor": "Set Color",
