@@ -7,51 +7,13 @@ import useIsAnimPlaying from "../../../hooks/timeline/useIsAnimPlaying";
 import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
 import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import {timelineScaleAtom, useSetTimelineScale} from "../../../hooks/timeline/useTimelineScale";
-import {timelineOffsetAtom, useSetTimelineOffset} from "../../../hooks/timeline/useTimelineOffset";
-import primaryStore from "../../../hooks/primaryStore";
 import {useTranslation} from "react-i18next";
-
-const ANIM_DURATION = 500;
-const ANIM_SCALE = 40;
-const ANIM_OFFSET = 0;
 
 export default function TimelineHeader() {
     const {t} = useTranslation();
     const [isLoop, setLoop] = useSelectedElemProp("triggerLoop");
     const [playAnim, setPlayAnim] = useIsAnimPlaying();
     const setPlayhead = useSetPlayhead();
-    const setScale = useSetTimelineScale();
-    const setOffset = useSetTimelineOffset();
-
-    const onDoubleClick = () => {
-        const startScale = primaryStore.get(timelineScaleAtom);
-        const startOffset = primaryStore.get(timelineOffsetAtom);
-
-        // TODO: Fix me
-        // const anim = new Konva.Animation((frame) => {
-        //     if (!frame)
-        //         return;
-        //
-        //     // Calculate t
-        //     const t = frame.time / ANIM_DURATION;
-        //     const curvedT = Math.sin(t * Math.PI / 2);
-        //
-        //     // Stop
-        //     if (t >= 1) {
-        //         setScale(ANIM_SCALE);
-        //         setOffset(ANIM_OFFSET);
-        //         anim.stop();
-        //         return;
-        //     }
-        //
-        //     // Set scale and offset
-        //     setScale(lerp(startScale, ANIM_SCALE, curvedT));
-        //     setOffset(lerp(startOffset, ANIM_OFFSET, curvedT));
-        // });
-        //
-        // anim.start();
-    };
 
     return (
         <TimelineRow
@@ -69,7 +31,6 @@ export default function TimelineHeader() {
                             {playAnim ? <Pause/> : <PlayArrow/>}
                         </IconButton>
                         <IconButton
-                            onDoubleClick={() => onDoubleClick()}
                             onClick={() => {
                                 setPlayAnim(false);
                                 setPlayhead(0);

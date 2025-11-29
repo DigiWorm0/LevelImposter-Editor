@@ -5,6 +5,7 @@ import Timeline from "../timeline/Timeline";
 import LazyCollapse from "../properties/util/LazyCollapse";
 import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
+import Resizable from "../utils/Resizable";
 
 export default function BottomBar() {
     const timelineRef = React.useRef<HTMLDivElement>(null);
@@ -25,13 +26,21 @@ export default function BottomBar() {
             }}
             onMouseDown={() => setFocus(Scope.Timeline)}
         >
-            <Paper
-                ref={timelineRef}
-                elevation={1}
-                square
+            <Resizable
+                storageKey={"bottom-bar-height"}
+                defaultSize={250}
+                minSize={100}
+                barLocation={"top"}
             >
-                <Timeline/>
-            </Paper>
+                <Paper
+                    ref={timelineRef}
+                    elevation={1}
+                    square
+                    sx={{height: "100%"}}
+                >
+                    <Timeline/>
+                </Paper>
+            </Resizable>
         </LazyCollapse>
     );
 }

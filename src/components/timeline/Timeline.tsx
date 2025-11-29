@@ -24,11 +24,12 @@ export default function Timeline() {
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    flexGrow: 1,
+                    height: "100%",
                 }}
-                onWheel={(e) => changeTimelineScale(-e.deltaY)}
             >
-                <TimelineHeader/>
+                <div onWheel={(e) => changeTimelineScale(-e.deltaY)}>
+                    <TimelineHeader/>
+                </div>
                 <TimelineBody/>
             </div>
         </ErrorBoundary>

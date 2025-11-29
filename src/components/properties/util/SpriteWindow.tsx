@@ -38,7 +38,7 @@ function SpriteWindowChild(props: SpriteWindowProps) {
         // Width is the limiting factor
         if (props.sprite.width > props.sprite.height)
             height = width / aspectRatio;
-        
+
         // Height is the limiting factor
         else
             width = height * aspectRatio;
@@ -50,7 +50,7 @@ function SpriteWindowChild(props: SpriteWindowProps) {
         spriteRef.current.y = height / 2;
 
         // Set the app's size to match the sprite size
-        app.renderer.resize(width, height);
+        app.renderer?.resize(width, height);
     }, [app, props.sprite]);
 
     if (!props.sprite || props.sprite.destroyed)

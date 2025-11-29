@@ -59,7 +59,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("right", () => jumpTimelineTick(false), Scope.Timeline);
 
     // Zoom
-    useFocusedHotkeys("ctrl+=", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
+    useFocusedHotkeys("ctrl+equal", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
     useFocusedHotkeys("ctrl+minus", () => changeTimelineScale(-TIMELINE_DELTA_SCALE), Scope.Timeline);
 
     // Delete Keyframe

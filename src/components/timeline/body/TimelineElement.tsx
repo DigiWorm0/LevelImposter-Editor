@@ -44,9 +44,7 @@ export default function TimelineElement(props: TimelineElementProps) {
             <TimelineRow
                 header={(
                     <ListItem
-                        sx={{
-                            padding: 0
-                        }}
+                        sx={{padding: 0}}
                         secondaryAction={(
                             <IconButton size={"small"} onClick={deleteElement}>
                                 <Delete fontSize={"small"}/>
