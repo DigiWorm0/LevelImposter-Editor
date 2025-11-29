@@ -6,7 +6,7 @@ import React from "react";
 import TimelineDummyRow from "../footer/TimelineDummyRow";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";
 
-const DUMMY_ROW_HEIGHT = 36;
+const DUMMY_ROW_HEIGHT = 32;
 
 export default function TimelineBody() {
     const animTargets = useSelectedElemPropValue("animTargets");

@@ -5,7 +5,7 @@ import React from "react";
 
 export default function TimelineDummyRow() {
     return (
-        <TimelineRow header={(<div style={{height: 36}}/>)}>
+        <TimelineRow header={(<div style={{height: 32}}/>)}>
             <TimelineKeyframeRow>
                 <TimelinePlayhead/>
             </TimelineKeyframeRow>

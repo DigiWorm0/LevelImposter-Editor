@@ -65,7 +65,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
             header={(
                 <Box
                     sx={{
-                        padding: "5px 40px",
+                        padding: "3px 40px",
                         paddingRight: 0,
                         display: "flex",
                         flexDirection: "row",
@@ -96,14 +96,17 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                             onChange={(value) => setValue(value)}
                             inputProps={{
                                 variant: "standard",
-                                sx: {width: 100, height: 24},
+                                sx: {
+                                    width: 100,
+                                    height: 24
+                                },
                                 InputProps: {
                                     endAdornment: (
                                         <TimelineCurveButton
                                             property={props.property}
                                             targetID={props.targetID}
                                         />
-                                    )
+                                    ),
                                 }
                             }}
                         />
