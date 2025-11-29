@@ -1,7 +1,6 @@
 import {IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import LazyCollapse from "../../properties/util/LazyCollapse";
-import LIElement from "../../../types/li/LIElement";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import TimelineRow from "../TimelineRow";
 import TimelineKeyframeRow from "./TimelineKeyframeRow";
@@ -11,14 +10,16 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {Delete} from "@mui/icons-material";
 import TimelinePlayhead from "./TimelinePlayhead";
+import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 
-const PROPERTIES: (keyof LIElement)[] = [
+const PROPERTIES: LIAnimPropertyType[] = [
     "x",
     "y",
     //"z",
     "xScale",
     "yScale",
     "rotation",
+    "opacity"
 ];
 
 export interface TimelineElementProps {

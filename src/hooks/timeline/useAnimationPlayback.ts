@@ -41,6 +41,7 @@ export default function useAnimationPlayback(
         ref.current.rotation = -degToRad(getPropertyValueAtTime(id, "rotation", t));
         ref.current.scale.x = getPropertyValueAtTime(id, "xScale", t, 1);
         ref.current.scale.y = getPropertyValueAtTime(id, "yScale", t, 1);
+        ref.current.alpha = getPropertyValueAtTime(id, "opacity", t, 1);
     });
 }
 
