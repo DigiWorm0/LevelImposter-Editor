@@ -1,7 +1,7 @@
 import {Button, CircularProgress, Divider, Grid, List, Paper} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import {Build, ContentCut, Merge, Schema} from "@mui/icons-material";
+import {Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
 import BuildOperation from "../../../utils/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
 import TrimMapAssetsOperation from "../../../utils/build/TrimMapAssetsOperation";
@@ -36,11 +36,11 @@ const DEFAULT_OPTIONS: OptimizeMapOption[] = [
         isEnabled: true
     },
     {
-        label: "Encode Map Assets as DXT1 / DXT5",
-        description: "DXT1/DXT5 allows assets to be decoded by the GPU directly instead of going through the CPU which improves memory usage.",
-        icon: <Schema/>,
+        label: "Encode Map Assets to DDS (DXT1 / DXT5)",
+        description: "DXT1/5 assets can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
+        icon: <Gradient/>,
         operation: EncodeToDDSOperation,
-        isEnabled: false,
+        isEnabled: true,
     }
 ];
 

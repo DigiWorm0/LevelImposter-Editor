@@ -99,6 +99,7 @@ const InputTriggerDB: Record<string, string[]> = {
     "util-ejecthand": showHideTriggers,
     "util-ejectthumb": showHideTriggers,
     "util-minimapsprite": showHideTriggers,
+    "util-display": showHideTriggers,
     "util-tele": [
         "enable",
         "disable",

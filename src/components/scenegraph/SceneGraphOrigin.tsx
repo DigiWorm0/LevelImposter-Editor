@@ -54,5 +54,5 @@ export default function SceneGraphOrigin() {
                 <ListItemText primary={mapName}/>
             </ListItemButton>
         </SceneGraphListItem>
-    )
+    );
 }

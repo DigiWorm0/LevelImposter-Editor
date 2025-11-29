@@ -41,16 +41,16 @@ export default function PublishModal(props: PublishModalProps) {
                 activeStep={step}
             >
                 <Step>
-                    <StepLabel>Optimize Map</StepLabel>
+                    <StepLabel>{t("publish.optimize")}</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Enter Info</StepLabel>
+                    <StepLabel>{t("publish.enterInfo")}</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Choose Target</StepLabel>
+                    <StepLabel>{t("publish.chooseTarget")}</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Publish Map</StepLabel>
+                    <StepLabel>{t("publish.publish")}</StepLabel>
                 </Step>
             </Stepper>
 

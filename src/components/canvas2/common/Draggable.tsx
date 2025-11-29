@@ -148,6 +148,8 @@ export default function Draggable(props: DraggableProps) {
             !isDragging &&
             (isTarget || selected)) {
             dragStateRef.current.isDragging = true;
+            dragStateRef.current.x = containerRef.current?.x ?? props.x;
+            dragStateRef.current.y = containerRef.current?.y ?? props.y;
 
             // Call onDragStart if provided
             if (props.onDragStart)

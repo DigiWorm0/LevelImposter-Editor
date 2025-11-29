@@ -17,13 +17,14 @@ import {useSettingsValue} from "../../../hooks/useSettings";
 import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
 import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter";
 import TransformedMapElementOverlays from "./TransformedMapElementOverlays";
+import Spinner from "../common/Spinner";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
 }
 
 export default function MapElement(props: MapElementProps) {
-    const {isGridSnapEnabled, gridSnapResolution, hideGroups} = useSettingsValue();
+    const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
     const childElementIDs = useElementChildIDs(props.elementID);
     const isSelected = useIsElementSelected(props.elementID);
     const [element, setElement] = useElement(props.elementID);
@@ -36,15 +37,10 @@ export default function MapElement(props: MapElementProps) {
     const isEmbedded = useEmbed();
     const isVisible = element?.properties.isVisible ?? true;
 
-    const isGroup = element?.type === "util-layer";
-    const shouldHideGroup = isGroup && hideGroups;
-
     const isListening = !isColliderSelected && !isEmbedded && isVisible;
     const isLocked = !isListening || element?.properties.isLocked;
 
     // Check if sprite is loaded
-    if (!sprite || sprite.destroyed)
-        return null;
     if (!element || !props.elementID)
         return null;
 
@@ -87,8 +83,8 @@ export default function MapElement(props: MapElementProps) {
 
             nonInteractableChildren={childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
         >
-            {!shouldHideGroup && (
-                <pixiContainer ref={containerRef}>
+            <pixiContainer ref={containerRef}>
+                {sprite && (
                     <pixiSprite
                         anchor={0.5}
                         x={0}
@@ -101,10 +97,11 @@ export default function MapElement(props: MapElementProps) {
                         onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
                         onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
                     />
+                )}
+                {!sprite && <Spinner/>}
 
-                    <TransformedMapElementOverlays elementID={props.elementID}/>
-                </pixiContainer>
-            )}
+                <TransformedMapElementOverlays elementID={props.elementID}/>
+            </pixiContainer>
         </Draggable>
     );
 }
