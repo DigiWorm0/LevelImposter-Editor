@@ -37,7 +37,7 @@ export default function useAnimationPlayback(
 
         // Update each property of the anim target
         ref.current.x = getPropertyValueAtTime(id, "x", t) * UNITY_SCALE;
-        ref.current.y = getPropertyValueAtTime(id, "y", t) * UNITY_SCALE;
+        ref.current.y = -getPropertyValueAtTime(id, "y", t) * UNITY_SCALE;
         ref.current.rotation = -degToRad(getPropertyValueAtTime(id, "rotation", t));
         ref.current.scale.x = getPropertyValueAtTime(id, "xScale", t, 1);
         ref.current.scale.y = getPropertyValueAtTime(id, "yScale", t, 1);
