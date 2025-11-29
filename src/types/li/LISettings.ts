@@ -22,6 +22,7 @@ export default interface LISettings {
     showConnectionArrows: boolean;
     connectionArrowHeadSize: number;
     connectionArrowWidth: number;
+    hideGroups?: boolean;
 }
 
 export const DEFAULT_SETTINGS: LISettings = {
@@ -47,5 +48,6 @@ export const DEFAULT_SETTINGS: LISettings = {
     editType: false,
     showConnectionArrows: true,
     connectionArrowHeadSize: 10,
-    connectionArrowWidth: 6
+    connectionArrowWidth: 6,
+    hideGroups: false
 };

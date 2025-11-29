@@ -23,7 +23,7 @@ export interface MapElementProps {
 }
 
 export default function MapElement(props: MapElementProps) {
-    const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
+    const {isGridSnapEnabled, gridSnapResolution, hideGroups} = useSettingsValue();
     const childElementIDs = useElementChildIDs(props.elementID);
     const isSelected = useIsElementSelected(props.elementID);
     const [element, setElement] = useElement(props.elementID);
@@ -35,6 +35,9 @@ export default function MapElement(props: MapElementProps) {
     const isColliderSelected = useIsSelectedCollider();
     const isEmbedded = useEmbed();
     const isVisible = element?.properties.isVisible ?? true;
+
+    const isGroup = element?.type === "util-layer";
+    const shouldHideGroup = isGroup && hideGroups;
 
     const isListening = !isColliderSelected && !isEmbedded && isVisible;
     const isLocked = !isListening || element?.properties.isLocked;
@@ -84,22 +87,24 @@ export default function MapElement(props: MapElementProps) {
 
             nonInteractableChildren={childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
         >
-            <pixiContainer ref={containerRef}>
-                <pixiSprite
-                    anchor={0.5}
-                    x={0}
-                    y={0}
-                    texture={sprite}
-                    alpha={opacity}
-                    cursor={element.properties.isLocked ? "default" : "pointer"}
+            {!shouldHideGroup && (
+                <pixiContainer ref={containerRef}>
+                    <pixiSprite
+                        anchor={0.5}
+                        x={0}
+                        y={0}
+                        texture={sprite}
+                        alpha={opacity}
+                        cursor={element.properties.isLocked ? "default" : "pointer"}
 
-                    eventMode={isListening ? "static" : "none"}
-                    onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
-                    onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
-                />
+                        eventMode={isListening ? "static" : "none"}
+                        onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
+                        onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
+                    />
 
-                <TransformedMapElementOverlays elementID={props.elementID}/>
-            </pixiContainer>
+                    <TransformedMapElementOverlays elementID={props.elementID}/>
+                </pixiContainer>
+            )}
         </Draggable>
     );
 }

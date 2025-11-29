@@ -10,6 +10,7 @@ import {
     Article,
     Code,
     Edit,
+    FolderOff,
     Gradient,
     Grid3x3,
     GridGoldenratio,
@@ -134,6 +135,12 @@ export default function SettingsModal(props: SettingsModalProps) {
                     {t("settings.interface.errorAutoEncodeToDDS")}
                 </MapError>
             </Box>
+
+            <SettingsSwitchInput
+                name={t("settings.interface.hideGroups")}
+                prop="hideGroups"
+                icon={<FolderOff/>}
+            />
 
             <SettingsHeader>
                 {t("settings.grid")}

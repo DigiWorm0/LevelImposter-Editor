@@ -874,7 +874,8 @@
       "connectionArrowHeadSize": "Arrow Size",
       "connectionArrowWidth": "Arrow Width",
       "autoEncodeToDDS": "Auto-Encode Sprites to DDS",
-      "errorAutoEncodeToDDS": "PNG/JPEG sprites will result in worse performance compared to DDS format."
+      "errorAutoEncodeToDDS": "PNG/JPEG sprites will result in worse performance compared to DDS format.",
+      "hideGroups": "Hide Group Icons"
     },
     "map": {
       "title": "Map",
