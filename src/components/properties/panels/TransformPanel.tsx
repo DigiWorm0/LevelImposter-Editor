@@ -48,6 +48,9 @@ export default function TransformPanel() {
     // Gets if the selected element is a camera object
     const isCamera = type === "util-cam";
 
+    // Gets if the selected element is a group
+    const isGroup = type === "util-layer";
+
     if (!selectedElemID)
         return null;
     return (
@@ -87,7 +90,7 @@ export default function TransformPanel() {
                 <InputGroup>
                     <TransformNumericInput name={t("transform.x")} prop={"x"}/>
                     <TransformNumericInput name={t("transform.y")} prop={"y"}/>
-                    <TransformNumericInput name={t("transform.z")} prop={"z"}/>
+                    <TransformNumericInput name={t("transform.z")} prop={"z"} disabled={isGroup}/>
                 </InputGroup>
                 <InputGroup>
                     <TransformNumericInput name={t("transform.xScale")} prop={"xScale"} icon={<SwapHoriz/>}/>

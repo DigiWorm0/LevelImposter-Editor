@@ -1,9 +1,9 @@
 import {MaybeGUID} from "../../types/common/GUID";
 import {atom, useSetAtom} from "jotai";
-import {elementAtomFamily} from "../elements/useElements";
 import {viewportAtom} from "./useViewport";
-import {UNITY_SCALE} from "../../types/amongus/Constants";
 import {Ticker} from "pixi.js";
+import {getMapElementRef} from "./useMapElementRef";
+import screenToWorld from "./useScreenToWorld";
 
 const ticker = new Ticker();
 ticker.autoStart = true;
@@ -17,11 +17,12 @@ export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) =>
 
     // Get the element
     if (elementID !== undefined) {
-        const element = get(elementAtomFamily(elementID));
-        if (!element)
+        const mapElementRef = getMapElementRef(elementID);
+        if (!mapElementRef.current)
             return;
 
-        elementPosition = {x: element.x, y: element.y};
+        const screenPos = mapElementRef.current.getGlobalPosition();
+        elementPosition = screenToWorld(screenPos);
     }
 
     // Get the viewport
@@ -31,7 +32,7 @@ export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) =>
 
     // Get Start/End Position
     const startPosition = viewport.center;
-    const endPosition = {x: elementPosition.x * UNITY_SCALE, y: -elementPosition.y * UNITY_SCALE};
+    const endPosition = elementPosition;
 
     // Animate the viewport to the element's position
     let t = 0;
@@ -59,9 +60,6 @@ export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) =>
             ticker.remove(animateToElement);
     };
     ticker.add(animateToElement);
-
-    // Move the viewport to the element's position
-    // TODO: Animate me
 
 });
 

@@ -2,10 +2,10 @@ import React from "react";
 import GUID from "../../../../types/common/GUID";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {Graphics} from "pixi.js";
-import useScreenToWorld from "../../../../hooks/canvas/useScreenToWorld";
 import Vector2 from "../../../../types/transform/Vector2";
 import TickingGraphics from "../../common/TickingGraphics";
 import {useSettingsValue} from "../../../../hooks/useSettings";
+import screenToWorld from "../../../../hooks/canvas/useScreenToWorld";
 
 export interface ArrowOverlayProps {
     fromID: GUID;
@@ -18,7 +18,6 @@ export interface ArrowOverlayProps {
 export default function ArrowOverlay(props: ArrowOverlayProps) {
     const fromRef = useMapElementRef(props.fromID);
     const toRef = useMapElementRef(props.toID);
-    const screenToWorld = useScreenToWorld();
     const settings = useSettingsValue();
 
     const drawArrow = (
@@ -65,7 +64,7 @@ export default function ArrowOverlay(props: ArrowOverlayProps) {
         color: number,
     ) => {
         const arrowHeadSize = settings.connectionArrowHeadSize;
-        
+
         g.moveTo(
             pos.x - arrowHeadSize * Math.cos(angle),
             pos.y - arrowHeadSize * Math.sin(angle)

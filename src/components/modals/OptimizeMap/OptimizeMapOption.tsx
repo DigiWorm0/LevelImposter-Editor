@@ -11,10 +11,7 @@ export interface OptimizeMapOptionProps {
 
 export default function OptimizeMapOption(props: OptimizeMapOptionProps) {
     return (
-        <ListItemButton
-            onClick={() => props.setEnabled(!props.enabled)}
-            disablePadding
-        >
+        <ListItemButton onClick={() => props.setEnabled(!props.enabled)}>
             {props.icon && (
                 <ListItemIcon>
                     {props.icon}

@@ -18,13 +18,13 @@ export default function SelectionOutlineOverlay(props: SelectionOutlineOverlayPr
     const mapElementRef = useMapElementRef(props.elementID);
     const sprite = useElementSprite(props.elementID);
     const viewportScale = useViewportScale();
-    
+
     if (!sprite)
         return null;
 
-    const spriteWidth = sprite.width; // Default width if sprite is not loaded
-    const spriteHeight = sprite.height; // Default height if sprite is not loaded
-    const strokeWidth = 2 / viewportScale; // Adjust stroke width based on viewport scale
+    const spriteWidth = sprite.width;
+    const spriteHeight = sprite.height;
+    const strokeWidth = 2 / viewportScale;
 
     if (!isSelected && !isHovering)
         return null;

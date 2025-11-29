@@ -19,8 +19,8 @@ import ColliderEditorOverlay from "../overlays/colliders/ColliderEditorOverlay";
 import {useTick} from "@pixi/react";
 import {Container} from "pixi.js";
 import SelectionOutlineOverlay from "../overlays/SelectionOutlineOverlay";
-import useScreenToWorld from "../../../hooks/canvas/useScreenToWorld";
 import StarfieldAreaOverlay from "../overlays/StarfieldAreaOverlay";
+import screenToWorld from "../../../hooks/canvas/useScreenToWorld";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;
@@ -30,7 +30,6 @@ export default function MapElementOverlays(props: MapElementOverlaysProps) {
     const isSelected = useIsElementSelected(props.elementID);
     const elementRef = useMapElementRef(props.elementID);
     const containerRef = React.useRef<Container>(null);
-    const screenToWorld = useScreenToWorld();
 
     useTick(() => {
         if (!containerRef.current ||

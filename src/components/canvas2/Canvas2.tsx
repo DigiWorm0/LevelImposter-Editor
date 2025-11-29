@@ -1,5 +1,5 @@
 import {Application, extend} from "@pixi/react";
-import {BitmapText, Container, CullerPlugin, extensions, Graphics, Sprite, Text} from "pixi.js";
+import {BitmapText, Container, CullerPlugin, extensions, Graphics, RenderLayer, Sprite, Text} from "pixi.js";
 import React from "react";
 import "../../pixi.d.ts";
 import CanvasViewport from "./CanvasViewport";
@@ -8,6 +8,7 @@ import MapElementsRenderer from "./element/MapElementsRenderer";
 import DeselectBackground from "./DeselectBackground";
 import "pixi.js/dds";
 import MapElementOverlaysRenderer from "./element/MapElementOverlaysRenderer";
+import MapElementsRenderLayer from "./element/MapElementsRenderLayer";
 
 // Pass used pixi components to the pixi-react renderer
 extend({
@@ -15,7 +16,8 @@ extend({
     Graphics,
     Sprite,
     Text,
-    BitmapText
+    BitmapText,
+    RenderLayer
 });
 
 // Allow viewport culling to improve performance
@@ -34,6 +36,7 @@ export default function Canvas2() {
             >
                 <DeselectBackground/>
                 <MapElementsRenderer/>
+                <MapElementsRenderLayer/>
                 <MapElementOverlaysRenderer/>
                 <CanvasGrid/>
             </CanvasViewport>

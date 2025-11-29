@@ -14,6 +14,10 @@ declare global {
                 pixiViewportWrapper: PropsWithChildren<PixiReactElementProps<ViewportWrapper>> & {
                     app: Application;
                 };
+
+                pixiRenderLayerWrapper: PropsWithChildren<PixiReactElementProps<RenderLayerProps>> & {
+                    app: Application;
+                };
             }
         }
     }

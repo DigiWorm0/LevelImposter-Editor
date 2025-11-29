@@ -1,7 +1,7 @@
 import LIElement from "../../../types/li/LIElement";
 import FlexNumericInput from "../util/FlexNumericInput";
 import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
-import { InputAdornment } from "@mui/material";
+import {InputAdornment} from "@mui/material";
 import React from "react";
 
 export interface TransformNumericInputProps {
@@ -9,6 +9,7 @@ export interface TransformNumericInputProps {
     prop: keyof LIElement;
     icon?: React.ReactNode;
     stepSize?: number;
+    disabled?: boolean;
 }
 
 export default function TransformNumericInput(props: TransformNumericInputProps) {
@@ -25,6 +26,7 @@ export default function TransformNumericInput(props: TransformNumericInputProps)
                 size: "small",
                 fullWidth: true,
                 placeholder: props.name,
+                disabled: props.disabled,
                 InputProps: props.icon ? {
                     endAdornment: (<InputAdornment position={"end"}>{props.icon}</InputAdornment>)
                 } : undefined
