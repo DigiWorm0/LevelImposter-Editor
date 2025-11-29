@@ -68,7 +68,7 @@ export default function TimelineRow(props: TimelineRowProps) {
                             alignItems: "stretch"
                         }}
                         ref={nodeRef}
-                        onContextMenu={(e) => e.preventDefault()}
+                        onContextMenu={(e: Event) => e.preventDefault()}
                     >
                         {props.children}
                     </Box>

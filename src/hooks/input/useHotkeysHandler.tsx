@@ -12,12 +12,13 @@ import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
 import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
 import useJumpTimelineTick from "./useJumpTimelineTick";
 import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
-import {useSetPlayAnim} from "../timeline/usePlayAnim";
+import {useSetIsAnimPlaying} from "../timeline/useIsAnimPlaying";
 import {useSetPlayhead} from "../timeline/usePlayhead";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
 import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
+import useSelectAllElements from "./useSelectAllElements";
 
 const TIMELINE_DELTA_SCALE = 100;
 
@@ -35,11 +36,12 @@ export default function useHotkeysHandler() {
     const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
     const jumpTimelineTick = useJumpTimelineTick();
     const changeTimelineScale = useChangeTimelineScale();
-    const setPlayAnim = useSetPlayAnim();
+    const setPlayAnim = useSetIsAnimPlaying();
     const setPlayhead = useSetPlayhead();
     const setLoop = useSetSelectedElemProp("triggerLoop");
     const copyKeyframe = useCopyKeyframe();
     const pasteKeyframe = usePasteKeyframe();
+    const selectAllElements = useSelectAllElements();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -119,4 +121,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("ctrl+z", undo);
     useFocusedHotkeys("ctrl+y", redo);
     useFocusedHotkeys("ctrl+shift+z", redo);
+
+    // Select All
+    useFocusedHotkeys("ctrl+a", selectAllElements, Scope.Canvas, Scope.SceneGraph);
 }

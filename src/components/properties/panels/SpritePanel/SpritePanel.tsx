@@ -23,14 +23,11 @@ const TYPE_BLACKLIST = [
     "util-tele",
     "util-layer",
     "util-meeting",
-    "util-triggerarea",
     "util-triggerrepeat",
     "util-triggersound",
     "util-triggerrand",
     "util-triggertimer",
     "util-triggerstart",
-    "util-triggerdeath",
-    "util-triggershake",
     "util-triggeranim",
     "util-dummy",
     "util-display",
@@ -72,7 +69,6 @@ export default function SpritePanel() {
             <PanelContainer title={t("sprite.title") as string}>
                 <ImageUpload
                     name={selectedType}
-                    defaultSpriteURL={`/sprites/${selectedType}.png`}
                     assetID={spriteID}
                     onUpload={onUpload}
                     onReset={onReset}

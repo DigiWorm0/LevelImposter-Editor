@@ -1,11 +1,10 @@
-import { atom, useSetAtom } from "jotai";
-import GUID from "../../types/generic/GUID";
-import { mapAssetsAtomFamily } from "./useMapAsset";
+import {atom, useSetAtom} from "jotai";
+import GUID from "../../types/common/GUID";
+import {mapAssetsAtomFamily} from "./useMapAsset";
 import getFileExtension from "../../utils/fileio/getFileExtension";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
-import { createMapAssetAtom } from "./useCreateMapAsset";
-import { replaceMapAssetIDAtom } from "./useReplaceMapAssetID";
-import { deleteMapAssetAtom } from "./useDeleteMapAsset";
+import {createMapAssetAtom} from "./useCreateMapAsset";
+import {replaceMapAssetIDAtom} from "./useReplaceMapAssetID";
 
 export const replaceMapAssetAtom = atom(null, async (get, set, id: GUID) => {
 
@@ -31,9 +30,6 @@ export const replaceMapAssetAtom = atom(null, async (get, set, id: GUID) => {
         fromID: id,
         toID: newAsset.id
     });
-
-    // Delete Old Asset
-    set(deleteMapAssetAtom, id);
 });
 
 export default function useReplaceMapAsset() {

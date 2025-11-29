@@ -1,11 +1,11 @@
-import { atom, useSetAtom } from "jotai";
+import {atom, useSetAtom} from "jotai";
 import MapAsset from "../../types/li/MapAsset";
-import { mapAssetsAtom } from "./useMapAssets";
+import {mapAssetsAtom} from "./useMapAssets";
 import generateGUID from "../../utils/strings/generateGUID";
 
 // Payload
 export interface CreateMapAssetPayload {
-    type: "image" | "audio" | "unknown";
+    type: string;
     blob: Blob;
 }
 

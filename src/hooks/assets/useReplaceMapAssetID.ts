@@ -1,6 +1,7 @@
-import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { elementsAtom } from "../map/useMap";
+import {atom, useSetAtom} from "jotai";
+import {MaybeGUID} from "../../types/common/GUID";
+import {elementsAtom} from "../map/useMap";
+import {deleteMapAssetAtom} from "./useDeleteMapAsset";
 
 export interface ReplaceMapAssetIDPayload {
     fromID: MaybeGUID;
@@ -39,6 +40,10 @@ export const replaceMapAssetIDAtom = atom(null, (get, set, payload: ReplaceMapAs
     }));
 
     set(elementsAtom, newElements);
+
+    // Delete old asset
+    set(deleteMapAssetAtom, payload.fromID);
+
     return referenceCount;
 });
 

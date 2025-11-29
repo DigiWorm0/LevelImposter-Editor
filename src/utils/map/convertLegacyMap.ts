@@ -1,7 +1,8 @@
 import LIMap from "../../types/li/LIMap";
 import generateGUID from "../strings/generateGUID";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import convertOldLegacyMap from "./convertOldLegacyMap";
+import parseAssetType from "../fileio/parseAssetType";
 
 /**
  * Converts .LIM to .LIM2
@@ -18,7 +19,7 @@ export default function convertLegacyMap(mapData: LIMap) {
     const duplicateDB: Record<string, GUID> = {};
 
     // Add Asset Function
-    const addAsset = (base64: string, type: "image" | "audio"): GUID => {
+    const addAsset = (base64: string): GUID => {
         // Check if already exists
         if (duplicateDB[base64] != undefined)
             return duplicateDB[base64];
@@ -29,24 +30,25 @@ export default function convertLegacyMap(mapData: LIMap) {
             id,
             blob: blob,
             url: URL.createObjectURL(blob),
-            type
+            type: blob.type
         });
         duplicateDB[base64] = id;
         return id;
     };
 
     for (const element of mapData.elements) {
+
         // SpriteData
         if (element.properties.spriteData != undefined) {
             console.log(`Converting SpriteData of ${element.id}`);
-            element.properties.spriteID = addAsset(element.properties.spriteData, "image");
+            element.properties.spriteID = addAsset(element.properties.spriteData);
             element.properties.spriteData = undefined;
         }
 
         // Meeting Background
         if (element.properties.meetingBackground != undefined) {
             console.log(`Converting MeetingBackground of ${element.id}`);
-            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground, "image");
+            element.properties.meetingBackgroundID = addAsset(element.properties.meetingBackground);
             element.properties.meetingBackground = undefined;
         }
 
@@ -60,7 +62,7 @@ export default function convertLegacyMap(mapData: LIMap) {
                     sound.presetID = sound.data;
                     sound.data = undefined;
                 } else {
-                    sound.dataID = addAsset(sound.data, "audio");
+                    sound.dataID = addAsset(sound.data);
                     sound.data = undefined;
                 }
             }
@@ -71,7 +73,7 @@ export default function convertLegacyMap(mapData: LIMap) {
             for (const minigame of element.properties.minigames) {
                 if (minigame.spriteData != undefined) {
                     console.log(`Converting Minigame of ${minigame.id}`);
-                    minigame.spriteID = addAsset(minigame.spriteData, "image");
+                    minigame.spriteID = addAsset(minigame.spriteData);
                     minigame.spriteData = undefined;
                 }
             }
@@ -80,7 +82,6 @@ export default function convertLegacyMap(mapData: LIMap) {
 }
 
 function base64ToBlob(base64: string) {
-    const type = base64.substring(base64.indexOf(":") + 1, base64.indexOf(";"));
     const substring = base64.substring(base64.indexOf(",") + 1);
     const byteCharacters = atob(substring);
     const byteNumbers = new Array(byteCharacters.length);
@@ -88,5 +89,6 @@ function base64ToBlob(base64: string) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type });
+    const type = parseAssetType(byteArray);
+    return new Blob([byteArray], {type});
 }

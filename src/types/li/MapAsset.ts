@@ -1,10 +1,10 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 
 export default interface MapAsset {
     id: GUID;
-    type: "image" | "audio" | "unknown";
+    type: string;
     url: string;
     blob: Blob;
 }
 
-export type MaybeMapAsset = MapAsset | undefined;
+// export type MaybeMapAsset = MapAsset | undefined;

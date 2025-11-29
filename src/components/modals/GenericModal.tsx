@@ -17,12 +17,17 @@ export default function GenericModal(props: GenericModalProps) {
     return (
         <Dialog
             open={props.open}
-            onClose={props.onClose}
+            onClose={() => {
+                if (!props.preventClose && props.onClose)
+                    props.onClose();
+            }}
             fullWidth
             maxWidth="sm"
             scroll={"body"}
-            PaperProps={{
-                elevation: 1
+            slotProps={{
+                paper: {
+                    elevation: 1
+                }
             }}
             disableEscapeKeyDown={props.preventClose}
             {...props.DialogProps}

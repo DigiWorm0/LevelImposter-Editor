@@ -16,6 +16,8 @@ const LEGACY_PORTS: Record<string, string> = {
  */
 export default function convertOldLegacyMap(mapData: any) {
 
+    // TODO: Add migrations instead of hardcoded conversions
+
     // Import Objects
     const elements: LIElement[] = [];
     mapData.objs.forEach((legacyObj: any, index: number) => {

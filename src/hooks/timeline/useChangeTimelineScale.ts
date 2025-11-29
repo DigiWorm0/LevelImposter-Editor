@@ -2,7 +2,7 @@ import {atom, useSetAtom} from "jotai";
 import {timelineScaleAtom} from "./useTimelineScale";
 import {timelineOffsetAtom} from "./useTimelineOffset";
 import {playheadAtom} from "./usePlayhead";
-import clamp from "../../utils/math/clamp";
+import clamp from "../../utils/common/clamp";
 
 const MIN_SCALE = 0.01;
 const MAX_SCALE = 40000;

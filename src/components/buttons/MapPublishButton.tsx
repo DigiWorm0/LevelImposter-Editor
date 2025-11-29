@@ -1,18 +1,22 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import PublishModal from "../modals/Publish/PublishModal";
-import { IconButton, Tooltip } from "@mui/material";
-import { Publish } from "@mui/icons-material";
+import {IconButton, Tooltip} from "@mui/material";
+import {Publish} from "@mui/icons-material";
+import useUser from "../../hooks/firebase/useUser";
 
 export default function MapPublishButton() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [isOpen, setIsOpen] = React.useState(false);
-    
+    const user = useUser();
+
+    if (!user)
+        return null;
     return (
         <>
             <Tooltip title={t("publish.title")}>
                 <IconButton onClick={() => setIsOpen(true)}>
-                    <Publish />
+                    <Publish/>
                 </IconButton>
             </Tooltip>
 

@@ -19,8 +19,10 @@ export default function SceneGraph() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     fullWidth
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start"><Search/></InputAdornment>
+                    slotProps={{
+                        input: {
+                            startAdornment: <InputAdornment position="start"><Search/></InputAdornment>
+                        }
                     }}
                 />
             </Box>

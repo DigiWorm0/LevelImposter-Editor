@@ -1,21 +1,26 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import MapAsset from "../../../types/li/MapAsset";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
-import { Box, Button, ButtonGroup } from "@mui/material";
-import { CloudUpload, Done, Refresh } from "@mui/icons-material";
+import {Box, Button, ButtonGroup} from "@mui/material";
+import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
-import { useMapAssetValue } from "../../../hooks/assets/useMapAsset";
+import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
 import SizeTag from "../../utils/SizeTag";
+import useSprite from "../../../hooks/canvas/sprite/useSprite";
+import SpriteWindow from "./SpriteWindow";
+import parseAssetType from "../../../utils/fileio/parseAssetType";
+import {useSettingsValue} from "../../../hooks/useSettings";
+import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
 
 interface ImageUploadProps {
     name: string;
-    defaultSpriteURL: string;
+    defaultSpriteURL?: string;
     assetID?: GUID;
     onUpload: (asset: MapAsset) => void;
     onReset: () => void;
@@ -28,39 +33,65 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload(props: ImageUploadProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const asset = useMapAssetValue(props.assetID);
     const createMapAsset = useCreateMapAsset();
+    const sprite = useSprite(asset?.url);
+    const settings = useSettingsValue();
+
+    const tryUploadFile = React.useCallback(async (file: File) => {
+
+        // Duplicate the Blob to avoid issues with modifying the original file
+        let blob = await duplicateBlob(file);
+
+        // Identify the asset type
+        const arrayBuffer = await blob.arrayBuffer();
+        let assetType = parseAssetType(arrayBuffer);
+
+        // Check if the asset type is valid
+        if (!assetType.startsWith("image/"))
+            throw new Error(t("sprite.errorInvalidType"));
+
+        // Convert to DDS if needed
+        console.log("Auto-encode to DDS setting:", settings.autoEncodeToDDS);
+        if (settings.autoEncodeToDDS) {
+            try {
+                blob = await convertImageBlobToDDS(blob);
+                assetType = "image/dds";
+            } catch (e) {
+                console.warn("Failed to convert image to DDS:", e);
+            }
+        }
+
+        // Create the Map Asset
+        const mapAssetID = createMapAsset({type: assetType, blob});
+        props.onUpload(mapAssetID);
+    }, [createMapAsset, props.onUpload, settings.autoEncodeToDDS, t]);
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {
-        openUploadDialog("image/*").then((blob) => {
-            return duplicateBlob(blob);
-        }).then((blob) => {
-            props.onUpload(createMapAsset({ type: "image", blob }));
-        }).catch(toaster.warn);
-    }, [props.onUpload]);
+        // Open the file upload dialog
+        openUploadDialog("image/*")
+            .then(tryUploadFile)    // Upload the file
+            .catch(toaster.error);   // Warn on error
+    }, [tryUploadFile, toaster]);
 
     // Handle Drag & Drop
     const onFileDrop = React.useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setIsHovering(false);
+
+        // Get the file from the drop event
         const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            const file = files[0];
-            if (file.type.startsWith("image/")) {
-                duplicateBlob(file).then((blob) => {
-                    props.onUpload(createMapAsset({
-                        type: "image",
-                        blob
-                    }));
-                }).catch(toaster.warn);
-            } else {
-                toaster.error(t("sprite.errorInvalidType"));
-            }
-        }
+        if (files.length === 0)
+            return;
+        const file = files[0];
+
+        // Try to upload the file
+        tryUploadFile(file)
+            .catch(toaster.error);   // Warn on error
     }, [props.onUpload]);
 
     return (
@@ -77,25 +108,37 @@ export default function ImageUpload(props: ImageUploadProps) {
         >
             {/* Title */}
             {props.showName && (
-                <h4 style={{ marginTop: 2 }}>
+                <h4 style={{marginTop: 2}}>
                     {props.name}
                 </h4>
             )}
 
             {/* Image Preview */}
-            <Box style={{ textAlign: "center", padding: 1 }}>
-                <img
-                    style={{
-                        maxHeight: 100,
-                        maxWidth: 100
-                    }}
-                    src={asset?.url ?? props.defaultSpriteURL}
-                    alt={props.name}
-                />
+            <Box style={{textAlign: "center", padding: 1}}>
+                {sprite && <SpriteWindow sprite={sprite}/>}
+                {!asset && props.defaultSpriteURL && (
+                    <img
+                        src={props.defaultSpriteURL}
+                        alt={props.name}
+                        style={{
+                            maxWidth: 100,
+                            maxHeight: 100,
+                        }}
+                    />
+                )}
+                {!asset && !props.defaultSpriteURL && (
+                    <HideImageOutlined
+                        style={{
+                            width: 60,
+                            height: 60,
+                            color: "rgba(255, 255, 255, 0.5)",
+                        }}
+                    />
+                )}
             </Box>
 
             {/* Size Tag */}
-            <SizeTag assetID={props.assetID} />
+            <SizeTag assetID={props.assetID}/>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>
@@ -103,12 +146,12 @@ export default function ImageUpload(props: ImageUploadProps) {
                     color={"primary"}
                     onClick={onUploadClick}
                 >
-                    <CloudUpload />
+                    <CloudUpload/>
                 </Button>
                 {props.onColorChange ? (
                     <ColorPicker
                         intent="success"
-                        color={props.color ?? props.defaultColor ?? { r: 255, g: 255, b: 255, a: 255 }}
+                        color={props.color ?? props.defaultColor ?? {r: 255, g: 255, b: 255, a: 255}}
                         onChange={props.onColorChange}
                     />
                 ) : (
@@ -117,7 +160,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                         disabled={!props.onFinish}
                         onClick={props.onFinish}
                     >
-                        <Done />
+                        <Done/>
                     </Button>
                 )}
 
@@ -126,7 +169,7 @@ export default function ImageUpload(props: ImageUploadProps) {
                     onClick={props.onReset}
                     disabled={props.color === undefined && asset === undefined}
                 >
-                    <Refresh />
+                    <Refresh/>
                 </Button>
             </ButtonGroup>
 
@@ -153,7 +196,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             >
 
                 <CloudUpload
-                    style={{ marginRight: 10, fontSize: 40 }}
+                    style={{fontSize: 40}}
                 />
                 <span
                     style={{
@@ -162,13 +205,6 @@ export default function ImageUpload(props: ImageUploadProps) {
                     }}
                 >
                     {t("sprite.upload")}
-                </span>
-                <span
-                    style={{
-                        fontSize: 14,
-                    }}
-                >
-                    {props.name}
                 </span>
             </div>
         </div>

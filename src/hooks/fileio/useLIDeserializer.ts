@@ -1,8 +1,9 @@
 import LIMap from "../../types/li/LIMap";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import convertLegacyMap from "../../utils/map/convertLegacyMap";
-import { MAP_FORMAT_VER } from "../../types/generic/Constants";
-import { DEFAULT_GUID } from "../../utils/strings/generateGUID";
+import {MAP_FORMAT_VER} from "../../types/amongus/Constants";
+import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
+import parseAssetType from "../../utils/fileio/parseAssetType";
 
 export function deserializeMap(file: Blob) {
     return new Promise<LIMap>((resolve, reject) => {
@@ -64,6 +65,7 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     // Read Assets
     let position = 4 + jsonLength;
     while (position < buffer.byteLength) {
+
         // Read GUID
         const guidSlice = buffer.slice(position, position + 36);
         const guid = textDecoder.decode(guidSlice) as GUID;
@@ -84,12 +86,11 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
         // Read Asset
         const assetSlice = buffer.slice(position, position + assetLength);
         const assetType = parseAssetType(assetSlice);
-        const assetBlob = new Blob([assetSlice], { type: assetType });
+        const assetBlob = new Blob([assetSlice], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
         mapData.assets.push({
             id: guid,
-            type: assetType.startsWith("image/") ? "image" :
-                (assetType.startsWith("audio/") ? "audio" : "unknown"),
+            type: assetType,
             blob: assetBlob,
             url: assetURL,
         });
@@ -104,28 +105,7 @@ function deserialize(buffer: ArrayBuffer): LIMap | undefined {
     return mapData;
 }
 
-function parseAssetType(asset: ArrayBuffer) {
-    const textDecoder = new TextDecoder();
-
-    const isGIF = asset.byteLength > 3 && textDecoder.decode(asset.slice(0, 3)) === "GIF";
-    const isPNG = asset.byteLength > 8 && textDecoder.decode(asset.slice(1, 8)) === "PNG\r\n\x1a\n";
-    const isJPEG = asset.byteLength > 2 && textDecoder.decode(asset.slice(0, 2)) === "\xff\xd8";
-    const isWEBP = asset.byteLength > 11 && textDecoder.decode(asset.slice(8, 11)) === "WEBP";
-    const isWAV = asset.byteLength > 11 &&
-        textDecoder.decode(asset.slice(0, 4)) === "RIFF" &&
-        textDecoder.decode(asset.slice(8, 11)) === "WAV";
-
-    if (isGIF) return "image/gif";
-    if (isPNG) return "image/png";
-    if (isJPEG) return "image/jpeg";
-    if (isWEBP) return "image/webp";
-    if (isWAV) return "audio/wav";
-    console.warn("Unknown asset strings");
-    return "application/octet-stream";
-}
-
 function repairMap(map: LIMap) {
-    map.v = MAP_FORMAT_VER;
     map.id = map.id || DEFAULT_GUID;
     map.name = map.name || "";
     map.description = map.description || "";
@@ -139,4 +119,12 @@ function repairMap(map: LIMap) {
     map.remixOf = map.remixOf || null;
     if (map.remixOf === undefined)
         map.remixOf = null;
+
+    // Find any layers from V2 and fix them
+    for (const elem of map.elements) {
+        if (elem.type === "util-layer" && map.v <= 2)
+            elem.z = 0;
+    }
+
+    map.v = MAP_FORMAT_VER;
 }

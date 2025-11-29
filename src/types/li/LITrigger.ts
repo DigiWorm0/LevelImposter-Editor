@@ -1,4 +1,4 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 
 export default interface LITrigger {
     id: string;

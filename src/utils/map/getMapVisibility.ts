@@ -4,14 +4,11 @@ const INVISIBLE_TYPES = [
     "util-spawn1",
     "util-spawn2",
     "util-tele",
-    "util-triggerarea",
     "util-triggerrepeat",
     "util-triggertimer",
     "util-triggerstart",
     "util-triggersound",
     "util-triggerrand",
-    "util-triggerdeath",
-    "util-triggershake",
     "util-triggeranim",
     "util-sound1",
     "util-sound2",
@@ -23,7 +20,8 @@ const INVISIBLE_TYPES = [
     "util-eject",
     "util-valuebool",
     "util-triggergate",
-    "util-valuecomparator"
+    "util-valuecomparator",
+    "util-layer"
 ];
 
 const INVISIBLE_TYPES_NO_SPRITE = [
@@ -33,7 +31,11 @@ const INVISIBLE_TYPES_NO_SPRITE = [
     "util-starfield",
     "util-triggerconsole",
     "util-blanktrigger",
-    "util-physics"
+    "util-physics",
+    "util-playermover",
+    "util-triggerarea",
+    "util-triggerdeath",
+    "util-triggershake",
 ];
 
 const INVISIBLE_TYPES_MINIMAP = [

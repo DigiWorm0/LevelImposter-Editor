@@ -1,6 +1,6 @@
 import { collection, doc, getDoc } from "firebase/firestore";
 import { getDownloadURL, ref, StorageReference } from "firebase/storage";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import LIMetadata from "../../types/li/LIMetadata";
 import { db, storage } from "../../utils/Firebase";
 import { deserializeMap } from "../fileio/useLIDeserializer";

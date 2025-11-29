@@ -5,7 +5,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import GenericModal from "./GenericModal";
 import {List} from "@mui/material";
-import {Info, PlayArrow, Shuffle, TextSnippet, ViewCompact} from "@mui/icons-material";
+import {AllInclusive, Info, PlayArrow, Shuffle, TextSnippet, ViewCompact} from "@mui/icons-material";
 
 export interface MapPropertiesModalProps {
     isOpen: boolean;
@@ -45,6 +45,12 @@ export default function MapPropertiesModal(props: MapPropertiesModalProps) {
                     prop="triggerLogging"
                     defaultValue={false}
                     icon={<TextSnippet/>}
+                />
+                <MapSwitchInput
+                    name={t("settings.map.triggerDetectStackOverflow")}
+                    prop="triggerDetectStackOverflow"
+                    defaultValue={true}
+                    icon={<AllInclusive/>}
                 />
                 <MapSwitchInput
                     name={t("settings.map.canRemix")}

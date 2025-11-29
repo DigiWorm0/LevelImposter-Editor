@@ -1,7 +1,7 @@
-import { Box, Button } from "@mui/material";
+import {Box, Button} from "@mui/material";
 import React from "react";
-import GUID from "../../../../types/generic/GUID";
-import { useMapAssetValue } from "../../../../hooks/assets/useMapAsset";
+import GUID from "../../../../types/common/GUID";
+import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
 
 export interface MapAssetModalButtonProps {
     id: GUID;
@@ -11,12 +11,13 @@ export interface MapAssetModalButtonProps {
 
 export default function ImageAssetModalButton(props: MapAssetModalButtonProps) {
     const asset = useMapAssetValue(props.id);
+    // const image = useSpriteAsImage(props.id);
 
     if (!asset)
         return null;
     return (
         <Box
-            sx={{ flex: 1 }}
+            sx={{flex: 1}}
         >
             <Button
                 color={"inherit"}
@@ -30,11 +31,11 @@ export default function ImageAssetModalButton(props: MapAssetModalButtonProps) {
                 }}
             >
                 <img
-                    alt={asset.id}
+                    alt={props.id}
                     src={asset.url}
                     style={{
                         objectFit: "contain",
-                        maxWidth: "100%",
+                        maxWidth: 100,
                         maxHeight: 150
                     }}
                 />

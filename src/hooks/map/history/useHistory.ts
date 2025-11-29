@@ -1,7 +1,7 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MAX_HISTORY_LENGTH } from "../../../types/generic/Constants";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {MAX_HISTORY_LENGTH} from "../../../types/amongus/Constants";
 import LIMap from "../../../types/li/LIMap";
-import { mapAtom } from "../useMap";
+import {mapAtom} from "../useMap";
 
 // Atoms
 export const historyAtom = atom<LIMap[]>([]);

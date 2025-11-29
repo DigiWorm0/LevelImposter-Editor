@@ -1,4 +1,4 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 import LISoundChannel from "./LISoundChannel";
 
 export default interface LISound {
@@ -21,5 +21,3 @@ export default interface LISound {
     // @deprecated Use dataID instead
     data?: string;
 }
-
-export type MaybeLISound = LISound | undefined;

@@ -1,12 +1,12 @@
 import {atom, useSetAtom} from "jotai";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
-import GUID from "../../types/generic/GUID";
+import GUID from "../../types/common/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import {playheadAtom} from "../timeline/usePlayhead";
 import {selectedKeyframeAtom} from "../timeline/useSelectedKeyframe";
-import {playAnimAtom} from "../timeline/usePlayAnim";
+import {isAnimPlayingAtom} from "../timeline/useIsAnimPlaying";
 
 export const jumpToAdjacentKeyframeAtom = atom(null, (get, set, prev: boolean) => {
 
@@ -67,7 +67,7 @@ export const jumpToAdjacentKeyframeAtom = atom(null, (get, set, prev: boolean) =
         });
 
         // Stop the animation
-        set(playAnimAtom, false);
+        set(isAnimPlayingAtom, false);
     }
 });
 

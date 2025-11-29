@@ -9,4 +9,5 @@ export default interface LIMapProperties {
     canRemix?: boolean;
     preloadAllGIFs?: boolean;
     triggerLogging?: boolean;
+    triggerDetectStackOverflow?: boolean;
 }

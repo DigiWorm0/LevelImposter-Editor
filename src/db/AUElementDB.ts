@@ -80,8 +80,6 @@ export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
     ]
 };
 
-export const RESOURCE_PRESET_IDS: string[] = Object.values(PRESET_RESOURCE_IDS).flat();
-
 const AUElementDB: string[] = [
     "util-button1",
     "util-button2",
@@ -140,6 +138,8 @@ const AUElementDB: string[] = [
     "util-valuebool",
     "util-valuecomparator",
     "util-triggergate",
+    "util-layer",
+    "util-playermover",
     "task-id",
     "task-keys",
     "task-pass",

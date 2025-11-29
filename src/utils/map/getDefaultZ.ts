@@ -1,7 +1,9 @@
 import LIElement from "../../types/li/LIElement";
-import getElemVisibility, { ElemVisibility } from "./getMapVisibility";
+import getElemVisibility, {ElemVisibility} from "./getMapVisibility";
 
 export default function getDefaultZ(elem: LIElement) {
+    if (elem.type === "util-layer")
+        return 0;
     if (elem.type.startsWith("room-"))
         return 20;
     if (getElemVisibility(elem) === ElemVisibility.Invisible || elem.type === "util-room")

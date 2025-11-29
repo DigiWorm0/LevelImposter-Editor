@@ -1,9 +1,11 @@
-import { useAtomValue } from "jotai";
-import { imageAtomFamily } from "./useImage";
-import { atomFamily, unwrap } from "jotai/utils";
+import {useAtomValue} from "jotai";
+import {atomFamily, unwrap} from "jotai/utils";
+import {spriteAtomFamily} from "./useSprite";
 
 export const spriteOfTypeAtomFamily = atomFamily((type?: string) => {
-    return imageAtomFamily(`/sprites/${type}.png`);
+    if (type === "undefined" || !type)
+        return spriteAtomFamily(undefined);
+    return spriteAtomFamily(`/sprites/${type}.png`);
 });
 
 export default function useSpriteOfType(type?: string) {

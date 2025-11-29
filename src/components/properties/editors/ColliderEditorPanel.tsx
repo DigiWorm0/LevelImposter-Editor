@@ -4,7 +4,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import useCollider from "../../../hooks/elements/colliders/useCollider";
 import useDeleteCollider from "../../../hooks/elements/colliders/useDeleteCollider";
-import { MaybeGUID } from "../../../types/generic/GUID";
+import { MaybeGUID } from "../../../types/common/GUID";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import LazyCollapse from "../util/LazyCollapse";
 import ColliderPointsEditorPanel from "./ColliderPointsEditorPanel";

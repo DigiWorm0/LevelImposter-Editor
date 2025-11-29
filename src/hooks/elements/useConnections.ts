@@ -1,15 +1,15 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/generic/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import LIElement from "../../types/li/LIElement";
 import {elementsAtom} from "../map/useMap";
-import {elementFamilyAtom} from "./useElements";
+import {elementAtomFamily} from "./useElements";
 import {selectedElementIDAtom} from "./useSelectedElem";
 
 // Atoms
 export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) => {
     const connectionsAtom = atom((get) => {
-        const elem = get(elementFamilyAtom(elemID));
+        const elem = get(elementAtomFamily(elemID));
 
         if (!elem)
             return [];
@@ -74,10 +74,6 @@ export const selectedConnectionsAtom = atom((get) => {
 selectedConnectionsAtom.debugLabel = "selectedConnectionsAtom";
 
 // Hooks
-export function useSelectedConnections() {
-    return useAtomValue(selectedConnectionsAtom);
-}
-
 export function useConnections(id: MaybeGUID) {
     return useAtomValue(connectionsAtomFamily(id));
 }

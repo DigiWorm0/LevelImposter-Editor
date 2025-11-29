@@ -3,7 +3,7 @@ import { Upload } from "@mui/icons-material";
 import React from "react";
 import useToaster from "../../hooks/useToaster";
 import { useTranslation } from "react-i18next";
-import { MaybeGUID } from "../../types/generic/GUID";
+import { MaybeGUID } from "../../types/common/GUID";
 import useReplaceMapAsset from "../../hooks/assets/useReplaceMapAsset";
 
 export interface ReplaceAssetButtonProps {

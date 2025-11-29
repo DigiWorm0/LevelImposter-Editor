@@ -91,6 +91,7 @@
     "more": "More Options",
     "cropToContent": "Crop to Content",
     "rasterizeScale": "Rasterize Scale",
+    "convertToDDS": "Convert to DDS",
     "ventInfo": "Any GIF animation will play when the vent is used.",
     "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
     "camInfo": "Any GIF animation will play when the cameras are active.",
@@ -98,7 +99,8 @@
     "paddingInfo": "To ensure highlight is visible around consoles, sprites requires atleast 10px of padding on all sides.",
     "filterInfo": "Sprite will hide all players (other than the local player). Acts just like a mushroom spore.",
     "errorSize": "Larger images can sometimes freeze or crash the game. Try downscaling or splitting your sprite into multiple objects.",
-    "errorInvalidType": "This image file is in invalid format."
+    "errorInvalidType": "Unknown file type. LevelImposter only supports PNG, JPG, GIF, and DDS images.",
+    "errorCantPreviewImage": "Image preview is unavailable"
   },
   "starfield": {
     "title": "Starfield",
@@ -625,6 +627,7 @@
     "ghostInfo": "The collider will block all players, including ghosts.",
     "deathInfo": "All players within the collider area will die when this object is triggered.",
     "shakeInfo": "All players' screens will shake while they're within this colliders.",
+    "playerMoverInfo": "All players within the collider are moved along with this object.",
     "errorOneOnly": "This object can only have 1 collider"
   },
   "triggerdeath": {
@@ -734,10 +737,9 @@
   "map": {
     "importLegacy": "Import Legacy Map",
     "open": "Open Map",
-    "clean": "Clean Map",
-    "cleaning": "Cleaning Map...",
-    "cleanDesc": "Optimizes the map assets for deployment. This is a resource-intensive operation and may take a while to complete. In addition, this is potentially destructive and may move or modify existing objects.",
-    "cleanSuccess": "Successfully cleaned map",
+    "optimize": "Optimize Map",
+    "optimizeDesc": "Optimizes map assets to improve in-game performance.",
+    "encodeSprites": "Encode Sprites",
     "autoScale": "Scale sprites to transform size",
     "scaleDownOnly": "Scale down, but not up",
     "autoCrop": "Crop sprites to content",
@@ -867,7 +869,12 @@
       "animPreview": "Animation Preview",
       "animAnything": "Animate Any Object",
       "audioDownmix": "Audio Downmix",
-      "editType": "Edit Object Type"
+      "editType": "Edit Object Type",
+      "showConnectionArrows": "Show Connection Arrows",
+      "connectionArrowHeadSize": "Arrow Size",
+      "connectionArrowWidth": "Arrow Width",
+      "autoEncodeToDDS": "Auto-Encode Sprites to DDS",
+      "errorAutoEncodeToDDS": "PNG/JPEG sprites will result in worse performance compared to DDS format."
     },
     "map": {
       "title": "Map",
@@ -876,6 +883,7 @@
       "pixelArtMode": "Pixel Art Mode",
       "preloadAllGIFs": "Preload All GIFs",
       "triggerLogging": "Trigger Logging",
+      "triggerDetectStackOverflow": "Abort if infinite trigger loop detected",
       "canRemix": "Allow Remix-ing",
       "skyboxColor": "Skybox Color",
       "setColor": "Set Color",
@@ -1016,6 +1024,7 @@
     "util-valuebool": "Boolean Value",
     "util-valuecomparator": "Comparator",
     "util-triggergate": "Trigger Gate",
+    "util-playermover": "Player Mover",
     "task-id": "Card Swipe",
     "task-keys": "Keys",
     "task-pass": "Scan Pass",

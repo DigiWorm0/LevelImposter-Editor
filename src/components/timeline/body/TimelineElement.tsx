@@ -6,7 +6,7 @@ import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import TimelineRow from "../TimelineRow";
 import TimelineKeyframeRow from "./TimelineKeyframeRow";
 import TimelineProperty from "./TimelineProperty";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {Delete} from "@mui/icons-material";
