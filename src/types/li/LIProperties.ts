@@ -27,6 +27,7 @@ export default interface LIProperties {
     triggerGateValueID?: GUID;
 
     // Value
+    valuePresetType?: string;
     defaultBoolValue?: boolean;
 
     // Comparator

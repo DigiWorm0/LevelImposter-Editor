@@ -39,6 +39,7 @@ const TYPE_BLACKLIST = [
     "util-eject",
     "util-triggergate",
     "util-valuebool",
+    "util-valueboolpreset",
     "util-valuecomparator"
 ];
 

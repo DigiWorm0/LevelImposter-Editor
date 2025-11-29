@@ -136,6 +136,7 @@ const AUElementDB: string[] = [
     "util-ejecthand",
     "util-ejectthumb",
     "util-valuebool",
+    "util-valueboolpreset",
     "util-valuecomparator",
     "util-triggergate",
     "util-layer",

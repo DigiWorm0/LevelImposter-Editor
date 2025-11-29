@@ -653,7 +653,11 @@
   },
   "value": {
     "title": "Value",
-    "defaultValue": "Default Value"
+    "defaultValue": "Default Value",
+    "preset": "Preset Value",
+    "isImposter": "Is Imposter",
+    "isInMeeting": "In Meeting",
+    "isDead": "Is Dead"
   },
   "comparator": {
     "title": "Comparator",
@@ -1026,6 +1030,7 @@
     "util-ejecthand": "Ejected Hand",
     "util-ejectthumb": "Ejected Thumb",
     "util-valuebool": "Boolean Value",
+    "util-valueboolpreset": "Preset Boolean Value",
     "util-valuecomparator": "Comparator",
     "util-triggergate": "Trigger Gate",
     "util-playermover": "Player Mover",
