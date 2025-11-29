@@ -15,6 +15,8 @@ import SizeTag from "../../utils/SizeTag";
 import useSprite from "../../../hooks/canvas/sprite/useSprite";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
+import {useSettingsValue} from "../../../hooks/useSettings";
+import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
 
 interface ImageUploadProps {
     name: string;
@@ -37,24 +39,36 @@ export default function ImageUpload(props: ImageUploadProps) {
     const asset = useMapAssetValue(props.assetID);
     const createMapAsset = useCreateMapAsset();
     const sprite = useSprite(asset?.url);
+    const settings = useSettingsValue();
 
     const tryUploadFile = React.useCallback(async (file: File) => {
 
         // Duplicate the Blob to avoid issues with modifying the original file
-        const blob = await duplicateBlob(file);
+        let blob = await duplicateBlob(file);
 
         // Identify the asset type
         const arrayBuffer = await blob.arrayBuffer();
-        const assetType = parseAssetType(arrayBuffer);
+        let assetType = parseAssetType(arrayBuffer);
 
         // Check if the asset type is valid
         if (!assetType.startsWith("image/"))
             throw new Error(t("sprite.errorInvalidType"));
 
+        // Convert to DDS if needed
+        console.log("Auto-encode to DDS setting:", settings.autoEncodeToDDS);
+        if (settings.autoEncodeToDDS) {
+            try {
+                blob = await convertImageBlobToDDS(blob);
+                assetType = "image/dds";
+            } catch (e) {
+                console.warn("Failed to convert image to DDS:", e);
+            }
+        }
+
         // Create the Map Asset
         const mapAssetID = createMapAsset({type: assetType, blob});
         props.onUpload(mapAssetID);
-    }, [createMapAsset, props.onUpload]);
+    }, [createMapAsset, props.onUpload, settings.autoEncodeToDDS, t]);
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {

@@ -17,6 +17,7 @@ export default interface LISettings {
     elementNesting: boolean;
     isInfoVisible: boolean;
     isAudioDownmixEnabled: boolean;
+    autoEncodeToDDS?: boolean;
     editType: boolean;
     showConnectionArrows: boolean;
     connectionArrowHeadSize: number;
@@ -42,6 +43,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
+    autoEncodeToDDS: true,
     editType: false,
     showConnectionArrows: true,
     connectionArrowHeadSize: 10,

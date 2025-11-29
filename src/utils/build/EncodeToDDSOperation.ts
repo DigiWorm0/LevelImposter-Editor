@@ -2,10 +2,7 @@ import BuildOperation from "./BuildOperation";
 import primaryStore from "../../hooks/primaryStore";
 import {mapAssetsAtom} from "../../hooks/assets/useMapAssets";
 import BuildOperationLog from "./BuildOperationLog";
-import convertImageToDDS from "../dds/convertImageToDDS";
-import {imageAtomFamily} from "../../hooks/canvas/legacy/useImage";
-import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
-import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
+import {convertImageAssetToDDS} from "../dds/convertImageToDDS";
 
 const EncodeToDDSOperation: BuildOperation = {
     async run() {
@@ -25,23 +22,7 @@ const EncodeToDDSOperation: BuildOperation = {
             BuildOperationLog.info(`Converting asset ${i + 1}/${imageAssets.length} to DDS...`);
 
             // Get Image from Asset
-            const asset = imageAssets[i];
-            const image = await primaryStore.get(imageAtomFamily(asset.url));
-
-            // Convert to DDS
-            const blob = await convertImageToDDS(image);
-
-            // Create new asset
-            const newMapAsset = primaryStore.set(createMapAssetAtom, {
-                type: "image/dds",
-                blob
-            });
-
-            // Replace all instances of the old asset with new one
-            primaryStore.set(replaceMapAssetIDAtom, {
-                fromID: asset.id,
-                toID: newMapAsset.id
-            });
+            await convertImageAssetToDDS(imageAssets[i].id);
         }
 
         // Log result

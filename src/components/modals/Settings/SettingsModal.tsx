@@ -10,6 +10,7 @@ import {
     Article,
     Code,
     Edit,
+    Gradient,
     Grid3x3,
     GridGoldenratio,
     GridOn,
@@ -28,6 +29,7 @@ import {
 import SettingsHeader from "./SettingsHeader";
 import {Box} from "@mui/material";
 import {useSettingsValue} from "../../../hooks/useSettings";
+import MapError from "../../properties/util/MapError";
 
 export interface SettingsModalProps {
     isOpen: boolean;
@@ -116,7 +118,21 @@ export default function SettingsModal(props: SettingsModalProps) {
                     stepSize={1}
                     label={"px"}
                 />
-
+            </Box>
+            <SettingsSwitchInput
+                name={t("settings.interface.audioDownmix")}
+                prop="isAudioDownmixEnabled"
+                icon={<VolumeUp/>}
+            />
+            <SettingsSwitchInput
+                name={t("settings.interface.autoEncodeToDDS")}
+                prop="autoEncodeToDDS"
+                icon={<Gradient/>}
+            />
+            <Box sx={{marginLeft: 2}}>
+                <MapError isVisible={!settings.autoEncodeToDDS}>
+                    {t("settings.interface.errorAutoEncodeToDDS")}
+                </MapError>
             </Box>
 
             <SettingsHeader>
@@ -156,11 +172,6 @@ export default function SettingsModal(props: SettingsModalProps) {
                 name={t("settings.interface.snapToTimeline")}
                 prop="isTimelineSnapEnabled"
                 icon={<LinearScale/>}
-            />
-            <SettingsSwitchInput
-                name={t("settings.interface.audioDownmix")}
-                prop="isAudioDownmixEnabled"
-                icon={<VolumeUp/>}
             />
 
             <SettingsHeader>

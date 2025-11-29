@@ -7,7 +7,6 @@ import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
 import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
 import {MaybeGUID} from "../../types/common/GUID";
 import {Add} from "@mui/icons-material";
-import {useSettingsValue} from "../../hooks/useSettings";
 
 export interface AddTargetModalProps {
     isOpen: boolean;
@@ -16,7 +15,6 @@ export interface AddTargetModalProps {
 
 export default function AddTargetModal(props: AddTargetModalProps) {
     const {t} = useTranslation();
-    const settings = useSettingsValue();
     const [selectedID, setSelectedID] = React.useState<MaybeGUID>(undefined);
     const [animTargets,] = useSelectedElemProp("animTargets");
     const addAnimTarget = useAddAnimTarget();
@@ -34,17 +32,16 @@ export default function AddTargetModal(props: AddTargetModalProps) {
             open={props.isOpen}
             onClose={props.onClose}
             title={t("anim.selectTarget") as string}
-            actions={(<>
-                    <Button
-                        variant={"contained"}
-                        onClick={onAddTarget}
-                        color="success"
-                        disabled={!selectedID || animTargets?.some((t) => t.id === selectedID)}
-                    >
-                        <Add/>
-                        {t("anim.addTarget") as string}
-                    </Button>
-                </>
+            actions={(
+                <Button
+                    variant={"contained"}
+                    onClick={onAddTarget}
+                    color="success"
+                    disabled={!selectedID || animTargets?.some((t) => t.id === selectedID)}
+                >
+                    <Add/>
+                    {t("anim.addTarget") as string}
+                </Button>
             )}
         >
             <ElementSelect

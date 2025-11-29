@@ -91,6 +91,7 @@
     "more": "More Options",
     "cropToContent": "Crop to Content",
     "rasterizeScale": "Rasterize Scale",
+    "convertToDDS": "Convert to DDS",
     "ventInfo": "Any GIF animation will play when the vent is used.",
     "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",
     "camInfo": "Any GIF animation will play when the cameras are active.",
@@ -871,7 +872,9 @@
       "editType": "Edit Object Type",
       "showConnectionArrows": "Show Connection Arrows",
       "connectionArrowHeadSize": "Arrow Size",
-      "connectionArrowWidth": "Arrow Width"
+      "connectionArrowWidth": "Arrow Width",
+      "autoEncodeToDDS": "Auto-Encode Sprites to DDS",
+      "errorAutoEncodeToDDS": "PNG/JPEG sprites will result in worse performance compared to DDS format."
     },
     "map": {
       "title": "Map",

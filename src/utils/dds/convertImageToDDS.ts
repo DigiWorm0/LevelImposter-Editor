@@ -3,6 +3,12 @@ import createDDSHeader from "./write/createDDSHeader";
 import writeDDSHeader from "./write/writeDDSHeader";
 import writeDXT5Texture from "./write/writeDXT5Texture";
 import writeDXT1Texture from "./write/writeDXT1Texture";
+import GUID, {MaybeGUID} from "../../types/common/GUID";
+import primaryStore from "../../hooks/primaryStore";
+import {imageAtomFamily} from "../../hooks/canvas/legacy/useImage";
+import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
+import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
+import {mapAssetsAtomFamily} from "../../hooks/assets/useMapAsset";
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
@@ -55,4 +61,55 @@ export default async function convertImageToDDS(image: HTMLImageElement): Promis
         throw new Error("Error converting buffer to blob");
 
     return blob;
+}
+
+/**
+ * Converts an image Blob to a DDS Blob.
+ * @param imageBlob - The image Blob to convert
+ * @returns A Promise that resolves to the DDS Blob
+ */
+export async function convertImageBlobToDDS(imageBlob: Blob): Promise<Blob> {
+    const imageURL = URL.createObjectURL(imageBlob);
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.src = imageURL;
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+    });
+    URL.revokeObjectURL(imageURL);
+    return convertImageToDDS(image);
+}
+
+/**
+ * Converts a map image asset to a DDS asset, replacing all instances of the old asset.
+ * @param assetID - The ID of the image asset to convert
+ * @returns A Promise that resolves to the new DDS asset ID
+ */
+export async function convertImageAssetToDDS(assetID: MaybeGUID): Promise<GUID> {
+
+    // Get Asset
+    const asset = primaryStore.get(mapAssetsAtomFamily(assetID));
+    if (!asset)
+        throw new Error(`Asset with ID ${assetID} not found`);
+
+    // Get Image from Asset
+    const image = await primaryStore.get(imageAtomFamily(asset.url));
+
+    // Convert to DDS
+    const blob = await convertImageToDDS(image);
+
+    // Create new asset
+    const newMapAsset = primaryStore.set(createMapAssetAtom, {
+        type: "image/dds",
+        blob
+    });
+
+    // Replace all instances of the old asset with new one
+    primaryStore.set(replaceMapAssetIDAtom, {
+        fromID: asset.id,
+        toID: newMapAsset.id
+    });
+
+    // Return new asset ID
+    return newMapAsset.id;
 }

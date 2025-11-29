@@ -2,11 +2,13 @@ import CanvasGridAxis from "./CanvasGridAxis";
 import useViewportPosition from "../../../hooks/canvas/useViewportPosition";
 import React from "react";
 import CanvasGridSection from "./CanvasGridSection";
+import {useSettingsValue} from "../../../hooks/useSettings";
 
 const CELL_SIZE = 100;
 
 export default function CanvasGrid() {
     const viewport = useViewportPosition();
+    const {isGridVisible} = useSettingsValue();
 
     // If viewport is not defined, return nothing
     const left = viewport?.left || 0;
@@ -29,6 +31,8 @@ export default function CanvasGrid() {
     // Round the size step to the nearest integer power of 10
     sizeStep = Math.pow(10, Math.floor(sizeStep));
 
+    if (!isGridVisible)
+        return null;
     return (
         <pixiContainer
             eventMode={"none"}
