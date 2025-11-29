@@ -2,21 +2,28 @@ import {ListItem} from "@mui/material";
 import {ListItemProps} from "@mui/material/ListItem/ListItem";
 
 export default interface SceneGraphListItemProps extends ListItemProps {
-    isGroup?: boolean;
+    intent?: "primary" | "secondary" | "success";
 }
 
 const SUCCESS_BG = "#193d1d";
 const SUCCESS_FG = "success.light";
 const PRIMARY_BG = "#19333d";
 const PRIMARY_FG = "primary.main";
+const SECONDARY_BG = "#33233b";
+const SECONDARY_FG = "secondary.main";
 
 export function SceneGraphListItem(props: SceneGraphListItemProps) {
 
     const listItemProps = {...props};
-    delete listItemProps.isGroup;
+    delete listItemProps.intent;
 
-    const foreground = props.isGroup ? PRIMARY_FG : SUCCESS_FG;
-    const background = props.isGroup ? PRIMARY_BG : SUCCESS_BG;
+    const foreground = props.intent === "secondary" ? SECONDARY_FG :
+        props.intent === "success" ? SUCCESS_FG :
+            PRIMARY_FG;
+    const background = props.intent === "secondary" ? SECONDARY_BG :
+        props.intent === "success" ? SUCCESS_BG :
+            PRIMARY_BG;
+
     return (
         <ListItem
             {...listItemProps}

@@ -106,8 +106,9 @@ export default function Resizable(props: ResizableProps) {
 
                     display: "flex",
                     zIndex: 10000,
-                    
+
                     pointerEvents: "auto",
+                    
                 }}
                 onMouseEnter={() => setIsHoveringHandle(true)}
                 onMouseLeave={() => setIsHoveringHandle(false)}
@@ -124,8 +125,7 @@ export default function Resizable(props: ResizableProps) {
                                 0,
                         transition: "opacity 0.1s",
                         width: axis === "x" ? "5px" : "100%",
-                        height: axis === "y" ? "5px" : "100%",
-                        transform: axis === "x" ? "translateX(-50%)" : "translateY(-50%)",
+                        height: axis === "y" ? "5px" : "100%"
                     }}
                 />
             </div>

@@ -1,16 +1,16 @@
-import { Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
-import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
+import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
 import useElement from "../../hooks/elements/useElements";
 import useIsDroppable from "../../hooks/elements/useIsDroppable";
-import { useSettingsValue } from "../../hooks/useSettings";
-import { MaybeGUID } from "../../types/common/GUID";
+import {useSettingsValue} from "../../hooks/useSettings";
+import {MaybeGUID} from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
-import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
-import { SceneGraphListItem } from "./SceneGraphListItem";
+import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
 
 export interface SceneGraphElementProps {
@@ -27,7 +27,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const [element, setElement] = useElement(props.elementID);
     const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
-    const { elementNesting } = useSettingsValue();
+    const {elementNesting} = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
     const jumpToElement = useJumpToElement();
 
@@ -49,7 +49,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
         <>
             <SceneGraphListItem
                 id={props.elementID}
-                isGroup={isGroup}
+                intent={isGroup ? "primary" : "success"}
                 draggable
                 disablePadding
                 onDragStart={(e) => {
@@ -77,7 +77,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                     e.preventDefault();
                     const data = e.dataTransfer.getData("text/plain");
                     if (!(data === element.id || draggingElement === undefined || isDisabled)) {
-                        setDraggingElement({ ...draggingElement, parentID: element.id });
+                        setDraggingElement({...draggingElement, parentID: element.id});
                     }
                     setDragOver(false);
                     setDraggingID(undefined);
@@ -88,10 +88,10 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                         size={"small"}
                         onClick={() => setElement({
                             ...element,
-                            properties: { ...element.properties, isExpanded: !isExpanded }
+                            properties: {...element.properties, isExpanded: !isExpanded}
                         })}
                     >
-                        <AnimatedCaretIcon up={!isExpanded} />
+                        <AnimatedCaretIcon up={!isExpanded}/>
                     </IconButton>
                 )}
             >
@@ -109,8 +109,8 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                     dense
                     selected={isSelected || isDragOver}
                 >
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                        <SceneGraphElementIcon type={element.type} />
+                    <ListItemIcon sx={{minWidth: 40}}>
+                        <SceneGraphElementIcon type={element.type}/>
                     </ListItemIcon>
                     <ListItemText
                         primary={element.name}

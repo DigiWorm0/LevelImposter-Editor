@@ -11,13 +11,18 @@ ticker.autoStart = true;
 const ANIM_DURATION = 20;
 
 export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) => {
-    if (!elementID)
-        return;
+
+    // By default, jump to (0,0)
+    let elementPosition = {x: 0, y: 0};
 
     // Get the element
-    const element = get(elementAtomFamily(elementID));
-    if (!element)
-        return;
+    if (elementID !== undefined) {
+        const element = get(elementAtomFamily(elementID));
+        if (!element)
+            return;
+
+        elementPosition = {x: element.x, y: element.y};
+    }
 
     // Get the viewport
     const viewport = get(viewportAtom);
@@ -26,7 +31,7 @@ export const jumpToElementAtom = atom(null, (get, _set, elementID: MaybeGUID) =>
 
     // Get Start/End Position
     const startPosition = viewport.center;
-    const endPosition = {x: element.x * UNITY_SCALE, y: -element.y * UNITY_SCALE};
+    const endPosition = {x: elementPosition.x * UNITY_SCALE, y: -elementPosition.y * UNITY_SCALE};
 
     // Animate the viewport to the element's position
     let t = 0;
