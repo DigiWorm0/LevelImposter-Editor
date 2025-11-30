@@ -17,12 +17,15 @@ import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
+import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
+import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
 
 interface ImageUploadProps {
     name: string;
     defaultSpriteURL?: string;
     assetID?: GUID;
     onUpload: (asset: MapAsset) => void;
+    onUploadAnimation?: (animation: LISpriteAnimation) => void;
     onReset: () => void;
 
     color?: LIColor;
@@ -49,20 +52,30 @@ export default function ImageUpload(props: ImageUploadProps) {
         // Identify the asset type
         const arrayBuffer = await blob.arrayBuffer();
         let assetType = parseAssetType(arrayBuffer);
+        const isGIF = assetType === "image/gif";
 
         // Check if the asset type is valid
         if (!assetType.startsWith("image/"))
             throw new Error(t("sprite.errorInvalidType"));
 
         // Convert to DDS if needed
-        console.log("Auto-encode to DDS setting:", settings.autoEncodeToDDS);
-        const isGIF = assetType === "image/gif";
         if (settings.autoEncodeToDDS && !isGIF) {
             try {
                 blob = await convertImageBlobToDDS(blob);
                 assetType = "image/dds";
             } catch (e) {
                 console.warn("Failed to convert image to DDS:", e);
+            }
+        }
+
+        // Convert to Sprite Animation if needed
+        if (settings.autoConvertGIFToAnimation && isGIF && props.onUploadAnimation) {
+            try {
+                const animation = await convertGIFToSpriteAnimation(blob);
+                props.onUploadAnimation(animation);
+                return;
+            } catch (e) {
+                console.warn("Failed to convert GIF to Sprite Animation:", e);
             }
         }
 
@@ -116,7 +129,7 @@ export default function ImageUpload(props: ImageUploadProps) {
 
             {/* Image Preview */}
             <Box style={{textAlign: "center", padding: 1}}>
-                {sprite && <SpriteWindow sprite={sprite}/>}
+                {sprite && <SpriteWindow sprite={sprite} maxSize={100}/>}
                 {!asset && props.defaultSpriteURL && (
                     <img
                         src={props.defaultSpriteURL}

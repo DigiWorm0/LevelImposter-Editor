@@ -7,6 +7,7 @@ import GenericModal from "../GenericModal";
 import SettingsPercentInput from "../../properties/input/settings/SettingsPercentInput";
 import {
     AdsClick,
+    Animation,
     Article,
     Code,
     Edit,
@@ -125,6 +126,17 @@ export default function SettingsModal(props: SettingsModalProps) {
                 prop="isAudioDownmixEnabled"
                 icon={<VolumeUp/>}
             />
+            <SettingsSwitchInput
+                name={t("settings.interface.autoConvertGIFToAnimation")}
+                prop="autoConvertGIFToAnimation"
+                icon={<Animation/>}
+            />
+            <Box sx={{marginLeft: 2}}>
+                <MapError isVisible={!settings.autoConvertGIFToAnimation}>
+                    {t("settings.interface.errorAutoConvertGIFToAnimation")}
+                </MapError>
+            </Box>
+
             <SettingsSwitchInput
                 name={t("settings.interface.autoEncodeToDDS")}
                 prop="autoEncodeToDDS"

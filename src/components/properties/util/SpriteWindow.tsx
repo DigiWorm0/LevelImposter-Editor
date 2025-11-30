@@ -4,6 +4,7 @@ import {Application, useApplication} from "@pixi/react";
 
 export interface SpriteWindowProps {
     sprite: Texture | null | undefined;
+    maxSize: number;
 }
 
 export default function SpriteWindow(props: SpriteWindowProps) {
@@ -12,15 +13,13 @@ export default function SpriteWindow(props: SpriteWindowProps) {
     return (
         <Application
             backgroundAlpha={0}
-            width={MAX_SIZE}
-            height={MAX_SIZE}
+            width={props.maxSize}
+            height={props.maxSize}
         >
-            <SpriteWindowChild sprite={props.sprite}/>
+            <SpriteWindowChild sprite={props.sprite} maxSize={props.maxSize}/>
         </Application>
     );
 }
-
-const MAX_SIZE = 100;
 
 function SpriteWindowChild(props: SpriteWindowProps) {
     const {app} = useApplication();
@@ -31,8 +30,8 @@ function SpriteWindowChild(props: SpriteWindowProps) {
             return;
 
         // Scale up the sprite to fit the window, keeping the aspect ratio
-        let width = Math.min(MAX_SIZE, props.sprite.width);
-        let height = Math.min(MAX_SIZE, props.sprite.height);
+        let width = Math.min(props.maxSize, props.sprite.width);
+        let height = Math.min(props.maxSize, props.sprite.height);
         const aspectRatio = props.sprite.width / props.sprite.height;
 
         // Width is the limiting factor

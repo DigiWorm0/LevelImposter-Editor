@@ -17,7 +17,7 @@ const ctx = canvas.getContext("2d");
  * Converts an HTMLImageElement to a DDS Blob using DXT1 or DXT5 compression.
  * @param image - The image to convert
  */
-export default async function convertImageToDDS(image: HTMLImageElement): Promise<Blob> {
+export default async function convertImageToDDS(image: HTMLImageElement | HTMLCanvasElement): Promise<Blob> {
 
     // Round dimensions to nearest multiple of 4
     const width = Math.floor(image.width / 4) * 4;

@@ -1,17 +1,12 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import MapAsset from "../../../../types/li/MapAsset";
-import getIsConsole from "../../../../utils/map/getIsConsole";
-import ImageUpload from "../../util/ImageUpload";
-import MapError from "../../util/MapError";
 import PanelContainer from "../../util/PanelContainer";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
-import {Padding, PlayArrow, Visibility} from "@mui/icons-material";
-import LazyCollapse from "../../util/LazyCollapse";
-import SpriteMorePanel from "./SpriteMorePanel";
-import {Button} from "@mui/material";
-import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
+import StillSpriteErrors from "./still/StillSpriteErrors";
+import StillSpritePanel from "./still/StillSpritePanel";
+import {ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {Animation, Image} from "@mui/icons-material";
+import AnimatedSpritePanel from "./animated/AnimatedSpritePanel";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -45,22 +40,8 @@ const TYPE_BLACKLIST = [
 
 export default function SpritePanel() {
     const {t} = useTranslation();
-    const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
-    const [color, setColor] = useSelectedElemProp("color");
     const selectedType = useSelectedElemType();
-    const [isMoreOpen, setIsMoreOpen] = React.useState(false);
-
-    const isConsole = selectedType !== undefined && getIsConsole(selectedType);
-
-    const onUpload = React.useCallback((asset: MapAsset) => {
-        setSpriteID(asset.id);
-        setColor(undefined);
-    }, [setSpriteID, setColor]);
-
-    const onReset = React.useCallback(() => {
-        setSpriteID(undefined);
-        setColor(undefined);
-    }, [setSpriteID, setColor]);
+    const [spriteMode, setSpriteMode] = React.useState<"still" | "animated">("still");
 
     if (!selectedType || TYPE_BLACKLIST.includes(selectedType))
         return null;
@@ -68,65 +49,39 @@ export default function SpritePanel() {
     return (
         <>
             <PanelContainer title={t("sprite.title") as string}>
-                <ImageUpload
-                    name={selectedType}
-                    assetID={spriteID}
-                    onUpload={onUpload}
-                    onReset={onReset}
-                    color={color}
-                    onColorChange={setColor}
-                />
 
-                <Button
-                    variant={isMoreOpen ? "contained" : "text"}
-                    color={"primary"}
-                    size={"small"}
+                {spriteMode === "still" && <StillSpritePanel/>}
+                {spriteMode === "animated" && <AnimatedSpritePanel/>}
+
+                <ToggleButtonGroup
+                    value={spriteMode}
+                    exclusive
+                    onChange={(_, value) => {
+                        if (value !== null) setSpriteMode(value);
+                    }}
+                    size="small"
                     fullWidth
-                    sx={{marginTop: 1}}
-                    onClick={() => setIsMoreOpen(!isMoreOpen)}
+                    sx={{
+                        mb: 1,
+                        height: 30,
+                    }}
                 >
-                    {t("sprite.more")}
-                    <AnimatedCaretIcon up={!isMoreOpen}/>
-                </Button>
-                <LazyCollapse in={isMoreOpen}>
-                    <SpriteMorePanel/>
-                </LazyCollapse>
+                    <ToggleButton value="still" color={"primary"}>
+                        <Image
+                            sx={{mr: 0.5}}
+                        />
+                        {t("sprite.still")}
+                    </ToggleButton>
+                    <ToggleButton value="animated" color={"secondary"}>
+                        <Animation
+                            sx={{mr: 0.5}}
+                        />
+                        {t("sprite.animated")}
+                    </ToggleButton>
+                </ToggleButtonGroup>
             </PanelContainer>
-            <MapError
-                info
-                isVisible={selectedType?.startsWith("util-vent")}
-                icon={<PlayArrow/>}
-            >
-                {t("sprite.ventInfo") as string}
-            </MapError>
-            <MapError
-                info
-                isVisible={selectedType?.startsWith("sab-door")}
-                icon={<PlayArrow/>}
-            >
-                {t("sprite.doorInfo") as string}
-            </MapError>
-            <MapError
-                info
-                isVisible={selectedType === "util-cam"}
-                icon={<PlayArrow/>}
-            >
-                {t("sprite.camInfo") as string}
-            </MapError>
-            <MapError
-                info
-                isVisible={spriteID !== undefined && isConsole}
-                icon={<Padding/>}
-            >
-                {t("sprite.paddingInfo") as string}
-            </MapError>
-            <MapError
-                info
-                isVisible={selectedType === "util-filter"}
-                icon={<Visibility/>}
-            >
-                {t("sprite.filterInfo") as string}
-            </MapError>
+
+            {spriteMode === "still" && <StillSpriteErrors/>}
         </>
     );
 }

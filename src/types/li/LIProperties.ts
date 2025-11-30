@@ -61,8 +61,10 @@ export default interface LIProperties {
 
     // Sprite
     spriteID?: GUID;
+    animationID?: GUID;
     color?: LIColor;
     loopGIF?: boolean;
+
 
     /**
      * @deprecated Use spriteID instead

@@ -90,6 +90,8 @@
     "setColor": "Set Color",
     "loop": "Loop Animation",
     "more": "More Options",
+    "still": "Still",
+    "animated": "Animated",
     "downloadAsType": "Download ({{type}})",
     "downloadAsPNG": "Download (PNG)",
     "convertToDDS": "Convert to DDS",
@@ -882,7 +884,9 @@
       "connectionArrowHeadSize": "Arrow Size",
       "connectionArrowWidth": "Arrow Width",
       "autoEncodeToDDS": "Auto-Encode Sprites to DDS",
+      "autoConvertGIFToAnimation": "Auto-Convert GIFs to Sprite Animations",
       "errorAutoEncodeToDDS": "PNG/JPEG sprites will result in worse performance compared to DDS format.",
+      "errorAutoConvertGIFToAnimation": "GIFs will result in worse performance compared to sprite animations.",
       "hideGroups": "Hide Group Icons"
     },
     "map": {
