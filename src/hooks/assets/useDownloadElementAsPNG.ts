@@ -21,8 +21,9 @@ export const downloadElementAsPNGAtom = atom(null, async (get, _, id: MaybeGUID)
 
     // Download Asset
     const fileName = `${element.name}.png`;
-    saveFileFromURL(URL.createObjectURL(imageBlob), fileName);
-    URL.revokeObjectURL(fileName);
+    const fileURL = URL.createObjectURL(imageBlob);
+    saveFileFromURL(fileURL, fileName);
+    URL.revokeObjectURL(fileURL);
 });
 
 // Hooks
