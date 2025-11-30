@@ -4,7 +4,7 @@ import convertImageToDDS from "../dds/convertImageToDDS";
 import primaryStore from "../../hooks/primaryStore";
 import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
-import {animationsAtom, elementsAtom} from "../../hooks/map/useMap";
+import {elementsAtom} from "../../hooks/map/useMap";
 import generateGUID from "../strings/generateGUID";
 import {MaybeGUID} from "../../types/common/GUID";
 import {mapAssetsAtomFamily} from "../../hooks/assets/useMapAsset";
@@ -31,18 +31,11 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
         animationFrames.push(animationFrame);
     }
 
-    // Create the sprite animation
-    const spriteAnimation: LISpriteAnimation = {
+    // Return the sprite animation
+    return {
         id: generateGUID(),
         frames: animationFrames
     };
-
-    // Add the animation to the map
-    const allSpriteAnimations = primaryStore.get(animationsAtom);
-    primaryStore.set(animationsAtom, [...(allSpriteAnimations || []), spriteAnimation]);
-
-    // Return the created sprite animation
-    return spriteAnimation;
 }
 
 /**

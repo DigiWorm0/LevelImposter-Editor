@@ -3,11 +3,11 @@ import {Button, List} from "@mui/material";
 import AnimatedSpriteFrameRow from "./AnimatedSpriteFrameRow";
 import {AddPhotoAlternate} from "@mui/icons-material";
 import {ReactSortable} from "react-sortablejs";
-import useSelectedElemSpriteAnimation from "../../../../../hooks/elements/animation/useSelectedElemSpriteAnimation";
 import LISpriteAnimationFrame from "../../../../../types/li/LISpriteAnimationFrame";
+import useSelectedElemProp from "../../../../../hooks/elements/useSelectedElemProperty";
 
 export default function AnimatedSpriteFrameList() {
-    const [animation, setAnimation] = useSelectedElemSpriteAnimation();
+    const [animation, setAnimation] = useSelectedElemProp("animation");
 
     const frames = animation?.frames.map((frame, index) => ({...frame, id: index})) || [];
     const setFrames = (newFrames: LISpriteAnimationFrame[]) => {

@@ -43,30 +43,31 @@ const TYPE_BLACKLIST = [
 export default function StillSpritePanel() {
     const {t} = useTranslation();
     const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
-    const [, setAnimationID] = useSelectedElemProp("animationID");
+    const [, setAnimation] = useSelectedElemProp("animation");
     const [color, setColor] = useSelectedElemProp("color");
     const selectedType = useSelectedElemType();
     const [isMoreOpen, setIsMoreOpen] = React.useState(false);
 
     const onUpload = React.useCallback((asset: MapAsset) => {
         setSpriteID(asset.id);
-        setAnimationID(undefined);
+        setAnimation(undefined);
         setColor(undefined);
-    }, [setSpriteID, setColor]);
+    }, [setSpriteID, setAnimation, setColor]);
 
     const onUploadAnimation = React.useCallback((animation: LISpriteAnimation) => {
         if (!animation.frames.length)
             return;
 
-        setAnimationID(animation.id);
+        setAnimation(animation);
         setSpriteID(animation.frames[0].spriteID);
         setColor(undefined);
-    }, [setAnimationID, setColor]);
+    }, [setAnimation, setSpriteID, setColor]);
 
     const onReset = React.useCallback(() => {
+        setAnimation(undefined);
         setSpriteID(undefined);
         setColor(undefined);
-    }, [setSpriteID, setColor]);
+    }, [setAnimation, setSpriteID, setColor]);
 
     if (!selectedType || TYPE_BLACKLIST.includes(selectedType))
         return null;

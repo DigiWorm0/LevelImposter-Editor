@@ -3,7 +3,6 @@ import React from "react";
 import {MaybeGUID} from "../../../types/common/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import {PixiReactElementProps, useTick} from "@pixi/react";
-import useSpriteAnimation from "../../../hooks/elements/animation/useSpriteAnimation";
 import {Sprite} from "pixi.js";
 import primaryStore from "../../../hooks/primaryStore";
 import {spriteAtomFamily} from "../../../hooks/canvas/sprite/useSprite";
@@ -17,11 +16,12 @@ export interface MapElementSpriteProps extends PixiReactElementProps<typeof Spri
 export default function MapElementAnimatedSprite(props: MapElementSpriteProps) {
     const sprite = useElementSprite(props.elementID);
     const [element] = useElement(props.elementID);
-    const [animation] = useSpriteAnimation(element?.properties.animationID);
 
     const frameRef = React.useRef(0);
     const frameTimeRef = React.useRef(0);
     const spriteRef = React.useRef<Sprite>(null);
+
+    const animation = element?.properties.animation;
 
     useTick((ticker) => {
         if (!animation || !props.shouldAnimate)

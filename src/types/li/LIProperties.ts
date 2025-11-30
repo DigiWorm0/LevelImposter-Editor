@@ -8,6 +8,7 @@ import LITrigger from "./LITrigger";
 import LICustomText from "./LICustomText";
 import LIAnimTarget from "./LIAnimTarget";
 import {PRESET_RESOURCE_IDS} from "../../db/AUElementDB";
+import LISpriteAnimation from "./LISpriteAnimation";
 
 export default interface LIProperties {
 
@@ -61,7 +62,7 @@ export default interface LIProperties {
 
     // Sprite
     spriteID?: GUID;
-    animationID?: GUID;
+    animation?: LISpriteAnimation;
     color?: LIColor;
     loopGIF?: boolean;
 
