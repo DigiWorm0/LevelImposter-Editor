@@ -1,15 +1,16 @@
 import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
-import {useMapAssetValue} from "../../../../../hooks/assets/useMapAsset";
-import {useSelectedElemPropValue} from "../../../../../hooks/elements/useSelectedElemProperty";
-import ElementPropSwitch from "../../../input/elementProps/ElementPropSwitch";
+import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
+import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
+import ElementPropSwitch from "../../input/elementProps/ElementPropSwitch";
 import React from "react";
-import useSelectedElemType from "../../../../../hooks/elements/useSelectedElemType";
+import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
-import {Download, Gradient} from "@mui/icons-material";
-import {convertImageAssetToDDS} from "../../../../../utils/dds/convertImageToDDS";
-import useDownloadMapAsset from "../../../../../hooks/assets/useDownloadMapAsset";
-import {useSelectedElemValue} from "../../../../../hooks/elements/useSelectedElem";
-import useDownloadElementAsPNG from "../../../../../hooks/assets/useDownloadElementAsPNG";
+import {Animation, Download, Gradient} from "@mui/icons-material";
+import {convertImageAssetToDDS} from "../../../../utils/dds/convertImageToDDS";
+import useDownloadMapAsset from "../../../../hooks/assets/useDownloadMapAsset";
+import {useSelectedElemValue} from "../../../../hooks/elements/useSelectedElem";
+import useDownloadElementAsPNG from "../../../../hooks/assets/useDownloadElementAsPNG";
+import useSpriteAnimEditorOpen from "../../../../hooks/animation/useSpriteAnimEditorOpen";
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();
@@ -17,6 +18,7 @@ export default function SpriteMorePanel() {
     const spriteID = useSelectedElemPropValue("spriteID");
     const asset = useMapAssetValue(spriteID);
     const selectedElem = useSelectedElemValue();
+    const [isAnimEditorOpen, setAnimEditorOpen] = useSpriteAnimEditorOpen();
 
     const downloadRaw = useDownloadMapAsset();
     const _downloadPNG = useDownloadElementAsPNG();
@@ -45,6 +47,20 @@ export default function SpriteMorePanel() {
     return (
         <Box sx={{p: 1}}>
             <ButtonGroup orientation={"vertical"} fullWidth>
+                <Button
+                    variant={"outlined"}
+                    color={"secondary"}
+                    size={"small"}
+                    fullWidth
+                    onClick={() => setAnimEditorOpen(true)}
+                    disabled={isAnimEditorOpen}
+                >
+                    <Animation
+                        sx={{marginRight: 0.5}}
+                        fontSize={"small"}
+                    />
+                    {t("sprite.editAnimation")}
+                </Button>
                 <Button
                     variant={"outlined"}
                     color={"secondary"}

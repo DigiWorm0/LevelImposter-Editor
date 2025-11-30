@@ -91,6 +91,8 @@
     "loop": "Loop Animation",
     "more": "More Options",
     "still": "Still",
+    "editAnimation": "Edit Animation",
+    "animationEditor": "Animation Editor",
     "animated": "Animated",
     "downloadAsType": "Download ({{type}})",
     "downloadAsPNG": "Download (PNG)",

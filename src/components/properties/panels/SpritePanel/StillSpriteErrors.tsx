@@ -1,8 +1,8 @@
 import {useTranslation} from "react-i18next";
-import useSelectedElemProp from "../../../../../hooks/elements/useSelectedElemProperty";
-import useSelectedElemType from "../../../../../hooks/elements/useSelectedElemType";
-import getIsConsole from "../../../../../utils/map/getIsConsole";
-import MapError from "../../../util/MapError";
+import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
+import getIsConsole from "../../../../utils/map/getIsConsole";
+import MapError from "../../util/MapError";
 import {Padding, PlayArrow, Visibility} from "@mui/icons-material";
 
 export default function StillSpriteErrors() {

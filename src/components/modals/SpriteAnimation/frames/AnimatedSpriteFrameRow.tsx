@@ -1,10 +1,10 @@
 import {Delete, DragHandle} from "@mui/icons-material";
 import {Box, IconButton, InputAdornment, ListItem} from "@mui/material";
-import FlexNumericInput from "../../../util/FlexNumericInput";
-import LISpriteAnimationFrame from "../../../../../types/li/LISpriteAnimationFrame";
-import {useMapAssetValue} from "../../../../../hooks/assets/useMapAsset";
-import useSprite from "../../../../../hooks/canvas/sprite/useSprite";
-import SpriteWindow from "../../../util/SpriteWindow";
+import FlexNumericInput from "../../../properties/util/FlexNumericInput";
+import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
+import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
+import useSprite from "../../../../hooks/canvas/sprite/useSprite";
+import SpriteWindow from "../../../properties/util/SpriteWindow";
 
 export interface AnimatedSpriteFrameRowProps {
     frame: LISpriteAnimationFrame;
@@ -17,7 +17,9 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
     const sprite = useSprite(asset?.url);
 
     return (
-        <ListItem>
+        <ListItem
+            disableGutters
+        >
             <DragHandle/>
 
             <Box sx={{ml: 2, mr: 2}}>
@@ -43,12 +45,10 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
                 />
             </Box>
 
-            <Box style={{textAlign: "center", padding: 1}}>
-                <SpriteWindow
-                    sprite={sprite}
-                    maxSize={60}
-                />
-            </Box>
+            <SpriteWindow
+                sprite={sprite}
+                maxSize={50}
+            />
 
             <IconButton
                 size={"small"}

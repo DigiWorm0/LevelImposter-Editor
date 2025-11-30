@@ -1,14 +1,14 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import MapAsset from "../../../../../types/li/MapAsset";
-import ImageUpload from "../../../util/ImageUpload";
-import useSelectedElemProp from "../../../../../hooks/elements/useSelectedElemProperty";
-import useSelectedElemType from "../../../../../hooks/elements/useSelectedElemType";
-import LazyCollapse from "../../../util/LazyCollapse";
+import MapAsset from "../../../../types/li/MapAsset";
+import ImageUpload from "../../util/ImageUpload";
+import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
+import LazyCollapse from "../../util/LazyCollapse";
 import SpriteMorePanel from "./SpriteMorePanel";
 import {Box, Button} from "@mui/material";
-import AnimatedCaretIcon from "../../../../utils/AnimatedCaretIcon";
-import LISpriteAnimation from "../../../../../types/li/LISpriteAnimation";
+import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
+import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
 
 const TYPE_BLACKLIST = [
     "util-player",

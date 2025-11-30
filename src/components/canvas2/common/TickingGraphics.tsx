@@ -1,5 +1,5 @@
 import React from "react";
-import {Graphics} from "pixi.js";
+import {Graphics, Ticker} from "pixi.js";
 import {useTick} from "@pixi/react";
 
 export interface TickingGraphicsProps {
@@ -7,8 +7,9 @@ export interface TickingGraphicsProps {
      * Function to draw on the Graphics object.
      * Ran once per animation frame.
      * @param g The PIXI Graphics object to draw on.
+     * @param ticker The PIXI Ticker object.
      */
-    draw: (g: Graphics) => void;
+    draw: (g: Graphics, ticker?: Ticker) => void;
 
     /**
      * Whether the graphics object is cullable (not rendered when outside the viewport).
@@ -24,11 +25,11 @@ export default function TickingGraphics(props: TickingGraphicsProps) {
     const graphicsRef = React.useRef<Graphics>(new Graphics());
 
     // Update the graphics on each tick
-    useTick(() => {
+    useTick((ticker) => {
         if (!graphicsRef.current)
             return;
         graphicsRef.current.clear();
-        props.draw(graphicsRef.current);
+        props.draw(graphicsRef.current, ticker);
     });
 
     return (

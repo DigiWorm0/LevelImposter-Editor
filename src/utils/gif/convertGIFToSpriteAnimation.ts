@@ -125,7 +125,7 @@ export async function convertGIFAssetToSpriteAnim(assetID: MaybeGUID): Promise<L
             properties: {
                 ...element.properties,
                 spriteID: stillSpriteID,
-                animationID: animation.id
+                animation
             }
         });
     }

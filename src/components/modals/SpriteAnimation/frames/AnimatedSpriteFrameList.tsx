@@ -1,10 +1,9 @@
 import React from "react";
-import {Button, List} from "@mui/material";
+import {List} from "@mui/material";
 import AnimatedSpriteFrameRow from "./AnimatedSpriteFrameRow";
-import {AddPhotoAlternate} from "@mui/icons-material";
 import {ReactSortable} from "react-sortablejs";
-import LISpriteAnimationFrame from "../../../../../types/li/LISpriteAnimationFrame";
-import useSelectedElemProp from "../../../../../hooks/elements/useSelectedElemProperty";
+import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
+import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
 export default function AnimatedSpriteFrameList() {
     const [animation, setAnimation] = useSelectedElemProp("animation");
@@ -18,7 +17,13 @@ export default function AnimatedSpriteFrameList() {
     };
 
     return (
-        <List dense>
+        <List
+            dense
+            sx={{
+                maxHeight: "70vh",
+                overflowY: "auto",
+            }}
+        >
             <ReactSortable
                 list={frames}
                 setList={setFrames}
@@ -40,16 +45,6 @@ export default function AnimatedSpriteFrameList() {
                     />
                 ))}
             </ReactSortable>
-
-            <Button
-                startIcon={<AddPhotoAlternate/>}
-                fullWidth
-                variant={"outlined"}
-                size={"small"}
-                sx={{mt: 1}}
-            >
-                Add Frames
-            </Button>
         </List>
     );
 }

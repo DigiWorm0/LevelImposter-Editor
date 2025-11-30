@@ -16,7 +16,10 @@ export default function SpriteWindow(props: SpriteWindowProps) {
             width={props.maxSize}
             height={props.maxSize}
         >
-            <SpriteWindowChild sprite={props.sprite} maxSize={props.maxSize}/>
+            <SpriteWindowChild
+                sprite={props.sprite}
+                maxSize={props.maxSize}
+            />
         </Application>
     );
 }

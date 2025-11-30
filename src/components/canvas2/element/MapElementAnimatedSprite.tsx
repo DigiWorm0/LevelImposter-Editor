@@ -1,12 +1,13 @@
 import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
 import React from "react";
-import {MaybeGUID} from "../../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import {PixiReactElementProps, useTick} from "@pixi/react";
 import {Sprite} from "pixi.js";
 import primaryStore from "../../../hooks/primaryStore";
 import {spriteAtomFamily} from "../../../hooks/canvas/sprite/useSprite";
 import {mapAssetsAtomFamily} from "../../../hooks/assets/useMapAsset";
+import MapAsset from "../../../types/li/MapAsset";
 
 export interface MapElementSpriteProps extends PixiReactElementProps<typeof Sprite> {
     elementID: MaybeGUID;
@@ -20,6 +21,7 @@ export default function MapElementAnimatedSprite(props: MapElementSpriteProps) {
     const frameRef = React.useRef(0);
     const frameTimeRef = React.useRef(0);
     const spriteRef = React.useRef<Sprite>(null);
+    const fastAssetLookup = React.useRef<Record<GUID, MapAsset>>({});
 
     const animation = element?.properties.animation;
 
@@ -39,8 +41,15 @@ export default function MapElementAnimatedSprite(props: MapElementSpriteProps) {
             frameRef.current = (frameRef.current + 1) % animation.frames.length;
             frame = animation.frames[frameRef.current];
 
+            // Update asset cache
+            if (!fastAssetLookup.current[frame.spriteID]) {
+                const asset = primaryStore.get(mapAssetsAtomFamily(frame.spriteID));
+                if (asset)
+                    fastAssetLookup.current[frame.spriteID] = asset;
+            }
+
             // Get Asset
-            const asset = primaryStore.get(mapAssetsAtomFamily(frame.spriteID));
+            const asset = fastAssetLookup.current[frame.spriteID];
             if (!asset)
                 return;
 
