@@ -28,6 +28,8 @@ interface ImageUploadProps {
     onUploadAnimation?: (animation: LISpriteAnimation) => void;
     onReset: () => void;
 
+    isAnimated?: boolean;
+
     color?: LIColor;
     defaultColor?: LIColor;
     onColorChange?: (color: LIColor) => void;
@@ -152,7 +154,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             </Box>
 
             {/* Size Tag */}
-            <SizeTag assetID={props.assetID}/>
+            <SizeTag assetID={props.assetID} isAnimated={props.isAnimated}/>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>

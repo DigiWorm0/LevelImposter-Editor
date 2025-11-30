@@ -2,9 +2,6 @@ import {Delete, DragHandle} from "@mui/icons-material";
 import {Box, IconButton, InputAdornment, ListItem} from "@mui/material";
 import FlexNumericInput from "../../../properties/util/FlexNumericInput";
 import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
-import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
-import useSprite from "../../../../hooks/canvas/sprite/useSprite";
-import SpriteWindow from "../../../properties/util/SpriteWindow";
 
 export interface AnimatedSpriteFrameRowProps {
     frame: LISpriteAnimationFrame;
@@ -13,8 +10,8 @@ export interface AnimatedSpriteFrameRowProps {
 }
 
 export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProps) {
-    const asset = useMapAssetValue(props.frame.spriteID);
-    const sprite = useSprite(asset?.url);
+    // const asset = useMapAssetValue(props.frame.spriteID);
+    // const sprite = useSprite(asset?.url);
 
     return (
         <ListItem
@@ -45,10 +42,10 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
                 />
             </Box>
 
-            <SpriteWindow
-                sprite={sprite}
-                maxSize={50}
-            />
+            {/*<SpriteWindow*/}
+            {/*    sprite={sprite}*/}
+            {/*    maxSize={50}*/}
+            {/*/>*/}
 
             <IconButton
                 size={"small"}

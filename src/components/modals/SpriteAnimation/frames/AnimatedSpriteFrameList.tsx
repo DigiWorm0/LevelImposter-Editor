@@ -8,7 +8,7 @@ import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemPrope
 export default function AnimatedSpriteFrameList() {
     const [animation, setAnimation] = useSelectedElemProp("animation");
 
-    const frames = animation?.frames.map((frame, index) => ({...frame, id: index})) || [];
+    const frames = animation?.frames || [];
     const setFrames = (newFrames: LISpriteAnimationFrame[]) => {
         if (!animation)
             return;
@@ -29,17 +29,16 @@ export default function AnimatedSpriteFrameList() {
                 setList={setFrames}
                 animation={150}
             >
-                {frames.map((frame, index) => (
+                {frames.map(frame => (
                     <AnimatedSpriteFrameRow
-                        key={index}
+                        key={frame.id}
                         frame={frame}
                         onChange={(newFrame) => {
-                            const newFrames = [...frames] as LISpriteAnimationFrame[];
-                            newFrames[index] = newFrame;
+                            const newFrames = frames.map(f => f.id === newFrame.id ? newFrame : f);
                             setFrames(newFrames);
                         }}
                         onDelete={() => {
-                            const newFrames = frames.filter((_, i) => i !== index);
+                            const newFrames = frames.filter(f => f.id !== frame.id);
                             setFrames(newFrames);
                         }}
                     />

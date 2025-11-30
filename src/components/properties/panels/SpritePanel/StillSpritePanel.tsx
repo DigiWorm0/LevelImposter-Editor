@@ -43,7 +43,7 @@ const TYPE_BLACKLIST = [
 export default function StillSpritePanel() {
     const {t} = useTranslation();
     const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
-    const [, setAnimation] = useSelectedElemProp("animation");
+    const [animation, setAnimation] = useSelectedElemProp("animation");
     const [color, setColor] = useSelectedElemProp("color");
     const selectedType = useSelectedElemType();
     const [isMoreOpen, setIsMoreOpen] = React.useState(false);
@@ -82,6 +82,7 @@ export default function StillSpritePanel() {
                 onReset={onReset}
                 color={color}
                 onColorChange={setColor}
+                isAnimated={animation !== undefined}
             />
 
             <Button

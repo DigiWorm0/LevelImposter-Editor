@@ -24,10 +24,19 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     const gif = parseGIF(arrayBuffer);
     const frames = decompressFrames(gif, true);
 
+    // Create new canvas for drawing frames
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx)
+        throw new Error("Failed to get canvas context");
+
+    canvas.width = gif.lsd.width;
+    canvas.height = gif.lsd.height;
+
     // Convert frames to sprite animation frames
     const animationFrames: LISpriteAnimationFrame[] = [];
     for (const frame of frames) {
-        const animationFrame = await gifFrameToSpriteAnimationFrame(frame);
+        const animationFrame = await gifFrameToSpriteAnimationFrame(frame, ctx);
         animationFrames.push(animationFrame);
     }
 
@@ -43,12 +52,15 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
  * @param frame - The GIF frame to convert
  * @returns A Promise that resolves to the created LISpriteAnimationFrame
  */
-async function gifFrameToSpriteAnimationFrame(frame: ParsedFrame): Promise<LISpriteAnimationFrame> {
+async function gifFrameToSpriteAnimationFrame(
+    frame: ParsedFrame,
+    gifCanvasContext: CanvasRenderingContext2D
+): Promise<LISpriteAnimationFrame> {
     // Convert frame to canvas
-    frameToCanvas(frame);
+    frameToCanvas(frame, gifCanvasContext);
 
     // Convert canvas to DDS
-    const ddsBlob = await convertImageToDDS(canvas);
+    const ddsBlob = await convertImageToDDS(gifCanvasContext.canvas);
 
     // Create an asset for the frame
     const asset = primaryStore.set(createMapAssetAtom, {
@@ -58,24 +70,26 @@ async function gifFrameToSpriteAnimationFrame(frame: ParsedFrame): Promise<LISpr
 
     // Add frame to animation frames
     return {
+        id: generateGUID(),
         spriteID: asset.id,
         delay: frame.delay
     };
 }
 
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
+const frameCanvas = document.createElement("canvas");
+const frameCtx = frameCanvas.getContext("2d");
 
 let frameImageData: ImageData | undefined;
+let disposeNextFrame = false;
 
 /**
  * Converts a GIF frame to a canvas element
  * @param frame - The GIF frame to convert
- * @returns The canvas element containing the frame
+ * @param gifCanvasContext - Optional canvas context to use for drawing
  */
-function frameToCanvas(frame: ParsedFrame): HTMLCanvasElement {
+function frameToCanvas(frame: ParsedFrame, gifCanvasContext: CanvasRenderingContext2D) {
     // Check if we have canvas context
-    if (!ctx)
+    if (!frameCtx)
         throw new Error("Failed to get canvas context");
 
     // Check if ImageData needs to be (re)created
@@ -84,20 +98,33 @@ function frameToCanvas(frame: ParsedFrame): HTMLCanvasElement {
         frameImageData.height !== frame.dims.height) {
 
         // Resize canvas if needed
-        canvas.width = frame.dims.width;
-        canvas.height = frame.dims.height;
+        frameCanvas.width = frame.dims.width;
+        frameCanvas.height = frame.dims.height;
 
         // Create new ImageData for the frame
-        frameImageData = ctx.createImageData(frame.dims.width, frame.dims.height);
+        frameImageData = frameCtx.createImageData(frame.dims.width, frame.dims.height);
     }
 
     // Copy frame patch data to ImageData
     frameImageData.data.set(frame.patch);
 
-    // Draw the frame to the canvas
-    ctx.putImageData(frameImageData, 0, 0);
+    // Draw the frame to the frame canvas
+    frameCtx.putImageData(frameImageData, 0, 0);
 
-    return canvas;
+    // If the frame needs to be cleared, clear the area on the GIF canvas
+    if (disposeNextFrame) {
+        gifCanvasContext.clearRect(
+            0,
+            0,
+            gifCanvasContext.canvas.width,
+            gifCanvasContext.canvas.height
+        );
+    }
+    disposeNextFrame = frame.disposalType === 2;
+
+    // Draw the frame canvas to the target canvas context
+    // This is because GIFs are additive and need to be drawn in sequence
+    gifCanvasContext.drawImage(frameCanvas, frame.dims.left, frame.dims.top);
 }
 
 /**
