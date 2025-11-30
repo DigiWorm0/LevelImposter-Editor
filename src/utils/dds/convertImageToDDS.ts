@@ -23,6 +23,9 @@ export default async function convertImageToDDS(image: HTMLImageElement | HTMLCa
     const width = Math.floor(image.width / 4) * 4;
     const height = Math.floor(image.height / 4) * 4;
 
+    if (width === 0 || height === 0)
+        throw new Error("Image dimensions are too small to convert to DDS");
+
     // Create canvas
     canvas.width = width;
     canvas.height = height;

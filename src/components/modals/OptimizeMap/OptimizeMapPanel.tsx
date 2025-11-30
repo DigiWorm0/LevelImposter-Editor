@@ -1,7 +1,7 @@
 import {Button, CircularProgress, Divider, Grid, List, Paper} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import {Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
+import {Animation, Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
 import BuildOperation from "../../../utils/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
 import TrimMapAssetsOperation from "../../../utils/build/TrimMapAssetsOperation";
@@ -11,6 +11,7 @@ import {Interweave} from "interweave";
 import useAppendOptimizeLog from "../../../hooks/optimize/useAppendOptimizeLog";
 import EncodeToDDSOperation from "../../../utils/build/EncodeToDDSOperation";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
+import ConvertToSpriteAnimOperation from "../../../utils/build/ConvertToSpriteAnimOperation";
 
 interface OptimizeMapOption {
     label: string;
@@ -40,6 +41,13 @@ const DEFAULT_OPTIONS: OptimizeMapOption[] = [
         description: "DXT1/5 assets can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
         icon: <Gradient/>,
         operation: EncodeToDDSOperation,
+        isEnabled: true,
+    },
+    {
+        label: "Convert GIFs to Sprite Animations",
+        description: "Converts GIF files to Sprite Animations which are more efficient and have better performance.",
+        icon: <Animation/>,
+        operation: ConvertToSpriteAnimOperation,
         isEnabled: true,
     }
 ];
@@ -81,6 +89,7 @@ export default function OptimizeMapPanel() {
                 await selectedOption.operation.run();
             } catch (error) {
                 // Log error
+                console.error(error);
                 appendOptimizeLog(`<span style="color: red;">Exception during ${selectedOption.label}:</span> ${(error as Error).message}`);
             }
         }

@@ -49,5 +49,5 @@ export default function StillSpriteErrors() {
                 {t("sprite.filterInfo") as string}
             </MapError>
         </>
-    )
+    );
 }

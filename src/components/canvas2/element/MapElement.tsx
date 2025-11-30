@@ -18,6 +18,7 @@ import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperat
 import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter";
 import TransformedMapElementOverlays from "./TransformedMapElementOverlays";
 import Spinner from "../common/Spinner";
+import MapElementAnimatedSprite from "./MapElementAnimatedSprite";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -85,11 +86,13 @@ export default function MapElement(props: MapElementProps) {
         >
             <pixiContainer ref={containerRef}>
                 {sprite && (
-                    <pixiSprite
+                    <MapElementAnimatedSprite
+                        elementID={props.elementID}
+                        shouldAnimate={isSelected}
+
                         anchor={0.5}
                         x={0}
                         y={0}
-                        texture={sprite}
                         alpha={opacity}
                         cursor={element.properties.isLocked ? "default" : "pointer"}
 

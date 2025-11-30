@@ -7,7 +7,6 @@ import useSelectedElemSpriteAnimation from "../../../../../hooks/elements/animat
 import LISpriteAnimationFrame from "../../../../../types/li/LISpriteAnimationFrame";
 
 export default function AnimatedSpriteFrameList() {
-    const [dummyList, setDummyList] = React.useState([{id: 1}, {id: 2}]);
     const [animation, setAnimation] = useSelectedElemSpriteAnimation();
 
     const frames = animation?.frames.map((frame, index) => ({...frame, id: index})) || [];
@@ -16,7 +15,7 @@ export default function AnimatedSpriteFrameList() {
             return;
 
         setAnimation({...animation, frames: newFrames});
-    }
+    };
 
     return (
         <List dense>
@@ -52,5 +51,5 @@ export default function AnimatedSpriteFrameList() {
                 Add Frames
             </Button>
         </List>
-    )
+    );
 }

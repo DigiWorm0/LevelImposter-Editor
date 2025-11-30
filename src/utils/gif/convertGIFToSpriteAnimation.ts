@@ -1,11 +1,15 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
-import {decompressFrames, ParsedFrame, parseGIF} from 'gifuct-js'
+import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
 import convertImageToDDS from "../dds/convertImageToDDS";
 import primaryStore from "../../hooks/primaryStore";
 import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
-import {animationsAtom} from "../../hooks/map/useMap";
+import {animationsAtom, elementsAtom} from "../../hooks/map/useMap";
 import generateGUID from "../strings/generateGUID";
+import {MaybeGUID} from "../../types/common/GUID";
+import {mapAssetsAtomFamily} from "../../hooks/assets/useMapAsset";
+import {elementAtomFamily} from "../../hooks/elements/useElements";
+import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 
 /**
  * Converts a GIF Blob to a LISpriteAnimation
@@ -101,4 +105,44 @@ function frameToCanvas(frame: ParsedFrame): HTMLCanvasElement {
     ctx.putImageData(frameImageData, 0, 0);
 
     return canvas;
+}
+
+/**
+ * Converts a GIF asset to a sprite animation, updating all elements using the asset
+ * @param assetID - The ID of the GIF asset to convert
+ * @returns A Promise that resolves to the created LISpriteAnimation
+ */
+export async function convertGIFAssetToSpriteAnim(assetID: MaybeGUID): Promise<LISpriteAnimation> {
+
+    // Get Asset
+    const asset = primaryStore.get(mapAssetsAtomFamily(assetID));
+    if (!asset)
+        throw new Error(`Asset with ID ${assetID} not found`);
+
+    // Convert to DDS
+    const animation = await convertGIFToSpriteAnimation(asset.blob);
+    const stillSpriteID = animation.frames[0].spriteID;
+
+    // Find all elements using this asset and update to use the new animation
+    const allElements = primaryStore.get(elementsAtom) || [];
+    const elementsToUpdate = allElements.filter(el => el.properties.spriteID === asset.id);
+    for (const element of elementsToUpdate) {
+        primaryStore.set(elementAtomFamily(element.id), {
+            ...element,
+            properties: {
+                ...element.properties,
+                spriteID: stillSpriteID,
+                animationID: animation.id
+            }
+        });
+    }
+
+    // Replace all instances of the old asset with the 1st frame of the new animation
+    primaryStore.set(replaceMapAssetIDAtom, {
+        fromID: asset.id,
+        toID: stillSpriteID
+    });
+
+    // Return new animation
+    return animation;
 }

@@ -21,8 +21,11 @@ const EncodeToDDSOperation: BuildOperation = {
             // Log progress
             BuildOperationLog.info(`Converting asset ${i + 1}/${imageAssets.length} to DDS...`);
 
-            // Get Image from Asset
-            await convertImageAssetToDDS(imageAssets[i].id);
+            try {
+                await convertImageAssetToDDS(imageAssets[i].id);
+            } catch (e) {
+                BuildOperationLog.warn(`Failed to convert an asset: ${(e as Error).message}`);
+            }
         }
 
         // Log result

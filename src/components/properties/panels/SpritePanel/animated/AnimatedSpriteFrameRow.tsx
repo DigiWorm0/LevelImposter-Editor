@@ -59,5 +59,5 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
             </IconButton>
 
         </ListItem>
-    )
+    );
 }

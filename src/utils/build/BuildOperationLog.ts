@@ -13,6 +13,10 @@ const BuildOperationLog = {
     error: (message: string) => {
         primaryStore.set(appendOptimizeLogAtom, `<span style="color: red;">Error ×</span> ${message}`);
         console.error(message);
+    },
+    warn: (message: string) => {
+        primaryStore.set(appendOptimizeLogAtom, `<span style="color: yellow;">Warning ⚠</span> ${message}`);
+        console.warn(message);
     }
 };
 
