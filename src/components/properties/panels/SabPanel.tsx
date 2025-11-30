@@ -1,7 +1,6 @@
 import {Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
 import {useConnections} from "../../../hooks/elements/useConnections";
 import {useElementsOfType} from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
@@ -28,7 +27,6 @@ export default function SabPanel() {
     const {t} = useTranslation();
     const selectedType = useSelectedElemType();
     const parentID = useSelectedElemPropValue("parent");
-    const sprite = useSpriteOfType(selectedType);
     const roomElems = useElementsOfType("util-room");
     const [, sourceConnections] = useConnections(parentID);
 

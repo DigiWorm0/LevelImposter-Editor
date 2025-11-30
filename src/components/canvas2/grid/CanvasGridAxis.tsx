@@ -28,5 +28,5 @@ export default function CanvasGridAxis(props: CanvasGridAxisProps) {
                     .stroke({color: 0xFF0000, alpha: 0.5, width: 2 / scale});
             }}
         />
-    )
+    );
 }

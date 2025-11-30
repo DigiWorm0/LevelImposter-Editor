@@ -43,6 +43,7 @@ import GatePanel from "../properties/panels/GatePanel";
 import ComparatorPanel from "../properties/panels/ComparatorPanel";
 import PhysicsPanel from "../properties/panels/PhysicsPanel";
 import Resizable from "../utils/Resizable";
+import MultiselectPanel from "../properties/panels/MutliselectPanel";
 
 export default function RightSidebar() {
     const setFocus = useSetFocus();
@@ -130,6 +131,8 @@ export default function RightSidebar() {
                         <ColliderPanel/>
                         <MinimapPanel/>
                         <MinimapSpritePanel/>
+
+                        <MultiselectPanel/>
                     </ErrorBoundary>
 
                     <div style={{minHeight: 150}}/>

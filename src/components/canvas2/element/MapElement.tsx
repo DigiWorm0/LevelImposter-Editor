@@ -96,6 +96,8 @@ export default function MapElement(props: MapElementProps) {
                         eventMode={isListening ? "static" : "none"}
                         onMouseEnter={() => mapElementEventEmitter.emit("mouseOver", element.id)}
                         onMouseLeave={() => mapElementEventEmitter.emit("mouseOut", element.id)}
+
+                        cullable
                     />
                 )}
                 {!sprite && <Spinner/>}

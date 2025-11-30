@@ -14,5 +14,5 @@ export default function TypePreviewImage(props: TypePreviewImageProps) {
             style={{maxWidth: 100, maxHeight: 100}}
             src={`/sprites/${props.type}.png`}
         />
-    )
+    );
 }

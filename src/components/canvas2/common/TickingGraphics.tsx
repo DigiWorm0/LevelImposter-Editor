@@ -9,6 +9,12 @@ export interface TickingGraphicsProps {
      * @param g The PIXI Graphics object to draw on.
      */
     draw: (g: Graphics) => void;
+
+    /**
+     * Whether the graphics object is cullable (not rendered when outside the viewport).
+     * @default false
+     */
+    cullable?: boolean;
 }
 
 /**
@@ -30,6 +36,7 @@ export default function TickingGraphics(props: TickingGraphicsProps) {
             ref={graphicsRef}
             draw={props.draw}
             eventMode={"none"}
+            cullable={props.cullable}
         />
     );
 }

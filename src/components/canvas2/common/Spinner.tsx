@@ -7,6 +7,7 @@ const SIZE = 0.5;
 export default function Spinner() {
     return (
         <TickingGraphics
+            cullable
             draw={(g) => {
                 const time = Date.now() / 1000;
 
@@ -23,5 +24,5 @@ export default function Spinner() {
                     .stroke({color: 0xffffff, width: 4});
             }}
         />
-    )
+    );
 }

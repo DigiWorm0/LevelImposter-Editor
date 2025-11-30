@@ -8,10 +8,10 @@ import {useSettingsValue} from "../../hooks/useSettings";
 import {MaybeGUID} from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
-import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
+import useSelectElementID from "../../hooks/selection/useSelectElementID";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;
@@ -23,13 +23,13 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const [draggingID, setDraggingID] = useDraggingElementID();
     const [draggingElement, setDraggingElement] = useElement(draggingID);
     const isSelected = useIsElementSelected(props.elementID);
-    const setSelectedElemID = useSetSelectedElemID();
     const [element, setElement] = useElement(props.elementID);
     const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
     const {elementNesting} = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
     const jumpToElement = useJumpToElement();
+    const selectElementID = useSelectElementID();
 
     if (element === undefined)
         return null;
@@ -103,7 +103,16 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                         borderColor: props.searchQuery ? "primary" : "transparent",
                         borderRadius: 2
                     }}
-                    onClick={() => setSelectedElemID(element.id)}
+                    onClick={(e: MouseEvent) => {
+                        const metaKey = e.metaKey || e.ctrlKey;
+                        const shiftKey = e.shiftKey;
+                        const operation = metaKey ? "toggle" : shiftKey ? "add" : "set";
+
+                        selectElementID({
+                            id: element.id,
+                            operation
+                        });
+                    }}
                     onDoubleClick={() => jumpToElement(element.id)}
                     disabled={isDisabled}
                     dense
