@@ -4,6 +4,7 @@ import OptimizeMapPanel from "./OptimizeMapPanel";
 import {useTranslation} from "react-i18next";
 import {DialogContentText, Divider, Grid} from "@mui/material";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
+import {Build} from "@mui/icons-material";
 
 export interface OptimizeMapModalProps {
     isVisible: boolean;
@@ -19,6 +20,7 @@ export default function OptimizeMapModal(props: OptimizeMapModalProps) {
             open={props.isVisible}
             onClose={props.onClose}
             title={t("map.optimize")}
+            icon={<Build/>}
             preventClose={isRunning}
             DialogProps={{
                 maxWidth: "lg"
