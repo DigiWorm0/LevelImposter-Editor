@@ -19,6 +19,7 @@ const INVISIBLE_TYPES = [
     "util-decontamination",
     "util-eject",
     "util-valuebool",
+    "util-valueboolpreset",
     "util-triggergate",
     "util-valuecomparator",
     "util-layer"

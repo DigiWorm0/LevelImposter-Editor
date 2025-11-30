@@ -81,7 +81,7 @@ export default function MapElement(props: MapElementProps) {
                 setElement({...element, x: e.x / UNITY_SCALE, y: -e.y / UNITY_SCALE});
             }}
 
-            nonInteractableChildren={childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
+            nonInteractableChildren={isVisible && childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
         >
             <pixiContainer ref={containerRef}>
                 {sprite && (
