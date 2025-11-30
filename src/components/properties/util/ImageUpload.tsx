@@ -56,7 +56,8 @@ export default function ImageUpload(props: ImageUploadProps) {
 
         // Convert to DDS if needed
         console.log("Auto-encode to DDS setting:", settings.autoEncodeToDDS);
-        if (settings.autoEncodeToDDS) {
+        const isGIF = assetType === "image/gif";
+        if (settings.autoEncodeToDDS && !isGIF) {
             try {
                 blob = await convertImageBlobToDDS(blob);
                 assetType = "image/dds";
