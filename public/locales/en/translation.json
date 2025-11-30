@@ -46,6 +46,7 @@
     "paste": "Paste",
     "mapAssets": "Map Assets",
     "search": "Search...",
+    "multipleSelected": "{{count}} objects selected",
     "errorNoClipboard": "Nothing to paste",
     "errorExternalClipboard": "External pasting is unsupported by Firefox",
     "errorInsecureContext": "Paste is not allowed in HTTP mode"
@@ -89,8 +90,8 @@
     "setColor": "Set Color",
     "loop": "Loop Animation",
     "more": "More Options",
-    "cropToContent": "Crop to Content",
-    "rasterizeScale": "Rasterize Scale",
+    "downloadAsType": "Download ({{type}})",
+    "downloadAsPNG": "Download (PNG)",
     "convertToDDS": "Convert to DDS",
     "ventInfo": "Any GIF animation will play when the vent is used.",
     "doorInfo": "Any GIF animation will play when the door is closed and reverse when the door is opened.",

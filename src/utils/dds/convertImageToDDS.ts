@@ -23,7 +23,7 @@ export default async function convertImageToDDS(image: HTMLImageElement): Promis
     const width = Math.floor(image.width / 4) * 4;
     const height = Math.floor(image.height / 4) * 4;
 
-    // Create canvas and draw image
+    // Create canvas
     canvas.width = width;
     canvas.height = height;
     if (!ctx)
@@ -56,7 +56,7 @@ export default async function convertImageToDDS(image: HTMLImageElement): Promis
     const buffer = Buffer.concat([headerData, textureData]);
 
     // Convert Buffer to Blob
-    const blob = new Blob([buffer], {type: "image/vnd.ms-dds"});
+    const blob = new Blob([buffer], {type: "image/dds"});
     if (!blob)
         throw new Error("Error converting buffer to blob");
 

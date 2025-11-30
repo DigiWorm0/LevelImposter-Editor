@@ -1,16 +1,16 @@
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "../../../types/common/GUID";
 import {atom, useAtomValue} from "jotai";
-import {spriteAtomFamily} from "./useSprite";
 import {Application, Sprite} from "pixi.js";
+import {elementSpriteAtomFamily} from "./useElementSprite";
 
 const app = new Application();
 
-export const spriteAsPngAtomFamily = atomFamily((id: MaybeGUID) => {
+export const elementAsImageBlobAtom = atomFamily((id: MaybeGUID) => {
     return atom(async (get) => {
 
         // Get the PIXI texture
-        const texture = await get(spriteAtomFamily(id));
+        const texture = await get(elementSpriteAtomFamily(id));
         if (!texture)
             return null;
 
@@ -28,11 +28,19 @@ export const spriteAsPngAtomFamily = atomFamily((id: MaybeGUID) => {
         sprite.y = texture.height / 2;
         app.stage.addChild(sprite);
 
-        // Render the sprite to an HTMLImageElement
-        return await app.renderer.extract.image(app.stage);
+        // Render the sprite to a blob
+        return new Promise<Blob | null>((resolve) => {
+            const canvas = app.renderer.extract.canvas(app.stage);
+            if (!canvas.toBlob)
+                return null;
+
+            canvas.toBlob((blob) => {
+                resolve(blob);
+            });
+        });
     });
 });
 
-export default function useSpriteAsImage(id: MaybeGUID) {
-    return useAtomValue(spriteAsPngAtomFamily(id));
+export default function useElementAsImageBlob(id: MaybeGUID) {
+    return useAtomValue(elementAsImageBlobAtom(id));
 }
