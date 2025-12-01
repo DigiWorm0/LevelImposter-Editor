@@ -12,6 +12,7 @@ import generateGUID from "../strings/generateGUID";
 import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 import {spritesAtlasesAtom} from "../../hooks/map/useMap";
 import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
+import saveFileFromURL from "../fileio/saveFileFromURL";
 
 const MAX_BATCH_SIZE = 100;
 const MAX_SPRITE_SIZE = 2048; // Skips assets larger than this
@@ -116,9 +117,9 @@ async function combineMapAssetsIntoSpriteSheet(imageAssets: MapAsset[]) {
             assetID: combinedImageAsset.id,
             // Position is flipped vertically because of DDS compression in Unity
             x: textureInfo.x,
-            y: bitmapData.height - textureInfo.y - textureInfo.h,
-            w: textureInfo.w,
-            h: textureInfo.h,
+            y: bitmapData.height - textureInfo.y - textureInfo.h + PADDING_SIZE,
+            w: textureInfo.w - PADDING_SIZE,
+            h: textureInfo.h - PADDING_SIZE,
         };
         spriteAtlases.push(atlas);
 

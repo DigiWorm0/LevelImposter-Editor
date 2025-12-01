@@ -29,7 +29,7 @@ export default function Canvas2() {
         <Application
             resizeTo={window}
             backgroundAlpha={0}
-            antialias={true}
+            antialias={false}
         >
             <CanvasViewport
                 disableOnContextMenu={true}

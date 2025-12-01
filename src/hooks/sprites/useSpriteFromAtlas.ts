@@ -19,7 +19,7 @@ export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
             return null;
 
         // Check if map asset is DDS
-        const mapAsset = get(mapAssetsAtomFamily(spriteID));
+        const mapAsset = get(mapAssetsAtomFamily(spriteAtlas.assetID));
         const isDDS = mapAsset?.type === "image/dds";
 
 
@@ -31,16 +31,16 @@ export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
             frame,
         });
 
-        // Flip the texture vertically if it's a DDS format (using UV coordinates)
-        // TODO: Fix Me!
+        // Flip UVs for DDS textures so they display upside-down
         if (isDDS) {
+            console.log("Flipping DDS texture UVs for sprite:", spriteID);
+            const newUVs = {...texture.uvs};
+            newUVs.y0 = texture.uvs.y3;
+            newUVs.y1 = texture.uvs.y2;
+            newUVs.y2 = texture.uvs.y1;
+            newUVs.y3 = texture.uvs.y0;
             // @ts-expect-error Manually editing texture UVs to fix DDS flipping issue
-            texture.uvs = {
-                x0: 0, y0: 1,
-                x1: 1, y1: 1,
-                x2: 1, y2: 0,
-                x3: 0, y3: 0
-            };
+            texture.uvs = newUVs;
         }
 
         return texture;

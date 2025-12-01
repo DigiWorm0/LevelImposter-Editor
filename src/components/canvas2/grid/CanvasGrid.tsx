@@ -3,8 +3,11 @@ import useViewportPosition from "../../../hooks/canvas/useViewportPosition";
 import React from "react";
 import CanvasGridSection from "./CanvasGridSection";
 import {useSettingsValue} from "../../../hooks/useSettings";
+import CanvasGridBorder from "./CanvasGridBorder";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 const CELL_SIZE = 100;
+const BORDER_SIZE = 500 * UNITY_SCALE;
 
 export default function CanvasGrid() {
     const viewport = useViewportPosition();
@@ -71,6 +74,13 @@ export default function CanvasGrid() {
                 top={top}
                 right={right}
                 bottom={bottom}
+                scale={scale}
+            />
+
+            {/* Border */}
+            <CanvasGridBorder
+                alpha={1}
+                size={BORDER_SIZE}
                 scale={scale}
             />
         </pixiContainer>

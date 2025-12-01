@@ -22,7 +22,7 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     set(spritesAtlasesAtom, filteredAtlases);
 
     // Add Sprite Atlas Asset IDs to Used IDs
-    usedAssetIDs.push(...spriteAtlases.map((a) => a.assetID));
+    usedAssetIDs.push(...filteredAtlases.map((a) => a.assetID));
 
     // Remove Unused Assets
     const mapAssets = get(mapAssetsAtom) ?? [];
