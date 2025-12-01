@@ -12,7 +12,6 @@ import generateGUID from "../strings/generateGUID";
 import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 import {spritesAtlasesAtom} from "../../hooks/map/useMap";
 import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
-import saveFileFromURL from "../fileio/saveFileFromURL";
 
 const MAX_BATCH_SIZE = 100;
 const MAX_SPRITE_SIZE = 2048; // Skips assets larger than this

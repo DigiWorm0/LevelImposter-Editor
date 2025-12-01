@@ -1,7 +1,7 @@
 import {Box, Button, CircularProgress, Divider, List, Paper} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import {Animation, Build, ContentCut, Gradient, Merge, Window} from "@mui/icons-material";
+import {Animation, Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
 import BuildOperation from "../../../utils/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
 import TrimMapAssetsOperation from "../../../utils/build/TrimMapAssetsOperation";
@@ -12,13 +12,13 @@ import useAppendOptimizeLog from "../../../hooks/optimize/useAppendOptimizeLog";
 import EncodeToDDSOperation from "../../../utils/build/EncodeToDDSOperation";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
 import ConvertToSpriteAnimOperation from "../../../utils/build/ConvertToSpriteAnimOperation";
-import CreateSpriteSheetOperation from "../../../utils/build/CreateSpriteSheetOperation";
 import useEnabledOptimizeOptionIDs from "../../../hooks/optimize/useEnabledOptimizeOptionIDs";
 
 interface OptimizeMapOption {
     id: string;
     label: string;
     description?: string;
+    warning?: string;
     icon?: React.ReactNode;
     operation: BuildOperation;
 }
@@ -42,6 +42,7 @@ const optimizeOptions: OptimizeMapOption[] = [
         id: "convert-to-dds",
         label: "Convert PNGs/JPEGs to DDS",
         description: "DDS assets use DXT1/DXT5 which can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
+        warning: "This will significantly increase the file size of the map. Make sure to backup your map before proceeding.",
         icon: <Gradient/>,
         operation: EncodeToDDSOperation
     },
@@ -49,16 +50,17 @@ const optimizeOptions: OptimizeMapOption[] = [
         id: "convert-to-sprite-anim",
         label: "Convert GIFs to Sprite Animations",
         description: "Converts GIF files to Sprite Animations which are more efficient and have better performance.",
+        warning: "This will significantly increase the file size of the map. Make sure to backup your map before proceeding.",
         icon: <Animation/>,
         operation: ConvertToSpriteAnimOperation
     },
-    {
-        id: "create-sprite-sheet",
-        label: "Combine Map Assets to Sprite Sheet",
-        description: "Combines multiple smaller sprites to a single larger sprite sheet to reduce file size and improve game performance.",
-        icon: <Window/>,
-        operation: CreateSpriteSheetOperation
-    }
+    // {
+    //     id: "create-sprite-sheet",
+    //     label: "Combine Map Assets to Sprite Sheet",
+    //     description: "Combines multiple smaller sprites to a single larger sprite sheet to reduce file size and improve game performance.",
+    //     icon: <Window/>,
+    //     operation: CreateSpriteSheetOperation
+    // }
 ];
 
 export default function OptimizeMapPanel() {
@@ -143,6 +145,7 @@ export default function OptimizeMapPanel() {
                             setEnabled={(isEnabled: boolean) => setOptionEnabled(option.id, isEnabled)}
                             label={option.label}
                             description={option.description}
+                            warning={option.warning}
                             icon={option.icon}
                         />
                     ))}
