@@ -1,7 +1,7 @@
 import {Box, Button} from "@mui/material";
 import React from "react";
 import GUID from "../../../../types/common/GUID";
-import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
+import useMapAsset from "../../../../hooks/assets/useMapAsset";
 
 export interface MapAssetModalButtonProps {
     id: GUID;
@@ -10,7 +10,7 @@ export interface MapAssetModalButtonProps {
 }
 
 export default function ImageAssetModalButton(props: MapAssetModalButtonProps) {
-    const asset = useMapAssetValue(props.id);
+    const asset = useMapAsset(props.id);
     // const image = useElementAsImageBlob(props.id);
 
     if (!asset)

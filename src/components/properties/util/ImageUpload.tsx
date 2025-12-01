@@ -10,9 +10,9 @@ import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
-import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
+import useMapAsset from "../../../hooks/assets/useMapAsset";
 import SizeTag from "../../utils/SizeTag";
-import useSprite from "../../../hooks/canvas/sprite/useSprite";
+import useTextureFromURL from "../../../hooks/texture/useTextureFromURL";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
 import {useSettingsValue} from "../../../hooks/useSettings";
@@ -41,9 +41,9 @@ export default function ImageUpload(props: ImageUploadProps) {
     const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
-    const asset = useMapAssetValue(props.assetID);
+    const asset = useMapAsset(props.assetID);
     const createMapAsset = useCreateMapAsset();
-    const sprite = useSprite(asset?.url);
+    const sprite = useTextureFromURL(asset?.url);
     const settings = useSettingsValue();
 
     const tryUploadFile = React.useCallback(async (file: File) => {

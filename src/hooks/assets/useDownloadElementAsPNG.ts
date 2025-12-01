@@ -1,7 +1,7 @@
 // Trim Assets
 import {atom, useSetAtom} from "jotai";
 import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
-import {elementAsImageBlobAtom} from "../canvas/sprite/useElementAsImageBlob";
+import {elementAsImageBlobAtom} from "../sprites/useElementAsImageBlob";
 import {MaybeGUID} from "../../types/common/GUID";
 import {elementAtomFamily} from "../elements/useElements";
 

@@ -32,7 +32,7 @@ export const mapIsPublicAtom = focusAtom(mapAtom, (optic) => optic.prop("isPubli
 export const mapAuthorNameAtom = focusAtom(mapAtom, (optic) => optic.prop("authorName"));
 export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
-export const spritesAtom = focusAtom(mapAtom, (optic) => optic.prop("sprites"));
+export const spritesAtlasesAtom = focusAtom(mapAtom, (optic) => optic.prop("spriteAtlases"));
 
 // Hooks
 export default function useMap() {

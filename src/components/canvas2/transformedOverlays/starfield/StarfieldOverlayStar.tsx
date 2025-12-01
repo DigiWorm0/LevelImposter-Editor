@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {useElementValue} from "../../../../hooks/elements/useElements";
-import useElementSprite from "../../../../hooks/canvas/sprite/useElementSprite";
+import useElementSprite from "../../../../hooks/sprites/useElementSprite";
 import {Sprite} from "pixi.js";
 import {
     DEFAULT_STARFIELD_HEIGHT,

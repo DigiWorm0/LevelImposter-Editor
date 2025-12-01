@@ -4,11 +4,6 @@ import writeDDSHeader from "./write/writeDDSHeader";
 import writeDXT5Texture from "./write/writeDXT5Texture";
 import writeDXT1Texture from "./write/writeDXT1Texture";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
-import primaryStore from "../../hooks/primaryStore";
-import {imageAtomFamily} from "../../hooks/canvas/legacy/useImage";
-import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
-import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
-import {mapAssetsAtomFamily} from "../../hooks/assets/useMapAsset";
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
@@ -90,6 +85,10 @@ export async function convertImageBlobToDDS(imageBlob: Blob): Promise<Blob> {
  */
 export async function convertImageAssetToDDS(assetID: MaybeGUID): Promise<GUID> {
 
+    // TODO: FIX ME
+    throw new Error("convertImageAssetToDDS is not implemented yet");
+
+    /*
     // Get Asset
     const asset = primaryStore.get(mapAssetsAtomFamily(assetID));
     if (!asset)
@@ -115,4 +114,5 @@ export async function convertImageAssetToDDS(assetID: MaybeGUID): Promise<GUID> 
 
     // Return new asset ID
     return newMapAsset.id;
+    */
 }

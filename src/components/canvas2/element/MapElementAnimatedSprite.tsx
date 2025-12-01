@@ -1,11 +1,11 @@
-import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
+import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import React from "react";
 import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import useElement from "../../../hooks/elements/useElements";
 import {PixiReactElementProps, useTick} from "@pixi/react";
 import {Sprite} from "pixi.js";
 import primaryStore from "../../../hooks/primaryStore";
-import {spriteAtomFamily} from "../../../hooks/canvas/sprite/useSprite";
+import {textureFromURLAtomFamily} from "../../../hooks/texture/useTextureFromURL";
 import {mapAssetsAtomFamily} from "../../../hooks/assets/useMapAsset";
 import MapAsset from "../../../types/li/MapAsset";
 
@@ -54,7 +54,7 @@ export default function MapElementAnimatedSprite(props: MapElementSpriteProps) {
                 return;
 
             // Get Texture
-            primaryStore.get(spriteAtomFamily(asset.url)).then((texture) => {
+            primaryStore.get(textureFromURLAtomFamily(asset.url)).then((texture) => {
                 if (spriteRef.current && texture)
                     spriteRef.current.texture = texture;
             });

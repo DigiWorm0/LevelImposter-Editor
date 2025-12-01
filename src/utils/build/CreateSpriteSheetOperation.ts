@@ -6,18 +6,20 @@ import potpack, {PotpackStats} from "potpack";
 import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
 import {Application, Sprite, Texture} from "pixi.js";
 import MapAsset from "../../types/li/MapAsset";
-import {spriteAtomFamily} from "../../hooks/canvas/sprite/useSprite";
+import {textureFromURLAtomFamily} from "../../hooks/texture/useTextureFromURL";
 import LISpriteAtlas from "../../types/li/LISpriteAtlas";
 import generateGUID from "../strings/generateGUID";
 import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
-import {spritesAtom} from "../../hooks/map/useMap";
+import {spritesAtlasesAtom} from "../../hooks/map/useMap";
 
 
 const CreateSpriteSheetOperation: BuildOperation = {
     async run() {
         // Get all image assets from the map
-        const allMapAssets = primaryStore.get(mapAssetsAtom);
-        const imageAssets = allMapAssets?.filter(asset => asset.type.startsWith("image/"));
+        const allMapAssets = primaryStore.get(mapAssetsAtom) || [];
+        const imageAssets = allMapAssets
+            .filter(asset => asset.type.startsWith("image/")) // <-- Exclude non-image assets (sounds, etc)
+            .filter(asset => asset.type !== "image/gif"); // <-- Exclude GIFs
 
         if (!imageAssets || imageAssets.length === 0) {
             BuildOperationLog.info("No image assets to pack.");
@@ -34,7 +36,7 @@ const CreateSpriteSheetOperation: BuildOperation = {
 
         const textures: PackableTexture[] = [];
         for (const asset of imageAssets || []) {
-            const texture = await primaryStore.get(spriteAtomFamily(asset.url));
+            const texture = await primaryStore.get(textureFromURLAtomFamily(asset.url));
             if (!texture) {
                 BuildOperationLog.warn(`Failed to load texture for asset ID: ${asset.id}`);
                 continue;
@@ -90,12 +92,12 @@ const CreateSpriteSheetOperation: BuildOperation = {
         }
 
         // Add new sprite atlases to store
-        const sprites = primaryStore.get(spritesAtom) || [];
-        primaryStore.set(spritesAtom, [...sprites, ...spriteAtlases]);
+        const allSpriteAtlases = primaryStore.get(spritesAtlasesAtom) || [];
+        primaryStore.set(spritesAtlasesAtom, [...allSpriteAtlases, ...spriteAtlases]);
 
 
         // Log result
-        BuildOperationLog.success(`Combined ${textures.length} image assets into 1 asset with ${spriteAtlases.length} sprites.`);
+        BuildOperationLog.success(`Combined ${spriteAtlases.length} images into 1 ${stats.w}x${stats.h} asset.`);
     }
 };
 

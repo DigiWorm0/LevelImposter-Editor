@@ -1,10 +1,10 @@
 import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 import {Assets, Texture} from "pixi.js";
-import {assetAtURLAtom} from "../../assets/useAssetAtURL";
-import {mapPropsAtom} from "../../map/useMap";
+import {assetAtURLAtom} from "../assets/useAssetAtURL";
+import {mapPropsAtom} from "../map/useMap";
 
-export const spriteAtomFamily = atomFamily((url: string | undefined) => {
+export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => {
     return atom(async (get) => {
 
         try {
@@ -12,10 +12,13 @@ export const spriteAtomFamily = atomFamily((url: string | undefined) => {
             if (!url)
                 return null;
 
-            // Check if the asset is a DDS format
+            // Check if the asset is a DDS format by
+            // finding an equivalent map asset and checking its type
             let isDDS = false;
-            if (url.startsWith("blob:") || url.startsWith("data:"))
-                isDDS = get(assetAtURLAtom(url))?.type === "image/dds";
+            if (url.startsWith("blob:") || url.startsWith("data:")) {
+                const mapAsset = get(assetAtURLAtom(url));
+                isDDS = mapAsset?.type === "image/dds";
+            }
 
             // Load the asset from the URL
             const texture = await Assets.load({
@@ -43,12 +46,12 @@ export const spriteAtomFamily = atomFamily((url: string | undefined) => {
 
             return texture as Texture;
         } catch (error) {
-            console.warn(`Failed to load sprite from URL: ${url}`, error);
+            console.warn(`Failed to load texture from URL: ${url}`, error);
             return null;
         }
     });
 });
 
-export default function useSprite(url: string | undefined) {
-    return useAtomValue(unwrap(spriteAtomFamily(url)));
+export default function useTextureFromURL(url: string | undefined) {
+    return useAtomValue(unwrap(textureFromURLAtomFamily(url)));
 }

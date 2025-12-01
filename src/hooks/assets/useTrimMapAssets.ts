@@ -1,7 +1,8 @@
 // Trim Assets
-import {elementsAtom} from "../map/useMap";
+import {elementsAtom, spritesAtlasesAtom} from "../map/useMap";
 import {mapAssetsAtom} from "./useMapAssets";
 import {atom, useSetAtom} from "jotai";
+import {deleteMapAssetAtom} from "./useDeleteMapAsset";
 
 // Atom
 export const trimAssetsAtom = atom(null, (get, set) => {
@@ -13,18 +14,24 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     const minigameIDs = elements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
     const soundIDs = elements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
     const animationSpriteIDs = elements?.map((elem) => elem.properties.animation?.frames.map((frame) => frame.spriteID)).flat() ?? [];
-    const assetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs, ...animationSpriteIDs];
+    const usedAssetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs, ...animationSpriteIDs];
+
+    // Remove Unused Sprite Atlases
+    const spriteAtlases = get(spritesAtlasesAtom) || [];
+    const filteredAtlases = spriteAtlases.filter((a) => usedAssetIDs.includes(a.id));
+    set(spritesAtlasesAtom, filteredAtlases);
+
+    // Add Sprite Atlas Asset IDs to Used IDs
+    usedAssetIDs.push(...spriteAtlases.map((a) => a.assetID));
 
     // Remove Unused Assets
     const mapAssets = get(mapAssetsAtom) ?? [];
-    const filteredAssets = mapAssets.filter((a) => assetIDs.includes(a.id));
-    set(mapAssetsAtom, filteredAssets);
+    const unusedAssets = mapAssets.filter((a) => !usedAssetIDs.includes(a.id));
+    for (const asset of unusedAssets)
+        set(deleteMapAssetAtom, asset.id); // <-- Runs cleanup
 
-    // Update Atom
-    const trimAmount = mapAssets.length - filteredAssets.length;
-    console.log(`Trimmed ${trimAmount} assets`);
-
-    return trimAmount;
+    // Return number of removed assets
+    return unusedAssets.length;
 
 });
 trimAssetsAtom.debugLabel = "trimAssetsAtom";

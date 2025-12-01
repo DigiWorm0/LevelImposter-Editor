@@ -1,5 +1,5 @@
 import {MaybeGUID} from "../../../types/common/GUID";
-import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
+import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import React from "react";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";

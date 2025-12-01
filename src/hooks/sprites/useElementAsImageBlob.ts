@@ -1,5 +1,5 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../../types/common/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import {atom, useAtomValue} from "jotai";
 import {Application, Sprite} from "pixi.js";
 import {elementSpriteAtomFamily} from "./useElementSprite";

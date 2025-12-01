@@ -1,4 +1,4 @@
-import {Button, CircularProgress, Divider, Grid, List, Paper} from "@mui/material";
+import {Box, Button, CircularProgress, Divider, List, Paper} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import React from "react";
 import {Animation, Build, ContentCut, Gradient, Merge, Window} from "@mui/icons-material";
@@ -113,9 +113,29 @@ export default function OptimizeMapPanel() {
     }, [optimizeLog]);
 
     return (
-        <Grid container>
-            <Grid size={6}>
-                <List dense>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                height: "60vh"
+            }}
+        >
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+
+                    width: "50%",
+                    maxHeight: "100%"
+                }}
+            >
+                <List
+                    dense
+                    sx={{
+                        flex: 1,
+                        overflowY: "auto"
+                    }}
+                >
                     {optimizeOptions.map((option, index) => (
                         <OptimizeMapOption
                             key={index}
@@ -142,38 +162,27 @@ export default function OptimizeMapPanel() {
                     }
                     {t("map.optimize")}
                 </Button>
-            </Grid>
+            </Box>
 
-            <Grid
-                size={6}
+            <Paper
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "stretch"
+                    flex: 1,
+                    m: 2,
+                    p: 2,
+                    fontFamily: "monospace",
+                    overflow: "auto"
                 }}
+                elevation={0}
             >
-                <Paper
-                    sx={{
-                        m: 2,
-                        p: 2,
-                        fontFamily: "monospace",
-                        overflow: "auto",
-                        flexGrow: 1,
-                        minHeight: 300,
-                        maxHeight: "100%"
-                    }}
-                    elevation={0}
-                >
-                    <code>
-                        <Interweave
-                            content={optimizeLog.join("<br/>")}
-                            style={{display: "block"}}
-                        />
-                        <div ref={bottomLogRef}/>
-                        {/* Dummy div to scroll to bottom */}
-                    </code>
-                </Paper>
-            </Grid>
-        </Grid>
+                <code>
+                    <Interweave
+                        content={optimizeLog.join("<br/>")}
+                        style={{display: "block"}}
+                    />
+                    <div ref={bottomLogRef}/>
+                    {/* Dummy div to scroll to bottom */}
+                </code>
+            </Paper>
+        </Box>
     );
 }

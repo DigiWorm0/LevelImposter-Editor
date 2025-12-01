@@ -4,7 +4,7 @@ import {CloudDownload, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/strings/toSizeString";
 import React from "react";
-import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
+import useMapAsset from "../../../hooks/assets/useMapAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
 import useDownloadMapAsset from "../../../hooks/assets/useDownloadMapAsset";
@@ -16,7 +16,7 @@ export interface MapAssetModalEditorProps {
 }
 
 export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
-    const asset = useMapAssetValue(props.id);
+    const asset = useMapAsset(props.id);
     const downloadAsset = useDownloadMapAsset();
 
     return (

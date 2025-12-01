@@ -6,7 +6,7 @@ import LISpriteAtlas from "./LISpriteAtlas";
 
 export default interface LIMap extends LIMetadata {
     elements: LIElement[];
-    sprites?: LISpriteAtlas[];
+    spriteAtlases?: LISpriteAtlas[];
     assets?: MapAsset[];
     properties: LIMapProperties;
 }

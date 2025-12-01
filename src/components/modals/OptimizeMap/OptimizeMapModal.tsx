@@ -2,7 +2,7 @@ import GenericModal from "../GenericModal";
 import React from "react";
 import OptimizeMapPanel from "./OptimizeMapPanel";
 import {useTranslation} from "react-i18next";
-import {DialogContentText, Divider, Grid} from "@mui/material";
+import {DialogContentText, Divider} from "@mui/material";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
 import {Build} from "@mui/icons-material";
 
@@ -26,14 +26,12 @@ export default function OptimizeMapModal(props: OptimizeMapModalProps) {
                 maxWidth: "lg"
             }}
         >
-            <Grid size={12}>
-                <DialogContentText
-                    fontSize={"small"}
-                >
-                    {t("map.optimizeDesc")}
-                </DialogContentText>
-                <Divider sx={{mt: 1}}/>
-            </Grid>
+            <DialogContentText
+                fontSize={"small"}
+            >
+                {t("map.optimizeDesc")}
+            </DialogContentText>
+            <Divider sx={{mt: 1}}/>
             <OptimizeMapPanel/>
         </GenericModal>
     );

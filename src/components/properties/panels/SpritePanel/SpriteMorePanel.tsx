@@ -1,5 +1,5 @@
 import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
-import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
+import useMapAsset from "../../../../hooks/assets/useMapAsset";
 import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
 import ElementPropSwitch from "../../input/elementProps/ElementPropSwitch";
 import React from "react";
@@ -16,7 +16,7 @@ export default function SpriteMorePanel() {
     const {t} = useTranslation();
     const selectedType = useSelectedElemType();
     const spriteID = useSelectedElemPropValue("spriteID");
-    const asset = useMapAssetValue(spriteID);
+    const asset = useMapAsset(spriteID);
     const selectedElem = useSelectedElemValue();
     const [isAnimEditorOpen, setAnimEditorOpen] = useSpriteAnimEditorOpen();
 
