@@ -34,5 +34,5 @@ export function AnimatedSpriteEditorActions() {
                 Reset
             </Button>
         </ButtonGroup>
-    )
+    );
 }

@@ -19,8 +19,10 @@ export default function AnimatedSpritePreviewControls() {
                 mt: 1,
             }}
         >
-            <IconButton onClick={() => {
-            }}>
+            <IconButton
+                onClick={() => {
+                }}
+            >
                 <PlayArrow/>
             </IconButton>
             <IconButton

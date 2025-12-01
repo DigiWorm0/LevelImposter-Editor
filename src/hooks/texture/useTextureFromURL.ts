@@ -14,11 +14,8 @@ export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => 
 
             // Check if the asset is a DDS format by
             // finding an equivalent map asset and checking its type
-            let isDDS = false;
-            if (url.startsWith("blob:") || url.startsWith("data:")) {
-                const mapAsset = get(assetAtURLAtom(url));
-                isDDS = mapAsset?.type === "image/dds";
-            }
+            const mapAsset = get(assetAtURLAtom(url));
+            const isDDS = mapAsset?.type === "image/dds";
 
             // Load the asset from the URL
             const texture = await Assets.load({

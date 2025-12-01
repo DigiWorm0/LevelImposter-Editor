@@ -1,6 +1,5 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
-import convertImageToDDS from "../dds/convertImageToDDS";
 import primaryStore from "../../hooks/primaryStore";
 import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
@@ -10,6 +9,8 @@ import {MaybeGUID} from "../../types/common/GUID";
 import {mapAssetsAtomFamily} from "../../hooks/assets/useMapAsset";
 import {elementAtomFamily} from "../../hooks/elements/useElements";
 import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
+import canvasToBitmap from "../canvas/canvasToBitmap";
+import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
 
 /**
  * Converts a GIF Blob to a LISpriteAnimation
@@ -29,7 +30,7 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     const ctx = canvas.getContext("2d");
     if (!ctx)
         throw new Error("Failed to get canvas context");
-
+    
     canvas.width = gif.lsd.width;
     canvas.height = gif.lsd.height;
 
@@ -47,9 +48,11 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     };
 }
 
+
 /**
  * Converts a GIF frame to a LISpriteAnimationFrame
  * @param frame - The GIF frame to convert
+ * @param gifCanvasContext - The canvas context to use for drawing
  * @returns A Promise that resolves to the created LISpriteAnimationFrame
  */
 async function gifFrameToSpriteAnimationFrame(
@@ -58,9 +61,10 @@ async function gifFrameToSpriteAnimationFrame(
 ): Promise<LISpriteAnimationFrame> {
     // Convert frame to canvas
     frameToCanvas(frame, gifCanvasContext);
+    const bitmapData = canvasToBitmap(gifCanvasContext);
 
     // Convert canvas to DDS
-    const ddsBlob = await convertImageToDDS(gifCanvasContext.canvas);
+    const ddsBlob = encodeBitmapToDDS(bitmapData);
 
     // Create an asset for the frame
     const asset = primaryStore.set(createMapAssetAtom, {
