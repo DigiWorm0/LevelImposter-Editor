@@ -11,13 +11,13 @@ export const selectedSpriteAnimAtom = atom((get) => {
     // Find selected spriteAnim by ID
     const selectedID = get(selectedSpriteAnimIDAtom);
     const animationByID = animations.find(anim => anim.id === selectedID);
-    if (animationByID)
+    if (animationByID && animationByID.frames.length > 0)
         return animationByID;
 
     // Fallback: Find selected spriteAnim by type
     const selectedType = get(selectedSpriteAnimTypeAtom);
     const animationByType = animations.find(anim => anim.type === selectedType);
-    if (animationByType)
+    if (animationByType && animationByType.frames.length > 0)
         return animationByType;
 
     return undefined;

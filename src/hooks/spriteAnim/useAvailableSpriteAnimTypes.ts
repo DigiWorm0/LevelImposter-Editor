@@ -6,7 +6,7 @@ export const availableSpriteAnimTypesAtom = atom((get) => {
 
     const types = ["default"];
     if (selectedElemType?.startsWith("util-vent"))
-        types.push("openVent", "closeVent");
+        types.push("enterVent", "exitVent");
 
     if (selectedElemType?.startsWith("sab-door"))
         types.push("openDoor", "closeDoor");
