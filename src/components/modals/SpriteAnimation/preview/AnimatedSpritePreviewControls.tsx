@@ -1,13 +1,16 @@
 import {Box, IconButton, Tooltip} from "@mui/material";
 import React from "react";
-import {PlayArrow, Repeat, Stop} from "@mui/icons-material";
+import {Pause, PlayArrow, Repeat, Stop} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSpriteAnimPlaying from "../../../../hooks/spriteAnim/playback/useSpriteAnimPlaying";
+import spriteAnimEventEmitter from "../../../../utils/spriteAnim/spriteAnimEventEmitter";
 
 export default function AnimatedSpritePreviewControls() {
     const {t} = useTranslation();
     const [_isLoop, setLoop] = useSelectedElemProp("loopGIF");
     const isLoop = _isLoop ?? true;
+    const [isPlaying, setIsPlaying] = useSpriteAnimPlaying();
 
     return (
         <Box
@@ -19,14 +22,21 @@ export default function AnimatedSpritePreviewControls() {
                 mt: 1,
             }}
         >
+            {isPlaying && (
+                <IconButton onClick={() => setIsPlaying(false)}>
+                    <Pause/>
+                </IconButton>
+            )}
+            {!isPlaying && (
+                <IconButton onClick={() => setIsPlaying(true)}>
+                    <PlayArrow/>
+                </IconButton>
+            )}
+
             <IconButton
                 onClick={() => {
-                }}
-            >
-                <PlayArrow/>
-            </IconButton>
-            <IconButton
-                onClick={() => {
+                    setIsPlaying(false);
+                    spriteAnimEventEmitter.emit("stopPlayback");
                 }}
             >
                 <Stop/>

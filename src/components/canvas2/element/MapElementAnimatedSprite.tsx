@@ -1,13 +1,9 @@
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import React from "react";
-import GUID, {MaybeGUID} from "../../../types/common/GUID";
-import useElement from "../../../hooks/elements/useElements";
-import {PixiReactElementProps, useTick} from "@pixi/react";
+import {MaybeGUID} from "../../../types/common/GUID";
+import {PixiReactElementProps} from "@pixi/react";
 import {Sprite} from "pixi.js";
-import primaryStore from "../../../hooks/primaryStore";
-import {textureFromURLAtomFamily} from "../../../hooks/texture/useTextureFromURL";
-import {mapAssetsAtomFamily} from "../../../hooks/assets/useMapAsset";
-import MapAsset from "../../../types/li/MapAsset";
+import useSpriteAnimPlayback from "../../../hooks/spriteAnim/playback/useSpriteAnimPlayback";
 
 export interface MapElementSpriteProps extends PixiReactElementProps<typeof Sprite> {
     elementID: MaybeGUID;
@@ -16,61 +12,10 @@ export interface MapElementSpriteProps extends PixiReactElementProps<typeof Spri
 
 export default function MapElementAnimatedSprite(props: MapElementSpriteProps) {
     const sprite = useElementSprite(props.elementID);
-    const [element] = useElement(props.elementID);
-
-    const frameRef = React.useRef(0);
-    const frameTimeRef = React.useRef(0);
     const spriteRef = React.useRef<Sprite>(null);
-    const fastAssetLookup = React.useRef<Record<GUID, MapAsset>>({});
+    useSpriteAnimPlayback(spriteRef);
 
-    const animation = element?.properties.animation;
-
-    useTick((ticker) => {
-        if (!animation || !props.shouldAnimate)
-            return;
-
-        // Increment frame time
-        frameTimeRef.current += ticker.deltaMS;
-
-        // Check if it's time to advance the frame
-        let frame = animation.frames[frameRef.current];
-        if (frameTimeRef.current > frame.delay) {
-
-            // Advance to next frame
-            frameTimeRef.current = 0;
-            frameRef.current = (frameRef.current + 1) % animation.frames.length;
-            frame = animation.frames[frameRef.current];
-
-            // Update asset cache
-            if (!fastAssetLookup.current[frame.spriteID]) {
-                const asset = primaryStore.get(mapAssetsAtomFamily(frame.spriteID));
-                if (asset)
-                    fastAssetLookup.current[frame.spriteID] = asset;
-            }
-
-            // Get Asset
-            const asset = fastAssetLookup.current[frame.spriteID];
-            if (!asset)
-                return;
-
-            // Get Texture
-            primaryStore.get(textureFromURLAtomFamily(asset.url)).then((texture) => {
-                if (spriteRef.current && texture)
-                    spriteRef.current.texture = texture;
-            });
-        }
-    });
-
-    React.useEffect(() => {
-        // Reset to first frame when "shouldAnimate" is disabled
-        if (sprite && spriteRef.current && !props.shouldAnimate) {
-            frameRef.current = 0;
-            frameTimeRef.current = 0;
-            spriteRef.current.texture = sprite;
-        }
-    }, [props.shouldAnimate, sprite]);
-
-    if (!element || !sprite)
+    if (!sprite)
         return null;
     return (
         <pixiSprite

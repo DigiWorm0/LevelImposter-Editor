@@ -1,10 +1,10 @@
 import {Box, Typography} from "@mui/material";
 import React from "react";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import {Animation} from "@mui/icons-material";
+import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
 
 export default function SpriteAnimEditorNoAnimationError() {
-    const animation = useSelectedElemPropValue("animation");
+    const [animation] = useSelectedSpriteAnim();
 
     if (animation)
         return null;

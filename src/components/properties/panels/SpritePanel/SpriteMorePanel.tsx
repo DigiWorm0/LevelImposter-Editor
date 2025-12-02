@@ -10,7 +10,7 @@ import {convertImageAssetToDDS} from "../../../../utils/dds/convertImageToDDS";
 import useDownloadMapAsset from "../../../../hooks/assets/useDownloadMapAsset";
 import {useSelectedElemValue} from "../../../../hooks/elements/useSelectedElem";
 import useDownloadElementAsPNG from "../../../../hooks/assets/useDownloadElementAsPNG";
-import useSpriteAnimEditorOpen from "../../../../hooks/animation/useSpriteAnimEditorOpen";
+import useSpriteAnimEditorOpen from "../../../../hooks/spriteAnim/useSpriteAnimEditorOpen";
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();

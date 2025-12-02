@@ -27,13 +27,13 @@ export const replaceMapAssetIDAtom = atom(null, (get, set, payload: ReplaceMapAs
         ...element,
         properties: {
             ...element.properties,
-            animation: element.properties.animation && {
-                ...element.properties.animation,
-                frames: element.properties.animation.frames.map((frame) => ({
+            animations: element.properties.animations?.map((animation) => ({
+                ...animation,
+                frames: animation.frames.map((frame) => ({
                     ...frame,
                     spriteID: checkID(frame.spriteID) || frame.spriteID
-                })) || []
-            },
+                }))
+            })),
             spriteID: checkID(element.properties.spriteID),
             meetingBackgroundID: checkID(element.properties.meetingBackgroundID),
             minigames: element.properties.minigames?.map((minigame) => ({

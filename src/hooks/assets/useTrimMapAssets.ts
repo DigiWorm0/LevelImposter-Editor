@@ -13,7 +13,11 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     const meetingSpriteIDs = elements.map((e) => e.properties.meetingBackgroundID);
     const minigameIDs = elements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
     const soundIDs = elements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
-    const animationSpriteIDs = elements?.map((elem) => elem.properties.animation?.frames.map((frame) => frame.spriteID)).flat() ?? [];
+    const animationSpriteIDs = elements?.map(elem =>
+        elem.properties.animations?.map(anim =>
+            anim.frames?.map(frame => frame.spriteID)).flat()
+    ).flat() || [];
+    
     const usedAssetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs, ...animationSpriteIDs];
 
     // Remove Unused Sprite Atlases

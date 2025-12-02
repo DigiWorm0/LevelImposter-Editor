@@ -62,7 +62,7 @@ export default interface LIProperties {
 
     // Sprite
     spriteID?: GUID;
-    animation?: LISpriteAnimation;
+    animations?: LISpriteAnimation[];
     color?: LIColor;
     loopGIF?: boolean;
 

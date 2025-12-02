@@ -22,9 +22,7 @@ import BitmapData from "../../types/texture/BitmapData";
 export function encodeBitmapToDDS(bitmapData: BitmapData): Blob {
 
     // Prepare bitmap for DDS conversion
-    console.log(bitmapData);
     const {bitmap, width, height} = prepareBitmapForDDS(bitmapData);
-    console.log("Prepared bitmap for DDS:", {width, height, bitmap});
 
     // Check if image has semi-transparency
     // If it does, we will use DXT5 instead of DXT1

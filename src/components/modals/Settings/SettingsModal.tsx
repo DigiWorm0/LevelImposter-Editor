@@ -180,7 +180,7 @@ export default function SettingsModal(props: SettingsModalProps) {
             </Box>
 
             <SettingsHeader>
-                {t("settings.animation")}
+                {t("settings.spriteAnim")}
             </SettingsHeader>
             <SettingsSwitchInput
                 name={t("settings.interface.animPreview")}

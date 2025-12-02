@@ -1,12 +1,12 @@
 import React from "react";
-import {List} from "@mui/material";
+import {Box, Divider, List, Typography} from "@mui/material";
 import AnimatedSpriteFrameRow from "./AnimatedSpriteFrameRow";
 import {ReactSortable} from "react-sortablejs";
 import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
 
 export default function AnimatedSpriteFrameList() {
-    const [animation, setAnimation] = useSelectedElemProp("animation");
+    const [animation, setAnimation] = useSelectedSpriteAnim();
 
     const frames = animation?.frames || [];
     const setFrames = (newFrames: LISpriteAnimationFrame[]) => {
@@ -16,34 +16,44 @@ export default function AnimatedSpriteFrameList() {
         setAnimation({...animation, frames: newFrames});
     };
 
+    if (!animation)
+        return null;
     return (
-        <List
-            dense
-            sx={{
-                maxHeight: "70vh",
-                overflowY: "auto",
-            }}
-        >
-            <ReactSortable
-                list={frames}
-                setList={setFrames}
-                animation={150}
+        <Box>
+            <Typography variant={"subtitle2"}>
+                Frames
+            </Typography>
+            <Divider/>
+            <List
+                dense
+                sx={{
+                    overflowY: "auto",
+                    height: "100%",
+                    padding: 1
+                }}
             >
-                {frames.map(frame => (
-                    <AnimatedSpriteFrameRow
-                        key={frame.id}
-                        frame={frame}
-                        onChange={(newFrame) => {
-                            const newFrames = frames.map(f => f.id === newFrame.id ? newFrame : f);
-                            setFrames(newFrames);
-                        }}
-                        onDelete={() => {
-                            const newFrames = frames.filter(f => f.id !== frame.id);
-                            setFrames(newFrames);
-                        }}
-                    />
-                ))}
-            </ReactSortable>
-        </List>
+                <ReactSortable
+                    list={frames}
+                    setList={setFrames}
+                    animation={150}
+                >
+                    {frames.map(frame => (
+                        <AnimatedSpriteFrameRow
+                            key={frame.id}
+                            frame={frame}
+                            onChange={(newFrame) => {
+                                const newFrames = frames.map(f => f.id === newFrame.id ? newFrame : f);
+                                setFrames(newFrames);
+                            }}
+                            onDelete={() => {
+                                const newFrames = frames.filter(f => f.id !== frame.id);
+                                setFrames(newFrames);
+                            }}
+                        />
+                    ))}
+                </ReactSortable>
+            </List>
+            <Divider/>
+        </Box>
     );
 }

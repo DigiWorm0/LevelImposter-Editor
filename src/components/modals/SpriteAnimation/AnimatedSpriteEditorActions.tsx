@@ -3,7 +3,7 @@ import {Button, ButtonGroup} from "@mui/material";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 
 export function AnimatedSpriteEditorActions() {
-    const [, setAnimation] = useSelectedElemProp("animation");
+    const [, setAnimations] = useSelectedElemProp("animations");
 
     return (
         <ButtonGroup
@@ -29,7 +29,7 @@ export function AnimatedSpriteEditorActions() {
                 variant={"outlined"}
                 size={"small"}
                 color={"error"}
-                onClick={() => setAnimation(undefined)}
+                onClick={() => setAnimations(undefined)}
             >
                 Reset
             </Button>
