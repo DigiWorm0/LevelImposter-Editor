@@ -19,7 +19,13 @@ export default function AnimatedSpriteFrameList() {
     if (!animation)
         return null;
     return (
-        <Box>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%"
+            }}
+        >
             <Typography variant={"subtitle2"}>
                 Frames
             </Typography>
@@ -28,14 +34,14 @@ export default function AnimatedSpriteFrameList() {
                 dense
                 sx={{
                     overflowY: "auto",
-                    height: "100%",
-                    padding: 1
+                    height: "auto"
                 }}
             >
                 <ReactSortable
                     list={frames}
                     setList={setFrames}
                     animation={150}
+                    handle={".drag-handle"}
                 >
                     {frames.map(frame => (
                         <AnimatedSpriteFrameRow

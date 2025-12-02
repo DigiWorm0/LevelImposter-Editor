@@ -4,5 +4,6 @@ import LISpriteAnimationFrame from "./LISpriteAnimationFrame";
 export default interface LISpriteAnimation {
     id: GUID;
     type?: string;
+    loop?: boolean;
     frames: LISpriteAnimationFrame[];
 }

@@ -1,7 +1,6 @@
 import React, {RefObject} from "react";
 import primaryStore from "../../primaryStore";
 import {useApplication, useTick} from "@pixi/react";
-import useSelectedElemProp from "../../elements/useSelectedElemProperty";
 import useSpriteAnimPlaying from "./useSpriteAnimPlaying";
 import {Sprite} from "pixi.js";
 import useSelectedSpriteAnim from "../useSelectedSpriteAnim";
@@ -14,22 +13,19 @@ export default function useSpriteAnimPlayback(
     spriteRef: RefObject<Sprite | null>
 ) {
     const app = useApplication();
-    const [_loop] = useSelectedElemProp("loopGIF");
     const [animation] = useSelectedSpriteAnim();
     const [isPlaying, setIsPlaying] = useSpriteAnimPlaying();
 
     const frameTimeRef = React.useRef(0);
     const frameRef = React.useRef(0);
 
-    const loop = _loop ?? true;
-
     const setSpriteFromID = (spriteID: GUID) => {
         const spriteTexture = primaryStore.get(unwrap(spriteAtomFamily(spriteID)));
         if (spriteRef.current && spriteTexture)
             spriteRef.current.texture = spriteTexture;
-
-        console.log(spriteID, spriteTexture);
     };
+
+    const loop = animation?.loop ?? true;
 
     useTick((ticker) => {
         if (spriteRef.current) {
@@ -55,6 +51,15 @@ export default function useSpriteAnimPlayback(
         // Increment frame time
         frameTimeRef.current += ticker.deltaMS;
 
+
+        // Check if frame is in bounds
+        let shouldUpdateFrame = false;
+        if (frameRef.current < 0 || frameRef.current >= animation.frames.length) {
+            frameRef.current = 0;
+            frameTimeRef.current = 0;
+            shouldUpdateFrame = true;
+        }
+
         // Check if it's time to advance the frame
         let frame = animation.frames[frameRef.current];
         if (frameTimeRef.current > frame.delay) {
@@ -67,13 +72,17 @@ export default function useSpriteAnimPlayback(
             const isAtEnd = frameRef.current >= animation.frames.length;
             if (isAtEnd && !loop) {
                 setIsPlaying(false);
-                frameRef.current = 0;
+                frameRef.current = -1;
                 return;
             } else if (isAtEnd && loop) {
                 frameRef.current = 0;
             }
 
-            // Update frame sprite
+            shouldUpdateFrame = true;
+        }
+
+        // Update sprite if needed
+        if (shouldUpdateFrame) {
             frame = animation.frames[frameRef.current];
             setSpriteFromID(frame.spriteID);
         }

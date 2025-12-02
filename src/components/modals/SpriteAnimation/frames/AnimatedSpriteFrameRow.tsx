@@ -1,5 +1,6 @@
+import React from "react";
 import {Delete, DragHandle} from "@mui/icons-material";
-import {Box, IconButton, InputAdornment, ListItem} from "@mui/material";
+import {IconButton, InputAdornment, ListItem} from "@mui/material";
 import FlexNumericInput from "../../../properties/util/FlexNumericInput";
 import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
 import useSpriteThumbnail from "../../../../hooks/sprites/useSpriteThumbnail";
@@ -12,35 +13,25 @@ export interface AnimatedSpriteFrameRowProps {
 
 export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProps) {
     const thumbnail = useSpriteThumbnail(props.frame.spriteID);
+    const [isHovering, setIsHovering] = React.useState<boolean>(false);
 
     return (
         <ListItem
+            sx={{
+                backgroundColor: isHovering ? "action.hover" : "inherit",
+            }}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
             disableGutters
         >
-            <DragHandle/>
-
-            <Box sx={{ml: 2, mr: 2}}>
-                <FlexNumericInput
-                    value={props.frame.delay}
-                    onChange={(value) => {
-                        props.onChange({
-                            ...props.frame,
-                            delay: value
-                        });
-                    }}
-                    inputProps={{
-                        size: "small",
-                        label: "Delay",
-                        InputProps: {
-                            endAdornment: (
-                                <InputAdornment position={"end"}>
-                                    ms
-                                </InputAdornment>
-                            )
-                        }
-                    }}
-                />
-            </Box>
+            <DragHandle
+                className={"drag-handle"}
+                sx={{
+                    ml: 1,
+                    mr: 1,
+                    cursor: "grab"
+                }}
+            />
 
             {thumbnail && (
                 <img
@@ -52,14 +43,36 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
                         maxHeight: 40,
                         width: "auto",
                         height: "auto",
+                        marginLeft: 10,
+                        marginRight: 10
                     }}
                     alt="Frame Preview"
                 />
             )}
+            <FlexNumericInput
+                value={props.frame.delay}
+                onChange={(value) => {
+                    props.onChange({
+                        ...props.frame,
+                        delay: value
+                    });
+                }}
+                inputProps={{
+                    size: "small",
+                    label: "Delay",
+                    InputProps: {
+                        endAdornment: (
+                            <InputAdornment position={"end"}>
+                                ms
+                            </InputAdornment>
+                        )
+                    }
+                }}
+            />
 
             <IconButton
                 size={"small"}
-                sx={{ml: 2}}
+                sx={{ml: 1, mr: 1}}
                 onClick={props.onDelete}
             >
                 <Delete/>

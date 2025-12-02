@@ -15,6 +15,7 @@ export default function AnimatedSpriteTypeList() {
             sx={{
                 maxHeight: "70vh",
                 overflowY: "auto",
+                overflowX: "hidden",
                 minWidth: 200,
             }}
         >

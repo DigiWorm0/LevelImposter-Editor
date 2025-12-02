@@ -8,6 +8,12 @@ export const availableSpriteAnimTypesAtom = atom((get) => {
     if (selectedElemType?.startsWith("util-vent"))
         types.push("openVent", "closeVent");
 
+    if (selectedElemType?.startsWith("sab-door"))
+        types.push("openDoor", "closeDoor");
+
+    if (selectedElemType === "util-cam")
+        types.push("camsActive");
+
     return types;
 });
 

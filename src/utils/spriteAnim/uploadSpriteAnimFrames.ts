@@ -1,0 +1,37 @@
+import uploadImageAssets from "../fileio/uploadImageAssets";
+import primaryStore from "../../hooks/primaryStore";
+import {selectedSpriteAnimAtom} from "../../hooks/spriteAnim/useSelectedSpriteAnim";
+import generateGUID from "../strings/generateGUID";
+import {selectedSpriteAnimTypeAtom} from "../../hooks/spriteAnim/useSelectedSpriteAnimType";
+
+/**
+ * Opens a file dialog to upload sprite animation frames.
+ */
+export default async function uploadSpriteAnimFrames() {
+    const imageAssets = await uploadImageAssets();
+    let animation = primaryStore.get(selectedSpriteAnimAtom);
+
+    // Create new animation if none selected
+    if (!animation) {
+        const selectedType = primaryStore.get(selectedSpriteAnimTypeAtom);
+        animation = {
+            id: generateGUID(),
+            type: selectedType,
+            frames: [],
+            loop: true,
+        };
+    }
+
+    // Append new frames to animation
+    animation.frames = [
+        ...animation.frames,
+        ...imageAssets.map(asset => ({
+            id: generateGUID(),
+            spriteID: asset.id,
+            delay: 100
+        })),
+    ];
+
+    // Save updated animation
+    primaryStore.set(selectedSpriteAnimAtom, {...animation});
+}

@@ -44,7 +44,6 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     // Return the sprite animation
     return {
         id: generateGUID(),
-        type: "default",
         frames: animationFrames
     };
 }

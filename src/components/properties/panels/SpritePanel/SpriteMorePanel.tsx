@@ -1,7 +1,6 @@
 import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
 import useMapAsset from "../../../../hooks/assets/useMapAsset";
 import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
-import ElementPropSwitch from "../../input/elementProps/ElementPropSwitch";
 import React from "react";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
@@ -34,9 +33,7 @@ export default function SpriteMorePanel() {
         }
     }, [isDownloadingPNG, _downloadPNG, selectedElem]);
 
-    if (!spriteID || !asset)
-        return null;
-
+    const hasSprite = Boolean(asset);
     const isGIF = asset?.blob.type === "image/gif";
     const isDDS = asset?.blob.type === "image/dds";
     const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
@@ -61,20 +58,22 @@ export default function SpriteMorePanel() {
                     />
                     {t("sprite.editAnimation")}
                 </Button>
-                <Button
-                    variant={"outlined"}
-                    color={"secondary"}
-                    size={"small"}
-                    fullWidth
-                    onClick={() => downloadRaw({id: spriteID, fileName})}
-                >
-                    <Download
-                        sx={{marginRight: 0.5}}
-                        fontSize={"small"}
-                    />
-                    {t("sprite.downloadAsType", {type: assetType || "N/A"})}
-                </Button>
-                {isDDS && (
+                {hasSprite && (
+                    <Button
+                        variant={"outlined"}
+                        color={"secondary"}
+                        size={"small"}
+                        fullWidth
+                        onClick={() => downloadRaw({id: spriteID, fileName})}
+                    >
+                        <Download
+                            sx={{marginRight: 0.5}}
+                            fontSize={"small"}
+                        />
+                        {t("sprite.downloadAsType", {type: assetType || "N/A"})}
+                    </Button>
+                )}
+                {hasSprite && isDDS && (
                     <Button
                         variant={"outlined"}
                         color={"secondary"}
@@ -99,7 +98,7 @@ export default function SpriteMorePanel() {
                         {t("sprite.downloadAsPNG")}
                     </Button>
                 )}
-                {!isDDS && !isGIF && (
+                {hasSprite && !isDDS && !isGIF && (
                     <Button
                         variant={"outlined"}
                         color={"secondary"}
@@ -115,15 +114,6 @@ export default function SpriteMorePanel() {
                     </Button>
                 )}
             </ButtonGroup>
-
-            {isGIF && (
-                <ElementPropSwitch
-                    name={t("sprite.loop")}
-                    prop="loopGIF"
-                    defaultValue={!isCustomAnim}
-                    disabled={isCustomAnim}
-                />
-            )}
         </Box>
     );
 }

@@ -9,6 +9,7 @@ import SpriteAnimEditorNoAnimationError from "./SpriteAnimEditorNoAnimationError
 import {Animation} from "@mui/icons-material";
 import ErrorBoundary from "../../utils/ErrorBoundary";
 import AnimatedSpriteTypeList from "./animationList/AnimatedSpriteTypeList";
+import {AnimatedSpriteEditorActions} from "./AnimatedSpriteEditorActions";
 
 export default function SpriteAnimEditorModal() {
     const {t} = useTranslation();
@@ -19,7 +20,7 @@ export default function SpriteAnimEditorModal() {
             open={isOpen}
             onClose={() => setIsOpen(false)}
             icon={<Animation/>}
-            title={t("sprite.animationEditor")}
+            title={t("sprite.spriteAnimationEditor")}
             DialogProps={{
                 maxWidth: "lg",
             }}
@@ -41,7 +42,7 @@ export default function SpriteAnimEditorModal() {
                         display: "flex",
                         flexDirection: "row",
                         gap: 2,
-                        height: "70vh",
+                        height: "80vh"
                     }}
                 >
                     <AnimatedSpriteTypeList/>
@@ -50,6 +51,8 @@ export default function SpriteAnimEditorModal() {
                     <AnimatedSpriteFrameList/>
                     <SpriteAnimEditorNoAnimationError/>
                 </Box>
+
+                <AnimatedSpriteEditorActions/>
             </ErrorBoundary>
         </GenericModal>
     );

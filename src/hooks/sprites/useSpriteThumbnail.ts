@@ -2,7 +2,8 @@ import {atom, useAtomValue} from "jotai";
 import {atomFamily, unwrap} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {spriteAtomFamily} from "./useSprite";
-import {Application, Sprite} from "pixi.js";
+import {Application, Graphics, Sprite} from "pixi.js";
+import drawAlphaGrid from "../../utils/canvas/drawAlphaGrid";
 
 const MAX_THUMBNAIL_SIZE = 128;
 
@@ -38,8 +39,8 @@ export const spriteThumbnailAtomFamily = atomFamily((spriteID: MaybeGUID) => {
         if (!app || !app.renderer) {
             app = new Application();
             await app.init({
-                width: MAX_THUMBNAIL_SIZE,
-                height: MAX_THUMBNAIL_SIZE,
+                width,
+                height,
                 backgroundAlpha: 0,
                 preserveDrawingBuffer: true,
             });
@@ -47,12 +48,16 @@ export const spriteThumbnailAtomFamily = atomFamily((spriteID: MaybeGUID) => {
 
         // Reset stage
         app.renderer.resize(width, height);
+        app.stage.removeChildren();
+
+        // Add transparency checkerboard background
+        const graphics = new Graphics();
+        drawAlphaGrid(graphics, width, height, 10);
+        app.stage.addChild(graphics);
 
         // Create sprite
         const sprite = new Sprite(spriteTexture);
         sprite.setSize(width, height);
-
-        app.stage.removeChildren();
         app.stage.addChild(sprite);
 
         // Render once

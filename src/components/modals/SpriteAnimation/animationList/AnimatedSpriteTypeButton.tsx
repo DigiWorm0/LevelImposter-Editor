@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Divider} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 export interface AnimatedSpriteTypeRowProps {
     type: string;
@@ -9,6 +10,7 @@ export interface AnimatedSpriteTypeRowProps {
 }
 
 export default function AnimatedSpriteTypeButton(props: AnimatedSpriteTypeRowProps) {
+    const {t} = useTranslation();
     return (
         <>
             <Button
@@ -19,7 +21,7 @@ export default function AnimatedSpriteTypeButton(props: AnimatedSpriteTypeRowPro
                 style={{margin: 1}}
                 onClick={props.onClick}
             >
-                {props.type}
+                {t(`sprite.${props.type}`)}
             </Button>
             <Divider/>
         </>
