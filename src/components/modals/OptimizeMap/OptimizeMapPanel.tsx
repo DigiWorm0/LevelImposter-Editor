@@ -1,7 +1,7 @@
-import {Button, CircularProgress, Divider, Grid, List, Paper} from "@mui/material";
+import {Box, Button, CircularProgress, Divider, List, Paper} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import {Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
+import {Animation, Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
 import BuildOperation from "../../../utils/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
 import TrimMapAssetsOperation from "../../../utils/build/TrimMapAssetsOperation";
@@ -11,57 +11,71 @@ import {Interweave} from "interweave";
 import useAppendOptimizeLog from "../../../hooks/optimize/useAppendOptimizeLog";
 import EncodeToDDSOperation from "../../../utils/build/EncodeToDDSOperation";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
+import ConvertToSpriteAnimOperation from "../../../utils/build/ConvertToSpriteAnimOperation";
+import useEnabledOptimizeOptionIDs from "../../../hooks/optimize/useEnabledOptimizeOptionIDs";
 
 interface OptimizeMapOption {
+    id: string;
     label: string;
     description?: string;
+    warning?: string;
     icon?: React.ReactNode;
     operation: BuildOperation;
-    isEnabled: boolean;
 }
 
-const DEFAULT_OPTIONS: OptimizeMapOption[] = [
+const optimizeOptions: OptimizeMapOption[] = [
     {
+        id: "trim-unused-assets",
         label: "Trim Unused Map Assets",
         description: "Removes any assets that do not have any map objects using them.",
         icon: <ContentCut/>,
-        operation: TrimMapAssetsOperation,
-        isEnabled: true
+        operation: TrimMapAssetsOperation
     },
     {
+        id: "merge-duplicate-assets",
         label: "Merge Duplicate Map Assets",
         description: "Merges assets that are identical to reduce the total number of assets.",
         icon: <Merge/>,
-        operation: MergeMapAssetsOperation,
-        isEnabled: true
+        operation: MergeMapAssetsOperation
     },
     {
-        label: "Encode Map Assets to DDS (DXT1 / DXT5)",
-        description: "DXT1/5 assets can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
+        id: "convert-to-dds",
+        label: "Convert PNGs/JPEGs to DDS",
+        description: "DDS assets use DXT1/DXT5 which can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
+        warning: "This will significantly increase the file size of the map. Make sure to backup your map before proceeding.",
         icon: <Gradient/>,
-        operation: EncodeToDDSOperation,
-        isEnabled: true,
-    }
+        operation: EncodeToDDSOperation
+    },
+    {
+        id: "convert-to-sprite-anim",
+        label: "Convert GIFs to Sprite Animations",
+        description: "Converts GIF files to Sprite Animations which are more efficient and have better performance.",
+        icon: <Animation/>,
+        operation: ConvertToSpriteAnimOperation
+    },
+    // {
+    //     id: "create-sprite-sheet",
+    //     label: "Combine Map Assets to Sprite Sheet",
+    //     description: "Combines multiple smaller sprites to a single larger sprite sheet to reduce file size and improve game performance.",
+    //     icon: <Window/>,
+    //     operation: CreateSpriteSheetOperation
+    // }
 ];
 
 export default function OptimizeMapPanel() {
     const {t} = useTranslation();
-    const [optimizeOptions, setOptimizeOptions] = React.useState<OptimizeMapOption[]>(DEFAULT_OPTIONS);
+    const [enabledIDs, setEnabledIDs] = useEnabledOptimizeOptionIDs();
     const [isRunning, setIsRunning] = useIsOptimizationRunning();
     const [optimizeLog, setOptimizeLog] = useOptimizeLog();
     const appendOptimizeLog = useAppendOptimizeLog();
     const bottomLogRef = React.useRef<HTMLDivElement>(null);
 
-    const setOptionEnabled = React.useCallback((index: number, isEnabled: boolean) => {
-        setOptimizeOptions((prev) => {
-            const newOptions = [...prev];
-            newOptions[index] = {
-                ...newOptions[index],
-                isEnabled
-            };
-            return newOptions;
-        });
-    }, []);
+    const setOptionEnabled = React.useCallback((id: string, isEnabled: boolean) => {
+        if (isEnabled)
+            setEnabledIDs([...enabledIDs, id]);
+        else
+            setEnabledIDs(enabledIDs.filter(enabledID => enabledID !== id));
+    }, [enabledIDs, setEnabledIDs]);
 
     const onOptimize = React.useCallback(async () => {
         // Mark as running
@@ -71,7 +85,7 @@ export default function OptimizeMapPanel() {
         setOptimizeLog([]);
 
         // Run selected operations
-        const selectedOptions = optimizeOptions.filter(option => option.isEnabled);
+        const selectedOptions = optimizeOptions.filter(option => enabledIDs.includes(option.id));
         for (const selectedOption of selectedOptions) {
             try {
                 // Log start
@@ -81,6 +95,7 @@ export default function OptimizeMapPanel() {
                 await selectedOption.operation.run();
             } catch (error) {
                 // Log error
+                console.error(error);
                 appendOptimizeLog(`<span style="color: red;">Exception during ${selectedOption.label}:</span> ${(error as Error).message}`);
             }
         }
@@ -90,7 +105,7 @@ export default function OptimizeMapPanel() {
 
         // Mark as not running
         setIsRunning(false);
-    }, [optimizeOptions]);
+    }, [appendOptimizeLog, enabledIDs, setIsRunning, setOptimizeLog]);
 
     // On render, scroll to bottom of log
     React.useEffect(() => {
@@ -99,16 +114,37 @@ export default function OptimizeMapPanel() {
     }, [optimizeLog]);
 
     return (
-        <Grid container>
-            <Grid size={6}>
-                <List dense>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                height: "60vh"
+            }}
+        >
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+
+                    width: "50%",
+                    maxHeight: "100%"
+                }}
+            >
+                <List
+                    dense
+                    sx={{
+                        flex: 1,
+                        overflowY: "auto"
+                    }}
+                >
                     {optimizeOptions.map((option, index) => (
                         <OptimizeMapOption
                             key={index}
-                            enabled={option.isEnabled}
-                            setEnabled={(isEnabled: boolean) => setOptionEnabled(index, isEnabled)}
+                            enabled={enabledIDs.includes(option.id)}
+                            setEnabled={(isEnabled: boolean) => setOptionEnabled(option.id, isEnabled)}
                             label={option.label}
                             description={option.description}
+                            warning={option.warning}
                             icon={option.icon}
                         />
                     ))}
@@ -120,7 +156,7 @@ export default function OptimizeMapPanel() {
                     size={"small"}
                     onClick={onOptimize}
                     fullWidth
-                    disabled={isRunning || optimizeOptions.every(option => !option.isEnabled)}
+                    disabled={isRunning || optimizeOptions.every(option => !enabledIDs.includes(option.id))}
                 >
                     {isRunning ?
                         <CircularProgress size={20} color={"inherit"} sx={{mr: 1}}/> :
@@ -128,38 +164,27 @@ export default function OptimizeMapPanel() {
                     }
                     {t("map.optimize")}
                 </Button>
-            </Grid>
+            </Box>
 
-            <Grid
-                size={6}
+            <Paper
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "stretch"
+                    flex: 1,
+                    m: 2,
+                    p: 2,
+                    fontFamily: "monospace",
+                    overflow: "auto"
                 }}
+                elevation={0}
             >
-                <Paper
-                    sx={{
-                        m: 2,
-                        p: 2,
-                        fontFamily: "monospace",
-                        overflow: "auto",
-                        flexGrow: 1,
-                        minHeight: 300,
-                        maxHeight: 300,
-                    }}
-                    elevation={0}
-                >
-                    <code>
-                        <Interweave
-                            content={optimizeLog.join("<br/>")}
-                            style={{display: "block"}}
-                        />
-                        <div ref={bottomLogRef}/>
-                        {/* Dummy div to scroll to bottom */}
-                    </code>
-                </Paper>
-            </Grid>
-        </Grid>
+                <code>
+                    <Interweave
+                        content={optimizeLog.join("<br/>")}
+                        style={{display: "block"}}
+                    />
+                    <div ref={bottomLogRef}/>
+                    {/* Dummy div to scroll to bottom */}
+                </code>
+            </Paper>
+        </Box>
     );
 }

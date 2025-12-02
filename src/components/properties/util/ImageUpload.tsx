@@ -10,20 +10,25 @@ import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
-import {useMapAssetValue} from "../../../hooks/assets/useMapAsset";
-import SizeTag from "../../utils/SizeTag";
-import useSprite from "../../../hooks/canvas/sprite/useSprite";
+import useMapAsset from "../../../hooks/assets/useMapAsset";
+import useTextureFromURL from "../../../hooks/texture/useTextureFromURL";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
+import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
+import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
+import ImageUploadDetails from "./ImageUploadDetails";
 
 interface ImageUploadProps {
     name: string;
     defaultSpriteURL?: string;
     assetID?: GUID;
     onUpload: (asset: MapAsset) => void;
+    onUploadAnimation?: (animation: LISpriteAnimation) => void;
     onReset: () => void;
+
+    isAnimated?: boolean;
 
     color?: LIColor;
     defaultColor?: LIColor;
@@ -36,9 +41,9 @@ export default function ImageUpload(props: ImageUploadProps) {
     const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
-    const asset = useMapAssetValue(props.assetID);
+    const asset = useMapAsset(props.assetID);
     const createMapAsset = useCreateMapAsset();
-    const sprite = useSprite(asset?.url);
+    const sprite = useTextureFromURL(asset?.url);
     const settings = useSettingsValue();
 
     const tryUploadFile = React.useCallback(async (file: File) => {
@@ -49,20 +54,30 @@ export default function ImageUpload(props: ImageUploadProps) {
         // Identify the asset type
         const arrayBuffer = await blob.arrayBuffer();
         let assetType = parseAssetType(arrayBuffer);
+        const isGIF = assetType === "image/gif";
 
         // Check if the asset type is valid
         if (!assetType.startsWith("image/"))
             throw new Error(t("sprite.errorInvalidType"));
 
         // Convert to DDS if needed
-        console.log("Auto-encode to DDS setting:", settings.autoEncodeToDDS);
-        const isGIF = assetType === "image/gif";
         if (settings.autoEncodeToDDS && !isGIF) {
             try {
                 blob = await convertImageBlobToDDS(blob);
                 assetType = "image/dds";
             } catch (e) {
                 console.warn("Failed to convert image to DDS:", e);
+            }
+        }
+
+        // Convert to Sprite Animation if needed
+        if (settings.autoConvertGIFToAnimation && isGIF && props.onUploadAnimation) {
+            try {
+                const animation = await convertGIFToSpriteAnimation(blob);
+                props.onUploadAnimation(animation);
+                return;
+            } catch (e) {
+                console.warn("Failed to convert GIF to Sprite Animation:", e);
             }
         }
 
@@ -116,30 +131,31 @@ export default function ImageUpload(props: ImageUploadProps) {
 
             {/* Image Preview */}
             <Box style={{textAlign: "center", padding: 1}}>
-                {sprite && <SpriteWindow sprite={sprite}/>}
-                {!asset && props.defaultSpriteURL && (
-                    <img
-                        src={props.defaultSpriteURL}
-                        alt={props.name}
-                        style={{
-                            maxWidth: 100,
-                            maxHeight: 100,
-                        }}
-                    />
-                )}
-                {!asset && !props.defaultSpriteURL && (
-                    <HideImageOutlined
-                        style={{
-                            width: 60,
-                            height: 60,
-                            color: "rgba(255, 255, 255, 0.5)",
-                        }}
-                    />
-                )}
+                <SpriteWindow
+                    spriteID={props.assetID}
+                    fallback={props.defaultSpriteURL ? (
+                        <img
+                            src={props.defaultSpriteURL}
+                            alt={props.name}
+                            style={{
+                                maxWidth: 100,
+                                maxHeight: 100,
+                            }}
+                        />
+                    ) : (
+                        <HideImageOutlined
+                            style={{
+                                width: 60,
+                                height: 60,
+                                color: "rgba(255, 255, 255, 0.5)",
+                            }}
+                        />
+                    )}
+                />
             </Box>
 
-            {/* Size Tag */}
-            <SizeTag assetID={props.assetID}/>
+            {/* Details/Metadata */}
+            <ImageUploadDetails assetID={props.assetID}/>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>

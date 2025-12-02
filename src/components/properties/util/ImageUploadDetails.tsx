@@ -1,0 +1,46 @@
+import {Box} from "@mui/material";
+import {MaybeGUID} from "../../../types/common/GUID";
+import useMapAsset from "../../../hooks/assets/useMapAsset";
+import ImageUploadDetailsRow from "./ImageUploadDetailsRow";
+import useSprite from "../../../hooks/sprites/useSprite";
+import toSizeString from "../../../utils/strings/toSizeString";
+
+export interface ImageUploadDetailsProps {
+    assetID: MaybeGUID;
+}
+
+export default function ImageUploadDetails(props: ImageUploadDetailsProps) {
+    const asset = useMapAsset(props.assetID);
+    const sprite = useSprite(props.assetID);
+
+    if (!asset || !sprite)
+        return null;
+    return (
+        <Box
+            sx={{
+                color: "text.secondary",
+                fontSize: 14,
+
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <Box sx={{width: 150}}>
+                <ImageUploadDetailsRow
+                    label="Size"
+                    value={`${sprite.width} x ${sprite.height}`}
+                />
+                <ImageUploadDetailsRow
+                    label="Type"
+                    value={asset.type}
+                />
+                <ImageUploadDetailsRow
+                    label="File Size"
+                    value={toSizeString(asset.blob.size)}
+                />
+            </Box>
+        </Box>
+    );
+}

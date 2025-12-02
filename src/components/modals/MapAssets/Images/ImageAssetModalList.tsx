@@ -1,9 +1,9 @@
 import {Box, ImageList, Typography} from "@mui/material";
 import ImageAssetModalButton from "./ImageAssetModalButton";
 import React from "react";
-import useMapAssetsValue from "../../../../hooks/assets/useMapAssets";
 import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
+import {useMapAssetsValue} from "../../../../hooks/assets/useMapAssets";
 
 export interface ImageAssetModalListProps {
     onClick: (id: GUID) => void;
@@ -11,9 +11,9 @@ export interface ImageAssetModalListProps {
 }
 
 export default function ImageAssetModalList(props: ImageAssetModalListProps) {
-    const assets = useMapAssetsValue();
+    const allMapAssets = useMapAssetsValue();
 
-    const imageAssets = assets?.filter(asset => asset.type.startsWith("image/"));
+    const imageAssets = allMapAssets?.filter(asset => asset.type.startsWith("image/"));
     const hasImageAssets = imageAssets && imageAssets.length > 0;
 
     return (

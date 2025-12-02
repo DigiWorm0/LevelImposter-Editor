@@ -1,10 +1,8 @@
 import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
+import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
 import useElement from "../../hooks/elements/useElements";
-import useIsDroppable from "../../hooks/elements/useIsDroppable";
-import {useSettingsValue} from "../../hooks/useSettings";
 import {MaybeGUID} from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
@@ -12,6 +10,7 @@ import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
 import useSelectElementID from "../../hooks/selection/useSelectElementID";
+import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;
@@ -20,13 +19,10 @@ export interface SceneGraphElementProps {
 }
 
 export default function SceneGraphElement(props: SceneGraphElementProps) {
-    const [draggingID, setDraggingID] = useDraggingElementID();
-    const [draggingElement, setDraggingElement] = useElement(draggingID);
+    const [, setDraggingID] = useDraggingElementID();
     const isSelected = useIsElementSelected(props.elementID);
     const [element, setElement] = useElement(props.elementID);
-    const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
-    const {elementNesting} = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
     const jumpToElement = useJumpToElement();
     const selectElementID = useSelectElementID();
@@ -35,7 +31,6 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
         return null;
 
     const isGroup = element.type === "util-layer";
-    const isDisabled = !((isGroup || elementNesting) && isDroppable) && draggingID !== undefined;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery);
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery);
@@ -53,11 +48,11 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 draggable
                 disablePadding
                 onDragStart={(e) => {
-                    if (e.dataTransfer.getData("text/plain") !== "")
-                        return;
-
                     setDraggingID(element.id);
-                    e.dataTransfer.setData("text/plain", element.id);
+                    e.stopPropagation();
+
+                    // Set Drag Image
+                    e.dataTransfer.setDragImage(new Image(), 0, 0);
                 }}
                 onDragEnd={() => {
                     setDragOver(false);
@@ -75,10 +70,8 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 }}
                 onDrop={(e) => {
                     e.preventDefault();
-                    const data = e.dataTransfer.getData("text/plain");
-                    if (!(data === element.id || draggingElement === undefined || isDisabled)) {
-                        setDraggingElement({...draggingElement, parentID: element.id});
-                    }
+                    handleSceneGraphDrop(props.elementID);
+
                     setDragOver(false);
                     setDraggingID(undefined);
                     e.stopPropagation();
@@ -114,7 +107,6 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                         });
                     }}
                     onDoubleClick={() => jumpToElement(element.id)}
-                    disabled={isDisabled}
                     dense
                     selected={isSelected || isDragOver}
                 >

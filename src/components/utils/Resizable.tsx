@@ -18,18 +18,21 @@ export interface ResizableProps {
 export default function Resizable(props: ResizableProps) {
     const [isHoveringHandle, setIsHoveringHandle] = React.useState(false);
     const [isDragging, setIsDragging] = React.useState(false);
-    const [size, setSize] = usePanelSize(props.storageKey);
+    const [_size, setSize] = usePanelSize(props.storageKey);
     const handleRef = React.useRef<HTMLDivElement>(null);
     const startPosRef = React.useRef<number>(0);
     const startSizeRef = React.useRef<number>(props.defaultSize);
 
     const axis = props.barLocation === "left" || props.barLocation === "right" ? "x" : "y";
+    let size = _size ?? props.defaultSize;
+    size = Math.max(size, props.minSize ?? 0);
+    size = Math.min(size, props.maxSize ?? Infinity);
 
     const onHandleMouseDown = (e: MouseEvent) => {
         e.preventDefault();
 
         startPosRef.current = axis === "y" ? e.clientY : e.clientX;
-        startSizeRef.current = size ?? props.defaultSize;
+        startSizeRef.current = size;
 
         setIsDragging(true);
     };
@@ -108,7 +111,7 @@ export default function Resizable(props: ResizableProps) {
                     zIndex: 10000,
 
                     pointerEvents: "auto",
-                    
+
                 }}
                 onMouseEnter={() => setIsHoveringHandle(true)}
                 onMouseLeave={() => setIsHoveringHandle(false)}

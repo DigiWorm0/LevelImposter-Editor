@@ -11,7 +11,7 @@ import degToRad from "../../../utils/common/degToRad";
 import useSelectElementID from "../../../hooks/selection/useSelectElementID";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
-import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
+import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import Draggable from "../common/Draggable";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
@@ -86,10 +86,11 @@ export default function MapElement(props: MapElementProps) {
             <pixiContainer ref={containerRef}>
                 {sprite && (
                     <pixiSprite
+                        texture={sprite}
+
                         anchor={0.5}
                         x={0}
                         y={0}
-                        texture={sprite}
                         alpha={opacity}
                         cursor={element.properties.isLocked ? "default" : "pointer"}
 

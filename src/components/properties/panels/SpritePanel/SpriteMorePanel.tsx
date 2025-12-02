@@ -1,22 +1,23 @@
 import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
-import {useMapAssetValue} from "../../../../hooks/assets/useMapAsset";
+import useMapAsset from "../../../../hooks/assets/useMapAsset";
 import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
-import ElementPropSwitch from "../../input/elementProps/ElementPropSwitch";
 import React from "react";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
-import {Download, Gradient} from "@mui/icons-material";
+import {Animation, Download, Gradient} from "@mui/icons-material";
 import {convertImageAssetToDDS} from "../../../../utils/dds/convertImageToDDS";
 import useDownloadMapAsset from "../../../../hooks/assets/useDownloadMapAsset";
 import {useSelectedElemValue} from "../../../../hooks/elements/useSelectedElem";
 import useDownloadElementAsPNG from "../../../../hooks/assets/useDownloadElementAsPNG";
+import useSpriteAnimEditorOpen from "../../../../hooks/spriteAnim/useSpriteAnimEditorOpen";
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();
     const selectedType = useSelectedElemType();
     const spriteID = useSelectedElemPropValue("spriteID");
-    const asset = useMapAssetValue(spriteID);
+    const asset = useMapAsset(spriteID);
     const selectedElem = useSelectedElemValue();
+    const [isAnimEditorOpen, setAnimEditorOpen] = useSpriteAnimEditorOpen();
 
     const downloadRaw = useDownloadMapAsset();
     const _downloadPNG = useDownloadElementAsPNG();
@@ -32,9 +33,7 @@ export default function SpriteMorePanel() {
         }
     }, [isDownloadingPNG, _downloadPNG, selectedElem]);
 
-    if (!spriteID || !asset)
-        return null;
-
+    const hasSprite = Boolean(asset);
     const isGIF = asset?.blob.type === "image/gif";
     const isDDS = asset?.blob.type === "image/dds";
     const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
@@ -50,15 +49,31 @@ export default function SpriteMorePanel() {
                     color={"secondary"}
                     size={"small"}
                     fullWidth
-                    onClick={() => downloadRaw({id: spriteID, fileName})}
+                    onClick={() => setAnimEditorOpen(true)}
+                    disabled={isAnimEditorOpen}
                 >
-                    <Download
+                    <Animation
                         sx={{marginRight: 0.5}}
                         fontSize={"small"}
                     />
-                    {t("sprite.downloadAsType", {type: assetType || "N/A"})}
+                    {t("sprite.editAnimation")}
                 </Button>
-                {isDDS && (
+                {hasSprite && (
+                    <Button
+                        variant={"outlined"}
+                        color={"secondary"}
+                        size={"small"}
+                        fullWidth
+                        onClick={() => downloadRaw({id: spriteID, fileName})}
+                    >
+                        <Download
+                            sx={{marginRight: 0.5}}
+                            fontSize={"small"}
+                        />
+                        {t("sprite.downloadAsType", {type: assetType || "N/A"})}
+                    </Button>
+                )}
+                {hasSprite && isDDS && (
                     <Button
                         variant={"outlined"}
                         color={"secondary"}
@@ -83,7 +98,7 @@ export default function SpriteMorePanel() {
                         {t("sprite.downloadAsPNG")}
                     </Button>
                 )}
-                {!isDDS && !isGIF && (
+                {hasSprite && !isDDS && !isGIF && (
                     <Button
                         variant={"outlined"}
                         color={"secondary"}
@@ -99,15 +114,6 @@ export default function SpriteMorePanel() {
                     </Button>
                 )}
             </ButtonGroup>
-
-            {isGIF && (
-                <ElementPropSwitch
-                    name={t("sprite.loop")}
-                    prop="loopGIF"
-                    defaultValue={!isCustomAnim}
-                    disabled={isCustomAnim}
-                />
-            )}
         </Box>
     );
 }

@@ -1,10 +1,11 @@
 import {MaybeGUID} from "../../types/common/GUID";
 import {Box, Chip} from "@mui/material";
-import {useMapAssetValue} from "../../hooks/assets/useMapAsset";
+import useMapAsset from "../../hooks/assets/useMapAsset";
 import toSizeString from "../../utils/strings/toSizeString";
 
 export interface SizeTagProps {
     assetID: MaybeGUID;
+    isAnimated?: boolean;
 }
 
 const TYPES_TO_TEXT = {
@@ -21,14 +22,14 @@ const GOOD_SIZE = 1000 * 1000 * 2; // 2MB
 const BAD_SIZE = 1000 * 1000 * 5; // 10MB
 
 export default function SizeTag(props: SizeTagProps) {
-    const asset = useMapAssetValue(props.assetID);
+    const asset = useMapAsset(props.assetID);
     if (!asset)
         return null;
 
     const typeString = asset.type in TYPES_TO_TEXT ?
         TYPES_TO_TEXT[asset.type as keyof typeof TYPES_TO_TEXT] :
         asset.type;
-    
+
     const isDDS = typeString === "DDS";
 
     const assetSize = asset?.blob.size ?? 0;
@@ -52,6 +53,13 @@ export default function SizeTag(props: SizeTagProps) {
                 label={typeString}
                 sx={{ml: 1}}
             />
+            {props.isAnimated && (
+                <Chip
+                    color={"info"}
+                    label={"Animated"}
+                    sx={{ml: 1}}
+                />
+            )}
         </Box>
     );
 }

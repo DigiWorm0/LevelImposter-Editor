@@ -3,18 +3,17 @@ import {SceneGraphListItem} from "./SceneGraphListItem";
 import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import {Public} from "@mui/icons-material";
 import {useMapName} from "../../hooks/map/useMap";
-import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
-import useElement from "../../hooks/elements/useElements";
+import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import React from "react";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
+import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
 
 export default function SceneGraphOrigin() {
     const setSelectedElemID = useSetSelectedElemID();
     const [mapName] = useMapName();
     const jumpToElement = useJumpToElement();
 
-    const [draggingID, setDraggingID] = useDraggingElementID();
-    const [draggingElement, setDraggingElement] = useElement(draggingID);
+    const [, setDraggingID] = useDraggingElementID();
     const [isDragOver, setDragOver] = React.useState(false);
 
     return (
@@ -34,8 +33,7 @@ export default function SceneGraphOrigin() {
             }}
             onDrop={(e) => {
                 e.preventDefault();
-                if (draggingElement !== undefined)
-                    setDraggingElement({...draggingElement, parentID: undefined});
+                handleSceneGraphDrop(undefined);
 
                 setDragOver(false);
                 setDraggingID(undefined);

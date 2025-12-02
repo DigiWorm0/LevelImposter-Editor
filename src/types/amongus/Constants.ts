@@ -88,3 +88,9 @@ export const SINGLE_TYPES = [
     "util-cams4",
     "util-eject"
 ];
+
+export const SUPPORTED_IMAGE_TYPES = [
+    "image/png",
+    "image/gif",
+    "image/jpeg"
+];

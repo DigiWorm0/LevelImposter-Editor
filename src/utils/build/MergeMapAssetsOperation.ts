@@ -3,12 +3,17 @@ import GUID, {MaybeGUID} from "../../types/common/GUID";
 import MapAsset from "../../types/li/MapAsset";
 import primaryStore from "../../hooks/primaryStore";
 import {mapAssetsAtom} from "../../hooks/assets/useMapAssets";
-import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 import BuildOperationLog from "./BuildOperationLog";
+import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 
 interface MergeCandidate {
     fromID: MaybeGUID;
     toID: MaybeGUID;
+}
+
+interface AssetData {
+    id: GUID;
+    data: Uint8Array;
 }
 
 /**
@@ -70,14 +75,15 @@ const MergeMapAssetsOperation: BuildOperation = {
         // Get merge candidates
         const mergeCandidates = findMergeCandidates(allAssets);
 
-        BuildOperationLog.info(`Found ${mergeCandidates.length} asset candidates to check`);
 
         // Only fetch data for assets that are part of merge candidates
         let mergeCandidateAssetIDs = mergeCandidates.flatMap(c => [c.fromID, c.toID]);
         mergeCandidateAssetIDs = Array.from(new Set(mergeCandidateAssetIDs)); // Deduplicate
 
+        BuildOperationLog.info(`Found ${mergeCandidateAssetIDs.length} asset candidates to check`);
+
         // Load asset data into memory
-        const assetDataMap: Record<GUID, Uint8Array> = {};
+        const assetDataList: AssetData[] = [];
         for (let i = 0; i < mergeCandidateAssetIDs.length; i++) {
             // Log progress every 10 assets
             if (i % 10 === 0)
@@ -92,52 +98,98 @@ const MergeMapAssetsOperation: BuildOperation = {
             }
 
             // Load asset data
-            assetDataMap[asset.id] = new Uint8Array(await asset.blob.arrayBuffer());
+            assetDataList.push({
+                id: asset.id,
+                data: new Uint8Array(await asset.blob.arrayBuffer())
+            });
         }
 
-        // Log loaded asset data
-        BuildOperationLog.info(`Loaded data for ${Object.keys(assetDataMap).length} assets`);
+        // Sort asset data sequentially by data to improve comparison speed
+        // This is faster than comparing every asset to every other asset
+        // This takes it from O(n^2) to O(n log n)
+        BuildOperationLog.info(`Sorting ${assetDataList.length} assets...`);
+        assetDataList.sort((a, b) => {
+            if (a.data.length !== b.data.length)
+                return a.data.length - b.data.length;
+            for (let i = 0; i < a.data.length; i++) {
+                if (a.data[i] !== b.data[i])
+                    return a.data[i] - b.data[i];
+            }
+            return 0;
+        });
 
-        // Run through candidates and find matches
-        const replacedIDs = new Set<MaybeGUID>();
+        // Go through sorted asset data and find matches
         let totalAssetsMerged = 0;
-        for (let i = 0; i < mergeCandidates.length; i++) {
+        for (let i = 0; i < assetDataList.length - 1; i++) {
+
+            // Get candidate
+            const from = assetDataList[i];
+            const to = assetDataList[i + 1];
+
             // Log progress every 5 candidates
             if (i % 5 === 0)
-                BuildOperationLog.info(`Comparing assets... (${i}/${mergeCandidates.length})`);
+                BuildOperationLog.info(`Comparing candidates... (${i}/${assetDataList.length})`);
 
-            // Skip if already replaced
-            const candidate = mergeCandidates[i];
-            if (replacedIDs.has(candidate.fromID) || replacedIDs.has(candidate.toID))
-                continue;
-
-            // Get asset data
-            const fromData = assetDataMap[candidate.fromID!];
-            const toData = assetDataMap[candidate.toID!];
-
-            // Compare data
-            const isMatch = compareArrayData(fromData, toData);
-
-            // Wait a tick every 5 comparisons to keep UI responsive
-            if (i % 5 === 0)
-                await new Promise(requestAnimationFrame);
+            // Compare data with next asset in sorted list
+            const isMatch = compareArrayData(from.data, to.data);
 
             // If matches, replace all references
             if (isMatch) {
-                BuildOperationLog.info(`Merging asset ${candidate.fromID?.slice(0, 4)}... >>> ${candidate.toID?.slice(0, 4)}...`);
+                BuildOperationLog.info(`Merging asset ${from.id.slice(0, 4)}... >>> ${to.id.slice(0, 4)}...`);
                 totalAssetsMerged++;
 
                 primaryStore.set(replaceMapAssetIDAtom, {
-                    fromID: candidate.fromID,
-                    toID: candidate.toID
+                    fromID: from.id,
+                    toID: to.id
                 });
-
-                replacedIDs.add(candidate.fromID);
             }
         }
 
         // Log result
         BuildOperationLog.success(`Merged ${totalAssetsMerged} assets`);
+
+        //
+        //
+        // // Run through candidates and find matches
+        // const replacedIDs = new Set<MaybeGUID>();
+        // let totalAssetsMerged = 0;
+        // for (let i = 0; i < mergeCandidates.length; i++) {
+        //     // Log progress every 5 candidates
+        //     if (i % 5 === 0)
+        //         BuildOperationLog.info(`Comparing candidates... (${i}/${mergeCandidates.length})`);
+        //
+        //     // Skip if already replaced
+        //     const candidate = mergeCandidates[i];
+        //     if (replacedIDs.has(candidate.fromID) || replacedIDs.has(candidate.toID))
+        //         continue;
+        //
+        //     // Get asset data
+        //     const fromData = assetDataMap[candidate.fromID!];
+        //     const toData = assetDataMap[candidate.toID!];
+        //
+        //     // Compare data
+        //     const isMatch = compareArrayData(fromData, toData);
+        //
+        //     // Wait a tick every 5 comparisons to keep UI responsive
+        //     if (i % 5 === 0)
+        //         await new Promise(requestAnimationFrame);
+        //
+        //     // If matches, replace all references
+        //     if (isMatch) {
+        //         BuildOperationLog.info(`Merging asset ${candidate.fromID?.slice(0, 4)}... >>> ${candidate.toID?.slice(0, 4)}...`);
+        //         totalAssetsMerged++;
+        //
+        //         primaryStore.set(replaceMapAssetIDAtom, {
+        //             fromID: candidate.fromID,
+        //             toID: candidate.toID
+        //         });
+        //
+        //         replacedIDs.add(candidate.fromID);
+        //     }
+        // }
+        //
+        // // Log result
+        // BuildOperationLog.success(`Merged ${totalAssetsMerged} assets`);
     }
 };
 

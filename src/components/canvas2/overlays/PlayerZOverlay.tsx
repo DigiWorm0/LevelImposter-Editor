@@ -1,8 +1,8 @@
 import GUID from "../../../types/common/GUID";
 import {useElementValue} from "../../../hooks/elements/useElements";
 import {PLAYER_POS, UNITY_SCALE} from "../../../types/amongus/Constants";
-import useElementSprite from "../../../hooks/canvas/sprite/useElementSprite";
-import useSpriteOfType from "../../../hooks/canvas/sprite/useSpriteOfType";
+import useElementSprite from "../../../hooks/sprites/useElementSprite";
+import useTextureOfType from "../../../hooks/texture/useTextureOfType";
 
 export interface PlayerZOverlayProps {
     elementID: GUID;
@@ -13,7 +13,7 @@ const OFFSET_Y = 30; // Offset for the line from the player's feet
 export default function PlayerZOverlay(props: PlayerZOverlayProps) {
     const element = useElementValue(props.elementID);
     const sprite = useElementSprite(props.elementID);
-    const playerSprite = useSpriteOfType("util-dummy");
+    const playerSprite = useTextureOfType("util-dummy");
 
     const zPosition = element?.z ?? 0;
     const outOfBounds = Math.abs(zPosition - PLAYER_POS) > 0.1;

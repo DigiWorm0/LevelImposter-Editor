@@ -1,8 +1,8 @@
-import { atom, useAtomValue } from "jotai/index";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/common/GUID";
-import { draggingElementIDAtom } from "./useDraggingElementID";
-import { elementChildIDsAtomFamily } from "./useElementChildIDs";
+import {atom, useAtomValue} from "jotai/index";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../../types/common/GUID";
+import {draggingElementIDAtom} from "./useDraggingElementID";
+import {elementChildIDsAtomFamily} from "../useElementChildIDs";
 
 export const droppableBlacklistAtom = atom((get) => {
     const blacklist: MaybeGUID[] = [];

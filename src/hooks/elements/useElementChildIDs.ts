@@ -1,4 +1,4 @@
-import {atom, useAtomValue} from "jotai/index";
+import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {elementsAtom} from "../map/useMap";

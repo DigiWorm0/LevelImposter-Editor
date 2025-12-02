@@ -1,8 +1,8 @@
 // Trim Assets
-import {atom} from "jotai/index";
-import {elementsAtom} from "../map/useMap";
+import {elementsAtom, spritesAtlasesAtom} from "../map/useMap";
 import {mapAssetsAtom} from "./useMapAssets";
-import {useSetAtom} from "jotai";
+import {atom, useSetAtom} from "jotai";
+import {deleteMapAssetAtom} from "./useDeleteMapAsset";
 
 // Atom
 export const trimAssetsAtom = atom(null, (get, set) => {
@@ -13,22 +13,29 @@ export const trimAssetsAtom = atom(null, (get, set) => {
     const meetingSpriteIDs = elements.map((e) => e.properties.meetingBackgroundID);
     const minigameIDs = elements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
     const soundIDs = elements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
-    const assetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs];
+    const animationSpriteIDs = elements?.map(elem =>
+        elem.properties.animations?.map(anim =>
+            anim.frames?.map(frame => frame.spriteID)).flat()
+    ).flat() || [];
+    
+    const usedAssetIDs = [...spriteIDs, ...meetingSpriteIDs, ...minigameIDs, ...soundIDs, ...animationSpriteIDs];
+
+    // Remove Unused Sprite Atlases
+    const spriteAtlases = get(spritesAtlasesAtom) || [];
+    const filteredAtlases = spriteAtlases.filter((a) => usedAssetIDs.includes(a.id));
+    set(spritesAtlasesAtom, filteredAtlases);
+
+    // Add Sprite Atlas Asset IDs to Used IDs
+    usedAssetIDs.push(...filteredAtlases.map((a) => a.assetID));
 
     // Remove Unused Assets
     const mapAssets = get(mapAssetsAtom) ?? [];
-    const filteredAssets = mapAssets.filter((a) => assetIDs.includes(a.id));
+    const unusedAssets = mapAssets.filter((a) => !usedAssetIDs.includes(a.id));
+    for (const asset of unusedAssets)
+        set(deleteMapAssetAtom, asset.id); // <-- Runs cleanup
 
-    // Update Atom
-    const trimAmount = mapAssets.length - filteredAssets.length;
-    if (trimAmount > 0) {
-        set(mapAssetsAtom, filteredAssets);
-        console.log(`Trimmed ${trimAmount} assets`);
-        return trimAmount;
-    } else {
-        console.log("No assets to trim");
-        return 0;
-    }
+    // Return number of removed assets
+    return unusedAssets.length;
 
 });
 trimAssetsAtom.debugLabel = "trimAssetsAtom";
