@@ -11,7 +11,6 @@ import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 import useMapAsset from "../../../hooks/assets/useMapAsset";
-import SizeTag from "../../utils/SizeTag";
 import useTextureFromURL from "../../../hooks/texture/useTextureFromURL";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
@@ -19,6 +18,7 @@ import {useSettingsValue} from "../../../hooks/useSettings";
 import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
 import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
 import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
+import ImageUploadDetails from "./ImageUploadDetails";
 
 interface ImageUploadProps {
     name: string;
@@ -131,30 +131,31 @@ export default function ImageUpload(props: ImageUploadProps) {
 
             {/* Image Preview */}
             <Box style={{textAlign: "center", padding: 1}}>
-                {sprite && <SpriteWindow sprite={sprite} maxSize={100}/>}
-                {!asset && props.defaultSpriteURL && (
-                    <img
-                        src={props.defaultSpriteURL}
-                        alt={props.name}
-                        style={{
-                            maxWidth: 100,
-                            maxHeight: 100,
-                        }}
-                    />
-                )}
-                {!asset && !props.defaultSpriteURL && (
-                    <HideImageOutlined
-                        style={{
-                            width: 60,
-                            height: 60,
-                            color: "rgba(255, 255, 255, 0.5)",
-                        }}
-                    />
-                )}
+                <SpriteWindow
+                    spriteID={props.assetID}
+                    fallback={props.defaultSpriteURL ? (
+                        <img
+                            src={props.defaultSpriteURL}
+                            alt={props.name}
+                            style={{
+                                maxWidth: 100,
+                                maxHeight: 100,
+                            }}
+                        />
+                    ) : (
+                        <HideImageOutlined
+                            style={{
+                                width: 60,
+                                height: 60,
+                                color: "rgba(255, 255, 255, 0.5)",
+                            }}
+                        />
+                    )}
+                />
             </Box>
 
-            {/* Size Tag */}
-            <SizeTag assetID={props.assetID} isAnimated={props.isAnimated}/>
+            {/* Details/Metadata */}
+            <ImageUploadDetails assetID={props.assetID}/>
 
             {/* Buttons */}
             <ButtonGroup fullWidth>

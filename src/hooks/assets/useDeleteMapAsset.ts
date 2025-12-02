@@ -20,11 +20,11 @@ export const deleteMapAssetAtom = atom(null, (get, set, id: MaybeGUID) => {
         if (texture && !texture.destroyed)
             texture.destroy(true);
     };
-    
+
     get(spriteAtomFamily(id)).then(destroyTexture).catch(console.error);
     get(textureAtomFamily(id)).then(destroyTexture).catch(console.error);
 
-    // Release URL object
+    // Release URL object(s)
     URL.revokeObjectURL(mapAsset.url);
 
     // Remove from map assets

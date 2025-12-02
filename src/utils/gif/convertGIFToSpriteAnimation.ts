@@ -30,7 +30,7 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     const ctx = canvas.getContext("2d");
     if (!ctx)
         throw new Error("Failed to get canvas context");
-    
+
     canvas.width = gif.lsd.width;
     canvas.height = gif.lsd.height;
 
@@ -44,6 +44,7 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     // Return the sprite animation
     return {
         id: generateGUID(),
+        type: "default",
         frames: animationFrames
     };
 }
@@ -156,7 +157,7 @@ export async function convertGIFAssetToSpriteAnim(assetID: MaybeGUID): Promise<L
             properties: {
                 ...element.properties,
                 spriteID: stillSpriteID,
-                animation
+                animations: [animation]
             }
         });
     }

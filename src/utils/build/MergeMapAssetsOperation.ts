@@ -75,11 +75,12 @@ const MergeMapAssetsOperation: BuildOperation = {
         // Get merge candidates
         const mergeCandidates = findMergeCandidates(allAssets);
 
-        BuildOperationLog.info(`Found ${mergeCandidates.length} asset candidates to check`);
 
         // Only fetch data for assets that are part of merge candidates
         let mergeCandidateAssetIDs = mergeCandidates.flatMap(c => [c.fromID, c.toID]);
         mergeCandidateAssetIDs = Array.from(new Set(mergeCandidateAssetIDs)); // Deduplicate
+
+        BuildOperationLog.info(`Found ${mergeCandidateAssetIDs.length} asset candidates to check`);
 
         // Load asset data into memory
         const assetDataList: AssetData[] = [];
