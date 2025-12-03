@@ -1,4 +1,5 @@
 import {DDSHeader} from "../../../types/dds/DDSHeader";
+import chooseEndpointColors from "./chooseEndpointColors";
 
 const BLOCK_SIZE = 8;
 
@@ -73,10 +74,8 @@ function encodeBlock(
     const hasTransparentPixels = colors.some(color => color[3] === 0) && enableAlpha;
 
     // Calculate min/max color
-    const color0 = getMinColor(colors, hasTransparentPixels);
+    const {color0, color1} = chooseEndpointColors(colors, hasTransparentPixels);
     let color0Encoded = encodeColor(color0);
-
-    const color1 = getMaxColor(colors, hasTransparentPixels);
     let color1Encoded = encodeColor(color1);
 
     // If no transparency, ensure color0 is always greater than (or equal to) color1
@@ -155,89 +154,67 @@ export function calculateColorIndex(
     // If the two endpoint colors are equal, return 0 (the only color available)
     if (isEqual) return 0;
 
-    // Get the RGB components of the pixel color
-    const r = pixelColor[0];
-    const g = pixelColor[1];
-    const b = pixelColor[2];
+    // Calculate the distances to 2 colors
+    const dist0 = getDistanceBetweenColors(pixelColor, color0);
+    const dist1 = getDistanceBetweenColors(pixelColor, color1);
 
-    // Calculate the distance to each endpoint color
-    const dist0 = Math.sqrt(
-        Math.pow(r - color0[0], 2) +
-        Math.pow(g - color0[1], 2) +
-        Math.pow(b - color0[2], 2));
-
-    const dist1 = Math.sqrt(
-        Math.pow(r - color1[0], 2) +
-        Math.pow(g - color1[1], 2) +
-        Math.pow(b - color1[2], 2));
-
-    // return dist0 < dist1 ? 0 : 1; // Return 0 if closer to color0, otherwise return 1
-
-    const distPercent = dist0 / (dist0 + dist1);
-
-    // Choose the color index based on the distances
     if (isTransparencyEnabled) {
-        if (distPercent < 0.33) return 0;       // Closest to color0
-        else if (distPercent > 0.66) return 1;  // Closer to color1
-        else return 2;                          // Between color0 and color1
+        // Calculate the distance to interpolated color (color2)
+        const color2 = [
+            Math.round((color0[0] + color1[0]) / 2),
+            Math.round((color0[1] + color1[1]) / 2),
+            Math.round((color0[2] + color1[2]) / 2)
+        ];
+        const dist2 = getDistanceBetweenColors(pixelColor, color2);
+
+        // Determine which color is closest
+        if (dist0 <= dist1 && dist0 <= dist2)
+            return 0; // Closest to color0
+        else if (dist1 <= dist0 && dist1 <= dist2)
+            return 1; // Closest to color1
+        else
+            return 2; // Closest to color2
     } else {
-        if (distPercent < 0.2) return 1;        // Closest to color0
-        else if (distPercent > 0.8) return 0;   // Closer to color1
-        else if (distPercent < 0.5) return 3;   // Between color0 and color1, closer to color0
-        else return 2;                           // Between color0 and color1, closer to color1
+
+        // Calculate the distance to two interpolated colors (color2 and color3)
+        const color2 = [
+            Math.round((2 * color0[0] + color1[0]) / 3),
+            Math.round((2 * color0[1] + color1[1]) / 3),
+            Math.round((2 * color0[2] + color1[2]) / 3)
+        ];
+        const dist2 = getDistanceBetweenColors(pixelColor, color2);
+
+        const color3 = [
+            Math.round((color0[0] + 2 * color1[0]) / 3),
+            Math.round((color0[1] + 2 * color1[1]) / 3),
+            Math.round((color0[2] + 2 * color1[2]) / 3)
+        ];
+        const dist3 = getDistanceBetweenColors(pixelColor, color3);
+
+        // Determine which color is closest
+        if (dist0 <= dist1 && dist0 <= dist2 && dist0 <= dist3)
+            return 1; // Closest to color0
+        else if (dist1 <= dist0 && dist1 <= dist2 && dist1 <= dist3)
+            return 0; // Closest to color1
+        else if (dist2 <= dist0 && dist2 <= dist1 && dist2 <= dist3)
+            return 3; // Closest to color2
+        else
+            return 2; // Closest to color3
     }
 }
 
 /**
- * Gets the minimum color from an array of colors.
- * Selects the minimum value for each RGBA channel across all colors.
- * @param colors - An array of colors, each represented as an array of RGBA values.
- * @param skipTransparentColors - If true, skips fully transparent colors when calculating the minimum.
- * @return An array representing the minimum color [R, G, B, A].
+ * Calculates the distance between two colors in RGB space.
+ * @param colorA - The first color as an array [R, G, B].
+ * @param colorB - The second color as an array [R, G, B].
+ * @return The distance between the two colors.
  */
-export function getMinColor(colors: number[][], skipTransparentColors: boolean): number[] {
-    // Initialize a color array with maximum values
-    const minColor = [255, 255, 255, 255];
-
-    // Iterate through the colors to find the minimum
-    for (const color of colors) {
-        // Skip fully transparent colors if specified
-        if (skipTransparentColors && color[3] === 0)
-            continue;
-
-        minColor[0] = Math.min(minColor[0], color[0]);
-        minColor[1] = Math.min(minColor[1], color[1]);
-        minColor[2] = Math.min(minColor[2], color[2]);
-        minColor[3] = Math.min(minColor[3], color[3]);
-    }
-
-    return minColor;
-}
-
-/**
- * Gets the maximum color from an array of colors.
- * Selects the maximum value for each RGBA channel across all colors.
- * @param colors - An array of colors, each represented as an array of RGBA values.
- * @param skipTransparentColors - If true, skips fully transparent colors when calculating the maximum.
- * @return An array representing the maximum color [R, G, B, A].
- */
-export function getMaxColor(colors: number[][], skipTransparentColors: boolean): number[] {
-    // Initialize a color array with minimum values
-    const maxColor = [0, 0, 0, 0];
-
-    // Iterate through the colors to find the maximum
-    for (const color of colors) {
-        // Skip fully transparent colors if specified
-        if (skipTransparentColors && color[3] === 0)
-            continue;
-
-        maxColor[0] = Math.max(maxColor[0], color[0]);
-        maxColor[1] = Math.max(maxColor[1], color[1]);
-        maxColor[2] = Math.max(maxColor[2], color[2]);
-        maxColor[3] = Math.max(maxColor[3], color[3]);
-    }
-
-    return maxColor;
+function getDistanceBetweenColors(colorA: number[], colorB: number[]): number {
+    return Math.sqrt(
+        Math.pow(colorA[0] - colorB[0], 2) +
+        Math.pow(colorA[1] - colorB[1], 2) +
+        Math.pow(colorA[2] - colorB[2], 2)
+    );
 }
 
 /**

@@ -1,5 +1,6 @@
-import {calculateColorIndex, getMaxColor, getMinColor, readBlockFromBitmap} from "./writeDXT1Texture";
+import {calculateColorIndex, readBlockFromBitmap} from "./writeDXT1Texture";
 import {DDSHeader} from "../../../types/dds/DDSHeader";
+import chooseEndpointColors from "./chooseEndpointColors";
 
 const BLOCK_SIZE = 16;
 
@@ -68,10 +69,8 @@ function encodeBlock(
     const colors = readBlockFromBitmap(bitmapBuffer, width, x, y);
 
     // Calculate min/max color
-    const color0 = getMinColor(colors, false);
+    const {color0, color1} = chooseEndpointColors(colors, false);
     let color0Encoded = encodeColor(color0);
-
-    const color1 = getMaxColor(colors, false);
     let color1Encoded = encodeColor(color1);
 
     // Ensure color0 is always greater than (or equal to) color1
