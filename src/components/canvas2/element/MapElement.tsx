@@ -87,6 +87,7 @@ export default function MapElement(props: MapElementProps) {
                 {sprite && (
                     <pixiSprite
                         texture={sprite}
+                        tint={element.properties.color}
 
                         anchor={0.5}
                         x={0}

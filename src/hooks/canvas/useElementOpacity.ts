@@ -5,6 +5,7 @@ import useElement from "../elements/useElements";
 import {useSelectedElemPropValue} from "../elements/useSelectedElemProperty";
 import {MaybeGUID} from "../../types/common/GUID";
 import useIsElementSelected from "../elements/useIsElementSelected";
+import {Color} from "pixi.js";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",
@@ -22,10 +23,12 @@ export default function useElementOpacity(elementID: MaybeGUID): number {
     if (!elem)
         return 0;
 
+    const elemColorOpacity = new Color(elem.properties.color).alpha;
     const isAnimTarget = animTargets?.some(t => t.id === elementID);
     const elemVisibility = getElemVisibility(elem);
     const isVisible = elem.properties.isVisible ?? true;
-    return (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
+    return elemColorOpacity * // The base opacity from the element color
+        (isAnimTarget ? 0.5 : 1) * // If Element is Anim Target
         (isColliderSelected ? 0.5 : 1) * // If Collider is Selected
         (isVisible ? 1 : (isSelected ? invisibleOpacity : 0)) * // If Element is Visible
         (elemVisibility === ElemVisibility.Visible || isSelected ? 1 : invisibleOpacity) * // If Element is Visible in Current Layer
