@@ -6,6 +6,9 @@ import Vector2 from "../../../../types/transform/Vector2";
 import SelectOperation from "../../../../types/common/SelectOperation";
 import {useSettingsValue} from "../../../../hooks/useSettings";
 import LICollider from "../../../../types/li/LICollider";
+import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
+import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
+import getOffsetFromElement, {getReverseOffsetToElement} from "../../../../utils/canvas/getOffsetFromElement";
 
 export interface ColliderEditorPointProps {
     id: string;
@@ -25,7 +28,26 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
     const {gridSnapResolution, colliderHandleSize, isGridSnapEnabled} = useSettingsValue();
     const [isHovering, setIsHovering] = React.useState(false);
 
+    const selectedElementID = useSelectedElemIDValue();
+    const mapElementRef = useMapElementRef(selectedElementID);
+
     const {id, point, selected, collider} = props;
+
+    /*
+        Transform point to world space (relative to the map element)
+     */
+    const transformedPoint = getOffsetFromElement(mapElementRef.current, {
+        x: point.x * -UNITY_SCALE,
+        y: point.y * -UNITY_SCALE
+    });
+    const getReverseTransformedPoint = (point: Vector2) => {
+        const reversePoint = getReverseOffsetToElement(mapElementRef.current, point);
+        return {
+            x: reversePoint.x / -UNITY_SCALE,
+            y: reversePoint.y / -UNITY_SCALE
+        };
+    };
+
     const handleSize = colliderHandleSize * 0.7 * (selected ? 1.1 : 1) * (isHovering ? 1.1 : 1);
 
     const stroke = collider?.blocksLight ? "#ff0000" : "#00ff00";
@@ -38,8 +60,8 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
             draggable
             selected={selected}
 
-            x={point.x * UNITY_SCALE}
-            y={point.y * UNITY_SCALE}
+            x={transformedPoint.x}
+            y={transformedPoint.y}
 
             gridSnapResolution={isGridSnapEnabled ? gridSnapResolution * UNITY_SCALE : undefined}
 
@@ -54,9 +76,9 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
                 props.onSelectPoint(getSelectOperationFromEvent(e.pointerEvent, selected, true));
             }}
             onDragMove={(e) => {
-                point.x = e.x / UNITY_SCALE;
-                point.y = e.y / UNITY_SCALE;
-
+                const reverseTransformedPoint = getReverseTransformedPoint({x: e.x, y: e.y});
+                point.x = reverseTransformedPoint.x;
+                point.y = reverseTransformedPoint.y;
                 props.onForceRedraw();
             }}
             onDragEnd={() => props.onUpdatePoint({...point})}

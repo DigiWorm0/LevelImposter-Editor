@@ -11,7 +11,6 @@ import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
 import useMapAsset from "../../../hooks/assets/useMapAsset";
-import useTextureFromURL from "../../../hooks/texture/useTextureFromURL";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
 import {useSettingsValue} from "../../../hooks/useSettings";
@@ -43,7 +42,6 @@ export default function ImageUpload(props: ImageUploadProps) {
     const toaster = useToaster();
     const asset = useMapAsset(props.assetID);
     const createMapAsset = useCreateMapAsset();
-    const sprite = useTextureFromURL(asset?.url);
     const settings = useSettingsValue();
 
     const tryUploadFile = React.useCallback(async (file: File) => {

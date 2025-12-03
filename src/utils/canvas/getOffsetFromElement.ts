@@ -4,33 +4,58 @@ import primaryStore from "../../hooks/primaryStore";
 import {viewportAtom} from "../../hooks/canvas/useViewport";
 
 /**
- * Calculates the offset position of an element based on its world transform matrix.
- * @param element The PIXI Container element whose offset is to be calculated.
- * @param offset The local offset vector to apply to the element's position.
- * @return An object containing the calculated x and y coordinates based on the offset.
+ * Apply's the element's transformation matrix to a point
+ * @param element The element's PIXI container
+ * @param offset A local position relative to the element in object space
+ * @return A local position relative to the element in world space
  */
 export default function getOffsetFromElement(element: Container | null, offset: Vector2) {
-
-    // Check if the element is null
     if (!element)
         return offset;
 
-    // Get the viewport matrix from the primary store
+    const objectMatrix = getWorldObjectMatrix(element);
+    const worldOffset = objectMatrix.apply(offset);
+
+    return {
+        x: objectMatrix.tx - worldOffset.x,
+        y: objectMatrix.ty - worldOffset.y
+    };
+}
+
+/**
+ * Apply's the inverse of the element's transformation matrix to a point.
+ * Does the reverse of {@link getOffsetFromElement}.
+ * @param element The element's PIXI container
+ * @param offset A local position relative to the element in world space
+ * @return A local position relative to the element in object space
+ */
+export function getReverseOffsetToElement(element: Container | null, offset: Vector2) {
+    if (!element)
+        return offset;
+
+    const objectMatrix = getWorldObjectMatrix(element);
+    const inverseObjectMatrix = objectMatrix.clone().invert();
+    const localOffset = inverseObjectMatrix.apply(offset);
+
+    return {
+        x: inverseObjectMatrix.tx - localOffset.x,
+        y: inverseObjectMatrix.ty - localOffset.y
+    };
+}
+
+/**
+ * Gets the transformation matrix of an object relative to the world
+ * @param container The PIXI container
+ * @return The transformation matrix
+ */
+function getWorldObjectMatrix(container: Container) {
     const viewport = primaryStore.get(viewportAtom);
     if (!viewport)
         throw new Error("Viewport is not available");
 
     const viewMatrix = viewport.worldTransform;
-    const worldMatrix = element.worldTransform;
+    const objectMatrix = container.worldTransform;
 
-    // Apply the inverse of the viewport matrix to the element's world transform
     const inverseViewMatrix = viewMatrix.clone().invert();
-    const matrix = inverseViewMatrix.clone().append(worldMatrix);
-    const point = matrix.apply(offset);
-
-    // Only apply offset to the x and y coordinates
-    return {
-        x: matrix.tx - point.x,
-        y: matrix.ty - point.y
-    };
+    return inverseViewMatrix.clone().append(objectMatrix);
 }
