@@ -1,11 +1,11 @@
 import {RestartAlt, Upload} from "@mui/icons-material";
 import {Button, ButtonGroup} from "@mui/material";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import uploadSpriteAnimFrames from "../../../utils/spriteAnim/uploadSpriteAnimFrames";
 import uploadSpriteAnimGIF from "../../../utils/spriteAnim/uploadSpriteAnimGIF";
+import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
 
 export function AnimatedSpriteEditorActions() {
-    const [, setAnimations] = useSelectedElemProp("animations");
+    const [, setAnimation] = useSelectedSpriteAnim();
 
     return (
         <ButtonGroup
@@ -33,7 +33,7 @@ export function AnimatedSpriteEditorActions() {
                 variant={"outlined"}
                 size={"small"}
                 color={"error"}
-                onClick={() => setAnimations(undefined)}
+                onClick={() => setAnimation(undefined)}
             >
                 Reset
             </Button>

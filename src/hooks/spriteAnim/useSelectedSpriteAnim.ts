@@ -21,19 +21,22 @@ export const selectedSpriteAnimAtom = atom((get) => {
         return animationByType;
 
     return undefined;
-}, (get, set, newAnim: LISpriteAnimation) => {
+}, (get, set, newAnim?: LISpriteAnimation) => {
     // Get current animations
-    const animations = (get(selectedElementPropAtom("animations")) || []) as LISpriteAnimation[];
+    let animations = (get(selectedElementPropAtom("animations")) || []) as LISpriteAnimation[];
+
+    // Get selected animation
+    const selectedAnim = get(selectedSpriteAnimAtom);
 
     // Find selected spriteAnim by ID
-    let index = animations.findIndex(anim => anim.id === newAnim?.id) ?? -1;
+    const index = animations.findIndex(anim => anim.id === selectedAnim?.id);
 
-    // Find selected spriteAnim by type if ID not found
-    if (index < 0)
-        index = animations.findIndex(anim => anim.type === newAnim?.type) ?? -1;
+    // Remove existing spriteAnim with same ID as newAnim
+    if (newAnim === undefined)
+        animations = animations.filter(anim => anim.id !== selectedAnim?.id);
 
     // If not found, create new spriteAnim
-    if (index < 0)
+    else if (index < 0)
         animations.push(newAnim);
 
     // Otherwise, update existing spriteAnim
