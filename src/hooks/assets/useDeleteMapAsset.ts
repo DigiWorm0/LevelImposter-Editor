@@ -2,9 +2,7 @@ import {atom, useSetAtom} from "jotai";
 import {MaybeGUID} from "../../types/common/GUID";
 import {mapAssetsAtom} from "./useMapAssets";
 import {mapAssetsAtomFamily} from "./useMapAsset";
-import {spriteAtomFamily} from "../sprites/useSprite";
-import {textureAtomFamily} from "../texture/useTexture";
-import {Texture} from "pixi.js";
+import cleanupAsset from "../../utils/assets/cleanupAsset";
 
 export const deleteMapAssetAtom = atom(null, (get, set, id: MaybeGUID) => {
 
@@ -13,19 +11,8 @@ export const deleteMapAssetAtom = atom(null, (get, set, id: MaybeGUID) => {
     if (!mapAsset)
         return;
 
-    console.log("Deleting map asset:", id);
-
-    // Clean up PIXI textures
-    const destroyTexture = (texture: Texture | null) => {
-        if (texture && !texture.destroyed)
-            texture.destroy(true);
-    };
-
-    get(spriteAtomFamily(id)).then(destroyTexture).catch(console.error);
-    get(textureAtomFamily(id)).then(destroyTexture).catch(console.error);
-
-    // Release URL object(s)
-    URL.revokeObjectURL(mapAsset.url);
+    // Clean up Asset
+    cleanupAsset(mapAsset);
 
     // Remove from map assets
     const mapAssets = get(mapAssetsAtom) || [];

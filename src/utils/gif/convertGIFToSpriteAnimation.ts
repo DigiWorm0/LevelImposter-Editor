@@ -63,16 +63,16 @@ export function getSubAnimationsFromElementType(
     // Handle door animations
     if (elementType.startsWith("sab-door")) {
         return [
-            {id: generateGUID(), frames: animationFrames, type: "closeDoor"},
-            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "openDoor"}
+            {id: generateGUID(), frames: animationFrames, type: "closeDoor", loop: false},
+            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "openDoor", loop: false}
         ];
     }
 
     // Handle vent animations
     if (elementType.startsWith("util-vent")) {
         return [
-            {id: generateGUID(), frames: animationFrames, type: "enterVent"},
-            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "exitVent"}
+            {id: generateGUID(), frames: animationFrames, type: "enterVent", loop: false},
+            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "exitVent", loop: false}
         ];
     }
 

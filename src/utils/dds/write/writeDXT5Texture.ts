@@ -63,7 +63,8 @@ function encodeBlock(
     bitmapBuffer: Uint8ClampedArray,
     width: number,
     x: number,
-    y: number): void {
+    y: number
+): void {
 
     // Initialize a 4x4 array to hold the colors of the pixels in the block
     const colors = readBlockFromBitmap(bitmapBuffer, width, x, y);
@@ -207,7 +208,6 @@ function calculateAlphaIndex(
     // Calculate the distance to each endpoint alpha
     const dist0 = Math.abs(a - color0[3]);
     const dist1 = Math.abs(a - color1[3]);
-
     const distPercent = dist0 / (dist0 + dist1);
 
     // Choose the alpha index based on the distances

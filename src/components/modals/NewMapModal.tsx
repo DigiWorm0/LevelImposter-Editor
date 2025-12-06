@@ -1,11 +1,11 @@
-import { Add } from "@mui/icons-material";
-import { Button, DialogContentText } from "@mui/material";
+import {Add} from "@mui/icons-material";
+import {Button, DialogContentText} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSetSelectedColliderID } from "../../hooks/elements/colliders/useSelectedCollider";
-import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
-import { useResetMap } from "../../hooks/map/useMap";
+import {useTranslation} from "react-i18next";
+import {useSetSelectedColliderID} from "../../hooks/elements/colliders/useSelectedCollider";
+import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import GenericModal from "./GenericModal";
+import resetMap from "../../utils/map/resetMap";
 
 export interface NewMapDialogProps {
     isVisible: boolean;
@@ -13,8 +13,7 @@ export interface NewMapDialogProps {
 }
 
 export default function NewMapModal(props: NewMapDialogProps) {
-    const { t } = useTranslation();
-    const resetMap = useResetMap();
+    const {t} = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const setColliderID = useSetSelectedColliderID();
 
@@ -23,7 +22,7 @@ export default function NewMapModal(props: NewMapDialogProps) {
         setSelectedID(undefined);
         setColliderID(undefined);
         props.onClose();
-    }, [resetMap, setSelectedID, setColliderID, props.onClose]);
+    }, [setSelectedID, setColliderID, props.onClose]);
 
     return (
         <GenericModal
@@ -33,7 +32,7 @@ export default function NewMapModal(props: NewMapDialogProps) {
             actions={<>
                 <Button
                     onClick={onClick}
-                    startIcon={<Add />}
+                    startIcon={<Add/>}
                 >
                     {t("map.new")}
                 </Button>

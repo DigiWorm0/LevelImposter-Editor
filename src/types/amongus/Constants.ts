@@ -1,3 +1,6 @@
+import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
+import LIMap from "../li/LIMap";
+
 export const UNITY_SCALE = 100;
 export const DEFAULT_CONSOLE_RANGE = 1;
 export const DEFAULT_SPORE_RANGE = 0.25;
@@ -100,3 +103,21 @@ export const SUPPORTED_MAP_FILE_TYPES = [
     ".lim2",
     ".json"
 ];
+
+export const DEFAULT_MAP: LIMap = {
+    v: MAP_FORMAT_VER,
+    id: DEFAULT_GUID,
+    name: "New Map",
+    description: "",
+    isPublic: false,
+    isVerified: false,
+    authorID: "",
+    authorName: "",
+    createdAt: -1,
+    likeCount: 0,
+    elements: [],
+    assets: [],
+    properties: {},
+    thumbnailURL: null,
+    remixOf: null,
+};

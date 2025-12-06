@@ -8,7 +8,7 @@ export default function chooseEndpointColors(
     colors: number[][],
     skipTransparentColors: boolean
 ): { color0: number[], color1: number[] } {
-    
+
     // Find non-transparent colors
     const validColors = skipTransparentColors ?
         colors.filter(color => color[3] !== 0) :
@@ -31,10 +31,35 @@ export default function chooseEndpointColors(
     // Project colors onto the dominant eigenvector to find min and max points
     const axisColors = projectColorsOntoAxis(validColors, dominantEigenvector);
 
+    // Get min and max alpha values
+    const {minAlpha, maxAlpha} = getMinMaxAlpha(validColors);
+
+    // Set alpha for endpoint colors
+    axisColors.minPoint[3] = minAlpha;
+    axisColors.maxPoint[3] = maxAlpha;
+
     return {
         color0: axisColors.minPoint,
         color1: axisColors.maxPoint
     };
+}
+
+/**
+ * Gets the minimum and maximum alpha values from an array of colors.
+ * @param colors - An array of colors, each represented as an array of RGBA values.
+ * @return An object containing the min and max alpha values: {minAlpha, maxAlpha}.
+ */
+function getMinMaxAlpha(colors: number[][]): { minAlpha: number, maxAlpha: number } {
+    let minAlpha = 255;
+    let maxAlpha = 0;
+
+    for (const color of colors) {
+        const alpha = color[3];
+        if (alpha < minAlpha) minAlpha = alpha;
+        if (alpha > maxAlpha) maxAlpha = alpha;
+    }
+
+    return {minAlpha, maxAlpha};
 }
 
 /**
@@ -156,7 +181,6 @@ function projectColorsOntoAxis(
     colors: number[][],
     vector: number[]
 ): { minPoint: number[], maxPoint: number[] } {
-
     let minProj = Infinity;
     let maxProj = -Infinity;
     let minPoint: number[] = [];
@@ -178,5 +202,9 @@ function projectColorsOntoAxis(
         }
     }
 
-    return {minPoint, maxPoint};
+    // Make copies to avoid referencing the same object twice
+    return {
+        minPoint: [...minPoint],
+        maxPoint: [...maxPoint]
+    };
 }
