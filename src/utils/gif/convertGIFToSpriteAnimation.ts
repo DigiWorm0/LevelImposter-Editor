@@ -44,8 +44,52 @@ export default async function convertGIFToSpriteAnimation(blob: Blob): Promise<L
     // Return the sprite animation
     return {
         id: generateGUID(),
-        frames: animationFrames
+        frames: animationFrames,
+        type: "default"
     };
+}
+
+/**
+ * Splits animation frames into sub-animations based on element type
+ * @param elementType - The type of the element
+ * @param animationFrames - The animation frames to split
+ * @returns An array of LISpriteAnimations
+ */
+export function getSubAnimationsFromElementType(
+    elementType: string,
+    animationFrames: LISpriteAnimationFrame[]
+): LISpriteAnimation[] {
+
+    // Handle door animations
+    if (elementType.startsWith("sab-door")) {
+        return [
+            {id: generateGUID(), frames: animationFrames, type: "closeDoor"},
+            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "openDoor"}
+        ];
+    }
+
+    // Handle vent animations
+    if (elementType.startsWith("util-vent")) {
+        return [
+            {id: generateGUID(), frames: animationFrames, type: "enterVent"},
+            {id: generateGUID(), frames: [...animationFrames].reverse(), type: "exitVent"}
+        ];
+    }
+
+    // Handle camera animations
+    if (elementType === "util-cam") {
+        return [
+            {id: generateGUID(), frames: [animationFrames[0]], type: "camsInactive"},
+            {id: generateGUID(), frames: animationFrames, type: "camsActive"}
+        ];
+    }
+
+    // Default to single animation
+    return [{
+        id: generateGUID(),
+        frames: animationFrames,
+        type: "default"
+    }];
 }
 
 
@@ -156,7 +200,7 @@ export async function convertGIFAssetToSpriteAnim(assetID: MaybeGUID): Promise<L
             properties: {
                 ...element.properties,
                 spriteID: stillSpriteID,
-                animations: [animation]
+                animations: getSubAnimationsFromElementType(element.type, animation.frames)
             }
         });
     }

@@ -5,16 +5,22 @@ import useToaster from "../useToaster";
 export default function useLISerializer() {
     const toaster = useToaster();
 
-    return React.useCallback((map: LIMap) => {
-        return serializeMap(map, toaster.warn);
+    return React.useCallback(async (map: LIMap) => {
+        try {
+            return await serializeMap(map);
+        } catch (error) {
+            toaster.error("Failed to save map file.");
+            console.error("Failed to serialize map", error);
+            throw error;
+        }
     }, []);
 }
 
-export async function serializeMap(map: LIMap, onError?: (error: string) => void) {
+export async function serializeMap(map: LIMap): Promise<Uint8Array> {
     const assets = map.assets ?? [];
 
     // Serialize JSON
-    const jsonString = toUTF8(JSON.stringify({ ...map, assets: undefined }));
+    const jsonString = toUTF8(JSON.stringify({...map, assets: undefined}));
     const jsonLength = jsonString.length;
 
     console.log(`JSON: ${jsonLength} bytes`);
@@ -54,13 +60,10 @@ export async function serializeMap(map: LIMap, onError?: (error: string) => void
             for (let i = 0; i < size; i++)
                 rawData[offset + i] = data[i];
         } catch (error: any) {
-            if (onError)
-                onError(`Warning: Failed to serialize asset ${asset.id}. One or more images/sounds may not be included in the map.`);
             console.warn(`Failed to serialize asset ${asset.id}`, error);
         }
         offset += size;
     }
-
     return rawData;
 }
 

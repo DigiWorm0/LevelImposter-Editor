@@ -765,6 +765,7 @@
     "new": "New Map",
     "play": "Play Map",
     "save": "Save Map",
+    "saveCompressed": "Save (Compressed)",
     "edit": "Edit Map",
     "unlisted": "Unlisted",
     "verified": "Featured",

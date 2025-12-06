@@ -2,7 +2,6 @@ import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
 import useMapAsset from "../../../../hooks/assets/useMapAsset";
 import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
 import React from "react";
-import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import {useTranslation} from "react-i18next";
 import {Animation, Download, Gradient} from "@mui/icons-material";
 import {convertImageAssetToDDS} from "../../../../utils/dds/convertImageToDDS";
@@ -13,7 +12,6 @@ import useSpriteAnimEditorOpen from "../../../../hooks/spriteAnim/useSpriteAnimE
 
 export default function SpriteMorePanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
     const spriteID = useSelectedElemPropValue("spriteID");
     const asset = useMapAsset(spriteID);
     const selectedElem = useSelectedElemValue();
@@ -36,7 +34,6 @@ export default function SpriteMorePanel() {
     const hasSprite = Boolean(asset);
     const isGIF = asset?.blob.type === "image/gif";
     const isDDS = asset?.blob.type === "image/dds";
-    const isCustomAnim = selectedType?.startsWith("sab-door") || selectedType?.startsWith("util-vent");
 
     const assetType = asset?.blob.type.split("/")[1].toLowerCase();
     const fileName = selectedElem?.name ?? asset?.id ?? "sprite";

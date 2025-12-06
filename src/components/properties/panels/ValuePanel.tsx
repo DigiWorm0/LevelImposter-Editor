@@ -8,7 +8,7 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 const PRESET_BOOL_VALUES = [
     "isImposter",
     "isInMeeting",
-    "isDead"
+    "isDead",
 ];
 
 export default function ValuePanel() {

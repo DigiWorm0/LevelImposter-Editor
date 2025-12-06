@@ -1,13 +1,13 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useSaveMap from "../../hooks/fileio/useSaveMap";
 import {CircularProgress, IconButton, Tooltip} from "@mui/material";
-import {Save} from "@mui/icons-material";
+import {FolderZip} from "@mui/icons-material";
 import useToaster from "../../hooks/useToaster";
+import useSaveCompressedMap from "../../hooks/fileio/useSaveCompressedMap";
 
-export default function SaveMapButton() {
+export default function CompressMapButton() {
     const {t} = useTranslation();
-    const saveMap = useSaveMap();
+    const saveMap = useSaveCompressedMap();
     const toaster = useToaster();
     const [isSaving, setIsSaving] = React.useState(false);
 
@@ -19,13 +19,13 @@ export default function SaveMapButton() {
     }, [saveMap, toaster]);
 
     return (
-        <Tooltip title={t("map.save")}>
+        <Tooltip title={t("map.saveCompressed")}>
             <IconButton
                 onClick={onClick}
                 disabled={isSaving}
             >
                 {isSaving && (<CircularProgress color={"inherit"} size={24}/>)}
-                {!isSaving && (<Save/>)}
+                {!isSaving && (<FolderZip/>)}
             </IconButton>
         </Tooltip>
     );

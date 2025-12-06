@@ -9,6 +9,7 @@ import SpriteMorePanel from "./SpriteMorePanel";
 import {Box, Button} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
 import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
+import {getSubAnimationsFromElementType} from "../../../../utils/gif/convertGIFToSpriteAnimation";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -55,10 +56,10 @@ export default function StillSpritePanel() {
     }, [setSpriteID, setAnimations, setColor]);
 
     const onUploadAnimation = React.useCallback((animation: LISpriteAnimation) => {
-        if (!animation.frames.length)
+        if (animation.frames.length === 0)
             return;
 
-        setAnimations([animation]);
+        setAnimations(getSubAnimationsFromElementType(selectedType || "", animation.frames));
         setSpriteID(animation.frames[0].spriteID);
         setColor(undefined);
     }, [setAnimations, setSpriteID, setColor]);

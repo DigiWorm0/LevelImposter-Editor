@@ -42,7 +42,7 @@ const optimizeOptions: OptimizeMapOption[] = [
         id: "convert-to-dds",
         label: "Convert PNGs/JPEGs to DDS",
         description: "DDS assets use DXT1/DXT5 which can be decoded by the GPU directly instead of going through the CPU which improves memory usage and reduces game crashes.",
-        warning: "This will significantly increase the file size of the map. Make sure to backup your map before proceeding.",
+        warning: "This will slightly reduce image quality due to compression.",
         icon: <Gradient/>,
         operation: EncodeToDDSOperation
     },
@@ -50,6 +50,7 @@ const optimizeOptions: OptimizeMapOption[] = [
         id: "convert-to-sprite-anim",
         label: "Convert GIFs to Sprite Animations",
         description: "Converts GIF files to Sprite Animations which are more efficient and have better performance.",
+        warning: "This will slightly reduce image quality due to compression.",
         icon: <Animation/>,
         operation: ConvertToSpriteAnimOperation
     },

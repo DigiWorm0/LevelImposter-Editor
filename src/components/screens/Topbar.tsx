@@ -18,6 +18,7 @@ import NavDivider from "./NavDivider";
 import MapPublishButton from "../buttons/MapPublishButton";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import OptimizeMapButton from "../buttons/OptimizeMapButton";
+import CompressMapButton from "../buttons/CompressMapButton";
 
 export default function Topbar() {
     const setFocus = useSetFocus();
@@ -45,6 +46,8 @@ export default function Topbar() {
             <OpenMapButton/>
             <NewMapButton/>
             <SaveMapButton/>
+            <NavDivider/>
+            <CompressMapButton/>
             <OptimizeMapButton/>
             <MapAssetsButton/>
             <NavDivider/>
