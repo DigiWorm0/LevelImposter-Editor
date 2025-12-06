@@ -3,7 +3,7 @@ import {isSavedAtom} from "./useIsSaved";
 import {saveFileFromBlob} from "../../utils/fileio/saveFileFromURL";
 import {atom, useSetAtom} from "jotai";
 import {trimAssetsAtom} from "../assets/useTrimMapAssets";
-import {serializeCompressedMap} from "./useCompressedLISerializer";
+import serializeCompressedLIMFile from "../../utils/serialization/serializeCompressedLIMFile";
 
 export const saveCompressedMapAtom = atom(null, async (get, set) => {
     // Trim Assets before save
@@ -11,7 +11,7 @@ export const saveCompressedMapAtom = atom(null, async (get, set) => {
 
     // Serialize Map
     const map = get(mapAtom);
-    const mapData = await serializeCompressedMap(map);
+    const mapData = await serializeCompressedLIMFile(map);
 
     // Save File Blob
     const blob = new Blob([mapData], {type: "application/levelimposter.map"});

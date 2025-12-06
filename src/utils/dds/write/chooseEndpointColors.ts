@@ -30,7 +30,7 @@ export default function chooseEndpointColors(
 
     // Project colors onto the dominant eigenvector to find min and max points
     const {minPoint, maxPoint} = projectColorsOntoAxis(validColors, dominantEigenvector);
-    
+
     return {
         color0: minPoint,
         color1: maxPoint
@@ -50,11 +50,13 @@ function getMeanColor(colors: number[][]): number[] {
         meanColor[0] += color[0];
         meanColor[1] += color[1];
         meanColor[2] += color[2];
+        meanColor[3] += color[3];
     }
 
     meanColor[0] /= colors.length;
     meanColor[1] /= colors.length;
     meanColor[2] /= colors.length;
+    meanColor[3] /= colors.length;
 
     return meanColor;
 }

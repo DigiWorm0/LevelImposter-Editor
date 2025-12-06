@@ -1,14 +1,36 @@
-import LIMap from "../../types/li/LIMap";
-import generateGUID from "../strings/generateGUID";
-import GUID from "../../types/common/GUID";
-import convertOldLegacyMap from "./convertOldLegacyMap";
-import parseAssetType from "../fileio/parseAssetType";
+import LIMap from "../../../types/li/LIMap";
+import convertOldLegacyMap from "../migrations/convertLegacyJSONMap";
+import GUID from "../../../types/common/GUID";
+import generateGUID from "../../strings/generateGUID";
+import parseAssetType from "../../fileio/parseAssetType";
+import checkForMapMigrations from "../migrations/checkForMapMigrations";
 
 /**
- * Converts .LIM to .LIM2
+ * Deserializes a legacy .LIM/.JSON file from an ArrayBuffer
+ * @param buffer - The ArrayBuffer of the .LIM file
+ * @returns The deserialized LIMap
+ */
+export default function deserializeLegacyFile(buffer: ArrayBuffer): LIMap {
+
+    // Deserialize JSON
+    const textDecoder = new TextDecoder();
+    const jsonString = textDecoder.decode(buffer);
+    const mapData = JSON.parse(jsonString) as LIMap;
+
+    // Convert Legacy Map
+    convertLegacyMap(mapData);
+
+    // Check for necessary migrations
+    checkForMapMigrations(mapData);
+
+    return mapData;
+}
+
+/**
+ * Converts a legacy .LIM to .LIM2
  * @param mapData - .LIM Map Data
  */
-export default function convertLegacyMap(mapData: LIMap) {
+function convertLegacyMap(mapData: LIMap) {
 
     // Check for .JSON file
     if ("objs" in mapData)
@@ -81,6 +103,11 @@ export default function convertLegacyMap(mapData: LIMap) {
     }
 }
 
+/**
+ * Converts a base64 string to a Blob
+ * @param base64 - The base64 string to convert
+ * @returns The resulting Blob
+ */
 function base64ToBlob(base64: string) {
     const substring = base64.substring(base64.indexOf(",") + 1);
     const byteCharacters = atob(substring);

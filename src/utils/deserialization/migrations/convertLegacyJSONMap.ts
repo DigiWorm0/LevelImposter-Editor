@@ -1,6 +1,6 @@
-import LIElement from "../../types/li/LIElement";
-import generateGUID, {DEFAULT_GUID} from "../strings/generateGUID";
-import {EXILE_IDS} from "../../db/AUElementDB";
+import LIElement from "../../../types/li/LIElement";
+import generateGUID, {DEFAULT_GUID} from "../../strings/generateGUID";
+import {EXILE_IDS} from "../../../db/AUElementDB";
 
 const LEGACY_PORTS: Record<string, string> = {
     "util-player": "util-dummy",
@@ -11,13 +11,12 @@ const LEGACY_PORTS: Record<string, string> = {
 };
 
 /**
- * Converts .JSON to .LIM
+ * Converts the old .JSON format used in legacy LIM map files from 2020-2021 to the newer .LIM format.
+ * Map data is modified in place.
+ * Note: this does not format to LIM2, that is done in a separate migration.
  * @param mapData - .JSON Map Data
  */
-export default function convertOldLegacyMap(mapData: any) {
-
-    // TODO: Add migrations instead of hardcoded conversions
-
+export default function convertLegacyJSONMap(mapData: any) {
     // Import Objects
     const elements: LIElement[] = [];
     mapData.objs.forEach((legacyObj: any, index: number) => {
