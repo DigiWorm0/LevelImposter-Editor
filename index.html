@@ -12,13 +12,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json"/>
     <title>LevelImposter Editor</title>
-    
+
     <!-- Inline CSS for splash screen -->
     <style>
         #splashscreen {
 
             pointer-events: none;
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
             opacity: 1;
 
             position: fixed;
@@ -66,16 +66,13 @@
 <noscript>You need to enable JavaScript to run this app.</noscript>
 
 <div id="splashscreen">
-    <!-- Logo -->
-    <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 284 296"
-            width="55"
-            height="55"
-    >
-        <polygon fill="white" points="48 0 48 252 192 252 192 296 0 296 0 0 48 0"/>
-        <rect fill="white" x="236" width="48" height="296"/>
-    </svg>
+    <!-- Loading GIF -->
+    <img
+            src="/loading.gif"
+            width="128"
+            height="128"
+            alt="Loading..."
+    />
 
     <!-- Progress Bar -->
     <div id="progress-bar">
