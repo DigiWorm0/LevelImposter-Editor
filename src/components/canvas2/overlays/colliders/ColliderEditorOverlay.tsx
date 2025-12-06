@@ -89,10 +89,13 @@ export default function ColliderEditorOverlay() {
                         point.x = p.x;
                         point.y = p.y;
 
+                        // Create a new point array to trigger reactivity
+                        const points = collider.points.map((pt, i) => i === index ? {...point} : pt);
+
                         // Force re-render of the collider
                         setCollider({
                             ...collider,
-                            points: [...collider.points]
+                            points: [...points]
                         });
                     }}
 

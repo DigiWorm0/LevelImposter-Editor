@@ -6,7 +6,13 @@ import {mapAtom} from "../useMap";
 // Atoms
 export const historyAtom = atom<LIMap[]>([]);
 export const headIndexAtom = atom<number>(0);
+export const enableHistoryAtom = atom<boolean>(true);
 export const saveHistoryAtom = atom(null, (get, set) => {
+
+    // Check if history is enabled
+    const enableHistory = get(enableHistoryAtom);
+    if (!enableHistory)
+        return;
 
     // Get current state
     const history = get(historyAtom);
@@ -44,4 +50,8 @@ export function useHistoryValue() {
 
 export function useSaveHistory() {
     return useSetAtom(saveHistoryAtom);
+}
+
+export function useSetHistoryEnabled() {
+    return useSetAtom(enableHistoryAtom);
 }

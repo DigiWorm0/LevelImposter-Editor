@@ -3,6 +3,7 @@ import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {MaybeLIElement} from "../../types/li/LIElement";
 import {elementsAtom} from "../map/useMap";
+import {saveHistoryAtom} from "../map/history/useHistory";
 
 // Atoms
 export const elementAtomFamily = atomFamily((id: MaybeGUID) => {
@@ -19,6 +20,9 @@ export const elementAtomFamily = atomFamily((id: MaybeGUID) => {
                 clone[index] = elem;
                 set(elementsAtom, clone);
             }
+
+            // Save Undo/Redo history
+            set(saveHistoryAtom);
         }
     );
 }, (a, b) => a === b);

@@ -3,6 +3,7 @@ import {atom} from "jotai/index";
 import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
 import LIElement from "../../types/li/LIElement";
 import {elementsAtom} from "../map/useMap";
+import {saveHistoryAtom} from "../map/history/useHistory";
 
 export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
 
@@ -27,6 +28,9 @@ export const addElementAtom = atom(null, (get, set, elem: LIElement) => {
 
     // Add the element to the map
     set(elementsAtom, [...get(elementsAtom), elem]);
+
+    // Save Undo/Redo history
+    set(saveHistoryAtom);
 });
 
 // Debug

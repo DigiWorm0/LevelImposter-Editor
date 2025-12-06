@@ -1,7 +1,8 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../../types/common/GUID";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {MaybeGUID} from "../../../types/common/GUID";
 import LICollider from "../../../types/li/LICollider";
-import { colliderAtomFamily } from "./useCollider";
+import {colliderAtomFamily} from "./useCollider";
+import {selectedElementAtom} from "../useSelectedElem";
 
 // Atoms
 export const selectedColliderIDAtom = atom<MaybeGUID>(undefined);
@@ -17,7 +18,13 @@ export const selectedColliderAtom = atom(
 );
 export const isSelectedColliderAtom = atom(
     (get) => {
-        return get(selectedColliderIDAtom) != undefined;
+        const selectedElem = get(selectedElementAtom);
+        const selectedColliderID = get(selectedColliderIDAtom);
+        if (!selectedElem || !selectedColliderID)
+            return false;
+
+        const collider = selectedElem.properties.colliders?.find(c => c.id === selectedColliderID);
+        return collider !== undefined;
     }
 );
 

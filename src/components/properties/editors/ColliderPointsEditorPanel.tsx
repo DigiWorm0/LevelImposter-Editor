@@ -2,7 +2,7 @@ import FlexNumericInput from "../util/FlexNumericInput";
 import InputGroup from "../input/InputGroup";
 import React from "react";
 import useCollider from "../../../hooks/elements/colliders/useCollider";
-import { MaybeGUID } from "../../../types/common/GUID";
+import {MaybeGUID} from "../../../types/common/GUID";
 
 export interface ColliderPointsEditorPanelProps {
     colliderID: MaybeGUID;
@@ -16,10 +16,10 @@ export default function ColliderPointsEditorPanel(props: ColliderPointsEditorPan
             return;
         const points = collider.points.map((p, i) => {
             if (i === index)
-                return { x, y };
+                return {x, y};
             return p;
         });
-        setCollider({ ...collider, points });
+        setCollider({...collider, points: [...points]});
     }, [collider, setCollider]);
 
     const updatePointCount = React.useCallback((count: number) => {
@@ -28,11 +28,11 @@ export default function ColliderPointsEditorPanel(props: ColliderPointsEditorPan
         const points = collider.points;
         if (count > points.length) {
             for (let i = points.length; i < count; i++)
-                points.push({ x: 0, y: 0 });
+                points.push({x: 0, y: 0});
         } else {
             points.splice(count);
         }
-        setCollider({ ...collider, points });
+        setCollider({...collider, points: [...points]});
     }, [collider, setCollider]);
 
     if (!collider)

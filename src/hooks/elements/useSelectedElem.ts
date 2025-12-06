@@ -8,6 +8,7 @@ import {elementsAtom} from "../map/useMap";
 import {elementAtomFamily} from "./useElements";
 import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
 import {isElementSelectedAtomFamily} from "./useIsElementSelected";
+import {saveHistoryAtom} from "../map/history/useHistory";
 
 // Atoms
 export const selectedElementIDAtom = atom((get) => {
@@ -53,6 +54,9 @@ export const selectedElementAtom = atom(
 
             set(elementsAtom, elements);
         }
+
+        // Save Undo/Redo history
+        set(saveHistoryAtom);
     }
 );
 export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {

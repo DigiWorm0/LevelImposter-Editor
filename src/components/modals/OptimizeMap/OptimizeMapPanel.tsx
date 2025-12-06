@@ -13,6 +13,7 @@ import EncodeToDDSOperation from "../../../utils/build/EncodeToDDSOperation";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
 import ConvertToSpriteAnimOperation from "../../../utils/build/ConvertToSpriteAnimOperation";
 import useEnabledOptimizeOptionIDs from "../../../hooks/optimize/useEnabledOptimizeOptionIDs";
+import {useSetHistoryEnabled} from "../../../hooks/map/history/useHistory";
 
 interface OptimizeMapOption {
     id: string;
@@ -70,6 +71,7 @@ export default function OptimizeMapPanel() {
     const [optimizeLog, setOptimizeLog] = useOptimizeLog();
     const appendOptimizeLog = useAppendOptimizeLog();
     const bottomLogRef = React.useRef<HTMLDivElement>(null);
+    const enableHistory = useSetHistoryEnabled();
 
     const setOptionEnabled = React.useCallback((id: string, isEnabled: boolean) => {
         if (isEnabled)
@@ -81,6 +83,9 @@ export default function OptimizeMapPanel() {
     const onOptimize = React.useCallback(async () => {
         // Mark as running
         setIsRunning(true);
+
+        // Stop Undo/Redo history during optimization
+        enableHistory(false);
 
         // Clear log
         setOptimizeLog([]);
@@ -103,6 +108,9 @@ export default function OptimizeMapPanel() {
 
         // Log done
         appendOptimizeLog("<span style=\"color: #00c216;\">Done ✔</span>");
+
+        // Re-enable Undo/Redo history
+        enableHistory(true);
 
         // Mark as not running
         setIsRunning(false);
