@@ -24,7 +24,6 @@ extend({
 extensions.add(CullerPlugin);
 
 export default function Canvas2() {
-
     return (
         <Application
             resizeTo={window}
