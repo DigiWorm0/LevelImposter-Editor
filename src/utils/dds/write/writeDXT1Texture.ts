@@ -1,5 +1,5 @@
 import {DDSHeader} from "../../../types/dds/DDSHeader";
-import chooseEndpointColors from "./chooseEndpointColors";
+import chooseEndpointColorsBruteforce from "./chooseEndpointColorsBruteforce";
 
 const BLOCK_SIZE = 8;
 
@@ -74,7 +74,8 @@ function encodeBlock(
     const hasTransparentPixels = colors.some(color => color[3] === 0) && enableAlpha;
 
     // Calculate min/max color
-    const {color0, color1} = chooseEndpointColors(colors, hasTransparentPixels);
+    let {color0, color1} = chooseEndpointColorsBruteforce(colors, hasTransparentPixels);
+
     let color0Encoded = encodeColor(color0);
     let color1Encoded = encodeColor(color1);
 
@@ -82,9 +83,16 @@ function encodeBlock(
     // If transparency is present, ensure color0 is always less than (or equal to) color1
     if (color0Encoded < color1Encoded && !hasTransparentPixels ||
         color0Encoded > color1Encoded && hasTransparentPixels) {
+
+        // Swap encoded colors
         const temp = color0Encoded;
         color0Encoded = color1Encoded;
         color1Encoded = temp;
+
+        // Swap actual colors
+        const tempColor = color0;
+        color0 = color1;
+        color1 = tempColor;
     }
 
     // Calculate the color indices for the 4x4 block
@@ -191,15 +199,16 @@ export function calculateColorIndex(
         ];
         const dist3 = getDistanceBetweenColors(pixelColor, color3);
 
+
         // Determine which color is closest
         if (dist0 <= dist1 && dist0 <= dist2 && dist0 <= dist3)
-            return 1; // Closest to color0
+            return 0; // Closest to color0
         else if (dist1 <= dist0 && dist1 <= dist2 && dist1 <= dist3)
-            return 0; // Closest to color1
+            return 1; // Closest to color1
         else if (dist2 <= dist0 && dist2 <= dist1 && dist2 <= dist3)
-            return 3; // Closest to color2
+            return 2; // Closest to color2
         else
-            return 2; // Closest to color3
+            return 3; // Closest to color3
     }
 }
 
@@ -209,7 +218,7 @@ export function calculateColorIndex(
  * @param colorB - The second color as an array [R, G, B].
  * @return The distance between the two colors.
  */
-function getDistanceBetweenColors(colorA: number[], colorB: number[]): number {
+export function getDistanceBetweenColors(colorA: number[], colorB: number[]): number {
     return Math.sqrt(
         Math.pow(colorA[0] - colorB[0], 2) +
         Math.pow(colorA[1] - colorB[1], 2) +

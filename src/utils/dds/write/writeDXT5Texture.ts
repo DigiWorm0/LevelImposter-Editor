@@ -69,15 +69,23 @@ function encodeBlock(
     const colors = readBlockFromBitmap(bitmapBuffer, width, x, y);
 
     // Calculate min/max color
-    const {color0, color1} = chooseEndpointColors(colors, false);
+    let {color0, color1} = chooseEndpointColors(colors, false);
+
     let color0Encoded = encodeColor(color0);
     let color1Encoded = encodeColor(color1);
 
     // Ensure color0 is always greater than (or equal to) color1
     if (color0Encoded < color1Encoded) {
+
+        // Swap encoded colors
         const temp = color0Encoded;
         color0Encoded = color1Encoded;
         color1Encoded = temp;
+
+        // Swap actual colors
+        const tempColor = color0;
+        color0 = color1;
+        color1 = tempColor;
     }
 
     // Ensure alpha on color0 is always greater than (or equal to) alpha on color1
@@ -187,7 +195,8 @@ function calculateAlphaIndex(
     pixelColor: number[],
     color0: number[],
     color1: number[],
-    isEqual: boolean): number {
+    isEqual: boolean
+): number {
 
     // If the two endpoint colors are equal, return 0 (the only color available)
     if (isEqual) return 0;

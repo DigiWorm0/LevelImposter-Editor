@@ -8,7 +8,7 @@ export default function chooseEndpointColors(
     colors: number[][],
     skipTransparentColors: boolean
 ): { color0: number[], color1: number[] } {
-
+    
     // Find non-transparent colors
     const validColors = skipTransparentColors ?
         colors.filter(color => color[3] !== 0) :
@@ -29,11 +29,11 @@ export default function chooseEndpointColors(
     const dominantEigenvector = powerIteration(covarianceMatrix);
 
     // Project colors onto the dominant eigenvector to find min and max points
-    const {minPoint, maxPoint} = projectColorsOntoAxis(validColors, dominantEigenvector);
+    const axisColors = projectColorsOntoAxis(validColors, dominantEigenvector);
 
     return {
-        color0: minPoint,
-        color1: maxPoint
+        color0: axisColors.minPoint,
+        color1: axisColors.maxPoint
     };
 }
 
