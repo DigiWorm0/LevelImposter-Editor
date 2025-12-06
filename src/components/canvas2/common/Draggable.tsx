@@ -16,6 +16,7 @@ export interface DraggableProps {
     gridSnapResolution?: number;
     draggable?: boolean;
     selected?: boolean;
+    allowRightClick?: boolean;
 
     onDragStart?: (e: DragEvent) => void;
     onDragMove?: (e: DragEvent) => void;
@@ -73,12 +74,24 @@ export default function Draggable(props: DraggableProps) {
     }, [viewport]);
 
     const onPointerDown = React.useCallback((e: PointerEvent, target?: boolean) => {
-        // Only allow left mouse button (right-clicks are for viewport controls only)
-        if (e.button !== 0)
-            return;
 
         // Only allow mouse pointer type (touch/pens are for viewport controls only)
         if (e.pointerType !== "mouse")
+            return;
+
+        // Click if right click is allowed
+        if (e.button === 2 && props.allowRightClick && props.onClick) {
+            e.stopPropagation();
+            e.preventDefault();
+            props.onClick({
+                ...dragStateRef.current,
+                pointerEvent: e
+            });
+            return;
+        }
+
+        // Only allow left mouse button (right-clicks are for viewport controls only)
+        if (e.button !== 0)
             return;
 
         // Prevent default behavior and stop propagation

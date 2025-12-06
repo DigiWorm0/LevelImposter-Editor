@@ -58,6 +58,7 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
         <Draggable
             id={id}
             draggable
+            allowRightClick
             selected={selected}
 
             x={transformedPoint.x}
@@ -66,7 +67,11 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
             gridSnapResolution={isGridSnapEnabled ? gridSnapResolution * UNITY_SCALE : undefined}
 
             onClick={(e) => {
-                props.onSelectPoint(getSelectOperationFromEvent(e.pointerEvent));
+                // Right click to delete point
+                if (e.pointerEvent?.button === 2)
+                    props.onRemovePoint();
+                else
+                    props.onSelectPoint(getSelectOperationFromEvent(e.pointerEvent));
             }}
             onDragStart={(e) => {
                 const isTarget = e.targetID === id;

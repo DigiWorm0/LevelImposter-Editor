@@ -19,6 +19,7 @@ import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
 import useSelectAllElements from "./useSelectAllElements";
+import useDeleteSelected from "./useDeleteSelected";
 
 const TIMELINE_DELTA_SCALE = 100;
 
@@ -28,6 +29,7 @@ export default function useHotkeysHandler() {
     const undo = useUndo();
     const redo = useRedo();
     const duplicate = useDuplicate();
+    const deleteSelected = useDeleteSelected();
     const removeSelectedElement = useRemoveSelectedElement();
     const removeSelectedKeyframe = useRemoveSelectedKeyframe();
     const [settings, setSettings] = useSettings();
@@ -111,8 +113,8 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("ctrl+d", duplicate, Scope.Canvas, Scope.SceneGraph);
 
     // Delete
-    useFocusedHotkeys("delete", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
-    useFocusedHotkeys("backspace", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("delete", deleteSelected, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("backspace", deleteSelected, Scope.Canvas, Scope.SceneGraph);
 
     // Save
     useFocusedHotkeys("ctrl+s", saveMap);
