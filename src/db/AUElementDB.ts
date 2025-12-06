@@ -80,8 +80,6 @@ export const PRESET_RESOURCE_IDS: Record<string, string[]> = {
     ]
 };
 
-export const RESOURCE_PRESET_IDS: string[] = Object.values(PRESET_RESOURCE_IDS).flat();
-
 const AUElementDB: string[] = [
     "util-button1",
     "util-button2",
@@ -128,6 +126,7 @@ const AUElementDB: string[] = [
     "util-triggerdeath",
     "util-triggershake",
     "util-triggeranim",
+    "util-playermover",
     "util-onewaycollider",
     "util-decontamination",
     "util-sabotages",
@@ -138,8 +137,10 @@ const AUElementDB: string[] = [
     "util-ejecthand",
     "util-ejectthumb",
     "util-valuebool",
+    "util-valueboolpreset",
     "util-valuecomparator",
     "util-triggergate",
+    "util-layer",
     "task-id",
     "task-keys",
     "task-pass",

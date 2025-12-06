@@ -1,7 +1,8 @@
 import SceneGraphElement from "./SceneGraphElement";
 import React from "react";
-import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
-import { List } from "@mui/material";
+import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
+import {Divider, List} from "@mui/material";
+import SceneGraphOrigin from "./SceneGraphOrigin";
 
 export interface SceneGraphElementsProps {
     searchQuery: string;
@@ -10,7 +11,10 @@ export interface SceneGraphElementsProps {
 export default function SceneGraphElements(props: SceneGraphElementsProps) {
     const elementIDs = useElementChildIDs(undefined);
     return (
-        <List sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <List sx={{flexGrow: 1, overflowY: "auto"}}>
+            <SceneGraphOrigin/>
+            <Divider sx={{m: 0.5}}/>
+
             {elementIDs.map((elemID) => (
                 <SceneGraphElement
                     key={elemID}

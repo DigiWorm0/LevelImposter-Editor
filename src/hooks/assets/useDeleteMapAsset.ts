@@ -1,20 +1,22 @@
-import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { mapAssetsAtom } from "./useMapAssets";
-import { replaceMapAssetIDAtom } from "./useReplaceMapAssetID";
-import { saveHistoryAtom } from "../map/history/useHistory";
+import {atom, useSetAtom} from "jotai";
+import {MaybeGUID} from "../../types/common/GUID";
+import {mapAssetsAtom} from "./useMapAssets";
+import {mapAssetsAtomFamily} from "./useMapAsset";
+import cleanupAsset from "../../utils/assets/cleanupAsset";
 
 export const deleteMapAssetAtom = atom(null, (get, set, id: MaybeGUID) => {
-    const mapAssets = [...(get(mapAssetsAtom) ?? [])];
-    const index = mapAssets.findIndex((mapAsset) => mapAsset.id === id);
-    if (index >= 0) {
-        mapAssets.splice(index, 1);
-        set(mapAssetsAtom, mapAssets);
-    }
 
-    const referenceCount = set(replaceMapAssetIDAtom, { fromID: id, toID: undefined });
-    set(saveHistoryAtom);
-    return referenceCount;
+    // Get asset
+    const mapAsset = get(mapAssetsAtomFamily(id));
+    if (!mapAsset)
+        return;
+
+    // Clean up Asset
+    cleanupAsset(mapAsset);
+
+    // Remove from map assets
+    const mapAssets = get(mapAssetsAtom) || [];
+    set(mapAssetsAtom, mapAssets.filter(asset => asset.id !== id));
 });
 deleteMapAssetAtom.debugLabel = "deleteMapAssetAtom";
 

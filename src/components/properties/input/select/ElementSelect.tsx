@@ -3,7 +3,7 @@ import React from "react";
 import {useElementValue} from "../../../../hooks/elements/useElements";
 import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
 import {useElementsOfType} from "../../../../hooks/elements/useElementsOfType";
-import {MaybeGUID} from "../../../../types/generic/GUID";
+import {MaybeGUID} from "../../../../types/common/GUID";
 import LIElement from "../../../../types/li/LIElement";
 
 export interface ElementSelectProps {

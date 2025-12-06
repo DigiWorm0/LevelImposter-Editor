@@ -1,17 +1,18 @@
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { isSavedAtom } from "./useIsSaved";
-import { deserializeMap } from "./useLIDeserializer";
-import { mapAtom } from "../map/useMap";
-import { atom, useSetAtom } from "jotai";
+import {isSavedAtom} from "./useIsSaved";
+import {mapAtom} from "../map/useMap";
+import {atom, useSetAtom} from "jotai";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
+import {deserializeMapFileFromBlob} from "../../utils/deserialization/deserializeMapFile";
+import {SUPPORTED_MAP_FILE_TYPES} from "../../types/amongus/Constants";
+import resetMap from "../../utils/map/resetMap";
 
 export const openMapAtom = atom(null, async (_, set) => {
-    const file = await openUploadDialog(".lim, .lim2, .json");
-    const map = await deserializeMap(file);
+    const file = await openUploadDialog(SUPPORTED_MAP_FILE_TYPES.join(","));
+    const map = await deserializeMapFileFromBlob(file);
 
+    resetMap();
     set(isSavedAtom, true);
     set(mapAtom, map);
-    set(saveHistoryAtom);
 
     return map;
 });

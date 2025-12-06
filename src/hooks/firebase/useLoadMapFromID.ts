@@ -1,12 +1,12 @@
-import { collection, doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, ref, StorageReference } from "firebase/storage";
-import GUID from "../../types/generic/GUID";
+import {collection, doc, getDoc} from "firebase/firestore";
+import {getDownloadURL, ref, StorageReference} from "firebase/storage";
+import GUID from "../../types/common/GUID";
 import LIMetadata from "../../types/li/LIMetadata";
-import { db, storage } from "../../utils/Firebase";
-import { deserializeMap } from "../fileio/useLIDeserializer";
-import { mapAtom } from "../map/useMap";
+import {db, storage} from "../../utils/Firebase";
+import {mapAtom} from "../map/useMap";
 import downloadFromURL from "../../utils/fileio/downloadFromURL";
-import { atom, useSetAtom } from "jotai";
+import {atom, useSetAtom} from "jotai";
+import deserializeMapFile from "../../utils/deserialization/deserializeMapFile";
 
 export interface LoadMapFromIDPayload {
     id: GUID;
@@ -14,7 +14,7 @@ export interface LoadMapFromIDPayload {
 }
 
 export const loadMapFromIDAtom = atom(null, async (_, set, payload: LoadMapFromIDPayload) => {
-    const { id, onProgress } = payload;
+    const {id, onProgress} = payload;
 
     // Get Firebase Refs
     const storeRef = collection(db, "maps");
@@ -34,8 +34,7 @@ export const loadMapFromIDAtom = atom(null, async (_, set, payload: LoadMapFromI
     const downloadMapFromRef = async (storageRef: StorageReference) => {
         const url = await getDownloadURL(storageRef);
         const bytes = await downloadFromURL(url, onProgress);
-        const blob = new Blob([bytes], { type: "application/json" });
-        const map = await deserializeMap(blob);
+        const map = deserializeMapFile(bytes);
 
         set(mapAtom, map);
         return map;

@@ -3,7 +3,7 @@ import {elementsAtom} from "../../map/useMap";
 import {selectedElementIDAtom} from "../useSelectedElem";
 import {InputTriggerDB} from "../../../db/TriggerDB";
 import LIElement from "../../../types/li/LIElement";
-import compareArrays from "../../../utils/math/compareArrays";
+import compareArrays from "../../../utils/common/compareArrays";
 import {useAtomValue} from "jotai";
 
 let previousTriggerInputs: LIElement[] = [];

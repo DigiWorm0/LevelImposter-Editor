@@ -1,13 +1,14 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useTranslation } from "react-i18next";
-import { auth } from "../../../utils/Firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useTranslation} from "react-i18next";
+import {auth} from "../../../utils/Firebase";
 import GenericModal from "../GenericModal";
-import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
+import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import PublishModalEditor from "./PublishModalEditor";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
 import PublishModalTarget from "./PublishModalTarget";
 import PublishModalUpload from "./PublishModalUpload";
+import OptimizeMapPanel from "../OptimizeMap/OptimizeMapPanel";
 
 export interface PublishModalProps {
     isOpen: boolean;
@@ -15,7 +16,7 @@ export interface PublishModalProps {
 }
 
 export default function PublishModal(props: PublishModalProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [user] = useAuthState(auth);
     const [step, setStep] = React.useState(0);
 
@@ -31,26 +32,33 @@ export default function PublishModal(props: PublishModalProps) {
         <GenericModal
             open={props.isOpen && isLoggedIn}
             onClose={props.onClose}
-            title={t("publish.title")}
+            DialogProps={{
+                maxWidth: "lg"
+            }}
         >
-            {step === 0 && <PublishModalEditor />}
-            {step === 1 && <PublishModalTarget />}
-            {step === 2 && <PublishModalUpload onClose={props.onClose} />}
-
             <Stepper
-                sx={{ mt: 1 }}
+                sx={{mb: 1}}
                 activeStep={step}
             >
                 <Step>
-                    <StepLabel>Enter Info</StepLabel>
+                    <StepLabel>{t("publish.optimize")}</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Choose Target</StepLabel>
+                    <StepLabel>{t("publish.enterInfo")}</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Publish Map</StepLabel>
+                    <StepLabel>{t("publish.chooseTarget")}</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>{t("publish.publish")}</StepLabel>
                 </Step>
             </Stepper>
+
+            {step === 0 && <OptimizeMapPanel/>}
+            {step === 1 && <PublishModalEditor/>}
+            {step === 2 && <PublishModalTarget/>}
+            {step === 3 && <PublishModalUpload onClose={props.onClose}/>}
+
             <Box
                 sx={{
                     display: "flex",
@@ -59,20 +67,22 @@ export default function PublishModal(props: PublishModalProps) {
                 }}
             >
                 <Button
-                    size={"small"}
                     onClick={() => setStep(step - 1)}
                     disabled={step === 0}
+                    variant={"contained"}
+                    color={"secondary"}
                 >
-                    <KeyboardArrowLeft />
+                    <KeyboardArrowLeft/>
                     Back
                 </Button>
                 <Button
-                    size={"small"}
                     onClick={() => setStep(step + 1)}
-                    disabled={step === 2}
+                    disabled={step === 3}
+                    variant={"contained"}
+                    color={"primary"}
                 >
                     Next
-                    <KeyboardArrowRight />
+                    <KeyboardArrowRight/>
                 </Button>
             </Box>
         </GenericModal>

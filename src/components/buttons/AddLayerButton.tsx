@@ -1,9 +1,9 @@
-import { CreateNewFolder } from "@mui/icons-material";
-import { IconButton, Tooltip } from "@mui/material";
+import {CreateNewFolder} from "@mui/icons-material";
+import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import useAddElement from "../../hooks/elements/useAddElement";
-import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
+import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import generateGUID from "../../utils/strings/generateGUID";
 
 export interface AddLayerButtonProps {
@@ -11,7 +11,7 @@ export interface AddLayerButtonProps {
 }
 
 export default function AddLayerButton(props: AddLayerButtonProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const setSelectedID = useSetSelectedElemID();
     const addElement = useAddElement();
 
@@ -23,7 +23,8 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
             type: "util-layer",
             x: 0,
             y: 0,
-            z: Number.MAX_SAFE_INTEGER,
+            z: 0,
+            // z: Number.MAX_SAFE_INTEGER,
             xScale: 1,
             yScale: 1,
             rotation: 0,
@@ -38,7 +39,7 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
                 onClick={onClick}
                 {...props.buttonProps}
             >
-                <CreateNewFolder />
+                <CreateNewFolder/>
             </IconButton>
         </Tooltip>
     );

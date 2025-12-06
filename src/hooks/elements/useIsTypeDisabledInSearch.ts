@@ -1,7 +1,7 @@
-import { atom, useAtomValue } from "jotai";
-import { SINGLE_TYPES } from "../../types/generic/Constants";
-import { elementsAtom } from "../map/useMap";
-import { atomFamily } from "jotai/utils";
+import {atom, useAtomValue} from "jotai";
+import {SINGLE_TYPES} from "../../types/amongus/Constants";
+import {elementsAtom} from "../map/useMap";
+import {atomFamily} from "jotai/utils";
 
 export const isTypeDisabledInSearch = atomFamily((type: string) => {
     return atom((get) => {

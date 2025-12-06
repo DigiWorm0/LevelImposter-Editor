@@ -7,7 +7,6 @@ import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
 import {_useUserAtom} from "../../hooks/firebase/useUser";
 import {useAtomsDebugValue} from "jotai-devtools";
 import useSortMap from "../../hooks/map/useSortMap";
-import useAnimationPlayback from "../../hooks/timeline/useAnimationPlayback";
 
 export default function GlobalHooks() {
     const {i18n} = useTranslation();
@@ -18,13 +17,11 @@ export default function GlobalHooks() {
     _useUserAtom();
     useAtomsDebugValue();
     useSortMap();
-    useAnimationPlayback();
-
 
     React.useEffect(() => {
         const onBeforeUnload = (e: BeforeUnloadEvent) => {
             e.preventDefault();
-            e.returnValue = "";
+            e.returnValue = ""; // This is necessary for some browsers to show the confirmation dialog
         };
 
         if (!isEmbedded)

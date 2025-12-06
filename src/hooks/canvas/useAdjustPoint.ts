@@ -1,18 +1,18 @@
-import { atom, useSetAtom } from "jotai";
-import { UNITY_SCALE } from "../../types/generic/Constants";
-import Point from "../../types/generic/Point";
-import { selectedElementAtom } from "../elements/useSelectedElem";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { elementFamilyAtom } from "../elements/useElements";
+import {atom, useSetAtom} from "jotai";
+import {UNITY_SCALE} from "../../types/amongus/Constants";
+import {selectedElementAtom} from "../elements/useSelectedElem";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/common/GUID";
+import {elementAtomFamily} from "../elements/useElements";
+import Vector2 from "../../types/transform/Vector2";
 
 export const relativeToAbsoluteAtomFamily = atomFamily((elemID: MaybeGUID) => {
-    return atom(null, (get, _, point: Point) => {
+    return atom(null, (get, _, point: Vector2) => {
         // Get Element
-        const elem = elemID ? get(elementFamilyAtom(elemID)) : get(selectedElementAtom);
+        const elem = elemID ? get(elementAtomFamily(elemID)) : get(selectedElementAtom);
 
         // Get Element Transform
-        const { x, y, xScale, yScale, rotation } = elem || { x: 0, y: 0, xScale: 1, yScale: 1, rotation: 0 };
+        const {x, y, xScale, yScale, rotation} = elem || {x: 0, y: 0, xScale: 1, yScale: 1, rotation: 0};
 
         // Scale and Rotate Point
         const px = point.x * xScale;
@@ -24,17 +24,17 @@ export const relativeToAbsoluteAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const nx = ((px * cos - py * sin) + x) * UNITY_SCALE;
         const ny = ((px * sin + py * cos) + y) * UNITY_SCALE;
 
-        return { x: nx, y: -ny };
+        return {x: nx, y: -ny};
     });
 });
 
 export const absoluteToRelativeAtomFamily = atomFamily((elemID: MaybeGUID) => {
-    return atom(null, (get, _, point: Point) => {
+    return atom(null, (get, _, point: Vector2) => {
         // Get Element
-        const elem = elemID ? get(elementFamilyAtom(elemID)) : get(selectedElementAtom);
+        const elem = elemID ? get(elementAtomFamily(elemID)) : get(selectedElementAtom);
 
         // Get Element Transform
-        const { x, y, xScale, yScale, rotation } = elem || { x: 0, y: 0, xScale: 1, yScale: 1, rotation: 0 };
+        const {x, y, xScale, yScale, rotation} = elem || {x: 0, y: 0, xScale: 1, yScale: 1, rotation: 0};
 
         // Scale and Rotate Point
         const px = point.x / UNITY_SCALE;
@@ -46,7 +46,7 @@ export const absoluteToRelativeAtomFamily = atomFamily((elemID: MaybeGUID) => {
         const nx = ((px - x) * cos - (py - y) * sin) / xScale;
         const ny = ((px - x) * sin + (py - y) * cos) / yScale;
 
-        return { x: nx, y: -ny };
+        return {x: nx, y: -ny};
     });
 });
 
@@ -54,5 +54,5 @@ export default function useAdjustPoint(elemID?: MaybeGUID) {
     const relativeToAbsolute = useSetAtom(relativeToAbsoluteAtomFamily(elemID));
     const absoluteToRelative = useSetAtom(absoluteToRelativeAtomFamily(elemID));
 
-    return { relativeToAbsolute, absoluteToRelative };
+    return {relativeToAbsolute, absoluteToRelative};
 }

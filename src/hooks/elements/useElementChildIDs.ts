@@ -1,8 +1,8 @@
-import { atom, useAtomValue } from "jotai/index";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { elementsAtom } from "../map/useMap";
-import compareArrays from "../../utils/math/compareArrays";
+import {atom, useAtomValue} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/common/GUID";
+import {elementsAtom} from "../map/useMap";
+import compareArrays from "../../utils/common/compareArrays";
 
 export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
     let prevValue: MaybeGUID[] = [];

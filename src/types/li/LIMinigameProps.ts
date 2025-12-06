@@ -12,5 +12,3 @@ export default interface LIMinigameProps {
 
     isStarfieldEnabled?: boolean;
 }
-
-export type MaybeLIMinigameProps = LIMinigameProps | undefined;

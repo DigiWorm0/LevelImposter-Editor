@@ -1,12 +1,12 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { MaybeLIElement } from "../../types/li/LIElement";
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { elementsAtom } from "../map/useMap";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeLIElement} from "../../types/li/LIElement";
+import {elementsAtom} from "../map/useMap";
+import {saveHistoryAtom} from "../map/history/useHistory";
 
 // Atoms
-export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
+export const elementAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom(
         (get) => {
             const elements = get(elementsAtom);
@@ -19,8 +19,10 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
                 const clone = [...elements];
                 clone[index] = elem;
                 set(elementsAtom, clone);
-                set(saveHistoryAtom);
             }
+
+            // Save Undo/Redo history
+            set(saveHistoryAtom);
         }
     );
 }, (a, b) => a === b);
@@ -28,13 +30,13 @@ export const elementFamilyAtom = atomFamily((id: MaybeGUID) => {
 
 // Hooks
 export default function useElement(id: MaybeGUID) {
-    return useAtom(elementFamilyAtom(id));
+    return useAtom(elementAtomFamily(id));
 }
 
 export function useSetElement(id: MaybeGUID) {
-    return useSetAtom(elementFamilyAtom(id));
+    return useSetAtom(elementAtomFamily(id));
 }
 
 export function useElementValue(id: MaybeGUID) {
-    return useAtomValue(elementFamilyAtom(id));
+    return useAtomValue(elementAtomFamily(id));
 }

@@ -1,4 +1,4 @@
-import {Box, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
+import {ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import useIsTypeVisibleInSearch from "../../../hooks/useSearchQuery";
@@ -17,7 +17,7 @@ export default function AddObjectModalButton(props: AddObjectModalButtonProps) {
     const {type, onClick} = props;
 
     if (!isVisible && !props.alwaysVisible)
-        return <Box/>;
+        return null;
     return (
         <ListItem disablePadding>
             <ListItemButton

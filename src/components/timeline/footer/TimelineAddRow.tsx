@@ -1,10 +1,11 @@
 import {useTranslation} from "react-i18next";
 import React from "react";
 import TimelineRow from "../TimelineRow";
-import {Button, Paper} from "@mui/material";
+import {Button} from "@mui/material";
 import {Add} from "@mui/icons-material";
 import AddTargetModal from "../../modals/AddTargetModal";
 import TimelinePlayhead from "../body/TimelinePlayhead";
+import TimelineKeyframeRow from "../body/TimelineKeyframeRow";
 
 export default function TimelineAddRow() {
     const {t} = useTranslation();
@@ -24,15 +25,9 @@ export default function TimelineAddRow() {
                     </Button>
                 )}
             >
-                <Paper
-                    elevation={5}
-                    square
-                    sx={{
-                        flexGrow: 1,
-                    }}
-                >
+                <TimelineKeyframeRow>
                     <TimelinePlayhead/>
-                </Paper>
+                </TimelineKeyframeRow>
             </TimelineRow>
             <AddTargetModal
                 isOpen={isAddModalVisible}

@@ -1,0 +1,22 @@
+import {MaybeGUID} from "../../../types/common/GUID";
+import useSpriteThumbnail from "../../../hooks/sprites/useSpriteThumbnail";
+
+export interface SpriteWindowProps {
+    spriteID: MaybeGUID;
+    fallback?: React.ReactNode;
+}
+
+export default function SpriteWindow(props: SpriteWindowProps) {
+    const thumbnail = useSpriteThumbnail(props.spriteID);
+
+    if (!thumbnail)
+        return props.fallback;
+    return (
+        <img
+            src={thumbnail.src}
+            width={thumbnail.width}
+            height={thumbnail.height}
+            alt="Sprite Preview"
+        />
+    );
+}

@@ -1,9 +1,9 @@
-import { Box, ImageList, Typography } from "@mui/material";
+import {Box, ImageList, Typography} from "@mui/material";
 import ImageAssetModalButton from "./ImageAssetModalButton";
 import React from "react";
-import useMapAssetsValue from "../../../../hooks/assets/useMapAssets";
-import GUID, { MaybeGUID } from "../../../../types/generic/GUID";
+import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
+import {useMapAssetsValue} from "../../../../hooks/assets/useMapAssets";
 
 export interface ImageAssetModalListProps {
     onClick: (id: GUID) => void;
@@ -11,16 +11,16 @@ export interface ImageAssetModalListProps {
 }
 
 export default function ImageAssetModalList(props: ImageAssetModalListProps) {
-    const assets = useMapAssetsValue();
+    const allMapAssets = useMapAssetsValue();
 
-    const imageAssets = assets?.filter(asset => asset.type === "image");
+    const imageAssets = allMapAssets?.filter(asset => asset.type.startsWith("image/"));
     const hasImageAssets = imageAssets && imageAssets.length > 0;
 
     return (
         <MapAssetModalDropdown name={"Images"}>
             <ImageList
                 cols={hasImageAssets ? 4 : 1}
-                sx={{ m: 0 }}
+                sx={{m: 0}}
             >
                 {imageAssets?.map(asset => (
                     <ImageAssetModalButton
@@ -32,7 +32,7 @@ export default function ImageAssetModalList(props: ImageAssetModalListProps) {
                 )) ?? []}
 
                 {!hasImageAssets && (
-                    <Box sx={{ textAlign: "center", m: 2 }}>
+                    <Box sx={{textAlign: "center", m: 2}}>
                         <Typography
                             color={"text.secondary"}
                             variant={"body2"}

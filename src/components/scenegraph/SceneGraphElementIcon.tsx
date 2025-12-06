@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Build,
     Camera,
@@ -26,29 +27,29 @@ export interface SceneGraphElementIconProps {
 }
 
 const ICON_DB: Record<string, JSX.Element> = {
-    "util-blank": <Interests />,
-    "util-minimap": <Map />,
-    "util-cam": <Camera />,
-    "util-dummy": <Person />,
-    "util-vitals": <MonitorHeart />,
-    "util-room": <Room />,
-    "util-computer": <Computer />,
-    "util-admin": <Language />,
-    "util-platform": <SwapHoriz />,
-    "util-ladder1": <SwapVert />,
-    "util-ladder2": <SwapVert />,
-    "util-starfield": <Star />,
-    "util-button1": <CrisisAlert />,
-    "util-button2": <CrisisAlert />,
-    "util-spawn1": <Flag />,
-    "util-spawn2": <Flag />,
-    "util-cams1": <PlayArrow />,
-    "util-cams2": <PlayArrow />,
-    "util-cams3": <PlayArrow />,
-    "util-layer": <Folder />
+    "util-blank": <Interests/>,
+    "util-minimap": <Map/>,
+    "util-cam": <Camera/>,
+    "util-dummy": <Person/>,
+    "util-vitals": <MonitorHeart/>,
+    "util-room": <Room/>,
+    "util-computer": <Computer/>,
+    "util-admin": <Language/>,
+    "util-platform": <SwapHoriz/>,
+    "util-ladder1": <SwapVert/>,
+    "util-ladder2": <SwapVert/>,
+    "util-starfield": <Star/>,
+    "util-button1": <CrisisAlert/>,
+    "util-button2": <CrisisAlert/>,
+    "util-spawn1": <Flag/>,
+    "util-spawn2": <Flag/>,
+    "util-cams1": <PlayArrow/>,
+    "util-cams2": <PlayArrow/>,
+    "util-cams3": <PlayArrow/>,
+    "util-layer": <Folder/>
 };
 
-export default function SceneGraphElementIcon(props: SceneGraphElementIconProps) {
+const SceneGraphElementIcon = React.memo((props: SceneGraphElementIconProps) => {
 
     // Icon DB
     const icon = ICON_DB[props.type];
@@ -57,13 +58,15 @@ export default function SceneGraphElementIcon(props: SceneGraphElementIconProps)
 
     // Other Types
     if (props.type.startsWith("task-"))
-        return <Handyman />;
+        return <Handyman/>;
     else if (props.type.startsWith("sab-"))
-        return <Warning />;
+        return <Warning/>;
     else if (props.type.startsWith("util-"))
-        return <Build />;
+        return <Build/>;
     else if (props.type.startsWith("dec-") || props.type.startsWith("room-"))
-        return <Chair />;
+        return <Chair/>;
     else
-        return <Help />;
-}
+        return <Help/>;
+});
+
+export default SceneGraphElementIcon;

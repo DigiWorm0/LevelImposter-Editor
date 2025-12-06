@@ -12,12 +12,14 @@ import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
 import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
 import useJumpTimelineTick from "./useJumpTimelineTick";
 import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
-import {useSetPlayAnim} from "../timeline/usePlayAnim";
+import {useSetIsAnimPlaying} from "../timeline/useIsAnimPlaying";
 import {useSetPlayhead} from "../timeline/usePlayhead";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
 import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
+import useSelectAllElements from "./useSelectAllElements";
+import useDeleteSelected from "./useDeleteSelected";
 
 const TIMELINE_DELTA_SCALE = 100;
 
@@ -27,6 +29,7 @@ export default function useHotkeysHandler() {
     const undo = useUndo();
     const redo = useRedo();
     const duplicate = useDuplicate();
+    const deleteSelected = useDeleteSelected();
     const removeSelectedElement = useRemoveSelectedElement();
     const removeSelectedKeyframe = useRemoveSelectedKeyframe();
     const [settings, setSettings] = useSettings();
@@ -35,11 +38,12 @@ export default function useHotkeysHandler() {
     const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
     const jumpTimelineTick = useJumpTimelineTick();
     const changeTimelineScale = useChangeTimelineScale();
-    const setPlayAnim = useSetPlayAnim();
+    const setPlayAnim = useSetIsAnimPlaying();
     const setPlayhead = useSetPlayhead();
     const setLoop = useSetSelectedElemProp("triggerLoop");
     const copyKeyframe = useCopyKeyframe();
     const pasteKeyframe = usePasteKeyframe();
+    const selectAllElements = useSelectAllElements();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -57,7 +61,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("right", () => jumpTimelineTick(false), Scope.Timeline);
 
     // Zoom
-    useFocusedHotkeys("ctrl+=", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
+    useFocusedHotkeys("ctrl+equal", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
     useFocusedHotkeys("ctrl+minus", () => changeTimelineScale(-TIMELINE_DELTA_SCALE), Scope.Timeline);
 
     // Delete Keyframe
@@ -109,8 +113,8 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("ctrl+d", duplicate, Scope.Canvas, Scope.SceneGraph);
 
     // Delete
-    useFocusedHotkeys("delete", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
-    useFocusedHotkeys("backspace", removeSelectedElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("delete", deleteSelected, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("backspace", deleteSelected, Scope.Canvas, Scope.SceneGraph);
 
     // Save
     useFocusedHotkeys("ctrl+s", saveMap);
@@ -119,4 +123,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("ctrl+z", undo);
     useFocusedHotkeys("ctrl+y", redo);
     useFocusedHotkeys("ctrl+shift+z", redo);
+
+    // Select All
+    useFocusedHotkeys("ctrl+a", selectAllElements, Scope.Canvas, Scope.SceneGraph);
 }

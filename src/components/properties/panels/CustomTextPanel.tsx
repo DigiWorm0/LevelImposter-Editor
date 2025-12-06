@@ -40,7 +40,9 @@ export default function CustomTextPanel() {
                 icon={<Notes/>}
                 buttonIcon={<OpenInNew/>}
                 buttonText={t("customText.learnMore")}
-                onButtonClick={() => window.open("http://digitalnativestudios.com/textmeshpro/docs/rich-text/")}
+                
+                // Old Link: http://digitalnativestudios.com/textmeshpro/docs/rich-text/
+                onButtonClick={() => window.open("https://docs.unity3d.com/Packages/com.unity.textmeshpro@4.0/manual/RichText.html")}
             >
                 {t("customText.customTextInfo")}
             </MapError>

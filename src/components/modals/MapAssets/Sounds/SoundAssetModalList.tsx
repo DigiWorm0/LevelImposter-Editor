@@ -1,9 +1,9 @@
-import { Box, List, Typography } from "@mui/material";
+import {Box, List, Typography} from "@mui/material";
 import React from "react";
-import useMapAssetsValue from "../../../../hooks/assets/useMapAssets";
-import GUID, { MaybeGUID } from "../../../../types/generic/GUID";
+import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import SoundAssetModalButton from "./SoundAssetModalButton";
+import {useMapAssetsValue} from "../../../../hooks/assets/useMapAssets";
 
 export interface SoundAssetModalListProps {
     onClick: (id: GUID) => void;
@@ -11,9 +11,9 @@ export interface SoundAssetModalListProps {
 }
 
 export default function SoundAssetModalList(props: SoundAssetModalListProps) {
-    const assets = useMapAssetsValue();
+    const allMapAssets = useMapAssetsValue();
 
-    const soundAssets = assets?.filter(asset => asset.type === "audio");
+    const soundAssets = allMapAssets?.filter(asset => asset.type.startsWith("audio/"));
     const hasSoundAssets = soundAssets && soundAssets.length > 0;
 
     return (
@@ -29,7 +29,7 @@ export default function SoundAssetModalList(props: SoundAssetModalListProps) {
                 )) ?? []}
 
                 {!hasSoundAssets && (
-                    <Box sx={{ textAlign: "center", m: 2 }}>
+                    <Box sx={{textAlign: "center", m: 2}}>
                         <Typography
                             color={"text.secondary"}
                             variant={"body2"}

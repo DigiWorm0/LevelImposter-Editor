@@ -8,7 +8,6 @@ import {useSetSelectedElemID} from "../../../hooks/elements/useSelectedElem";
 import generateGUID from "../../../utils/strings/generateGUID";
 import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalSearch from "./AddObjectModalSearch";
-import {Virtuoso} from "react-virtuoso";
 import AUElementDB from "../../../db/AUElementDB";
 
 // Modal Props
@@ -45,11 +44,16 @@ export default function AddObjectModal(props: AddObjectModalProps) {
 
     return (
         <Dialog
+            disableRestoreFocus
             open={props.isVisible}
             onClose={props.onClose}
             fullWidth
             maxWidth="sm"
-            PaperProps={{elevation: 1}}
+            slotProps={{
+                paper: {
+                    elevation: 1,
+                }
+            }}
         >
             <AddObjectModalSearch/>
             <IconButton
@@ -76,17 +80,13 @@ export default function AddObjectModal(props: AddObjectModalProps) {
 
                     <Divider/>
 
-                    <Virtuoso
-                        totalCount={AUElementDB.length}
-                        itemContent={(index) => (
-                            <AddObjectModalButton
-                                key={AUElementDB[index]}
-                                type={AUElementDB[index]}
-                                onClick={onClick}
-                            />
-                        )}
-                        style={{height: 500}}
-                    />
+                    {AUElementDB.map(type => (
+                        <AddObjectModalButton
+                            key={type}
+                            type={type}
+                            onClick={onClick}
+                        />
+                    ))}
                 </List>
             </DialogContent>
         </Dialog>

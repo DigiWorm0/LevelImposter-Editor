@@ -5,7 +5,8 @@ import {Close} from "@mui/icons-material";
 export interface GenericModalProps {
     open: boolean;
     onClose?: () => void;
-    title?: string;
+    icon?: React.ReactNode;
+    title?: React.ReactNode;
     children: React.ReactNode;
     DialogProps?: Partial<DialogProps>;
     DialogContentProps?: Partial<DialogProps>;
@@ -17,17 +18,23 @@ export default function GenericModal(props: GenericModalProps) {
     return (
         <Dialog
             open={props.open}
-            onClose={props.onClose}
+            onClose={() => {
+                if (!props.preventClose && props.onClose)
+                    props.onClose();
+            }}
             fullWidth
             maxWidth="sm"
             scroll={"body"}
-            PaperProps={{
-                elevation: 1
+            slotProps={{
+                paper: {
+                    elevation: 1
+                }
             }}
             disableEscapeKeyDown={props.preventClose}
             {...props.DialogProps}
         >
-            <DialogTitle>
+            <DialogTitle sx={{display: "flex", alignItems: "center", gap: 1}}>
+                {props.icon}
                 {props.title}
             </DialogTitle>
             {!props.preventClose && (
@@ -44,7 +51,9 @@ export default function GenericModal(props: GenericModalProps) {
             )}
 
             <DialogContent
-                sx={{paddingTop: 0}}
+                sx={{
+                    paddingTop: 0
+                }}
                 {...props.DialogContentProps}
             >
                 {props.children}

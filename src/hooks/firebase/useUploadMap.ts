@@ -1,11 +1,11 @@
 import LIMap from "../../types/li/LIMap";
-import { db, storage } from "../../utils/Firebase";
-import { getDownloadURL, ref, StorageReference, uploadBytesResumable } from "firebase/storage";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { serializeMap } from "../fileio/useLISerializer";
+import {db, storage} from "../../utils/Firebase";
+import {getDownloadURL, ref, StorageReference, uploadBytesResumable} from "firebase/storage";
+import {collection, doc, setDoc} from "firebase/firestore";
 import LIMetadata from "../../types/li/LIMetadata";
-import { atom, useSetAtom } from "jotai";
-import { userAtom } from "./useUser";
+import {atom, useSetAtom} from "jotai";
+import {userAtom} from "./useUser";
+import serializeCompressedLIMFile from "../../utils/serialization/serializeCompressedLIMFile";
 
 export interface UploadMapPayload {
     map: LIMap;
@@ -14,7 +14,7 @@ export interface UploadMapPayload {
 }
 
 export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
-    const { map, thumbnail, onProgress } = payload;
+    const {map, thumbnail, onProgress} = payload;
     const user = get(userAtom);
 
     // Uploads file to firebase storage
@@ -23,7 +23,7 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
         data: Uint8Array | Blob | ArrayBuffer,
         onProgress: (percent: number) => void
     ) => {
-        const uploadTask = uploadBytesResumable(ref, data, { cacheControl: "public, max-age=86400" });
+        const uploadTask = uploadBytesResumable(ref, data, {cacheControl: "public, max-age=86400"});
         await new Promise<void>((resolve, reject) => {
             uploadTask.on(
                 "state_changed",
@@ -51,7 +51,7 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
         }
 
         // Serialize Map
-        const mapBytes = await serializeMap(map);
+        const mapBytes = await serializeCompressedLIMFile(map);
 
         // Upload Map
         await uploadFileToStorage(mapStorageRef, mapBytes, onProgress);

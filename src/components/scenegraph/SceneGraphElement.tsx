@@ -1,17 +1,16 @@
-import { Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import useDraggingElementID from "../../hooks/elements/useDraggingElementID";
-import { useElementChildIDs } from "../../hooks/elements/useElementChildIDs";
+import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
+import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
 import useElement from "../../hooks/elements/useElements";
-import useIsDroppable from "../../hooks/elements/useIsDroppable";
-import { useSettingsValue } from "../../hooks/useSettings";
-import { MaybeGUID } from "../../types/generic/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
-import { useSetSelectedElemID } from "../../hooks/elements/useSelectedElem";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
-import { SceneGraphListItem } from "./SceneGraphListItem";
+import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
+import useSelectElementID from "../../hooks/selection/useSelectElementID";
+import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;
@@ -20,22 +19,18 @@ export interface SceneGraphElementProps {
 }
 
 export default function SceneGraphElement(props: SceneGraphElementProps) {
-    const [draggingID, setDraggingID] = useDraggingElementID();
-    const [draggingElement, setDraggingElement] = useElement(draggingID);
+    const [, setDraggingID] = useDraggingElementID();
     const isSelected = useIsElementSelected(props.elementID);
-    const setSelectedElemID = useSetSelectedElemID();
     const [element, setElement] = useElement(props.elementID);
-    const isDroppable = useIsDroppable(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
-    const { elementNesting } = useSettingsValue();
     const [isDragOver, setDragOver] = React.useState(false);
     const jumpToElement = useJumpToElement();
+    const selectElementID = useSelectElementID();
 
     if (element === undefined)
         return null;
 
     const isGroup = element.type === "util-layer";
-    const isDisabled = !((isGroup || elementNesting) && isDroppable) && draggingID !== undefined;
     const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery);
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery);
@@ -49,15 +44,15 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
         <>
             <SceneGraphListItem
                 id={props.elementID}
-                isGroup={isGroup}
+                intent={isGroup ? "primary" : "success"}
                 draggable
                 disablePadding
                 onDragStart={(e) => {
-                    if (e.dataTransfer.getData("text/plain") !== "")
-                        return;
-
                     setDraggingID(element.id);
-                    e.dataTransfer.setData("text/plain", element.id);
+                    e.stopPropagation();
+
+                    // Set Drag Image
+                    e.dataTransfer.setDragImage(new Image(), 0, 0);
                 }}
                 onDragEnd={() => {
                     setDragOver(false);
@@ -75,10 +70,8 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 }}
                 onDrop={(e) => {
                     e.preventDefault();
-                    const data = e.dataTransfer.getData("text/plain");
-                    if (!(data === element.id || draggingElement === undefined || isDisabled)) {
-                        setDraggingElement({ ...draggingElement, parentID: element.id });
-                    }
+                    handleSceneGraphDrop(props.elementID);
+
                     setDragOver(false);
                     setDraggingID(undefined);
                     e.stopPropagation();
@@ -88,32 +81,46 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                         size={"small"}
                         onClick={() => setElement({
                             ...element,
-                            properties: { ...element.properties, isExpanded: !isExpanded }
+                            properties: {...element.properties, isExpanded: !isExpanded}
                         })}
                     >
-                        <AnimatedCaretIcon up={!isExpanded} />
+                        <AnimatedCaretIcon up={!isExpanded}/>
                     </IconButton>
                 )}
             >
                 <ListItemButton
                     sx={{
                         paddingLeft: props.depth * 2 + 2,
+                        paddingTop: 0.5,
+                        paddingBottom: 0.5,
                         borderWidth: 1,
                         borderStyle: "solid",
                         borderColor: props.searchQuery ? "primary" : "transparent",
                         borderRadius: 2
                     }}
-                    onClick={() => setSelectedElemID(element.id)}
+                    onClick={(e: MouseEvent) => {
+                        const metaKey = e.metaKey || e.ctrlKey;
+                        const shiftKey = e.shiftKey;
+                        const operation = metaKey ? "toggle" : shiftKey ? "add" : "set";
+
+                        selectElementID({
+                            id: element.id,
+                            operation
+                        });
+                    }}
                     onDoubleClick={() => jumpToElement(element.id)}
-                    disabled={isDisabled}
                     dense
                     selected={isSelected || isDragOver}
                 >
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                        <SceneGraphElementIcon type={element.type} />
+                    <ListItemIcon sx={{minWidth: 40}}>
+                        <SceneGraphElementIcon type={element.type}/>
                     </ListItemIcon>
                     <ListItemText
                         primary={element.name}
+                        sx={{
+                            marginTop: 0,
+                            marginBottom: 0,
+                        }}
                     />
                 </ListItemButton>
             </SceneGraphListItem>

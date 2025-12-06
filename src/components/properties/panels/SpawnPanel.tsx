@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
-import { DEFAULT_SPAWN_RANGE } from "../../../types/generic/Constants";
+import {useTranslation} from "react-i18next";
+import {DEFAULT_SPAWN_RANGE} from "../../../types/amongus/Constants";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { TripOrigin } from "@mui/icons-material";
+import {TripOrigin} from "@mui/icons-material";
 
 export default function SpawnPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isSpawn1 = useIsSelectedElemType("util-spawn1");
     const isSpawn2 = useIsSelectedElemType("util-spawn2");
 
@@ -20,7 +20,7 @@ export default function SpawnPanel() {
                 name={t("spawn.radius")}
                 prop="range"
                 defaultValue={DEFAULT_SPAWN_RANGE}
-                icon={<TripOrigin />}
+                icon={<TripOrigin/>}
                 stepSize={0.1}
                 color="warning"
             />

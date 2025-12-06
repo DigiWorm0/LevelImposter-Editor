@@ -1,11 +1,11 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import isDefaultName from "../../utils/map/isDefaultMapName";
-import { useMapName } from "../../hooks/map/useMap";
-import { Button, TextField } from "@mui/material";
+import {useTranslation} from "react-i18next";
+import getIsDefaultMapName from "../../utils/map/getIsDefaultMapName";
+import {useMapName} from "../../hooks/map/useMap";
+import {Button, TextField} from "@mui/material";
 
 export default function MapName() {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const [mapName, setMapName] = useMapName();
     const [isEditingName, setIsEditingName] = React.useState(false);
     const [name, setName] = React.useState(mapName);
@@ -20,7 +20,7 @@ export default function MapName() {
     }, [isEditingName]);
 
     React.useEffect(() => {
-        if (isDefaultName(name)) {
+        if (getIsDefaultMapName(name)) {
             setName(t("map.new") as string);
             setMapName(t("map.new") as string);
         }

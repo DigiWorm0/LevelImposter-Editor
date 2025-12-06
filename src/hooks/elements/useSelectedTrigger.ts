@@ -1,7 +1,6 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { MaybeLITrigger } from "../../types/li/LITrigger";
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { selectedElementAtom } from "./useSelectedElem";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {MaybeLITrigger} from "../../types/li/LITrigger";
+import {selectedElementAtom} from "./useSelectedElem";
 
 // Atoms
 export const selectedTriggerIDAtom = atom<string | undefined>(undefined);
@@ -9,10 +8,9 @@ export const selectedTriggerAtom = atom(
     (get) => {
         const selectedElem = get(selectedElementAtom);
         const selectedTriggerID = get(selectedTriggerIDAtom);
-        const selectedTrigger = selectedElem?.properties.triggers?.find(
+        return selectedElem?.properties.triggers?.find(
             (trigger) => trigger.id === selectedTriggerID
         );
-        return selectedTrigger;
     },
     (get, set, trigger: MaybeLITrigger) => {
         const selectedElem = get(selectedElementAtom);
@@ -22,16 +20,14 @@ export const selectedTriggerAtom = atom(
             triggers[index] = trigger;
             set(selectedElementAtom, {
                 ...selectedElem,
-                properties: { ...selectedElem?.properties, triggers: [...triggers] }
+                properties: {...selectedElem?.properties, triggers: [...triggers]}
             });
-            set(saveHistoryAtom);
         } else if (selectedElem && trigger != undefined) {
             triggers.push(trigger);
             set(selectedElementAtom, {
                 ...selectedElem,
-                properties: { ...selectedElem?.properties, triggers: [...triggers] }
+                properties: {...selectedElem?.properties, triggers: [...triggers]}
             });
-            set(saveHistoryAtom);
         }
     }
 );

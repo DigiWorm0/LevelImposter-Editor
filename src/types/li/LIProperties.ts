@@ -1,4 +1,4 @@
-import GUID from "../generic/GUID";
+import GUID from "../common/GUID";
 import LICollider from "./LICollider";
 import LIColor from "./LIColor";
 import LIMinigameProps from "./LIMinigameProps";
@@ -8,6 +8,7 @@ import LITrigger from "./LITrigger";
 import LICustomText from "./LICustomText";
 import LIAnimTarget from "./LIAnimTarget";
 import {PRESET_RESOURCE_IDS} from "../../db/AUElementDB";
+import LISpriteAnimation from "./LISpriteAnimation";
 
 export default interface LIProperties {
 
@@ -27,6 +28,7 @@ export default interface LIProperties {
     triggerGateValueID?: GUID;
 
     // Value
+    valuePresetType?: string;
     defaultBoolValue?: boolean;
 
     // Comparator
@@ -60,8 +62,10 @@ export default interface LIProperties {
 
     // Sprite
     spriteID?: GUID;
+    animations?: LISpriteAnimation[];
     color?: LIColor;
     loopGIF?: boolean;
+
 
     /**
      * @deprecated Use spriteID instead
@@ -189,6 +193,3 @@ export default interface LIProperties {
 };
 
 export type LIPropName = keyof LIProperties;
-export type LIPropNameType<T> = {
-    [K in keyof LIProperties]: LIProperties[K] extends T ? K : never;
-}[keyof LIProperties];

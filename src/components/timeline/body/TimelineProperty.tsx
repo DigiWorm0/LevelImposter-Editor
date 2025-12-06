@@ -4,7 +4,7 @@ import TimelineRow from "../TimelineRow";
 import React from "react";
 import FlexNumericInput from "../../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import TimelinePlayhead from "./TimelinePlayhead";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 import useIsCurrentKeyframe from "../../../hooks/timeline/useIsCurrentKeyframe";
@@ -20,13 +20,19 @@ export interface TimelinePropertyProps {
     property: LIAnimPropertyType;
 }
 
+const PROPERTY_DEFAULTS: Partial<Record<LIAnimPropertyType, number>> = {
+    xScale: 1,
+    yScale: 1,
+    opacity: 1
+};
+
 export default function TimelineProperty(props: TimelinePropertyProps) {
     const [animTargetProperty, setAnimTargetProperty] = useAnimTargetProperty(props);
     const isCurrentKeyframe = useIsCurrentKeyframe(props);
     const [value, setValue] = useAnimPropertyValue(props);
     const [selectedKeyframe, setSelectedKeyframe] = useSelectedKeyframe();
 
-    const DEFAULT_VALUE = (props.property === "yScale" || props.property === "xScale") ? 1 : 0;
+    const defaultValue = PROPERTY_DEFAULTS[props.property] ?? 0;
     const isSelected = props.targetID === selectedKeyframe?.targetID && props.property === selectedKeyframe?.property;
 
     const selectKeyframe = (id: number) => {
@@ -59,7 +65,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
             header={(
                 <Box
                     sx={{
-                        padding: "5px 40px",
+                        padding: "3px 40px",
                         paddingRight: 0,
                         display: "flex",
                         flexDirection: "row",
@@ -71,7 +77,7 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                     </span>
                     <Box>
                         <IconButton
-                            onClick={() => setValue(value ?? DEFAULT_VALUE)}
+                            onClick={() => setValue(value ?? defaultValue)}
                         >
                             {isCurrentKeyframe ? (
                                 <DiamondSVG
@@ -86,18 +92,21 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
                             )}
                         </IconButton>
                         <FlexNumericInput
-                            value={value ?? DEFAULT_VALUE}
+                            value={value ?? defaultValue}
                             onChange={(value) => setValue(value)}
                             inputProps={{
                                 variant: "standard",
-                                sx: {width: 100, height: 24},
+                                sx: {
+                                    width: 100,
+                                    height: 24
+                                },
                                 InputProps: {
                                     endAdornment: (
                                         <TimelineCurveButton
                                             property={props.property}
                                             targetID={props.targetID}
                                         />
-                                    )
+                                    ),
                                 }
                             }}
                         />

@@ -1,27 +1,41 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { atomFamily } from "jotai/utils";
-import { MaybeGUID } from "../../types/generic/GUID";
-import GLOBAL_PROPERTIES from "../../types/generic/GlobalProps";
-import { MaybeLIElement } from "../../types/li/LIElement";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {MaybeGUID} from "../../types/common/GUID";
+import GLOBAL_PROPERTIES from "../../types/li/GlobalProps";
+import {MaybeLIElement} from "../../types/li/LIElement";
 import LIProperties from "../../types/li/LIProperties";
-import { saveHistoryAtom } from "../map/history/useHistory";
-import { elementsAtom } from "../map/useMap";
-import { elementFamilyAtom } from "./useElements";
+import {elementsAtom} from "../map/useMap";
+import {elementAtomFamily} from "./useElements";
+import {selectedElementIDsAtom} from "../selection/useSelectedElementIDs";
+import {isElementSelectedAtomFamily} from "./useIsElementSelected";
+import {saveHistoryAtom} from "../map/history/useHistory";
 
 // Atoms
-export const selectedElementIDAtom = atom<MaybeGUID>(undefined);
+export const selectedElementIDAtom = atom((get) => {
+    const selectedIDs = get(selectedElementIDsAtom);
+    return selectedIDs.length === 1 ? selectedIDs[0] : undefined;
+}, (_, set, id: MaybeGUID) => {
+    if (id === undefined) {
+        set(selectedElementIDsAtom, []);
+        return;
+    }
+
+    set(selectedElementIDsAtom, [id]);
+});
+
 export const selectedElementAtom = atom(
     (get) => {
         const id = get(selectedElementIDAtom);
-        const elemAtom = elementFamilyAtom(id);
+        const elemAtom = elementAtomFamily(id);
         return get(elemAtom);
     },
     (get, set, elem: MaybeLIElement) => {
         const elements = [...get(elementsAtom)];
         const index = elements.findIndex((e) => e.id === elem?.id);
         if (index >= 0 && elem) {
-            elements[index] = { ...elem };
+            elements[index] = {...elem};
 
+            // TODO: Improve handling of global properties
             const globalProps = GLOBAL_PROPERTIES.filter((globalProp) => globalProp.types.includes(elem?.type ?? ""));
             globalProps.forEach((globalProp) => {
                 const prop = globalProp.prop as keyof LIProperties;
@@ -39,19 +53,20 @@ export const selectedElementAtom = atom(
             });
 
             set(elementsAtom, elements);
-            set(saveHistoryAtom);
         }
+
+        // Save Undo/Redo history
+        set(saveHistoryAtom);
     }
 );
 export const isSelectedElemFamily = atomFamily((id: MaybeGUID) => {
     const selectedAtom = atom((get) => {
-        const selectedID = get(selectedElementIDAtom);
         const searchParent = (childID: MaybeGUID): boolean => {
             if (childID === undefined)
                 return false;
-            if (childID === selectedID)
+            if (get(isElementSelectedAtomFamily(childID)))
                 return true;
-            const parentID = get(elementFamilyAtom(childID))?.parentID;
+            const parentID = get(elementAtomFamily(childID))?.parentID;
             return searchParent(parentID);
         };
         return searchParent(id);

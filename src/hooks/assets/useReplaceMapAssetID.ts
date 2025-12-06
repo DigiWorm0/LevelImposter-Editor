@@ -1,6 +1,8 @@
-import { atom, useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { elementsAtom } from "../map/useMap";
+import {atom, useSetAtom} from "jotai";
+import {MaybeGUID} from "../../types/common/GUID";
+import {elementsAtom, spritesAtlasesAtom} from "../map/useMap";
+import {deleteMapAssetAtom} from "./useDeleteMapAsset";
+import LIElement from "../../types/li/LIElement";
 
 export interface ReplaceMapAssetIDPayload {
     fromID: MaybeGUID;
@@ -19,12 +21,19 @@ export const replaceMapAssetIDAtom = atom(null, (get, set, payload: ReplaceMapAs
         return value;
     };
 
-    // Get Elements
+    // Update Elements
     const elements = get(elementsAtom);
-    const newElements = elements.map((element) => ({
+    const newElements: LIElement[] = elements.map((element) => ({
         ...element,
         properties: {
             ...element.properties,
+            animations: element.properties.animations?.map((animation) => ({
+                ...animation,
+                frames: animation.frames.map((frame) => ({
+                    ...frame,
+                    spriteID: checkID(frame.spriteID) || frame.spriteID
+                }))
+            })),
             spriteID: checkID(element.properties.spriteID),
             meetingBackgroundID: checkID(element.properties.meetingBackgroundID),
             minigames: element.properties.minigames?.map((minigame) => ({
@@ -37,8 +46,19 @@ export const replaceMapAssetIDAtom = atom(null, (get, set, payload: ReplaceMapAs
             }))
         }
     }));
-
     set(elementsAtom, newElements);
+
+    // Update Sprite Atlases
+    const spriteAtlases = get(spritesAtlasesAtom) || [];
+    const newSpriteAtlases = spriteAtlases.map((atlas) => ({
+        ...atlas,
+        assetID: checkID(atlas.assetID) || atlas.assetID
+    }));
+    set(spritesAtlasesAtom, newSpriteAtlases);
+
+    // Delete old asset
+    set(deleteMapAssetAtom, payload.fromID);
+
     return referenceCount;
 });
 

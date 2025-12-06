@@ -1,8 +1,8 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import GUID from "../../../../types/generic/GUID";
-import { useMapAssetValue } from "../../../../hooks/assets/useMapAsset";
-import { VolumeUp } from "@mui/icons-material";
+import GUID from "../../../../types/common/GUID";
+import useMapAsset from "../../../../hooks/assets/useMapAsset";
+import {VolumeUp} from "@mui/icons-material";
 import toSizeString from "../../../../utils/strings/toSizeString";
 import toDurationString from "../../../../utils/strings/toDurationString";
 
@@ -13,7 +13,7 @@ export interface SoundAssetModalButtonProps {
 }
 
 export default function SoundAssetModalButton(props: SoundAssetModalButtonProps) {
-    const asset = useMapAssetValue(props.id);
+    const asset = useMapAsset(props.id);
     const [soundData, setSoundData] = React.useState<HTMLAudioElement | null>(null);
 
     React.useEffect(() => {
@@ -35,7 +35,7 @@ export default function SoundAssetModalButton(props: SoundAssetModalButtonProps)
         <ListItem disablePadding>
             <ListItemButton onClick={props.onClick} selected={props.isActive}>
                 <ListItemIcon>
-                    <VolumeUp />
+                    <VolumeUp/>
                 </ListItemIcon>
                 <ListItemText
                     primary={toDurationString(soundData?.duration ?? 0)}

@@ -1,8 +1,8 @@
 // Trim Assets
-import { atom } from "jotai/index";
-import { useSetAtom } from "jotai";
-import { MaybeGUID } from "../../types/generic/GUID";
-import { mapAssetsAtomFamily } from "./useMapAsset";
+import {atom} from "jotai/index";
+import {useSetAtom} from "jotai";
+import {MaybeGUID} from "../../types/common/GUID";
+import {mapAssetsAtomFamily} from "./useMapAsset";
 import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
 import getFileExtension from "../../utils/fileio/getFileExtension";
 
@@ -20,7 +20,7 @@ export const downloadAssetAtom = atom(null, (get, _, payload: DownloadAssetPaylo
         return;
 
     // Download Asset
-    const fileName = `${payload.fileName ?? asset.id}.${getFileExtension(asset.blob.type)}`;
+    const fileName = `${payload.fileName ?? asset.id}.${getFileExtension(asset.type)}`;
     saveFileFromURL(asset.url, fileName);
 });
 

@@ -1,13 +1,12 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Alert, Button} from "@mui/material";
+import {Button} from "@mui/material";
 import GenericModal from "./GenericModal";
 import ElementSelect from "../properties/input/select/ElementSelect";
 import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
 import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
-import {MaybeGUID} from "../../types/generic/GUID";
+import {MaybeGUID} from "../../types/common/GUID";
 import {Add} from "@mui/icons-material";
-import {useSettingsValue} from "../../hooks/useSettings";
 
 export interface AddTargetModalProps {
     isOpen: boolean;
@@ -16,7 +15,6 @@ export interface AddTargetModalProps {
 
 export default function AddTargetModal(props: AddTargetModalProps) {
     const {t} = useTranslation();
-    const settings = useSettingsValue();
     const [selectedID, setSelectedID] = React.useState<MaybeGUID>(undefined);
     const [animTargets,] = useSelectedElemProp("animTargets");
     const addAnimTarget = useAddAnimTarget();
@@ -34,7 +32,7 @@ export default function AddTargetModal(props: AddTargetModalProps) {
             open={props.isOpen}
             onClose={props.onClose}
             title={t("anim.selectTarget") as string}
-            actions={(<>
+            actions={(
                 <Button
                     variant={"contained"}
                     onClick={onAddTarget}
@@ -44,12 +42,10 @@ export default function AddTargetModal(props: AddTargetModalProps) {
                     <Add/>
                     {t("anim.addTarget") as string}
                 </Button>
-            </>
             )}
         >
             <ElementSelect
                 disablePortal={false}
-                typeFilter={settings.animAnything ? undefined : "util-blanktrigger"}
                 noElementsText={t("anim.noTargets")}
                 defaultText={t("anim.selectTarget")}
                 selectedID={selectedID}
@@ -58,12 +54,6 @@ export default function AddTargetModal(props: AddTargetModalProps) {
                 placement={"top"}
                 onReset={() => setSelectedID(undefined)}
             />
-
-            {!settings.animAnything && (
-                <Alert severity={"info"}>
-                    {t("anim.addTargetInfo")}
-                </Alert>
-            )}
         </GenericModal>
     );
 }

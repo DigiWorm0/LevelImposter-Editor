@@ -1,5 +1,5 @@
 import useCurrentCurve from "../../../hooks/timeline/useCurrentCurve";
-import GUID from "../../../types/generic/GUID";
+import GUID from "../../../types/common/GUID";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 import {IconButton, InputAdornment, MenuItem, Popover, Tooltip} from "@mui/material";
 import LinearSVG from "../icons/LinearSVG";
@@ -31,12 +31,12 @@ export default function TimelineCurveButton(props: TimelinePropertyProps) {
                     >
                         <IconButton
                             sx={{padding: "5px"}}
-                            onClick={(e) => setAnchorEl(e.currentTarget)}
+                            onClick={(e: Event) => setAnchorEl(e.currentTarget as HTMLElement)}
                         >
-                            {curve === "linear" && <LinearSVG size={20}/>}
-                            {curve === "easeIn" && <EaseInSVG size={20}/>}
-                            {curve === "easeOut" && <EaseOutSVG size={20}/>}
-                            {curve === "easeInOut" && <EaseInOutSVG size={20}/>}
+                            {curve === "linear" && <LinearSVG size={18}/>}
+                            {curve === "easeIn" && <EaseInSVG size={18}/>}
+                            {curve === "easeOut" && <EaseOutSVG size={18}/>}
+                            {curve === "easeInOut" && <EaseInOutSVG size={18}/>}
                         </IconButton>
                     </Tooltip>
                 </InputAdornment>

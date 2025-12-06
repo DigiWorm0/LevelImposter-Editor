@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AUTaskLengthDB, TaskLength } from "../../../../types/generic/TaskLength";
+import { AUTaskLengthDB, TaskLength } from "../../../../types/amongus/TaskLength";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
