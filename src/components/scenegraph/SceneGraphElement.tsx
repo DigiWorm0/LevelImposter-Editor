@@ -91,6 +91,8 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 <ListItemButton
                     sx={{
                         paddingLeft: props.depth * 2 + 2,
+                        paddingTop: 0.5,
+                        paddingBottom: 0.5,
                         borderWidth: 1,
                         borderStyle: "solid",
                         borderColor: props.searchQuery ? "primary" : "transparent",
@@ -115,6 +117,10 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                     </ListItemIcon>
                     <ListItemText
                         primary={element.name}
+                        sx={{
+                            marginTop: 0,
+                            marginBottom: 0,
+                        }}
                     />
                 </ListItemButton>
             </SceneGraphListItem>
