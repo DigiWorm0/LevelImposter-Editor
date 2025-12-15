@@ -2,31 +2,43 @@ import {useSetAtom} from "jotai";
 import {atom} from "jotai/index";
 import Vector2 from "../../../types/transform/Vector2";
 import {viewportAtom} from "../../canvas/useViewport";
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
-import {selectedElementAtom} from "../useSelectedElem";
+import {selectedElementIDAtom} from "../useSelectedElem";
 import {selectedColliderAtom} from "./useSelectedCollider";
 import getDistanceFromLine from "../../../utils/common/getDistanceFromLine";
+import {getMapElementRef} from "../../canvas/useMapElementRef";
+import screenToWorld from "../../canvas/useScreenToWorld";
+import {getReverseOffsetToElement} from "../../../utils/canvas/getOffsetFromElement";
+import {UNITY_SCALE} from "../../../types/amongus/Constants";
 
 // Atom
 export const insertColliderPointAtMouseAtom = atom(null, (get, set, mouseScreenPosition: Vector2) => {
 
-    // Calculate the world position of the mouse
+    // Get the map element of the selected collider
+    const selectedElementID = get(selectedElementIDAtom);
+    const mapElementRef = getMapElementRef(selectedElementID);
+    if (!mapElementRef.current)
+        throw new Error("No selected element to insert point into");
+
+    // Get the viewport
     const viewport = get(viewportAtom);
     if (!viewport)
         throw new Error("Viewport is not available");
 
-    const mouseWorldPosition = viewport.toWorld(mouseScreenPosition.x, mouseScreenPosition.y);
-    mouseWorldPosition.x /= UNITY_SCALE;
-    mouseWorldPosition.y /= -UNITY_SCALE;
+    // Calculate the world position of the selected element
+    const elementScreenPos = mapElementRef.current.getGlobalPosition();
+    const elementWorldPosition = screenToWorld(elementScreenPos);
 
-    // Calculate the position relative to the selected element
-    const selectedElement = get(selectedElementAtom);
-    if (!selectedElement)
-        throw new Error("No selected element to insert point into");
+    // Calculate the world position of the mouse
+    const mouseWorldPosition = screenToWorld(mouseScreenPosition);
 
-    const mouseElementPosition = {
-        x: mouseWorldPosition.x - selectedElement.x,    // TODO: Handle nested transforms
-        y: -(mouseWorldPosition.y - selectedElement.y)
+    // Calculate the mouse position relative to the element
+    const mouseElementOffset = getReverseOffsetToElement(mapElementRef.current, {
+        x: -mouseWorldPosition.x + elementWorldPosition.x,
+        y: -mouseWorldPosition.y + elementWorldPosition.y
+    });
+    const colliderPointOffset = {
+        x: mouseElementOffset.x / UNITY_SCALE,
+        y: mouseElementOffset.y / UNITY_SCALE
     };
 
     // Find the closest pair of indices within the collider
@@ -41,7 +53,7 @@ export const insertColliderPointAtMouseAtom = atom(null, (get, set, mouseScreenP
         const nextPoint = selectedCollider.points[i + 1];
 
         // Calculate the distance from the mouse position to the line segment
-        const distance = getDistanceFromLine(mouseElementPosition, point, nextPoint);
+        const distance = getDistanceFromLine(colliderPointOffset, point, nextPoint);
 
         if (distance < closestDistance) {
             closestDistance = distance;
@@ -54,7 +66,7 @@ export const insertColliderPointAtMouseAtom = atom(null, (get, set, mouseScreenP
 
     // Insert the new point at the closest index
     const newPoints = [...selectedCollider.points];
-    newPoints.splice(closestIndex + 1, 0, mouseElementPosition);
+    newPoints.splice(closestIndex + 1, 0, colliderPointOffset);
 
     set(selectedColliderAtom, {
         ...selectedCollider,
