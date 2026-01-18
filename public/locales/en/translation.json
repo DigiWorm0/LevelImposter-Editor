@@ -119,7 +119,11 @@
     "length": "Area Length",
     "height": "Area Height",
     "minSpeed": "Minimum Particle Speed",
-    "maxSpeed": "Maximum Particle Speed"
+    "maxSpeed": "Maximum Particle Speed",
+    "minSize": "Minimum Particle Size",
+    "maxSize": "Maximum Particle Size",
+    "scaleSpeedBySize": "Scale Speed By Size",
+    "scaleSpeedBySizeTooltip": "Larger particles will move faster than smaller particles."
   },
   "audio": {
     "soundPlayer": "Sound Player",
@@ -987,6 +991,9 @@
   "au": {
     "undefined": "Unknown Object",
     "util-layer": "Group",
+    "util-lobbymaps": "Lobby Map Console",
+    "util-lobbyoptions": "Lobby Options Console",
+    "util-lobbywardrobe": "Lobby Wardrobe Console",
     "util-blank": "Default Object",
     "util-button1": "Skeld / Polus Button",
     "util-button2": "Mira Button",
