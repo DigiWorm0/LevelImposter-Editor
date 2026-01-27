@@ -17,7 +17,7 @@ export default function MapExileInput() {
             secondaryAction={
                 <Select
                     size={"small"}
-                    value={properties.exileID}
+                    value={properties.exileID ?? EXILE_IDS[0]}
                     onChange={(e) => setProperties({...properties, exileID: e.target.value})}
                     style={{width: 200}}
                     variant={"standard"}
@@ -30,7 +30,7 @@ export default function MapExileInput() {
         >
             <ListItemButton>
                 <ListItemIcon><ExitToApp/></ListItemIcon>
-                <ListItemText primary={t("settings.map.exileAnim")}/>
+                <ListItemText primary={t("settings.map.defaultExileAnimation")}/>
             </ListItemButton>
         </ListItem>
     );

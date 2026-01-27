@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import GenericModal from "./GenericModal";
 import {List} from "@mui/material";
 import {AllInclusive, Info, PlayArrow, Shuffle, TextSnippet, ViewCompact} from "@mui/icons-material";
+import MapTargetInput from "../properties/input/mapProps/MapTargetInput";
 
 export interface MapPropertiesModalProps {
     isOpen: boolean;
@@ -60,6 +61,7 @@ export default function MapPropertiesModal(props: MapPropertiesModalProps) {
                 />
                 <MapSkyboxInput/>
                 <MapExileInput/>
+                <MapTargetInput/>
             </List>
         </GenericModal>
     );

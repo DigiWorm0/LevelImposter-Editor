@@ -32,7 +32,8 @@ const TYPE_BLACKLIST = [
     "util-triggergate",
     "util-valuebool",
     "util-valueboolpreset",
-    "util-valuecomparator"
+    "util-valuecomparator",
+    "util-lobbyspawn"
 ];
 
 export default function SpritePanel() {

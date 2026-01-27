@@ -43,6 +43,7 @@ const ICON_DB: Record<string, JSX.Element> = {
     "util-button2": <CrisisAlert/>,
     "util-spawn1": <Flag/>,
     "util-spawn2": <Flag/>,
+    "util-lobbyspawn": <Flag/>,
     "util-cams1": <PlayArrow/>,
     "util-cams2": <PlayArrow/>,
     "util-cams3": <PlayArrow/>,

@@ -144,6 +144,7 @@ const AUElementDB: string[] = [
     "util-lobbywardrobe",
     "util-lobbymaps",
     "util-lobbyoptions",
+    "util-lobbyspawn",
     "task-id",
     "task-keys",
     "task-pass",

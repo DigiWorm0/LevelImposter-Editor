@@ -777,6 +777,8 @@
     "viewExternal": "View on LevelImposter.net",
     "openInEditor": "Open in Editor",
     "publishUpdate": "Update Map",
+    "targetGame": "Game",
+    "targetLobby": "Lobby",
     "publishUpdateInfo": "This will publish your current map as an update to this existing map.",
     "noDescription": "(No description)",
     "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
@@ -913,8 +915,9 @@
       "canRemix": "Allow Remix-ing",
       "skyboxColor": "Skybox Color",
       "setColor": "Set Color",
-      "exileAnim": "Exile Animation",
-      "setAnim": "Set Animation"
+      "defaultExileAnimation": "Default Exile Animation",
+      "setAnim": "Set Animation",
+      "mapTarget": "Map Target"
     }
   },
   "t": {
@@ -994,6 +997,7 @@
     "util-lobbymaps": "Lobby Map Console",
     "util-lobbyoptions": "Lobby Options Console",
     "util-lobbywardrobe": "Lobby Wardrobe Console",
+    "util-lobbyspawn": "Lobby Spawnpoint",
     "util-blank": "Default Object",
     "util-button1": "Skeld / Polus Button",
     "util-button2": "Mira Button",
