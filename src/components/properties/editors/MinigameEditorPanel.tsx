@@ -5,6 +5,7 @@ import MapAsset from "../../../types/li/MapAsset";
 import generateGUID from "../../../utils/strings/generateGUID";
 import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import SpriteMorePanel from "../panels/SpritePanel/SpriteMorePanel";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -62,6 +63,7 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 onReset={onReset}
                 onFinish={props.onFinish}
             />
+            <SpriteMorePanel spriteID={minigame?.spriteID}/>
         </Box>
     );
 }
