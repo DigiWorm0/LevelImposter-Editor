@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Button, ButtonGroup, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import MapAsset from "../../../types/li/MapAsset";
@@ -7,6 +7,8 @@ import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import SpriteDownloadRawButton from "../../buttons/SpriteDownloadRawButton";
 import SpriteDownloadPNGButton from "../../buttons/SpriteDownloadPNGButton";
+import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
+import LazyCollapse from "../util/LazyCollapse";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -17,6 +19,7 @@ interface MinigameEditorPanelProps {
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     const {t} = useTranslation();
     const [minigames, setMinigames] = useSelectedElemProp("minigames");
+    const [isMoreOpen, setIsMoreOpen] = React.useState(false);
 
     const minigameType = props.minigameType;
     const splitMinigameType = minigameType.split("_");
@@ -64,8 +67,26 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 onReset={onReset}
                 onFinish={props.onFinish}
             />
-            <SpriteDownloadRawButton assetID={minigame?.spriteID}/>
-            <SpriteDownloadPNGButton assetID={minigame?.spriteID}/>
+
+            <Button
+                variant={isMoreOpen ? "contained" : "text"}
+                color={"primary"}
+                size={"small"}
+                fullWidth
+                sx={{marginTop: 1}}
+                onClick={() => setIsMoreOpen(!isMoreOpen)}
+            >
+                {t("sprite.more")}
+                <AnimatedCaretIcon up={!isMoreOpen}/>
+            </Button>
+            <LazyCollapse in={isMoreOpen}>
+                <Box sx={{p: 1}}>
+                    <ButtonGroup orientation={"vertical"} fullWidth>
+                        <SpriteDownloadRawButton assetID={minigame?.spriteID}/>
+                        <SpriteDownloadPNGButton assetID={minigame?.spriteID}/>
+                    </ButtonGroup>
+                </Box>
+            </LazyCollapse>
         </Box>
     );
 }
