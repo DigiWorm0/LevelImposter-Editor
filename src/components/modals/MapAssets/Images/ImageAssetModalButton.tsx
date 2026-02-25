@@ -11,7 +11,7 @@ export interface MapAssetModalButtonProps {
 
 export default function ImageAssetModalButton(props: MapAssetModalButtonProps) {
     const asset = useMapAsset(props.id);
-    // const image = useElementAsImageBlob(props.id);
+    // const image = useMapAssetAsImageBlob(props.id);
 
     if (!asset)
         return null;
