@@ -2,15 +2,15 @@ import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {atom, useAtomValue} from "jotai";
 import {Application, Sprite} from "pixi.js";
-import {elementSpriteAtomFamily} from "./useElementSprite";
+import {spriteAtomFamily} from "../sprites/useSprite";
 
 const app = new Application();
 
-export const elementAsImageBlobAtom = atomFamily((id: MaybeGUID) => {
+export const mapAssetAsImageBlobAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom(async (get) => {
 
         // Get the PIXI texture
-        const texture = await get(elementSpriteAtomFamily(id));
+        const texture = await get(spriteAtomFamily(id));
         if (!texture)
             return null;
 
@@ -37,10 +37,13 @@ export const elementAsImageBlobAtom = atomFamily((id: MaybeGUID) => {
             canvas.toBlob((blob) => {
                 resolve(blob);
             });
+
+            // Clean up the stage for the next render
+            app.stage.removeChild(sprite);
         });
     });
 });
 
-export default function useElementAsImageBlob(id: MaybeGUID) {
-    return useAtomValue(elementAsImageBlobAtom(id));
+export default function useMapAssetAsImageBlob(id: MaybeGUID) {
+    return useAtomValue(mapAssetAsImageBlobAtomFamily(id));
 }

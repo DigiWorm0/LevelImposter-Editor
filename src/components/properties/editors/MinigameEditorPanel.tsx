@@ -1,11 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import MapAsset from "../../../types/li/MapAsset";
 import generateGUID from "../../../utils/strings/generateGUID";
 import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import SpriteMorePanel from "../panels/SpritePanel/SpriteMorePanel";
+import SpriteDownloadRawButton from "../../buttons/SpriteDownloadRawButton";
+import SpriteDownloadPNGButton from "../../buttons/SpriteDownloadPNGButton";
 
 interface MinigameEditorPanelProps {
     minigameType: string;
@@ -14,7 +15,7 @@ interface MinigameEditorPanelProps {
 }
 
 export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [minigames, setMinigames] = useSelectedElemProp("minigames");
 
     const minigameType = props.minigameType;
@@ -49,10 +50,10 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
     }, [minigames, minigame, setMinigames]);
 
     return (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{p: 2}}>
             {!props.hideName && (
                 <Typography variant={"subtitle2"}>
-                    {t(`minigame.${splitMinigameType[1]}`, { index: splitMinigameType[2] })}
+                    {t(`minigame.${splitMinigameType[1]}`, {index: splitMinigameType[2]})}
                 </Typography>
             )}
             <ImageUpload
@@ -63,7 +64,8 @@ export default function MinigameEditorPanel(props: MinigameEditorPanelProps) {
                 onReset={onReset}
                 onFinish={props.onFinish}
             />
-            <SpriteMorePanel spriteID={minigame?.spriteID}/>
+            <SpriteDownloadRawButton assetID={minigame?.spriteID}/>
+            <SpriteDownloadPNGButton assetID={minigame?.spriteID}/>
         </Box>
     );
 }
