@@ -1,21 +1,22 @@
-import {Box, Button, ButtonGroup, CircularProgress} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
 import useMapAsset from "../../../../hooks/assets/useMapAsset";
-import {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {Animation, Download, Gradient} from "@mui/icons-material";
+import {Download, Gradient} from "@mui/icons-material";
 import {convertImageAssetToDDS} from "../../../../utils/dds/convertImageToDDS";
 import useDownloadMapAsset from "../../../../hooks/assets/useDownloadMapAsset";
 import {useSelectedElemValue} from "../../../../hooks/elements/useSelectedElem";
 import useDownloadElementAsPNG from "../../../../hooks/assets/useDownloadElementAsPNG";
-import useSpriteAnimEditorOpen from "../../../../hooks/spriteAnim/useSpriteAnimEditorOpen";
+import GUID from "../../../../types/common/GUID";
 
-export default function SpriteMorePanel() {
+export interface SpriteMorePanelProps {
+    spriteID: GUID | undefined;
+}
+
+export default function SpriteMorePanel(props: SpriteMorePanelProps) {
     const {t} = useTranslation();
-    const spriteID = useSelectedElemPropValue("spriteID");
-    const asset = useMapAsset(spriteID);
+    const asset = useMapAsset(props.spriteID);
     const selectedElem = useSelectedElemValue();
-    const [isAnimEditorOpen, setAnimEditorOpen] = useSpriteAnimEditorOpen();
 
     const downloadRaw = useDownloadMapAsset();
     const _downloadPNG = useDownloadElementAsPNG();
@@ -39,78 +40,62 @@ export default function SpriteMorePanel() {
     const fileName = selectedElem?.name ?? asset?.id ?? "sprite";
 
     return (
-        <Box sx={{p: 1}}>
-            <ButtonGroup orientation={"vertical"} fullWidth>
+        <>
+            {hasSprite && (
                 <Button
                     variant={"outlined"}
                     color={"secondary"}
                     size={"small"}
                     fullWidth
-                    onClick={() => setAnimEditorOpen(true)}
-                    disabled={isAnimEditorOpen}
+                    onClick={() => downloadRaw({id: props.spriteID, fileName})}
                 >
-                    <Animation
+                    <Download
                         sx={{marginRight: 0.5}}
                         fontSize={"small"}
                     />
-                    {t("sprite.editAnimation")}
+                    {t("sprite.downloadAsType", {type: assetType || "N/A"})}
                 </Button>
-                {hasSprite && (
-                    <Button
-                        variant={"outlined"}
-                        color={"secondary"}
-                        size={"small"}
-                        fullWidth
-                        onClick={() => downloadRaw({id: spriteID, fileName})}
-                    >
+            )}
+            {hasSprite && isDDS && (
+                <Button
+                    variant={"outlined"}
+                    color={"secondary"}
+                    size={"small"}
+                    fullWidth
+                    disabled={isDownloadingPNG}
+                    onClick={downloadPNG}
+                >
+                    {isDownloadingPNG && (
+                        <CircularProgress
+                            sx={{marginRight: 0.5}}
+                            size={16}
+                            color={"inherit"}
+                        />
+                    )}
+                    {!isDownloadingPNG && (
                         <Download
                             sx={{marginRight: 0.5}}
                             fontSize={"small"}
                         />
-                        {t("sprite.downloadAsType", {type: assetType || "N/A"})}
-                    </Button>
-                )}
-                {hasSprite && isDDS && (
-                    <Button
-                        variant={"outlined"}
-                        color={"secondary"}
-                        size={"small"}
-                        fullWidth
-                        disabled={isDownloadingPNG}
-                        onClick={downloadPNG}
-                    >
-                        {isDownloadingPNG && (
-                            <CircularProgress
-                                sx={{marginRight: 0.5}}
-                                size={16}
-                                color={"inherit"}
-                            />
-                        )}
-                        {!isDownloadingPNG && (
-                            <Download
-                                sx={{marginRight: 0.5}}
-                                fontSize={"small"}
-                            />
-                        )}
-                        {t("sprite.downloadAsPNG")}
-                    </Button>
-                )}
-                {hasSprite && !isDDS && !isGIF && (
-                    <Button
-                        variant={"outlined"}
-                        color={"secondary"}
-                        size={"small"}
-                        fullWidth
-                        onClick={() => convertImageAssetToDDS(spriteID).catch(console.error)}
-                    >
-                        <Gradient
-                            sx={{marginRight: 0.5}}
-                            fontSize={"small"}
-                        />
-                        {t("sprite.convertToDDS")}
-                    </Button>
-                )}
-            </ButtonGroup>
-        </Box>
+                    )}
+                    {t("sprite.downloadAsPNG")}
+                </Button>
+            )}
+            {hasSprite && !isDDS && !isGIF && (
+                <Button
+                    variant={"outlined"}
+                    color={"secondary"}
+                    size={"small"}
+                    fullWidth
+                    onClick={() => convertImageAssetToDDS(props.spriteID).catch(console.error)}
+                >
+                    <Gradient
+                        sx={{marginRight: 0.5}}
+                        fontSize={"small"}
+                    />
+                    {t("sprite.convertToDDS")}
+                </Button>
+            )}
+        </>
     );
 }
