@@ -2,6 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {useSettingsValue} from "../../hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
+import useEmbedScrollCapture from "../../hooks/embed/useEmbedScrollCapture";
 import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
 import {_useUserAtom} from "../../hooks/firebase/useUser";
@@ -13,6 +14,7 @@ export default function GlobalHooks() {
     const {language} = useSettingsValue();
     const isEmbedded = useEmbed();
     useHotkeysHandler();
+    useEmbedScrollCapture();
     useIDParam();
     _useUserAtom();
     useAtomsDebugValue();
