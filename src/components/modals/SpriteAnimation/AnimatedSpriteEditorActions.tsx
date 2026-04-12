@@ -3,6 +3,7 @@ import {Button, ButtonGroup} from "@mui/material";
 import uploadSpriteAnimFrames from "../../../utils/spriteAnim/uploadSpriteAnimFrames";
 import uploadSpriteAnimGIF from "../../../utils/spriteAnim/uploadSpriteAnimGIF";
 import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import SpriteAnimExportButton from "../../buttons/SpriteAnimExportButton";
 
 export function AnimatedSpriteEditorActions() {
     const [, setAnimation] = useSelectedSpriteAnim();
@@ -28,6 +29,7 @@ export function AnimatedSpriteEditorActions() {
             >
                 Upload GIF
             </Button>
+            <SpriteAnimExportButton/>
             <Button
                 startIcon={<RestartAlt/>}
                 variant={"outlined"}

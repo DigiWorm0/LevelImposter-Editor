@@ -5,11 +5,14 @@ import ImageUpload from "../../util/ImageUpload";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import LazyCollapse from "../../util/LazyCollapse";
-import SpriteMorePanel from "./SpriteMorePanel";
-import {Box, Button} from "@mui/material";
+import {Box, Button, ButtonGroup} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
 import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
 import {getSubAnimationsFromElementType} from "../../../../utils/gif/convertGIFToSpriteAnimation";
+import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
+import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
+import SpriteConvertToDDSButton from "../../../buttons/SpriteConvertToDDSButton";
+import EditAnimationButton from "../../../buttons/EditAnimationButton";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -98,7 +101,14 @@ export default function StillSpritePanel() {
                 <AnimatedCaretIcon up={!isMoreOpen}/>
             </Button>
             <LazyCollapse in={isMoreOpen}>
-                <SpriteMorePanel/>
+                <Box sx={{p: 1}}>
+                    <ButtonGroup orientation={"vertical"} fullWidth>
+                        <EditAnimationButton/>
+                        <SpriteDownloadPNGButton assetID={spriteID}/>
+                        <SpriteDownloadRawButton assetID={spriteID}/>
+                        <SpriteConvertToDDSButton assetID={spriteID}/>
+                    </ButtonGroup>
+                </Box>
             </LazyCollapse>
         </Box>
     );

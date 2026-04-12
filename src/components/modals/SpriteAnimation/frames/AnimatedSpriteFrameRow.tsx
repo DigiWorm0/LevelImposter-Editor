@@ -1,9 +1,11 @@
 import React from "react";
 import {Delete, DragHandle} from "@mui/icons-material";
-import {IconButton, InputAdornment, ListItem} from "@mui/material";
+import {ButtonGroup, IconButton, InputAdornment, ListItem} from "@mui/material";
 import FlexNumericInput from "../../../properties/util/FlexNumericInput";
 import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
 import useSpriteThumbnail from "../../../../hooks/sprites/useSpriteThumbnail";
+import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
+import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
 
 export interface AnimatedSpriteFrameRowProps {
     frame: LISpriteAnimationFrame;
@@ -70,13 +72,19 @@ export default function AnimatedSpriteFrameRow(props: AnimatedSpriteFrameRowProp
                 }}
             />
 
-            <IconButton
-                size={"small"}
+            <ButtonGroup
                 sx={{ml: 1, mr: 1}}
-                onClick={props.onDelete}
             >
-                <Delete/>
-            </IconButton>
+                <SpriteDownloadRawButton assetID={props.frame.spriteID} small/>
+                <SpriteDownloadPNGButton assetID={props.frame.spriteID} small/>
+
+                <IconButton
+                    size={"small"}
+                    onClick={props.onDelete}
+                >
+                    <Delete/>
+                </IconButton>
+            </ButtonGroup>
 
         </ListItem>
     );
