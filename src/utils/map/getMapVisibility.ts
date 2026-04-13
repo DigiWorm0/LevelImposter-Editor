@@ -22,7 +22,9 @@ const INVISIBLE_TYPES = [
     "util-valueboolpreset",
     "util-triggergate",
     "util-valuecomparator",
-    "util-layer"
+    "util-layer",
+    "util-lobbyspawn",
+    "util-lobbyoptions"
 ];
 
 const INVISIBLE_TYPES_NO_SPRITE = [

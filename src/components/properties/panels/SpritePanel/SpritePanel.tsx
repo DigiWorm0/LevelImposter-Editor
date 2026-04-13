@@ -33,7 +33,8 @@ const TYPE_BLACKLIST = [
     "util-valuebool",
     "util-valueboolpreset",
     "util-valuecomparator",
-    "util-lobbyspawn"
+    "util-lobbyspawn",
+    "util-lobbyoptions"
 ];
 
 export default function SpritePanel() {

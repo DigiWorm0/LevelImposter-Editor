@@ -33,7 +33,9 @@ const BLACKLISTED_TYPES = [
     "util-triggergate",
     "util-valuebool",
     "util-valueboolpreset",
-    "util-valuecomparator"
+    "util-valuecomparator",
+    "util-lobbyspawn",
+    "util-lobbyoptions",
 ];
 
 const SOLID_ONLY_TYPES = [

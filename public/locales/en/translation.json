@@ -700,6 +700,12 @@
     "buttonStinger": "Button Stinger",
     "reportStinger": "Report Stinger"
   },
+  "lobby": {
+    "title": "Lobby Options",
+    "ambientNoise": "Ambient Noise",
+    "lobbyMusic": "Lobby Music",
+    "spawnInNoise": "Spawn In Noise"
+  },
   "sabotages": {
     "title": "Sabotage Options",
     "sound": "Alarm Sound"
@@ -996,7 +1002,7 @@
     "undefined": "Unknown Object",
     "util-layer": "Group",
     "util-lobbymaps": "Lobby Map Console",
-    "util-lobbyoptions": "Lobby Options Console",
+    "util-lobbysettings": "Lobby Settings Console",
     "util-lobbywardrobe": "Lobby Wardrobe Console",
     "util-lobbyspawn": "Lobby Spawnpoint",
     "util-blank": "Default Object",

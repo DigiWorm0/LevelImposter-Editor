@@ -22,10 +22,27 @@ const LOBBY_ELEMENT_BLACKLIST = [
     "util-triggerdeath",
 ];
 
+const GAME_ELEMENT_BLACKLIST = [
+    "util-lobbywardrobe",
+    "util-lobbymaps",
+    "util-lobbyoptions",
+    "util-lobbyspawn"
+];
+
 const LobbyTargetFilter = makeElementTypeFilter((type, get) => {
     const mapTarget = get(mapTargetAtom);
-    if (mapTarget !== MapTarget.Lobby)
+    const isLobbyMap = mapTarget === MapTarget.Lobby;
+
+    if (!isLobbyMap) {
+        // Disable game-specific blacklisted types
+        for (const blacklistedType of GAME_ELEMENT_BLACKLIST) {
+            if (type.startsWith(blacklistedType))
+                return false;
+        }
+
+        // Enable all other types on game maps
         return true;
+    }
 
     // Disable blacklisted types
     for (const blacklistedType of LOBBY_ELEMENT_BLACKLIST) {
