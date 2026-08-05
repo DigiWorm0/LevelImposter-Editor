@@ -14,6 +14,7 @@ const LOBBY_ELEMENT_WHITELIST = [
     "util-display",
     "util-layer",
     "util-playermover",
+    "util-physics",
     "dec-",
     "room-"
 ];

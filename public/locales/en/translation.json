@@ -876,6 +876,10 @@
     "experimental": "Experimental",
     "ui": "User Interface",
     "grid": "Grid",
+    "triggers": "Triggers",
+    "workshop": "Workshop",
+    "rendering": "Rendering",
+    "gameplay": "Gameplay",
     "interface": {
       "title": "Settings",
       "subtitle": "Interface",
@@ -914,9 +918,7 @@
     "map": {
       "title": "Map",
       "subtitle": "Properties",
-      "showPingTracker": "Show Map Info in Ping Tracker",
       "pixelArtMode": "Pixel Art Mode",
-      "preloadAllGIFs": "Preload All GIFs",
       "triggerLogging": "Trigger Logging",
       "triggerDetectStackOverflow": "Abort if infinite trigger loop detected",
       "canRemix": "Allow Remix-ing",
@@ -924,7 +926,8 @@
       "setColor": "Set Color",
       "defaultExileAnimation": "Default Exile Animation",
       "setAnim": "Set Animation",
-      "mapTarget": "Map Target"
+      "mapTarget": "Map Target",
+      "customAnimation": "Custom Animation"
     }
   },
   "t": {
@@ -1005,6 +1008,7 @@
     "util-lobbysettings": "Lobby Settings Console",
     "util-lobbywardrobe": "Lobby Wardrobe Console",
     "util-lobbyspawn": "Lobby Spawnpoint",
+    "util-lobbyoptions": "Lobby Options",
     "util-blank": "Default Object",
     "util-button1": "Skeld / Polus Button",
     "util-button2": "Mira Button",
