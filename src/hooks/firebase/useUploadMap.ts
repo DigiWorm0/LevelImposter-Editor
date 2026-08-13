@@ -73,6 +73,7 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
             likeCount: map.likeCount,
             downloadCount: map.downloadCount,
             isVerified: map.isVerified,
+            mapTarget: map.mapTarget,
         };
 
         // Upload to Firestore
