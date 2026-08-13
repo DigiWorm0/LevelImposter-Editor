@@ -156,6 +156,9 @@ export default interface LIProperties {
     starfieldCount?: number;
     starfieldHeight?: number;
     starfieldLength?: number;
+    starfieldMinSize?: number;
+    starfieldMaxSize?: number;
+    starfieldScaleSpeedBySize?: boolean;
 
     // Floaing
     floatingHeight?: number;

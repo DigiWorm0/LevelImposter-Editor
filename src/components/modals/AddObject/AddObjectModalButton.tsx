@@ -2,7 +2,7 @@ import {ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "
 import React from "react";
 import {useTranslation} from "react-i18next";
 import useIsTypeVisibleInSearch from "../../../hooks/useSearchQuery";
-import useIsTypeDisabledInSearch from "../../../hooks/elements/useIsTypeDisabledInSearch";
+import useIsTypeDisabledInSearch from "../../../hooks/elementTypes/useIsTypeDisabledInSearch";
 
 export interface AddObjectModalButtonProps {
     type: string;

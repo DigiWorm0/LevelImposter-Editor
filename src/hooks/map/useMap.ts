@@ -8,6 +8,7 @@ export const mapIDAtom = focusAtom(mapAtom, (optic) => optic.prop("id"));
 export const mapNameAtom = focusAtom(mapAtom, (optic) => optic.prop("name"));
 export const mapDescriptionAtom = focusAtom(mapAtom, (optic) => optic.prop("description"));
 export const mapIsPublicAtom = focusAtom(mapAtom, (optic) => optic.prop("isPublic"));
+export const mapTargetAtom = focusAtom(mapAtom, (optic) => optic.prop("mapTarget"));
 export const mapAuthorNameAtom = focusAtom(mapAtom, (optic) => optic.prop("authorName"));
 export const mapPropsAtom = focusAtom(mapAtom, (optic) => optic.prop("properties"));
 export const elementsAtom = focusAtom(mapAtom, (optic) => optic.prop("elements"));
@@ -32,6 +33,10 @@ export function useMapID() {
 
 export function useMapName() {
     return useAtom(mapNameAtom);
+}
+
+export function useMapTarget() {
+    return useAtom(mapTargetAtom);
 }
 
 export function useMapDescription() {

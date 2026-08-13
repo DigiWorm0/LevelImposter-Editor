@@ -44,6 +44,7 @@ import ComparatorPanel from "../properties/panels/ComparatorPanel";
 import PhysicsPanel from "../properties/panels/PhysicsPanel";
 import Resizable from "../utils/Resizable";
 import MultiselectPanel from "../properties/panels/MutliselectPanel";
+import LobbyPanel from "../properties/panels/LobbyPanel";
 
 export default function RightSidebar() {
     const setFocus = useSetFocus();
@@ -105,6 +106,7 @@ export default function RightSidebar() {
                         <LadderPanel/>
                         <PhysicsPanel/>
                         <MeetingPanel/>
+                        <LobbyPanel/>
                         <SabotagesPanel/>
                         <VentPanel/>
                         <TelePanel/>
