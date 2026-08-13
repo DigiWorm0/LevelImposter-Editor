@@ -10,7 +10,16 @@ import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import {FastForward, FastRewind, SwapHoriz, SwapVert, Workspaces} from "@mui/icons-material";
+import {
+    FastForward,
+    FastRewind,
+    Fullscreen,
+    FullscreenExit,
+    SwapHoriz,
+    SwapVert,
+    Workspaces
+} from "@mui/icons-material";
+import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 
 export default function StarfieldPanel() {
     const {t} = useTranslation();
@@ -67,6 +76,32 @@ export default function StarfieldPanel() {
                     stepSize={1}
                 />
             </InputGroup>
+            <InputGroup>
+                <ElementPropNumericInput
+                    name={t("starfield.minSize")}
+                    prop="starfieldMinSize"
+                    defaultValue={100}
+                    icon={<FullscreenExit/>}
+                    label={"%"}
+                    min={0}
+                    stepSize={10}
+                />
+                <ElementPropNumericInput
+                    name={t("starfield.maxSpeed")}
+                    prop="starfieldMaxSize"
+                    defaultValue={100}
+                    icon={<Fullscreen/>}
+                    label={"%"}
+                    min={0}
+                    stepSize={10}
+                />
+            </InputGroup>
+            <ElementPropSwitch
+                name={t("starfield.scaleSpeedBySize")}
+                prop={"starfieldScaleSpeedBySize"}
+                defaultValue={true}
+                tooltip={t("starfield.scaleSpeedBySizeTooltip")}
+            />
         </PanelContainer>
     );
 }

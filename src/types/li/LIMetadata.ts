@@ -1,4 +1,5 @@
 import GUID from "../common/GUID";
+import MapTarget from "./MapTarget";
 
 export default interface LIMetadata {
     v: number; // <-- File Version
@@ -15,4 +16,5 @@ export default interface LIMetadata {
     isVerified: boolean;
     thumbnailURL: string | null;
     remixOf: GUID | null;
+    mapTarget: MapTarget | null;
 }

@@ -120,7 +120,11 @@
     "length": "Area Length",
     "height": "Area Height",
     "minSpeed": "Minimum Particle Speed",
-    "maxSpeed": "Maximum Particle Speed"
+    "maxSpeed": "Maximum Particle Speed",
+    "minSize": "Minimum Particle Size",
+    "maxSize": "Maximum Particle Size",
+    "scaleSpeedBySize": "Scale Speed By Size",
+    "scaleSpeedBySizeTooltip": "Larger particles will move faster than smaller particles."
   },
   "audio": {
     "soundPlayer": "Sound Player",
@@ -696,6 +700,12 @@
     "buttonStinger": "Button Stinger",
     "reportStinger": "Report Stinger"
   },
+  "lobby": {
+    "title": "Lobby Options",
+    "ambientNoise": "Ambient Noise",
+    "lobbyMusic": "Lobby Music",
+    "spawnInNoise": "Spawn In Noise"
+  },
   "sabotages": {
     "title": "Sabotage Options",
     "sound": "Alarm Sound"
@@ -774,6 +784,8 @@
     "viewExternal": "View on LevelImposter.net",
     "openInEditor": "Open in Editor",
     "publishUpdate": "Update Map",
+    "targetGame": "Game",
+    "targetLobby": "Lobby",
     "publishUpdateInfo": "This will publish your current map as an update to this existing map.",
     "noDescription": "(No description)",
     "newDialogText": "Are you sure you want to create a new map? This will delete all elements and reset the map.",
@@ -864,6 +876,10 @@
     "experimental": "Experimental",
     "ui": "User Interface",
     "grid": "Grid",
+    "triggers": "Triggers",
+    "workshop": "Workshop",
+    "rendering": "Rendering",
+    "gameplay": "Gameplay",
     "interface": {
       "title": "Settings",
       "subtitle": "Interface",
@@ -902,16 +918,16 @@
     "map": {
       "title": "Map",
       "subtitle": "Properties",
-      "showPingTracker": "Show Map Info in Ping Tracker",
       "pixelArtMode": "Pixel Art Mode",
-      "preloadAllGIFs": "Preload All GIFs",
       "triggerLogging": "Trigger Logging",
       "triggerDetectStackOverflow": "Abort if infinite trigger loop detected",
       "canRemix": "Allow Remix-ing",
       "skyboxColor": "Skybox Color",
       "setColor": "Set Color",
-      "exileAnim": "Exile Animation",
-      "setAnim": "Set Animation"
+      "defaultExileAnimation": "Default Exile Animation",
+      "setAnim": "Set Animation",
+      "mapTarget": "Map Target",
+      "customAnimation": "Custom Animation"
     }
   },
   "t": {
@@ -988,6 +1004,11 @@
   "au": {
     "undefined": "Unknown Object",
     "util-layer": "Group",
+    "util-lobbymaps": "Lobby Map Console",
+    "util-lobbysettings": "Lobby Settings Console",
+    "util-lobbywardrobe": "Lobby Wardrobe Console",
+    "util-lobbyspawn": "Lobby Spawnpoint",
+    "util-lobbyoptions": "Lobby Options",
     "util-blank": "Default Object",
     "util-button1": "Skeld / Polus Button",
     "util-button2": "Mira Button",

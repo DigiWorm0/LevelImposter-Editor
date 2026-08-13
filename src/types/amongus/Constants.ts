@@ -92,6 +92,12 @@ export const SINGLE_TYPES = [
     "util-eject"
 ];
 
+export const LOBBY_TYPES = [
+    "util-lobbywardrobe",
+    "util-lobbymaps",
+    "util-lobbyoptions"
+];
+
 export const SUPPORTED_IMAGE_TYPES = [
     "image/png",
     "image/gif",
@@ -120,4 +126,5 @@ export const DEFAULT_MAP: LIMap = {
     properties: {},
     thumbnailURL: null,
     remixOf: null,
+    mapTarget: null,
 };

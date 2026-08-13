@@ -1,5 +1,4 @@
-import {useSetAtom} from "jotai";
-import {atom} from "jotai/index";
+import {atom, useSetAtom} from "jotai";
 import Vector2 from "../../../types/transform/Vector2";
 import {viewportAtom} from "../../canvas/useViewport";
 import {selectedElementIDAtom} from "../useSelectedElem";
