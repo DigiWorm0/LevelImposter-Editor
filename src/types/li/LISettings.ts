@@ -45,7 +45,7 @@ export const DEFAULT_SETTINGS: LISettings = {
     elementNesting: false,
     isInfoVisible: true,
     isAudioDownmixEnabled: true,
-    autoEncodeToDDS: true,
+    autoEncodeToDDS: false,
     autoConvertGIFToAnimation: true,
     editType: false,
     showConnectionArrows: true,
