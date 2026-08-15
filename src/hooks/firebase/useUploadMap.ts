@@ -61,19 +61,19 @@ export const uploadMapAtom = atom(null, (get, _, payload: UploadMapPayload) => {
         const mapMetadata: LIMetadata = {
             v: map.v,
             id: map.id,
-            idVersion: map.idVersion,
+            idVersion: map.idVersion ?? null,
             name: map.name,
             description: map.description,
             isPublic: map.isPublic,
             authorID: map.authorID,
             authorName: map.authorName,
             createdAt: map.createdAt,
-            thumbnailURL: map.thumbnailURL,
-            remixOf: map.remixOf,
+            thumbnailURL: map.thumbnailURL ?? null,
+            remixOf: map.remixOf ?? null,
             likeCount: map.likeCount,
             downloadCount: map.downloadCount,
             isVerified: map.isVerified,
-            mapTarget: map.mapTarget,
+            mapTarget: map.mapTarget ?? null,
         };
 
         // Upload to Firestore
