@@ -4,7 +4,7 @@ import MapTarget from "./MapTarget";
 export default interface LIMetadata {
     v: number; // <-- File Version
     id: GUID;
-    idVersion?: number; // <-- Workshop Update Iteration
+    idVersion?: number | null; // <-- Workshop Update Iteration
     name: string;
     description: string;
     isPublic: boolean;
