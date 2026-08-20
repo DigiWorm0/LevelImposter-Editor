@@ -1,12 +1,12 @@
-import { uploadMapAtom } from "../useUploadMap";
+import {uploadMapAtom} from "../useUploadMap";
 import generateGUID from "../../../utils/strings/generateGUID";
-import { mapAtom } from "../../map/useMap";
-import { getI18n } from "react-i18next";
-import { remixAtom } from "../../map/useIsRemix";
-import { atom, useSetAtom } from "jotai";
-import { userAtom } from "../useUser";
-import { mapThumbnailAtom } from "./useMapThumbnail";
-import { publishTargetAtom } from "./usePublishTarget";
+import {mapAtom} from "../../map/useMap";
+import {getI18n} from "react-i18next";
+import {atom, useSetAtom} from "jotai";
+import {userAtom} from "../useUser";
+import {mapThumbnailAtom} from "./useMapThumbnail";
+import {publishTargetAtom} from "./usePublishTarget";
+import {currentRemixIDAtom} from "../../map/useCurrentRemixID";
 
 const MAX_VALUE = 2147483647;
 
@@ -24,13 +24,12 @@ export const publishMapAtom = atom(null, async (get, set, onProgress: (percent: 
     // Get Map Data
     const thumbnail = get(mapThumbnailAtom);
     const targetID = get(publishTargetAtom);
-    const isRemix = get(remixAtom);
-    const oldMapID = map.id;
+    const remixID = get(currentRemixIDAtom);
 
     // Update Properties
     map.id = targetID ?? generateGUID();
     map.idVersion = Math.round(Math.random() * MAX_VALUE);
-    map.remixOf = isRemix ? oldMapID : null;
+    map.remixOf = remixID;
 
     map.authorID = user?.uid ?? "";
     map.authorName = map.authorName || user?.displayName || "Anonymous";
