@@ -5,6 +5,7 @@ import {auth} from "../../../utils/Firebase";
 import {useMapAuthorName, useMapDescription, useMapIsPublic, useMapName} from "../../../hooks/map/useMap";
 import ThumbnailEdit from "../../utils/ThumbnailEdit";
 import {Box, FormControlLabel, Grid, InputAdornment, Radio, RadioGroup, TextField} from "@mui/material";
+import PublishModalRemixOptions from "./PublishModalRemixOptions";
 
 export default function PublishModalEditor() {
     const {t} = useTranslation();
@@ -20,6 +21,7 @@ export default function PublishModalEditor() {
         <Grid container>
             <Grid size={6}>
                 <Box sx={{p: 1, ps: 2, pe: 2}}>
+                    <PublishModalRemixOptions/>
                     <TextField
                         fullWidth
                         size={"small"}

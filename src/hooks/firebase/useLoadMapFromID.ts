@@ -1,32 +1,22 @@
-import {collection, doc, getDoc} from "firebase/firestore";
 import {getDownloadURL, ref, StorageReference} from "firebase/storage";
 import GUID from "../../types/common/GUID";
-import LIMetadata from "../../types/li/LIMetadata";
-import {db, storage} from "../../utils/Firebase";
+import {storage} from "../../utils/Firebase";
 import {mapAtom} from "../map/useMap";
 import downloadFromURL from "../../utils/fileio/downloadFromURL";
 import {atom, useSetAtom} from "jotai";
 import deserializeMapFile from "../../utils/deserialization/deserializeMapFile";
+import {mapInfoFromIDAtom} from "./useMapInfoFromID";
 
 export interface LoadMapFromIDPayload {
     id: GUID;
     onProgress?: (percent: number) => void;
 }
 
-export const loadMapFromIDAtom = atom(null, async (_, set, payload: LoadMapFromIDPayload) => {
+export const loadMapFromIDAtom = atom(null, async (get, set, payload: LoadMapFromIDPayload) => {
     const {id, onProgress} = payload;
 
-    // Get Firebase Refs
-    const storeRef = collection(db, "maps");
-    const docRef = doc(storeRef, id);
-
-    // Get Document
-    const document = await getDoc(docRef);
-    if (!document.exists())
-        throw new Error("Map ID not found");
-
     // Get Storage Ref
-    const metadata = document.data() as LIMetadata;
+    const metadata = await get(mapInfoFromIDAtom(id));
     const storageRef = ref(storage, `maps/${metadata.authorID}/${id}.lim2`);
     const legacyRef = ref(storage, `maps/${metadata.authorID}/${id}.lim`);
 
