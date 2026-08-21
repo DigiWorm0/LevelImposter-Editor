@@ -20,6 +20,7 @@ import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
 import useSelectAllElements from "./useSelectAllElements";
 import useDeleteSelected from "./useDeleteSelected";
+import useTogglePlayback from "../timeline/useTogglePlayback";
 
 const TIMELINE_DELTA_SCALE = 100;
 
@@ -38,6 +39,7 @@ export default function useHotkeysHandler() {
     const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
     const jumpTimelineTick = useJumpTimelineTick();
     const changeTimelineScale = useChangeTimelineScale();
+    const togglePlayback = useTogglePlayback();
     const setPlayAnim = useSetIsAnimPlaying();
     const setPlayhead = useSetPlayhead();
     const setLoop = useSetSelectedElemProp("triggerLoop");
@@ -69,7 +71,7 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("backspace", removeSelectedKeyframe, Scope.Timeline);
 
     // Playback
-    useFocusedHotkeys("space", () => setPlayAnim((playAnim) => !playAnim), Scope.Timeline);
+    useFocusedHotkeys("space", togglePlayback, Scope.Timeline);
     useFocusedHotkeys("ctrl+space", () => {
         setPlayAnim(false);
         setPlayhead(0);

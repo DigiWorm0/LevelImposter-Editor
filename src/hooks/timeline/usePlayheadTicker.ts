@@ -22,7 +22,7 @@ export default function usePlayheadTicker() {
         const isLooping = primaryStore.get(isAnimLoopingAtom);
         const duration = primaryStore.get(animDurationAtom);
         if (playhead >= duration && !isLooping) {
-            primaryStore.set(playheadAtom, 0);
+            primaryStore.set(playheadAtom, duration);
             primaryStore.set(isAnimPlayingAtom, false);
             return;
         }
