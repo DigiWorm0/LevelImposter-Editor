@@ -5,6 +5,7 @@ import {
     DEFAULT_CAM_SIZE,
     DEFAULT_DISPLAY_HEIGHT,
     DEFAULT_DISPLAY_WIDTH,
+    SECONDARY_CAM_ASPECT,
     UNITY_SCALE
 } from "../../../types/amongus/Constants";
 
@@ -31,6 +32,7 @@ export default function CameraOverlay(props: CameraOverlayProps) {
     // Dimensions
     const camHeight = camZoom * 2 * UNITY_SCALE;
     const camWidth = camHeight * aspectRatio;
+    const secondaryCamWidth = camHeight * SECONDARY_CAM_ASPECT;
 
     if (element?.type !== "util-cam" &&
         element?.type !== "util-cams4" &&
@@ -40,19 +42,35 @@ export default function CameraOverlay(props: CameraOverlayProps) {
     if (!element)
         return null;
     return (
-        <pixiGraphics
-            eventMode={"none"}
-            draw={(g) => {
-                g.clear();
-                g.rect(
-                    UNITY_SCALE * camXOffset - camWidth / 2,
-                    UNITY_SCALE * -camYOffset - camHeight / 2,
-                    camWidth,
-                    camHeight
-                )
-                    .fill({color: "green", alpha: 0.4})
-                    .stroke({color: "green", width: 5, alignment: 0.5});
-            }}
-        />
+        <pixiContainer>
+            <pixiGraphics
+                eventMode={"none"}
+                draw={(g) => {
+                    g.clear();
+                    g.rect(
+                        UNITY_SCALE * camXOffset - camWidth / 2,
+                        UNITY_SCALE * -camYOffset - camHeight / 2,
+                        camWidth,
+                        camHeight
+                    )
+                        .fill({color: "green", alpha: 0.4})
+                        .stroke({color: "green", width: 5, alignment: 0.5});
+                }}
+            />
+            <pixiGraphics
+                eventMode={"none"}
+                draw={(g) => {
+                    g.clear();
+                    g.rect(
+                        UNITY_SCALE * camXOffset - secondaryCamWidth / 2,
+                        UNITY_SCALE * -camYOffset - camHeight / 2,
+                        secondaryCamWidth,
+                        camHeight
+                    )
+                        .fill({color: "green", alpha: 0.1})
+                        .stroke({color: "green", width: 5, alignment: 0.5});
+                }}
+            />
+        </pixiContainer>
     );
 }
