@@ -13,7 +13,7 @@ export const mapInfoFromIDAtom = atomFamily((mapID: string) => atom(async () => 
     // Get Document
     const document = await getDoc(docRef);
     if (!document.exists())
-        throw new Error("Map ID not found");
+        return null;
 
     // Get Storage Ref
     return document.data() as LIMetadata;

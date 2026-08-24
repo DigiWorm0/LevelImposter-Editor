@@ -17,6 +17,9 @@ export const loadMapFromIDAtom = atom(null, async (get, set, payload: LoadMapFro
 
     // Get Storage Ref
     const metadata = await get(mapInfoFromIDAtom(id));
+    if (!metadata)
+        throw new Error("Map not found");
+
     const storageRef = ref(storage, `maps/${metadata.authorID}/${id}.lim2`);
     const legacyRef = ref(storage, `maps/${metadata.authorID}/${id}.lim`);
 
