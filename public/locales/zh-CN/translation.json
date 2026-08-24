@@ -89,6 +89,7 @@
     "reset": "重置",
     "setColor": "设置颜色",
     "loop": "循环播放",
+    "more": "更多选项",
     "still": "维持",
     "editAnimation": "编辑动画",
     "spriteAnimationEditor": "Sprite动画编辑器",
@@ -196,6 +197,7 @@
     "Snow": "雪",
     "Tile": "砖瓦",
     "Wood": "木头",
+    "custom": "自定义",
     "okSize": "您的音频文件足够小，不会造成任何问题。",
     "errorSize": "较大的声音文件有时会使游戏冻结或崩溃。"
   },
@@ -553,10 +555,16 @@
     "keyframes": "关键帧",
     "addKeyframe": "添加关键帧",
     "noTargets": "没有可动画的元素",
+    "selectTarget": "选择要动画的元素",
+    "showTimeline": "显示时间轴",
+    "addTarget": "添加目标",
+    "cancel": "取消",
     "linear": "线性 (Linear)",
     "easeIn": "缓入",
     "easeOut": "缓出",
-    "easeInOut": "缓入缓出"
+    "easeInOut": "缓入缓出",
+    "loop": "循环动画",
+    "addTargetInfo": "你只能以 Trigger Sprites (util-blanktrigger) 为目标"
   },
   "timer": {
     "title": "定时器触发器",
@@ -725,7 +733,8 @@
   "ladder": {
     "title": "梯子",
     "height": "高度",
-    "offset": "高度偏移量"
+    "offset": "高度偏移量",
+    "cooldown": "攀爬冷却"
   },
   "debug": {
     "title": "调试",
@@ -757,6 +766,11 @@
     "optimize": "优化地图",
     "optimizeDesc": "优化地图资源以提升游戏内性能。建议在完成编辑并准备分享或发布地图时进行此操作。",
     "encodeSprites": "Sprite编码",
+    "autoScale": "缩放精灵以变换尺寸",
+    "scaleDownOnly": "仅缩小尺寸",
+    "autoCrop": "将精灵剪裁为内容",
+    "autoTrim": "删除未使用的资产",
+    "autoMerge": "合并重复资产",
     "converting": "正在转换旧地图，请稍候...",
     "opened": "打开 {0}",
     "new": "新建文件",
@@ -838,7 +852,9 @@
     "title": "孢子",
     "activateRange": "激活范围",
     "gasRange": "煤气灶",
-    "gasColor": "气体颜色"
+    "gasColor": "气体颜色",
+    "duration": "持续时间",
+    "cooldown": "冷却"
   },
   "physics": {
     "title": "物理对象",
@@ -852,6 +868,15 @@
     "freezeRotation": "锁定旋转"
   },
   "settings": {
+    "experimentalInfo": "此功能尚处于实验阶段，可能无法按预期工作。",
+    "colliders": "碰撞体",
+    "animation": "动画",
+    "scenegraph": "场景图",
+    "canvas": "画布",
+    "inspector": "检查员",
+    "experimental": "实验",
+    "ui": "UI界面",
+    "grid": "网格",
     "triggers": "触发器",
     "workshop": "工作站",
     "rendering": "渲染",
@@ -864,11 +889,13 @@
       "colliderPreview": "碰撞预览",
       "colliderHandleSize": "碰撞体尺寸",
       "scrollToSelection": "滚动到选择",
+      "objNesting": "对象嵌套",
       "grid": "网格",
       "gridVisible": "网格可见",
       "gridSize": "网格尺寸",
       "gridSpacing": "网格间距",
       "snapToGrid": "对齐网格",
+      "snapToTimeline": "对齐时间轴",
       "snapResolution": "对齐分辨率",
       "invisibleOpacity": "不透明度",
       "localization": "语言",
@@ -877,7 +904,9 @@
       "showInfo": "显示检查器提示",
       "showConnections": "显示连接",
       "animPreview": "动画预览",
+      "animAnything": "为任何物体制作动画",
       "audioDownmix": "音频缩混",
+      "editType": "编辑对象类型",
       "showConnectionArrows": "显示连接箭头",
       "connectionArrowHeadSize": "箭头尺寸",
       "connectionArrowWidth": "箭头宽度",
@@ -925,6 +954,8 @@
     "onEnter": "输入时",
     "onExit": "退出时",
     "onUse": "使用时",
+    "onStart": "开始时",
+    "onFinish": "完成时",
     "onEject": "放逐时",
     "onSkip": "跳过时",
     "onRepeat": "重复 {{index}}",
@@ -947,6 +978,7 @@
     "onPlay": "在游戏中",
     "onPause": "暂停时",
     "onStop": "停止",
+    "onActivate": "激活时",
     "onChange": "修改时",
     "onTrue": "为True时",
     "onFalse": "为False时",
