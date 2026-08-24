@@ -46,6 +46,7 @@
     "paste": "粘贴",
     "mapAssets": "地图资产",
     "search": "搜索...",
+    "multipleSelected": "已选择 {{count}} 个对象",
     "errorNoClipboard": "剪贴板为空",
     "errorExternalClipboard": "火狐浏览器不支持剪贴板",
     "errorInsecureContext": "HTTP 模式下不允许粘贴"
@@ -88,6 +89,20 @@
     "reset": "重置",
     "setColor": "设置颜色",
     "loop": "循环播放",
+    "still": "维持",
+    "editAnimation": "编辑动画",
+    "spriteAnimationEditor": "Sprite动画编辑器",
+    "exportSpriteAnimation": "导出Sprite动画",
+    "animated": "动画化",
+    "openDoor": "开门",
+    "closeDoor": "关门",
+    "enterVent": "进入通风口",
+    "exitVent": "离开通风口",
+    "camsActive": "激活摄像头",
+    "default": "默认",
+    "downloadAsType": "下载 ({{type}})",
+    "downloadAsPNG": "下载(PNG)",
+    "convertToDDS": "转换为 DDS",
     "ventInfo": "使用通风口时将播放任何 GIF 动画。",
     "doorInfo": "任何 GIF 动画都会在门关闭时播放，在门打开时倒放。",
     "camInfo": "当摄像机(Camera)处于启用状态时，任何 GIF 动画都会播放。",
@@ -95,7 +110,8 @@
     "paddingInfo": "为了确保控制台周围的高光可见，图像(Sprite)需要在所有侧面至少有 10px\n像素的填充。",
     "filterInfo": "图像(Sprite)将隐藏所有玩家（本地玩家除外）。作用就像蘑菇孢子一样。",
     "errorSize": "较大的图片(Image)有时会使游戏崩溃或卡住.\n请尝试缩小图像(Sprite)大小或将其分割成多个对象。",
-    "errorInvalidType": "该图像文件的格式无效。"
+    "errorInvalidType": "未知的文件类型。LevelImposter 仅支持 PNG、JPG、GIF 和 DDS 格式的图像。",
+    "errorCantPreviewImage": "图片预览不可用"
   },
   "starfield": {
     "title": "粒子效果",
@@ -103,7 +119,11 @@
     "length": "长度",
     "height": "高度",
     "minSpeed": "最小速度",
-    "maxSpeed": "最大速度"
+    "maxSpeed": "最大速度",
+    "minSize": "最小颗粒尺寸",
+    "maxSize": "最大颗粒尺寸",
+    "scaleSpeedBySize": "按尺寸调整速度",
+    "scaleSpeedBySizeTooltip": "较大的颗粒比较小的颗粒移动得更快。"
   },
   "audio": {
     "soundPlayer": "音频播放器",
@@ -533,7 +553,6 @@
     "keyframes": "关键帧",
     "addKeyframe": "添加关键帧",
     "noTargets": "没有可动画的元素",
-    "selectTarget": "选择要动画的目标",
     "linear": "线性 (Linear)",
     "easeIn": "缓入",
     "easeOut": "缓出",
@@ -616,6 +635,7 @@
     "ghostInfo": "对撞体将阻挡所有玩家，包括鬼魂。",
     "deathInfo": "当该物体被触发时，碰撞体区域内的所有玩家都将死亡。",
     "shakeInfo": "所有玩家处于该碰撞体内时，他们的屏幕都会震动。",
+    "playerMoverInfo": "碰撞体内的所有玩家都会随该物体一起移动。",
     "errorOneOnly": "该对象只能有 1 个碰撞体"
   },
   "triggerdeath": {
@@ -639,11 +659,44 @@
     "none": "没有房间",
     "default": "默认房间"
   },
+  "value": {
+    "title": "值",
+    "defaultValue": "默认值",
+    "preset": "预设值",
+    "isImposter": "是否为伪装者",
+    "isInMeeting": "是否在会议中",
+    "isDead": "是否死亡"
+  },
+  "comparator": {
+    "title": "比较器",
+    "selectValue": "选择一个值进行比较",
+    "value1": "第一值",
+    "value2": "第二值",
+    "operation": "操作",
+    "and": "和",
+    "or": "或",
+    "xor": "异或",
+    "not": "不等",
+    "equals": "等于",
+    "noValues": "该地图中没有值对象。请向地图中添加一个值，以将其与该对象关联。"
+  },
+  "triggergate": {
+    "title": "触发闸门",
+    "value": "值",
+    "selectValue": "选择要检查的值",
+    "noValues": "该地图中没有值对象。请向地图中添加一个值，以将其与该对象关联。"
+  },
   "meeting": {
     "title": "会议选项",
     "bg": "背景",
     "buttonStinger": "毒刺按钮",
     "reportStinger": "报告毒刺"
+  },
+  "lobby": {
+    "title": "大厅设置",
+    "ambientNoise": "环境噪声",
+    "lobbyMusic": "大厅音乐",
+    "spawnInNoise": "生成在噪音中"
   },
   "sabotages": {
     "title": "破坏选项",
@@ -671,11 +724,20 @@
   },
   "ladder": {
     "title": "梯子",
-    "height": "高度"
+    "height": "高度",
+    "offset": "高度偏移量"
   },
   "debug": {
     "title": "调试",
     "printToConsole": "输出到控制台"
+  },
+  "eject": {
+    "pretextduration": "前置文本时长",
+    "textduration": "正文时长",
+    "posttextduration": "后置文本时长",
+    "title": "放逐动画",
+    "seconds": "秒",
+    "infoEject": "当玩家被放逐时使用此摄像机"
   },
   "onewaycollider": {
     "title": "单向碰撞体",
@@ -692,11 +754,15 @@
   "map": {
     "importLegacy": "导入文件",
     "open": "打开文件",
+    "optimize": "优化地图",
+    "optimizeDesc": "优化地图资源以提升游戏内性能。建议在完成编辑并准备分享或发布地图时进行此操作。",
+    "encodeSprites": "Sprite编码",
     "converting": "正在转换旧地图，请稍候...",
     "opened": "打开 {0}",
     "new": "新建文件",
     "play": "游玩地图",
     "save": "保存文件",
+    "saveCompressed": "保存（压缩）",
     "edit": "编辑地图",
     "unlisted": "其他",
     "verified": "精选",
@@ -704,6 +770,8 @@
     "viewExternal": "在 LevelImposter.net 上查看",
     "openInEditor": "在编辑器中打开",
     "publishUpdate": "更新地图",
+    "targetGame": "游戏",
+    "targetLobby": "大厅",
     "publishUpdateInfo": "这会将您当前的地图发布为现有地图的更新。",
     "noDescription": "（没有说明）",
     "newDialogText": "您确定要创建新地图吗？这将删除所有元素并重置地图。",
@@ -724,6 +792,7 @@
     "mapDescription": "地图说明",
     "thumbnail": "缩略图",
     "publish": "发布",
+    "enterInfo": "输入信息",
     "visibility": "能见度",
     "public": "公开",
     "private": "未公开",
@@ -731,6 +800,9 @@
     "publishNew": "新发布",
     "publishUpdate": "更新地图",
     "publishInfo": "发布信息",
+    "notARemix": "非二创作品",
+    "chooseTarget": "选择目标",
+    "optimize": "优化",
     "ok": "确定",
     "cancel": "取消",
     "resetThumbnail": "重置",
@@ -768,7 +840,22 @@
     "gasRange": "煤气灶",
     "gasColor": "气体颜色"
   },
+  "physics": {
+    "title": "物理对象",
+    "friction": "摩擦",
+    "bounce": "弹性",
+    "mass": "质量",
+    "linearDrag": "线性阻力",
+    "angularDrag": "角阻力",
+    "freezeX": "锁定X轴",
+    "freezeY": "锁定Y轴",
+    "freezeRotation": "锁定旋转"
+  },
   "settings": {
+    "triggers": "触发器",
+    "workshop": "工作站",
+    "rendering": "渲染",
+    "gameplay": "游戏玩法",
     "interface": {
       "title": "设置",
       "subtitle": "界面",
@@ -777,7 +864,6 @@
       "colliderPreview": "碰撞预览",
       "colliderHandleSize": "碰撞体尺寸",
       "scrollToSelection": "滚动到选择",
-      "objNesting": "对象嵌套（不稳定）",
       "grid": "网格",
       "gridVisible": "网格可见",
       "gridSize": "网格尺寸",
@@ -791,20 +877,29 @@
       "showInfo": "显示检查器提示",
       "showConnections": "显示连接",
       "animPreview": "动画预览",
-      "audioDownmix": "音频缩混"
+      "audioDownmix": "音频缩混",
+      "showConnectionArrows": "显示连接箭头",
+      "connectionArrowHeadSize": "箭头尺寸",
+      "connectionArrowWidth": "箭头宽度",
+      "autoEncodeToDDS": "自动编码Sprite为DDS",
+      "autoConvertGIFToAnimation": "自动将GIF转换为Sprite动画",
+      "errorAutoEncodeToDDS": "与 DDS 格式相比，PNG/JPEG 的Sprite会导致性能下降。",
+      "errorAutoConvertGIFToAnimation": "与Sprite动画相比，GIF 会导致性能下降。",
+      "hideGroups": "隐藏群组图标"
     },
     "map": {
       "title": "地图",
       "subtitle": "数据",
-      "showPingTracker": "在 Ping 文本中显示地图信息",
       "pixelArtMode": "像素艺术模式",
-      "preloadAllGIFs": "预加载所有 GIF",
       "triggerLogging": "触发记录",
+      "triggerDetectStackOverflow": "若检测到无限触发循环，即终止",
       "canRemix": "允许混音",
       "skyboxColor": "材质颜色",
       "setColor": "设置颜色",
-      "exileAnim": "放逐动画",
-      "setAnim": "设置动画"
+      "defaultExileAnimation": "默认放逐动画",
+      "setAnim": "设置动画",
+      "mapTarget": "地图目标",
+      "customAnimation": "自定义动画"
     }
   },
   "t": {
@@ -826,11 +921,12 @@
     "playloop": "循环播放",
     "teleportonce": "传送一次",
     "stop": "停止",
+    "triggerGate": "触发闸门",
     "onEnter": "输入时",
     "onExit": "退出时",
     "onUse": "使用时",
-    "onStart": "开始",
-    "onFinish": "结束",
+    "onEject": "放逐时",
+    "onSkip": "跳过时",
     "onRepeat": "重复 {{index}}",
     "onRandom": "随机 {{index}}",
     "onTrigger": "触发时",
@@ -851,6 +947,10 @@
     "onPlay": "在游戏中",
     "onPause": "暂停时",
     "onStop": "停止",
+    "onChange": "修改时",
+    "onTrue": "为True时",
+    "onFalse": "为False时",
+    "onCollision": "碰撞时",
     "startOxygen": "破坏氧气",
     "startReactor": "破坏反应堆",
     "startLights": "破坏灯光",
@@ -865,12 +965,20 @@
     "onKill": "击杀",
     "playAnim": "播放动画",
     "pauseAnim": "暂停动画",
-    "stopAnim": "停止动画"
+    "stopAnim": "停止动画",
+    "setValueTrue": "设置为True",
+    "setValueFalse": "设置为False",
+    "toggleValue": "切换值"
   },
   "au": {
     "undefined": "未知物体",
     "util-layer": "图层",
-    "util-blank": "空白对象",
+    "util-lobbymaps": "大厅地图仪表盘",
+    "util-lobbysettings": "大厅设置仪表盘",
+    "util-lobbywardrobe": "大厅衣柜仪表盘",
+    "util-lobbyspawn": "大厅出生点",
+    "util-lobbyoptions": "大厅设置",
+    "util-blank": "默认对象",
     "util-button1": "按钮(Skeld / Polus)",
     "util-button2": "按钮(Mira HQ)",
     "util-ladder1": "长梯",
@@ -921,6 +1029,16 @@
     "util-decontamination": "净化系统",
     "util-sabotages": "破坏选项",
     "util-filter": "渲染过滤器",
+    "util-eject": "放逐摄像机",
+    "util-ejectdummy": "放逐假人1",
+    "util-ejectdummy2": "驱逐假人2",
+    "util-ejecthand": "放逐玩家手",
+    "util-ejectthumb": "放逐缩略图",
+    "util-valuebool": "Boolean值",
+    "util-valueboolpreset": "预设Boolean值",
+    "util-valuecomparator": "比较器",
+    "util-triggergate": "触发闸门",
+    "util-playermover": "玩家移动",
     "task-id": "刷卡",
     "task-keys": "钥匙",
     "task-pass": "扫描通行证",
