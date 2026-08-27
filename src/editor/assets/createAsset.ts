@@ -15,4 +15,4 @@ export const createAsset = (type: string, blob: Blob) => {
     store.set(allAssetsAtom, [...allAssets, newAsset]);
 
     return newAsset;
-}
+};

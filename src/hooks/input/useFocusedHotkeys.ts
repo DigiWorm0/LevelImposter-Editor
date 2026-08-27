@@ -1,6 +1,7 @@
 import {focusAtom, Scope} from "./useFocus";
 import {useHotkeys} from "react-hotkeys-hook";
-import primaryStore from "../primaryStore";
+
+import primaryStore from "@/shared/store";
 
 export default function useFocusedHotkeys(keys: string, callback: () => void, ...targetScopes: Scope[]) {
     useHotkeys(keys, () => {

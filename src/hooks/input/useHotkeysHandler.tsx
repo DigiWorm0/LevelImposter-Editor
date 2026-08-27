@@ -10,7 +10,6 @@ import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
 import {useSetIsAnimPlaying} from "../timeline/useIsAnimPlaying";
 import {useSetPlayhead} from "../timeline/usePlayhead";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
-import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
 import useTogglePlayback from "../timeline/useTogglePlayback";
@@ -22,6 +21,7 @@ import {deleteAnythingSelected} from "@editor/commands/deleteAnythingSelected";
 import {deleteSelectedElements as deleteSelectedElementsCmd} from "../../editor/commands/elements/deleteElement";
 import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
 import {selectAllElements} from "@editor/selection/selectAllElements";
+import primaryStore from "@/shared/store";
 
 const TIMELINE_DELTA_SCALE = 100;
 

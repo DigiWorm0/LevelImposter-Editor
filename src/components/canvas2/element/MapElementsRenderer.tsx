@@ -5,7 +5,7 @@ import ErrorBoundary from "../../utils/ErrorBoundary";
 
 export default function MapElementsRenderer() {
     const orphanElementIDs = useElementChildIDs(undefined);
-
+    
     return (
         <pixiContainer>
             {orphanElementIDs.map(id => (

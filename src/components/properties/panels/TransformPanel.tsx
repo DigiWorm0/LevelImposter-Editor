@@ -23,7 +23,9 @@ import TransformNumericInput from "../input/TransformNumericInput";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {useAtomValue} from "jotai";
-import {selectedElementIDAtom} from "../../../editor/state/selectionStore";
+import useSelectedElemTransform from "@/hooks/elements/useSelectedElemTransform";
+import {deleteSelectedElements} from "@editor/commands/elements/deleteElement";
+import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function TransformPanel() {
     const {t} = useTranslation();
@@ -38,7 +40,6 @@ export default function TransformPanel() {
 
     const isLocked = _isLocked ?? false;
     const isVisible = _isVisible ?? true;
-    const removeSelectedElement = useRemoveSelectedElement();
     const {editType} = useSettingsValue();
 
     // Gets if the selected element is a console object
@@ -124,7 +125,7 @@ export default function TransformPanel() {
                         <Button
                             variant={"text"}
                             color={"inherit"}
-                            onClick={removeSelectedElement}
+                            onClick={deleteSelectedElements}
                         >
                             <Delete/>
                         </Button>

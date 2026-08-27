@@ -1,4 +1,4 @@
-import {atom, useAtomValue} from "jotai/esm";
+import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
 import {draggingElementIDAtom} from "./useDraggingElementID";

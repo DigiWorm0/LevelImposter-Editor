@@ -23,4 +23,4 @@ export const deleteAsset = (assetID: MaybeGUID) => {
 export const cleanupAsset = (asset: MapAsset) => {
     // Wait to release URL object(s)
     URL.revokeObjectURL(asset.url);
-}
+};

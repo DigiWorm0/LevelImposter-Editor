@@ -1,6 +1,5 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
-import primaryStore from "../../hooks/primaryStore";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
 import {allElementsAtom} from "@editor/state/documentStore";
 import generateGUID from "../strings/generateGUID";
@@ -9,6 +8,7 @@ import canvasToBitmap from "../canvas/canvasToBitmap";
 import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
 import {createAsset} from "@editor/assets/createAsset";
 import store from "../../shared/store";
+import primaryStore from "../../shared/store";
 import {assetsAtomFamily} from "@editor/state/assetsStore";
 
 /**

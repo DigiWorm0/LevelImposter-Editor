@@ -1,9 +1,9 @@
 import {MaybeGUID} from "@/types/common/GUID";
-import primaryStore from "../../hooks/primaryStore";
 import {draggingElementIDAtom} from "@/hooks/elements/dragging/useDraggingElementID";
 import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
 import {selectedElementIDsAtom} from "@editor/state/selection/elementSelectionStore";
 import executeCommand from "../../editor/history/executeCommand";
+import primaryStore from "@/shared/store";
 
 /**
  * Handle dragging and dropping an element in the scene graph.

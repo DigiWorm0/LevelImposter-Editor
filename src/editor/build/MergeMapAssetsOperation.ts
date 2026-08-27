@@ -1,4 +1,3 @@
-import primaryStore from "../../hooks/primaryStore";
 import BuildOperationLog from "./BuildOperationLog";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
 import MapAsset from "../../types/li/MapAsset";
@@ -6,6 +5,7 @@ import BuildOperation from "./BuildOperation";
 import {allAssetsAtom} from "../state/assetsStore";
 import executeCommand from "../history/executeCommand";
 import {replaceMapAsset} from "../commands/elements/replaceMapAsset";
+import primaryStore from "@/shared/store";
 
 interface MergeCandidate {
     fromID: MaybeGUID;

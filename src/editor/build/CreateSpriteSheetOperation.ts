@@ -1,5 +1,4 @@
 import BuildOperation from "./BuildOperation";
-import primaryStore from "../../hooks/primaryStore";
 import BuildOperationLog from "./BuildOperationLog";
 import potpack, {PotpackStats} from "potpack";
 import {Application, Sprite, Texture} from "pixi.js";
@@ -11,6 +10,7 @@ import {spritesAtlasesAtom} from "../state/documentStore";
 import {encodeBitmapToDDS} from "@/utils/dds/convertImageToDDS";
 import {allAssetsAtom} from "../state/assetsStore";
 import store from "../../shared/store";
+import primaryStore from "../../shared/store";
 import {createAsset} from "../assets/createAsset";
 import executeCommand from "../history/executeCommand";
 import {replaceMapAsset} from "../commands/elements/replaceMapAsset";

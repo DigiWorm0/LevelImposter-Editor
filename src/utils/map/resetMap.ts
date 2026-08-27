@@ -1,7 +1,6 @@
-import primaryStore from "../../hooks/primaryStore";
 import {mapAtom} from "@editor/state/documentStore";
 import {DEFAULT_MAP} from "@/types/amongus/Constants";
-import {trimUnusedAssets} from "@editor/assets/trimUnusedAssets";
+import primaryStore from "@/shared/store";
 
 /**
  * This function resets the map to its initial state.
@@ -9,5 +8,5 @@ import {trimUnusedAssets} from "@editor/assets/trimUnusedAssets";
  */
 export default function resetMap() {
     primaryStore.set(mapAtom, {...DEFAULT_MAP});
-    trimUnusedAssets();
+    // trimUnusedAssets();
 }

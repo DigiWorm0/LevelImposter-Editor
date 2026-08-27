@@ -2,6 +2,7 @@ import LIElement from "../../../types/li/LIElement";
 import FlexNumericInput from "../util/FlexNumericInput";
 import {InputAdornment} from "@mui/material";
 import React from "react";
+import useSelectedElemTransform from "@/hooks/elements/useSelectedElemTransform";
 
 export interface TransformNumericInputProps {
     name: string;

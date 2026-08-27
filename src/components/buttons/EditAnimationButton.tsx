@@ -23,5 +23,5 @@ export default function EditAnimationButton() {
             />
             {t("sprite.editAnimation")}
         </Button>
-    )
+    );
 }

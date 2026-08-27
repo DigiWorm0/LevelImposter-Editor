@@ -1,9 +1,9 @@
 import {isAnimPlayingAtom} from "./useIsAnimPlaying";
 import {useTick} from "@pixi/react";
-import primaryStore from "../primaryStore";
 import {playheadAtom} from "./usePlayhead";
 import {animDurationAtom} from "./useAnimDuration";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
+import primaryStore from "@/shared/store";
 
 const isAnimLoopingAtom = selectedElementPropAtom("triggerLoop");
 

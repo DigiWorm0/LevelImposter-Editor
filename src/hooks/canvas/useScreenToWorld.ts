@@ -1,6 +1,7 @@
 import {viewportAtom} from "./useViewport";
 import Vector2 from "../../types/transform/Vector2";
-import primaryStore from "../primaryStore";
+
+import primaryStore from "@/shared/store";
 
 /**
  * Converts screen coordinates to world coordinates.

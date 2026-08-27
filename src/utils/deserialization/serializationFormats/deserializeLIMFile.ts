@@ -61,7 +61,6 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
     }
 
     // TODO: Return the assets instead of storing them locally
-    store.set(allAssetsAtom, allAssets);
-
+    store.set(allAssetsAtom, [...allAssets]);
     return mapData;
 }

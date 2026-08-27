@@ -1,5 +1,4 @@
-import {useSetAtom} from "jotai";
-import {atom} from "jotai/esm";
+import {atom, useSetAtom} from "jotai";
 import LIClipboard from "../../types/li/LIClipboard";
 import {clipboardAtom} from "./useClipboard";
 import {selectedKeyframeAtom} from "../timeline/useSelectedKeyframe";

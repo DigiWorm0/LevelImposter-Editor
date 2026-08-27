@@ -1,5 +1,5 @@
-import primaryStore from "../../hooks/primaryStore";
 import {appendOptimizeLogAtom} from "@/hooks/optimize/useAppendOptimizeLog";
+import primaryStore from "@/shared/store";
 
 const BuildOperationLog = {
     info: (message: string) => {

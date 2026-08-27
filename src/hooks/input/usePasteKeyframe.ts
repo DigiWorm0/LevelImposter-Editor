@@ -1,5 +1,4 @@
-import {useSetAtom} from "jotai";
-import {atom} from "jotai/esm";
+import {atom, useSetAtom} from "jotai";
 import {clipboardAtom} from "./useClipboard";
 import {addKeyframeAtom} from "../timeline/useAddKeyframe";
 

@@ -1,7 +1,6 @@
 import {RefObject} from "react";
 import {Container} from "pixi.js";
 import {useTick} from "@pixi/react";
-import primaryStore from "../primaryStore";
 import {playheadAtom} from "./usePlayhead";
 import GUID from "../../types/common/GUID";
 import {animTargetAtomFamily} from "./useAnimTarget";
@@ -11,6 +10,7 @@ import degToRad from "../../utils/common/degToRad";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import useIsAnimTarget from "./useIsAnimTarget";
+import primaryStore from "@/shared/store";
 
 /**
  * Hook to update a Sprite's properties based on animation playback

@@ -1,5 +1,4 @@
 import React, {RefObject} from "react";
-import primaryStore from "../../primaryStore";
 import {useApplication, useTick} from "@pixi/react";
 import useSpriteAnimPlaying from "./useSpriteAnimPlaying";
 import {Sprite} from "pixi.js";
@@ -8,6 +7,7 @@ import {spriteAtomFamily} from "../../sprites/useSprite";
 import {unwrap} from "jotai/utils";
 import spriteAnimEventEmitter from "../../../utils/spriteAnim/spriteAnimEventEmitter";
 import GUID from "../../../types/common/GUID";
+import primaryStore from "@/shared/store";
 
 export default function useSpriteAnimPlayback(
     spriteRef: RefObject<Sprite | null>

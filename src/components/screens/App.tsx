@@ -1,5 +1,3 @@
-import {Provider as StateProvider} from "jotai";
-import primaryStore from "../../hooks/primaryStore";
 import Content from "./Content";
 import {HotkeysProvider} from "react-hotkeys-hook";
 import {createTheme, ThemeProvider} from "@mui/material";
@@ -40,16 +38,14 @@ export default function App() {
 
     return (
         <StrictMode>
-            <StateProvider store={primaryStore}>
-                {/* The empty scope prevents the default behavior of enabling all scopes */}
-                <HotkeysProvider initiallyActiveScopes={[""]}>
-                    <ThemeProvider theme={darkTheme}>
-                        <SnackbarProvider>
-                            <Content/>
-                        </SnackbarProvider>
-                    </ThemeProvider>
-                </HotkeysProvider>
-            </StateProvider>
+            {/* The empty scope prevents the default behavior of enabling all scopes */}
+            <HotkeysProvider initiallyActiveScopes={[""]}>
+                <ThemeProvider theme={darkTheme}>
+                    <SnackbarProvider>
+                        <Content/>
+                    </SnackbarProvider>
+                </ThemeProvider>
+            </HotkeysProvider>
         </StrictMode>
     );
 }

@@ -3,7 +3,8 @@ import {extend, useApplication} from "@pixi/react";
 import {type IViewportOptions, Viewport as BaseViewport} from "pixi-viewport";
 import {Application} from "pixi.js";
 import {viewportAtom} from "@/hooks/canvas/useViewport";
-import primaryStore from "../../hooks/primaryStore";
+
+import primaryStore from "@/shared/store";
 
 type ViewportProps = Omit<IViewportOptions, "events">;
 
