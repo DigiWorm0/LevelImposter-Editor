@@ -1,6 +1,6 @@
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
-import {MaybeGUID} from "../../../types/common/GUID";
-import {useElement} from "../../../hooks/elements/useElement";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {MaybeGUID} from "@/types/common/GUID";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface SelectedObjectErrorProps {
     elementID?: MaybeGUID;

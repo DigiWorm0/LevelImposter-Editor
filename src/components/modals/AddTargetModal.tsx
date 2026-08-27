@@ -5,7 +5,7 @@ import GenericModal from "./GenericModal";
 import ElementSelect from "../properties/input/select/ElementSelect";
 import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
 import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {Add} from "@mui/icons-material";
 
 export interface AddTargetModalProps {

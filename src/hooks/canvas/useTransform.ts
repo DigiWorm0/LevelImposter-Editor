@@ -1,11 +1,11 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {atom, useAtomValue} from "jotai";
 import {Matrix} from "pixi.js";
 import Transform2D from "../../types/transform/Transform2D";
 import degToRad from "../../utils/common/degToRad";
 
-import {elementAtomFamily} from "../../editor/state/documentStore";
+import {elementAtomFamily} from "@editor/state/documentStore";
 
 export const transformAtomFamily = atomFamily((elementID: MaybeGUID) => atom((get) => {
     // Retrieve the element using the elementID

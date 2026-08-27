@@ -1,7 +1,7 @@
 import MapAsset from "../../types/li/MapAsset";
 import {atom} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 
 export const allAssetsAtom = atom<MapAsset[]>([]);
 

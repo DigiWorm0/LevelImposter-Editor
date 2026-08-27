@@ -1,12 +1,12 @@
-import {MaybeGUID} from "../../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import React from "react";
-import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
+import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import degToRad from "../../../utils/common/degToRad";
 import {Container} from "pixi.js";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface StaticMapElementProps {
     containerRef?: React.RefObject<Container | null>;

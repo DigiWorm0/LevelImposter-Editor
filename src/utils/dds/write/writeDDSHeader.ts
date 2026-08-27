@@ -1,4 +1,4 @@
-import {DDSHeader} from "../../../types/dds/DDSHeader";
+import {DDSHeader} from "@/types/dds/DDSHeader";
 
 /**
  * Writes a DDS header to a Buffer.

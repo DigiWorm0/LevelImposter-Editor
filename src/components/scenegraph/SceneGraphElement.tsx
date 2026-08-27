@@ -1,8 +1,8 @@
 import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
-import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
-import {MaybeGUID} from "../../types/common/GUID";
+import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
+import {MaybeGUID} from "@/types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
@@ -10,7 +10,7 @@ import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
 import selectElementID from "../../editor/selection/selectElementID";
-import {useElement} from "../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;

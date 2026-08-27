@@ -1,6 +1,6 @@
 import React from "react";
 import useViewportPosition from "../../hooks/canvas/useViewportPosition";
-import {deselectAll} from "../../editor/selection/deselectAll";
+import {deselectAll} from "@editor/selection/deselectAll";
 
 export default function DeselectBackground() {
     const viewport = useViewportPosition();

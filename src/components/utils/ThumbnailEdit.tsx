@@ -1,9 +1,9 @@
-import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "../../types/amongus/Constants";
+import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "@/types/amongus/Constants";
 import React from "react";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import {useTranslation} from "react-i18next";
-import {mapAtom} from "../../editor/state/documentStore";
+import {mapAtom} from "@editor/state/documentStore";
 import {Box, Button, ButtonGroup, CardMedia, Typography} from "@mui/material";
 import {CloudUpload, Refresh} from "@mui/icons-material";
 import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";

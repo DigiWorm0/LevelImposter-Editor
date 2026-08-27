@@ -1,6 +1,6 @@
 import LIClipboard from "../../../types/li/LIClipboard";
 import LIElement from "../../../types/li/LIElement";
-import {clipboardAtom} from "../../../hooks/input/useClipboard";
+import {clipboardAtom} from "@/hooks/input/useClipboard";
 import store from "../../../shared/store";
 import {mapAtom} from "../../state/documentStore";
 import {selectedElementsAtom} from "../../state/selection/elementSelectionStore";

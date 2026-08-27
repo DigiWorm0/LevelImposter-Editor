@@ -1,7 +1,7 @@
 import {getDownloadURL, ref, StorageReference} from "firebase/storage";
 import GUID from "../../types/common/GUID";
-import {storage} from "../../utils/Firebase";
-import {mapAtom} from "../../editor/state/documentStore";
+import {storage} from "@/utils/Firebase";
+import {mapAtom} from "@editor/state/documentStore";
 import downloadFromURL from "../../utils/fileio/downloadFromURL";
 import {atom, useSetAtom} from "jotai";
 import deserializeMapFile from "../../utils/deserialization/deserializeMapFile";

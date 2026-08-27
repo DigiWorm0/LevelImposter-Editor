@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_CONSOLE_RANGE} from "../../../types/amongus/Constants";
+import {DEFAULT_CONSOLE_RANGE} from "@/types/amongus/Constants";
 import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
@@ -7,7 +7,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {TripOrigin} from "@mui/icons-material";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function ConsolePanel() {
     const {t} = useTranslation();

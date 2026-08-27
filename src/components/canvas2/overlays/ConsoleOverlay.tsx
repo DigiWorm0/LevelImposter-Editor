@@ -4,9 +4,9 @@ import {
     DEFAULT_SPORE_RANGE,
     UNITY_SCALE,
     VENT_CONSOLE_RANGE
-} from "../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface ConsoleOverlayProps {
     elementID: GUID;

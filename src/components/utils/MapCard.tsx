@@ -1,5 +1,5 @@
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
-import {THUMBNAIL_WIDTH} from "../../types/amongus/Constants";
+import {THUMBNAIL_WIDTH} from "@/types/amongus/Constants";
 import LIMetadata from "../../types/li/LIMetadata";
 
 export interface MapCardProps {

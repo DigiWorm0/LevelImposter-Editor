@@ -4,7 +4,7 @@ import getIsConsole from "../../../../utils/map/getIsConsole";
 import MapError from "../../util/MapError";
 import {Padding, PlayArrow, Visibility} from "@mui/icons-material";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function StillSpriteErrors() {
     const {t} = useTranslation();

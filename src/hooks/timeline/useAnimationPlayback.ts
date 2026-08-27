@@ -8,7 +8,7 @@ import {animTargetAtomFamily} from "./useAnimTarget";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import lerp from "../../utils/common/lerp";
 import degToRad from "../../utils/common/degToRad";
-import {UNITY_SCALE} from "../../types/amongus/Constants";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import useIsAnimTarget from "./useIsAnimTarget";
 

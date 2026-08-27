@@ -1,4 +1,4 @@
-import {DDSHeader} from "../../../types/dds/DDSHeader";
+import {DDSHeader} from "@/types/dds/DDSHeader";
 
 /**
  * Creates a DDS header for a texture with the specified dimensions and format.

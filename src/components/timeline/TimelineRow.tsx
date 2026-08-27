@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import React from "react";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "../../hooks/timeline/useTimelineScale";
+import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
 import useTimelineOffset from "../../hooks/timeline/useTimelineOffset";
 
 export interface TimelineRowProps {

@@ -12,12 +12,12 @@ import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material
 import useAsset from "../../../hooks/assets/useAsset";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
-import {useSettingsValue} from "../../../hooks/useSettings";
-import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
+import {useSettingsValue} from "@/hooks/useSettings";
+import {convertImageBlobToDDS} from "@/utils/dds/convertImageToDDS";
 import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
 import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
 import ImageUploadDetails from "./ImageUploadDetails";
-import {createAsset} from "../../../editor/assets/createAsset";
+import {createAsset} from "@editor/assets/createAsset";
 
 interface ImageUploadProps {
     name: string;

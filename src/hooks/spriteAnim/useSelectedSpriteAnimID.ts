@@ -1,5 +1,5 @@
 import {atom, useAtom} from "jotai";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 
 export const selectedSpriteAnimIDAtom = atom<MaybeGUID>(undefined);
 

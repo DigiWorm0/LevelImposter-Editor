@@ -1,6 +1,6 @@
 import GUID from "../../../../types/common/GUID";
-import {useSettingsValue} from "../../../../hooks/useSettings";
-import {UNITY_SCALE} from "../../../../types/amongus/Constants";
+import {useSettingsValue} from "@/hooks/useSettings";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
 import {Container, Graphics} from "pixi.js";
 import LICollider from "../../../../types/li/LICollider";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
@@ -8,8 +8,8 @@ import {RefObject} from "react";
 import getOffsetFromElement from "../../../../utils/canvas/getOffsetFromElement";
 import TickingGraphics from "../../common/TickingGraphics";
 import {useAtomValue} from "jotai";
-import {selectedColliderIDAtom} from "../../../../editor/state/selection/colliderSelectionStore";
-import {useElement} from "../../../../hooks/elements/useElement";
+import {selectedColliderIDAtom} from "@editor/state/selection/colliderSelectionStore";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface ColliderOverlayProps {
     elementID: GUID;

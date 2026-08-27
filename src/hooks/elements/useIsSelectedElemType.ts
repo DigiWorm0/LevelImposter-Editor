@@ -1,5 +1,5 @@
 import {atom, useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 import {atomFamily} from "jotai/utils";
 
 export const isSelectedElementTypeAtomFamily = atomFamily((type: string) => atom((get) => {

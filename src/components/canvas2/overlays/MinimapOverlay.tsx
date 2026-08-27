@@ -1,6 +1,6 @@
 import GUID from "../../../types/common/GUID";
-import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "../../../types/amongus/Constants";
-import {useElement} from "../../../hooks/elements/useElement";
+import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "@/types/amongus/Constants";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface MinimapOverlayProps {
     elementID: GUID;

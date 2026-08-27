@@ -1,7 +1,7 @@
 import {atom} from "jotai";
 import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import {atomFamily} from "jotai/utils";
-import {isElementSelectedAtomFamily} from "../../../hooks/elements/useIsElementSelected";
+import {isElementSelectedAtomFamily} from "@/hooks/elements/useIsElementSelected";
 
 import {elementAtomFamily} from "../documentStore";
 

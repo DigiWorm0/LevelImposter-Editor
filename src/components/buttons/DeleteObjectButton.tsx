@@ -4,7 +4,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import executeCommand from "../../editor/history/executeCommand";
-import {deleteSelectedElements} from "../../editor/commands/elements/deleteElement";
+import {deleteSelectedElements} from "@editor/commands/elements/deleteElement";
 
 export interface DeleteObjectButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>;

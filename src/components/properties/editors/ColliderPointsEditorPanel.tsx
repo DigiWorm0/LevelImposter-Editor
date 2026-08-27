@@ -1,12 +1,12 @@
 import FlexNumericInput from "../util/FlexNumericInput";
 import InputGroup from "../input/InputGroup";
 import React from "react";
-import {MaybeGUID} from "../../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {useAtomValue} from "jotai";
-import {colliderAtomFamily} from "../../../editor/state/selection/colliderSelectionStore";
+import {colliderAtomFamily} from "@editor/state/selection/colliderSelectionStore";
 import executeCommand from "../../../editor/history/executeCommand";
-import {moveColliderPoint} from "../../../editor/commands/colliders/moveColliderPoint";
-import {setColliderPointsLength} from "../../../editor/commands/colliders/setColliderPointsLength";
+import {moveColliderPoint} from "@editor/commands/colliders/moveColliderPoint";
+import {setColliderPointsLength} from "@editor/commands/colliders/setColliderPointsLength";
 
 export interface ColliderPointsEditorPanelProps {
     colliderID: MaybeGUID;

@@ -1,14 +1,14 @@
 import {Box, MenuItem, Select} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {InputTriggerDB} from "../../../db/TriggerDB";
+import {InputTriggerDB} from "@/db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import ElementSelect from "../input/select/ElementSelect";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useTriggerInputs from "../../../hooks/elements/triggers/useTriggerInputs";
 import {Timer} from "@mui/icons-material";
 import NumericPanelInput from "../input/panel/NumericPanelInput";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 interface TriggerEditorProps {
     triggerID: string;

@@ -1,7 +1,7 @@
 import GUID from "../../../types/common/GUID";
-import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "@/types/amongus/Constants";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface SpawnOverlayProps {
     elementID: GUID;

@@ -5,11 +5,11 @@ import {
     DEFAULT_PLATFORM_OFFSET,
     PLATFORM_RADIUS,
     UNITY_SCALE
-} from "../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface PlatformOverlayProps {
     elementID: GUID;

@@ -5,7 +5,7 @@ import {
     DEFAULT_STARFIELD_LENGTH,
     DEFAULT_STARFIELD_MAXSPEED,
     DEFAULT_STARFIELD_MINSPEED
-} from "../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";

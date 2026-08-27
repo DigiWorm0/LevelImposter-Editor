@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {Box, Chip} from "@mui/material";
 import useAsset from "../../hooks/assets/useAsset";
 import toSizeString from "../../utils/strings/toSizeString";

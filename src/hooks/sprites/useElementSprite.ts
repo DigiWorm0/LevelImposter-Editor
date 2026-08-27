@@ -1,10 +1,10 @@
 import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {spriteAtomFamily} from "./useSprite";
 import {textureFromURLAtomFamily} from "../texture/useTextureFromURL";
 
-import {elementAtomFamily} from "../../editor/state/documentStore";
+import {elementAtomFamily} from "@editor/state/documentStore";
 
 const UNKNOWN_SPRITE_URL = "/sprites/util-unknown.png";
 

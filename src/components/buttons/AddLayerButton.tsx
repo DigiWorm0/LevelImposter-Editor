@@ -4,7 +4,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import generateGUID from "../../utils/strings/generateGUID";
 import executeCommand from "../../editor/history/executeCommand";
-import {createElement} from "../../editor/commands/elements/createElement";
+import {createElement} from "@editor/commands/elements/createElement";
 
 export interface AddLayerButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>

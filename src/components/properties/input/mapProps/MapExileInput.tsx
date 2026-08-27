@@ -1,9 +1,9 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {allElementsAtom, mapPropsAtom, mapTargetAtom} from "../../../../editor/state/documentStore";
+import {allElementsAtom, mapPropsAtom, mapTargetAtom} from "@editor/state/documentStore";
 import {Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {ExitToApp} from "@mui/icons-material";
-import {EXILE_IDS} from "../../../../db/AUElementDB";
+import {EXILE_IDS} from "@/db/AUElementDB";
 import {atom, useAtom, useAtomValue} from "jotai";
 import MapTarget from "../../../../types/li/MapTarget";
 

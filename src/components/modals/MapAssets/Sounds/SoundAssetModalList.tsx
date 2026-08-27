@@ -4,7 +4,7 @@ import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import SoundAssetModalButton from "./SoundAssetModalButton";
 import {useAtomValue} from "jotai";
-import {allAssetsAtom} from "../../../../editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/state/assetsStore";
 
 export interface SoundAssetModalListProps {
     onClick: (id: GUID) => void;

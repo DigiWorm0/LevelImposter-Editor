@@ -1,6 +1,6 @@
 import React from "react";
 import LIMapProperties from "../../../../types/li/LIMapProperties";
-import {mapPropsAtom} from "../../../../editor/state/documentStore";
+import {mapPropsAtom} from "@editor/state/documentStore";
 import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {useAtom} from "jotai";
 

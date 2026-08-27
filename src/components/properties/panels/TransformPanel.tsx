@@ -12,9 +12,9 @@ import {
 } from "@mui/icons-material";
 import {Button, ButtonGroup, InputAdornment, TextField, Tooltip} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import AUElementDB from "../../../db/AUElementDB";
-import {ElemVisibility} from "../../../utils/map/getMapVisibility";
+import {ElemVisibility} from "@/utils/map/getMapVisibility";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";

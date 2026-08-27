@@ -4,11 +4,11 @@ import {
     DEFAULT_LADDER_OFFSET,
     LADDER_RADIUS,
     UNITY_SCALE
-} from "../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface LadderOverlayProps {
     elementID: GUID;

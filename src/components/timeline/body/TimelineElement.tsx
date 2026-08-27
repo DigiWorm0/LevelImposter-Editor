@@ -10,7 +10,7 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 import {Delete} from "@mui/icons-material";
 import TimelinePlayhead from "./TimelinePlayhead";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 const PROPERTIES: LIAnimPropertyType[] = [
     "x",

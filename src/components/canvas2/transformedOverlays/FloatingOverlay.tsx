@@ -1,11 +1,11 @@
 import React from "react";
 import GUID from "../../../types/common/GUID";
-import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "@/types/amongus/Constants";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import StaticMapElement from "../element/StaticMapElement";
 import {Container} from "pixi.js";
 import {useTick} from "@pixi/react";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface FloatingOverlayProps {
     elementID: GUID;

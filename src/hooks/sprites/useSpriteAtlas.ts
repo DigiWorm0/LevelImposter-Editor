@@ -1,7 +1,7 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {atom, useAtom} from "jotai";
-import {spritesAtlasesAtom} from "../../editor/state/documentStore";
+import {spritesAtlasesAtom} from "@editor/state/documentStore";
 import LISpriteAtlas from "../../types/li/LISpriteAtlas";
 
 export const spriteAtlasAtomFamily = atomFamily((id: MaybeGUID) => {

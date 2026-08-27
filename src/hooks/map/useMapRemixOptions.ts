@@ -1,4 +1,4 @@
-import {mapAtom} from "../../editor/state/documentStore";
+import {mapAtom} from "@editor/state/documentStore";
 import {atom, useAtomValue} from "jotai";
 import {userAtom} from "../firebase/useUser";
 import {mapInfoFromIDAtom} from "../firebase/useMapInfoFromID";

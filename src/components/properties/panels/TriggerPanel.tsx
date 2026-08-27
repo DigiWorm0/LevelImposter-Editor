@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {OutputTriggerDB} from "../../../db/TriggerDB";
+import {OutputTriggerDB} from "@/db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -10,8 +10,8 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import useElementIDs from "../../../hooks/elements/useElementIDs";
 import {HighlightAlt, SettingsInputAntenna, Shuffle} from "@mui/icons-material";
 import {useAtom, useAtomValue} from "jotai";
-import {selectedElementAtom} from "../../../editor/state/selection/elementSelectionStore";
-import {selectedTriggerIDAtom} from "../../../editor/state/selection/triggerSelectionStore";
+import {selectedElementAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedTriggerIDAtom} from "@editor/state/selection/triggerSelectionStore";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",

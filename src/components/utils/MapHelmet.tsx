@@ -1,4 +1,4 @@
-import {mapAtom} from "../../editor/state/documentStore";
+import {mapAtom} from "@editor/state/documentStore";
 import {Helmet} from "react-helmet";
 import useIsSaved from "../../hooks/fileio/useIsSaved";
 import {useAtomValue} from "jotai";

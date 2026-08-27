@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
-import {mapAtom} from "../../editor/state/documentStore";
+import {DEFAULT_GUID} from "@/utils/strings/generateGUID";
+import {mapAtom} from "@editor/state/documentStore";
 import useEmbed from "../../hooks/embed/useEmbed";
 import {Button, Tooltip} from "@mui/material";
 import {Launch} from "@mui/icons-material";

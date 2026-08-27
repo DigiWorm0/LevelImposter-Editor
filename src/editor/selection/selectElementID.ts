@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import store from "../../shared/store";
 import SelectOperation from "../../types/common/SelectOperation";
 import {selectedElementIDsAtom} from "../state/selection/elementSelectionStore";

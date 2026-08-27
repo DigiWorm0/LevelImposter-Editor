@@ -1,5 +1,5 @@
 import {DEFAULT_GUID} from "../../strings/generateGUID";
-import {MAP_FORMAT_VER} from "../../../types/amongus/Constants";
+import {MAP_FORMAT_VER} from "@/types/amongus/Constants";
 import LIMap from "../../../types/li/LIMap";
 
 /**

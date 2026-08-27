@@ -4,7 +4,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import useDownloadSpriteAnimsAsPNG from "../../hooks/spriteAnim/useDownloadSpriteAnimsAsPNG";
 import {useAtomValue} from "jotai";
-import {selectedElementIDAtom} from "../../editor/state/selection/elementSelectionStore";
+import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function SpriteAnimExportButton() {
     const {t} = useTranslation();

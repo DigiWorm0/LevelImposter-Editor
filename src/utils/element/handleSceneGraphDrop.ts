@@ -1,8 +1,8 @@
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import primaryStore from "../../hooks/primaryStore";
-import {draggingElementIDAtom} from "../../hooks/elements/dragging/useDraggingElementID";
-import {elementChildIDsAtomFamily} from "../../hooks/elements/useElementChildIDs";
-import {selectedElementIDsAtom} from "../../editor/state/selection/elementSelectionStore";
+import {draggingElementIDAtom} from "@/hooks/elements/dragging/useDraggingElementID";
+import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
+import {selectedElementIDsAtom} from "@editor/state/selection/elementSelectionStore";
 import executeCommand from "../../editor/history/executeCommand";
 
 /**

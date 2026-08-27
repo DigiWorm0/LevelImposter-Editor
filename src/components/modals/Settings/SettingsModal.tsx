@@ -30,7 +30,7 @@ import {
 } from "@mui/icons-material";
 import SettingsHeader from "./SettingsHeader";
 import {Box} from "@mui/material";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import MapError from "../../properties/util/MapError";
 
 export interface SettingsModalProps {

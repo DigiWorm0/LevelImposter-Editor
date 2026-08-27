@@ -1,9 +1,9 @@
-import {mapAtom} from "../../editor/state/documentStore";
+import {mapAtom} from "@editor/state/documentStore";
 import {isSavedAtom} from "./useIsSaved";
-import {saveFileFromBlob} from "../../utils/fileio/saveFileFromURL";
+import {saveFileFromBlob} from "@/utils/fileio/saveFileFromURL";
 import {atom, useSetAtom} from "jotai";
 import serializeLIMFile from "../../utils/serialization/serializeLIMFile";
-import {trimUnusedAssets} from "../../editor/assets/trimUnusedAssets";
+import {trimUnusedAssets} from "@editor/assets/trimUnusedAssets";
 
 export const saveMapAtom = atom(null, async (get, set) => {
     // Trim Assets before save

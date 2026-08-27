@@ -3,7 +3,7 @@ import {zip} from "fflate";
 import {toUTF8} from "../strings/toUTF8";
 import LIMap from "../../types/li/LIMap";
 import store from "../../shared/store";
-import {allAssetsAtom} from "../../editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/state/assetsStore";
 
 export default async function serializeCompressedLIMFile(map: LIMap): Promise<Uint8Array> {
     // Serialize JSON

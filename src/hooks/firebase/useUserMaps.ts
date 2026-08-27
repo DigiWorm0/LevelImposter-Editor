@@ -1,9 +1,9 @@
-import { collection, getDocs, limit, orderBy, query, QueryConstraint, where } from "firebase/firestore";
+import {collection, getDocs, limit, orderBy, query, QueryConstraint, where} from "firebase/firestore";
 import LIMetadata from "../../types/li/LIMetadata";
-import { db } from "../../utils/Firebase";
-import { atom, useAtomValue } from "jotai";
-import { userAtom } from "./useUser";
-import { unwrap } from "jotai/utils";
+import {db} from "@/utils/Firebase";
+import {atom, useAtomValue} from "jotai";
+import {userAtom} from "./useUser";
+import {unwrap} from "jotai/utils";
 
 const MAX_PER_PAGE = 100;
 

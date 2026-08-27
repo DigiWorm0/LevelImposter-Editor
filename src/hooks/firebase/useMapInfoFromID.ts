@@ -1,6 +1,6 @@
 import {atom} from "jotai";
 import {collection, doc, getDoc} from "firebase/firestore";
-import {db} from "../../utils/Firebase";
+import {db} from "@/utils/Firebase";
 import LIMetadata from "../../types/li/LIMetadata";
 import {atomFamily} from "jotai/utils";
 

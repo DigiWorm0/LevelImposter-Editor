@@ -2,9 +2,9 @@ import CanvasGridAxis from "./CanvasGridAxis";
 import useViewportPosition from "../../../hooks/canvas/useViewportPosition";
 import React from "react";
 import CanvasGridSection from "./CanvasGridSection";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import CanvasGridBorder from "./CanvasGridBorder";
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
 
 const CELL_SIZE = 100;
 const BORDER_SIZE = 500 * UNITY_SCALE;

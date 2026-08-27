@@ -4,7 +4,7 @@ import PanelContainer from "../../util/PanelContainer";
 import StillSpriteErrors from "./StillSpriteErrors";
 import StillSpritePanel from "./StillSpritePanel";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 const TYPE_BLACKLIST = [
     "util-player",

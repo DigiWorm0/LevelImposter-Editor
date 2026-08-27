@@ -1,4 +1,4 @@
-import {useSearchQuery} from "../../../hooks/useSearchQuery";
+import {useSearchQuery} from "@/hooks/useSearchQuery";
 import {InputAdornment, TextField} from "@mui/material";
 import {Search} from "@mui/icons-material";
 import React from "react";

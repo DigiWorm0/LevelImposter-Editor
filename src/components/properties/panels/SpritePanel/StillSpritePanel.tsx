@@ -7,13 +7,13 @@ import LazyCollapse from "../../util/LazyCollapse";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
 import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
-import {getSubAnimationsFromElementType} from "../../../../utils/gif/convertGIFToSpriteAnimation";
+import {getSubAnimationsFromElementType} from "@/utils/gif/convertGIFToSpriteAnimation";
 import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
 import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
 import SpriteConvertToDDSButton from "../../../buttons/SpriteConvertToDDSButton";
 import EditAnimationButton from "../../../buttons/EditAnimationButton";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 const TYPE_BLACKLIST = [
     "util-player",

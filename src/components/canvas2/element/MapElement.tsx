@@ -1,8 +1,8 @@
 import React from "react";
-import {MaybeGUID} from "../../../types/common/GUID";
-import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
+import {MaybeGUID} from "@/types/common/GUID";
+import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
-import {UNITY_SCALE} from "../../../types/amongus/Constants";
+import {UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementOpacity from "../../../hooks/canvas/useElementOpacity";
 import useEmbed from "../../../hooks/embed/useEmbed";
 import degToRad from "../../../utils/common/degToRad";
@@ -10,17 +10,17 @@ import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import Draggable from "../common/Draggable";
-import {useSettingsValue} from "../../../hooks/useSettings";
-import {getSelectOperationFromEvent} from "../../../utils/canvas/getSelectOperationFromEvent";
+import {useSettingsValue} from "@/hooks/useSettings";
+import {getSelectOperationFromEvent} from "@/utils/canvas/getSelectOperationFromEvent";
 import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter";
 import TransformedMapElementOverlays from "./TransformedMapElementOverlays";
 import Spinner from "../common/Spinner";
 import {useAtomValue} from "jotai";
-import {isColliderSelectedAtom} from "../../../editor/state/selection/colliderSelectionStore";
+import {isColliderSelectedAtom} from "@editor/state/selection/colliderSelectionStore";
 import selectElementID from "../../../editor/selection/selectElementID";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 import executeCommand from "../../../editor/history/executeCommand";
-import {moveElement} from "../../../editor/commands/elements/moveElement";
+import {moveElement} from "@editor/commands/elements/moveElement";
 
 export interface MapElementProps {
     elementID: MaybeGUID;
@@ -71,7 +71,7 @@ export default function MapElement(props: MapElementProps) {
                 const isTarget = e.targetID === props.elementID;
                 if (!isTarget)
                     return;
-                
+
                 selectElementID(
                     element.id,
                     getSelectOperationFromEvent(e.pointerEvent, isSelected, true)

@@ -4,7 +4,7 @@ import React from "react";
 import useAsset from "../../hooks/assets/useAsset";
 import GUID from "../../types/common/GUID";
 import {useTranslation} from "react-i18next";
-import {downloadRawAsset} from "../../editor/assets/downloadAsset";
+import {downloadRawAsset} from "@editor/assets/downloadAsset";
 
 export interface SpriteDownloadRawButtonProps {
     assetID: GUID | undefined;

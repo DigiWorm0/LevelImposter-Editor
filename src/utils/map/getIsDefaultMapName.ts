@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import {LANGUAGES} from "../../types/amongus/Constants";
+import {LANGUAGES} from "@/types/amongus/Constants";
 
 /**
  * Checks if the map name is the default name "New Map" (in all languages).

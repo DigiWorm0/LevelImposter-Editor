@@ -1,18 +1,18 @@
 import {Box, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useElementsOfType} from "../../../hooks/elements/useElementsOfType";
+import {useElementsOfType} from "@/hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import TaskTypeSelect from "../input/select/TaskTypeSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
 import {Notes, Room, Workspaces} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function TaskPanel() {
     const {t} = useTranslation();

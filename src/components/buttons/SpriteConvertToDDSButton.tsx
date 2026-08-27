@@ -1,4 +1,4 @@
-import {convertImageAssetToDDS} from "../../utils/dds/convertImageToDDS";
+import {convertImageAssetToDDS} from "@/utils/dds/convertImageToDDS";
 import {Gradient} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import React from "react";

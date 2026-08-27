@@ -3,12 +3,12 @@ import {useTranslation} from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import AUTextDB from "../../../db/AUTextDB";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
 import {Notes, OpenInNew} from "@mui/icons-material";
 import DropdownList from "../util/DropdownList";
 import CustomTextEditorPanel from "../editors/CustomTextEditorPanel";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function CustomTextPanel() {
     const {t} = useTranslation();

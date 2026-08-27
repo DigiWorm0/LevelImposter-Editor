@@ -1,7 +1,7 @@
 import {Container} from "pixi.js";
 import Vector2 from "../../types/transform/Vector2";
 import primaryStore from "../../hooks/primaryStore";
-import {viewportAtom} from "../../hooks/canvas/useViewport";
+import {viewportAtom} from "@/hooks/canvas/useViewport";
 
 /**
  * Apply's the element's transformation matrix to a point

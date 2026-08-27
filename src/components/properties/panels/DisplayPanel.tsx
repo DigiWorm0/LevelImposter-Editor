@@ -1,11 +1,11 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "../../../types/amongus/Constants";
+import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "@/types/amongus/Constants";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
 import {SwapHoriz, SwapVert} from "@mui/icons-material";
 import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 

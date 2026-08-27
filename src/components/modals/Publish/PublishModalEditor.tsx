@@ -1,14 +1,14 @@
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth} from "../../../utils/Firebase";
-import {mapAuthorNameAtom, mapDescriptionAtom, mapIsPublicAtom, mapNameAtom} from "../../../editor/state/documentStore";
+import {auth} from "@/utils/Firebase";
+import {mapAuthorNameAtom, mapDescriptionAtom, mapIsPublicAtom, mapNameAtom} from "@editor/state/documentStore";
 import ThumbnailEdit from "../../utils/ThumbnailEdit";
 import {Box, FormControlLabel, Grid, InputAdornment, Radio, RadioGroup, TextField} from "@mui/material";
 import PublishModalRemixOptions from "./PublishModalRemixOptions";
 import {useAtomValue} from "jotai";
 import executeCommand from "../../../editor/history/executeCommand";
-import {setAuthorName, setIsPublic, setMapDescription, setMapName} from "../../../editor/commands/baseMapProperties";
+import {setAuthorName, setIsPublic, setMapDescription, setMapName} from "@editor/commands/baseMapProperties";
 
 export default function PublishModalEditor() {
     const {t} = useTranslation();

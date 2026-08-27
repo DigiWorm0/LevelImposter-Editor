@@ -1,7 +1,7 @@
 import React from "react";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";
-import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
+import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
 import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
 
 const LABEL_INTERVAL = 1; // ticks

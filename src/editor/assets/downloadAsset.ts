@@ -1,7 +1,7 @@
-import {mapAssetAsImageBlobAtomFamily} from "../../hooks/assets/useMapAssetAsImageBlob";
+import {mapAssetAsImageBlobAtomFamily} from "@/hooks/assets/useMapAssetAsImageBlob";
 import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
 import store from "../../shared/store";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import getFileExtension from "../../utils/fileio/getFileExtension";
 import {assetsAtomFamily} from "../state/assetsStore";
 

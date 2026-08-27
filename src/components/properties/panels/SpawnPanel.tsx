@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_SPAWN_RANGE} from "../../../types/amongus/Constants";
+import {DEFAULT_SPAWN_RANGE} from "@/types/amongus/Constants";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";

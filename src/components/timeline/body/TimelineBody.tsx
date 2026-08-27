@@ -1,7 +1,7 @@
 import {Box, List, Paper} from "@mui/material";
 import TimelineElement from "./TimelineElement";
 import TimelineAddRow from "../footer/TimelineAddRow";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
 import React from "react";
 import TimelineDummyRow from "../footer/TimelineDummyRow";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";

@@ -1,10 +1,10 @@
 import React from "react";
 import GUID from "../../../types/common/GUID";
-import {DEFAULT_FLOATING_HEIGHT, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {DEFAULT_FLOATING_HEIGHT, UNITY_SCALE} from "@/types/amongus/Constants";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface FloatingOverlayProps {
     elementID: GUID;

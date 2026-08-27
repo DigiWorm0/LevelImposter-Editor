@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../utils/Firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {auth} from "@/utils/Firebase";
 
 export interface ProfileIconProps {
     style?: React.CSSProperties;

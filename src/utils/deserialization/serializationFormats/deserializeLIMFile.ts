@@ -3,7 +3,7 @@ import GUID from "../../../types/common/GUID";
 import parseAssetType from "../../fileio/parseAssetType";
 import MapAsset from "../../../types/li/MapAsset";
 import store from "../../../shared/store";
-import {allAssetsAtom} from "../../../editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/state/assetsStore";
 
 /**
  * Deserializes a .LIM2 file from an ArrayBuffer

@@ -1,10 +1,10 @@
 import React from "react";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
+import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import DiamondSVG from "../icons/DiamondSVG";
-import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSetPlayhead} from "@/hooks/timeline/usePlayhead";
+import {useSettingsValue} from "@/hooks/useSettings";
 
 export interface TimelineKeyframeIconProps {
     t: number;

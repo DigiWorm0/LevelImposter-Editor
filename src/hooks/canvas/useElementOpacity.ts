@@ -1,12 +1,12 @@
 import getElemVisibility, {ElemVisibility} from "../../utils/map/getMapVisibility";
 import {useSettingsValue} from "../useSettings";
 import {useSelectedElemPropValue} from "../elements/useSelectedElemProperty";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import useIsElementSelected from "../elements/useIsElementSelected";
 import {Color} from "pixi.js";
 import {useElement} from "../elements/useElement";
 import {useAtomValue} from "jotai";
-import {isColliderSelectedAtom} from "../../editor/state/selection/colliderSelectionStore";
+import {isColliderSelectedAtom} from "@editor/state/selection/colliderSelectionStore";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",

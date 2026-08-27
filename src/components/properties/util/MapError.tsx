@@ -1,5 +1,5 @@
 import React from "react";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import {Alert, Button, Collapse} from "@mui/material";
 
 export interface MapErrorProps {

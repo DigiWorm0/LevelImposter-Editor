@@ -1,6 +1,6 @@
 import React from "react";
 import GUID from "../../../types/common/GUID";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import {Container} from "pixi.js";
 import useAnimationPlayback from "../../../hooks/timeline/useAnimationPlayback";
 import useIsAnimTarget from "../../../hooks/timeline/useIsAnimTarget";

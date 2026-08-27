@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import getIsDefaultMapName from "../../utils/map/getIsDefaultMapName";
 import {Button, TextField} from "@mui/material";
 import {useAtom} from "jotai";
-import {mapNameAtom} from "../../editor/state/documentStore";
+import {mapNameAtom} from "@editor/state/documentStore";
 
 export default function MapName() {
     const {t, i18n} = useTranslation();

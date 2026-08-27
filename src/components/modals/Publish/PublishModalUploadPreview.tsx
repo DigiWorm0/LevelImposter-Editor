@@ -1,4 +1,4 @@
-import {mapAtom} from "../../../editor/state/documentStore";
+import {mapAtom} from "@editor/state/documentStore";
 import MapCard from "../../utils/MapCard";
 import React from "react";
 import useMapThumbnailURL from "../../../hooks/firebase/publish/useMapThumbnailURL";

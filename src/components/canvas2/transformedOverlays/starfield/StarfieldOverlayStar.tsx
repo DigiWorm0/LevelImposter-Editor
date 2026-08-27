@@ -7,10 +7,10 @@ import {
     DEFAULT_STARFIELD_MAXSPEED,
     DEFAULT_STARFIELD_MINSPEED,
     UNITY_SCALE
-} from "../../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import {useTick} from "@pixi/react";
 import {StarfieldOverlayProps} from "./StarfieldOverlay";
-import {useElement} from "../../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export default function StarfieldOverlayStar(props: StarfieldOverlayProps) {
     const element = useElement(props.elementID);

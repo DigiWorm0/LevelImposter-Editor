@@ -1,9 +1,9 @@
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
-import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, UNITY_SCALE} from "@/types/amongus/Constants";
 import GUID from "../../../types/common/GUID";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface StarfieldAreaOverlayProps {
     elementID: GUID;

@@ -1,5 +1,5 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {atom} from "jotai";
 import {allElementsAtom, elementAtomFamily} from "./documentStore";
 import LIElement from "../../types/li/LIElement";

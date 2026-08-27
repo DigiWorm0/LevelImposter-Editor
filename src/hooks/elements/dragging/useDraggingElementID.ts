@@ -1,5 +1,5 @@
-import {atom, useAtom} from "jotai/index";
-import {MaybeGUID} from "../../../types/common/GUID";
+import {atom, useAtom} from "jotai/esm";
+import {MaybeGUID} from "@/types/common/GUID";
 
 export const draggingElementIDAtom = atom<MaybeGUID>(undefined);
 

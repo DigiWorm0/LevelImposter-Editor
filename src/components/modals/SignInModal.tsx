@@ -1,11 +1,11 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useTranslation } from "react-i18next";
-import { auth, githubProvider, googleProvider, microsoftProvider } from "../../utils/Firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useTranslation} from "react-i18next";
+import {auth, githubProvider, googleProvider, microsoftProvider} from "@/utils/Firebase";
 import useToaster from "../../hooks/useToaster";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { Button, ButtonGroup, Divider, InputAdornment, TextField, Typography } from "@mui/material";
-import { Email, GitHub, Google, Microsoft, OpenInNew, Password } from "@mui/icons-material";
+import {signInWithEmailAndPassword, signInWithPopup} from "firebase/auth";
+import {Button, ButtonGroup, Divider, InputAdornment, TextField, Typography} from "@mui/material";
+import {Email, GitHub, Google, Microsoft, OpenInNew, Password} from "@mui/icons-material";
 import GenericModal from "./GenericModal";
 
 
@@ -17,7 +17,7 @@ export interface SignInModalProps {
 }
 
 export default function SignInModal(props: SignInModalProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [user] = useAuthState(auth);
     const isLoggedIn = user !== null;
     const toaster = useToaster();
@@ -58,27 +58,27 @@ export default function SignInModal(props: SignInModalProps) {
                     justifyContent: "center"
                 }}
             >
-                <Typography variant={"h4"} sx={{ margin: 1 }}>
+                <Typography variant={"h4"} sx={{margin: 1}}>
                     {t("account.signInWithSocial")}
                 </Typography>
-                <ButtonGroup style={{ marginBottom: 10 }}>
+                <ButtonGroup style={{marginBottom: 10}}>
                     <Button onClick={signInWithGoogle} size={"large"}>
-                        <Google sx={{ fontSize: 30 }} />
+                        <Google sx={{fontSize: 30}}/>
                     </Button>
                     <Button onClick={signInWithGithub} size={"large"}>
-                        <GitHub sx={{ fontSize: 30 }} />
+                        <GitHub sx={{fontSize: 30}}/>
                     </Button>
                     <Button onClick={signInWithMicrosoft} size={"large"}>
-                        <Microsoft sx={{ fontSize: 30 }} />
+                        <Microsoft sx={{fontSize: 30}}/>
                     </Button>
                 </ButtonGroup>
                 <Divider
-                    sx={{ width: "100%" }}
+                    sx={{width: "100%"}}
                 />
                 <Typography
                     variant={"body2"}
-                    sx={{ color: "text.secondary", margin: 1 }}
-                    style={{ textAlign: "center" }}
+                    sx={{color: "text.secondary", margin: 1}}
+                    style={{textAlign: "center"}}
                 >
                     {t("account.orUseEmail")}
                 </Typography>
@@ -87,7 +87,7 @@ export default function SignInModal(props: SignInModalProps) {
                     size={"small"}
                     fullWidth
                     variant={"outlined"}
-                    style={{ marginBottom: 5 }}
+                    style={{marginBottom: 5}}
                     placeholder={t("account.email") as string}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -96,14 +96,14 @@ export default function SignInModal(props: SignInModalProps) {
                             signInWithEmail();
                     }}
                     InputProps={{
-                        startAdornment: <InputAdornment position={"start"}><Email /></InputAdornment>
+                        startAdornment: <InputAdornment position={"start"}><Email/></InputAdornment>
                     }}
                 />
                 <TextField
                     size={"small"}
                     fullWidth
                     variant={"outlined"}
-                    style={{ marginBottom: 10 }}
+                    style={{marginBottom: 10}}
                     placeholder={t("account.password") as string}
                     type="password"
                     value={password}
@@ -113,7 +113,7 @@ export default function SignInModal(props: SignInModalProps) {
                             signInWithEmail();
                     }}
                     InputProps={{
-                        startAdornment: <InputAdornment position={"start"}><Password /></InputAdornment>
+                        startAdornment: <InputAdornment position={"start"}><Password/></InputAdornment>
                     }}
                 />
                 <ButtonGroup>
@@ -125,7 +125,7 @@ export default function SignInModal(props: SignInModalProps) {
                     </Button>
                     <Button
                         onClick={signUp}
-                        endIcon={<OpenInNew />}
+                        endIcon={<OpenInNew/>}
                     >
                         {t("account.signUp") as string}
                     </Button>

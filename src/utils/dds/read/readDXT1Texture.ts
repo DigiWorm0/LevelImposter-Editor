@@ -1,4 +1,4 @@
-import {DDSHeader} from "../../../types/dds/DDSHeader";
+import {DDSHeader} from "@/types/dds/DDSHeader";
 
 const BLOCK_SIZE = 8;
 

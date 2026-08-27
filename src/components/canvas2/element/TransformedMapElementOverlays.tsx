@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import React from "react";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import FloatingOverlay from "../transformedOverlays/FloatingOverlay";

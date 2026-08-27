@@ -1,10 +1,10 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {atom} from "jotai";
 import {spriteAtlasAtomFamily} from "./useSpriteAtlas";
 import {Rectangle, Texture} from "pixi.js";
 import {textureAtomFamily} from "../texture/useTexture";
-import {assetsAtomFamily} from "../../editor/state/assetsStore";
+import {assetsAtomFamily} from "@editor/state/assetsStore";
 
 export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {

@@ -1,5 +1,5 @@
 import MapElement from "./MapElement";
-import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
+import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import MapElementError from "./MapElementError";
 import ErrorBoundary from "../../utils/ErrorBoundary";
 

@@ -4,13 +4,13 @@ import generateGUID from "../../../utils/strings/generateGUID";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
-import {DEFAULT_VOLUME} from "../../../types/amongus/Constants";
+import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
 import LISound from "../../../types/li/LISound";
 import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";
 import {Check, CloudUpload, Delete} from "@mui/icons-material";
 import {Button, ButtonGroup, MenuItem, Select, Typography} from "@mui/material";
-import {createAsset} from "../../../editor/assets/createAsset";
+import {createAsset} from "@editor/assets/createAsset";
 
 interface SoundUploadProps {
     sound?: LISound;

@@ -1,9 +1,9 @@
 import GUID from "../../../../types/common/GUID";
-import {useSettingsValue} from "../../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import ArrowOverlay from "./ArrowOverlay";
 import {useAtomValue} from "jotai";
-import {connectionsAtomFamily} from "../../../../editor/state/connectionStore";
-import {useElement} from "../../../../hooks/elements/useElement";
+import {connectionsAtomFamily} from "@editor/state/connectionStore";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface ConnectionOverlayProps {
     elementID: GUID;

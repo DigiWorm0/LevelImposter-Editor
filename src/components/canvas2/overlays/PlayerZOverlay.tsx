@@ -1,8 +1,8 @@
 import GUID from "../../../types/common/GUID";
-import {PLAYER_POS, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {PLAYER_POS, UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 export interface PlayerZOverlayProps {
     elementID: GUID;

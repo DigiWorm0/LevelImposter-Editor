@@ -1,8 +1,8 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {atom} from "jotai";
 import {spriteAtomFamily} from "../sprites/useSprite";
-import {textureToImageBlob} from "../../editor/assets/textureToImageBlob";
+import {textureToImageBlob} from "@editor/assets/textureToImageBlob";
 
 export const mapAssetAsImageBlobAtomFamily = atomFamily((id: MaybeGUID) => atom(async (get) => {
     const texture = await get(spriteAtomFamily(id));

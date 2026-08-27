@@ -1,8 +1,8 @@
 import {uploadImageAsset} from "../fileio/uploadImageAssets";
 import primaryStore from "../../hooks/primaryStore";
-import {selectedSpriteAnimAtom} from "../../hooks/spriteAnim/useSelectedSpriteAnim";
+import {selectedSpriteAnimAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnim";
 import {convertGIFAssetToSpriteAnim} from "../gif/convertGIFToSpriteAnimation";
-import {selectedSpriteAnimTypeAtom} from "../../hooks/spriteAnim/useSelectedSpriteAnimType";
+import {selectedSpriteAnimTypeAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnimType";
 
 /**
  * Opens a file dialog to upload sprite animation frames.

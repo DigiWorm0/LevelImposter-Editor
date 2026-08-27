@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth} from "../../../utils/Firebase";
+import {auth} from "@/utils/Firebase";
 import GenericModal from "../GenericModal";
 import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import PublishModalEditor from "./PublishModalEditor";

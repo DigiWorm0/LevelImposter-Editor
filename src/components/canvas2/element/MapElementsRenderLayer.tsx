@@ -1,7 +1,7 @@
 import React from "react";
 import {IRenderLayer} from "pixi.js";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
-import {getMapElementRef} from "../../../hooks/canvas/useMapElementRef";
+import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
 
 /**
  * By default, zIndex of elements is local to their parent's container instead of global.

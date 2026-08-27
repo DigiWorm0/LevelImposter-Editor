@@ -4,7 +4,7 @@ import TimelineRow from "../TimelineRow";
 import TimelineTimesteps from "./TimelineTimesteps";
 import TimelinePlayheadHandle from "./TimelinePlayheadHandle";
 import useIsAnimPlaying from "../../../hooks/timeline/useIsAnimPlaying";
-import {useSetPlayhead} from "../../../hooks/timeline/usePlayhead";
+import {useSetPlayhead} from "@/hooks/timeline/usePlayhead";
 import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {useTranslation} from "react-i18next";

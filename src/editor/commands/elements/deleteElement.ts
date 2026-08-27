@@ -1,6 +1,6 @@
 import GUID from "../../../types/common/GUID";
 import {MapCommand} from "../../history/executeCommand";
-import {elementChildIDsAtomFamily} from "../../../hooks/elements/useElementChildIDs";
+import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
 import store from "../../../shared/store";
 import {selectedColliderIDAtom} from "../../state/selection/colliderSelectionStore";
 import {selectedElementIDsAtom} from "../../state/selection/elementSelectionStore";

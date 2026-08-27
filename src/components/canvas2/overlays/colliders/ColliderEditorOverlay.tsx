@@ -9,12 +9,12 @@ import {useAtom, useAtomValue} from "jotai";
 import {
     selectedColliderAtom,
     selectedColliderPointIndicesAtom
-} from "../../../../editor/state/selection/colliderSelectionStore";
+} from "@editor/state/selection/colliderSelectionStore";
 import executeCommand from "../../../../editor/history/executeCommand";
-import {moveColliderPoint} from "../../../../editor/commands/colliders/moveColliderPoint";
-import {deleteColliderPoint} from "../../../../editor/commands/colliders/deleteColliderPoint";
-import {insertColliderPointAtMouse} from "../../../../editor/commands/colliders/insertColliderPointAtMouse";
-import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {moveColliderPoint} from "@editor/commands/colliders/moveColliderPoint";
+import {deleteColliderPoint} from "@editor/commands/colliders/deleteColliderPoint";
+import {insertColliderPointAtMouse} from "@editor/commands/colliders/insertColliderPointAtMouse";
+import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
 
 function drawCollider(
     g: Graphics,

@@ -1,11 +1,11 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useSettingsValue} from "../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import useEmbed from "../../hooks/embed/useEmbed";
 import useEmbedScrollCapture from "../../hooks/embed/useEmbedScrollCapture";
 import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
-import {_useUserAtom} from "../../hooks/firebase/useUser";
+import {_useUserAtom} from "@/hooks/firebase/useUser";
 import {useAtomsDebugValue} from "jotai-devtools";
 
 export default function GlobalHooks() {

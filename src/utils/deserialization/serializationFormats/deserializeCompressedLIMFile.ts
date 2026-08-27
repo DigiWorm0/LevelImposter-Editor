@@ -5,7 +5,7 @@ import parseAssetType from "../../fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import MapAsset from "../../../types/li/MapAsset";
 import store from "../../../shared/store";
-import {allAssetsAtom} from "../../../editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/state/assetsStore";
 
 const MAP_JSON_FILENAME = "map.json";
 

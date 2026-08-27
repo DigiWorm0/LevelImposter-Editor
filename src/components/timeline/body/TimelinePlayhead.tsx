@@ -1,5 +1,5 @@
 import usePlayhead from "../../../hooks/timeline/usePlayhead";
-import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
+import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
 
 const PADDING_LEFT = 6; // px
 

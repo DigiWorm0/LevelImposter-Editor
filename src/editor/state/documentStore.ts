@@ -1,8 +1,8 @@
 import {atom} from "jotai";
 import {focusAtom} from "jotai-optics";
-import {DEFAULT_MAP} from "../../types/amongus/Constants";
+import {DEFAULT_MAP} from "@/types/amongus/Constants";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 
 export const mapAtom = atom({...DEFAULT_MAP});
 

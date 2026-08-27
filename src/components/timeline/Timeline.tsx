@@ -1,6 +1,6 @@
 import TimelineHeader from "./header/TimelineHeader";
 import TimelineBody from "./body/TimelineBody";
-import {useChangeTimelineScale} from "../../hooks/timeline/useChangeTimelineScale";
+import {useChangeTimelineScale} from "@/hooks/timeline/useChangeTimelineScale";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import {Alert, AlertTitle} from "@mui/material";
 

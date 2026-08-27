@@ -14,14 +14,14 @@ import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
 import useTogglePlayback from "../timeline/useTogglePlayback";
-import {copySelectedElementsToClipboard} from "../../editor/clipboard/elements/copyElementsToClipboard";
-import {redo, undo} from "../../editor/history/undoRedo";
+import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
+import {redo, undo} from "@editor/history/undoRedo";
 import executeCommand from "../../editor/history/executeCommand";
-import {duplicateSelectedElement} from "../../editor/commands/elements/duplicateElement";
-import {deleteAnythingSelected} from "../../editor/commands/deleteAnythingSelected";
+import {duplicateSelectedElement} from "@editor/commands/elements/duplicateElement";
+import {deleteAnythingSelected} from "@editor/commands/deleteAnythingSelected";
 import {deleteSelectedElements as deleteSelectedElementsCmd} from "../../editor/commands/elements/deleteElement";
-import {pasteElementsFromClipboard} from "../../editor/clipboard/elements/pasteElementsFromClipboard";
-import {selectAllElements} from "../../editor/selection/selectAllElements";
+import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
+import {selectAllElements} from "@editor/selection/selectAllElements";
 
 const TIMELINE_DELTA_SCALE = 100;
 

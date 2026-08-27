@@ -4,7 +4,7 @@ import {
     DEFAULT_SPORE_DURATION,
     DEFAULT_SPORE_GAS_RANGE,
     DEFAULT_SPORE_RANGE
-} from "../../../types/amongus/Constants";
+} from "@/types/amongus/Constants";
 import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";

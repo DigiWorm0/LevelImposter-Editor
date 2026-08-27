@@ -1,4 +1,4 @@
-import {MaybeGUID} from "../../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
 import {CloudDownload, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
@@ -8,7 +8,7 @@ import useAsset from "../../../hooks/assets/useAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
 import ReplaceAssetButton from "../../buttons/ReplaceAssetButton";
-import {downloadRawAsset} from "../../../editor/assets/downloadAsset";
+import {downloadRawAsset} from "@editor/assets/downloadAsset";
 
 export interface MapAssetModalEditorProps {
     id: MaybeGUID;

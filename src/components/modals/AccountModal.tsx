@@ -1,14 +1,14 @@
-import { signOut } from "firebase/auth";
+import {signOut} from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useTranslation } from "react-i18next";
-import { auth } from "../../utils/Firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useTranslation} from "react-i18next";
+import {auth} from "@/utils/Firebase";
 import MapThumbnail from "../utils/MapThumbnail";
 import SignInModal from "./SignInModal";
 import ProfileIcon from "../utils/ProfileIcon";
-import { Button, ButtonGroup, CircularProgress, Divider, Typography } from "@mui/material";
+import {Button, ButtonGroup, CircularProgress, Divider, Typography} from "@mui/material";
 import GenericModal from "./GenericModal";
-import { Logout, Share } from "@mui/icons-material";
+import {Logout, Share} from "@mui/icons-material";
 import useUserMaps from "../../hooks/firebase/useUserMaps";
 import useToaster from "../../hooks/useToaster";
 
@@ -18,7 +18,7 @@ export interface AccountModalProps {
 }
 
 export default function AccountModal(props: AccountModalProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [user] = useAuthState(auth);
     const maps = useUserMaps();
     const isLoggedIn = user !== null;
@@ -72,14 +72,14 @@ export default function AccountModal(props: AccountModalProps) {
                                 onClick={() => {
                                     window.open("https://levelimposter.net/#/profile");
                                 }}
-                                endIcon={<Share />}
+                                endIcon={<Share/>}
                             >
                                 {t("account.viewProfile")}
                             </Button>
                             <Button
                                 onClick={() => signOut(auth).catch(toaster.error)}
                                 color={"error"}
-                                endIcon={<Logout />}
+                                endIcon={<Logout/>}
                             >
                                 {t("account.signOut")}
                             </Button>
@@ -87,7 +87,7 @@ export default function AccountModal(props: AccountModalProps) {
                     </div>
                 </div>
 
-                <Divider sx={{ mt: 2 }} />
+                <Divider sx={{mt: 2}}/>
 
                 {/* Maps */}
                 <div
@@ -98,7 +98,7 @@ export default function AccountModal(props: AccountModalProps) {
                 >
                     {maps === undefined && (
                         <CircularProgress
-                            sx={{ m: 1 }}
+                            sx={{m: 1}}
                             color={"inherit"}
                         />
                     )}
@@ -113,7 +113,7 @@ export default function AccountModal(props: AccountModalProps) {
                             {t("account.noMaps")}
                         </Typography>
                     )}
-                    {maps?.map((map) => (<MapThumbnail map={map} key={map.id} />))}
+                    {maps?.map((map) => (<MapThumbnail map={map} key={map.id}/>))}
                 </div>
             </GenericModal>
         </>

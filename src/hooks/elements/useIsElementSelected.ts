@@ -1,7 +1,7 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
-import {selectedElementIDsAtom} from "../../editor/state/selection/elementSelectionStore";
+import {MaybeGUID} from "@/types/common/GUID";
+import {selectedElementIDsAtom} from "@editor/state/selection/elementSelectionStore";
 
 export const isElementSelectedAtomFamily = atomFamily((id?: MaybeGUID) => {
     return atom((get) => {

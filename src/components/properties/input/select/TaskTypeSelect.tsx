@@ -1,10 +1,10 @@
 import {Autocomplete, TextField} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {AUTaskLengthDB, TaskLength} from "../../../../types/amongus/TaskLength";
+import {AUTaskLengthDB, TaskLength} from "@/types/amongus/TaskLength";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function TaskTypeSelect() {
     const {t} = useTranslation();

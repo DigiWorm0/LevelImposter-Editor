@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {DEFAULT_VOLUME} from "../../../types/amongus/Constants";
+import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
 import generateGUID from "../../../utils/strings/generateGUID";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import SoundPresetSelect from "../input/select/SoundPresetSelect";

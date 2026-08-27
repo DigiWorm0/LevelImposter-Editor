@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {MAX_DOOR_COUNT} from "../../../types/amongus/Constants";
-import {DoorType} from "../../../types/amongus/DoorType";
+import {MAX_DOOR_COUNT} from "@/types/amongus/Constants";
+import {DoorType} from "@/types/amongus/DoorType";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorTypeSelect from "../input/select/DoorTypeSelect";
 import RoomSelect from "../input/select/RoomSelect";
@@ -9,11 +9,11 @@ import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
 import {Room, VolumeUp} from "@mui/icons-material";
 import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
-import {useElement} from "../../../hooks/elements/useElement";
+import {useElement} from "@/hooks/elements/useElement";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";

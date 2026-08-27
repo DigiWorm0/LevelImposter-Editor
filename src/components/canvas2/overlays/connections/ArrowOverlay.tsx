@@ -4,7 +4,7 @@ import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {Graphics} from "pixi.js";
 import Vector2 from "../../../../types/transform/Vector2";
 import TickingGraphics from "../../common/TickingGraphics";
-import {useSettingsValue} from "../../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import screenToWorld from "../../../../hooks/canvas/useScreenToWorld";
 
 export interface ArrowOverlayProps {

@@ -2,10 +2,10 @@ import {Abc, Code, DataArray, DataObject} from "@mui/icons-material";
 import {Button, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
 import {useAtomValue} from "jotai";
-import {selectedElementAtom} from "../../../editor/state/selection/elementSelectionStore";
+import {selectedElementAtom} from "@editor/state/selection/elementSelectionStore";
 
 const TYPE_INTENTS = {
     "string": "Primary",

@@ -1,4 +1,4 @@
-import {DEFAULT_GUID} from "../../utils/strings/generateGUID";
+import {DEFAULT_GUID} from "@/utils/strings/generateGUID";
 import LIMap from "../li/LIMap";
 
 export const UNITY_SCALE = 100;

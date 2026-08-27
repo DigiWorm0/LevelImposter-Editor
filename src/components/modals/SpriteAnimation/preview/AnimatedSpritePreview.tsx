@@ -7,7 +7,7 @@ import useWindowSize from "../../../../hooks/canvas/useWindowSize";
 import AnimatedSpritePreviewBackground from "./AnimatedSpritePreviewBackground";
 import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
 import {useAtomValue} from "jotai";
-import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
 
 export default function AnimatedSpritePreview() {
     const selectedElementID = useAtomValue(selectedElementIDAtom);

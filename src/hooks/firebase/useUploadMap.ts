@@ -1,5 +1,5 @@
 import LIMap from "../../types/li/LIMap";
-import {db, storage} from "../../utils/Firebase";
+import {db, storage} from "@/utils/Firebase";
 import {getDownloadURL, ref, StorageReference, uploadBytesResumable} from "firebase/storage";
 import {collection, doc, setDoc} from "firebase/firestore";
 import LIMetadata from "../../types/li/LIMetadata";

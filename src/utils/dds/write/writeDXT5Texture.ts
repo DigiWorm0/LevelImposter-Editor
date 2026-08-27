@@ -1,5 +1,5 @@
 import {calculateColorIndex, readBlockFromBitmap} from "./writeDXT1Texture";
-import {DDSHeader} from "../../../types/dds/DDSHeader";
+import {DDSHeader} from "@/types/dds/DDSHeader";
 import chooseEndpointColors from "./chooseEndpointColors";
 
 const BLOCK_SIZE = 16;

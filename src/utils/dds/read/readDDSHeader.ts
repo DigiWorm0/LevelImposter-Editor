@@ -1,4 +1,4 @@
-import {DDSHeader} from "../../../types/dds/DDSHeader";
+import {DDSHeader} from "@/types/dds/DDSHeader";
 
 export default function readDDSHeader(buffer: Buffer): DDSHeader {
 

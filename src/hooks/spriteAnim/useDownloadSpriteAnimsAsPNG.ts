@@ -1,11 +1,11 @@
 // Trim Assets
 import {atom, useSetAtom} from "jotai";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {AsyncZippable, zip} from "fflate";
 import {mapAssetAsImageBlobAtomFamily} from "../assets/useMapAssetAsImageBlob";
 import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
 
-import {elementAtomFamily} from "../../editor/state/documentStore";
+import {elementAtomFamily} from "@editor/state/documentStore";
 
 export interface DownloadAssetPayload {
     elementID: MaybeGUID;

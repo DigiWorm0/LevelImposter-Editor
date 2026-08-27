@@ -1,9 +1,9 @@
 import usePlayhead from "../../../hooks/timeline/usePlayhead";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "../../../hooks/timeline/useTimelineScale";
+import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
 import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import React from "react";
-import {useSettingsValue} from "../../../hooks/useSettings";
+import {useSettingsValue} from "@/hooks/useSettings";
 
 export default function TimelinePlayheadHandle() {
     const nodeRef = React.useRef<HTMLDivElement>(null);

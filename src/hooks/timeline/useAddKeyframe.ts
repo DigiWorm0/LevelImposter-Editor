@@ -1,5 +1,5 @@
 import {atom, useSetAtom} from "jotai";
-import {MaybeGUID} from "../../types/common/GUID";
+import {MaybeGUID} from "@/types/common/GUID";
 import {playheadAtom} from "./usePlayhead";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";

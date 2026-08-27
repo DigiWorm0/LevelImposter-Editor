@@ -4,7 +4,7 @@ import React from "react";
 import useAsset from "../../hooks/assets/useAsset";
 import GUID from "../../types/common/GUID";
 import {useTranslation} from "react-i18next";
-import {downloadAssetAsPNG} from "../../editor/assets/downloadAsset";
+import {downloadAssetAsPNG} from "@editor/assets/downloadAsset";
 
 export interface SpriteDownloadPNGButtonProps {
     assetID: GUID | undefined;

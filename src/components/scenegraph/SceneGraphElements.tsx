@@ -1,6 +1,6 @@
 import SceneGraphElement from "./SceneGraphElement";
 import React from "react";
-import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
+import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import {Divider, List} from "@mui/material";
 import SceneGraphOrigin from "./SceneGraphOrigin";
 

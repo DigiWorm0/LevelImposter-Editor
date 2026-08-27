@@ -2,7 +2,7 @@ import React from "react";
 import useSettings from "../../../../hooks/useSettings";
 import {useTranslation} from "react-i18next";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
-import {LANGUAGES} from "../../../../types/amongus/Constants";
+import {LANGUAGES} from "@/types/amongus/Constants";
 import {Language} from "@mui/icons-material";
 
 export default function SettingsLocalizationInput() {
