@@ -1,6 +1,6 @@
 import {uploadMapAtom} from "../useUploadMap";
 import generateGUID from "../../../utils/strings/generateGUID";
-import {mapAtom} from "../../map/useMap";
+import {mapAtom} from "../../../editor/state/documentStore";
 import {getI18n} from "react-i18next";
 import {atom, useSetAtom} from "jotai";
 import {userAtom} from "../useUser";

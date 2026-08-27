@@ -1,14 +1,14 @@
 import GUID from "../../../types/common/GUID";
-import useElement from "../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import {UNITY_SCALE} from "../../../types/amongus/Constants";
+import {useElement} from "../../../hooks/elements/useElement";
 
 interface RoomOverlayProps {
     elementID: GUID;
 }
 
 export default function RoomOverlay(props: RoomOverlayProps) {
-    const [elem] = useElement(props.elementID);
+    const elem = useElement(props.elementID);
     const {isRoomNameVisible} = useSettingsValue();
 
     const isRoom = elem?.type === "util-room";

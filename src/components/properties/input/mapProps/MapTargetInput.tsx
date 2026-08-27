@@ -1,13 +1,14 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useMapTarget} from "../../../../hooks/map/useMap";
+import {mapTargetAtom} from "../../../../editor/state/documentStore";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {Place} from "@mui/icons-material";
 import MapTarget from "../../../../types/li/MapTarget";
+import {useAtom} from "jotai";
 
 export default function MapTargetInput() {
     const {t} = useTranslation();
-    const [target, setTarget] = useMapTarget();
+    const [target, setTarget] = useAtom(mapTargetAtom);
 
     return (
         <ListItem

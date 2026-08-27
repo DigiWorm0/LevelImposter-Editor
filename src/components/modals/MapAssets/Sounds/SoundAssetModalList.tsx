@@ -3,7 +3,8 @@ import React from "react";
 import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import SoundAssetModalButton from "./SoundAssetModalButton";
-import {useMapAssetsValue} from "../../../../hooks/assets/useMapAssets";
+import {useAtomValue} from "jotai";
+import {allAssetsAtom} from "../../../../editor/state/assetsStore";
 
 export interface SoundAssetModalListProps {
     onClick: (id: GUID) => void;
@@ -11,9 +12,9 @@ export interface SoundAssetModalListProps {
 }
 
 export default function SoundAssetModalList(props: SoundAssetModalListProps) {
-    const allMapAssets = useMapAssetsValue();
+    const allAssets = useAtomValue(allAssetsAtom);
 
-    const soundAssets = allMapAssets?.filter(asset => asset.type.startsWith("audio/"));
+    const soundAssets = allAssets?.filter(asset => asset.type.startsWith("audio/"));
     const hasSoundAssets = soundAssets && soundAssets.length > 0;
 
     return (

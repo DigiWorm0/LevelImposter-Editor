@@ -1,22 +1,22 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {elementsAtom, useMapProperties, useMapTarget} from "../../../../hooks/map/useMap";
+import {allElementsAtom, mapPropsAtom, mapTargetAtom} from "../../../../editor/state/documentStore";
 import {Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {ExitToApp} from "@mui/icons-material";
 import {EXILE_IDS} from "../../../../db/AUElementDB";
-import {atom, useAtomValue} from "jotai";
+import {atom, useAtom, useAtomValue} from "jotai";
 import MapTarget from "../../../../types/li/MapTarget";
 
 const hasEjectCameraAtom = atom((get) => {
-    const allElements = get(elementsAtom);
+    const allElements = get(allElementsAtom);
     return allElements.some((element) => element.type === "util-eject");
 });
 
 export default function MapExileInput() {
     const {t} = useTranslation();
-    const [properties, setProperties] = useMapProperties();
+    const [properties, setProperties] = useAtom(mapPropsAtom);
     const hasEjectCamera = useAtomValue(hasEjectCameraAtom);
-    const [mapTarget] = useMapTarget();
+    const [mapTarget] = useAtom(mapTargetAtom);
 
     const currentValue = React.useMemo(() => {
         if (hasEjectCamera)

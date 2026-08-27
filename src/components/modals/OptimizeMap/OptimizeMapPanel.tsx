@@ -2,18 +2,17 @@ import {Box, Button, CircularProgress, Divider, List, Paper} from "@mui/material
 import {useTranslation} from "react-i18next";
 import React from "react";
 import {Animation, Build, ContentCut, Gradient, Merge} from "@mui/icons-material";
-import BuildOperation from "../../../utils/build/BuildOperation";
+import BuildOperation from "../../../editor/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
-import TrimMapAssetsOperation from "../../../utils/build/TrimMapAssetsOperation";
-import MergeMapAssetsOperation from "../../../utils/build/MergeMapAssetsOperation";
+import TrimMapAssetsOperation from "../../../editor/build/TrimMapAssetsOperation";
+import MergeMapAssetsOperation from "../../../editor/build/MergeMapAssetsOperation";
 import useOptimizeLog from "../../../hooks/optimize/useOptimizeLog";
 import {Interweave} from "interweave";
 import useAppendOptimizeLog from "../../../hooks/optimize/useAppendOptimizeLog";
-import EncodeToDDSOperation from "../../../utils/build/EncodeToDDSOperation";
+import EncodeToDDSOperation from "../../../editor/build/EncodeToDDSOperation";
 import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
-import ConvertToSpriteAnimOperation from "../../../utils/build/ConvertToSpriteAnimOperation";
+import ConvertToSpriteAnimOperation from "../../../editor/build/ConvertToSpriteAnimOperation";
 import useEnabledOptimizeOptionIDs from "../../../hooks/optimize/useEnabledOptimizeOptionIDs";
-import {useSetHistoryEnabled} from "../../../hooks/map/history/useHistory";
 
 interface OptimizeMapOption {
     id: string;
@@ -71,7 +70,6 @@ export default function OptimizeMapPanel() {
     const [optimizeLog, setOptimizeLog] = useOptimizeLog();
     const appendOptimizeLog = useAppendOptimizeLog();
     const bottomLogRef = React.useRef<HTMLDivElement>(null);
-    const enableHistory = useSetHistoryEnabled();
 
     const setOptionEnabled = React.useCallback((id: string, isEnabled: boolean) => {
         if (isEnabled)
@@ -83,9 +81,6 @@ export default function OptimizeMapPanel() {
     const onOptimize = React.useCallback(async () => {
         // Mark as running
         setIsRunning(true);
-
-        // Stop Undo/Redo history during optimization
-        enableHistory(false);
 
         // Clear log
         setOptimizeLog([]);
@@ -108,9 +103,6 @@ export default function OptimizeMapPanel() {
 
         // Log done
         appendOptimizeLog("<span style=\"color: #00c216;\">Done ✔</span>");
-
-        // Re-enable Undo/Redo history
-        enableHistory(true);
 
         // Mark as not running
         setIsRunning(false);

@@ -1,10 +1,11 @@
 import {Autocomplete, PopperPlacementType, TextField, Tooltip} from "@mui/material";
 import React from "react";
-import {useElementValue} from "../../../../hooks/elements/useElements";
-import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
 import {useElementsOfType} from "../../../../hooks/elements/useElementsOfType";
 import {MaybeGUID} from "../../../../types/common/GUID";
 import LIElement from "../../../../types/li/LIElement";
+import {useAtomValue} from "jotai";
+import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
+import {useElement} from "../../../../hooks/elements/useElement";
 
 export interface ElementSelectProps {
     nameFilter?: string;
@@ -25,8 +26,8 @@ export interface ElementSelectProps {
 }
 
 export default function ElementSelect(props: ElementSelectProps) {
-    const selectedElemID = useSelectedElemIDValue();
-    const currentElem = useElementValue(props.selectedID);
+    const selectedElemID = useAtomValue(selectedElementIDAtom);
+    const currentElem = useElement(props.selectedID);
     const elems = useElementsOfType(props.typeFilter ?? "");
     const filteredElems = React.useMemo(() => {
         return props.whitelistedIDs ?

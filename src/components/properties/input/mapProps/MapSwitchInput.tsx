@@ -1,7 +1,8 @@
 import React from "react";
 import LIMapProperties from "../../../../types/li/LIMapProperties";
-import { useMapProperties } from "../../../../hooks/map/useMap";
-import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {mapPropsAtom} from "../../../../editor/state/documentStore";
+import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {useAtom} from "jotai";
 
 export interface MapSwitchInputProps {
     name: string;
@@ -12,7 +13,7 @@ export interface MapSwitchInputProps {
 }
 
 export default function MapSwitchInput(props: MapSwitchInputProps) {
-    const [properties, setProperties] = useMapProperties();
+    const [properties, setProperties] = useAtom(mapPropsAtom);
 
     const value = React.useMemo(() => {
         if (props.prop === undefined)
@@ -52,7 +53,7 @@ export default function MapSwitchInput(props: MapSwitchInputProps) {
         >
             <ListItemButton onClick={onClick}>
                 {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
-                <ListItemText primary={props.name} />
+                <ListItemText primary={props.name}/>
             </ListItemButton>
         </ListItem>
     );

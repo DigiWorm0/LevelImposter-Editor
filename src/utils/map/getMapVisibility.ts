@@ -60,21 +60,17 @@ export enum ElemVisibility {
 }
 
 export default function getElemVisibility(elem?: LIElement): ElemVisibility {
-    if (!elem) {
+    if (!elem)
         return ElemVisibility.Invisible;
-    }
 
-    if (INVISIBLE_TYPES.includes(elem.type)) {
+    if (INVISIBLE_TYPES.includes(elem.type))
         return ElemVisibility.Invisible;
-    }
 
-    if (INVISIBLE_TYPES_NO_SPRITE.includes(elem.type) && !elem.properties.spriteID) {
+    if (INVISIBLE_TYPES_NO_SPRITE.includes(elem.type) && !elem.properties.spriteID)
         return ElemVisibility.InvisibleNoSprite;
-    }
 
-    if (INVISIBLE_TYPES_MINIMAP.includes(elem.type)) {
+    if (INVISIBLE_TYPES_MINIMAP.includes(elem.type))
         return ElemVisibility.InvisibleMinimap;
-    }
 
     if (elem.type === "util-room") {
         if (elem.properties.isRoomNameVisible === false)
@@ -82,9 +78,9 @@ export default function getElemVisibility(elem?: LIElement): ElemVisibility {
         else
             return ElemVisibility.InvisibleMinimap;
     }
-    if (elem.type === "util-dummy") {
+
+    if (elem.type === "util-dummy")
         return ElemVisibility.InvisibleFreeplay;
-    }
 
     return ElemVisibility.Visible;
 }

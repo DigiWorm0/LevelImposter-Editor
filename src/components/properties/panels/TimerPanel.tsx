@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { Timer } from "@mui/icons-material";
+import {Timer} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function TimerPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isTimer = useIsSelectedElemType("util-triggertimer");
 
     if (!isTimer)
@@ -18,7 +18,7 @@ export default function TimerPanel() {
                 name={t("timer.duration")}
                 prop="triggerTime"
                 defaultValue={1}
-                icon={<Timer />}
+                icon={<Timer/>}
                 label="seconds"
                 min={0}
                 stepSize={1}

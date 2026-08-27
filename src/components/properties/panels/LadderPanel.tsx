@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {DEFAULT_LADDER_COOLDOWN, DEFAULT_LADDER_HEIGHTS, DEFAULT_LADDER_OFFSET} from "../../../types/amongus/Constants";
 import {Height, HourglassEmpty, SwapVert} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function LadderPanel() {
     const {t} = useTranslation();

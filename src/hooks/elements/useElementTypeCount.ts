@@ -1,10 +1,10 @@
-import { atomFamily } from "jotai/utils";
-import { atom, useAtomValue } from "jotai";
-import { elementsAtom } from "../map/useMap";
+import {atomFamily} from "jotai/utils";
+import {atom, useAtomValue} from "jotai";
+import {allElementsAtom} from "../../editor/state/documentStore";
 
 export const elementTypeCountAtom = atomFamily((typeFilter: string) => {
     return atom((get) => {
-        const elements = get(elementsAtom);
+        const elements = get(allElementsAtom);
         return elements.filter((elem) => elem.type.includes(typeFilter)).length;
     });
 });

@@ -7,10 +7,10 @@ import TimelineKeyframeRow from "./TimelineKeyframeRow";
 import TimelineProperty from "./TimelineProperty";
 import GUID from "../../../types/common/GUID";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {Delete} from "@mui/icons-material";
 import TimelinePlayhead from "./TimelinePlayhead";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import {useElement} from "../../../hooks/elements/useElement";
 
 const PROPERTIES: LIAnimPropertyType[] = [
     "x",
@@ -31,7 +31,7 @@ export default function TimelineElement(props: TimelineElementProps) {
     const [isExpanded, setIsExpanded] = React.useState(false);
 
     const animTarget = animTargets?.find((t) => t.id === props.id);
-    const animTargetElem = useElementValue(animTarget?.id);
+    const animTargetElem = useElement(animTarget?.id);
 
     const deleteElement = () => {
         if (animTarget === undefined)

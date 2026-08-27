@@ -2,8 +2,8 @@ import {useTranslation} from "react-i18next";
 import {DEFAULT_SCROLL_X_SPEED, DEFAULT_SCROLL_Y_SPEED} from "../../../types/amongus/Constants";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {SwapHoriz, SwapVert} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function ScrollingPanel() {
     const {t} = useTranslation();

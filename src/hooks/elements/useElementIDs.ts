@@ -1,11 +1,11 @@
 import {atom, useAtomValue} from "jotai";
-import {elementsAtom} from "../map/useMap";
+import {allElementsAtom} from "../../editor/state/documentStore";
 import GUID from "../../types/common/GUID";
 import compareArrays from "../../utils/common/compareArrays";
 
 let prevElementIDs: GUID[] = [];
 export const elementIDsAtom = atom((get) => {
-    const elementIDs = get(elementsAtom).map((e) => e.id);
+    const elementIDs = get(allElementsAtom).map((e) => e.id);
 
     // Only update if elementIDs have changed
     if (!compareArrays(prevElementIDs, elementIDs))

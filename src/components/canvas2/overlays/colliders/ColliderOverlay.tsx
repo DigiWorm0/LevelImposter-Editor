@@ -1,14 +1,15 @@
 import GUID from "../../../../types/common/GUID";
-import {useElementValue} from "../../../../hooks/elements/useElements";
 import {useSettingsValue} from "../../../../hooks/useSettings";
 import {UNITY_SCALE} from "../../../../types/amongus/Constants";
-import {useSelectedColliderID} from "../../../../hooks/elements/colliders/useSelectedCollider";
 import {Container, Graphics} from "pixi.js";
 import LICollider from "../../../../types/li/LICollider";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {RefObject} from "react";
 import getOffsetFromElement from "../../../../utils/canvas/getOffsetFromElement";
 import TickingGraphics from "../../common/TickingGraphics";
+import {useAtomValue} from "jotai";
+import {selectedColliderIDAtom} from "../../../../editor/state/selection/colliderSelectionStore";
+import {useElement} from "../../../../hooks/elements/useElement";
 
 export interface ColliderOverlayProps {
     elementID: GUID;
@@ -91,9 +92,9 @@ export function drawColliderFill(
 }
 
 export default function ColliderOverlay(props: ColliderOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const {colliderPreview} = useSettingsValue();
-    const [selectedColliderID] = useSelectedColliderID();
+    const selectedColliderID = useAtomValue(selectedColliderIDAtom);
     const mapElementRef = useMapElementRef(props.elementID);
 
     if (!colliderPreview)

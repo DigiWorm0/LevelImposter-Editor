@@ -1,13 +1,13 @@
 import {MaybeGUID} from "../../types/common/GUID";
 import React from "react";
-import useMapAsset from "../../hooks/assets/useMapAsset";
+import useAsset from "../../hooks/assets/useAsset";
 
 export interface ImageAssetProps extends Partial<React.HTMLAttributes<HTMLImageElement>> {
     assetID: MaybeGUID;
 }
 
 export default function ImageAsset(props: ImageAssetProps) {
-    const asset = useMapAsset(props.assetID);
+    const asset = useAsset(props.assetID);
 
     // TODO: Fix warning about `assetID` being passed to the DOM
 

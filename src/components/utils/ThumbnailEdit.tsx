@@ -3,14 +3,15 @@ import React from "react";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import {useTranslation} from "react-i18next";
-import {useMapValue} from "../../hooks/map/useMap";
+import {mapAtom} from "../../editor/state/documentStore";
 import {Box, Button, ButtonGroup, CardMedia, Typography} from "@mui/material";
 import {CloudUpload, Refresh} from "@mui/icons-material";
 import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";
 import useMapThumbnailURL from "../../hooks/firebase/publish/useMapThumbnailURL";
+import {useAtomValue} from "jotai";
 
 export default function ThumbnailEdit() {
-    const map = useMapValue();
+    const map = useAtomValue(mapAtom);
     const toaster = useToaster();
     const [thumbnail, setThumbnail] = useMapThumbnail();
     const thumbnailURL = useMapThumbnailURL();

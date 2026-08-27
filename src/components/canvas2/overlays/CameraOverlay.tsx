@@ -1,5 +1,4 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_CAM_ASPECT,
     DEFAULT_CAM_SIZE,
@@ -8,13 +7,14 @@ import {
     SECONDARY_CAM_ASPECT,
     UNITY_SCALE
 } from "../../../types/amongus/Constants";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface CameraOverlayProps {
     elementID: GUID;
 }
 
 export default function CameraOverlay(props: CameraOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
 
     // Camera Properties
     const camXOffset = element?.properties.camXOffset ?? 0;

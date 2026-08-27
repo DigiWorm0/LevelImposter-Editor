@@ -4,9 +4,9 @@ import parseAssetType from "../fileio/parseAssetType";
 import primaryStore from "../../hooks/primaryStore";
 import {settingsAtom} from "../../hooks/useSettings";
 import {convertImageBlobToDDS} from "../dds/convertImageToDDS";
-import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
 import MapAsset from "../../types/li/MapAsset";
 import {SUPPORTED_IMAGE_TYPES} from "../../types/amongus/Constants";
+import {createAsset} from "../../editor/assets/createAsset";
 
 /**
  * Opens a file dialog to upload image files, processes them,
@@ -76,5 +76,5 @@ async function processImageFile(file: File) {
     }
 
     // Create the map asset
-    return primaryStore.set(createMapAssetAtom, {type: assetType, blob});
+    return createAsset(assetType, blob);
 }

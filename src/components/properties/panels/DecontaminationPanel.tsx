@@ -1,16 +1,16 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import DoorSelect from "../input/select/DoorSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import useElementIDExists from "../../../hooks/elements/useElementIDExists";
-import { Timer } from "@mui/icons-material";
+import {Timer} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function DecontaminationPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isDecontamination = useIsSelectedElemType("util-decontamination");
     const doorIDA = useSelectedElemPropValue("doorA");
     const doorIDB = useSelectedElemPropValue("doorB");
@@ -22,15 +22,15 @@ export default function DecontaminationPanel() {
     return (
         <>
             <PanelContainer title={t("decontamination.title") as string}>
-                <DoorSelect prop={"doorA"} />
-                <DoorSelect prop={"doorB"} />
+                <DoorSelect prop={"doorA"}/>
+                <DoorSelect prop={"doorB"}/>
                 <ElementPropNumericInput
                     name={t("decontamination.duration")}
                     prop={"deconDuration"}
                     label={"seconds"}
                     defaultValue={3}
                     min={0}
-                    icon={<Timer />}
+                    icon={<Timer/>}
                 />
                 <SoundEditorPanel
                     title={t("decontamination.sound") as string}

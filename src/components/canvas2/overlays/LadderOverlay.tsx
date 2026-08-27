@@ -1,5 +1,4 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_LADDER_HEIGHTS,
     DEFAULT_LADDER_OFFSET,
@@ -9,6 +8,7 @@ import {
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface LadderOverlayProps {
     elementID: GUID;
@@ -16,7 +16,7 @@ export interface LadderOverlayProps {
 
 export default function LadderOverlay(props: LadderOverlayProps) {
     const mapElementRef = useMapElementRef(props.elementID);
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
 
     const ladderOffset = element?.properties.ladderOffset ?? DEFAULT_LADDER_OFFSET;
     const height = element?.properties.ladderHeight ?? DEFAULT_LADDER_HEIGHTS[element?.type ?? "util-ladder1"];

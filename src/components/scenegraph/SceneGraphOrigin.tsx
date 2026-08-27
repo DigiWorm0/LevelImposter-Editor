@@ -1,16 +1,16 @@
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {SceneGraphListItem} from "./SceneGraphListItem";
-import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import {Public} from "@mui/icons-material";
-import {useMapName} from "../../hooks/map/useMap";
+import {mapNameAtom} from "../../editor/state/documentStore";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import React from "react";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
+import {useAtomValue} from "jotai";
+import selectElementID from "../../editor/selection/selectElementID";
 
 export default function SceneGraphOrigin() {
-    const setSelectedElemID = useSetSelectedElemID();
-    const [mapName] = useMapName();
+    const mapName = useAtomValue(mapNameAtom);
     const jumpToElement = useJumpToElement();
 
     const [, setDraggingID] = useDraggingElementID();
@@ -41,7 +41,7 @@ export default function SceneGraphOrigin() {
             }}
         >
             <ListItemButton
-                onClick={() => setSelectedElemID(undefined)}
+                onClick={() => selectElementID(undefined)}
                 onDoubleClick={() => jumpToElement(undefined)}
                 dense
                 selected={isDragOver}

@@ -1,14 +1,14 @@
 import GUID from "../../../../types/common/GUID";
-import {useElementValue} from "../../../../hooks/elements/useElements";
 import {DEFAULT_STARFIELD_COUNT} from "../../../../types/amongus/Constants";
 import StarfieldOverlayStar from "./StarfieldOverlayStar";
+import {useElement} from "../../../../hooks/elements/useElement";
 
 export interface StarfieldOverlayProps {
     elementID: GUID;
 }
 
 export default function StarfieldOverlay(props: StarfieldOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const count = element?.properties.starfieldCount ?? DEFAULT_STARFIELD_COUNT;
     const starArray = new Array(count).fill(null);
 

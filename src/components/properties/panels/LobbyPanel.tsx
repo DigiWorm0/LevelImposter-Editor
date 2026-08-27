@@ -2,7 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function LobbyPanel() {
     const {t} = useTranslation();

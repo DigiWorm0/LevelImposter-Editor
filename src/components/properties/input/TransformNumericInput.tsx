@@ -1,6 +1,5 @@
 import LIElement from "../../../types/li/LIElement";
 import FlexNumericInput from "../util/FlexNumericInput";
-import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
 import {InputAdornment} from "@mui/material";
 import React from "react";
 

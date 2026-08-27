@@ -10,7 +10,7 @@ import LISoundChannel from "../../../types/li/LISoundChannel";
 import AudioEditor from "./AudioEditor";
 import {Check, CloudUpload, Delete} from "@mui/icons-material";
 import {Button, ButtonGroup, MenuItem, Select, Typography} from "@mui/material";
-import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
+import {createAsset} from "../../../editor/assets/createAsset";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -29,15 +29,11 @@ export default function SoundUpload(props: SoundUploadProps) {
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
     const downmixAudio = useAudioDownmixer();
-    const createMapAsset = useCreateMapAsset();
 
     const onUploadClick = React.useCallback(() => {
         return openUploadDialog("audio/*").then((blob) => {
             downmixAudio(blob).then((downmixedBlob) => {
-                const asset = createMapAsset({
-                    type: "audio",
-                    blob: downmixedBlob
-                });
+                const asset = createAsset("audio", downmixedBlob);
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
                     type: props.soundType,
@@ -57,7 +53,7 @@ export default function SoundUpload(props: SoundUploadProps) {
             const file = files[0];
             if (file.type.startsWith("audio/")) {
                 downmixAudio(file).then((downmixedBlob) => {
-                    const asset = createMapAsset({blob: downmixedBlob, type: "audio"});
+                    const asset = createAsset("audio", downmixedBlob);
                     props.onChange({
                         id: props.sound?.id ?? generateGUID(),
                         type: props.soundType,

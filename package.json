@@ -28,6 +28,7 @@
     "i18next": "^23.2.3",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.1",
+    "immer": "^11.1.18",
     "interweave": "^13.1.1",
     "jotai": "^2.8.0",
     "jotai-devtools": "^0.7.0",

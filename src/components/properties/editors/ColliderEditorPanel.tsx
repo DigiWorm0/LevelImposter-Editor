@@ -1,41 +1,50 @@
-import { Check, Delete } from "@mui/icons-material";
-import { Box, Button, ButtonGroup, FormControlLabel, Switch, TextField } from "@mui/material";
+import {Check, Delete} from "@mui/icons-material";
+import {Box, Button, ButtonGroup, FormControlLabel, Switch, TextField} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import useCollider from "../../../hooks/elements/colliders/useCollider";
-import useDeleteCollider from "../../../hooks/elements/colliders/useDeleteCollider";
-import { MaybeGUID } from "../../../types/common/GUID";
+import {useTranslation} from "react-i18next";
+import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import LazyCollapse from "../util/LazyCollapse";
 import ColliderPointsEditorPanel from "./ColliderPointsEditorPanel";
+import {useAtomValue} from "jotai";
+import {colliderAtomFamily} from "../../../editor/state/selection/colliderSelectionStore";
+import executeCommand from "../../../editor/history/executeCommand";
+import {
+    setColliderBlocksLight,
+    setColliderName,
+    setColliderSolid
+} from "../../../editor/commands/colliders/setColliderProperties";
+import {deleteCollider} from "../../../editor/commands/colliders/deleteCollider";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;
     isShadowOnly: boolean;
     isEdgeOnly: boolean;
 
-    colliderID: MaybeGUID;
+    colliderID: GUID;
     setSelectedColliderID: (id: MaybeGUID) => void;
 }
 
 export default function ColliderEditorPanel(props: ColliderEditorProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
-    const deleteCollider = useDeleteCollider();
-    const [collider, setCollider] = useCollider(props.colliderID);
+    const collider = useAtomValue(colliderAtomFamily(props.colliderID));
 
     if (!collider)
         return null;
 
     return (
-        <Box sx={{ padding: 1 }}>
+        <Box sx={{padding: 1}}>
             <TextField
                 size={"small"}
                 fullWidth
                 placeholder={t("collider.name") as string}
                 value={collider.name}
-                onChange={(e) => setCollider({ ...collider, name: e.target.value })}
-                sx={{ mb: 1 }}
+                onChange={e => executeCommand(setColliderName(
+                    props.colliderID,
+                    e.currentTarget.value
+                ))}
+                sx={{mb: 1}}
             />
             <FormControlLabel
                 label={t("collider.solid") as string}
@@ -43,7 +52,10 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     <Switch
                         checked={collider.isSolid}
                         disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                        onChange={(e) => setCollider({ ...collider, isSolid: e.currentTarget.checked })}
+                        onChange={e => executeCommand(setColliderSolid(
+                            props.colliderID,
+                            e.currentTarget.checked
+                        ))}
                     />
                 }
             />
@@ -54,23 +66,26 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     <Switch
                         checked={collider.blocksLight}
                         disabled={props.isSolidOnly || props.isShadowOnly || props.isEdgeOnly}
-                        onChange={(e) => setCollider({ ...collider, blocksLight: e.currentTarget.checked })}
+                        onChange={e => executeCommand(setColliderBlocksLight(
+                            props.colliderID,
+                            e.currentTarget.checked
+                        ))}
                     />
                 }
             />
             <Button
                 fullWidth
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                endIcon={<AnimatedCaretIcon up={!isCollapsed} />}
+                endIcon={<AnimatedCaretIcon up={!isCollapsed}/>}
             >
                 {t("collider.points") as string}
             </Button>
 
             <LazyCollapse in={isCollapsed}>
-                <ColliderPointsEditorPanel colliderID={props.colliderID} />
+                <ColliderPointsEditorPanel colliderID={props.colliderID}/>
             </LazyCollapse>
 
-            <ButtonGroup style={{ marginTop: 10 }} fullWidth>
+            <ButtonGroup style={{marginTop: 10}} fullWidth>
                 <Button
                     fullWidth
                     size={"small"}
@@ -78,16 +93,16 @@ export default function ColliderEditorPanel(props: ColliderEditorProps) {
                     color="success"
                     onClick={() => props.setSelectedColliderID(undefined)}
                 >
-                    <Check />
+                    <Check/>
                 </Button>
                 <Button
                     fullWidth
                     size={"small"}
                     variant={"contained"}
                     color="error"
-                    onClick={() => deleteCollider(props.colliderID)}
+                    onClick={() => executeCommand(deleteCollider(props.colliderID))}
                 >
-                    <Delete />
+                    <Delete/>
                 </Button>
             </ButtonGroup>
         </Box>

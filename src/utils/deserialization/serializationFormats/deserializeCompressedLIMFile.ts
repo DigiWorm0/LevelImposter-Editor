@@ -3,6 +3,9 @@ import {unzipSync} from "fflate";
 import GUID from "../../../types/common/GUID";
 import parseAssetType from "../../fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
+import MapAsset from "../../../types/li/MapAsset";
+import store from "../../../shared/store";
+import {allAssetsAtom} from "../../../editor/state/assetsStore";
 
 const MAP_JSON_FILENAME = "map.json";
 
@@ -26,7 +29,7 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap
     const mapData = JSON.parse(jsonString) as LIMap;
 
     // Read Assets
-    mapData.assets = [];
+    const allAssets: MapAsset[] = [];
     const assetIDs = Object.keys(unzippedData);
     for (const assetID of assetIDs) {
         // Skip map.json
@@ -41,7 +44,7 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap
         const assetType = parseAssetType(assetBuffer);
         const assetBlob = new Blob([assetBuffer], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
-        mapData.assets.push({
+        allAssets.push({
             id: assetID as GUID,
             type: assetType,
             blob: assetBlob,
@@ -51,6 +54,9 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap
 
     // Check for necessary migrations
     checkForMapMigrations(mapData);
+
+    // TODO: Return the assets instead of storing them locally
+    store.set(allAssetsAtom, allAssets);
 
     return mapData;
 }

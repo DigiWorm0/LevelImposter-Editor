@@ -2,7 +2,7 @@ import {convertImageAssetToDDS} from "../../utils/dds/convertImageToDDS";
 import {Gradient} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import React from "react";
-import useMapAsset from "../../hooks/assets/useMapAsset";
+import useAsset from "../../hooks/assets/useAsset";
 import GUID from "../../types/common/GUID";
 import {useTranslation} from "react-i18next";
 
@@ -12,7 +12,7 @@ export interface SpriteConvertToDDSButtonProps {
 
 export default function SpriteConvertToDDSButton(props: SpriteConvertToDDSButtonProps) {
     const {t} = useTranslation();
-    const asset = useMapAsset(props.assetID);
+    const asset = useAsset(props.assetID);
 
     const isGIF = asset?.blob.type === "image/gif";
     const isDDS = asset?.blob.type === "image/dds";

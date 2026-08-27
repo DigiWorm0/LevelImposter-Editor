@@ -7,8 +7,9 @@ import SelectOperation from "../../../../types/common/SelectOperation";
 import {useSettingsValue} from "../../../../hooks/useSettings";
 import LICollider from "../../../../types/li/LICollider";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
-import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
 import getOffsetFromElement, {getReverseOffsetToElement} from "../../../../utils/canvas/getOffsetFromElement";
+import {useAtomValue} from "jotai";
+import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
 
 export interface ColliderEditorPointProps {
     id: string;
@@ -28,7 +29,7 @@ export default function ColliderEditorPoint(props: ColliderEditorPointProps) {
     const {gridSnapResolution, colliderHandleSize, isGridSnapEnabled} = useSettingsValue();
     const [isHovering, setIsHovering] = React.useState(false);
 
-    const selectedElementID = useSelectedElemIDValue();
+    const selectedElementID = useAtomValue(selectedElementIDAtom);
     const mapElementRef = useMapElementRef(selectedElementID);
 
     const {id, point, selected, collider} = props;

@@ -2,14 +2,15 @@ import {Add, CameraAlt, HighlightAlt, Person, Room, VolumeUp} from "@mui/icons-m
 import {Button} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useSelectedColliderID} from "../../../hooks/elements/colliders/useSelectedCollider";
 import generateGUID from "../../../utils/strings/generateGUID";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import {useAtom, useAtomValue} from "jotai";
+import {selectedColliderIDAtom} from "../../../editor/state/selection/colliderSelectionStore";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",
@@ -68,9 +69,9 @@ const SINGULAR_TYPES = [
 
 export default function ColliderPanel() {
     const {t} = useTranslation();
-    const type = useSelectedElemType();
+    const type = useAtomValue(selectedElementTypeAtom);
     const [_colliders, setColliders] = useSelectedElemProp("colliders");
-    const [selectedColliderID, setSelectedColliderID] = useSelectedColliderID();
+    const [selectedColliderID, setSelectedColliderID] = useAtom(selectedColliderIDAtom);
 
     const colliders = _colliders ?? [];
     const isSolidOnly = SOLID_ONLY_TYPES.includes(type || "");

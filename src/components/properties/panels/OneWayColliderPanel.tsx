@@ -1,16 +1,16 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useElementsOfType } from "../../../hooks/elements/useElementsOfType";
+import {useTranslation} from "react-i18next";
+import {useElementsOfType} from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { Room } from "@mui/icons-material";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {Room} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function OneWayColliderPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isOneWayCollider = useIsSelectedElemType("util-onewaycollider");
     const parentID = useSelectedElemPropValue("parent");
     const roomElems = useElementsOfType("util-room");
@@ -22,7 +22,7 @@ export default function OneWayColliderPanel() {
     return (
         <>
             <PanelContainer title={t("onewaycollider.title") as string}>
-                <RoomSelect useDefault={false} />
+                <RoomSelect useDefault={false}/>
                 <ElementPropSwitch
                     name={t("onewaycollider.ignoreImposter")}
                     tooltip={t("onewaycollider.infoIgnoreImposter")}
@@ -32,7 +32,7 @@ export default function OneWayColliderPanel() {
             </PanelContainer>
             <MapError
                 isVisible={parentRoom === undefined}
-                icon={<Room />}
+                icon={<Room/>}
             >
                 {t("onewaycollider.errorNoRoom")}
             </MapError>

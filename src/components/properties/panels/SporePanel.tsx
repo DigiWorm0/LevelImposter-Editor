@@ -8,8 +8,8 @@ import {
 import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {HourglassEmpty, Timer, TripOrigin} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function SporePanel() {
     const {t} = useTranslation();

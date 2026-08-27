@@ -1,7 +1,6 @@
 import {Box, MenuItem, Select} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {InputTriggerDB} from "../../../db/TriggerDB";
 import LITrigger from "../../../types/li/LITrigger";
 import ElementSelect from "../input/select/ElementSelect";
@@ -9,6 +8,7 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 import useTriggerInputs from "../../../hooks/elements/triggers/useTriggerInputs";
 import {Timer} from "@mui/icons-material";
 import NumericPanelInput from "../input/panel/NumericPanelInput";
+import {useElement} from "../../../hooks/elements/useElement";
 
 interface TriggerEditorProps {
     triggerID: string;
@@ -30,7 +30,7 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
     }, [triggers, props.triggerID]);
 
     // The target element that the trigger will be set to
-    const targetElem = useElementValue(trigger?.elemID);
+    const targetElem = useElement(trigger?.elemID);
 
     // All Inputs that the selected element can trigger
     const targetInputs = React.useMemo(() => {

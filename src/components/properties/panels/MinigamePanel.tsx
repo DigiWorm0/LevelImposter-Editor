@@ -8,10 +8,11 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import MinigamePropSwitch from "../input/minigame/MinigamePropSwitch";
 import MinigamePropTextInput from "../input/minigame/MinigamePropTextInput";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import MinigamePropColorInput from "../input/minigame/MinigamePropColorInput";
 import {Code, PlayArrow, Warning} from "@mui/icons-material";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",
@@ -22,7 +23,7 @@ const POLUS_DOOR_MINIGAMES = [
 
 export default function MinigamePanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
     const minigames = useSelectedElemPropValue("minigames") || [];
     const [selectedMinigameType, setSelectedMinigameType] = React.useState<string | undefined>(undefined);

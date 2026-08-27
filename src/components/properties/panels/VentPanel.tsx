@@ -1,20 +1,20 @@
-import { Typography } from "@mui/material";
+import {Typography} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import VentSelect from "../input/select/VentSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import { VolumeDown, VolumeUp } from "@mui/icons-material";
+import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {VolumeDown, VolumeUp} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";
 
 export default function VentPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isVent1 = useIsSelectedElemType("util-vent1");
     const isVent2 = useIsSelectedElemType("util-vent2");
     const isVent3 = useIsSelectedElemType("util-vent3");
@@ -30,15 +30,15 @@ export default function VentPanel() {
     return (
         <>
             <PanelContainer title={t("vent.title")}>
-                <Typography variant={"subtitle2"} sx={{ ms: 1 }}>
+                <Typography variant={"subtitle2"} sx={{ms: 1}}>
                     {t("vent.connections")}
                 </Typography>
-                <VentSelect prop="leftVent" />
-                <VentSelect prop="middleVent" />
-                <VentSelect prop="rightVent" />
+                <VentSelect prop="leftVent"/>
+                <VentSelect prop="middleVent"/>
+                <VentSelect prop="rightVent"/>
                 {isVent1 && (
                     <>
-                        <Typography variant={"subtitle2"} sx={{ mt: 2, ms: 1 }}>
+                        <Typography variant={"subtitle2"} sx={{mt: 2, ms: 1}}>
                             {t("vent.sounds")}
                         </Typography>
                         <DropdownList
@@ -47,13 +47,13 @@ export default function VentPanel() {
                                     name: t(`vent.${VENT_OPEN_SOUND}`) as string,
                                     id: VENT_OPEN_SOUND,
                                     intent: hasOpenSound ? "success" : "error",
-                                    icon: hasOpenSound ? <VolumeUp /> : <VolumeDown />
+                                    icon: hasOpenSound ? <VolumeUp/> : <VolumeDown/>
                                 },
                                 {
                                     name: t(`vent.${VENT_MOVE_SOUND}`) as string,
                                     id: VENT_MOVE_SOUND,
                                     intent: hasOpenSound ? "success" : "error",
-                                    icon: hasOpenSound ? <VolumeUp /> : <VolumeDown />
+                                    icon: hasOpenSound ? <VolumeUp/> : <VolumeDown/>
                                 },
                             ]}
                             selectedID={selectedSoundType}
@@ -72,7 +72,7 @@ export default function VentPanel() {
             <MapError
                 isVisible={isVent2}
                 info
-                icon={<VolumeUp />}
+                icon={<VolumeUp/>}
             >
                 {t("vent.ventSoundInfo")}
             </MapError>

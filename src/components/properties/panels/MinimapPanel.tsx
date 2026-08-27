@@ -6,8 +6,8 @@ import DownloadCanvasDialog from "../../modals/DownloadCanvas";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function MinimapPanel() {
     const {t} = useTranslation();

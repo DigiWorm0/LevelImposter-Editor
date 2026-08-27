@@ -1,10 +1,11 @@
-import { Abc, Code, DataArray, DataObject } from "@mui/icons-material";
-import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import {Abc, Code, DataArray, DataObject} from "@mui/icons-material";
+import {Button, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useSelectedElemValue } from "../../../hooks/elements/useSelectedElem";
-import { useSettingsValue } from "../../../hooks/useSettings";
+import {useTranslation} from "react-i18next";
+import {useSettingsValue} from "../../../hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
+import {useAtomValue} from "jotai";
+import {selectedElementAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 const TYPE_INTENTS = {
     "string": "Primary",
@@ -19,9 +20,9 @@ const TYPE_INTENTS = {
 };
 
 export default function DebugPanel() {
-    const { t } = useTranslation();
-    const { isDevMode } = useSettingsValue();
-    const selectedElem = useSelectedElemValue();
+    const {t} = useTranslation();
+    const {isDevMode} = useSettingsValue();
+    const selectedElem = useAtomValue(selectedElementAtom);
 
     const keys = React.useMemo(() => Object.keys(selectedElem?.properties ?? {}), [selectedElem]);
     const values = React.useMemo(() => Object.values(selectedElem?.properties ?? {}), [selectedElem]);
@@ -61,9 +62,9 @@ export default function DebugPanel() {
                     return (
                         <ListItem key={`debug-${key}-${index}`} disablePadding>
                             <ListItemIcon>
-                                {isArray && <DataArray />}
-                                {isObject && <DataObject />}
-                                {isPrimitive && <Abc />}
+                                {isArray && <DataArray/>}
+                                {isObject && <DataObject/>}
+                                {isPrimitive && <Abc/>}
                             </ListItemIcon>
                             <ListItemText
                                 primary={key}
@@ -76,7 +77,7 @@ export default function DebugPanel() {
             </List>
             <Button
                 fullWidth
-                startIcon={<Code />}
+                startIcon={<Code/>}
                 onClick={() => console.log(selectedElem)}
                 color={"secondary"}
             >

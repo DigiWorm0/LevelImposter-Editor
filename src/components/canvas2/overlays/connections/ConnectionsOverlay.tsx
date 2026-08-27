@@ -1,8 +1,9 @@
 import GUID from "../../../../types/common/GUID";
-import {useElementValue} from "../../../../hooks/elements/useElements";
-import {useConnections} from "../../../../hooks/elements/useConnections";
 import {useSettingsValue} from "../../../../hooks/useSettings";
 import ArrowOverlay from "./ArrowOverlay";
+import {useAtomValue} from "jotai";
+import {connectionsAtomFamily} from "../../../../editor/state/connectionStore";
+import {useElement} from "../../../../hooks/elements/useElement";
 
 export interface ConnectionOverlayProps {
     elementID: GUID;
@@ -11,8 +12,8 @@ export interface ConnectionOverlayProps {
 const ARROW_OVERLAY_OFFSET = 6;
 
 export default function ConnectionsOverlay(props: ConnectionOverlayProps) {
-    const element = useElementValue(props.elementID);
-    const [targetConnections, sourceConnections] = useConnections(props.elementID);
+    const element = useElement(props.elementID);
+    const [targetConnections, sourceConnections] = useAtomValue(connectionsAtomFamily(props.elementID));
     const settings = useSettingsValue();
 
     if (!element || !settings.showConnectionArrows)

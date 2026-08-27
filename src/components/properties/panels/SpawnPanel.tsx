@@ -3,8 +3,8 @@ import {DEFAULT_SPAWN_RANGE} from "../../../types/amongus/Constants";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {TripOrigin} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function SpawnPanel() {
     const {t} = useTranslation();

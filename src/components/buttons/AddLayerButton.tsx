@@ -2,9 +2,9 @@ import {CreateNewFolder} from "@mui/icons-material";
 import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useAddElement from "../../hooks/elements/useAddElement";
-import {useSetSelectedElemID} from "../../hooks/elements/useSelectedElem";
 import generateGUID from "../../utils/strings/generateGUID";
+import executeCommand from "../../editor/history/executeCommand";
+import {createElement} from "../../editor/commands/elements/createElement";
 
 export interface AddLayerButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>
@@ -12,12 +12,10 @@ export interface AddLayerButtonProps {
 
 export default function AddLayerButton(props: AddLayerButtonProps) {
     const {t} = useTranslation();
-    const setSelectedID = useSetSelectedElemID();
-    const addElement = useAddElement();
 
     const onClick = React.useCallback(() => {
         const id = generateGUID();
-        addElement({
+        executeCommand(createElement({
             id,
             name: t("layer.new"),
             type: "util-layer",
@@ -29,9 +27,8 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
             yScale: 1,
             rotation: 0,
             properties: {}
-        });
-        setSelectedID(id);
-    }, [addElement, setSelectedID]);
+        }));
+    }, []);
 
     return (
         <Tooltip title={t("layer.add")}>

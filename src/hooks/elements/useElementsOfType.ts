@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {elementsAtom} from "../map/useMap";
+import {allElementsAtom} from "../../editor/state/documentStore";
 import LIElement from "../../types/li/LIElement";
 import compareArrays from "../../utils/common/compareArrays";
 
@@ -9,7 +9,7 @@ export const elementTypeAtom = atomFamily((typeFilter: string) => {
     let prevElements: LIElement[] = [];
     const typeAtom = atom(
         (get) => {
-            const elements = get(elementsAtom);
+            const elements = get(allElementsAtom);
             const filteredElements = elements.filter((elem) => elem.type.includes(typeFilter));
 
             // Only update if the array has changed

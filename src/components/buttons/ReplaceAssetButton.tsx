@@ -1,28 +1,27 @@
-import { Button, Tooltip } from "@mui/material";
-import { Upload } from "@mui/icons-material";
+import {Button, Tooltip} from "@mui/material";
+import {Upload} from "@mui/icons-material";
 import React from "react";
 import useToaster from "../../hooks/useToaster";
-import { useTranslation } from "react-i18next";
-import { MaybeGUID } from "../../types/common/GUID";
-import useReplaceMapAsset from "../../hooks/assets/useReplaceMapAsset";
+import {useTranslation} from "react-i18next";
+import {MaybeGUID} from "../../types/common/GUID";
 
 export interface ReplaceAssetButtonProps {
     assetID?: MaybeGUID;
 }
 
 export default function ReplaceAssetButton(props: ReplaceAssetButtonProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const toaster = useToaster();
-    const replaceMapAsset = useReplaceMapAsset();
+    // const replaceMapAsset = useReplaceMapAsset(); // TODO: FIX ME!!!
 
     const onClick = React.useCallback(() => {
         if (!props.assetID)
             return;
 
-        replaceMapAsset(props.assetID).then(() => {
-            toaster.success(t("replaceAsset.success"));
-        }).catch(toaster.error);
-    }, [props.assetID, replaceMapAsset, toaster, t]);
+        // replaceMapAsset(props.assetID).then(() => {
+        //     toaster.success(t("replaceAsset.success"));
+        // }).catch(toaster.error);
+    }, [props.assetID, toaster, t]);
 
     return (
         <Tooltip title={t("replaceAsset.tooltip")}>
@@ -30,7 +29,7 @@ export default function ReplaceAssetButton(props: ReplaceAssetButtonProps) {
                 onClick={onClick}
                 variant={"outlined"}
                 color={"primary"}
-                endIcon={<Upload />}
+                endIcon={<Upload/>}
             >
                 Replace
             </Button>

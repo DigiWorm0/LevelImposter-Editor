@@ -1,10 +1,10 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {AirlineStops, Compress, MultipleStop, RotateRight, Scale} from "@mui/icons-material";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import InputGroup from "../input/InputGroup";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function PhysicsPanel() {
     const {t} = useTranslation();

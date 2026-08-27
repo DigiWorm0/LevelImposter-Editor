@@ -1,20 +1,20 @@
-import { useTranslation } from "react-i18next";
-import { IconButton, Tooltip } from "@mui/material";
-import { Undo } from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
+import {IconButton, Tooltip} from "@mui/material";
+import {Undo} from "@mui/icons-material";
 import React from "react";
-import { useUndo } from "../../hooks/map/history/useUndoRedo";
-import { useCanUndo } from "../../hooks/map/history/useCanUndoRedo";
+import {useAtomValue} from "jotai";
+import {canUndoAtom} from "../../editor/state/historyStore";
+import {undo} from "../../editor/history/undoRedo";
 
 export default function UndoButton() {
-    const { t } = useTranslation();
-    const undo = useUndo();
-    const canUndo = useCanUndo();
+    const {t} = useTranslation();
+    const canUndo = useAtomValue(canUndoAtom);
 
     return (
         <Tooltip title={t("edit.undo")}>
             <span>
                 <IconButton onClick={undo} disabled={!canUndo}>
-                    <Undo />
+                    <Undo/>
                 </IconButton>
             </span>
         </Tooltip>

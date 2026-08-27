@@ -1,19 +1,17 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { atomFamily } from "jotai/utils";
-import LIProperties, { LIPropName } from "../../types/li/LIProperties";
-import { selectedElementAtom } from "./useSelectedElem";
+import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
+import {atomFamily} from "jotai/utils";
+import LIProperties, {LIPropName} from "../../types/li/LIProperties";
+import executeCommand from "../../editor/history/executeCommand";
+import {setSelectedElementProp} from "../../editor/commands/elements/setElementProp";
+import {selectedElementAtom} from "../../editor/state/selection/elementSelectionStore";
 
 // Atoms
 export const selectedElementPropAtom = atomFamily((propName: LIPropName) => {
     return atom((get) => {
         const selectedElement = get(selectedElementAtom);
         return selectedElement?.properties[propName];
-    }, (get, set, newValue: any) => {
-        const selectedElement = get(selectedElementAtom);
-        if (selectedElement) {
-            const newProperties = { ...selectedElement.properties, [propName]: newValue };
-            set(selectedElementAtom, { ...selectedElement, properties: newProperties });
-        }
+    }, (_get, _set, newValue: any) => {
+        executeCommand(setSelectedElementProp(propName, newValue));
     });
 });
 

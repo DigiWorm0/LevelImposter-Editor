@@ -2,15 +2,15 @@ import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, UNITY_SCALE} from "../../../types/amongus/Constants";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import GUID from "../../../types/common/GUID";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface StarfieldAreaOverlayProps {
     elementID: GUID;
 }
 
 export default function StarfieldAreaOverlay(props: StarfieldAreaOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const mapElementRef = useMapElementRef(props.elementID);
 
     const height = element?.properties.starfieldHeight ?? DEFAULT_STARFIELD_HEIGHT;

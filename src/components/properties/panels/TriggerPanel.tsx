@@ -1,7 +1,5 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useSelectedElemValue} from "../../../hooks/elements/useSelectedElem";
-import {useSelectedTriggerID} from "../../../hooks/elements/useSelectedTrigger";
 import {OutputTriggerDB} from "../../../db/TriggerDB";
 import TriggerEditorPanel from "../editors/TriggerEditorPanel";
 import DropdownList from "../util/DropdownList";
@@ -11,6 +9,9 @@ import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import useElementIDs from "../../../hooks/elements/useElementIDs";
 import {HighlightAlt, SettingsInputAntenna, Shuffle} from "@mui/icons-material";
+import {useAtom, useAtomValue} from "jotai";
+import {selectedElementAtom} from "../../../editor/state/selection/elementSelectionStore";
+import {selectedTriggerIDAtom} from "../../../editor/state/selection/triggerSelectionStore";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",
@@ -23,8 +24,8 @@ const GHOST_TYPES = [
 
 export default function TriggerPanel() {
     const {t} = useTranslation();
-    const selectedElem = useSelectedElemValue();
-    const [selectedTriggerID, setSelectedTriggerID] = useSelectedTriggerID();
+    const selectedElem = useAtomValue(selectedElementAtom);
+    const [selectedTriggerID, setSelectedTriggerID] = useAtom(selectedTriggerIDAtom);
     const elementIDs = useElementIDs();
 
     // All Outputs that the selected element can trigger

@@ -1,5 +1,5 @@
 import {isSavedAtom} from "./useIsSaved";
-import {mapAtom} from "../map/useMap";
+import {mapAtom} from "../../editor/state/documentStore";
 import {atom, useSetAtom} from "jotai";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import {deserializeMapFileFromBlob} from "../../utils/deserialization/deserializeMapFile";

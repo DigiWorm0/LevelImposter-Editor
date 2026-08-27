@@ -9,8 +9,7 @@ import GUID from "../../../types/common/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
-import useCreateMapAsset from "../../../hooks/assets/useCreateMapAsset";
-import useMapAsset from "../../../hooks/assets/useMapAsset";
+import useAsset from "../../../hooks/assets/useAsset";
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "../../../utils/fileio/parseAssetType";
 import {useSettingsValue} from "../../../hooks/useSettings";
@@ -18,6 +17,7 @@ import {convertImageBlobToDDS} from "../../../utils/dds/convertImageToDDS";
 import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
 import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
 import ImageUploadDetails from "./ImageUploadDetails";
+import {createAsset} from "../../../editor/assets/createAsset";
 
 interface ImageUploadProps {
     name: string;
@@ -40,8 +40,7 @@ export default function ImageUpload(props: ImageUploadProps) {
     const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
-    const asset = useMapAsset(props.assetID);
-    const createMapAsset = useCreateMapAsset();
+    const asset = useAsset(props.assetID);
     const settings = useSettingsValue();
 
     const tryUploadFile = React.useCallback(async (file: File) => {
@@ -80,9 +79,9 @@ export default function ImageUpload(props: ImageUploadProps) {
         }
 
         // Create the Map Asset
-        const mapAssetID = createMapAsset({type: assetType, blob});
-        props.onUpload(mapAssetID);
-    }, [createMapAsset, props.onUpload, settings.autoEncodeToDDS, t]);
+        const newAsset = createAsset(assetType, blob);
+        props.onUpload(newAsset);
+    }, [props.onUpload, props.onUploadAnimation, settings.autoConvertGIFToAnimation, settings.autoEncodeToDDS, t]);
 
     // Handle Upload
     const onUploadClick = React.useCallback(() => {

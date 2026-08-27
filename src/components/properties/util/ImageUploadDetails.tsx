@@ -1,6 +1,6 @@
 import {Box} from "@mui/material";
 import {MaybeGUID} from "../../../types/common/GUID";
-import useMapAsset from "../../../hooks/assets/useMapAsset";
+import useAsset from "../../../hooks/assets/useAsset";
 import ImageUploadDetailsRow from "./ImageUploadDetailsRow";
 import useSprite from "../../../hooks/sprites/useSprite";
 import toSizeString from "../../../utils/strings/toSizeString";
@@ -10,7 +10,7 @@ export interface ImageUploadDetailsProps {
 }
 
 export default function ImageUploadDetails(props: ImageUploadDetailsProps) {
-    const asset = useMapAsset(props.assetID);
+    const asset = useAsset(props.assetID);
     const sprite = useSprite(props.assetID);
 
     if (!asset || !sprite)

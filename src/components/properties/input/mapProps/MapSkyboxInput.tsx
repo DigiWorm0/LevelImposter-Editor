@@ -1,21 +1,22 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useMapProperties } from "../../../../hooks/map/useMap";
+import {useTranslation} from "react-i18next";
+import {mapPropsAtom} from "../../../../editor/state/documentStore";
 import ColorPicker from "../../../utils/ColorPicker";
 import LIColor from "../../../../types/li/LIColor";
-import { Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Palette, Refresh } from "@mui/icons-material";
+import {Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Palette, Refresh} from "@mui/icons-material";
+import {useAtom} from "jotai";
 
 
 export default function MapSkyboxInput() {
-    const { t } = useTranslation();
-    const [properties, setProperties] = useMapProperties();
+    const {t} = useTranslation();
+    const [properties, setProperties] = useAtom(mapPropsAtom);
 
     const hexToColor = (hex: string): LIColor => {
         const r = parseInt(hex.substring(1, 3), 16);
         const g = parseInt(hex.substring(3, 5), 16);
         const b = parseInt(hex.substring(5, 7), 16);
-        return { r, g, b, a: 1 };
+        return {r, g, b, a: 1};
     };
 
     const colorToHex = (color: LIColor): string => {
@@ -35,20 +36,20 @@ export default function MapSkyboxInput() {
                         disableAlpha
                         title={t("settings.map.setColor")}
                         color={hexToColor(properties.bgColor || "#ffffff")}
-                        onChange={(color) => setProperties({ ...properties, bgColor: colorToHex(color) })}
+                        onChange={(color) => setProperties({...properties, bgColor: colorToHex(color)})}
                     />
                     <Button
                         color={"error"}
-                        onClick={() => setProperties({ ...properties, bgColor: undefined })}
+                        onClick={() => setProperties({...properties, bgColor: undefined})}
                     >
-                        <Refresh />
+                        <Refresh/>
                     </Button>
                 </ButtonGroup>
             }
         >
             <ListItemButton>
-                <ListItemIcon><Palette /></ListItemIcon>
-                <ListItemText primary={t("settings.map.skyboxColor")} />
+                <ListItemIcon><Palette/></ListItemIcon>
+                <ListItemText primary={t("settings.map.skyboxColor")}/>
             </ListItemButton>
         </ListItem>
     );

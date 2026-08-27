@@ -1,12 +1,12 @@
 import {MaybeGUID} from "../../../types/common/GUID";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import React from "react";
 import {useElementChildIDs} from "../../../hooks/elements/useElementChildIDs";
 import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import degToRad from "../../../utils/common/degToRad";
 import {Container} from "pixi.js";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface StaticMapElementProps {
     containerRef?: React.RefObject<Container | null>;
@@ -16,7 +16,7 @@ export interface StaticMapElementProps {
 
 export default function StaticMapElement(props: StaticMapElementProps) {
     const sprite = useElementSprite(props.elementID);
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const childElementIDs = useElementChildIDs(props.elementID);
 
     if (!sprite || sprite.destroyed)

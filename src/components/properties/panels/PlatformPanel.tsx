@@ -4,8 +4,8 @@ import SoundEditorPanel from "../editors/SoundEditorPanel";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {Login, Logout, SwapHoriz, SwapVert} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 const PLATFORM_MOVE_SOUND = "platformMove";
 

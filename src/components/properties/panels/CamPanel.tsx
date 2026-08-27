@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {SwapHoriz, SwapVert, ZoomIn} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function CamPanel() {
     const {t} = useTranslation();

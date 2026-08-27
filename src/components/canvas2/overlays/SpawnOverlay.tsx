@@ -1,14 +1,14 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface SpawnOverlayProps {
     elementID: GUID;
 }
 
 export default function SpawnOverlay(props: SpawnOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const sprite = useTextureOfType("util-dummy");
 
     const isSpawningDummies = element?.properties.spawnDummies ?? false;

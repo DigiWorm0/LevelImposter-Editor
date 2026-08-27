@@ -123,7 +123,6 @@ export const DEFAULT_MAP: LIMap = {
     createdAt: -1,
     likeCount: 0,
     elements: [],
-    assets: [],
     properties: {},
     thumbnailURL: null,
     remixOf: null,

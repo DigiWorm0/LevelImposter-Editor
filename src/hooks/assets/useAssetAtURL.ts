@@ -1,14 +1,8 @@
-import {atom, useAtomValue} from "jotai";
+import {atom} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {mapAssetsAtom} from "./useMapAssets";
+import {allAssetsAtom} from "../../editor/state/assetsStore";
 
-export const assetAtURLAtom = atomFamily((url: string) => {
-    return atom((get) => {
-        const assets = get(mapAssetsAtom);
-        return assets?.find(a => a.url === url);
-    });
-});
-
-export default function useAssetAtURL(url: string) {
-    return useAtomValue(assetAtURLAtom(url));
-}
+export const assetAtURLAtom = atomFamily((url: string) => atom((get) => {
+    const assets = get(allAssetsAtom);
+    return assets?.find(asset => asset.url === url);
+}));

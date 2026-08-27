@@ -1,5 +1,4 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_CONSOLE_RANGE,
     DEFAULT_SPORE_RANGE,
@@ -7,13 +6,14 @@ import {
     VENT_CONSOLE_RANGE
 } from "../../../types/amongus/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface ConsoleOverlayProps {
     elementID: GUID;
 }
 
 export default function ConsoleOverlay(props: ConsoleOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
 
     const isDoor = element?.type.startsWith("sab-door");
     const isSpore = element?.type === "util-spore";

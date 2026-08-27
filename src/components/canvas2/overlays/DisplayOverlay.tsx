@@ -1,16 +1,16 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "../../../types/amongus/Constants";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface DisplayOverlayProps {
     elementID: GUID;
 }
 
 export default function DisplayOverlay(props: DisplayOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const mapElementRef = useMapElementRef(props.elementID);
 
     const camHeight = element?.properties.displayHeight ?? DEFAULT_DISPLAY_HEIGHT;

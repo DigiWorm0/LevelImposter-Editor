@@ -1,17 +1,17 @@
 import React from "react";
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {DEFAULT_FLOATING_HEIGHT, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface FloatingOverlayProps {
     elementID: GUID;
 }
 
 export default function FloatingPathOverlay(props: FloatingOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const mapElementRef = useMapElementRef(props.elementID);
 
     const height = element?.properties.floatingHeight ?? DEFAULT_FLOATING_HEIGHT;

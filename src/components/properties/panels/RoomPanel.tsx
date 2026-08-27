@@ -1,12 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { selectedElementAtom } from "../../../hooks/elements/useSelectedElem";
+import {useTranslation} from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import React from "react";
-import { atom, useAtomValue } from "jotai";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import {atom, useAtomValue} from "jotai";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import { HighlightAlt } from "@mui/icons-material";
+import {HighlightAlt} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import {selectedElementAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 const hasColliderAtom = atom((get) => {
     const element = get(selectedElementAtom);
@@ -14,7 +14,7 @@ const hasColliderAtom = atom((get) => {
 });
 
 export default function RoomPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isRoom = useIsSelectedElemType("util-room");
     const hasCollider = useAtomValue(hasColliderAtom);
 
@@ -42,7 +42,7 @@ export default function RoomPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("room.errorNoCollider") as string}
             </MapError>

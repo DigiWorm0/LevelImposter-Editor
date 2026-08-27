@@ -4,14 +4,15 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import AUTextDB from "../../../db/AUTextDB";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import {Notes, OpenInNew} from "@mui/icons-material";
 import DropdownList from "../util/DropdownList";
 import CustomTextEditorPanel from "../editors/CustomTextEditorPanel";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 export default function CustomTextPanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const customText = useSelectedElemPropValue("customText");
     const [selectedTextID, setSelectedTextID] = React.useState<string | undefined>(undefined);
 
@@ -40,7 +41,7 @@ export default function CustomTextPanel() {
                 icon={<Notes/>}
                 buttonIcon={<OpenInNew/>}
                 buttonText={t("customText.learnMore")}
-                
+
                 // Old Link: http://digitalnativestudios.com/textmeshpro/docs/rich-text/
                 onButtonClick={() => window.open("https://docs.unity3d.com/Packages/com.unity.textmeshpro@4.0/manual/RichText.html")}
             >

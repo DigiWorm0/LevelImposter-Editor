@@ -1,47 +1,26 @@
 import FlexNumericInput from "../util/FlexNumericInput";
 import InputGroup from "../input/InputGroup";
 import React from "react";
-import useCollider from "../../../hooks/elements/colliders/useCollider";
 import {MaybeGUID} from "../../../types/common/GUID";
+import {useAtomValue} from "jotai";
+import {colliderAtomFamily} from "../../../editor/state/selection/colliderSelectionStore";
+import executeCommand from "../../../editor/history/executeCommand";
+import {moveColliderPoint} from "../../../editor/commands/colliders/moveColliderPoint";
+import {setColliderPointsLength} from "../../../editor/commands/colliders/setColliderPointsLength";
 
 export interface ColliderPointsEditorPanelProps {
     colliderID: MaybeGUID;
 }
 
 export default function ColliderPointsEditorPanel(props: ColliderPointsEditorPanelProps) {
-    const [collider, setCollider] = useCollider(props.colliderID);
-
-    const updatePoint = React.useCallback((x: number, y: number, index: number) => {
-        if (!collider)
-            return;
-        const points = collider.points.map((p, i) => {
-            if (i === index)
-                return {x, y};
-            return p;
-        });
-        setCollider({...collider, points: [...points]});
-    }, [collider, setCollider]);
-
-    const updatePointCount = React.useCallback((count: number) => {
-        if (!collider)
-            return;
-        const points = collider.points;
-        if (count > points.length) {
-            for (let i = points.length; i < count; i++)
-                points.push({x: 0, y: 0});
-        } else {
-            points.splice(count);
-        }
-        setCollider({...collider, points: [...points]});
-    }, [collider, setCollider]);
-
+    const collider = useAtomValue(colliderAtomFamily(props.colliderID));
     if (!collider)
         return null;
     return (
         <>
             <FlexNumericInput
                 value={collider.points.length}
-                onChange={(value) => updatePointCount(value)}
+                onChange={(value) => executeCommand(setColliderPointsLength(value))}
                 inputProps={{
                     fullWidth: true
                 }}
@@ -50,11 +29,11 @@ export default function ColliderPointsEditorPanel(props: ColliderPointsEditorPan
                 <InputGroup key={index}>
                     <FlexNumericInput
                         value={point.x}
-                        onChange={(value) => updatePoint(value, point.y, index)}
+                        onChange={(value) => executeCommand(moveColliderPoint(index, {...point, x: value}))}
                     />
                     <FlexNumericInput
                         value={point.y}
-                        onChange={(value) => updatePoint(point.x, value, index)}
+                        onChange={(value) => executeCommand(moveColliderPoint(index, {...point, y: value}))}
                     />
                 </InputGroup>
             ))}

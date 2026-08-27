@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import TeleSelect from "../input/select/TeleSelect";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function TelePanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isTele = useIsSelectedElemType("util-tele");
 
     if (!isTele)
@@ -13,7 +13,7 @@ export default function TelePanel() {
 
     return (
         <PanelContainer title={t("tele.title") as string}>
-            <TeleSelect />
+            <TeleSelect/>
             <ElementPropSwitch
                 prop={"preserveOffset"}
                 name={t("tele.preserveOffset")}

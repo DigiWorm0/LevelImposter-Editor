@@ -1,7 +1,7 @@
 import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import GUID from "../../../../types/common/GUID";
-import useMapAsset from "../../../../hooks/assets/useMapAsset";
+import useAsset from "../../../../hooks/assets/useAsset";
 import {VolumeUp} from "@mui/icons-material";
 import toSizeString from "../../../../utils/strings/toSizeString";
 import toDurationString from "../../../../utils/strings/toDurationString";
@@ -13,7 +13,7 @@ export interface SoundAssetModalButtonProps {
 }
 
 export default function SoundAssetModalButton(props: SoundAssetModalButtonProps) {
-    const asset = useMapAsset(props.id);
+    const asset = useAsset(props.id);
     const [soundData, setSoundData] = React.useState<HTMLAudioElement | null>(null);
 
     React.useEffect(() => {

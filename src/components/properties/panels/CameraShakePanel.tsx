@@ -1,10 +1,10 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function CameraShakePanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const isShake = useIsSelectedElemType("util-triggershake");
 
     if (!isShake)

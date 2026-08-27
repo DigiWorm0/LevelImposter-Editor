@@ -1,10 +1,9 @@
 import {MaybeGUID} from "../../types/common/GUID";
 import primaryStore from "../../hooks/primaryStore";
 import {draggingElementIDAtom} from "../../hooks/elements/dragging/useDraggingElementID";
-import {selectedElementIDsAtom} from "../../hooks/selection/useSelectedElementIDs";
 import {elementChildIDsAtomFamily} from "../../hooks/elements/useElementChildIDs";
-import {elementAtomFamily} from "../../hooks/elements/useElements";
-
+import {selectedElementIDsAtom} from "../../editor/state/selection/elementSelectionStore";
+import executeCommand from "../../editor/history/executeCommand";
 
 /**
  * Handle dragging and dropping an element in the scene graph.
@@ -44,16 +43,15 @@ export default function handleSceneGraphDrop(targetElementID: MaybeGUID) {
     elementIDsToMove = elementIDsToMove.filter(id => !isTargetChildOfElement(id));
 
     // Move each element under the target element
-    for (const id of elementIDsToMove) {
-        // Get the element data
-        const element = primaryStore.get(elementAtomFamily(id));
-        if (!element)
-            return;
+    executeCommand(map => {
+        for (const id of elementIDsToMove) {
+            // Get the element data
+            const element = map.elements.find(e => e.id === id);
+            if (!element)
+                return;
 
-        // Update the parentID of the element to the target elementID
-        primaryStore.set(elementAtomFamily(id), {
-            ...element,
-            parentID: targetElementID
-        });
-    }
+            // Update the parentID of the element to the target elementID
+            element.parentID = targetElementID;
+        }
+    });
 }

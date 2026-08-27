@@ -1,6 +1,6 @@
 import React from "react";
 import LISound from "../../../types/li/LISound";
-import useMapAsset from "../../../hooks/assets/useMapAsset";
+import useAsset from "../../../hooks/assets/useAsset";
 import AudioPlayer from "./AudioPlayer";
 
 interface AudioPlayerProps {
@@ -12,7 +12,7 @@ interface AudioPlayerProps {
 }
 
 export default function AudioEditor(props: AudioPlayerProps) {
-    const soundAsset = useMapAsset(props.sound?.dataID);
+    const soundAsset = useAsset(props.sound?.dataID);
 
     const {sound} = props;
 

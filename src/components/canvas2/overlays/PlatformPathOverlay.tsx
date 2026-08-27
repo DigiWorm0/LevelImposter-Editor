@@ -1,5 +1,4 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {
     DEFAULT_PLATFORM_ENTER,
     DEFAULT_PLATFORM_EXIT,
@@ -10,13 +9,14 @@ import {
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface PlatformOverlayProps {
     elementID: GUID;
 }
 
 export default function PlatformPathOverlay(props: PlatformOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const mapElementRef = useMapElementRef(props.elementID);
 
     if (!element || !element.type.startsWith("util-platform"))

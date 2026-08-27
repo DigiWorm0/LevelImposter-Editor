@@ -3,7 +3,6 @@ import {useTranslation} from "react-i18next";
 import MapAsset from "../../../../types/li/MapAsset";
 import ImageUpload from "../../util/ImageUpload";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
-import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import LazyCollapse from "../../util/LazyCollapse";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
@@ -13,6 +12,8 @@ import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
 import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
 import SpriteConvertToDDSButton from "../../../buttons/SpriteConvertToDDSButton";
 import EditAnimationButton from "../../../buttons/EditAnimationButton";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -49,7 +50,7 @@ export default function StillSpritePanel() {
     const [spriteID, setSpriteID] = useSelectedElemProp("spriteID");
     const [animations, setAnimations] = useSelectedElemProp("animations");
     const [color, setColor] = useSelectedElemProp("color");
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const [isMoreOpen, setIsMoreOpen] = React.useState(false);
 
     const onUpload = React.useCallback((asset: MapAsset) => {

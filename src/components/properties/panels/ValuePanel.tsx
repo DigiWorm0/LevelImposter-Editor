@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import {MenuItem, Select} from "@mui/material";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 const PRESET_BOOL_VALUES = [
     "isImposter",

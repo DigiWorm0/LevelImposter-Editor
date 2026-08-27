@@ -3,9 +3,9 @@ import {Paper} from "@mui/material";
 import useTimelineVisible from "../../hooks/timeline/useTimelineVisible";
 import Timeline from "../timeline/Timeline";
 import LazyCollapse from "../properties/util/LazyCollapse";
-import useIsSelectedElemType from "../../hooks/elements/useSelectedElemIsType";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Resizable from "../utils/Resizable";
+import useIsSelectedElemType from "../../hooks/elements/useIsSelectedElemType";
 
 export default function BottomBar() {
     const timelineRef = React.useRef<HTMLDivElement>(null);

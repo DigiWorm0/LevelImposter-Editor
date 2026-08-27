@@ -2,15 +2,15 @@ import {Box, Typography} from "@mui/material";
 import React from "react";
 import {Application} from "@pixi/react";
 import MapElementAnimatedSprite from "../../../canvas2/element/MapElementAnimatedSprite";
-import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
 import AnimatedSpritePreviewControls from "./AnimatedSpritePreviewControls";
 import useWindowSize from "../../../../hooks/canvas/useWindowSize";
 import AnimatedSpritePreviewBackground from "./AnimatedSpritePreviewBackground";
 import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
-
+import {useAtomValue} from "jotai";
+import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
 
 export default function AnimatedSpritePreview() {
-    const selectedElementID = useSelectedElemIDValue();
+    const selectedElementID = useAtomValue(selectedElementIDAtom);
     const [windowWidth, windowHeight] = useWindowSize();
     const [animation] = useSelectedSpriteAnim();
 

@@ -1,13 +1,13 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "../../../types/amongus/Constants";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface MinimapOverlayProps {
     elementID: GUID;
 }
 
 export default function MinimapOverlay(props: MinimapOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
 
     const scale = element?.properties.minimapScale ?? 1;
     const width = MINIMAP_WIDTH * scale * UNITY_SCALE;

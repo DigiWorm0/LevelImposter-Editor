@@ -4,11 +4,11 @@ import {CloudDownload, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
 import toSizeString from "../../../utils/strings/toSizeString";
 import React from "react";
-import useMapAsset from "../../../hooks/assets/useMapAsset";
+import useAsset from "../../../hooks/assets/useAsset";
 import ImageAsset from "../../utils/ImageAsset";
 import AudioPlayer from "../../properties/util/AudioPlayer";
-import useDownloadMapAsset from "../../../hooks/assets/useDownloadMapAsset";
 import ReplaceAssetButton from "../../buttons/ReplaceAssetButton";
+import {downloadRawAsset} from "../../../editor/assets/downloadAsset";
 
 export interface MapAssetModalEditorProps {
     id: MaybeGUID;
@@ -16,8 +16,7 @@ export interface MapAssetModalEditorProps {
 }
 
 export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
-    const asset = useMapAsset(props.id);
-    const downloadAsset = useDownloadMapAsset();
+    const asset = useAsset(props.id);
 
     return (
         <Box sx={{flex: 1, padding: 2}}>
@@ -72,7 +71,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                     {/* Actions */}
                     <ButtonGroup sx={{mt: 1}}>
                         <Button
-                            onClick={() => downloadAsset({id: props.id})}
+                            onClick={() => downloadRawAsset(props.id)}
                             variant={"outlined"}
                             color={"success"}
                             endIcon={<CloudDownload/>}

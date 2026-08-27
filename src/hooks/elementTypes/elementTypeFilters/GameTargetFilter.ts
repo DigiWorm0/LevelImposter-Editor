@@ -1,4 +1,4 @@
-import {mapTargetAtom} from "../../map/useMap";
+import {mapTargetAtom} from "../../../editor/state/documentStore";
 import MapTarget from "../../../types/li/MapTarget";
 import makeElementTypeFilter from "../makeElementTypeFilter";
 

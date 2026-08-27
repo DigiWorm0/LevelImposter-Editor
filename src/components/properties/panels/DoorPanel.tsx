@@ -9,11 +9,11 @@ import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import useElementTypeCount from "../../../hooks/elements/useElementTypeCount";
 import {Room, VolumeUp} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import {useElement} from "../../../hooks/elements/useElement";
 
 const DOOR_OPEN_SOUND = "doorOpen";
 const DOOR_CLOSE_SOUND = "doorClose";
@@ -26,7 +26,7 @@ export default function DoorPanel() {
     const doorType = useSelectedElemPropValue("doorType") ?? DoorType.Skeld;
     const parentRoomID = useSelectedElemPropValue("parent");
     const sounds = useSelectedElemPropValue("sounds") || [];
-    const parentRoom = useElementValue(parentRoomID);
+    const parentRoom = useElement(parentRoomID);
 
     const isDoorV = useIsSelectedElemType("sab-doorv");
     const isDoorH = useIsSelectedElemType("sab-doorh");

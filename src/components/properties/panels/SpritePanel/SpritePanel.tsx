@@ -1,9 +1,10 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../../util/PanelContainer";
-import useSelectedElemType from "../../../../hooks/elements/useSelectedElemType";
 import StillSpriteErrors from "./StillSpriteErrors";
 import StillSpritePanel from "./StillSpritePanel";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../../editor/state/selection/elementSelectionStore";
 
 const TYPE_BLACKLIST = [
     "util-player",
@@ -39,7 +40,7 @@ const TYPE_BLACKLIST = [
 
 export default function SpritePanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
 
     if (!selectedType || TYPE_BLACKLIST.includes(selectedType))
         return null;

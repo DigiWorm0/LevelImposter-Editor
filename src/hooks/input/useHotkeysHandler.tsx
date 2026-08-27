@@ -1,12 +1,7 @@
-import {useRemoveSelectedElement} from "../elements/useRemoveElement";
 import useSaveMap from "../fileio/useSaveMap";
-import {useRedo, useUndo} from "../map/history/useUndoRedo";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
-import useCopyElement from "./useCopyElement";
-import usePasteElement from "./usePasteElement";
 import {Scope} from "./useFocus";
-import useDuplicate from "./useDuplicate";
 import useFocusedHotkeys from "./useFocusedHotkeys";
 import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
 import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
@@ -18,20 +13,23 @@ import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSe
 import primaryStore from "../primaryStore";
 import useCopyKeyframe from "./useCopyKeyframe";
 import usePasteKeyframe from "./usePasteKeyframe";
-import useSelectAllElements from "./useSelectAllElements";
-import useDeleteSelected from "./useDeleteSelected";
 import useTogglePlayback from "../timeline/useTogglePlayback";
+import {copySelectedElementsToClipboard} from "../../editor/clipboard/elements/copyElementsToClipboard";
+import {redo, undo} from "../../editor/history/undoRedo";
+import executeCommand from "../../editor/history/executeCommand";
+import {duplicateSelectedElement} from "../../editor/commands/elements/duplicateElement";
+import {deleteAnythingSelected} from "../../editor/commands/deleteAnythingSelected";
+import {deleteSelectedElements as deleteSelectedElementsCmd} from "../../editor/commands/elements/deleteElement";
+import {pasteElementsFromClipboard} from "../../editor/clipboard/elements/pasteElementsFromClipboard";
+import {selectAllElements} from "../../editor/selection/selectAllElements";
 
 const TIMELINE_DELTA_SCALE = 100;
 
 export default function useHotkeysHandler() {
-    const copyElement = useCopyElement();
-    const pasteElement = usePasteElement();
-    const undo = useUndo();
-    const redo = useRedo();
-    const duplicate = useDuplicate();
-    const deleteSelected = useDeleteSelected();
-    const removeSelectedElement = useRemoveSelectedElement();
+    const pasteElements = () => pasteElementsFromClipboard();
+    const duplicate = () => executeCommand(duplicateSelectedElement());
+    const deleteSelected = () => executeCommand(deleteAnythingSelected());
+    const deleteSelectedElements = () => executeCommand(deleteSelectedElementsCmd());
     const removeSelectedKeyframe = useRemoveSelectedKeyframe();
     const [settings, setSettings] = useSettings();
     const toaster = useToaster();
@@ -45,7 +43,6 @@ export default function useHotkeysHandler() {
     const setLoop = useSetSelectedElemProp("triggerLoop");
     const copyKeyframe = useCopyKeyframe();
     const pasteKeyframe = usePasteKeyframe();
-    const selectAllElements = useSelectAllElements();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -104,11 +101,11 @@ export default function useHotkeysHandler() {
     }, Scope.Canvas);
 
     // Clipboard
-    useFocusedHotkeys("ctrl+c", copyElement, Scope.Canvas, Scope.SceneGraph);
-    useFocusedHotkeys("ctrl+v", pasteElement, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("ctrl+c", copySelectedElementsToClipboard, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("ctrl+v", pasteElements, Scope.Canvas, Scope.SceneGraph);
     useFocusedHotkeys("ctrl+x", () => {
-        copyElement();
-        removeSelectedElement();
+        copySelectedElementsToClipboard();
+        deleteSelectedElements();
     }, Scope.Canvas, Scope.SceneGraph);
 
     // Duplicate

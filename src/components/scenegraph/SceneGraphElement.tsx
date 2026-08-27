@@ -2,15 +2,15 @@ import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "
 import React from "react";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import {useElementChildIDs} from "../../hooks/elements/useElementChildIDs";
-import useElement from "../../hooks/elements/useElements";
 import {MaybeGUID} from "../../types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import useJumpToElement from "../../hooks/canvas/useJumpToElement";
-import useSelectElementID from "../../hooks/selection/useSelectElementID";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
+import selectElementID from "../../editor/selection/selectElementID";
+import {useElement} from "../../hooks/elements/useElement";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;
@@ -20,18 +20,18 @@ export interface SceneGraphElementProps {
 
 export default function SceneGraphElement(props: SceneGraphElementProps) {
     const [, setDraggingID] = useDraggingElementID();
+    const [_isExpanded, setIsExpanded] = React.useState(true);
     const isSelected = useIsElementSelected(props.elementID);
-    const [element, setElement] = useElement(props.elementID);
+    const element = useElement(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
     const [isDragOver, setDragOver] = React.useState(false);
     const jumpToElement = useJumpToElement();
-    const selectElementID = useSelectElementID();
 
     if (element === undefined)
         return null;
 
     const isGroup = element.type === "util-layer";
-    const isExpanded = (element.properties.isExpanded ?? true) || props.searchQuery !== "";
+    const isExpanded = _isExpanded || props.searchQuery !== "";
     const isMatchName = element.name.toLowerCase().includes(props.searchQuery);
     const isMatchType = element.type.toLowerCase().includes(props.searchQuery);
     const isMatchID = element.id.startsWith(props.searchQuery);
@@ -79,10 +79,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 secondaryAction={isGroup && (
                     <IconButton
                         size={"small"}
-                        onClick={() => setElement({
-                            ...element,
-                            properties: {...element.properties, isExpanded: !isExpanded}
-                        })}
+                        onClick={() => setIsExpanded(!isExpanded)}
                     >
                         <AnimatedCaretIcon up={!isExpanded}/>
                     </IconButton>
@@ -103,10 +100,10 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                         const shiftKey = e.shiftKey;
                         const operation = metaKey ? "toggle" : shiftKey ? "add" : "set";
 
-                        selectElementID({
-                            id: element.id,
+                        selectElementID(
+                            element.id,
                             operation
-                        });
+                        );
                     }}
                     onDoubleClick={() => jumpToElement(element.id)}
                     dense

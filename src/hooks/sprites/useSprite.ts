@@ -1,9 +1,9 @@
 import {atomFamily, unwrap} from "jotai/utils";
 import {MaybeGUID} from "../../types/common/GUID";
 import {atom, useAtomValue} from "jotai";
-import {mapAssetsAtomFamily} from "../assets/useMapAsset";
 import {spriteFromAtlasAtomFamily} from "./useSpriteFromAtlas";
 import {textureFromURLAtomFamily} from "../texture/useTextureFromURL";
+import {assetsAtomFamily} from "../../editor/state/assetsStore";
 
 export const spriteAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {
@@ -13,11 +13,11 @@ export const spriteAtomFamily = atomFamily((spriteID: MaybeGUID) => {
             return sprite;
 
         // Fallback to map asset
-        const mapAsset = get(mapAssetsAtomFamily(spriteID));
-        if (!mapAsset)
+        const asset = get(assetsAtomFamily(spriteID));
+        if (!asset)
             return null;
 
-        return await get(textureFromURLAtomFamily(mapAsset.url));
+        return await get(textureFromURLAtomFamily(asset.url));
     });
 });
 

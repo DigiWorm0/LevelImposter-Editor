@@ -3,11 +3,12 @@ import {Button, CircularProgress} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import useDownloadSpriteAnimsAsPNG from "../../hooks/spriteAnim/useDownloadSpriteAnimsAsPNG";
-import {useSelectedElemIDValue} from "../../hooks/elements/useSelectedElem";
+import {useAtomValue} from "jotai";
+import {selectedElementIDAtom} from "../../editor/state/selection/elementSelectionStore";
 
 export default function SpriteAnimExportButton() {
     const {t} = useTranslation();
-    const selectedElementID = useSelectedElemIDValue();
+    const selectedElementID = useAtomValue(selectedElementIDAtom);
     const downloadPNGs = useDownloadSpriteAnimsAsPNG();
     const [isDownloadingPNGs, setIsDownloadingPNGs] = React.useState(false);
 

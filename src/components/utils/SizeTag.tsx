@@ -1,6 +1,6 @@
 import {MaybeGUID} from "../../types/common/GUID";
 import {Box, Chip} from "@mui/material";
-import useMapAsset from "../../hooks/assets/useMapAsset";
+import useAsset from "../../hooks/assets/useAsset";
 import toSizeString from "../../utils/strings/toSizeString";
 
 export interface SizeTagProps {
@@ -22,7 +22,7 @@ const GOOD_SIZE = 1000 * 1000 * 2; // 2MB
 const BAD_SIZE = 1000 * 1000 * 5; // 10MB
 
 export default function SizeTag(props: SizeTagProps) {
-    const asset = useMapAsset(props.assetID);
+    const asset = useAsset(props.assetID);
     if (!asset)
         return null;
 

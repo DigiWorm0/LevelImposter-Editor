@@ -1,5 +1,4 @@
 import React, {useRef} from "react";
-import {useElementValue} from "../../../../hooks/elements/useElements";
 import useElementSprite from "../../../../hooks/sprites/useElementSprite";
 import {Sprite} from "pixi.js";
 import {
@@ -11,9 +10,10 @@ import {
 } from "../../../../types/amongus/Constants";
 import {useTick} from "@pixi/react";
 import {StarfieldOverlayProps} from "./StarfieldOverlay";
+import {useElement} from "../../../../hooks/elements/useElement";
 
 export default function StarfieldOverlayStar(props: StarfieldOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const sprite = useElementSprite(props.elementID);
     const spriteRef = useRef<Sprite>(null);
 

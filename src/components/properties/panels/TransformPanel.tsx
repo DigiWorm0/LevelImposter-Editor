@@ -12,19 +12,18 @@ import {
 } from "@mui/icons-material";
 import {Button, ButtonGroup, InputAdornment, TextField, Tooltip} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {useRemoveSelectedElement} from "../../../hooks/elements/useRemoveElement";
 import {useSettingsValue} from "../../../hooks/useSettings";
 import AUElementDB from "../../../db/AUElementDB";
 import {ElemVisibility} from "../../../utils/map/getMapVisibility";
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import useSelectedElemTransform from "../../../hooks/elements/useSelectedElemTransform";
-import {useSelectedElemIDValue} from "../../../hooks/elements/useSelectedElem";
 import useElementVisibility from "../../../hooks/elements/useElementVisibility";
 import TransformNumericInput from "../input/TransformNumericInput";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import getIsConsole from "../../../utils/map/getIsConsole";
+import {useAtomValue} from "jotai";
+import {selectedElementIDAtom} from "../../../editor/state/selectionStore";
 
 export default function TransformPanel() {
     const {t} = useTranslation();
@@ -34,7 +33,7 @@ export default function TransformPanel() {
     const [yScale] = useSelectedElemTransform<number>("yScale");
     const [_isLocked, setLocked] = useSelectedElemProp("isLocked");
     const [_isVisible, setVisible] = useSelectedElemProp("isVisible");
-    const selectedElemID = useSelectedElemIDValue();
+    const selectedElemID = useAtomValue(selectedElementIDAtom);
     const elemVisibility = useElementVisibility(selectedElemID);
 
     const isLocked = _isLocked ?? false;

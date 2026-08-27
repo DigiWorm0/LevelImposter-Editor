@@ -8,9 +8,10 @@ import {Application, Sprite, Texture} from "pixi.js";
 import primaryStore from "../../hooks/primaryStore";
 import {textureFromURLAtomFamily} from "../../hooks/texture/useTextureFromURL";
 import {textureAtomFamily} from "../../hooks/texture/useTexture";
-import {createMapAssetAtom} from "../../hooks/assets/useCreateMapAsset";
-import {replaceMapAssetIDAtom} from "../../hooks/assets/useReplaceMapAssetID";
 import BitmapData from "../../types/texture/BitmapData";
+import {createAsset} from "../../editor/assets/createAsset";
+import executeCommand from "../../editor/history/executeCommand";
+import {replaceMapAsset} from "../../editor/commands/elements/replaceMapAsset";
 
 /**
  * Converts bitmap data to a DDS Blob using DXT1 or DXT5 compression.
@@ -170,16 +171,10 @@ export async function convertImageAssetToDDS(assetID: MaybeGUID): Promise<MaybeG
     const ddsBlob = await convertImageAssetToDDSBlob(assetID);
 
     // Create new asset ID
-    const newAsset = primaryStore.set(createMapAssetAtom, {
-        type: "image/dds",
-        blob: ddsBlob,
-    });
+    const newAsset = createAsset("image/dds", ddsBlob);
 
     // Replace all instances of the old asset in elements with the new asset ID
-    primaryStore.set(replaceMapAssetIDAtom, {
-        fromID: assetID,
-        toID: newAsset.id
-    });
+    executeCommand(replaceMapAsset(assetID, newAsset.id));
 
     return newAsset.id;
 }

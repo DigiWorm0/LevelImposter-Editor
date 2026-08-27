@@ -3,7 +3,8 @@ import ImageAssetModalButton from "./ImageAssetModalButton";
 import React from "react";
 import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
-import {useMapAssetsValue} from "../../../../hooks/assets/useMapAssets";
+import {useAtomValue} from "jotai";
+import {allAssetsAtom} from "../../../../editor/state/assetsStore";
 
 export interface ImageAssetModalListProps {
     onClick: (id: GUID) => void;
@@ -11,9 +12,9 @@ export interface ImageAssetModalListProps {
 }
 
 export default function ImageAssetModalList(props: ImageAssetModalListProps) {
-    const allMapAssets = useMapAssetsValue();
+    const allAssets = useAtomValue(allAssetsAtom);
 
-    const imageAssets = allMapAssets?.filter(asset => asset.type.startsWith("image/"));
+    const imageAssets = allAssets?.filter(asset => asset.type.startsWith("image/"));
     const hasImageAssets = imageAssets && imageAssets.length > 0;
 
     return (

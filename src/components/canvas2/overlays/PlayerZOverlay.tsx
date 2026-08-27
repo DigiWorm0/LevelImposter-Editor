@@ -1,8 +1,8 @@
 import GUID from "../../../types/common/GUID";
-import {useElementValue} from "../../../hooks/elements/useElements";
 import {PLAYER_POS, UNITY_SCALE} from "../../../types/amongus/Constants";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface PlayerZOverlayProps {
     elementID: GUID;
@@ -11,7 +11,7 @@ export interface PlayerZOverlayProps {
 const OFFSET_Y = 30; // Offset for the line from the player's feet
 
 export default function PlayerZOverlay(props: PlayerZOverlayProps) {
-    const element = useElementValue(props.elementID);
+    const element = useElement(props.elementID);
     const sprite = useElementSprite(props.elementID);
     const playerSprite = useTextureOfType("util-dummy");
 

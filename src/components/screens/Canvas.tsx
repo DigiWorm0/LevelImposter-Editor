@@ -1,11 +1,12 @@
 import React from "react";
-import {useMapProperties} from "../../hooks/map/useMap";
+import {mapPropsAtom} from "../../editor/state/documentStore";
 import {Paper} from "@mui/material";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Canvas2 from "../canvas2/Canvas2";
+import {useAtomValue} from "jotai";
 
 export default function Canvas() {
-    const [properties] = useMapProperties();
+    const properties = useAtomValue(mapPropsAtom);
     const setFocus = useSetFocus();
 
     return (

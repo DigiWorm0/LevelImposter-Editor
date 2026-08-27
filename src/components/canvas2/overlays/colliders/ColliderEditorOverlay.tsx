@@ -1,14 +1,20 @@
 import React, {RefObject} from "react";
-import useSelectedCollider from "../../../../hooks/elements/colliders/useSelectedCollider";
-import useSelectedColliderPointIndexes from "../../../../hooks/elements/colliders/useSelectedColliderPointIndexes";
 import {Container, Graphics} from "pixi.js";
 import {drawColliderFill, drawColliderStroke} from "./ColliderOverlay";
 import LICollider from "../../../../types/li/LICollider";
 import ColliderEditorPoint from "./ColliderEditorPoint";
 import SelectOperation from "../../../../types/common/SelectOperation";
-import {useInsertPointAtMouse} from "../../../../hooks/elements/colliders/useInsertColliderPointAtMouse";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
-import {useSelectedElemIDValue} from "../../../../hooks/elements/useSelectedElem";
+import {useAtom, useAtomValue} from "jotai";
+import {
+    selectedColliderAtom,
+    selectedColliderPointIndicesAtom
+} from "../../../../editor/state/selection/colliderSelectionStore";
+import executeCommand from "../../../../editor/history/executeCommand";
+import {moveColliderPoint} from "../../../../editor/commands/colliders/moveColliderPoint";
+import {deleteColliderPoint} from "../../../../editor/commands/colliders/deleteColliderPoint";
+import {insertColliderPointAtMouse} from "../../../../editor/commands/colliders/insertColliderPointAtMouse";
+import {selectedElementIDAtom} from "../../../../editor/state/selection/elementSelectionStore";
 
 function drawCollider(
     g: Graphics,
@@ -24,11 +30,10 @@ function drawCollider(
 }
 
 export default function ColliderEditorOverlay() {
-    const [collider, setCollider] = useSelectedCollider();
-    const insertPointAtMouse = useInsertPointAtMouse();  // TODO: Add/remove points to collider
-    const [selectedIndexes, setSelectedIndexes] = useSelectedColliderPointIndexes();
+    const collider = useAtomValue(selectedColliderAtom);
+    const [selectedIndexes, setSelectedIndexes] = useAtom(selectedColliderPointIndicesAtom);
 
-    const selectedElementID = useSelectedElemIDValue();
+    const selectedElementID = useAtomValue(selectedElementIDAtom);
     const mapElementRef = useMapElementRef(selectedElementID);
 
     const strokeGraphicsRef = React.useRef<Graphics>(null);
@@ -64,7 +69,7 @@ export default function ColliderEditorOverlay() {
                 cursor={"pointer"}
                 eventMode={"static"}
                 ref={strokeGraphicsRef}
-                onMouseDown={(e: MouseEvent) => insertPointAtMouse(e)}
+                onMouseDown={(e: MouseEvent) => executeCommand(insertColliderPointAtMouse(e))}
                 draw={(g) => drawCollider(g, collider, mapElementRef, false)}
             />
 
@@ -84,34 +89,11 @@ export default function ColliderEditorOverlay() {
                     collider={collider}
                     point={point}
 
-                    onUpdatePoint={(p) => {
-                        // Apply the new point coordinates
-                        point.x = p.x;
-                        point.y = p.y;
-
-                        // Create a new point array to trigger reactivity
-                        const points = collider.points.map((pt, i) => i === index ? {...point} : pt);
-
-                        // Force re-render of the collider
-                        setCollider({
-                            ...collider,
-                            points: [...points]
-                        });
-                    }}
+                    onUpdatePoint={(p) => executeCommand(moveColliderPoint(index, p))}
 
                     onSelectPoint={(operation) => selectIndex(index, operation)}
 
-                    onRemovePoint={() => {
-                        // Splice the point out of the collider points array
-                        collider.points.splice(index, 1);
-
-                        // Force re-render of the collider
-                        setCollider({
-                            ...collider,
-                            points: [...collider.points]
-                        });
-
-                    }}
+                    onRemovePoint={() => executeCommand(deleteColliderPoint(index))}
 
                     onForceRedraw={() => {
                         // Check if the graphics references are set

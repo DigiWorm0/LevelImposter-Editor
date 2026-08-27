@@ -8,14 +8,15 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import {Notes, Room, Workspaces} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 export default function TaskPanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const roomElems = useElementsOfType("util-room");
     const taskElems = useElementsOfType("task-");
     const typeElems = useElementsOfType(selectedType ?? "");

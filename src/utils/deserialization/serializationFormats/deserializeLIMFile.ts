@@ -1,6 +1,9 @@
 import LIMap from "../../../types/li/LIMap";
 import GUID from "../../../types/common/GUID";
 import parseAssetType from "../../fileio/parseAssetType";
+import MapAsset from "../../../types/li/MapAsset";
+import store from "../../../shared/store";
+import {allAssetsAtom} from "../../../editor/state/assetsStore";
 
 /**
  * Deserializes a .LIM2 file from an ArrayBuffer
@@ -25,7 +28,7 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
     position += jsonLength;
 
     const mapData = JSON.parse(jsonString) as LIMap;
-    mapData.assets = [];
+    const allAssets: MapAsset[] = [];
 
     // Read Assets
     while (position < buffer.byteLength) {
@@ -48,7 +51,7 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
         const assetType = parseAssetType(assetSlice);
         const assetBlob = new Blob([assetSlice], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
-        mapData.assets.push({
+        allAssets.push({
             id: guid,
             type: assetType,
             blob: assetBlob,
@@ -56,6 +59,9 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
         });
         position += assetLength;
     }
+
+    // TODO: Return the assets instead of storing them locally
+    store.set(allAssetsAtom, allAssets);
 
     return mapData;
 }

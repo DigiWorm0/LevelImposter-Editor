@@ -4,7 +4,7 @@ import {atom} from "jotai";
 import {spriteAtlasAtomFamily} from "./useSpriteAtlas";
 import {Rectangle, Texture} from "pixi.js";
 import {textureAtomFamily} from "../texture/useTexture";
-import {mapAssetsAtomFamily} from "../assets/useMapAsset";
+import {assetsAtomFamily} from "../../editor/state/assetsStore";
 
 export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {
@@ -19,9 +19,8 @@ export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
             return null;
 
         // Check if map asset is DDS
-        const mapAsset = get(mapAssetsAtomFamily(spriteAtlas.assetID));
+        const mapAsset = get(assetsAtomFamily(spriteAtlas.assetID));
         const isDDS = mapAsset?.type === "image/dds";
-
 
         // Make sprite
         const {x, y, w, h} = spriteAtlas;

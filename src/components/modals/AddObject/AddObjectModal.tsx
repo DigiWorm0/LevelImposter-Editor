@@ -2,13 +2,12 @@ import {Close} from "@mui/icons-material";
 import {Box, Dialog, DialogContent, Divider, IconButton, List} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useSetSelectedColliderID} from "../../../hooks/elements/colliders/useSelectedCollider";
-import useAddElementAtCamera from "../../../hooks/elements/useAddElementAtCamera";
-import {useSetSelectedElemID} from "../../../hooks/elements/useSelectedElem";
 import generateGUID from "../../../utils/strings/generateGUID";
 import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalSearch from "./AddObjectModalSearch";
 import AUElementDB from "../../../db/AUElementDB";
+import executeCommand from "../../../editor/history/executeCommand";
+import {createElementAtCamera} from "../../../editor/commands/elements/createElement";
 
 // Modal Props
 export interface AddObjectModalProps {
@@ -18,15 +17,11 @@ export interface AddObjectModalProps {
 
 export default function AddObjectModal(props: AddObjectModalProps) {
     const {t} = useTranslation();
-    const addElement = useAddElementAtCamera();
-    const setSelectedID = useSetSelectedElemID();
-    const setColliderID = useSetSelectedColliderID();
 
     // Handle when an element is clicked
     const onClick = React.useCallback((type: string) => {
-        const id = generateGUID();
-        addElement({
-            id,
+        executeCommand(createElementAtCamera({
+            id: generateGUID(),
             name: t(`au.${type}`) || type,
             type,
             x: 0,
@@ -36,11 +31,9 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             yScale: 1,
             rotation: 0,
             properties: {}
-        });
+        }));
         props.onClose();
-        setSelectedID(id);
-        setColliderID(undefined);
-    }, [addElement, props.onClose, setSelectedID, setColliderID, t]);
+    }, [props.onClose, t]);
 
     return (
         <Dialog

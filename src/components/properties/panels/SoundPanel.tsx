@@ -1,14 +1,14 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SoundUpload from "../util/SoundUpload";
-import useSelectedElemProp, { useSelectedElemPropValue } from "../../../hooks/elements/useSelectedElemProperty";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
-import { HighlightAlt, VolumeOff } from "@mui/icons-material";
+import useSelectedElemProp, {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {HighlightAlt, VolumeOff} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function SoundPanel() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [sounds, setSounds] = useSelectedElemProp("sounds");
     const colliders = useSelectedElemPropValue("colliders");
     const isSound = useIsSelectedElemType("util-sound1");
@@ -34,13 +34,13 @@ export default function SoundPanel() {
             </PanelContainer>
             <MapError
                 isVisible={!hasCollider}
-                icon={<HighlightAlt />}
+                icon={<HighlightAlt/>}
             >
                 {t("audio.errorNoCollider")}
             </MapError>
             <MapError
                 isVisible={!sound}
-                icon={<VolumeOff />}
+                icon={<VolumeOff/>}
             >
                 {t("audio.errorNoSound")}
             </MapError>

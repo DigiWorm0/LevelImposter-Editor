@@ -5,9 +5,9 @@ import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import {SwapHoriz, SwapVert} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 const MAX_PIXELS = 1920 * 1080;
 

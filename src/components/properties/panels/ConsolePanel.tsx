@@ -4,13 +4,14 @@ import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {TripOrigin} from "@mui/icons-material";
+import {useAtomValue} from "jotai";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 export default function ConsolePanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const isConsole = getIsConsole(selectedType || "")
         && !selectedType?.startsWith("util-vent");
     // <-- Don't allow editing vent consoles, it won't work

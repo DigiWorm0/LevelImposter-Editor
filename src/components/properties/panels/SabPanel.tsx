@@ -1,17 +1,18 @@
 import {Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useConnections} from "../../../hooks/elements/useConnections";
 import {useElementsOfType} from "../../../hooks/elements/useElementsOfType";
 import RoomSelect from "../input/select/RoomSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import ElementPropTextInput from "../input/elementProps/ElementPropTextInput";
-import useSelectedElemType from "../../../hooks/elements/useSelectedElemType";
 import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
 import {Comment, Room, Timer} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
+import {useAtomValue} from "jotai";
+import {connectionsAtomFamily} from "../../../editor/state/connectionStore";
+import {selectedElementTypeAtom} from "../../../editor/state/selection/elementSelectionStore";
 
 const timerElems = [
     "sab-reactorleft",
@@ -25,10 +26,10 @@ const timerElems = [
 
 export default function SabPanel() {
     const {t} = useTranslation();
-    const selectedType = useSelectedElemType();
+    const selectedType = useAtomValue(selectedElementTypeAtom);
     const parentID = useSelectedElemPropValue("parent");
     const roomElems = useElementsOfType("util-room");
-    const [, sourceConnections] = useConnections(parentID);
+    const [, sourceConnections] = useAtomValue(connectionsAtomFamily(parentID));
 
     const otherSab = React.useMemo(() => {
         if (selectedType?.startsWith("sab-btn"))

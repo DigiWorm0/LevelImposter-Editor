@@ -4,6 +4,9 @@ import GUID from "../../../types/common/GUID";
 import generateGUID from "../../strings/generateGUID";
 import parseAssetType from "../../fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
+import MapAsset from "../../../types/li/MapAsset";
+import store from "../../../shared/store";
+import {allAssetsAtom} from "../../../editor/state/assetsStore";
 
 /**
  * Deserializes a legacy .LIM/.JSON file from an ArrayBuffer
@@ -37,7 +40,7 @@ function convertLegacyMap(mapData: LIMap) {
         convertOldLegacyMap(mapData);
 
     // Reset
-    mapData.assets = [];
+    const allAssets: MapAsset[] = [];
     const duplicateDB: Record<string, GUID> = {};
 
     // Add Asset Function
@@ -48,7 +51,7 @@ function convertLegacyMap(mapData: LIMap) {
         // Add Asset
         const id = generateGUID();
         const blob = base64ToBlob(base64);
-        mapData.assets?.push({
+        allAssets.push({
             id,
             blob: blob,
             url: URL.createObjectURL(blob),
@@ -101,6 +104,9 @@ function convertLegacyMap(mapData: LIMap) {
             }
         }
     }
+
+    // TODO: Return the assets instead of storing them locally
+    store.set(allAssetsAtom, allAssets);
 }
 
 /**

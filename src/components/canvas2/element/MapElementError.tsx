@@ -1,14 +1,13 @@
 import {UNITY_SCALE} from "../../../types/amongus/Constants";
 import {MaybeGUID} from "../../../types/common/GUID";
-import useElement from "../../../hooks/elements/useElements";
+import {useElement} from "../../../hooks/elements/useElement";
 
 export interface SelectedObjectErrorProps {
     elementID?: MaybeGUID;
 }
 
 export default function MapElementError(props: SelectedObjectErrorProps) {
-    const [elem] = useElement(props.elementID);
-
+    const elem = useElement(props.elementID);
     const x = (elem?.x ?? 0) * UNITY_SCALE;
     const y = (elem?.y ?? 0) * -UNITY_SCALE;
 

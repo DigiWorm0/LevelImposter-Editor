@@ -7,10 +7,10 @@ import SoundPresetSelect from "../input/select/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useIsSelectedElemType from "../../../hooks/elements/useSelectedElemIsType";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import FlexNumericInput from "../util/FlexNumericInput";
 import {PriorityHigh, VolumeUp} from "@mui/icons-material";
+import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 
 export default function StepSoundPanel() {
     const {t} = useTranslation();

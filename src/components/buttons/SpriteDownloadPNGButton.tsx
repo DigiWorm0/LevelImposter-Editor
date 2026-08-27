@@ -1,10 +1,10 @@
 import {Download} from "@mui/icons-material";
 import {Button, CircularProgress, IconButton, Tooltip} from "@mui/material";
 import React from "react";
-import useMapAsset from "../../hooks/assets/useMapAsset";
+import useAsset from "../../hooks/assets/useAsset";
 import GUID from "../../types/common/GUID";
 import {useTranslation} from "react-i18next";
-import useDownloadMapAssetAsPNG from "../../hooks/assets/useDownloadMapAssetAsPNG";
+import {downloadAssetAsPNG} from "../../editor/assets/downloadAsset";
 
 export interface SpriteDownloadPNGButtonProps {
     assetID: GUID | undefined;
@@ -13,8 +13,7 @@ export interface SpriteDownloadPNGButtonProps {
 
 export default function SpriteDownloadPNGButton(props: SpriteDownloadPNGButtonProps) {
     const {t} = useTranslation();
-    const asset = useMapAsset(props.assetID);
-    const downloadPNG = useDownloadMapAssetAsPNG();
+    const asset = useAsset(props.assetID);
     const [isDownloadingPNG, setIsDownloadingPNG] = React.useState(false);
 
     const onClick = React.useCallback(() => {
@@ -22,8 +21,9 @@ export default function SpriteDownloadPNGButton(props: SpriteDownloadPNGButtonPr
             return;
 
         setIsDownloadingPNG(true);
-        downloadPNG({id: props.assetID}).finally(() => setIsDownloadingPNG(false));
-    }, [isDownloadingPNG, downloadPNG, asset]);
+        downloadAssetAsPNG(props.assetID)
+            .finally(() => setIsDownloadingPNG(false));
+    }, [props.assetID, isDownloadingPNG]);
 
     const isDDS = asset?.blob.type === "image/dds";
 

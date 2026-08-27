@@ -1,15 +1,17 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "../../types/common/GUID";
-import {elementsAtom} from "../map/useMap";
+import GUID, {MaybeGUID} from "../../types/common/GUID";
+import {allElementsAtom} from "../../editor/state/documentStore";
 import compareArrays from "../../utils/common/compareArrays";
 
 export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
-    let prevValue: MaybeGUID[] = [];
+    let prevValue: GUID[] = [];
     return atom(
         (get) => {
-            const elements = get(elementsAtom);
-            const filteredValues = elements.filter(elem => elem.parentID === id).map((elem) => elem.id);
+            const elements = get(allElementsAtom);
+            const filteredValues = elements
+                .filter(elem => elem.parentID === id)
+                .map((elem) => elem.id);
 
             // HACK: Only update if the values have changed
             if (!compareArrays(filteredValues, prevValue))
