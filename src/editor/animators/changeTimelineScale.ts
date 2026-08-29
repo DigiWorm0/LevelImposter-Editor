@@ -1,5 +1,5 @@
 import store from "@/shared/store";
-import {animatorsPlayheadAtom, timelineOffsetAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom, timelineOffsetAtom, timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 import clamp from "@/utils/common/clamp";
 
 const MIN_SCALE = 0.01;

@@ -1,5 +1,5 @@
 import {atom, useAtomValue} from "jotai";
-import {allElementsAtom} from "@editor/state/documentStore";
+import {allElementsAtom} from "@editor/documentStore";
 import GUID from "../../types/common/GUID";
 import compareArrays from "../../utils/common/compareArrays";
 

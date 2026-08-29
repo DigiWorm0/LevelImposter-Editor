@@ -1,6 +1,5 @@
 import {MaybeGUID} from "@/types/common/GUID";
-import MapAsset from "../../types/li/MapAsset";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom, MapAsset} from "./assetsStore";
 import store from "../../shared/store";
 
 export const deleteAsset = (assetID: MaybeGUID) => {

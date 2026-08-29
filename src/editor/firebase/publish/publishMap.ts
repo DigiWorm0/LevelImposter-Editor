@@ -12,8 +12,8 @@ import {
     publishRemixIDAtom,
     publishTargetIDAtom,
     publishThumbnailAtom
-} from "@editor/state/publishStore";
-import {mapAtom} from "@editor/state/documentStore";
+} from "@editor/firebase/publish/publishStore";
+import {mapAtom} from "@editor/documentStore";
 
 const MAX_VALUE = 2147483647;
 

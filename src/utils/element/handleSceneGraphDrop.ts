@@ -1,7 +1,7 @@
 import {MaybeGUID} from "@/types/common/GUID";
 import {draggingElementIDAtom} from "@/hooks/elements/dragging/useDraggingElementID";
 import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
-import {selectedElementIDsAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementIDsAtom} from "@editor/selection/stores/elementSelectionStore";
 import executeCommand from "../../editor/history/executeCommand";
 import primaryStore from "@/shared/store";
 

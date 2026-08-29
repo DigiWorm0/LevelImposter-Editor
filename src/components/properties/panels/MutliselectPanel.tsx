@@ -1,7 +1,7 @@
 import {Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {useAtomValue} from "jotai";
-import {selectedElementIDsAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementIDsAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function MultiselectPanel() {
     const selectedElementIDs = useAtomValue(selectedElementIDsAtom);

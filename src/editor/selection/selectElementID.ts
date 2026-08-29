@@ -1,9 +1,9 @@
 import {MaybeGUID} from "@/types/common/GUID";
 import store from "../../shared/store";
 import SelectOperation from "../../types/common/SelectOperation";
-import {selectedElementIDsAtom} from "../state/selection/elementSelectionStore";
+import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
-import {elementAtomFamily} from "../state/documentStore";
+import {elementAtomFamily} from "../documentStore";
 
 const selectElementID = (
     id: MaybeGUID,

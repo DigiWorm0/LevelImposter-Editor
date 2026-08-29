@@ -9,7 +9,7 @@ import LICollider from "../../../../types/li/LICollider";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import getOffsetFromElement, {getReverseOffsetToElement} from "../../../../utils/canvas/getOffsetFromElement";
 import {useAtomValue} from "jotai";
-import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export interface ColliderEditorPointProps {
     id: string;

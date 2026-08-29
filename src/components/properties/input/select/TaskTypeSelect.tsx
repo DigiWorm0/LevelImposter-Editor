@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {AUTaskLengthDB, TaskLength} from "@/types/amongus/TaskLength";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function TaskTypeSelect() {
     const {t} = useTranslation();

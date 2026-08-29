@@ -1,8 +1,8 @@
 import LIClipboard from "../../../types/li/LIClipboard";
 import LIElement from "../../../types/li/LIElement";
 import store from "../../../shared/store";
-import {mapAtom} from "../../state/documentStore";
-import {selectedElementsAtom} from "../../state/selection/elementSelectionStore";
+import {mapAtom} from "../../documentStore";
+import {selectedElementsAtom} from "../../selection/stores/elementSelectionStore";
 import setClipboard from "@editor/clipboard/setClipboard";
 
 export const copyElementsToClipboard = (elements: LIElement[]) => {

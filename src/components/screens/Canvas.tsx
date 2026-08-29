@@ -1,5 +1,5 @@
 import React from "react";
-import {mapPropsAtom} from "@editor/state/documentStore";
+import {mapPropsAtom} from "@editor/documentStore";
 import {Paper} from "@mui/material";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Canvas2 from "../canvas2/Canvas2";

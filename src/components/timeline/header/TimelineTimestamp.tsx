@@ -1,6 +1,6 @@
 import React from "react";
 import {useAtomValue} from "jotai";
-import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 
 export default function TimelineTimestamp() {
     const t = useAtomValue(animatorsPlayheadAtom);

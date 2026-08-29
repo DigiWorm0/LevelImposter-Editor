@@ -1,7 +1,7 @@
 import LIMap from "../../../types/li/LIMap";
 import {toUTF8} from "../../../utils/strings/toUTF8";
 import store from "../../../shared/store";
-import {allAssetsAtom} from "@editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/assets/assetsStore";
 
 /**
  * Serializes a LIMap to a LIM2 file format

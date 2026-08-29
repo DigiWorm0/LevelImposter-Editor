@@ -7,14 +7,14 @@ import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import LazyCollapse from "../util/LazyCollapse";
 import ColliderPointsEditorPanel from "./ColliderPointsEditorPanel";
 import {useAtomValue} from "jotai";
-import {colliderAtomFamily} from "@editor/state/selection/colliderSelectionStore";
+import {colliderAtomFamily} from "@editor/selection/stores/colliderSelectionStore";
 import executeCommand from "../../../editor/history/executeCommand";
 import {
     setColliderBlocksLight,
     setColliderName,
     setColliderSolid
-} from "@editor/commands/colliders/setColliderProperties";
-import {deleteCollider} from "@editor/commands/colliders/deleteCollider";
+} from "@editor/elements/colliders/setColliderProperties";
+import {deleteCollider} from "@editor/elements/colliders/deleteCollider";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;

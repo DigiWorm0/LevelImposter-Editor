@@ -10,8 +10,8 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import useElementIDs from "../../../hooks/elements/useElementIDs";
 import {HighlightAlt, SettingsInputAntenna, Shuffle} from "@mui/icons-material";
 import {useAtom, useAtomValue} from "jotai";
-import {selectedElementAtom} from "@editor/state/selection/elementSelectionStore";
-import {selectedTriggerIDAtom} from "@editor/state/selection/triggerSelectionStore";
+import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";
+import {selectedTriggerIDAtom} from "@editor/selection/stores/triggerSelectionStore";
 
 const CLIENT_SIDE_TYPES = [
     "util-triggerarea",

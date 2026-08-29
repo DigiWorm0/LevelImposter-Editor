@@ -1,4 +1,4 @@
-import {mapAtom} from "@editor/state/documentStore";
+import {mapAtom} from "@editor/documentStore";
 import {DEFAULT_MAP} from "@/types/amongus/Constants";
 import primaryStore from "@/shared/store";
 

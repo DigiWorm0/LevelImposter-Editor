@@ -14,7 +14,7 @@ import DiamondSVG from "../icons/DiamondSVG";
 import DiamondSVGOutline from "../icons/DiamondSVGOutline";
 import TimelineCurveButton from "./TimelineCurveButton";
 import {useAtomValue} from "jotai";
-import {selectedKeyframeAtom} from "@editor/state/selection/keyframeSelectionStore";
+import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 import {selectKeyframe as _selectKeyframe} from "@editor/selection/selectKeyframe";
 
 export interface TimelinePropertyProps {

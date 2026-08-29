@@ -3,7 +3,7 @@ import Draggable from "react-draggable";
 import DiamondSVG from "../icons/DiamondSVG";
 import {useSettingsValue} from "@/hooks/useSettings";
 import {useAtomValue} from "jotai";
-import {timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 import {setPlaybackState} from "@editor/animators/setPlaybackState";
 import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
 

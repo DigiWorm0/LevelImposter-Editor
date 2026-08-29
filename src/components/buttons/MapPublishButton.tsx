@@ -4,7 +4,7 @@ import PublishModal from "../modals/Publish/PublishModal";
 import {IconButton, Tooltip} from "@mui/material";
 import {Publish} from "@mui/icons-material";
 import {useAtomValue} from "jotai";
-import {currentUserAtom} from "@editor/state/publishStore";
+import {currentUserAtom} from "@editor/firebase/publish/publishStore";
 
 export default function MapPublishButton() {
     const {t} = useTranslation();

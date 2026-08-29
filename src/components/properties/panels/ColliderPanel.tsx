@@ -9,8 +9,8 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {useAtom, useAtomValue} from "jotai";
-import {selectedColliderIDAtom} from "@editor/state/selection/colliderSelectionStore";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedColliderIDAtom} from "@editor/selection/stores/colliderSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",

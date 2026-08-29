@@ -4,7 +4,6 @@ import openUploadDialog from "../../../utils/fileio/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
-import MapAsset from "../../../types/li/MapAsset";
 import GUID from "../../../types/common/GUID";
 import duplicateBlob from "../../../utils/fileio/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
@@ -18,6 +17,7 @@ import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
 import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
 import ImageUploadDetails from "./ImageUploadDetails";
 import {createAsset} from "@editor/assets/createAsset";
+import {MapAsset} from "@editor/assets/assetsStore";
 
 interface ImageUploadProps {
     name: string;

@@ -4,7 +4,7 @@ import GUID from "../../types/common/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimCurve from "../../types/li/LIAnimCurve";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
-import {mapAtom} from "@editor/state/documentStore";
+import {mapAtom} from "@editor/documentStore";
 
 export interface CurrentCurveOptions {
     targetID: GUID;

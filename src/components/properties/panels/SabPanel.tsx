@@ -11,8 +11,8 @@ import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty
 import {Comment, Room, Timer} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
 import {useAtomValue} from "jotai";
-import {connectionsAtomFamily} from "@editor/state/connectionStore";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
+import {connectionsAtomFamily} from "@/hooks/useElemConnections";
 
 const timerElems = [
     "sab-reactorleft",

@@ -1,10 +1,9 @@
 import BuildOperationLog from "./BuildOperationLog";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
-import MapAsset from "../../types/li/MapAsset";
 import BuildOperation from "./BuildOperation";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import executeCommand from "../history/executeCommand";
-import {replaceMapAsset} from "../commands/elements/replaceMapAsset";
+import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
 import primaryStore from "@/shared/store";
 
 interface MergeCandidate {
@@ -149,49 +148,6 @@ const MergeMapAssetsOperation: BuildOperation = {
 
         // Log result
         BuildOperationLog.success(`Merged ${totalAssetsMerged} assets`);
-
-        //
-        //
-        // // Run through candidates and find matches
-        // const replacedIDs = new Set<MaybeGUID>();
-        // let totalAssetsMerged = 0;
-        // for (let i = 0; i < mergeCandidates.length; i++) {
-        //     // Log progress every 5 candidates
-        //     if (i % 5 === 0)
-        //         BuildOperationLog.info(`Comparing candidates... (${i}/${mergeCandidates.length})`);
-        //
-        //     // Skip if already replaced
-        //     const candidate = mergeCandidates[i];
-        //     if (replacedIDs.has(candidate.fromID) || replacedIDs.has(candidate.toID))
-        //         continue;
-        //
-        //     // Get asset data
-        //     const fromData = assetDataMap[candidate.fromID!];
-        //     const toData = assetDataMap[candidate.toID!];
-        //
-        //     // Compare data
-        //     const isMatch = compareArrayData(fromData, toData);
-        //
-        //     // Wait a tick every 5 comparisons to keep UI responsive
-        //     if (i % 5 === 0)
-        //         await new Promise(requestAnimationFrame);
-        //
-        //     // If matches, replace all references
-        //     if (isMatch) {
-        //         BuildOperationLog.info(`Merging asset ${candidate.fromID?.slice(0, 4)}... >>> ${candidate.toID?.slice(0, 4)}...`);
-        //         totalAssetsMerged++;
-        //
-        //         primaryStore.set(replaceMapAssetIDAtom, {
-        //             fromID: candidate.fromID,
-        //             toID: candidate.toID
-        //         });
-        //
-        //         replacedIDs.add(candidate.fromID);
-        //     }
-        // }
-        //
-        // // Log result
-        // BuildOperationLog.success(`Merged ${totalAssetsMerged} assets`);
     }
 };
 

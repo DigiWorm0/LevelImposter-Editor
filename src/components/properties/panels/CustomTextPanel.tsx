@@ -8,7 +8,7 @@ import {Notes, OpenInNew} from "@mui/icons-material";
 import DropdownList from "../util/DropdownList";
 import CustomTextEditorPanel from "../editors/CustomTextEditorPanel";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function CustomTextPanel() {
     const {t} = useTranslation();

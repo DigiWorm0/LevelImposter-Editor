@@ -2,7 +2,7 @@ import BuildOperation from "./BuildOperation";
 import BuildOperationLog from "./BuildOperationLog";
 import {convertGIFAssetToSpriteAnim} from "@/utils/gif/convertGIFToSpriteAnimation";
 import store from "../../shared/store";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom} from "../assets/assetsStore";
 
 const ConvertToSpriteAnimOperation: BuildOperation = {
     async run() {

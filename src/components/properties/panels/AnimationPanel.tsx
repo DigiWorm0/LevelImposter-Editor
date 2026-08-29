@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
 import {useAtom} from "jotai";
-import {isTimelineVisibleAtom} from "@editor/state/animatorPlaybackStore";
+import {isTimelineVisibleAtom} from "@editor/animators/animatorPlaybackStore";
 
 export default function AnimationPanel() {
     const {t} = useTranslation();

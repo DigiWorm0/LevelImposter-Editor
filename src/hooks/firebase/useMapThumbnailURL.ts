@@ -1,5 +1,5 @@
 import {atom, useAtomValue} from "jotai";
-import {publishThumbnailAtom} from "@editor/state/publishStore";
+import {publishThumbnailAtom} from "@editor/firebase/publish/publishStore";
 
 let prevThumbnailURL: string | null = null;
 export const mapThumbnailURLAtom = atom((get) => {

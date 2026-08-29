@@ -6,15 +6,12 @@ import ColliderEditorPoint from "./ColliderEditorPoint";
 import SelectOperation from "../../../../types/common/SelectOperation";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {useAtom, useAtomValue} from "jotai";
-import {
-    selectedColliderAtom,
-    selectedColliderPointIndicesAtom
-} from "@editor/state/selection/colliderSelectionStore";
+import {selectedColliderAtom, selectedColliderPointIndicesAtom} from "@editor/selection/stores/colliderSelectionStore";
 import executeCommand from "../../../../editor/history/executeCommand";
-import {moveColliderPoint} from "@editor/commands/colliders/moveColliderPoint";
-import {deleteColliderPoint} from "@editor/commands/colliders/deleteColliderPoint";
-import {insertColliderPointAtMouse} from "@editor/commands/colliders/insertColliderPointAtMouse";
-import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
+import {moveColliderPoint} from "@editor/elements/colliders/moveColliderPoint";
+import {deleteColliderPoint} from "@editor/elements/colliders/deleteColliderPoint";
+import {insertColliderPointAtMouse} from "@editor/elements/colliders/insertColliderPointAtMouse";
+import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 
 function drawCollider(
     g: Graphics,

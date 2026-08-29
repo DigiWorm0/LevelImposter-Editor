@@ -4,7 +4,7 @@ import React from "react";
 import GUID, {MaybeGUID} from "../../../../types/common/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import {useAtomValue} from "jotai";
-import {allAssetsAtom} from "@editor/state/assetsStore";
+import {allAssetsAtom} from "@editor/assets/assetsStore";
 
 export interface ImageAssetModalListProps {
     onClick: (id: GUID) => void;

@@ -16,11 +16,11 @@ import mapElementEventEmitter from "../../../utils/canvas/mapElementEventEmitter
 import TransformedMapElementOverlays from "./TransformedMapElementOverlays";
 import Spinner from "../common/Spinner";
 import {useAtomValue} from "jotai";
-import {isColliderSelectedAtom} from "@editor/state/selection/colliderSelectionStore";
+import {isColliderSelectedAtom} from "@editor/selection/stores/colliderSelectionStore";
 import selectElementID from "../../../editor/selection/selectElementID";
 import {useElement} from "@/hooks/elements/useElement";
 import executeCommand from "../../../editor/history/executeCommand";
-import {moveElement} from "@editor/commands/elements/moveElement";
+import {moveElement} from "@editor/elements/moveElement";
 
 export interface MapElementProps {
     elementID: MaybeGUID;

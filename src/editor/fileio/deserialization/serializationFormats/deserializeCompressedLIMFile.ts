@@ -3,9 +3,8 @@ import {unzipSync} from "fflate";
 import GUID from "../../../../types/common/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
-import MapAsset from "../../../../types/li/MapAsset";
 import store from "../../../../shared/store";
-import {allAssetsAtom} from "@editor/state/assetsStore";
+import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
 
 const MAP_JSON_FILENAME = "map.json";
 

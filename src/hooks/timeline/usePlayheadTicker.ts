@@ -2,7 +2,7 @@ import {useTick} from "@pixi/react";
 import {animDurationAtom} from "./useAnimDuration";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import primaryStore from "@/shared/store";
-import {animatorsPlayheadAtom, isAnimatorsPlayingAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom, isAnimatorsPlayingAtom} from "@editor/animators/animatorPlaybackStore";
 import {pauseAnimators} from "@editor/animators/setPlaybackState";
 
 const isAnimLoopingAtom = selectedElementPropAtom("triggerLoop");

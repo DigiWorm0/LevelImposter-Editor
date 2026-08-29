@@ -1,5 +1,5 @@
 import store from "../../shared/store";
-import {localClipboardAtom} from "../state/clipboardStore";
+import {localClipboardAtom} from "./clipboardStore";
 import ClipboardContent, {ClipboardContentType} from "./ClipboardContent";
 
 export default function setClipboard(content: ClipboardContent) {

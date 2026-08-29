@@ -1,5 +1,5 @@
 import {getDefaultStore} from "jotai";
-import {mapAtom} from "../state/documentStore";
+import {mapAtom} from "../documentStore";
 import {Draft, produceWithPatches} from "immer";
 import LIMap from "../../types/li/LIMap";
 import savePatch from "./savePatch";
@@ -26,10 +26,8 @@ export function executeCommands(commands: MapCommand[]) {
     const [nextMap, patches, inversePatches] = produceWithPatches(
         store.get(mapAtom),
         draft => {
-            for (const cmd of commands) {
-                console.log("Executing command:", cmd);
+            for (const cmd of commands)
                 cmd(draft);
-            }
         }
     );
 

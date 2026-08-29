@@ -2,7 +2,7 @@ import BuildOperation from "./BuildOperation";
 import BuildOperationLog from "./BuildOperationLog";
 import {convertImageAssetToDDS} from "@/utils/dds/convertImageToDDS";
 import store from "../../shared/store";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom} from "../assets/assetsStore";
 
 const EncodeToDDSOperation: BuildOperation = {
     async run() {

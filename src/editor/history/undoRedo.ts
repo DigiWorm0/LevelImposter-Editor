@@ -1,6 +1,6 @@
 import store from "../../shared/store";
-import {allPatchesAtom, patchHeadIndexAtom} from "../state/historyStore";
-import {mapAtom} from "../state/documentStore";
+import {allPatchesAtom, patchHeadIndexAtom} from "./historyStore";
+import {mapAtom} from "../documentStore";
 import {applyPatches} from "immer";
 
 export function undo() {

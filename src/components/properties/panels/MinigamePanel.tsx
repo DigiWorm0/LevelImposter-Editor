@@ -12,7 +12,7 @@ import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty
 import MinigamePropColorInput from "../input/minigame/MinigamePropColorInput";
 import {Code, PlayArrow, Warning} from "@mui/icons-material";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 const POLUS_DOOR_MINIGAMES = [
     "sab-doorv_bg",

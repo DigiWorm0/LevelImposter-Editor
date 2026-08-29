@@ -1,6 +1,6 @@
 import {trimUnusedAssets} from "@editor/assets/trimUnusedAssets";
 import serializeCompressedLIMFile from "@editor/fileio/serialization/serializeCompressedLIMFile";
-import {isDocumentSavedAtom, mapAtom} from "@editor/state/documentStore";
+import {isDocumentSavedAtom, mapAtom} from "@editor/documentStore";
 import store from "@/shared/store";
 import {downloadFileFromBlob} from "@editor/fileio/downloadFileFromURL";
 import serializeLIMFile from "@editor/fileio/serialization/serializeLIMFile";

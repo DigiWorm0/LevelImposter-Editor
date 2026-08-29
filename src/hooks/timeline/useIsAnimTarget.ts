@@ -3,7 +3,7 @@ import {atom, useAtomValue} from "jotai";
 import {MaybeGUID} from "@/types/common/GUID";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export const isAnimTargetAtom = atomFamily((id: MaybeGUID) => {
     return atom((get) => {

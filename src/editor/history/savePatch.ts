@@ -1,5 +1,5 @@
 import store from "../../shared/store";
-import {allPatchesAtom, enableHistoryAtom, PatchEntry, patchHeadIndexAtom} from "../state/historyStore";
+import {allPatchesAtom, enableHistoryAtom, PatchEntry, patchHeadIndexAtom} from "./historyStore";
 
 const MAX_HISTORY_LENGTH = 100;
 

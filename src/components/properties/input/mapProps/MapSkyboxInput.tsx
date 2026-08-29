@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {mapPropsAtom} from "@editor/state/documentStore";
+import {mapPropsAtom} from "@editor/documentStore";
 import ColorPicker from "../../../utils/ColorPicker";
 import LIColor from "../../../../types/li/LIColor";
 import {Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";

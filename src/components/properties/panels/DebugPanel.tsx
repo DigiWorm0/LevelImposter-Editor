@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useSettingsValue} from "@/hooks/useSettings";
 import PanelContainer from "../util/PanelContainer";
 import {useAtomValue} from "jotai";
-import {selectedElementAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";
 
 const TYPE_INTENTS = {
     "string": "Primary",

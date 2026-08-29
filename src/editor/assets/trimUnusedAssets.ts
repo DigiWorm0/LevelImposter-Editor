@@ -1,7 +1,7 @@
 import {deleteAsset} from "./deleteAsset";
 import store from "../../shared/store";
-import {allAssetsAtom} from "../state/assetsStore";
-import {mapAtom} from "../state/documentStore";
+import {allAssetsAtom} from "./assetsStore";
+import {mapAtom} from "../documentStore";
 
 export const trimUnusedAssets = () => {
     const map = store.get(mapAtom);

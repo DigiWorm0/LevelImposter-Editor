@@ -2,7 +2,7 @@ import {Box} from "@mui/material";
 import React from "react";
 import Draggable from "react-draggable";
 import {useAtom, useAtomValue} from "jotai";
-import {timelineOffsetAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {timelineOffsetAtom, timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 
 export interface TimelineRowProps {
     header?: React.ReactNode;

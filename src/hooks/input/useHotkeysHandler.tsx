@@ -6,12 +6,12 @@ import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSe
 import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
 import {redo, undo} from "@editor/history/undoRedo";
 import executeCommand from "../../editor/history/executeCommand";
-import {duplicateSelectedElement} from "@editor/commands/elements/duplicateElement";
-import {deleteAnythingSelected} from "@editor/commands/deleteAnythingSelected";
-import {deleteSelectedElements as deleteSelectedElementsCmd} from "../../editor/commands/elements/deleteElement";
+import {duplicateSelectedElement} from "@editor/elements/duplicateElement";
+import {deleteAnythingSelected} from "@editor/selection/commands/deleteAnythingSelected";
+import {deleteSelectedElements as deleteSelectedElementsCmd} from "@editor/elements/deleteElement";
 import {selectAllElements} from "@editor/selection/selectAllElements";
 import primaryStore from "@/shared/store";
-import {deleteSelectedKeyframe as deleteSelectedKeyframeCmd} from "@editor/commands/animators/deleteSelectedKeyframe";
+import {deleteSelectedKeyframe as deleteSelectedKeyframeCmd} from "@editor/animators/commands/deleteSelectedKeyframe";
 import {stepPlayheadToNextKeyframe, stepPlayheadToPrevKeyframe} from "@editor/animators/stepPlayheadToAdjacentKeyframe";
 import {stepPlayheadLeft, stepPlayheadRight} from "@editor/animators/stepPlayhead";
 import {changeTimelineScale} from "@editor/animators/changeTimelineScale";

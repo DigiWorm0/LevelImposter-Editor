@@ -8,7 +8,7 @@ import {RefObject} from "react";
 import getOffsetFromElement from "../../../../utils/canvas/getOffsetFromElement";
 import TickingGraphics from "../../common/TickingGraphics";
 import {useAtomValue} from "jotai";
-import {selectedColliderIDAtom} from "@editor/state/selection/colliderSelectionStore";
+import {selectedColliderIDAtom} from "@editor/selection/stores/colliderSelectionStore";
 import {useElement} from "@/hooks/elements/useElement";
 
 export interface ColliderOverlayProps {

@@ -2,7 +2,7 @@ import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 import {Assets, Texture} from "pixi.js";
 import {assetAtURLAtom} from "../assets/useAssetAtURL";
-import {mapPropsAtom} from "@editor/state/documentStore";
+import {mapPropsAtom} from "@editor/documentStore";
 
 export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => {
     return atom(async (get) => {

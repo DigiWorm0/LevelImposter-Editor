@@ -3,12 +3,12 @@ import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/common/GUID";
 import {atom, useAtom} from "jotai";
 import {lerpBetweenKeyframes} from "./useAnimationPlayback";
-import {mapAtom} from "@editor/state/documentStore";
+import {mapAtom} from "@editor/documentStore";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
-import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import executeCommand from "@editor/history/executeCommand";
-import {addKeyframe} from "@editor/commands/animators/addKeyframe";
-import {updateAnimationKeyframe} from "@editor/commands/animators/updateAnimationKeyframe";
+import {addKeyframe} from "@editor/animators/commands/addKeyframe";
+import {updateAnimationKeyframe} from "@editor/animators/commands/updateAnimationKeyframe";
 
 export interface AnimPropertyValueOptions {
     targetID: GUID;

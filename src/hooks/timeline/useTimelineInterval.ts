@@ -1,5 +1,5 @@
 import {atom} from "jotai";
-import {timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 
 const DEFAULT_TICK_INTERVAL = .01; // seconds
 const BREAK_OFFSET = -0.8; // offset to break the scale into intervals

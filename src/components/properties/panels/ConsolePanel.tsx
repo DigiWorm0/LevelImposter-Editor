@@ -7,7 +7,7 @@ import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInp
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {TripOrigin} from "@mui/icons-material";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function ConsolePanel() {
     const {t} = useTranslation();

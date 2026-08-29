@@ -3,7 +3,7 @@ import {MaybeGUID} from "@/types/common/GUID";
 import {atom, useAtomValue} from "jotai";
 import {spriteFromAtlasAtomFamily} from "./useSpriteFromAtlas";
 import {textureFromURLAtomFamily} from "../texture/useTextureFromURL";
-import {assetsAtomFamily} from "@editor/state/assetsStore";
+import {assetsAtomFamily} from "@editor/assets/assetsStore";
 
 export const spriteAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {

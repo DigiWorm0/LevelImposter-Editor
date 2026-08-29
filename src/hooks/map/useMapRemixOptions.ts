@@ -1,9 +1,9 @@
-import {mapAtom} from "@editor/state/documentStore";
+import {mapAtom} from "@editor/documentStore";
 import {atom, useAtomValue} from "jotai";
 import {mapInfoFromIDAtom} from "../firebase/useMapInfoFromID";
 import {unwrap} from "jotai/utils";
 import GUID from "../../types/common/GUID";
-import {currentUserAtom} from "@editor/state/publishStore";
+import {currentUserAtom} from "@editor/firebase/publish/publishStore";
 
 export const mapRemixOptionsAtom = atom((get) => {
     const map = get(mapAtom);

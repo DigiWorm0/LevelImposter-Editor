@@ -7,7 +7,7 @@ import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {useTranslation} from "react-i18next";
 import {useAtomValue} from "jotai";
-import {isAnimatorsPlayingAtom} from "@editor/state/animatorPlaybackStore";
+import {isAnimatorsPlayingAtom} from "@editor/animators/animatorPlaybackStore";
 import {stopAnimators, toggleAnimators} from "@editor/animators/setPlaybackState";
 
 export default function TimelineHeader() {

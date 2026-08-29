@@ -1,5 +1,5 @@
 import {atom, useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export const availableSpriteAnimTypesAtom = atom((get) => {
     const selectedElemType = get(selectedElementTypeAtom);

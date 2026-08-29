@@ -4,7 +4,7 @@ import {useElementsOfType} from "@/hooks/elements/useElementsOfType";
 import {MaybeGUID} from "@/types/common/GUID";
 import LIElement from "../../../../types/li/LIElement";
 import {useAtomValue} from "jotai";
-import {selectedElementIDAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {useElement} from "@/hooks/elements/useElement";
 
 export interface ElementSelectProps {

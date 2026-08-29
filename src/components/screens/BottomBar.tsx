@@ -6,7 +6,7 @@ import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Resizable from "../utils/Resizable";
 import useIsSelectedElemType from "../../hooks/elements/useIsSelectedElemType";
 import {useAtomValue} from "jotai";
-import {isTimelineVisibleAtom} from "@editor/state/animatorPlaybackStore";
+import {isTimelineVisibleAtom} from "@editor/animators/animatorPlaybackStore";
 
 export default function BottomBar() {
     const timelineRef = React.useRef<HTMLDivElement>(null);

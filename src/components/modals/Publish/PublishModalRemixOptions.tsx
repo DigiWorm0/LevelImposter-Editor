@@ -4,7 +4,7 @@ import {Block, Shuffle} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 import React from "react";
 import {useAtom} from "jotai";
-import {publishRemixIDAtom} from "@editor/state/publishStore";
+import {publishRemixIDAtom} from "@editor/firebase/publish/publishStore";
 
 export default function PublishModalRemixOptions() {
     const remixOptions = useMapRemixOptions();

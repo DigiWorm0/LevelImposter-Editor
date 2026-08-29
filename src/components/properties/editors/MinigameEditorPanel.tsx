@@ -1,7 +1,6 @@
 import {Box, Button, ButtonGroup, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import MapAsset from "../../../types/li/MapAsset";
 import generateGUID from "../../../utils/strings/generateGUID";
 import ImageUpload from "../util/ImageUpload";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
@@ -9,6 +8,7 @@ import SpriteDownloadRawButton from "../../buttons/SpriteDownloadRawButton";
 import SpriteDownloadPNGButton from "../../buttons/SpriteDownloadPNGButton";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import LazyCollapse from "../util/LazyCollapse";
+import {MapAsset} from "@editor/assets/assetsStore";
 
 interface MinigameEditorPanelProps {
     minigameType: string;

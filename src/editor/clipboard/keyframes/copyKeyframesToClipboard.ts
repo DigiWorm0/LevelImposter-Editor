@@ -3,7 +3,7 @@ import store from "@/shared/store";
 import {selectedElementPropAtom} from "@/hooks/elements/useSelectedElemProperty";
 import LIAnimTarget from "@/types/li/LIAnimTarget";
 import setClipboard from "@editor/clipboard/setClipboard";
-import {selectedKeyframeAtom} from "@editor/state/selection/keyframeSelectionStore";
+import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 
 export const copyKeyframesToClipboard = () => {
     // Get anim targets

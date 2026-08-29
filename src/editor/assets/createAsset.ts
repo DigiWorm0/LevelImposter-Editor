@@ -1,7 +1,6 @@
-import MapAsset from "../../types/li/MapAsset";
 import generateGUID from "../../utils/strings/generateGUID";
 import store from "../../shared/store";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom, MapAsset} from "./assetsStore";
 
 export const createAsset = (type: string, blob: Blob) => {
     return registerAsset({

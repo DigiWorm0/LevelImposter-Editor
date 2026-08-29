@@ -2,8 +2,8 @@ import GUID from "@/types/common/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import LIMap from "@/types/li/LIMap";
 import {Draft} from "immer";
-import {getAnimTarget} from "@editor/commands/helpers/getAnimTarget";
-import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import {getAnimTarget} from "@editor/elements/getAnimTarget";
+import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import store from "@/shared/store";
 import LIAnimKeyframe from "@/types/li/LIAnimKeyframe";
 

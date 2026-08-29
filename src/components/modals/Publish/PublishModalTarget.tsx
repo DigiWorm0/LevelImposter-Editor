@@ -15,7 +15,7 @@ import {Add, SwapVert} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 import useUserMaps from "../../../hooks/firebase/useUserMaps";
 import {useAtom} from "jotai";
-import {publishTargetIDAtom} from "@editor/state/publishStore";
+import {publishTargetIDAtom} from "@editor/firebase/publish/publishStore";
 
 export default function PublishModalTarget() {
     const {t} = useTranslation();

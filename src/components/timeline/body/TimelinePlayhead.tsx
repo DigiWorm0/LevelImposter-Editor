@@ -1,5 +1,5 @@
 import {useAtomValue} from "jotai";
-import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 
 const PADDING_LEFT = 6; // px
 

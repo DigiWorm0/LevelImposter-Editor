@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {mapTargetAtom} from "@editor/state/documentStore";
+import {mapTargetAtom} from "@editor/documentStore";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {Place} from "@mui/icons-material";
 import MapTarget from "../../../../types/li/MapTarget";

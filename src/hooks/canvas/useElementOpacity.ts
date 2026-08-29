@@ -6,7 +6,7 @@ import useIsElementSelected from "../elements/useIsElementSelected";
 import {Color} from "pixi.js";
 import {useElement} from "../elements/useElement";
 import {useAtomValue} from "jotai";
-import {isColliderSelectedAtom} from "@editor/state/selection/colliderSelectionStore";
+import {isColliderSelectedAtom} from "@editor/selection/stores/colliderSelectionStore";
 
 const SECONDARY_RENDER_TYPES = [
     "util-starfield",

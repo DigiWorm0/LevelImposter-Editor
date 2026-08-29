@@ -7,7 +7,7 @@ import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
 import {MaybeGUID} from "@/types/common/GUID";
 import {Add} from "@mui/icons-material";
 import executeCommand from "@editor/history/executeCommand";
-import {addAnimTarget} from "@editor/commands/animators/addAnimTarget";
+import {addAnimTarget} from "@editor/animators/commands/addAnimTarget";
 
 export interface AddTargetModalProps {
     isOpen: boolean;

@@ -12,7 +12,7 @@ import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty
 import {Notes, Room, Workspaces} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function TaskPanel() {
     const {t} = useTranslation();

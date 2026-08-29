@@ -3,9 +3,9 @@ import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import generateGUID from "../../../utils/strings/generateGUID";
 import getClipboard from "../getClipboard";
 import ClipboardContent from "../ClipboardContent";
-import {createElement} from "../../commands/elements/createElement";
+import {createElement} from "@editor/elements/createElement";
 import store from "../../../shared/store";
-import {selectedElementIDsAtom} from "../../state/selection/elementSelectionStore";
+import {selectedElementIDsAtom} from "../../selection/stores/elementSelectionStore";
 
 /**
  * Pastes elements from the clipboard into the map.

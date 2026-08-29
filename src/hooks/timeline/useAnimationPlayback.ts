@@ -10,7 +10,7 @@ import {UNITY_SCALE} from "@/types/amongus/Constants";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import useIsAnimTarget from "./useIsAnimTarget";
 import primaryStore from "@/shared/store";
-import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 
 /**
  * Hook to update a Sprite's properties based on animation playback

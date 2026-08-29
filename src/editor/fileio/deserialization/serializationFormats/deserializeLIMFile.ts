@@ -1,9 +1,8 @@
 import LIMap from "../../../../types/li/LIMap";
 import GUID from "../../../../types/common/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
-import MapAsset from "../../../../types/li/MapAsset";
 import store from "../../../../shared/store";
-import {allAssetsAtom} from "@editor/state/assetsStore";
+import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
 
 /**
  * Deserializes a .LIM2 file from an ArrayBuffer

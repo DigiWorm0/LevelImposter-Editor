@@ -2,11 +2,11 @@ import openUploadDialog, {openMultipleUploadDialog} from "../fileio/openUploadDi
 import duplicateBlob from "../fileio/duplicateBlob";
 import parseAssetType from "../fileio/parseAssetType";
 import {convertImageBlobToDDS} from "../dds/convertImageToDDS";
-import MapAsset from "../../types/li/MapAsset";
 import {SUPPORTED_IMAGE_TYPES} from "@/types/amongus/Constants";
 import {createAsset} from "@editor/assets/createAsset";
 import primaryStore from "@/shared/store";
-import {settingsAtom} from "@editor/state/settingsStore";
+import {settingsAtom} from "@editor/settings/settingsStore";
+import {MapAsset} from "@editor/assets/assetsStore";
 
 /**
  * Opens a file dialog to upload image files, processes them,

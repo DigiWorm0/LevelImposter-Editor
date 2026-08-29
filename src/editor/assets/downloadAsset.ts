@@ -3,7 +3,7 @@ import downloadFileFromURL from "../fileio/downloadFileFromURL";
 import store from "../../shared/store";
 import {MaybeGUID} from "@/types/common/GUID";
 import getFileExtension from "../../utils/fileio/getFileExtension";
-import {assetsAtomFamily} from "../state/assetsStore";
+import {assetsAtomFamily} from "./assetsStore";
 
 export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) => {
     // Get Asset

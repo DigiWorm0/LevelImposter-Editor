@@ -10,7 +10,7 @@ import React from "react";
 import LIAnimCurve from "../../../types/li/LIAnimCurve";
 import {useTranslation} from "react-i18next";
 import executeCommand from "@editor/history/executeCommand";
-import {setAnimationCurve} from "@editor/commands/animators/setAnimationCurve";
+import {setAnimationCurve} from "@editor/animators/commands/setAnimationCurve";
 
 export interface TimelinePropertyProps {
     targetID: GUID;

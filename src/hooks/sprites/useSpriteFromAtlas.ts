@@ -4,7 +4,7 @@ import {atom} from "jotai";
 import {spriteAtlasAtomFamily} from "./useSpriteAtlas";
 import {Rectangle, Texture} from "pixi.js";
 import {textureAtomFamily} from "../texture/useTexture";
-import {assetsAtomFamily} from "@editor/state/assetsStore";
+import {assetsAtomFamily} from "@editor/assets/assetsStore";
 
 export const spriteFromAtlasAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {

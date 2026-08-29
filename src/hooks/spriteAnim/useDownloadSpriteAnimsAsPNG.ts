@@ -5,7 +5,7 @@ import {AsyncZippable, zip} from "fflate";
 import {mapAssetAsImageBlobAtomFamily} from "../assets/useMapAssetAsImageBlob";
 import downloadFileFromURL from "@editor/fileio/downloadFileFromURL";
 
-import {elementAtomFamily} from "@editor/state/documentStore";
+import {elementAtomFamily} from "@editor/documentStore";
 
 export interface DownloadAssetPayload {
     elementID: MaybeGUID;

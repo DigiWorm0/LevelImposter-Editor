@@ -1,7 +1,7 @@
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import {Public} from "@mui/icons-material";
-import {mapNameAtom} from "@editor/state/documentStore";
+import {mapNameAtom} from "@editor/documentStore";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import React from "react";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";

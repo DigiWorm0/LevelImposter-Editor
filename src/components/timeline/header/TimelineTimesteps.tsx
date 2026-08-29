@@ -2,7 +2,7 @@ import React from "react";
 import {timelineIntervalAtom} from "../../../hooks/timeline/useTimelineInterval";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";
 import {useAtomValue} from "jotai";
-import {timelineOffsetAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {timelineOffsetAtom, timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 
 const LABEL_INTERVAL = 1; // ticks
 

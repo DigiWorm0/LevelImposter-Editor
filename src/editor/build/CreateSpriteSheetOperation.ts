@@ -2,18 +2,17 @@ import BuildOperation from "./BuildOperation";
 import BuildOperationLog from "./BuildOperationLog";
 import potpack, {PotpackStats} from "potpack";
 import {Application, Sprite, Texture} from "pixi.js";
-import MapAsset from "../../types/li/MapAsset";
 import {textureFromURLAtomFamily} from "@/hooks/texture/useTextureFromURL";
 import LISpriteAtlas from "../../types/li/LISpriteAtlas";
 import generateGUID from "../../utils/strings/generateGUID";
-import {spritesAtlasesAtom} from "../state/documentStore";
+import {spritesAtlasesAtom} from "../documentStore";
 import {encodeBitmapToDDS} from "@/utils/dds/convertImageToDDS";
-import {allAssetsAtom} from "../state/assetsStore";
+import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import store from "../../shared/store";
 import primaryStore from "../../shared/store";
 import {createAsset} from "../assets/createAsset";
 import executeCommand from "../history/executeCommand";
-import {replaceMapAsset} from "../commands/elements/replaceMapAsset";
+import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
 
 const MAX_BATCH_SIZE = 100;
 const MAX_SPRITE_SIZE = 2048; // Skips assets larger than this

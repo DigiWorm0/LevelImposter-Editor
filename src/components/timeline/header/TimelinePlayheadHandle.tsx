@@ -2,7 +2,7 @@ import Draggable from "react-draggable";
 import React from "react";
 import {useSettingsValue} from "@/hooks/useSettings";
 import {useAtomValue} from "jotai";
-import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/animators/animatorPlaybackStore";
 import {setPlaybackState} from "@editor/animators/setPlaybackState";
 import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
 

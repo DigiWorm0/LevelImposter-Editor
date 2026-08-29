@@ -1,6 +1,6 @@
 import {atomFamily} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
-import {allElementsAtom} from "@editor/state/documentStore";
+import {allElementsAtom} from "@editor/documentStore";
 
 export const elementTypeCountAtom = atomFamily((typeFilter: string) => {
     return atom((get) => {

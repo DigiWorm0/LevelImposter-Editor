@@ -6,7 +6,7 @@ import {atom, useAtomValue} from "jotai";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import {HighlightAlt} from "@mui/icons-material";
 import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
-import {selectedElementAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";
 
 const hasColliderAtom = atom((get) => {
     const element = get(selectedElementAtom);

@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import {allElementsAtom} from "@editor/state/documentStore";
+import {allElementsAtom} from "@editor/documentStore";
 import LIElement from "../../types/li/LIElement";
 import compareArrays from "../../utils/common/compareArrays";
 

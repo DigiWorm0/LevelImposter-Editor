@@ -1,5 +1,5 @@
 import store from "@/shared/store";
-import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
 import {setPlaybackState} from "@editor/animators/setPlaybackState";
 

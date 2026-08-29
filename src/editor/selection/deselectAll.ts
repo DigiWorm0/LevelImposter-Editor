@@ -1,6 +1,6 @@
-import {selectedColliderIDAtom, selectedColliderPointIndicesAtom} from "../state/selection/colliderSelectionStore";
+import {selectedColliderIDAtom, selectedColliderPointIndicesAtom} from "./stores/colliderSelectionStore";
 import store from "../../shared/store";
-import {selectedElementIDsAtom} from "../state/selection/elementSelectionStore";
+import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
 export const deselectAll = () => {
     // Deselect the collider point indexes

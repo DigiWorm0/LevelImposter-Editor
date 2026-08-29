@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {IconButton, Tooltip} from "@mui/material";
 import {Redo} from "@mui/icons-material";
 import React from "react";
-import {canRedoAtom} from "@editor/state/historyStore";
+import {canRedoAtom} from "@editor/history/historyStore";
 import {redo} from "@editor/history/undoRedo";
 import {useAtomValue} from "jotai";
 

@@ -1,6 +1,5 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import MapAsset from "../../../../types/li/MapAsset";
 import ImageUpload from "../../util/ImageUpload";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import LazyCollapse from "../../util/LazyCollapse";
@@ -13,7 +12,8 @@ import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
 import SpriteConvertToDDSButton from "../../../buttons/SpriteConvertToDDSButton";
 import EditAnimationButton from "../../../buttons/EditAnimationButton";
 import {useAtomValue} from "jotai";
-import {selectedElementTypeAtom} from "@editor/state/selection/elementSelectionStore";
+import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
+import {MapAsset} from "@editor/assets/assetsStore";
 
 const TYPE_BLACKLIST = [
     "util-player",

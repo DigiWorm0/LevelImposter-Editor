@@ -4,9 +4,8 @@ import GUID from "../../../../types/common/GUID";
 import generateGUID from "../../../../utils/strings/generateGUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
-import MapAsset from "../../../../types/li/MapAsset";
 import store from "../../../../shared/store";
-import {allAssetsAtom} from "@editor/state/assetsStore";
+import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
 
 /**
  * Deserializes a legacy .LIM/.JSON file from an ArrayBuffer

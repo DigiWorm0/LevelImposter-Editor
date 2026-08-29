@@ -1,7 +1,7 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
-import {allElementsAtom} from "@editor/state/documentStore";
+import {allElementsAtom} from "@editor/documentStore";
 import compareArrays from "../../utils/common/compareArrays";
 
 export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
