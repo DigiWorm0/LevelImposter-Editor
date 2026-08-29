@@ -1,9 +1,9 @@
 import LIClipboard from "../../../types/li/LIClipboard";
 import LIElement from "../../../types/li/LIElement";
-import {clipboardAtom} from "@/hooks/input/useClipboard";
 import store from "../../../shared/store";
 import {mapAtom} from "../../state/documentStore";
 import {selectedElementsAtom} from "../../state/selection/elementSelectionStore";
+import setClipboard from "@editor/clipboard/setClipboard";
 
 export const copyElementsToClipboard = (elements: LIElement[]) => {
     // Create a clipboard object
@@ -34,7 +34,7 @@ export const copyElementsToClipboard = (elements: LIElement[]) => {
         addChildren(element);
 
     // Set the clipboard
-    store.set(clipboardAtom, clipboardData);
+    setClipboard(clipboardData);
 };
 
 export const copySelectedElementsToClipboard = () => {

@@ -4,15 +4,16 @@ import store from "../../shared/store";
 import {allAssetsAtom} from "../state/assetsStore";
 
 export const createAsset = (type: string, blob: Blob) => {
-    const newAsset: MapAsset = {
+    return registerAsset({
         id: generateGUID(),
         type,
         blob,
         url: URL.createObjectURL(blob),
-    };
+    });
+};
 
+export const registerAsset = (mapAsset: MapAsset) => {
     const allAssets = store.get(allAssetsAtom);
-    store.set(allAssetsAtom, [...allAssets, newAsset]);
-
-    return newAsset;
+    store.set(allAssetsAtom, [...allAssets, mapAsset]);
+    return mapAsset;
 };

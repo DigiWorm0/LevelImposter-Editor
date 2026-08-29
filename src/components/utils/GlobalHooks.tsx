@@ -5,8 +5,8 @@ import useEmbed from "../../hooks/embed/useEmbed";
 import useEmbedScrollCapture from "../../hooks/embed/useEmbedScrollCapture";
 import useIDParam from "../../hooks/embed/useIDParam";
 import useHotkeysHandler from "../../hooks/input/useHotkeysHandler";
-import {_useUserAtom} from "@/hooks/firebase/useUser";
 import {useAtomsDebugValue} from "jotai-devtools";
+import {useSyncGlobalUserState} from "@/hooks/firebase/useSyncGlobalUserState";
 
 export default function GlobalHooks() {
     const {i18n} = useTranslation();
@@ -15,7 +15,7 @@ export default function GlobalHooks() {
     useHotkeysHandler();
     useEmbedScrollCapture();
     useIDParam();
-    _useUserAtom();
+    useSyncGlobalUserState();
     useAtomsDebugValue();
     // useSortMap(); // TODO: Fix Z sorting
 

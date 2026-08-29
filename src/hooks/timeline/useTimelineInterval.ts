@@ -1,5 +1,5 @@
-import {atom, useAtomValue} from "jotai";
-import {timelineScaleAtom} from "./useTimelineScale";
+import {atom} from "jotai";
+import {timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
 
 const DEFAULT_TICK_INTERVAL = .01; // seconds
 const BREAK_OFFSET = -0.8; // offset to break the scale into intervals
@@ -18,7 +18,3 @@ export const timelineIntervalAtom = atom((get) => {
     // Return the interval
     return Math.pow(10, -exponent);
 });
-
-export default function useTimelineInterval() {
-    return useAtomValue(timelineIntervalAtom);
-}

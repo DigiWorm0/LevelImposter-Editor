@@ -6,14 +6,14 @@ import {useTranslation} from "react-i18next";
 import {mapAtom} from "@editor/state/documentStore";
 import {Box, Button, ButtonGroup, CardMedia, Typography} from "@mui/material";
 import {CloudUpload, Refresh} from "@mui/icons-material";
-import useMapThumbnail from "../../hooks/firebase/publish/useMapThumbnail";
-import useMapThumbnailURL from "../../hooks/firebase/publish/useMapThumbnailURL";
-import {useAtomValue} from "jotai";
+import useMapThumbnailURL from "../../hooks/firebase/useMapThumbnailURL";
+import {useAtom, useAtomValue} from "jotai";
+import {publishThumbnailAtom} from "@editor/state/publishStore";
 
 export default function ThumbnailEdit() {
     const map = useAtomValue(mapAtom);
     const toaster = useToaster();
-    const [thumbnail, setThumbnail] = useMapThumbnail();
+    const [thumbnail, setThumbnail] = useAtom(publishThumbnailAtom);
     const thumbnailURL = useMapThumbnailURL();
     const {t} = useTranslation();
 

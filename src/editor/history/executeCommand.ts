@@ -26,8 +26,10 @@ export function executeCommands(commands: MapCommand[]) {
     const [nextMap, patches, inversePatches] = produceWithPatches(
         store.get(mapAtom),
         draft => {
-            for (const cmd of commands)
+            for (const cmd of commands) {
+                console.log("Executing command:", cmd);
                 cmd(draft);
+            }
         }
     );
 

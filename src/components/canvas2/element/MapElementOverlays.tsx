@@ -20,7 +20,7 @@ import {useTick} from "@pixi/react";
 import {Container} from "pixi.js";
 import SelectionOutlineOverlay from "../overlays/SelectionOutlineOverlay";
 import StarfieldAreaOverlay from "../overlays/StarfieldAreaOverlay";
-import screenToWorld from "../../../hooks/canvas/useScreenToWorld";
+import screenToWorld from "@editor/viewport/screenToWorld";
 
 interface MapElementOverlaysProps {
     elementID: MaybeGUID;

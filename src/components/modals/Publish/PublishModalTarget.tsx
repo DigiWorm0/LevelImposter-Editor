@@ -11,14 +11,15 @@ import {
     Typography
 } from "@mui/material";
 import React from "react";
-import { Add, SwapVert } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
+import {Add, SwapVert} from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
 import useUserMaps from "../../../hooks/firebase/useUserMaps";
-import usePublishTarget from "../../../hooks/firebase/publish/usePublishTarget";
+import {useAtom} from "jotai";
+import {publishTargetIDAtom} from "@editor/state/publishStore";
 
 export default function PublishModalTarget() {
-    const { t } = useTranslation();
-    const [targetID, setTargetID] = usePublishTarget();
+    const {t} = useTranslation();
+    const [targetID, setTargetID] = useAtom(publishTargetIDAtom);
     const maps = useUserMaps();
 
     // Revert non-existant map ID
@@ -38,7 +39,7 @@ export default function PublishModalTarget() {
                         onClick={() => setTargetID(null)}
                     >
                         <ListItemIcon>
-                            <Add />
+                            <Add/>
                         </ListItemIcon>
                         <ListItemText
                             primary={"New"}
@@ -47,7 +48,7 @@ export default function PublishModalTarget() {
                     </ListItemButton>
                 </ListItem>
 
-                <Divider sx={{ m: 1 }} />
+                <Divider sx={{m: 1}}/>
 
                 <Box
                     sx={{
@@ -65,18 +66,18 @@ export default function PublishModalTarget() {
                                 selected={targetID === map.id}
                             >
                                 <ListItemIcon>
-                                    <SwapVert />
+                                    <SwapVert/>
                                 </ListItemIcon>
                                 <ListItemText
-                                    sx={{ ms: 2 }}
+                                    sx={{ms: 2}}
                                     primary={map.name}
                                     secondary={map.description.substring(0, 100) + "..."}
                                 />
                                 {!map.isPublic && (
-                                    <Chip color="error" label={t("map.unlisted")} size={"small"} />
+                                    <Chip color="error" label={t("map.unlisted")} size={"small"}/>
                                 )}
                                 {map.isVerified && (
-                                    <Chip color="warning" label={t("map.verified")} size={"small"} />
+                                    <Chip color="warning" label={t("map.verified")} size={"small"}/>
                                 )}
                             </ListItemButton>
                         </ListItem>
@@ -91,13 +92,13 @@ export default function PublishModalTarget() {
                 >
                     {maps === undefined && (
                         <CircularProgress
-                            sx={{ m: 1 }}
+                            sx={{m: 1}}
                             color={"inherit"}
                         />
                     )}
                     {maps?.length === 0 && (
                         <Typography
-                            sx={{ p: 2 }}
+                            sx={{p: 2}}
                             variant={"body2"}
                             color={"text.secondary"}
                         >
@@ -106,7 +107,7 @@ export default function PublishModalTarget() {
                     )}
                 </Box>
 
-                <Divider sx={{ m: 1 }} />
+                <Divider sx={{m: 1}}/>
             </List>
         </Box>
     );

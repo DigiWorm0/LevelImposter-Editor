@@ -5,6 +5,7 @@ import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
 
 export const mapAtom = atom({...DEFAULT_MAP});
+export const isDocumentSavedAtom = atom(true);
 
 // Computed Atoms
 export const mapIDAtom = focusAtom(mapAtom, (optic) => optic.prop("id"));

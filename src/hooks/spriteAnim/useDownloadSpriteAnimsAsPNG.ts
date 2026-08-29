@@ -3,7 +3,7 @@ import {atom, useSetAtom} from "jotai";
 import {MaybeGUID} from "@/types/common/GUID";
 import {AsyncZippable, zip} from "fflate";
 import {mapAssetAsImageBlobAtomFamily} from "../assets/useMapAssetAsImageBlob";
-import saveFileFromURL from "../../utils/fileio/saveFileFromURL";
+import downloadFileFromURL from "@editor/fileio/downloadFileFromURL";
 
 import {elementAtomFamily} from "@editor/state/documentStore";
 
@@ -70,7 +70,7 @@ export const downloadSpriteAnimsAsPNGAtom = atom(null, async (get, _, payload: D
     // Download Asset
     const fileName = `${payload.fileName ?? payload.elementID}.zip`;
     const fileURL = URL.createObjectURL(compressedBlob);
-    saveFileFromURL(fileURL, fileName);
+    downloadFileFromURL(fileURL, fileName);
     URL.revokeObjectURL(fileURL);
 });
 

@@ -3,17 +3,17 @@ import {Pause, PlayArrow, Repeat, Stop} from "@mui/icons-material";
 import TimelineRow from "../TimelineRow";
 import TimelineTimesteps from "./TimelineTimesteps";
 import TimelinePlayheadHandle from "./TimelinePlayheadHandle";
-import useIsAnimPlaying from "../../../hooks/timeline/useIsAnimPlaying";
-import {useSetPlayhead} from "@/hooks/timeline/usePlayhead";
 import TimelineTimestamp from "./TimelineTimestamp";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import {useTranslation} from "react-i18next";
+import {useAtomValue} from "jotai";
+import {isAnimatorsPlayingAtom} from "@editor/state/animatorPlaybackStore";
+import {stopAnimators, toggleAnimators} from "@editor/animators/setPlaybackState";
 
 export default function TimelineHeader() {
     const {t} = useTranslation();
     const [isLoop, setLoop] = useSelectedElemProp("triggerLoop");
-    const [playAnim, setPlayAnim] = useIsAnimPlaying();
-    const setPlayhead = useSetPlayhead();
+    const playAnim = useAtomValue(isAnimatorsPlayingAtom);
 
     return (
         <TimelineRow
@@ -27,15 +27,10 @@ export default function TimelineHeader() {
                     }}
                 >
                     <Box sx={{flexShrink: 0}}>
-                        <IconButton onClick={() => setPlayAnim(!playAnim)}>
+                        <IconButton onClick={() => toggleAnimators()}>
                             {playAnim ? <Pause/> : <PlayArrow/>}
                         </IconButton>
-                        <IconButton
-                            onClick={() => {
-                                setPlayAnim(false);
-                                setPlayhead(0);
-                            }}
-                        >
+                        <IconButton onClick={() => stopAnimators()}>
                             <Stop/>
                         </IconButton>
 
@@ -54,7 +49,6 @@ export default function TimelineHeader() {
         >
             <TimelineTimesteps/>
             <TimelinePlayheadHandle/>
-
         </TimelineRow>
     );
 }

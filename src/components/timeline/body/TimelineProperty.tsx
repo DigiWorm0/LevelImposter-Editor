@@ -13,7 +13,9 @@ import useAnimTargetProperty from "../../../hooks/timeline/useAnimTargetProperty
 import DiamondSVG from "../icons/DiamondSVG";
 import DiamondSVGOutline from "../icons/DiamondSVGOutline";
 import TimelineCurveButton from "./TimelineCurveButton";
-import useSelectedKeyframe from "../../../hooks/timeline/useSelectedKeyframe";
+import {useAtomValue} from "jotai";
+import {selectedKeyframeAtom} from "@editor/state/selection/keyframeSelectionStore";
+import {selectKeyframe as _selectKeyframe} from "@editor/selection/selectKeyframe";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
@@ -30,21 +32,16 @@ export default function TimelineProperty(props: TimelinePropertyProps) {
     const [animTargetProperty, setAnimTargetProperty] = useAnimTargetProperty(props);
     const isCurrentKeyframe = useIsCurrentKeyframe(props);
     const [value, setValue] = useAnimPropertyValue(props);
-    const [selectedKeyframe, setSelectedKeyframe] = useSelectedKeyframe();
+    const selectedKeyframe = useAtomValue(selectedKeyframeAtom);
 
     const defaultValue = PROPERTY_DEFAULTS[props.property] ?? 0;
     const isSelected = props.targetID === selectedKeyframe?.targetID && props.property === selectedKeyframe?.property;
 
-    const selectKeyframe = (id: number) => {
-
-        // Select keyframe
-        setSelectedKeyframe({
-            keyframeID: id,
-            targetID: props.targetID,
-            property: props.property
-        });
-
-    };
+    const selectKeyframe = (id: number) => _selectKeyframe({
+        keyframeID: id,
+        targetID: props.targetID,
+        property: props.property
+    });
 
     const setKeyframeT = (id: number, t: number) => {
         if (!animTargetProperty)

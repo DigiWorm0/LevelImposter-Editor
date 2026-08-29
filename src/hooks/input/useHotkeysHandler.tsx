@@ -1,48 +1,36 @@
-import useSaveMap from "../fileio/useSaveMap";
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
 import {Scope} from "./useFocus";
 import useFocusedHotkeys from "./useFocusedHotkeys";
-import useRemoveSelectedKeyframe from "../timeline/useRemoveSelectedKeyframe";
-import useJumpToAdjacentKeyframe from "./useJumpToAdjacentKeyframe";
-import useJumpTimelineTick from "./useJumpTimelineTick";
-import {useChangeTimelineScale} from "../timeline/useChangeTimelineScale";
-import {useSetIsAnimPlaying} from "../timeline/useIsAnimPlaying";
-import {useSetPlayhead} from "../timeline/usePlayhead";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
-import useCopyKeyframe from "./useCopyKeyframe";
-import usePasteKeyframe from "./usePasteKeyframe";
-import useTogglePlayback from "../timeline/useTogglePlayback";
 import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
 import {redo, undo} from "@editor/history/undoRedo";
 import executeCommand from "../../editor/history/executeCommand";
 import {duplicateSelectedElement} from "@editor/commands/elements/duplicateElement";
 import {deleteAnythingSelected} from "@editor/commands/deleteAnythingSelected";
 import {deleteSelectedElements as deleteSelectedElementsCmd} from "../../editor/commands/elements/deleteElement";
-import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
 import {selectAllElements} from "@editor/selection/selectAllElements";
 import primaryStore from "@/shared/store";
+import {deleteSelectedKeyframe as deleteSelectedKeyframeCmd} from "@editor/commands/animators/deleteSelectedKeyframe";
+import {stepPlayheadToNextKeyframe, stepPlayheadToPrevKeyframe} from "@editor/animators/stepPlayheadToAdjacentKeyframe";
+import {stepPlayheadLeft, stepPlayheadRight} from "@editor/animators/stepPlayhead";
+import {changeTimelineScale} from "@editor/animators/changeTimelineScale";
+import {setPlaybackState, toggleAnimators} from "@editor/animators/setPlaybackState";
+import {copyKeyframesToClipboard} from "@editor/clipboard/keyframes/copyKeyframesToClipboard";
+import {pasteKeyframesFromClipboard} from "@editor/clipboard/keyframes/pasteKeyframesFromClipboard";
+import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
+import {downloadMapFile} from "@editor/fileio/downloadMapFile";
 
 const TIMELINE_DELTA_SCALE = 100;
 
 export default function useHotkeysHandler() {
-    const pasteElements = () => pasteElementsFromClipboard();
     const duplicate = () => executeCommand(duplicateSelectedElement());
     const deleteSelected = () => executeCommand(deleteAnythingSelected());
     const deleteSelectedElements = () => executeCommand(deleteSelectedElementsCmd());
-    const removeSelectedKeyframe = useRemoveSelectedKeyframe();
+    const deleteSelectedKeyframe = () => executeCommand(deleteSelectedKeyframeCmd());
     const [settings, setSettings] = useSettings();
     const toaster = useToaster();
-    const saveMap = useSaveMap();
-    const jumpToAdjacentKeyframe = useJumpToAdjacentKeyframe();
-    const jumpTimelineTick = useJumpTimelineTick();
-    const changeTimelineScale = useChangeTimelineScale();
-    const togglePlayback = useTogglePlayback();
-    const setPlayAnim = useSetIsAnimPlaying();
-    const setPlayhead = useSetPlayhead();
     const setLoop = useSetSelectedElemProp("triggerLoop");
-    const copyKeyframe = useCopyKeyframe();
-    const pasteKeyframe = usePasteKeyframe();
 
     // Timeline Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -54,33 +42,30 @@ export default function useHotkeysHandler() {
     }, Scope.Timeline);
 
     // Pan
-    useFocusedHotkeys("up", () => jumpToAdjacentKeyframe(false), Scope.Timeline);
-    useFocusedHotkeys("down", () => jumpToAdjacentKeyframe(true), Scope.Timeline);
-    useFocusedHotkeys("left", () => jumpTimelineTick(true), Scope.Timeline);
-    useFocusedHotkeys("right", () => jumpTimelineTick(false), Scope.Timeline);
+    useFocusedHotkeys("up", () => stepPlayheadToNextKeyframe(), Scope.Timeline);
+    useFocusedHotkeys("down", () => stepPlayheadToPrevKeyframe(), Scope.Timeline);
+    useFocusedHotkeys("left", () => stepPlayheadLeft(), Scope.Timeline);
+    useFocusedHotkeys("right", () => stepPlayheadRight(), Scope.Timeline);
 
     // Zoom
     useFocusedHotkeys("ctrl+equal", () => changeTimelineScale(TIMELINE_DELTA_SCALE), Scope.Timeline);
     useFocusedHotkeys("ctrl+minus", () => changeTimelineScale(-TIMELINE_DELTA_SCALE), Scope.Timeline);
 
     // Delete Keyframe
-    useFocusedHotkeys("delete", removeSelectedKeyframe, Scope.Timeline);
-    useFocusedHotkeys("backspace", removeSelectedKeyframe, Scope.Timeline);
+    useFocusedHotkeys("delete", deleteSelectedKeyframe, Scope.Timeline);
+    useFocusedHotkeys("backspace", deleteSelectedKeyframe, Scope.Timeline);
 
     // Playback
-    useFocusedHotkeys("space", togglePlayback, Scope.Timeline);
-    useFocusedHotkeys("ctrl+space", () => {
-        setPlayAnim(false);
-        setPlayhead(0);
-    }, Scope.Timeline);
+    useFocusedHotkeys("space", toggleAnimators, Scope.Timeline);
+    useFocusedHotkeys("ctrl+space", () => setPlaybackState(false, 0), Scope.Timeline);
     useFocusedHotkeys("ctrl+l", () => {
         const isLoop = primaryStore.get(selectedElementPropAtom("triggerLoop"));
         setLoop(!isLoop);
     }, Scope.Timeline);
 
     // Copy/Paste Keyframe
-    useFocusedHotkeys("ctrl+c", copyKeyframe, Scope.Timeline);
-    useFocusedHotkeys("ctrl+v", pasteKeyframe, Scope.Timeline);
+    useFocusedHotkeys("ctrl+c", copyKeyframesToClipboard, Scope.Timeline);
+    useFocusedHotkeys("ctrl+v", pasteKeyframesFromClipboard, Scope.Timeline);
 
     // Grid Snap
     useFocusedHotkeys("ctrl+g", () => {
@@ -102,7 +87,7 @@ export default function useHotkeysHandler() {
 
     // Clipboard
     useFocusedHotkeys("ctrl+c", copySelectedElementsToClipboard, Scope.Canvas, Scope.SceneGraph);
-    useFocusedHotkeys("ctrl+v", pasteElements, Scope.Canvas, Scope.SceneGraph);
+    useFocusedHotkeys("ctrl+v", pasteElementsFromClipboard, Scope.Canvas, Scope.SceneGraph);
     useFocusedHotkeys("ctrl+x", () => {
         copySelectedElementsToClipboard();
         deleteSelectedElements();
@@ -116,7 +101,8 @@ export default function useHotkeysHandler() {
     useFocusedHotkeys("backspace", deleteSelected, Scope.Canvas, Scope.SceneGraph);
 
     // Save
-    useFocusedHotkeys("ctrl+s", saveMap);
+    useFocusedHotkeys("ctrl+s", () => downloadMapFile("standard"));
+    useFocusedHotkeys("ctrl+shift+s", () => downloadMapFile("compressed"));
 
     // Undo/Redo
     useFocusedHotkeys("ctrl+z", undo);

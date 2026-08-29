@@ -18,6 +18,8 @@ export const animDurationAtom = atom((get) => {
         // Iterate through properties
         for (const property in animTarget.properties) {
             const propertyData = animTarget.properties[property as LIAnimPropertyType];
+            if (!propertyData)
+                continue;
 
             // Iterate through keyframes
             for (const keyframe of propertyData.keyframes) {

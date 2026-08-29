@@ -1,12 +1,10 @@
 import TimelineHeader from "./header/TimelineHeader";
 import TimelineBody from "./body/TimelineBody";
-import {useChangeTimelineScale} from "@/hooks/timeline/useChangeTimelineScale";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import {Alert, AlertTitle} from "@mui/material";
+import {changeTimelineScale} from "@editor/animators/changeTimelineScale";
 
 export default function Timeline() {
-    const changeTimelineScale = useChangeTimelineScale();
-
     return (
         <ErrorBoundary
             fallback={

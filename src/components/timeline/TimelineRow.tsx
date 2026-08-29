@@ -1,8 +1,8 @@
 import {Box} from "@mui/material";
 import React from "react";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
-import useTimelineOffset from "../../hooks/timeline/useTimelineOffset";
+import {useAtom, useAtomValue} from "jotai";
+import {timelineOffsetAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
 
 export interface TimelineRowProps {
     header?: React.ReactNode;
@@ -12,8 +12,8 @@ export interface TimelineRowProps {
 
 export default function TimelineRow(props: TimelineRowProps) {
     const nodeRef = React.useRef<HTMLDivElement>(null);
-    const timelineScale = useTimelineScaleValue();
-    const [timelineOffset, setTimelineOffset] = useTimelineOffset();
+    const timelineScale = useAtomValue(timelineScaleAtom);
+    const [timelineOffset, setTimelineOffset] = useAtom(timelineOffsetAtom);
 
     return (
         <Box

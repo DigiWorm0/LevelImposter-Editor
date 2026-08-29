@@ -1,7 +1,7 @@
 import {mapAtom} from "@editor/state/documentStore";
 import MapCard from "../../utils/MapCard";
 import React from "react";
-import useMapThumbnailURL from "../../../hooks/firebase/publish/useMapThumbnailURL";
+import useMapThumbnailURL from "../../../hooks/firebase/useMapThumbnailURL";
 import {useAtomValue} from "jotai";
 
 export default function PublishModalUploadPreview() {

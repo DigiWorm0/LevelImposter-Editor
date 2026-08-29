@@ -2,13 +2,13 @@ import Vector2 from "../../../types/transform/Vector2";
 import {MapCommand} from "../../history/executeCommand";
 import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
 import {viewportAtom} from "@/hooks/canvas/useViewport";
-import screenToWorld from "../../../hooks/canvas/useScreenToWorld";
 import {getReverseOffsetToElement} from "@/utils/canvas/getOffsetFromElement";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import getDistanceFromLine from "../../../utils/common/getDistanceFromLine";
 import store from "../../../shared/store";
 import {getSelectedCollider} from "../helpers/getSelectedCollider";
 import {selectedElementIDAtom} from "../../state/selection/elementSelectionStore";
+import screenToWorld from "@editor/viewport/screenToWorld";
 
 // TODO: Fetch and store `mouseScreenPosition` ourselves instead of passing it in as an argument.
 export const insertColliderPointAtMouse = (mouseScreenPosition: Vector2): MapCommand => map => {

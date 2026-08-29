@@ -3,20 +3,19 @@ import {useTranslation} from "react-i18next";
 import {CircularProgress, IconButton, Tooltip} from "@mui/material";
 import {FolderZip} from "@mui/icons-material";
 import useToaster from "../../hooks/useToaster";
-import useSaveCompressedMap from "../../hooks/fileio/useSaveCompressedMap";
+import {downloadMapFile} from "@editor/fileio/downloadMapFile";
 
 export default function CompressMapButton() {
     const {t} = useTranslation();
-    const saveMap = useSaveCompressedMap();
     const toaster = useToaster();
     const [isSaving, setIsSaving] = React.useState(false);
 
     const onClick = React.useCallback(() => {
         setIsSaving(true);
-        saveMap()
+        downloadMapFile("compressed")
             .catch(toaster.error)
             .finally(() => setIsSaving(false));
-    }, [saveMap, toaster]);
+    }, [toaster]);
 
     return (
         <Tooltip title={t("map.saveCompressed")}>

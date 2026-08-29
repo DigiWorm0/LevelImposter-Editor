@@ -4,9 +4,10 @@ import {Button} from "@mui/material";
 import GenericModal from "./GenericModal";
 import ElementSelect from "../properties/input/select/ElementSelect";
 import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
-import useAddAnimTarget from "../../hooks/timeline/useAddAnimTarget";
 import {MaybeGUID} from "@/types/common/GUID";
 import {Add} from "@mui/icons-material";
+import executeCommand from "@editor/history/executeCommand";
+import {addAnimTarget} from "@editor/commands/animators/addAnimTarget";
 
 export interface AddTargetModalProps {
     isOpen: boolean;
@@ -17,13 +18,12 @@ export default function AddTargetModal(props: AddTargetModalProps) {
     const {t} = useTranslation();
     const [selectedID, setSelectedID] = React.useState<MaybeGUID>(undefined);
     const [animTargets,] = useSelectedElemProp("animTargets");
-    const addAnimTarget = useAddAnimTarget();
 
     const onAddTarget = () => {
         if (!selectedID)
             return;
 
-        addAnimTarget(selectedID);
+        executeCommand(addAnimTarget(selectedID));
         props.onClose();
     };
 

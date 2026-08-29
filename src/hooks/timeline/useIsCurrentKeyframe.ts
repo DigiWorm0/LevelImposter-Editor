@@ -3,7 +3,7 @@ import {atom, useAtomValue} from "jotai";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/common/GUID";
 import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
-import {playheadAtom} from "@/hooks/timeline/usePlayhead";
+import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
 
 export interface CurrentKeyframeOptions {
     targetID: GUID;
@@ -22,7 +22,7 @@ export const isCurrentKeyframeAtomFamily = atomFamily((options: CurrentKeyframeO
         return null;
 
     // Get keyframe at the current playhead
-    const playhead = get(playheadAtom);
+    const playhead = get(animatorsPlayheadAtom);
     const keyframe = keyframes.find(kf => kf.t === playhead);
 
     // Return whether the keyframe is the current keyframe

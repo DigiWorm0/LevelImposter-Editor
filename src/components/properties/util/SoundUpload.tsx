@@ -2,7 +2,6 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import generateGUID from "../../../utils/strings/generateGUID";
 import openUploadDialog from "../../../utils/fileio/openUploadDialog";
-import useAudioDownmixer from "../../../hooks/audio/useAudioDownmixer";
 import useToaster from "../../../hooks/useToaster";
 import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
 import LISound from "../../../types/li/LISound";
@@ -11,6 +10,9 @@ import AudioEditor from "./AudioEditor";
 import {Check, CloudUpload, Delete} from "@mui/icons-material";
 import {Button, ButtonGroup, MenuItem, Select, Typography} from "@mui/material";
 import {createAsset} from "@editor/assets/createAsset";
+import {useSettingsValue} from "@/hooks/useSettings";
+import {downmixAudio} from "@editor/assets/audio/downmixAudio";
+import duplicateBlob from "@/utils/fileio/duplicateBlob";
 
 interface SoundUploadProps {
     sound?: LISound;
@@ -28,11 +30,16 @@ export default function SoundUpload(props: SoundUploadProps) {
     const {t} = useTranslation();
     const [isHovering, setIsHovering] = React.useState(false);
     const toaster = useToaster();
-    const downmixAudio = useAudioDownmixer();
+    const {isAudioDownmixEnabled} = useSettingsValue();
 
     const onUploadClick = React.useCallback(() => {
-        return openUploadDialog("audio/*").then((blob) => {
-            downmixAudio(blob).then((downmixedBlob) => {
+        return openUploadDialog("audio/*")
+            .then((blob) => {
+                if (isAudioDownmixEnabled)
+                    return downmixAudio(blob);
+                else
+                    return duplicateBlob(blob);
+            }).then((downmixedBlob) => {
                 const asset = createAsset("audio", downmixedBlob);
                 props.onChange({
                     id: props.sound?.id ?? generateGUID(),
@@ -42,8 +49,7 @@ export default function SoundUpload(props: SoundUploadProps) {
                     isPreset: false
                 });
             }).catch(toaster.error);
-        });
-    }, [props.onChange]);
+    }, [props.onChange, isAudioDownmixEnabled]);
 
     const onFileDrop = React.useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();

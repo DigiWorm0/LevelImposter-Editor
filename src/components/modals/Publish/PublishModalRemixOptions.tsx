@@ -1,13 +1,14 @@
 import useMapRemixOptions from "../../../hooks/map/useMapRemixOptions";
-import useCurrentRemixID from "../../../hooks/map/useCurrentRemixID";
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {Block, Shuffle} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 import React from "react";
+import {useAtom} from "jotai";
+import {publishRemixIDAtom} from "@editor/state/publishStore";
 
 export default function PublishModalRemixOptions() {
     const remixOptions = useMapRemixOptions();
-    const [remixID, setRemixID] = useCurrentRemixID();
+    const [remixID, setRemixID] = useAtom(publishRemixIDAtom);
     const {t} = useTranslation();
 
     if (!remixOptions || remixOptions.length === 0)

@@ -9,6 +9,8 @@ import EaseInOutSVG from "../icons/EaseInOutSVG";
 import React from "react";
 import LIAnimCurve from "../../../types/li/LIAnimCurve";
 import {useTranslation} from "react-i18next";
+import executeCommand from "@editor/history/executeCommand";
+import {setAnimationCurve} from "@editor/commands/animators/setAnimationCurve";
 
 export interface TimelinePropertyProps {
     targetID: GUID;
@@ -18,25 +20,25 @@ export interface TimelinePropertyProps {
 const MENU_ITEMS: LIAnimCurve[] = ["linear", "easeIn", "easeOut", "easeInOut"];
 
 export default function TimelineCurveButton(props: TimelinePropertyProps) {
-    const [curve, setCurve] = useCurrentCurve(props);
+    const currentCurve = useCurrentCurve(props);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const {t} = useTranslation();
 
     return (
         <>
-            {curve && (
+            {currentCurve && (
                 <InputAdornment position={"end"}>
                     <Tooltip
-                        title={t(`anim.${curve}`)}
+                        title={t(`anim.${currentCurve}`)}
                     >
                         <IconButton
                             sx={{padding: "5px"}}
                             onClick={(e: Event) => setAnchorEl(e.currentTarget as HTMLElement)}
                         >
-                            {curve === "linear" && <LinearSVG size={18}/>}
-                            {curve === "easeIn" && <EaseInSVG size={18}/>}
-                            {curve === "easeOut" && <EaseOutSVG size={18}/>}
-                            {curve === "easeInOut" && <EaseInOutSVG size={18}/>}
+                            {currentCurve === "linear" && <LinearSVG size={18}/>}
+                            {currentCurve === "easeIn" && <EaseInSVG size={18}/>}
+                            {currentCurve === "easeOut" && <EaseOutSVG size={18}/>}
+                            {currentCurve === "easeInOut" && <EaseInOutSVG size={18}/>}
                         </IconButton>
                     </Tooltip>
                 </InputAdornment>
@@ -54,16 +56,20 @@ export default function TimelineCurveButton(props: TimelinePropertyProps) {
                     horizontal: "right",
                 }}
             >
-                {MENU_ITEMS.map((item) => (
+                {MENU_ITEMS.map((curve) => (
                     <MenuItem
-                        key={item}
+                        key={curve}
                         value={"linear"}
                         onClick={() => {
-                            setCurve(item);
+                            executeCommand(setAnimationCurve(
+                                props.targetID,
+                                props.property,
+                                curve
+                            ));
                             setAnchorEl(null);
                         }}
                     >
-                        {t(`anim.${item}`)}
+                        {t(`anim.${curve}`)}
                     </MenuItem>
                 ))}
             </Popover>

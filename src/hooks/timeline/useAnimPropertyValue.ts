@@ -2,10 +2,13 @@ import {atomFamily} from "jotai/utils";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/common/GUID";
 import {atom, useAtom} from "jotai";
-import {playheadAtom} from "./usePlayhead";
-import {addKeyframeAtom} from "./useAddKeyframe";
-import {adjecentKeyframeAtomFamily} from "./useAdjecentKeyframe";
 import {lerpBetweenKeyframes} from "./useAnimationPlayback";
+import {mapAtom} from "@editor/state/documentStore";
+import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
+import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
+import executeCommand from "@editor/history/executeCommand";
+import {addKeyframe} from "@editor/commands/animators/addKeyframe";
+import {updateAnimationKeyframe} from "@editor/commands/animators/updateAnimationKeyframe";
 
 export interface AnimPropertyValueOptions {
     targetID: GUID;
@@ -13,60 +16,48 @@ export interface AnimPropertyValueOptions {
 }
 
 export const animPropertyValueAtom = atomFamily(
-    (options: AnimPropertyValueOptions) => {
-        const prevKeyframeAtom = adjecentKeyframeAtomFamily({
-            targetID: options.targetID,
-            property: options.property,
-            direction: "prev"
-        });
-        const nextKeyframeAtom = adjecentKeyframeAtomFamily({
-            targetID: options.targetID,
-            property: options.property,
-            direction: "next"
-        });
+    (options: AnimPropertyValueOptions) => atom((get) => {
+        // Get the previous/next keyframe
+        const map = get(mapAtom);
+        const prevKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "prev");
+        const nextKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "next");
 
-        return atom((get) => {
-            // Get the current playhead time
-            const playhead = get(playheadAtom);
+        // Get the current playhead time
+        const playhead = get(animatorsPlayheadAtom);
 
-            // Get the previous/next keyframe
-            const prevKeyframe = get(prevKeyframeAtom);
-            const nextKeyframe = get(nextKeyframeAtom);
+        // If there is no next keyframe, return the last keyframe
+        if (!nextKeyframe)
+            return prevKeyframe?.value;
 
-            // If there is no next keyframe, return the last keyframe
-            if (!nextKeyframe)
-                return prevKeyframe?.value;
+        // If there is no previous keyframe, return the first keyframe
+        if (!prevKeyframe)
+            return nextKeyframe.value;
 
-            // If there is no previous keyframe, return the first keyframe
-            if (!prevKeyframe)
-                return nextKeyframe.value;
+        // Interpolate between the two keyframes
+        return lerpBetweenKeyframes(prevKeyframe, nextKeyframe, playhead);
+    }, (get, set, value: number) => {
+        // Find a keyframe at the current playhead
+        const playhead = get(animatorsPlayheadAtom);
+        const map = get(mapAtom);
+        const prevKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "prev");
+        const keyframe = prevKeyframe && prevKeyframe.t === playhead ? prevKeyframe : null;
 
-            // Interpolate between the two keyframes
-            return lerpBetweenKeyframes(prevKeyframe, nextKeyframe, playhead);
-        }, (get, set, value: number) => {
-            // Find a keyframe at the current playhead
-            const playhead = get(playheadAtom);
-            const prevKeyframe = get(prevKeyframeAtom);
-            const keyframe = prevKeyframe && prevKeyframe.t === playhead ? prevKeyframe : null;
+        // If there is no keyframe, create a new keyframe
+        if (!keyframe)
+            executeCommand(addKeyframe(
+                options.targetID,
+                options.property,
+                value
+            ));
 
-            // If there is no keyframe, create a new keyframe
-            if (!keyframe) {
-                set(addKeyframeAtom, {
-                    targetID: options.targetID,
-                    property: options.property,
-                    value
-                });
-            }
-
-            // Otherwise, edit the existing keyframe
-            else {
-                set(prevKeyframeAtom, {
-                    ...keyframe,
-                    value
-                });
-            }
-        });
-    },
+        // Otherwise, edit the existing keyframe
+        else
+            executeCommand(updateAnimationKeyframe(
+                options.targetID,
+                options.property,
+                value
+            ));
+    }),
     (a, b) => a.targetID === b.targetID && a.property === b.property
 );
 

@@ -5,7 +5,7 @@ import {Graphics} from "pixi.js";
 import Vector2 from "../../../../types/transform/Vector2";
 import TickingGraphics from "../../common/TickingGraphics";
 import {useSettingsValue} from "@/hooks/useSettings";
-import screenToWorld from "../../../../hooks/canvas/useScreenToWorld";
+import screenToWorld from "@editor/viewport/screenToWorld";
 
 export interface ArrowOverlayProps {
     fromID: GUID;

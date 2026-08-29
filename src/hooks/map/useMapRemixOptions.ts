@@ -1,13 +1,13 @@
 import {mapAtom} from "@editor/state/documentStore";
 import {atom, useAtomValue} from "jotai";
-import {userAtom} from "../firebase/useUser";
 import {mapInfoFromIDAtom} from "../firebase/useMapInfoFromID";
 import {unwrap} from "jotai/utils";
 import GUID from "../../types/common/GUID";
+import {currentUserAtom} from "@editor/state/publishStore";
 
 export const mapRemixOptionsAtom = atom((get) => {
     const map = get(mapAtom);
-    const userID = get(userAtom)?.uid;
+    const userID = get(currentUserAtom)?.uid;
     let mapIDs: GUID[] = [];
 
     if (map.authorID !== userID)

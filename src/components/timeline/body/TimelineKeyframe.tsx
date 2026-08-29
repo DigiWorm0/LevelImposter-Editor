@@ -1,10 +1,11 @@
 import React from "react";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
-import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import DiamondSVG from "../icons/DiamondSVG";
-import {useSetPlayhead} from "@/hooks/timeline/usePlayhead";
 import {useSettingsValue} from "@/hooks/useSettings";
+import {useAtomValue} from "jotai";
+import {timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {setPlaybackState} from "@editor/animators/setPlaybackState";
+import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
 
 export interface TimelineKeyframeIconProps {
     t: number;
@@ -16,9 +17,8 @@ export interface TimelineKeyframeIconProps {
 
 export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
     const nodeRef = React.useRef<HTMLDivElement>(null);
-    const timelineScale = useTimelineScaleValue();
-    const timelineInterval = useTimelineInterval();
-    const setPlayhead = useSetPlayhead();
+    const timelineScale = useAtomValue(timelineScaleAtom);
+    const timelineInterval = useAtomValue(timelineIntervalAtom);
     const {isTimelineSnapEnabled} = useSettingsValue();
     const [currentT, setCurrentT] = React.useState(props.t);
     const [isDragging, setIsDragging] = React.useState(false);
@@ -51,7 +51,7 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
             grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
                 const t = snapToInterval(x / timelineScale);
-                setPlayhead(t);
+                setPlaybackState(false, t);
                 setCurrentT(t);
                 setIsDragging(true);
             }}
@@ -68,7 +68,7 @@ export default function TimelineKeyframe(props: TimelineKeyframeIconProps) {
                 e.preventDefault();
                 e.stopPropagation();
                 props.select();
-                setPlayhead(props.t);
+                setPlaybackState(false, props.t);
             }}
         >
             <div

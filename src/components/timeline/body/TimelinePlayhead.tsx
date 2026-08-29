@@ -1,11 +1,11 @@
-import usePlayhead from "../../../hooks/timeline/usePlayhead";
-import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
+import {useAtomValue} from "jotai";
+import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
 
 const PADDING_LEFT = 6; // px
 
 export default function TimelinePlayhead() {
-    const [t] = usePlayhead();
-    const timelineScale = useTimelineScaleValue();
+    const t = useAtomValue(animatorsPlayheadAtom);
+    const timelineScale = useAtomValue(timelineScaleAtom);
 
     return (
         <div

@@ -1,15 +1,16 @@
 import React from "react";
 import {Paper} from "@mui/material";
-import useTimelineVisible from "../../hooks/timeline/useTimelineVisible";
 import Timeline from "../timeline/Timeline";
 import LazyCollapse from "../properties/util/LazyCollapse";
 import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Resizable from "../utils/Resizable";
 import useIsSelectedElemType from "../../hooks/elements/useIsSelectedElemType";
+import {useAtomValue} from "jotai";
+import {isTimelineVisibleAtom} from "@editor/state/animatorPlaybackStore";
 
 export default function BottomBar() {
     const timelineRef = React.useRef<HTMLDivElement>(null);
-    const [isTimelineVisible] = useTimelineVisible();
+    const isTimelineVisible = useAtomValue(isTimelineVisibleAtom);
     const isAnim = useIsSelectedElemType("util-triggeranim");
     const setFocus = useSetFocus();
 

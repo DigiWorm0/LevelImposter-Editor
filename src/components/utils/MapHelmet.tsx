@@ -1,11 +1,10 @@
-import {mapAtom} from "@editor/state/documentStore";
+import {isDocumentSavedAtom, mapAtom} from "@editor/state/documentStore";
 import {Helmet} from "react-helmet";
-import useIsSaved from "../../hooks/fileio/useIsSaved";
 import {useAtomValue} from "jotai";
 
 export default function MapHelmet() {
     const map = useAtomValue(mapAtom);
-    const [isSaved] = useIsSaved();
+    const isSaved = useAtomValue(isDocumentSavedAtom);
 
     return (
         <Helmet>

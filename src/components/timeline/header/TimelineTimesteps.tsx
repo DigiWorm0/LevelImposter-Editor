@@ -1,16 +1,16 @@
 import React from "react";
-import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
+import {timelineIntervalAtom} from "../../../hooks/timeline/useTimelineInterval";
 import useWindowSize from "../../../hooks/canvas/useWindowSize";
-import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
-import useTimelineOffset from "../../../hooks/timeline/useTimelineOffset";
+import {useAtomValue} from "jotai";
+import {timelineOffsetAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
 
 const LABEL_INTERVAL = 1; // ticks
 
 export default function TimelineTimesteps() {
     const [windowWidth] = useWindowSize();
-    const timelineScale = useTimelineScaleValue();
-    const timelineInterval = useTimelineInterval();
-    const [timelineOffset] = useTimelineOffset();
+    const timelineScale = useAtomValue(timelineScaleAtom);
+    const timelineOffset = useAtomValue(timelineOffsetAtom);
+    const timelineInterval = useAtomValue(timelineIntervalAtom);
 
     const tickCount = Math.ceil(windowWidth / timelineInterval / timelineScale);
 

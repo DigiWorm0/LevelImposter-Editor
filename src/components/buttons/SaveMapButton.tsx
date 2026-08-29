@@ -1,22 +1,21 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useSaveMap from "../../hooks/fileio/useSaveMap";
 import {CircularProgress, IconButton, Tooltip} from "@mui/material";
 import {Save} from "@mui/icons-material";
 import useToaster from "../../hooks/useToaster";
+import {downloadMapFile} from "@editor/fileio/downloadMapFile";
 
 export default function SaveMapButton() {
     const {t} = useTranslation();
-    const saveMap = useSaveMap();
     const toaster = useToaster();
     const [isSaving, setIsSaving] = React.useState(false);
 
     const onClick = React.useCallback(() => {
         setIsSaving(true);
-        saveMap()
+        downloadMapFile("standard")
             .catch(toaster.error)
             .finally(() => setIsSaving(false));
-    }, [saveMap, toaster]);
+    }, [toaster]);
 
     return (
         <Tooltip title={t("map.save")}>

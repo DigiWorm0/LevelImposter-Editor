@@ -1,16 +1,17 @@
-import usePlayhead from "../../../hooks/timeline/usePlayhead";
 import Draggable from "react-draggable";
-import {useTimelineScaleValue} from "@/hooks/timeline/useTimelineScale";
-import useTimelineInterval from "../../../hooks/timeline/useTimelineInterval";
 import React from "react";
 import {useSettingsValue} from "@/hooks/useSettings";
+import {useAtomValue} from "jotai";
+import {animatorsPlayheadAtom, timelineScaleAtom} from "@editor/state/animatorPlaybackStore";
+import {setPlaybackState} from "@editor/animators/setPlaybackState";
+import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
 
 export default function TimelinePlayheadHandle() {
     const nodeRef = React.useRef<HTMLDivElement>(null);
-    const [t, setT] = usePlayhead();
-    const timelineScale = useTimelineScaleValue();
-    const timelineInterval = useTimelineInterval();
     const {isTimelineSnapEnabled} = useSettingsValue();
+    const t = useAtomValue(animatorsPlayheadAtom);
+    const timelineScale = useAtomValue(timelineScaleAtom);
+    const timelineInterval = useAtomValue(timelineIntervalAtom);
 
     // Snaps a time value to the timeline interval
     const snapToInterval = (t: number) => {
@@ -30,7 +31,7 @@ export default function TimelinePlayheadHandle() {
             grid={isTimelineSnapEnabled ? [timelineScale * timelineInterval, 0] : undefined}
             onDrag={(_, {x}) => {
                 const t = snapToInterval(x / timelineScale);
-                setT(t);
+                setPlaybackState(false, t);
             }}
             onMouseDown={(e) => {
                 e.preventDefault();

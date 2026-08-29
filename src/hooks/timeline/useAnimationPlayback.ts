@@ -1,7 +1,6 @@
 import {RefObject} from "react";
 import {Container} from "pixi.js";
 import {useTick} from "@pixi/react";
-import {playheadAtom} from "./usePlayhead";
 import GUID from "../../types/common/GUID";
 import {animTargetAtomFamily} from "./useAnimTarget";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
@@ -11,6 +10,7 @@ import {UNITY_SCALE} from "@/types/amongus/Constants";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import useIsAnimTarget from "./useIsAnimTarget";
 import primaryStore from "@/shared/store";
+import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
 
 /**
  * Hook to update a Sprite's properties based on animation playback
@@ -33,7 +33,7 @@ export default function useAnimationPlayback(
             return;
 
         // Get playback state
-        const t = primaryStore.get(playheadAtom);
+        const t = primaryStore.get(animatorsPlayheadAtom);
 
         // Update each property of the anim target
         ref.current.x = getPropertyValueAtTime(id, "x", t) * UNITY_SCALE;

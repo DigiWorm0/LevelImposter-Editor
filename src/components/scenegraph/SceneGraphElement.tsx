@@ -7,10 +7,10 @@ import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import {SceneGraphListItem} from "./SceneGraphListItem";
-import useJumpToElement from "../../hooks/canvas/useJumpToElement";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
 import selectElementID from "../../editor/selection/selectElementID";
 import {useElement} from "@/hooks/elements/useElement";
+import {panToElement} from "@/editor/viewport/panToElement";
 
 export interface SceneGraphElementProps {
     elementID: MaybeGUID;
@@ -25,7 +25,6 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const element = useElement(props.elementID);
     const childIDs = useElementChildIDs(props.elementID);
     const [isDragOver, setDragOver] = React.useState(false);
-    const jumpToElement = useJumpToElement();
 
     if (element === undefined)
         return null;
@@ -105,7 +104,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                             operation
                         );
                     }}
-                    onDoubleClick={() => jumpToElement(element.id)}
+                    onDoubleClick={() => panToElement(element.id)}
                     dense
                     selected={isSelected || isDragOver}
                 >

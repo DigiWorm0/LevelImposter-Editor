@@ -5,5 +5,5 @@ import LIAnimProperty from "./LIAnimProperty";
 
 export default interface LIAnimTarget {
     id: GUID;
-    properties: { [key in LIAnimPropertyType]: LIAnimProperty };
+    properties: Partial<Record<LIAnimPropertyType, LIAnimProperty>>;
 }

@@ -2,13 +2,14 @@ import {Button} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
-import useTimelineVisible from "../../../hooks/timeline/useTimelineVisible";
 import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import {useAtom} from "jotai";
+import {isTimelineVisibleAtom} from "@editor/state/animatorPlaybackStore";
 
 export default function AnimationPanel() {
     const {t} = useTranslation();
     const isAnim = useIsSelectedElemType("util-triggeranim");
-    const [isTimelineVisible, setTimelineVisible] = useTimelineVisible();
+    const [isTimelineVisible, setTimelineVisible] = useAtom(isTimelineVisibleAtom);
 
     if (!isAnim)
         return null;

@@ -1,8 +1,9 @@
-import usePlayhead from "../../../hooks/timeline/usePlayhead";
 import React from "react";
+import {useAtomValue} from "jotai";
+import {animatorsPlayheadAtom} from "@editor/state/animatorPlaybackStore";
 
 export default function TimelineTimestamp() {
-    const [t] = usePlayhead();
+    const t = useAtomValue(animatorsPlayheadAtom);
 
     const timestamp = React.useMemo(() => {
         const hours = Math.floor(t / 3600);
