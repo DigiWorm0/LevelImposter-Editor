@@ -1,5 +1,5 @@
 import {UNITY_SCALE} from "@/types/amongus/Constants";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {useElement} from "@/hooks/elements/useElement";
 
 export interface SelectedObjectErrorProps {

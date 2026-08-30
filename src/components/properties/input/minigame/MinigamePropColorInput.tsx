@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import {Box} from "@mui/material";
 import React from "react";
 import LIColor from "../../../../types/li/LIColor";
 import ColorPicker from "../../../utils/ColorPicker";
@@ -18,7 +18,7 @@ export default function MinigamePropColorInput(props: ColorInputProps) {
     const value = minigameProps?.[props.prop] as LIColor;
 
     return (
-        <Box sx={{ textAlign: "center" }}>
+        <Box sx={{textAlign: "center"}}>
             <ColorPicker
                 fill
                 minimal

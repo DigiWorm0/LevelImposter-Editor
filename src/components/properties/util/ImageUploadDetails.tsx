@@ -1,5 +1,5 @@
 import {Box} from "@mui/material";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import useAsset from "../../../hooks/assets/useAsset";
 import ImageUploadDetailsRow from "./ImageUploadDetailsRow";
 import useSprite from "../../../hooks/sprites/useSprite";

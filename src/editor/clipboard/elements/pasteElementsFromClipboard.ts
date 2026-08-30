@@ -1,6 +1,5 @@
 import executeCommand, {EditorCommand} from "../../history/executeCommand";
-import GUID, {MaybeGUID} from "../../../types/common/GUID";
-import generateGUID from "../../../utils/strings/generateGUID";
+import GUID, {generateGUID, MaybeGUID} from "../../../shared/types/GUID";
 import getClipboard from "../getClipboard";
 import ClipboardContent from "../ClipboardContent";
 import {createElement} from "@editor/elements/createElement";

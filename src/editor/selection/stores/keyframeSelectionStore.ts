@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import {atom} from "jotai";
 

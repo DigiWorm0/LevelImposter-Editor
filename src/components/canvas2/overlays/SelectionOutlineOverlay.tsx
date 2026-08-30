@@ -1,6 +1,6 @@
 import React from "react";
 import useViewportScale from "../../../hooks/canvas/useViewportScale";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";

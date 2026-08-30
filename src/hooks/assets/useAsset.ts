@@ -1,5 +1,5 @@
 import {useAtomValue} from "jotai";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {assetsAtomFamily} from "@editor/assets/assetsStore";
 
 // Hooks

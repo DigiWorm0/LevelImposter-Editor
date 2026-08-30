@@ -1,4 +1,4 @@
-import Vector2 from "../../../types/transform/Vector2";
+import Vector2 from "../../../shared/types/Vector2";
 import {EditorCommand} from "../../history/executeCommand";
 import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
 import {viewportAtom} from "@/hooks/canvas/useViewport";

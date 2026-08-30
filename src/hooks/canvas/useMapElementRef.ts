@@ -1,4 +1,4 @@
-import GUID, {MaybeGUID} from "../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../shared/types/GUID";
 import React from "react";
 import {Container} from "pixi.js";
 

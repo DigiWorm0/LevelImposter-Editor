@@ -1,9 +1,9 @@
 import {Box, Typography} from "@mui/material";
 import React from "react";
 import LISound from "../../../types/li/LISound";
-import generateGUID from "../../../utils/strings/generateGUID";
 import SoundUpload from "../util/SoundUpload";
 import useSelectedElemProp, {useSetSelectedElemProp} from "../../../hooks/elements/useSelectedElemProperty";
+import {generateGUID} from "@/shared/types/GUID";
 
 interface SoundEditorProps {
     title: string;

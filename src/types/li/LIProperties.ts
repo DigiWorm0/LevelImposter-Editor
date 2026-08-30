@@ -1,4 +1,4 @@
-import GUID from "../common/GUID";
+import GUID from "@shared/types/GUID";
 import LICollider from "./LICollider";
 import LIColor from "./LIColor";
 import LIMinigameProps from "./LIMinigameProps";

@@ -4,7 +4,7 @@ import {Button} from "@mui/material";
 import GenericModal from "./GenericModal";
 import ElementSelect from "../properties/input/select/ElementSelect";
 import useSelectedElemProp from "../../hooks/elements/useSelectedElemProperty";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {Add} from "@mui/icons-material";
 import executeCommand from "@editor/history/executeCommand";
 import {addAnimTarget} from "@editor/animators/commands/addAnimTarget";

@@ -1,5 +1,5 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {atom} from "jotai";
 import {docSpriteAtlasesAtom} from "@editor/document/documentStore";
 

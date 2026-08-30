@@ -1,7 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
-import { connectStorageEmulator, getStorage } from "firebase/storage";
+import {initializeApp} from "firebase/app";
+import {connectAuthEmulator, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider} from "firebase/auth";
+import {connectFirestoreEmulator, getFirestore} from "firebase/firestore";
+import {connectStorageEmulator, getStorage} from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDRFJtLxCXTL7Iq61ldJ8tNi4TOplhMOVY",

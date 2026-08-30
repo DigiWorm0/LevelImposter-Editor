@@ -1,5 +1,5 @@
 import {atomFamily, unwrap} from "jotai/utils";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {atom, useAtomValue} from "jotai";
 import {spriteFromAtlasAtomFamily} from "./useSpriteFromAtlas";
 import {textureFromURLAtomFamily} from "../texture/useTextureFromURL";

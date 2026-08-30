@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {zip} from "fflate";
 import store from "../../../shared/store";
 import {allAssetsAtom} from "@editor/assets/assetsStore";

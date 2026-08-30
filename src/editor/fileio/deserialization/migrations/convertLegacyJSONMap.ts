@@ -1,6 +1,6 @@
 import LIElement from "../../../../types/li/LIElement";
-import generateGUID, {DEFAULT_GUID} from "../../../../utils/strings/generateGUID";
 import {EXILE_IDS} from "@/db/AUElementDB";
+import {EmptyGUID, generateGUID} from "@/shared/types/GUID";
 
 const LEGACY_PORTS: Record<string, string> = {
     "util-player": "util-dummy",
@@ -83,7 +83,7 @@ export default function convertLegacyJSONMap(mapData: any) {
 
     // Update Properties
     mapData.v = 1;
-    mapData.id = DEFAULT_GUID;
+    mapData.id = EmptyGUID;
     mapData.name = mapData.name || "";
     mapData.description = "";
     mapData.isPublic = false;

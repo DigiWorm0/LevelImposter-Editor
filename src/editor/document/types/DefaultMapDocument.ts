@@ -1,5 +1,5 @@
 import {MapDocument} from "@editor/document/types/MapDocument";
-import {DEFAULT_GUID} from "@/utils/strings/generateGUID";
+import {EmptyGUID} from "@/shared/types/GUID";
 
 export const DefaultMapDocument: MapDocument = {
     name: "New Map",
@@ -7,8 +7,8 @@ export const DefaultMapDocument: MapDocument = {
     elements: {},
     spriteAtlases: {},
     scenes: {
-        [DEFAULT_GUID]: {
-            id: DEFAULT_GUID,
+        [EmptyGUID]: {
+            id: EmptyGUID,
             name: "Map Scene",
             childrenIDs: []
         }

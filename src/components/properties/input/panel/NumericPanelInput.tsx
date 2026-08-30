@@ -1,4 +1,4 @@
-import { FormGroup, InputAdornment, Tooltip } from "@mui/material";
+import {FormGroup, InputAdornment, Tooltip} from "@mui/material";
 import React from "react";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
@@ -31,7 +31,7 @@ export interface NumericPanelInputProps {
 
 export default function NumericPanelInput(props: NumericPanelInputProps) {
     return (
-        <FormGroup sx={{ mt: 1, mb: 1 }}>
+        <FormGroup sx={{mt: 1, mb: 1}}>
             <Tooltip title={props.name}>
                 <span>
                     <FlexNumericInput
@@ -43,7 +43,7 @@ export default function NumericPanelInput(props: NumericPanelInputProps) {
                             size: "small",
                             label: props.name,
                             fullWidth: true,
-                            sx: { ps: 1, pe: 1 },
+                            sx: {ps: 1, pe: 1},
                             InputProps: {
                                 startAdornment: props.icon && (
                                     <InputAdornment position={"start"}>

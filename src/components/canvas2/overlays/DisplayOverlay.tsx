@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "@/types/amongus/Constants";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";

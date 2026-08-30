@@ -2,14 +2,14 @@ import {UNITY_SCALE} from "@/types/amongus/Constants";
 import {getSelectOperationFromEvent} from "@/utils/canvas/getSelectOperationFromEvent";
 import Draggable from "../../common/Draggable";
 import React from "react";
-import Vector2 from "../../../../types/transform/Vector2";
-import SelectOperation from "../../../../types/common/SelectOperation";
+import Vector2 from "../../../../shared/types/Vector2";
 import {useSettingsValue} from "@/hooks/useSettings";
 import LICollider from "../../../../types/li/LICollider";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import getOffsetFromElement, {getReverseOffsetToElement} from "../../../../utils/canvas/getOffsetFromElement";
 import {useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
+import {SelectOperation} from "@editor/selection/selectElementID";
 
 export interface ColliderEditorPointProps {
     id: string;

@@ -1,7 +1,7 @@
 import openUploadDialog, {openMultipleUploadDialog} from "../fileio/openUploadDialog";
 import duplicateBlob from "../fileio/duplicateBlob";
 import parseAssetType from "../fileio/parseAssetType";
-import {convertImageBlobToDDS} from "../dds/convertImageToDDS";
+import {convertImageBlobToDDS} from "@editor/assets/dds/convertImageToDDS";
 import {SUPPORTED_IMAGE_TYPES} from "@/types/amongus/Constants";
 import {createAsset} from "@editor/assets/createAsset";
 import primaryStore from "@/shared/store";

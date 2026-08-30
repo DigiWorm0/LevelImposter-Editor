@@ -1,5 +1,5 @@
 import {EditorCommand} from "../history/executeCommand";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {deleteAsset} from "../assets/deleteAsset";
 
 // Return the number of references replaced by the last call to replaceMapAsset

@@ -1,7 +1,7 @@
 import {Box, ImageList, Typography} from "@mui/material";
 import ImageAssetModalButton from "./ImageAssetModalButton";
 import React from "react";
-import GUID, {MaybeGUID} from "../../../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../../../shared/types/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import {useAtomValue} from "jotai";
 import {allAssetsAtom} from "@editor/assets/assetsStore";

@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
-import useSelectedElemProp, { useSelectedElemPropValue } from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp, {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
 
 export interface VentSelectProps {
     prop: "leftVent" | "middleVent" | "rightVent";
 }
 
 export default function VentSelect(props: VentSelectProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [ventID, setVentID] = useSelectedElemProp(props.prop);
     const leftVent = useSelectedElemPropValue("leftVent");
     const middleVent = useSelectedElemPropValue("middleVent");

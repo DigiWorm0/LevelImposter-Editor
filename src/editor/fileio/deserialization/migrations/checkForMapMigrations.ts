@@ -1,6 +1,6 @@
-import {DEFAULT_GUID} from "../../../../utils/strings/generateGUID";
 import {MAP_FORMAT_VER} from "@/types/amongus/Constants";
 import LIMap from "../../../../types/li/LIMap";
+import {EmptyGUID} from "@/shared/types/GUID";
 
 /**
  * Checks for and applies necessary migrations to a LIMap object.
@@ -8,7 +8,7 @@ import LIMap from "../../../../types/li/LIMap";
  * @param map - The LIMap object to check and migrate
  */
 export default function checkForMapMigrations(map: LIMap) {
-    map.id = map.id || DEFAULT_GUID;
+    map.id = map.id || EmptyGUID;
     map.name = map.name || "";
     map.description = map.description || "";
     map.isPublic = map.isPublic || false;

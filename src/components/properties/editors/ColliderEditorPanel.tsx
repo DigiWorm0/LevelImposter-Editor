@@ -2,7 +2,7 @@ import {Check, Delete} from "@mui/icons-material";
 import {Box, Button, ButtonGroup, FormControlLabel, Switch, TextField} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import GUID, {MaybeGUID} from "../../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../../shared/types/GUID";
 import AnimatedCaretIcon from "../../utils/AnimatedCaretIcon";
 import LazyCollapse from "../util/LazyCollapse";
 import ColliderPointsEditorPanel from "./ColliderPointsEditorPanel";

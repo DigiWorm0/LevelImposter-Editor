@@ -1,7 +1,7 @@
 import React from "react";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 import LIMinigameProps from "../../../../types/li/LIMinigameProps";
-import TextPanelInput, { ChildTextInputProps } from "../panel/TextPanelInput";
+import TextPanelInput, {ChildTextInputProps} from "../panel/TextPanelInput";
 
 
 export default function MinigamePropTextInput(props: ChildTextInputProps<LIMinigameProps>) {

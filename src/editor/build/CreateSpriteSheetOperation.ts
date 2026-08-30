@@ -4,14 +4,14 @@ import potpack, {PotpackStats} from "potpack";
 import {Application, Sprite, Texture} from "pixi.js";
 import {textureFromURLAtomFamily} from "@/hooks/texture/useTextureFromURL";
 import LISpriteAtlas from "../../types/li/LISpriteAtlas";
-import generateGUID from "../../utils/strings/generateGUID";
-import {encodeBitmapToDDS} from "@/utils/dds/convertImageToDDS";
+import {encodeBitmapToDDS} from "@editor/assets/dds/convertImageToDDS";
 import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import store from "../../shared/store";
 import primaryStore from "../../shared/store";
 import {createAsset} from "../assets/createAsset";
 import executeCommand from "../history/executeCommand";
 import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
+import {generateGUID} from "@/shared/types/GUID";
 
 const MAX_BATCH_SIZE = 100;
 const MAX_SPRITE_SIZE = 2048; // Skips assets larger than this

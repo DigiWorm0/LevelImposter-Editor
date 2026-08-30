@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import {Divider} from "@mui/material";
 
 export default function NavDivider() {
     return (
@@ -6,7 +6,7 @@ export default function NavDivider() {
             variant={"middle"}
             orientation={"vertical"}
             flexItem
-            sx={{ marginLeft: 1, marginRight: 1 }}
+            sx={{marginLeft: 1, marginRight: 1}}
         />
     );
 }

@@ -1,7 +1,7 @@
 import {Autocomplete, PopperPlacementType, TextField, Tooltip} from "@mui/material";
 import React from "react";
 import {useElementsOfType} from "@/hooks/elements/useElementsOfType";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {useElement} from "@/hooks/elements/useElement";

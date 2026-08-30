@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "@/types/amongus/Constants";
 import {useElement} from "@/hooks/elements/useElement";
 

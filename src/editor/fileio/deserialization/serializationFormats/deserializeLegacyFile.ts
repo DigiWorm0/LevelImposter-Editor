@@ -1,7 +1,6 @@
 import LIMap from "../../../../types/li/LIMap";
 import convertOldLegacyMap from "../migrations/convertLegacyJSONMap";
-import GUID from "../../../../types/common/GUID";
-import generateGUID from "../../../../utils/strings/generateGUID";
+import GUID, {generateGUID} from "../../../../shared/types/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";

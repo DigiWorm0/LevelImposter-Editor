@@ -1,4 +1,4 @@
-import { ExpandLess } from "@mui/icons-material";
+import {ExpandLess} from "@mui/icons-material";
 import React from "react";
 
 export interface AnimatedCaretIconProps {

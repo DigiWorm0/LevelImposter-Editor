@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {draggingElementIDAtom} from "@/hooks/elements/dragging/useDraggingElementID";
 import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
 import {selectedElementIDsAtom} from "@editor/selection/stores/elementSelectionStore";

@@ -1,4 +1,4 @@
-export default interface LISettings {
+export interface EditorSettings {
     isDevMode: boolean;
     isDarkMode: boolean;
     isGridVisible: boolean;
@@ -26,7 +26,7 @@ export default interface LISettings {
     hideGroups?: boolean;
 }
 
-export const DEFAULT_SETTINGS: LISettings = {
+export const DefaultEditorSettings: EditorSettings = {
     isDevMode: false,
     isDarkMode: true,
     isGridVisible: true,

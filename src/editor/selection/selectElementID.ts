@@ -1,11 +1,20 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import store from "../../shared/store";
-import SelectOperation from "../../types/common/SelectOperation";
 import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
 
 import {elementAtomFamily} from "@/hooks/elements/useElement";
 import {deselectAll} from "@editor/selection/deselectAll";
+
+/**
+ * @description Operation to perform when selecting an item within a set.
+ *
+ * - `set`: Deselects all items and selects the specified item.
+ * - `add`: Adds the specified item to the selection without deselecting others.
+ * - `remove`: Removes the specified item from the selection.
+ * - `toggle`: Toggles the selection state of the specified item (selects if not selected, deselects if already selected).
+ */
+export type SelectOperation = "set" | "add" | "remove" | "toggle";
 
 const selectElementID = (
     id: MaybeGUID,

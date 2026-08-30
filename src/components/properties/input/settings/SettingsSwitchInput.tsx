@@ -1,12 +1,12 @@
 import React from "react";
-import LISettings from "../../../../types/li/LISettings";
+import {EditorSettings} from "@editor/settings/EditorSettings";
 import useSettings from "../../../../hooks/useSettings";
 import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 export interface SettingsSwitchInputProps {
     name: string;
-    prop: keyof LISettings;
+    prop: keyof EditorSettings;
     icon?: React.ReactNode;
     experimental?: boolean;
 }
@@ -35,7 +35,7 @@ export default function SettingsSwitchInput(props: SettingsSwitchInputProps) {
 
         <Tooltip
             title={props.experimental ? t("settings.experimentalInfo") : undefined}
-            
+
         >
             <ListItem
                 dense

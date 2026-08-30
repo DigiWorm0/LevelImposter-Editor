@@ -1,6 +1,6 @@
 import LIMap from "@/types/li/LIMap";
-import generateGUID from "@/utils/strings/generateGUID";
 import {MapDocument} from "@editor/document/types/MapDocument";
+import {generateGUID} from "@/shared/types/GUID";
 
 export const convertMapToDocument = (map: LIMap): MapDocument => {
     return {

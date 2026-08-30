@@ -1,4 +1,4 @@
-import { FormGroup, InputAdornment, TextField, Tooltip } from "@mui/material";
+import {FormGroup, InputAdornment, TextField, Tooltip} from "@mui/material";
 import React from "react";
 
 // TODO: Remove duplicate code
@@ -24,7 +24,7 @@ export interface TextPanelInputProps {
 
 export default function TextPanelInput(props: TextPanelInputProps) {
     return (
-        <FormGroup sx={{ mt: 1, mb: 1 }}>
+        <FormGroup sx={{mt: 1, mb: 1}}>
             <Tooltip title={props.name}>
                 <span>
                     <TextField
@@ -34,7 +34,7 @@ export default function TextPanelInput(props: TextPanelInputProps) {
                         size={"small"}
                         label={props.name}
                         fullWidth
-                        sx={{ ps: 1, pe: 1 }}
+                        sx={{ps: 1, pe: 1}}
                         InputProps={{
                             startAdornment: props.icon && (
                                 <InputAdornment position={"start"}>

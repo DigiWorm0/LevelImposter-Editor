@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {
     DEFAULT_PLATFORM_ENTER,
     DEFAULT_PLATFORM_EXIT,

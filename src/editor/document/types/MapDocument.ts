@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import LISpriteAtlas from "@/types/li/LISpriteAtlas";
 import {MapProperties} from "@editor/document/types/MapProperties";
 import {MapElementProperties} from "@editor/document/types/MapElementProperties";

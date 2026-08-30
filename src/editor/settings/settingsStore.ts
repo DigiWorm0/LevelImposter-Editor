@@ -1,17 +1,14 @@
 import {atomWithStorage} from "jotai/utils";
-import LISettings, {DEFAULT_SETTINGS} from "@/types/li/LISettings";
+import {DefaultEditorSettings, EditorSettings} from "@editor/settings/EditorSettings";
 import {atom} from "jotai";
 
-export const rawSettingsAtom = atomWithStorage<Partial<LISettings>>("settings", {});
+export const rawSettingsAtom = atomWithStorage<Partial<EditorSettings>>("settings", {});
 
 // Calculated
 export const settingsAtom = atom((get) => {
     const storageSettings = get(rawSettingsAtom);
-    return {
-        ...DEFAULT_SETTINGS,
-        ...storageSettings
-    } as LISettings;
-}, (get, set, update: Partial<LISettings>) => {
+    return {...DefaultEditorSettings, ...storageSettings} as EditorSettings;
+}, (get, set, update: Partial<EditorSettings>) => {
     const storageSettings = get(rawSettingsAtom);
     set(rawSettingsAtom, {
         ...storageSettings,

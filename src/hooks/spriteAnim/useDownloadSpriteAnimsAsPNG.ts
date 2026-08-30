@@ -1,6 +1,6 @@
 // Trim Assets
 import {atom, useSetAtom} from "jotai";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {AsyncZippable, zip} from "fflate";
 import {mapAssetAsImageBlobAtomFamily} from "../assets/useMapAssetAsImageBlob";
 import downloadFileFromURL from "@editor/fileio/downloadFileFromURL";

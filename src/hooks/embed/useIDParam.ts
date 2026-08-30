@@ -1,5 +1,5 @@
 import React from "react";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import useToaster from "../useToaster";
 import {useTranslation} from "react-i18next";
 import {importMapFromID} from "@editor/firebase/importMapFromID";

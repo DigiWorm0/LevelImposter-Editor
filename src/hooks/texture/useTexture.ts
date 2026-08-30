@@ -1,6 +1,6 @@
 import {atomFamily} from "jotai/utils";
 import {atom} from "jotai";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {textureFromURLAtomFamily} from "./useTextureFromURL";
 import {assetsAtomFamily} from "@editor/assets/assetsStore";
 

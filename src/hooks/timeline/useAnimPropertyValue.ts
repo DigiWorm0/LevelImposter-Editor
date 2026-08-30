@@ -1,6 +1,6 @@
 import {atomFamily} from "jotai/utils";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {atom, useAtom} from "jotai";
 import {lerpBetweenKeyframes} from "./useAnimationPlayback";
 import {documentAtom} from "@editor/document/documentStore";

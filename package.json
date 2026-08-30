@@ -47,7 +47,8 @@
     "react-hotkeys-hook": "^5.1.0",
     "react-i18next": "^15.6.0",
     "react-sortablejs": "^6.1.4",
-    "sortablejs": "^1.15.6"
+    "sortablejs": "^1.15.6",
+    "uuid": "^14.0.2"
   },
   "browserslist": {
     "production": [

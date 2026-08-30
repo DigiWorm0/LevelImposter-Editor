@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {DEFAULT_LADDER_HEIGHTS, DEFAULT_LADDER_OFFSET, LADDER_RADIUS, UNITY_SCALE} from "@/types/amongus/Constants";
 import getOffsetFromElement from "../../../utils/canvas/getOffsetFromElement";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";

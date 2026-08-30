@@ -1,6 +1,6 @@
 import BuildOperation from "./BuildOperation";
 import BuildOperationLog from "./BuildOperationLog";
-import {convertImageAssetToDDS} from "@/utils/dds/convertImageToDDS";
+import {convertImageAssetToDDS} from "@editor/assets/dds/convertImageToDDS";
 import store from "../../shared/store";
 import {allAssetsAtom} from "../assets/assetsStore";
 

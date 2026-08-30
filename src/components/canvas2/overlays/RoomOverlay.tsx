@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {useSettingsValue} from "@/hooks/useSettings";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import {useElement} from "@/hooks/elements/useElement";

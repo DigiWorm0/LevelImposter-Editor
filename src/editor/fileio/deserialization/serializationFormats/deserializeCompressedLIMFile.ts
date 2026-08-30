@@ -1,6 +1,6 @@
 import LIMap from "../../../../types/li/LIMap";
 import {unzipSync} from "fflate";
-import GUID from "../../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";

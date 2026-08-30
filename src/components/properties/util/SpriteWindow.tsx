@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import useSpriteThumbnail from "../../../hooks/sprites/useSpriteThumbnail";
 
 export interface SpriteWindowProps {

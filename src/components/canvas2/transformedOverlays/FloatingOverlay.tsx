@@ -1,5 +1,5 @@
 import React from "react";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "@/types/amongus/Constants";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import StaticMapElement from "../element/StaticMapElement";

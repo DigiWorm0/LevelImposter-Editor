@@ -6,7 +6,7 @@ import useSelectedSpriteAnim from "../useSelectedSpriteAnim";
 import {spriteAtomFamily} from "../../sprites/useSprite";
 import {unwrap} from "jotai/utils";
 import spriteAnimEventEmitter from "../../../utils/spriteAnim/spriteAnimEventEmitter";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import primaryStore from "@/shared/store";
 
 export default function useSpriteAnimPlayback(

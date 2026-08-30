@@ -2,7 +2,6 @@ import {Add, CameraAlt, HighlightAlt, Person, Room, VolumeUp} from "@mui/icons-m
 import {Button} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import generateGUID from "../../../utils/strings/generateGUID";
 import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
@@ -11,6 +10,7 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 import {useAtom, useAtomValue} from "jotai";
 import {selectedColliderIDAtom} from "@editor/selection/stores/colliderSelectionStore";
 import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
+import {generateGUID} from "@/shared/types/GUID";
 
 const BLACKLISTED_TYPES = [
     "util-dummy",

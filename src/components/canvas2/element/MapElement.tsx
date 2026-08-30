@@ -1,5 +1,5 @@
 import React from "react";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementOpacity from "../../../hooks/canvas/useElementOpacity";

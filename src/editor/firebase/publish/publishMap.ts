@@ -3,7 +3,6 @@ import {db, storage} from "@/utils/Firebase";
 import serializeCompressedLIMFile from "@editor/fileio/serialization/serializeCompressedLIMFile";
 import {collection, doc, setDoc} from "firebase/firestore";
 import store from "@/shared/store";
-import generateGUID, {DEFAULT_GUID} from "@/utils/strings/generateGUID";
 import {getI18n} from "react-i18next";
 import {
     currentUserAtom,
@@ -14,6 +13,7 @@ import {
 import {documentAtom} from "@editor/document/documentStore";
 import {MapProperties} from "@editor/document/types/MapProperties";
 import {MapDocument} from "@editor/document/types/MapDocument";
+import {EmptyGUID, generateGUID} from "@/shared/types/GUID";
 
 const MAX_VALUE = 2147483647;
 
@@ -34,14 +34,14 @@ export const publishMap = async (onProgress: (percent: number) => void) => {
     await uploadMapFile(modifiedMap, onProgress);
     if (thumbnail)
         modifiedMap.properties.thumbnailURL = await uploadMapThumbnail(
-            modifiedMap.properties.id ?? DEFAULT_GUID,
+            modifiedMap.properties.id ?? EmptyGUID,
             thumbnail,
             onProgress
         );
 
     // Post Metadata
     await postMapMetadata(modifiedMap);
-    return modifiedMap.properties.id ?? DEFAULT_GUID;
+    return modifiedMap.properties.id ?? EmptyGUID;
 };
 
 const checkUserPermissions = () => {
@@ -101,7 +101,7 @@ const uploadMapFile = async (
     if (!user)
         throw new Error("User not logged in");
 
-    const mapStorageRef = ref(storage, `maps/${user.uid}/${map.properties.id ?? DEFAULT_GUID}.lim2`);
+    const mapStorageRef = ref(storage, `maps/${user.uid}/${map.properties.id ?? EmptyGUID}.lim2`);
     const mapBytes = await serializeCompressedLIMFile(map);
     await uploadFileToStorage(mapStorageRef, mapBytes, onProgress);
 };

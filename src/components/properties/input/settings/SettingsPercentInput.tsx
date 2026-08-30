@@ -1,12 +1,12 @@
 import React from "react";
-import LISettings from "../../../../types/li/LISettings";
+import {EditorSettings} from "@editor/settings/EditorSettings";
 import useSettings from "../../../../hooks/useSettings";
-import { InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
 export interface SettingsPercentInputProps {
     name: string;
-    prop: keyof LISettings;
+    prop: keyof EditorSettings;
 
     icon?: React.ReactNode;
     disabled?: boolean;
@@ -35,7 +35,7 @@ export default function SettingsPercentInput(props: SettingsPercentInputProps) {
                     max={100}
                     stepSize={10}
                     inputProps={{
-                        style: { width: 150 },
+                        style: {width: 150},
                         disabled: props.disabled,
                         InputProps: {
                             endAdornment: (<InputAdornment position={"end"}>%</InputAdornment>)
@@ -47,7 +47,7 @@ export default function SettingsPercentInput(props: SettingsPercentInputProps) {
         >
             <ListItemButton>
                 {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
-                <ListItemText primary={props.name} />
+                <ListItemText primary={props.name}/>
             </ListItemButton>
         </ListItem>
     );

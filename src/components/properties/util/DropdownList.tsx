@@ -1,5 +1,5 @@
-import { Button, Divider } from "@mui/material";
-import { ExpandLess } from "@mui/icons-material";
+import {Button, Divider} from "@mui/material";
+import {ExpandLess} from "@mui/icons-material";
 import React from "react";
 import LazyCollapse from "./LazyCollapse";
 
@@ -22,7 +22,7 @@ export interface DropdownListProps<T> {
 
 export default function DropdownList<T>(props: DropdownListProps<T>) {
     return (<>
-        <Divider sx={{ width: "100%" }} />
+        <Divider sx={{width: "100%"}}/>
 
         {props.elements?.map((element) => (
             <div key={element.id as string}>
@@ -33,7 +33,7 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
                     color={element.intent ?? "primary"}
                     onClick={() => props.onSelectID(element.id == props.selectedID ? undefined : element.id)}
                     disabled={element.isDisabled}
-                    style={{ margin: 1 }}
+                    style={{margin: 1}}
                     endIcon={
                         <ExpandLess
                             style={{
@@ -51,7 +51,7 @@ export default function DropdownList<T>(props: DropdownListProps<T>) {
                     {props.renderElement && props.renderElement(element)}
                 </LazyCollapse>
 
-                <Divider sx={{ width: "100%" }} />
+                <Divider sx={{width: "100%"}}/>
             </div>
         ))}
     </>);

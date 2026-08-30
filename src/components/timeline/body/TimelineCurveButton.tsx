@@ -1,5 +1,5 @@
 import useCurrentCurve from "../../../hooks/timeline/useCurrentCurve";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 import {IconButton, InputAdornment, MenuItem, Popover, Tooltip} from "@mui/material";
 import LinearSVG from "../icons/LinearSVG";

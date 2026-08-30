@@ -1,4 +1,4 @@
-import GUID from "../common/GUID";
+import GUID from "@shared/types/GUID";
 import LISpriteAnimationFrame from "./LISpriteAnimationFrame";
 
 export default interface LISpriteAnimation {

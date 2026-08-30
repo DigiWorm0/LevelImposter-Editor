@@ -1,7 +1,7 @@
 import {atomFamily} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {animTargetPropertyAtomFamily} from "./useAnimTargetProperty";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 

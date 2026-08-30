@@ -1,5 +1,5 @@
 import {viewportAtom} from "@/hooks/canvas/useViewport";
-import Vector2 from "../../types/transform/Vector2";
+import Vector2 from "../../shared/types/Vector2";
 
 import primaryStore from "@/shared/store";
 

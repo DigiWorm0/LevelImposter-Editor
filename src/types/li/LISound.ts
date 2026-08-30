@@ -1,4 +1,4 @@
-import GUID from "../common/GUID";
+import GUID from "@shared/types/GUID";
 import LISoundChannel from "./LISoundChannel";
 
 export default interface LISound {

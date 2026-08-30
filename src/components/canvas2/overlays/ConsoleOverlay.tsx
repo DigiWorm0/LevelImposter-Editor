@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {DEFAULT_CONSOLE_RANGE, DEFAULT_SPORE_RANGE, UNITY_SCALE, VENT_CONSOLE_RANGE} from "@/types/amongus/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {useElement} from "@/hooks/elements/useElement";

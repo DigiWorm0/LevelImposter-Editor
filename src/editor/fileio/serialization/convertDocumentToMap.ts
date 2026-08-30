@@ -1,7 +1,7 @@
 import LIMap from "@/types/li/LIMap";
 import {MAP_FORMAT_VER} from "@/types/amongus/Constants";
-import generateGUID from "@/utils/strings/generateGUID";
 import {MapDocument} from "@editor/document/types/MapDocument";
+import {generateGUID} from "@/shared/types/GUID";
 
 // TODO: Version each type as a separate interface
 export const convertDocumentToMap = (doc: MapDocument): LIMap => {

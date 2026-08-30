@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import {EditorCommand} from "@editor/history/executeCommand";
 import LIAnimCurve from "@/types/li/LIAnimCurve";

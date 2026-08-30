@@ -1,4 +1,4 @@
-import { atom, useAtomValue } from "jotai";
+import {atom, useAtomValue} from "jotai";
 
 export const isEmbeddedAtom = atom(() => {
     const params = new URLSearchParams(window.location.search);

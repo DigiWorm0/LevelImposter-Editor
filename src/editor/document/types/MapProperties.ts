@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import MapTarget from "@/types/li/MapTarget";
 import LIMapProperties from "@/types/li/LIMapProperties";
 

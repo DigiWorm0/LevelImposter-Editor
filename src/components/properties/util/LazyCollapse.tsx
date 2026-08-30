@@ -1,4 +1,4 @@
-import { Collapse, CollapseProps } from "@mui/material";
+import {Collapse, CollapseProps} from "@mui/material";
 import React from "react";
 
 export default function LazyCollapse(props: CollapseProps) {

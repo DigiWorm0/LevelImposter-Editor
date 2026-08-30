@@ -1,5 +1,5 @@
 import {atomFamily} from "jotai/utils";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import {animTargetAtomFamily} from "./useAnimTarget";
 import {atom, useAtom} from "jotai";

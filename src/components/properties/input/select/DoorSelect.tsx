@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
@@ -7,7 +7,7 @@ export interface DoorSelectProps {
 }
 
 export default function DoorSelect(props: DoorSelectProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [doorID, setDoorID] = useSelectedElemProp(props.prop);
 
     return (

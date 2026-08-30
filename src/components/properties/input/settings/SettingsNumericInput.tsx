@@ -1,12 +1,12 @@
 import React from "react";
-import LISettings from "../../../../types/li/LISettings";
+import {EditorSettings} from "@editor/settings/EditorSettings";
 import useSettings from "../../../../hooks/useSettings";
 import {InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import FlexNumericInput from "../../util/FlexNumericInput";
 
 export interface SettingsNumericInputProps {
     name: string;
-    prop: keyof LISettings;
+    prop: keyof EditorSettings;
 
     icon?: React.ReactNode;
     disabled?: boolean;

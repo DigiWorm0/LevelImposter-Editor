@@ -1,4 +1,4 @@
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {EditorCommand} from "../history/executeCommand";
 import store from "../../shared/store";
 import {selectedElementIDAtom} from "../selection/stores/elementSelectionStore";

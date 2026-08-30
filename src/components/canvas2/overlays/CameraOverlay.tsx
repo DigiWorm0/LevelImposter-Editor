@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {
     DEFAULT_CAM_ASPECT,
     DEFAULT_CAM_SIZE,

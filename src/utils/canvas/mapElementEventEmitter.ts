@@ -1,5 +1,5 @@
 import EventEmitter from "eventemitter3";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 
 // Defines the events for TypeScript checking
 interface MapElementEvents {

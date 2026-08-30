@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
@@ -8,7 +8,7 @@ export interface RoomSelectProps {
 }
 
 export default function RoomSelect(props: RoomSelectProps) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [parent, setParent] = useSelectedElemProp("parent");
 
     return (

@@ -1,4 +1,4 @@
-import SelectOperation from "../../types/common/SelectOperation";
+import {SelectOperation} from "@editor/selection/selectElementID";
 
 /**
  * Determines the selection operation based on the pointer event and whether the user is dragging.

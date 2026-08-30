@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
 import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
 
 export default function TeleSelect() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [teleporterID, setTeleporterID] = useSelectedElemProp("teleporter");
 
     return (

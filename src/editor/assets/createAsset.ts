@@ -1,6 +1,6 @@
-import generateGUID from "../../utils/strings/generateGUID";
 import store from "../../shared/store";
 import {allAssetsAtom, MapAsset} from "./assetsStore";
+import {generateGUID} from "@/shared/types/GUID";
 
 export const createAsset = (type: string, blob: Blob) => {
     return registerAsset({

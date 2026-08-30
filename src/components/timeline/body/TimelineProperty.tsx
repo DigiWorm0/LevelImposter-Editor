@@ -4,7 +4,7 @@ import TimelineRow from "../TimelineRow";
 import React from "react";
 import FlexNumericInput from "../../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import TimelinePlayhead from "./TimelinePlayhead";
 import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
 import useIsCurrentKeyframe from "../../../hooks/timeline/useIsCurrentKeyframe";

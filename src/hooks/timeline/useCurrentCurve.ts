@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimCurve from "../../types/li/LIAnimCurve";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";

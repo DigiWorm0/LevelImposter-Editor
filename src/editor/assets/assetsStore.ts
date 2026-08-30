@@ -1,6 +1,6 @@
 import {atom} from "jotai";
 import {atomFamily} from "jotai/utils";
-import GUID, {MaybeGUID} from "@/types/common/GUID";
+import GUID, {MaybeGUID} from "@/shared/types/GUID";
 
 export interface MapAsset {
     id: GUID;

@@ -2,12 +2,12 @@ import {Close} from "@mui/icons-material";
 import {Box, Dialog, DialogContent, Divider, IconButton, List} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import generateGUID from "../../../utils/strings/generateGUID";
 import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalSearch from "./AddObjectModalSearch";
 import AUElementDB from "../../../db/AUElementDB";
 import executeCommand from "../../../editor/history/executeCommand";
 import {createElementAtCamera} from "@editor/elements/createElement";
+import {generateGUID} from "@/shared/types/GUID";
 
 // Modal Props
 export interface AddObjectModalProps {

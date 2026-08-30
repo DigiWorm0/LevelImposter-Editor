@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {PLAYER_POS, UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";

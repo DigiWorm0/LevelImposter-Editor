@@ -3,13 +3,13 @@ import createDDSHeader from "./write/createDDSHeader";
 import writeDDSHeader from "./write/writeDDSHeader";
 import writeDXT5Texture from "./write/writeDXT5Texture";
 import writeDXT1Texture from "./write/writeDXT1Texture";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {Application, Sprite, Texture} from "pixi.js";
 import {textureFromURLAtomFamily} from "@/hooks/texture/useTextureFromURL";
 import {textureAtomFamily} from "@/hooks/texture/useTexture";
-import BitmapData from "../../types/texture/BitmapData";
+import BitmapData from "../../../types/texture/BitmapData";
 import {createAsset} from "@editor/assets/createAsset";
-import executeCommand from "../../editor/history/executeCommand";
+import executeCommand from "../../history/executeCommand";
 import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
 import primaryStore from "@/shared/store";
 

@@ -1,4 +1,8 @@
-import BitmapData from "../../types/texture/BitmapData";
+export interface BitmapData {
+    bitmap: Uint8ClampedArray;
+    width: number;
+    height: number;
+}
 
 /**
  * Converts a CanvasRenderingContext2D to BitmapData.

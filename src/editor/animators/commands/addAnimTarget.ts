@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import {EditorCommand} from "@editor/history/executeCommand";
 import {getSelectedElement} from "@editor/elements/getSelectedElement";
 

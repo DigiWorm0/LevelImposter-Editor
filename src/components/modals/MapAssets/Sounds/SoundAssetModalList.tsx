@@ -1,6 +1,6 @@
 import {Box, List, Typography} from "@mui/material";
 import React from "react";
-import GUID, {MaybeGUID} from "../../../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../../../shared/types/GUID";
 import MapAssetModalDropdown from "../MapAssetModalDropdown";
 import SoundAssetModalButton from "./SoundAssetModalButton";
 import {useAtomValue} from "jotai";

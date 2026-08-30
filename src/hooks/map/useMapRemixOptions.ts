@@ -2,7 +2,7 @@ import {docPropertiesAtom} from "@editor/document/documentStore";
 import {atom, useAtomValue} from "jotai";
 import {mapInfoFromIDAtom} from "../firebase/useMapInfoFromID";
 import {unwrap} from "jotai/utils";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {currentUserAtom} from "@editor/firebase/publish/publishStore";
 
 export const mapRemixOptionsAtom = atom((get) => {

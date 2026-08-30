@@ -1,6 +1,6 @@
-import { atomFamily } from "jotai/utils";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { getI18n } from "react-i18next";
+import {atomFamily} from "jotai/utils";
+import {atom, useAtom, useAtomValue} from "jotai";
+import {getI18n} from "react-i18next";
 
 export const searchQueryAtom = atom("");
 export const isTypeVisibleInSearch = atomFamily((type: string) => {

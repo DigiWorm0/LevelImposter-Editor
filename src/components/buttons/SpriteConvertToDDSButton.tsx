@@ -1,9 +1,9 @@
-import {convertImageAssetToDDS} from "@/utils/dds/convertImageToDDS";
+import {convertImageAssetToDDS} from "@editor/assets/dds/convertImageToDDS";
 import {Gradient} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import React from "react";
 import useAsset from "../../hooks/assets/useAsset";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {useTranslation} from "react-i18next";
 
 export interface SpriteConvertToDDSButtonProps {

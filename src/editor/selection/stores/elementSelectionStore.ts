@@ -1,5 +1,5 @@
 import {atom} from "jotai";
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 
 
 import {elementAtomFamily} from "@/hooks/elements/useElement";

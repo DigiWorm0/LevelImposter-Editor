@@ -1,5 +1,5 @@
 import React from "react";
-import GUID, {MaybeGUID} from "../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../shared/types/GUID";
 import mapElementEventEmitter from "../../utils/canvas/mapElementEventEmitter";
 
 export default function useIsHoveringOverMapElement(elementID: MaybeGUID) {

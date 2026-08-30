@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {Ticker} from "pixi.js";
 import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
 import store from "@/shared/store";

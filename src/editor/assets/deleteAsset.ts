@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {allAssetsAtom, MapAsset} from "./assetsStore";
 import store from "../../shared/store";
 

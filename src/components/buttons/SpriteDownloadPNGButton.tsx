@@ -2,7 +2,7 @@ import {Download} from "@mui/icons-material";
 import {Button, CircularProgress, IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import useAsset from "../../hooks/assets/useAsset";
-import GUID from "../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {useTranslation} from "react-i18next";
 import {downloadAssetAsPNG} from "@editor/assets/downloadAsset";
 

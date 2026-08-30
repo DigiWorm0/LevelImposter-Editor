@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import React from "react";
 import useAsset from "../../hooks/assets/useAsset";
 

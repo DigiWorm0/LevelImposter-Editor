@@ -1,5 +1,5 @@
 import {atom} from "jotai";
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import {User} from "firebase/auth";
 import {auth} from "@/utils/Firebase";
 

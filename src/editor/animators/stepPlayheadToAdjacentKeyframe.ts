@@ -4,7 +4,7 @@ import LIAnimTarget from "@/types/li/LIAnimTarget";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import LIAnimKeyframe from "@/types/li/LIAnimKeyframe";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import {setPlaybackState} from "@editor/animators/setPlaybackState";
 import {selectKeyframe} from "@editor/selection/selectKeyframe";
 

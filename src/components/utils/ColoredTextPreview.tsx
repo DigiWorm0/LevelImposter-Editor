@@ -1,6 +1,6 @@
 import React from "react";
-import { Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import {Typography} from "@mui/material";
+import {grey} from "@mui/material/colors";
 
 export interface ColoredTextPreviewProps {
     children: string;
@@ -28,7 +28,7 @@ export default function ColoredTextPreview(props: ColoredTextPreviewProps) {
                     {i !== textSplitByLine.length - 1 && (
                         <Typography variant={"subtitle2"} color={grey[700]} component={"span"}>
                             \n
-                            <br />
+                            <br/>
                         </Typography>
                     )}
                 </React.Fragment>

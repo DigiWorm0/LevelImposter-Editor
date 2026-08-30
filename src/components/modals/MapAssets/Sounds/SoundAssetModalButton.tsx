@@ -1,6 +1,6 @@
 import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import GUID from "../../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import useAsset from "../../../../hooks/assets/useAsset";
 import {VolumeUp} from "@mui/icons-material";
 import toSizeString from "../../../../utils/strings/toSizeString";

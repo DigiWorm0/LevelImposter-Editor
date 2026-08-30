@@ -1,4 +1,4 @@
-import GUID from "../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "@/types/amongus/Constants";
 import useTextureOfType from "../../../hooks/texture/useTextureOfType";
 import {useElement} from "@/hooks/elements/useElement";

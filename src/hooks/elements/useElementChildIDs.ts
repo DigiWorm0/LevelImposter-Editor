@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import GUID, {MaybeGUID} from "../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../shared/types/GUID";
 import compareArrays from "../../utils/common/compareArrays";
 
 import {documentAtom} from "@editor/document/documentStore";

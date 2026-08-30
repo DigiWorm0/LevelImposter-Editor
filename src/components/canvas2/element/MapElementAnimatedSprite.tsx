@@ -1,6 +1,6 @@
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import React from "react";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {PixiReactElementProps} from "@pixi/react";
 import {Sprite} from "pixi.js";
 import useSpriteAnimPlayback from "../../../hooks/spriteAnim/playback/useSpriteAnimPlayback";

@@ -1,5 +1,5 @@
 import LIMap from "../../../../types/li/LIMap";
-import GUID from "../../../../types/common/GUID";
+import GUID from "@shared/types/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";

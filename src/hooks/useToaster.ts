@@ -1,5 +1,5 @@
-import { useSnackbar } from "notistack";
-import { useTranslation } from "react-i18next";
+import {useSnackbar} from "notistack";
+import {useTranslation} from "react-i18next";
 
 export type Toastable = string | Error | any;
 
@@ -10,8 +10,8 @@ const DISABLED_CODES = [
 ];
 
 export default function useToaster() {
-    const { t, i18n } = useTranslation();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const {t, i18n} = useTranslation();
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar();
 
     const toast = (message: Toastable, variant: "success" | "error" | "warning" | "info") => {
 

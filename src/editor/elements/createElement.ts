@@ -6,8 +6,8 @@ import {UNITY_SCALE} from "@/types/amongus/Constants";
 import selectElementID from "../selection/selectElementID";
 import {MapElement} from "@editor/document/types/MapDocument";
 import {MapElementProperties} from "@editor/document/types/MapElementProperties";
-import generateGUID from "@/utils/strings/generateGUID";
 import getElemVisibility, {ElemVisibility} from "@/utils/map/getMapVisibility";
+import {generateGUID} from "@/shared/types/GUID";
 
 export const createElement = (partialElem: Partial<MapElement>): EditorCommand => map => {
     const elem = populatePartialElement(partialElem);

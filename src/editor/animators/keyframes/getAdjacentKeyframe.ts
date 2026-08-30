@@ -1,4 +1,4 @@
-import GUID from "@/types/common/GUID";
+import GUID from "@/shared/types/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import {getAnimTarget} from "@editor/elements/getAnimTarget";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";

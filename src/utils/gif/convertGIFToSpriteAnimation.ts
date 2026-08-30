@@ -1,10 +1,9 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
-import generateGUID from "../strings/generateGUID";
-import {MaybeGUID} from "@/types/common/GUID";
-import canvasToBitmap from "../canvas/canvasToBitmap";
-import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
+import {generateGUID, MaybeGUID} from "@/shared/types/GUID";
+import canvasToBitmap from "@editor/assets/dds/canvasToBitmap";
+import {encodeBitmapToDDS} from "@editor/assets/dds/convertImageToDDS";
 import {createAsset} from "@editor/assets/createAsset";
 import store from "../../shared/store";
 import {assetsAtomFamily} from "@editor/assets/assetsStore";

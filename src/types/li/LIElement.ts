@@ -1,4 +1,4 @@
-import GUID from "../common/GUID";
+import GUID from "@shared/types/GUID";
 import LIProperties from "./LIProperties";
 
 export default interface LIElement {

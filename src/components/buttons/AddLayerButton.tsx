@@ -2,9 +2,9 @@ import {CreateNewFolder} from "@mui/icons-material";
 import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import generateGUID from "../../utils/strings/generateGUID";
 import executeCommand from "../../editor/history/executeCommand";
 import {createElement} from "@editor/elements/createElement";
+import {generateGUID} from "@/shared/types/GUID";
 
 export interface AddLayerButtonProps {
     buttonProps?: React.ComponentProps<typeof IconButton>

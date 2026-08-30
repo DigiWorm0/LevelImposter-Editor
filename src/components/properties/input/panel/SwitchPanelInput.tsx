@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Switch, Tooltip } from "@mui/material";
+import {Box, FormControlLabel, Switch, Tooltip} from "@mui/material";
 import React from "react";
 
 export interface ChildSwitchInputProps<T> {
@@ -23,7 +23,7 @@ export default function SwitchPanelInput(props: SwitchInputProps) {
     if (typeof props.value !== "boolean")
         return null;
     return (
-        <Box sx={{ textAlign: "center" }}>
+        <Box sx={{textAlign: "center"}}>
             <Tooltip title={props.tooltip}>
                 <FormControlLabel
                     control={

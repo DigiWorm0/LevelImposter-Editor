@@ -1,5 +1,5 @@
 import BuildOperationLog from "./BuildOperationLog";
-import GUID, {MaybeGUID} from "../../types/common/GUID";
+import GUID, {MaybeGUID} from "../../shared/types/GUID";
 import BuildOperation from "./BuildOperation";
 import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import executeCommand from "../history/executeCommand";

@@ -3,7 +3,6 @@ import {Container, Graphics} from "pixi.js";
 import {drawColliderFill, drawColliderStroke} from "./ColliderOverlay";
 import LICollider from "../../../../types/li/LICollider";
 import ColliderEditorPoint from "./ColliderEditorPoint";
-import SelectOperation from "../../../../types/common/SelectOperation";
 import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {useAtom, useAtomValue} from "jotai";
 import {selectedColliderAtom, selectedColliderPointIndicesAtom} from "@editor/selection/stores/colliderSelectionStore";
@@ -12,6 +11,7 @@ import {moveColliderPoint} from "@editor/elements/colliders/moveColliderPoint";
 import {deleteColliderPoint} from "@editor/elements/colliders/deleteColliderPoint";
 import {insertColliderPointAtMouse} from "@editor/elements/colliders/insertColliderPointAtMouse";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
+import {SelectOperation} from "@editor/selection/selectElementID";
 
 function drawCollider(
     g: Graphics,

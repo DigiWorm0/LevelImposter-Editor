@@ -1,4 +1,4 @@
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
 import React from "react";
 import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";

@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily, unwrap} from "jotai/utils";
-import {MaybeGUID} from "@/types/common/GUID";
+import {MaybeGUID} from "@/shared/types/GUID";
 import {spriteAtomFamily} from "./useSprite";
 import {Application, Graphics, Sprite} from "pixi.js";
 import drawAlphaGrid from "../../utils/canvas/drawAlphaGrid";

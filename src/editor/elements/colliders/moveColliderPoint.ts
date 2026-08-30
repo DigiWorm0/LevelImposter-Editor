@@ -1,4 +1,4 @@
-import Vector2 from "../../../types/transform/Vector2";
+import Vector2 from "../../../shared/types/Vector2";
 import {getSelectedCollider} from "./getSelectedCollider";
 import {EditorCommand} from "../../history/executeCommand";
 
