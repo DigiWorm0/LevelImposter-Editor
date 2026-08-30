@@ -1,6 +1,6 @@
 import {MaybeGUID} from "@/types/common/GUID";
 import {atomFamily} from "jotai/utils";
-import {atom, useAtom} from "jotai";
+import {atom} from "jotai";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 
@@ -37,7 +37,3 @@ export const animTargetAtomFamily = atomFamily((id: MaybeGUID) => {
         set(animTargetsAtom, newAnimTargets);
     });
 });
-
-export default function useAnimTarget(id: MaybeGUID) {
-    return useAtom(animTargetAtomFamily(id));
-}

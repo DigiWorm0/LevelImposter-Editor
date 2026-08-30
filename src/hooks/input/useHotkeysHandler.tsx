@@ -1,6 +1,5 @@
 import useSettings from "../useSettings";
 import useToaster from "../useToaster";
-import {Scope} from "./useFocus";
 import useFocusedHotkeys from "./useFocusedHotkeys";
 import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSelectedElemProperty";
 import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
@@ -20,6 +19,7 @@ import {copyKeyframesToClipboard} from "@editor/clipboard/keyframes/copyKeyframe
 import {pasteKeyframesFromClipboard} from "@editor/clipboard/keyframes/pasteKeyframesFromClipboard";
 import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
 import {downloadMapFile} from "@editor/fileio/downloadMapFile";
+import {Scope} from "@/editor/focus/focusStore";
 
 const TIMELINE_DELTA_SCALE = 100;
 

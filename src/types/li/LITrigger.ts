@@ -6,5 +6,3 @@ export default interface LITrigger {
     triggerID?: string;
     properties?: Record<string, any>;
 }
-
-export type MaybeLITrigger = LITrigger | undefined;

@@ -1,6 +1,6 @@
 import {selectedElementPropAtom} from "../elements/useSelectedElemProperty";
 import LIAnimTarget from "../../types/li/LIAnimTarget";
-import {atom, useAtomValue} from "jotai";
+import {atom} from "jotai";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 
 export const animDurationAtom = atom((get) => {
@@ -30,7 +30,3 @@ export const animDurationAtom = atom((get) => {
 
     return maxDuration;
 });
-
-export default function useAnimDuration() {
-    return useAtomValue(animDurationAtom);
-}

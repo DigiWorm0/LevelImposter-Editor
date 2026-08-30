@@ -1,12 +1,11 @@
 import SceneGraph from "../scenegraph/SceneGraph";
 import {Paper} from "@mui/material";
 import React from "react";
-import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import Resizable from "../utils/Resizable";
+import {Scope} from "@editor/focus/focusStore";
+import {setFocus} from "@editor/focus/setFocus";
 
 export default function LeftSidebar() {
-    const setFocus = useSetFocus();
-
     return (
         <Resizable
             storageKey={"left-sidebar-width"}

@@ -1,6 +1,6 @@
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
-import {atom, useAtomValue} from "jotai";
+import {atom} from "jotai";
 import {Matrix} from "pixi.js";
 import Transform2D from "../../types/transform/Transform2D";
 import degToRad from "../../utils/common/degToRad";
@@ -45,7 +45,3 @@ export const transformAtomFamily = atomFamily((elementID: MaybeGUID) => atom((ge
         matrix
     } as Transform2D;
 }));
-
-export default function useTransform(elementID: MaybeGUID) {
-    return useAtomValue(transformAtomFamily(elementID));
-}

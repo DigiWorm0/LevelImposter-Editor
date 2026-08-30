@@ -1,6 +1,6 @@
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
-import {atom, useAtom} from "jotai";
+import {atom} from "jotai";
 import {docSpriteAtlasesAtom} from "@editor/document/documentStore";
 
 export const spriteAtlasAtomFamily = atomFamily((id: MaybeGUID) => {
@@ -12,7 +12,3 @@ export const spriteAtlasAtomFamily = atomFamily((id: MaybeGUID) => {
         return get(docSpriteAtlasesAtom)[id] || null;
     });
 });
-
-export default function useSpriteAtlas(id: MaybeGUID) {
-    return useAtom(spriteAtlasAtomFamily(id));
-}

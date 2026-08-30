@@ -1,5 +1,5 @@
-import {atomFamily, unwrap} from "jotai/utils";
-import {atom, useAtomValue} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {atom} from "jotai";
 import {MaybeGUID} from "@/types/common/GUID";
 import {textureFromURLAtomFamily} from "./useTextureFromURL";
 import {assetsAtomFamily} from "@editor/assets/assetsStore";
@@ -15,7 +15,3 @@ export const textureAtomFamily = atomFamily((assetID: MaybeGUID) => {
         return await get(textureFromURLAtomFamily(asset.url));
     });
 });
-
-export default function useTexture(assetID: MaybeGUID) {
-    return useAtomValue(unwrap(textureAtomFamily(assetID)));
-}

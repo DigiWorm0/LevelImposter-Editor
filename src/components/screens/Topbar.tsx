@@ -16,12 +16,12 @@ import MapPropertiesButton from "../buttons/MapPropertiesButton";
 import {Paper, Typography} from "@mui/material";
 import NavDivider from "./NavDivider";
 import MapPublishButton from "../buttons/MapPublishButton";
-import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import OptimizeMapButton from "../buttons/OptimizeMapButton";
 import CompressMapButton from "../buttons/CompressMapButton";
+import {setFocus} from "@editor/focus/setFocus";
+import {Scope} from "@/editor/focus/focusStore";
 
 export default function Topbar() {
-    const setFocus = useSetFocus();
     return (
         <Paper
             elevation={1}

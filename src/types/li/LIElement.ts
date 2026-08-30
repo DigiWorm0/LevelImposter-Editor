@@ -16,5 +16,3 @@ export default interface LIElement {
     rotation: number;
     properties: LIProperties;
 }
-
-export type MaybeLIElement = LIElement | undefined;

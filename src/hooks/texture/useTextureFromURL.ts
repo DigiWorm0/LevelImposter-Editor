@@ -1,5 +1,5 @@
-import {atomFamily, unwrap} from "jotai/utils";
-import {atom, useAtomValue} from "jotai";
+import {atomFamily} from "jotai/utils";
+import {atom} from "jotai";
 import {Assets, Texture} from "pixi.js";
 import {assetAtURLAtom} from "../assets/useAssetAtURL";
 import {docPropertiesAtom} from "@editor/document/documentStore";
@@ -48,7 +48,3 @@ export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => 
         }
     });
 });
-
-export default function useTextureFromURL(url: string | undefined) {
-    return useAtomValue(unwrap(textureFromURLAtomFamily(url)));
-}

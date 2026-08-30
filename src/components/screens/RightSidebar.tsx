@@ -36,7 +36,6 @@ import CameraShakePanel from "../properties/panels/CameraShakePanel";
 import React from "react";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import AnimationPanel from "../properties/panels/AnimationPanel";
-import useSetFocus, {Scope} from "../../hooks/input/useFocus";
 import EjectPanel from "../properties/panels/EjectPanel";
 import ValuePanel from "../properties/panels/ValuePanel";
 import GatePanel from "../properties/panels/GatePanel";
@@ -45,10 +44,10 @@ import PhysicsPanel from "../properties/panels/PhysicsPanel";
 import Resizable from "../utils/Resizable";
 import MultiselectPanel from "../properties/panels/MutliselectPanel";
 import LobbyPanel from "../properties/panels/LobbyPanel";
+import {setFocus} from "@editor/focus/setFocus";
+import {Scope} from "@editor/focus/focusStore";
 
 export default function RightSidebar() {
-    const setFocus = useSetFocus();
-
     return (
         <Resizable
             storageKey={"right-sidebar-width"}

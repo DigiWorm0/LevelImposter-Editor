@@ -1,5 +1,4 @@
-import {DEFAULT_GUID} from "@/utils/strings/generateGUID";
-import LIMap from "../li/LIMap";
+// TODO: Remove this file
 
 export const UNITY_SCALE = 100;
 export const DEFAULT_CONSOLE_RANGE = 1;
@@ -40,20 +39,11 @@ export const DEFAULT_SCROLL_X_SPEED = 1;
 export const DEFAULT_SCROLL_Y_SPEED = 0;
 
 export const LADDER_RADIUS = 0.5;
-export const GRID_SPACING = 100;
-export const DEFAULT_GRID_SIZE = 25;
 export const MINIMAP_BASE_SCALE = 1 / 4.975;
 export const MINIMAP_WIDTH = 10 / MINIMAP_BASE_SCALE;
 export const MINIMAP_HEIGHT = 6 / MINIMAP_BASE_SCALE;
-export const MINIMAP_BUTTON_SIZE = 5;
-export const MINIMAP_BUTTON_X = -17.5;
-export const MINIMAP_BUTTON_Y = 11;
 
 export const SPAWN_PLAYER_COUNT = 15;
-
-export const DEFAULT_GRID_SNAP_RESOLUTION = 0.1;
-export const DEFAULT_INVISIBLE_OPACITY = 0.3;
-export const DEFAULT_COLLIDER_HANDLE_SIZE = 8;
 
 export const DEFAULT_VOLUME = 1;
 
@@ -61,7 +51,6 @@ export const THUMBNAIL_WIDTH = 412;
 export const THUMBNAIL_HEIGHT = 144;
 
 export const MAP_FORMAT_VER = 3;
-export const MAX_HISTORY_LENGTH = 20;
 export const MAX_DOOR_COUNT = 64;
 
 export const PLAYER_POS = -5;
@@ -93,12 +82,6 @@ export const SINGLE_TYPES = [
     "util-eject"
 ];
 
-export const LOBBY_TYPES = [
-    "util-lobbywardrobe",
-    "util-lobbymaps",
-    "util-lobbyoptions"
-];
-
 export const SUPPORTED_IMAGE_TYPES = [
     "image/png",
     "image/gif",
@@ -110,21 +93,3 @@ export const SUPPORTED_MAP_FILE_TYPES = [
     ".lim2",
     ".json"
 ];
-
-export const DEFAULT_MAP: LIMap = {
-    v: MAP_FORMAT_VER,
-    id: DEFAULT_GUID,
-    name: "New Map",
-    description: "",
-    isPublic: false,
-    isVerified: false,
-    authorID: "",
-    authorName: "",
-    createdAt: -1,
-    likeCount: 0,
-    elements: [],
-    properties: {},
-    thumbnailURL: null,
-    remixOf: null,
-    mapTarget: null,
-};
