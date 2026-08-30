@@ -1,7 +1,7 @@
 import LIMap from "../../../../types/li/LIMap";
 import convertOldLegacyMap from "../migrations/convertLegacyJSONMap";
 import GUID, {generateGUID} from "../../../../shared/types/GUID";
-import parseAssetType from "../../../../utils/fileio/parseAssetType";
+import getAssetType from "../../../assets/getAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
@@ -122,6 +122,6 @@ function base64ToBlob(base64: string) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    const type = parseAssetType(byteArray);
+    const type = getAssetType(byteArray);
     return new Blob([byteArray], {type});
 }

@@ -3,7 +3,7 @@ import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import executeCommand from "../../editor/history/executeCommand";
-import {createElement} from "@editor/elements/createElement";
+import {createElement} from "@editor/document/elements/createElement";
 import {generateGUID} from "@/shared/types/GUID";
 
 export interface AddLayerButtonProps {

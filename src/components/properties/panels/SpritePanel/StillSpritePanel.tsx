@@ -6,7 +6,7 @@ import LazyCollapse from "../../util/LazyCollapse";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
 import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
-import {getSubAnimationsFromElementType} from "@/utils/gif/convertGIFToSpriteAnimation";
+import {getSubAnimationsFromElementType} from "@editor/assets/images/convertGIFToSpriteAnimation";
 import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
 import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";
 import SpriteConvertToDDSButton from "../../../buttons/SpriteConvertToDDSButton";

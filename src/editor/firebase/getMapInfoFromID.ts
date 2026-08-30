@@ -1,5 +1,5 @@
 import {collection, doc, getDoc} from "firebase/firestore";
-import {db} from "@/utils/Firebase";
+import {db} from "@editor/firebase/Firebase";
 import LIMetadata from "@/types/li/LIMetadata";
 
 export const getMapInfoFromID = async (id: string) => {

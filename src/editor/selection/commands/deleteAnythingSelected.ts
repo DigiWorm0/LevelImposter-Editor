@@ -1,8 +1,8 @@
 import {EditorCommand} from "../../history/executeCommand";
 import store from "../../../shared/store";
 import {isColliderSelectedAtom, selectedColliderPointIndicesAtom} from "../stores/colliderSelectionStore";
-import {getSelectedCollider} from "@editor/elements/colliders/getSelectedCollider";
-import {deleteSelectedElements} from "@editor/elements/deleteElement";
+import {getSelectedCollider} from "@editor/document/elements/colliders/getSelectedCollider";
+import {deleteSelectedElements} from "@editor/document/elements/deleteElement";
 
 export const deleteAnythingSelected = (): EditorCommand => map => {
     const isColliderSelected = store.get(isColliderSelectedAtom);

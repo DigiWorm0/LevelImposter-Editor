@@ -1,7 +1,7 @@
 import React, {RefObject} from "react";
 import useViewport from "../../../hooks/canvas/useViewport";
 import {Container} from "pixi.js";
-import roundTo from "../../../utils/common/roundTo";
+import roundTo from "@shared/math/roundTo";
 import draggableEventEmitter from "../../../utils/canvas/draggableEventEmitter";
 
 export interface DraggableProps {

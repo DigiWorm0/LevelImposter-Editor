@@ -3,7 +3,8 @@ import {Button, DialogContentText} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import GenericModal from "./GenericModal";
-import resetMap from "../../utils/map/resetMap";
+import {setDocument} from "@editor/history/setDocument";
+import {createNewMapDocument} from "@editor/document/types/DefaultMapDocument";
 
 export interface NewMapDialogProps {
     isVisible: boolean;
@@ -14,7 +15,7 @@ export default function NewMapModal(props: NewMapDialogProps) {
     const {t} = useTranslation();
 
     const onClick = React.useCallback(() => {
-        resetMap();
+        setDocument(createNewMapDocument());
         props.onClose();
     }, [props.onClose]);
 

@@ -1,8 +1,8 @@
 import {mapAssetAsImageBlobAtomFamily} from "@/hooks/assets/useMapAssetAsImageBlob";
-import downloadFileFromURL from "../fileio/downloadFileFromURL";
+import downloadFileFromURL from "../fileio/download/downloadFileFromURL";
 import store from "../../shared/store";
 import {MaybeGUID} from "@/shared/types/GUID";
-import getFileExtension from "../../utils/fileio/getFileExtension";
+import assetTypeToFileExtension from "./assetTypeToFileExtension";
 import {assetsAtomFamily} from "./assetsStore";
 
 export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) => {
@@ -12,7 +12,7 @@ export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) =>
         return;
 
     // Download Asset
-    const fileNameWithExtension = `${fileName ?? asset.id}.${getFileExtension(asset.type)}`;
+    const fileNameWithExtension = `${fileName ?? asset.id}.${assetTypeToFileExtension(asset.type)}`;
     downloadFileFromURL(asset.url, fileNameWithExtension);
 };
 

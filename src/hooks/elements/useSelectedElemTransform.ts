@@ -2,7 +2,7 @@ import {atomFamily} from "jotai/utils";
 import {atom, useAtom} from "jotai";
 import LIElement from "../../types/li/LIElement";
 import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";
-import {setSelectedElementTransformProp} from "@editor/elements/setElementTransformProp";
+import {setSelectedElementTransformProp} from "@editor/document/elements/setElementTransformProp";
 import executeCommand from "@editor/history/executeCommand";
 
 export const selectedElemTransformAtomFamily = atomFamily((prop: keyof LIElement) => {

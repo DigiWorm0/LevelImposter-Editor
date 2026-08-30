@@ -3,7 +3,7 @@ import {MaybeGUID} from "@/shared/types/GUID";
 import useAsset from "../../../hooks/assets/useAsset";
 import ImageUploadDetailsRow from "./ImageUploadDetailsRow";
 import useSprite from "../../../hooks/sprites/useSprite";
-import toSizeString from "../../../utils/strings/toSizeString";
+import dataSizeToString from "@shared/utils/dataSizeToString";
 
 export interface ImageUploadDetailsProps {
     assetID: MaybeGUID;
@@ -38,7 +38,7 @@ export default function ImageUploadDetails(props: ImageUploadDetailsProps) {
                 />
                 <ImageUploadDetailsRow
                     label="File Size"
-                    value={toSizeString(asset.blob.size)}
+                    value={dataSizeToString(asset.blob.size)}
                 />
             </Box>
         </Box>

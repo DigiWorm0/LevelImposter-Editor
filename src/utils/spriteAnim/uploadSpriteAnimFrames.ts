@@ -1,4 +1,4 @@
-import uploadImageAssets from "../fileio/uploadImageAssets";
+import uploadImageAssets from "@editor/assets/images/uploadImageAssets";
 import {selectedSpriteAnimAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnim";
 import {selectedSpriteAnimTypeAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnimType";
 import primaryStore from "@/shared/store";

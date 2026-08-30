@@ -6,7 +6,7 @@ import AddObjectModalButton from "./AddObjectModalButton";
 import AddObjectModalSearch from "./AddObjectModalSearch";
 import AUElementDB from "../../../db/AUElementDB";
 import executeCommand from "../../../editor/history/executeCommand";
-import {createElementAtCamera} from "@editor/elements/createElement";
+import {createElementAtCamera} from "@editor/document/elements/createElement";
 import {generateGUID} from "@/shared/types/GUID";
 
 // Modal Props

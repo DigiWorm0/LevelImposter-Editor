@@ -2,7 +2,7 @@ import {signOut} from "firebase/auth";
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth} from "@/utils/Firebase";
+import {auth} from "@editor/firebase/Firebase";
 import MapThumbnail from "../utils/MapThumbnail";
 import SignInModal from "./SignInModal";
 import ProfileIcon from "../utils/ProfileIcon";

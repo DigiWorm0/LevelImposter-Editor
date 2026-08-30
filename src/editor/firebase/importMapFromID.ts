@@ -1,7 +1,7 @@
 import {mapInfoFromIDAtom} from "@/hooks/firebase/useMapInfoFromID";
 import {getDownloadURL, ref, StorageReference} from "firebase/storage";
-import {storage} from "@/utils/Firebase";
-import downloadFromURL from "@/utils/fileio/downloadFromURL";
+import {storage} from "@editor/firebase/Firebase";
+import fetchFromURL from "@editor/firebase/fetchFromURL";
 import deserializeMapFile from "@editor/fileio/deserialization/deserializeMapFile";
 import store from "@/shared/store";
 import {setDocument} from "@editor/history/setDocument";
@@ -19,7 +19,7 @@ export const importMapFromID = async (
     // Deserialize
     const downloadMapFromRef = async (storageRef: StorageReference) => {
         const url = await getDownloadURL(storageRef);
-        const bytes = await downloadFromURL(url, onProgress);
+        const bytes = await fetchFromURL(url, onProgress);
         const map = deserializeMapFile(bytes);
 
         setDocument(map);

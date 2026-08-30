@@ -4,7 +4,7 @@ import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementOpacity from "../../../hooks/canvas/useElementOpacity";
 import useEmbed from "../../../hooks/embed/useEmbed";
-import degToRad from "../../../utils/common/degToRad";
+import degToRad from "@shared/math/degToRad";
 import useMapElementRef from "../../../hooks/canvas/useMapElementRef";
 import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
 import useElementSprite from "../../../hooks/sprites/useElementSprite";
@@ -19,7 +19,7 @@ import {isColliderSelectedAtom} from "@editor/selection/stores/colliderSelection
 import selectElementID from "../../../editor/selection/selectElementID";
 import {useElement} from "@/hooks/elements/useElement";
 import executeCommand from "../../../editor/history/executeCommand";
-import {moveElement} from "@editor/elements/moveElement";
+import {moveElement} from "@editor/document/elements/moveElement";
 
 export interface MapElementProps {
     elementID: MaybeGUID;

@@ -1,5 +1,5 @@
 import {EditorCommand} from "@editor/history/executeCommand";
-import {getAnimTarget} from "@editor/elements/getAnimTarget";
+import {getAnimTarget} from "@editor/document/elements/getAnimTarget";
 import store from "@/shared/store";
 import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 

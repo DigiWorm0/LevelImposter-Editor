@@ -1,4 +1,4 @@
-import {toUTF8} from "../../../utils/strings/toUTF8";
+import {toUTF8} from "./toUTF8";
 import store from "../../../shared/store";
 import {allAssetsAtom} from "@editor/assets/assetsStore";
 import {convertDocumentToMap} from "@editor/fileio/serialization/convertDocumentToMap";

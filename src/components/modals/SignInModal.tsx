@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth, githubProvider, googleProvider, microsoftProvider} from "@/utils/Firebase";
+import {auth, githubProvider, googleProvider, microsoftProvider} from "@editor/firebase/Firebase";
 import useToaster from "../../hooks/useToaster";
 import {signInWithEmailAndPassword, signInWithPopup} from "firebase/auth";
 import {Button, ButtonGroup, Divider, InputAdornment, TextField, Typography} from "@mui/material";

@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth} from "@/utils/Firebase";
+import {auth} from "@editor/firebase/Firebase";
 import {docNameAtom, docPropertiesAtom} from "@editor/document/documentStore";
 import ThumbnailEdit from "../../utils/ThumbnailEdit";
 import {Box, FormControlLabel, Grid, InputAdornment, Radio, RadioGroup, TextField} from "@mui/material";
@@ -13,7 +13,7 @@ import {setMapName, setMapProperty} from "@editor/document/mapPropertyCommands";
 export default function PublishModalEditor() {
     const {t} = useTranslation();
     const [user] = useAuthState(auth);
-    
+
     const mapName = useAtomValue(docNameAtom);
     const docProperties = useAtomValue(docPropertiesAtom);
     const authorName = docProperties.authorName;

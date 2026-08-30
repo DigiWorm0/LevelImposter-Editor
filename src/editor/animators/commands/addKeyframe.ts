@@ -2,7 +2,7 @@ import {EditorCommand} from "@editor/history/executeCommand";
 import GUID from "@/shared/types/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import store from "@/shared/store";
-import {getAnimTargetProperty} from "@editor/elements/getAnimTarget";
+import {getAnimTargetProperty} from "@editor/document/elements/getAnimTarget";
 import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 

@@ -1,6 +1,6 @@
-import {uploadImageAsset} from "../fileio/uploadImageAssets";
+import {uploadImageAsset} from "@editor/assets/images/uploadImageAssets";
 import {selectedSpriteAnimAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnim";
-import {convertGIFAssetToSpriteAnim} from "../gif/convertGIFToSpriteAnimation";
+import {convertGIFAssetToSpriteAnim} from "@editor/assets/images/convertGIFToSpriteAnimation";
 import {selectedSpriteAnimTypeAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnimType";
 import primaryStore from "@/shared/store";
 

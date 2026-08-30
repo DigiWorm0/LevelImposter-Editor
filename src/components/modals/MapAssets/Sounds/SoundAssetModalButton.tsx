@@ -3,7 +3,7 @@ import React from "react";
 import GUID from "@shared/types/GUID";
 import useAsset from "../../../../hooks/assets/useAsset";
 import {VolumeUp} from "@mui/icons-material";
-import toSizeString from "../../../../utils/strings/toSizeString";
+import dataSizeToString from "@shared/utils/dataSizeToString";
 import toDurationString from "../../../../utils/strings/toDurationString";
 
 export interface SoundAssetModalButtonProps {
@@ -39,7 +39,7 @@ export default function SoundAssetModalButton(props: SoundAssetModalButtonProps)
                 </ListItemIcon>
                 <ListItemText
                     primary={toDurationString(soundData?.duration ?? 0)}
-                    secondary={toSizeString(asset.blob.size)}
+                    secondary={dataSizeToString(asset.blob.size)}
                 />
             </ListItemButton>
         </ListItem>

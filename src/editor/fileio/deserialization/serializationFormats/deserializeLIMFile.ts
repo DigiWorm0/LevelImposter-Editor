@@ -1,6 +1,6 @@
 import LIMap from "../../../../types/li/LIMap";
 import GUID from "@shared/types/GUID";
-import parseAssetType from "../../../../utils/fileio/parseAssetType";
+import getAssetType from "../../../assets/getAssetType";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
 import {convertMapToDocument} from "@editor/fileio/deserialization/convertMapToDocument";
@@ -49,7 +49,7 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
 
         // Read Asset
         const assetSlice = buffer.slice(position, position + assetLength);
-        const assetType = parseAssetType(assetSlice);
+        const assetType = getAssetType(assetSlice);
         const assetBlob = new Blob([assetSlice], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
         allAssets.push({

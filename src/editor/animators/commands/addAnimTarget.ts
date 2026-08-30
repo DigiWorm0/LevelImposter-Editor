@@ -1,6 +1,6 @@
 import GUID from "@/shared/types/GUID";
 import {EditorCommand} from "@editor/history/executeCommand";
-import {getSelectedElement} from "@editor/elements/getSelectedElement";
+import {getSelectedElement} from "@editor/document/elements/getSelectedElement";
 
 export const addAnimTarget = (targetID: GUID): EditorCommand => map => {
     const selectedElement = getSelectedElement(map);

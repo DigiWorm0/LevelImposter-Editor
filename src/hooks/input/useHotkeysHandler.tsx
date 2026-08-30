@@ -5,9 +5,9 @@ import {selectedElementPropAtom, useSetSelectedElemProp} from "../elements/useSe
 import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
 import {redo, undo} from "@editor/history/undoRedo";
 import executeCommand from "../../editor/history/executeCommand";
-import {duplicateSelectedElement} from "@editor/elements/duplicateElement";
+import {duplicateSelectedElement} from "@editor/document/elements/duplicateElement";
 import {deleteAnythingSelected} from "@editor/selection/commands/deleteAnythingSelected";
-import {deleteSelectedElements as deleteSelectedElementsCmd} from "@editor/elements/deleteElement";
+import {deleteSelectedElements as deleteSelectedElementsCmd} from "@editor/document/elements/deleteElement";
 import {selectAllElements} from "@editor/selection/selectAllElements";
 import primaryStore from "@/shared/store";
 import {deleteSelectedKeyframe as deleteSelectedKeyframeCmd} from "@editor/animators/commands/deleteSelectedKeyframe";
@@ -18,7 +18,7 @@ import {setPlaybackState, toggleAnimators} from "@editor/animators/setPlaybackSt
 import {copyKeyframesToClipboard} from "@editor/clipboard/keyframes/copyKeyframesToClipboard";
 import {pasteKeyframesFromClipboard} from "@editor/clipboard/keyframes/pasteKeyframesFromClipboard";
 import {pasteElementsFromClipboard} from "@editor/clipboard/elements/pasteElementsFromClipboard";
-import {downloadMapFile} from "@editor/fileio/downloadMapFile";
+import {downloadMapFile} from "@editor/fileio/download/downloadMapFile";
 import {Scope} from "@/editor/focus/focusStore";
 
 const TIMELINE_DELTA_SCALE = 100;

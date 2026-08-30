@@ -1,6 +1,6 @@
 import {InputTriggerDB} from "@/db/TriggerDB";
 import LIElement from "../../../types/li/LIElement";
-import compareArrays from "../../../utils/common/compareArrays";
+import compareArrays from "@shared/utils/compareArrays";
 import {atom, useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {documentAtom} from "@editor/document/documentStore";

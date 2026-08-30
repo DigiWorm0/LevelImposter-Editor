@@ -5,8 +5,8 @@ import {MaybeGUID} from "@/shared/types/GUID";
 import {useAtomValue} from "jotai";
 import {colliderAtomFamily} from "@editor/selection/stores/colliderSelectionStore";
 import executeCommand from "../../../editor/history/executeCommand";
-import {moveColliderPoint} from "@editor/elements/colliders/moveColliderPoint";
-import {setColliderPointsLength} from "@editor/elements/colliders/setColliderPointsLength";
+import {moveColliderPoint} from "@editor/document/elements/colliders/moveColliderPoint";
+import {setColliderPointsLength} from "@editor/document/elements/colliders/setColliderPointsLength";
 
 export interface ColliderPointsEditorPanelProps {
     colliderID: MaybeGUID;

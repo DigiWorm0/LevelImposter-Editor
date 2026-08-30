@@ -3,7 +3,7 @@ import {atom, useSetAtom} from "jotai";
 import {MaybeGUID} from "@/shared/types/GUID";
 import {AsyncZippable, zip} from "fflate";
 import {mapAssetAsImageBlobAtomFamily} from "../assets/useMapAssetAsImageBlob";
-import downloadFileFromURL from "@editor/fileio/downloadFileFromURL";
+import downloadFileFromURL from "@editor/fileio/download/downloadFileFromURL";
 
 
 import {elementAtomFamily} from "@/hooks/elements/useElement";

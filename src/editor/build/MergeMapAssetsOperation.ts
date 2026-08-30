@@ -3,7 +3,7 @@ import GUID, {MaybeGUID} from "../../shared/types/GUID";
 import BuildOperation from "./BuildOperation";
 import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import executeCommand from "../history/executeCommand";
-import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
+import {replaceMapAsset} from "@editor/document/elements/replaceMapAsset";
 import primaryStore from "@/shared/store";
 
 interface MergeCandidate {

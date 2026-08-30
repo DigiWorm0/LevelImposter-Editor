@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {CircularProgress, IconButton, Tooltip} from "@mui/material";
 import {FolderZip} from "@mui/icons-material";
 import useToaster from "../../hooks/useToaster";
-import {downloadMapFile} from "@editor/fileio/downloadMapFile";
+import {downloadMapFile} from "@editor/fileio/download/downloadMapFile";
 
 export default function CompressMapButton() {
     const {t} = useTranslation();

@@ -1,20 +1,20 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import openUploadDialog from "../../../utils/fileio/openUploadDialog";
+import openUploadDialog from "@shared/utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import LIColor from "../../../types/li/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import GUID from "@shared/types/GUID";
-import duplicateBlob from "../../../utils/fileio/duplicateBlob";
+import duplicateBlob from "@shared/utils/duplicateBlob";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material";
 import useAsset from "../../../hooks/assets/useAsset";
 import SpriteWindow from "./SpriteWindow";
-import parseAssetType from "../../../utils/fileio/parseAssetType";
+import getAssetType from "@editor/assets/getAssetType";
 import {useSettingsValue} from "@/hooks/useSettings";
 import {convertImageBlobToDDS} from "@editor/assets/dds/convertImageToDDS";
 import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
-import convertGIFToSpriteAnimation from "../../../utils/gif/convertGIFToSpriteAnimation";
+import convertGIFToSpriteAnimation from "@editor/assets/images/convertGIFToSpriteAnimation";
 import ImageUploadDetails from "./ImageUploadDetails";
 import {createAsset} from "@editor/assets/createAsset";
 import {MapAsset} from "@editor/assets/assetsStore";
@@ -50,7 +50,7 @@ export default function ImageUpload(props: ImageUploadProps) {
 
         // Identify the asset type
         const arrayBuffer = await blob.arrayBuffer();
-        let assetType = parseAssetType(arrayBuffer);
+        let assetType = getAssetType(arrayBuffer);
         const isGIF = assetType === "image/gif";
 
         // Check if the asset type is valid

@@ -1,7 +1,7 @@
 import LIMap from "../../../../types/li/LIMap";
 import {unzipSync} from "fflate";
 import GUID from "@shared/types/GUID";
-import parseAssetType from "../../../../utils/fileio/parseAssetType";
+import getAssetType from "../../../assets/getAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
@@ -43,7 +43,7 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): MapDo
             continue;
 
         // Create Map Asset in AssetDB
-        const assetType = parseAssetType(assetBuffer);
+        const assetType = getAssetType(assetBuffer);
         const assetBlob = new Blob([assetBuffer], {type: assetType});
         const assetURL = URL.createObjectURL(assetBlob);
         allAssets.push({

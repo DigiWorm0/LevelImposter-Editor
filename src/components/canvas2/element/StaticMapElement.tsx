@@ -4,7 +4,7 @@ import React from "react";
 import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
-import degToRad from "../../../utils/common/degToRad";
+import degToRad from "@shared/math/degToRad";
 import {Container} from "pixi.js";
 import {useElement} from "@/hooks/elements/useElement";
 

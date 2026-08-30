@@ -10,7 +10,7 @@ import store from "../../shared/store";
 import primaryStore from "../../shared/store";
 import {createAsset} from "../assets/createAsset";
 import executeCommand from "../history/executeCommand";
-import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
+import {replaceMapAsset} from "@editor/document/elements/replaceMapAsset";
 import {generateGUID} from "@/shared/types/GUID";
 
 const MAX_BATCH_SIZE = 100;

@@ -2,7 +2,7 @@ import executeCommand, {EditorCommand} from "../../history/executeCommand";
 import GUID, {generateGUID, MaybeGUID} from "../../../shared/types/GUID";
 import getClipboard from "../getClipboard";
 import ClipboardContent from "../ClipboardContent";
-import {createElement} from "@editor/elements/createElement";
+import {createElement} from "@editor/document/elements/createElement";
 import store from "../../../shared/store";
 import {selectedElementIDsAtom} from "../../selection/stores/elementSelectionStore";
 

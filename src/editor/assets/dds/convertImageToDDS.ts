@@ -10,7 +10,7 @@ import {textureAtomFamily} from "@/hooks/texture/useTexture";
 import BitmapData from "../../../types/texture/BitmapData";
 import {createAsset} from "@editor/assets/createAsset";
 import executeCommand from "../../history/executeCommand";
-import {replaceMapAsset} from "@editor/elements/replaceMapAsset";
+import {replaceMapAsset} from "@editor/document/elements/replaceMapAsset";
 import primaryStore from "@/shared/store";
 
 /**

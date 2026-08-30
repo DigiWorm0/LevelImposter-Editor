@@ -1,6 +1,6 @@
 import {atom, useAtomValue} from "jotai";
 import {atomFamily} from "jotai/utils";
-import compareArrays from "../../utils/common/compareArrays";
+import compareArrays from "@shared/utils/compareArrays";
 
 import {MapElement} from "@editor/document/types/MapDocument";
 import {documentAtom} from "@editor/document/documentStore";

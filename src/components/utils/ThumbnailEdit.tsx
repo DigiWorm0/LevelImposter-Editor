@@ -1,6 +1,6 @@
 import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "@/types/amongus/Constants";
 import React from "react";
-import openUploadDialog from "../../utils/fileio/openUploadDialog";
+import openUploadDialog from "@shared/utils/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import {useTranslation} from "react-i18next";
 import {docPropertiesAtom} from "@editor/document/documentStore";

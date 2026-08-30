@@ -13,8 +13,8 @@ import {
     setColliderBlocksLight,
     setColliderName,
     setColliderSolid
-} from "@editor/elements/colliders/setColliderProperties";
-import {deleteCollider} from "@editor/elements/colliders/deleteCollider";
+} from "@editor/document/elements/colliders/setColliderProperties";
+import {deleteCollider} from "@editor/document/elements/colliders/deleteCollider";
 
 interface ColliderEditorProps {
     isSolidOnly: boolean;

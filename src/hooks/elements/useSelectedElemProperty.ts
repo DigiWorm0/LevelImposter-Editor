@@ -2,7 +2,7 @@ import {atom, useAtom, useAtomValue, useSetAtom} from "jotai";
 import {atomFamily} from "jotai/utils";
 import LIProperties, {LIPropName} from "../../types/li/LIProperties";
 import executeCommand from "../../editor/history/executeCommand";
-import {setSelectedElementProp} from "@editor/elements/setElementProp";
+import {setSelectedElementProp} from "@editor/document/elements/setElementProp";
 import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";
 
 // Atoms

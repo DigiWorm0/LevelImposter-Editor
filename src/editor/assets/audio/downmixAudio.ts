@@ -1,5 +1,5 @@
 // Constants
-import WavAudioEncoder from "@/lib/WavAudioEncoder";
+import WavAudioEncoder from "@editor/assets/audio/WavAudioEncoder";
 
 const TARGET_CHANNELS = 1;
 const TARGET_SAMPLE_RATE = 16000; // 44100

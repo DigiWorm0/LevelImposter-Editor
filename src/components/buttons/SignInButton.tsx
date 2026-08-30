@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
-import {auth} from "@/utils/Firebase";
+import {auth} from "@editor/firebase/Firebase";
 import AccountModal from "../modals/AccountModal";
 import ProfileIcon from "../utils/ProfileIcon";
 import {IconButton, Tooltip} from "@mui/material";

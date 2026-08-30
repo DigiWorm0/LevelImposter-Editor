@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import openUploadDialog from "../../../utils/fileio/openUploadDialog";
+import openUploadDialog from "@shared/utils/openUploadDialog";
 import useToaster from "../../../hooks/useToaster";
 import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
 import LISound from "../../../types/li/LISound";
@@ -11,7 +11,7 @@ import {Button, ButtonGroup, MenuItem, Select, Typography} from "@mui/material";
 import {createAsset} from "@editor/assets/createAsset";
 import {useSettingsValue} from "@/hooks/useSettings";
 import {downmixAudio} from "@editor/assets/audio/downmixAudio";
-import duplicateBlob from "@/utils/fileio/duplicateBlob";
+import duplicateBlob from "@shared/utils/duplicateBlob";
 import {generateGUID} from "@/shared/types/GUID";
 
 interface SoundUploadProps {

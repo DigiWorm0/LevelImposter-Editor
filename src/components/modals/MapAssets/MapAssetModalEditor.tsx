@@ -2,7 +2,7 @@ import {MaybeGUID} from "@/shared/types/GUID";
 import {Box, Button, ButtonGroup, Table, TableBody, TableCell, TableRow, Typography} from "@mui/material";
 import {CloudDownload, Image} from "@mui/icons-material";
 import ExpandText from "../../screens/ExpandText";
-import toSizeString from "../../../utils/strings/toSizeString";
+import dataSizeToString from "@shared/utils/dataSizeToString";
 import React from "react";
 import useAsset from "../../../hooks/assets/useAsset";
 import ImageAsset from "../../utils/ImageAsset";
@@ -63,7 +63,7 @@ export default function MapAssetModalEditor(props: MapAssetModalEditorProps) {
                             </TableRow>
                             <TableRow>
                                 <TableCell align={"center"}>Size</TableCell>
-                                <TableCell align={"center"}>{toSizeString(asset.blob.size)}</TableCell>
+                                <TableCell align={"center"}>{dataSizeToString(asset.blob.size)}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

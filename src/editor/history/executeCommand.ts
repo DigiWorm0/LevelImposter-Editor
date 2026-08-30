@@ -1,11 +1,17 @@
 import {getDefaultStore} from "jotai";
 import {documentAtom} from "../document/documentStore";
-import {Draft, produceWithPatches} from "immer";
+import {Draft, enableArrayMethods, enablePatches, produceWithPatches} from "immer";
 import savePatch from "./savePatch";
 import {MapDocument} from "@editor/document/types/MapDocument";
 
 export type DocDraft = Draft<MapDocument>;
 export type EditorCommand = (doc: DocDraft) => void;
+
+// Improves Immer performance at the cost of 2kb of bundle size.
+enableArrayMethods();
+
+// Enables Immer patches, which are used for undo/redo functionality
+enablePatches();
 
 /**
  * Executes an editor command.

@@ -1,5 +1,5 @@
 import {collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
-import {db} from "@/utils/Firebase";
+import {db} from "@editor/firebase/Firebase";
 import LIMetadata from "@/types/li/LIMetadata";
 
 const MAX_PER_PAGE = 20;

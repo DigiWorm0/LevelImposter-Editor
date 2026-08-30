@@ -1,6 +1,6 @@
 import GUID from "@/shared/types/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
-import {getAnimTarget} from "@editor/elements/getAnimTarget";
+import {getAnimTarget} from "@editor/document/elements/getAnimTarget";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import store from "@/shared/store";
 import LIAnimKeyframe from "@/types/li/LIAnimKeyframe";

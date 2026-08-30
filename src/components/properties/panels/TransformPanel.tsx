@@ -24,7 +24,7 @@ import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {useAtomValue} from "jotai";
 import useSelectedElemTransform from "@/hooks/elements/useSelectedElemTransform";
-import {deleteSelectedElements} from "@editor/elements/deleteElement";
+import {deleteSelectedElements} from "@editor/document/elements/deleteElement";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function TransformPanel() {

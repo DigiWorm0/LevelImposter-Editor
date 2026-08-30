@@ -1,5 +1,5 @@
 import {getDownloadURL, ref, StorageReference, uploadBytesResumable} from "firebase/storage";
-import {db, storage} from "@/utils/Firebase";
+import {db, storage} from "@editor/firebase/Firebase";
 import serializeCompressedLIMFile from "@editor/fileio/serialization/serializeCompressedLIMFile";
 import {collection, doc, setDoc} from "firebase/firestore";
 import store from "@/shared/store";

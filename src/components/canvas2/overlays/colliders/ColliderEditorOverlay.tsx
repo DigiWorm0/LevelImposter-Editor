@@ -7,9 +7,9 @@ import useMapElementRef from "../../../../hooks/canvas/useMapElementRef";
 import {useAtom, useAtomValue} from "jotai";
 import {selectedColliderAtom, selectedColliderPointIndicesAtom} from "@editor/selection/stores/colliderSelectionStore";
 import executeCommand from "../../../../editor/history/executeCommand";
-import {moveColliderPoint} from "@editor/elements/colliders/moveColliderPoint";
-import {deleteColliderPoint} from "@editor/elements/colliders/deleteColliderPoint";
-import {insertColliderPointAtMouse} from "@editor/elements/colliders/insertColliderPointAtMouse";
+import {moveColliderPoint} from "@editor/document/elements/colliders/moveColliderPoint";
+import {deleteColliderPoint} from "@editor/document/elements/colliders/deleteColliderPoint";
+import {insertColliderPointAtMouse} from "@editor/document/elements/colliders/insertColliderPointAtMouse";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {SelectOperation} from "@editor/selection/selectElementID";
 
