@@ -1,70 +1,41 @@
 import {atomFamily} from "jotai/utils";
-import {MaybeGUID} from "@/types/common/GUID";
+import GUID, {MaybeGUID} from "@/types/common/GUID";
 import {atom} from "jotai";
-import LIElement from "@/types/li/LIElement";
-import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {elementAtomFamily} from "@/hooks/elements/useElement";
-import {allElementsAtom} from "@editor/document/documentStore";
+import {elementIDsAtom} from "@/hooks/elements/useElementIDs";
 
-export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) =>
-    atom<[LIElement[], LIElement[]]>((get) => {
-        const elem = get(elementAtomFamily(elemID));
-        if (!elem)
-            return [[], []];
+export const outboundConnectionIDsAtomFamily = atomFamily((elemID: MaybeGUID) => atom(get => {
+    const elem = get(elementAtomFamily(elemID));
+    if (!elem)
+        return [];
 
-        const allElements = get(allElementsAtom);
+    return [
+        elem.properties.leftVent,
+        elem.properties.middleVent,
+        elem.properties.rightVent,
+        elem.properties.teleporter,
+        elem.properties.parent,
+        elem.properties.doorA,
+        elem.properties.doorB,
+        elem.properties.triggerGateValueID,
+        elem.properties.comparatorValueID1,
+        elem.properties.comparatorValueID2,
+        ...(elem.properties.triggers?.map(t => t.elemID) || []),
+        ...(elem.properties.animTargets?.map(t => t.id) || [])
+    ].filter(id => id != undefined) as GUID[];
+}));
 
-        // Find all connected elements
-        const leftVent = allElements.find(e => e.id === elem.properties.leftVent);
-        const middleVent = allElements.find(e => e.id === elem.properties.middleVent);
-        const rightVent = allElements.find(e => e.id === elem.properties.rightVent);
-        const teleporter = allElements.find(e => e.id === elem.properties.teleporter);
-        const roomParent = allElements.find(e => e.id === elem.properties.parent);
-        const doorA = allElements.find(e => e.id === elem.properties.doorA);
-        const doorB = allElements.find(e => e.id === elem.properties.doorB);
-        const triggerValue = allElements.find(e => e.id === elem.properties.triggerGateValueID);
-        const comparatorValue1 = allElements.find(e => e.id === elem.properties.comparatorValueID1);
-        const comparatorValue2 = allElements.find(e => e.id === elem.properties.comparatorValueID2);
-        const triggers = allElements.filter(e => elem.properties.triggers?.find(t => t.elemID === e.id) != undefined);
-        const animTargets = allElements.filter(e => elem.properties.animTargets?.find(t => t.id === e.id) != undefined);
+export const inboundConnectionIDsAtomFamily = atomFamily((elemID: MaybeGUID) => atom(get => {
+    const allElementIDs = get(elementIDsAtom);
 
-        const targetConnections = [
-            leftVent,
-            middleVent,
-            rightVent,
-            teleporter,
-            roomParent,
-            doorA,
-            doorB,
-            triggerValue,
-            comparatorValue1,
-            comparatorValue2,
-            ...triggers,
-            ...animTargets
-        ].filter(e => e != undefined) as LIElement[];
+    return allElementIDs.filter(id => {
 
-        const sourceConnections = allElements.filter(e => {
-            return e.properties.leftVent === elem.id ||
-                e.properties.middleVent === elem.id ||
-                e.properties.rightVent === elem.id ||
-                e.properties.teleporter === elem.id ||
-                e.properties.parent === elem.id ||
-                e.properties.doorA === elem.id ||
-                e.properties.doorB === elem.id ||
-                e.properties.triggerGateValueID === elem.id ||
-                e.properties.comparatorValueID1 === elem.id ||
-                e.properties.comparatorValueID2 === elem.id ||
-                e.properties.triggers?.some(t => t.elemID === elem.id) ||
-                e.properties.animTargets?.some(t => t.id === elem.id);
-        });
+        // Skip myself
+        if (id === elemID)
+            return false;
 
-        return [targetConnections, sourceConnections];
-    })
-);
-export const selectedConnectionsAtom = atom<[LIElement[], LIElement[]]>((get) => {
-    const selectedElemID = get(selectedElementIDAtom);
-    if (!selectedElemID)
-        return [[], []];
-
-    return get(connectionsAtomFamily(selectedElemID));
-});
+        // Check if the current element has an outbound connection to elemID
+        const outboundConnections = get(outboundConnectionIDsAtomFamily(id));
+        return outboundConnections.includes(elemID as GUID);
+    });
+}));

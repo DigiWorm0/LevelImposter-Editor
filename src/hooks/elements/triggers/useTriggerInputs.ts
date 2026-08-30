@@ -3,15 +3,17 @@ import LIElement from "../../../types/li/LIElement";
 import compareArrays from "../../../utils/common/compareArrays";
 import {atom, useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
-
-import {allElementsAtom} from "@editor/document/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
 
 let previousTriggerInputs: LIElement[] = [];
 
 export const triggerInputsAtom = atom((get) => {
-    const elements = get(allElementsAtom);
+    const document = get(documentAtom);
+    const allElements = Object.values(document.elements);
+    // TODO: Refactor this out
+
     const selectedElemID = get(selectedElementIDAtom);
-    const filteredElements = elements.filter((elem) =>
+    const filteredElements = allElements.filter((elem) =>
         elem.type in InputTriggerDB && elem.id !== selectedElemID
     );
 

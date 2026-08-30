@@ -1,6 +1,7 @@
 import getClipboard from "@editor/clipboard/getClipboard";
 import ClipboardContent from "@editor/clipboard/ClipboardContent";
 import executeCommand, {EditorCommand} from "@editor/history/executeCommand";
+import {addKeyframe} from "@editor/animators/commands/addKeyframe";
 
 export const pasteKeyframesFromClipboard = async () => {
     // Get the clipboard data
@@ -23,14 +24,10 @@ const pasteKeyframesFromClipboardContent = (
         return;
 
     // Add each keyframe
-    for (const keyframe of keyframes) {
-
-    }
-    // keyframes.forEach(keyframe => {
-    //     set(addKeyframeAtom, {
-    //         targetID: keyframe.targetID,
-    //         property: keyframe.property,
-    //         value: keyframe.keyframe.value
-    //     });
-    // });
-}
+    for (const keyframe of keyframes)
+        addKeyframe(
+            keyframe.targetID,
+            keyframe.property,
+            keyframe.value
+        )(map);
+};

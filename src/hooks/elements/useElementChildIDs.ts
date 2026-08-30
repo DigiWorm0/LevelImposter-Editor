@@ -3,14 +3,15 @@ import {atomFamily} from "jotai/utils";
 import GUID, {MaybeGUID} from "../../types/common/GUID";
 import compareArrays from "../../utils/common/compareArrays";
 
-import {allElementsAtom} from "@editor/document/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
 
 export const elementChildIDsAtomFamily = atomFamily((id: MaybeGUID) => {
     let prevValue: GUID[] = [];
     return atom(
         (get) => {
-            const elements = get(allElementsAtom);
-            const filteredValues = elements
+            const currentDocument = get(documentAtom);
+            const allElements = Object.values(currentDocument.elements);
+            const filteredValues = allElements
                 .filter(elem => elem.parentID === id)
                 .map((elem) => elem.id);
 

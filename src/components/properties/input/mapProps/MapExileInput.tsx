@@ -1,23 +1,19 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {allElementsAtom, docPropertiesAtom} from "@editor/document/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import {Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {ExitToApp} from "@mui/icons-material";
 import {EXILE_IDS} from "@/db/AUElementDB";
-import {atom, useAtomValue} from "jotai";
+import {useAtomValue} from "jotai";
 import MapTarget from "../../../../types/li/MapTarget";
 import {setMapProperty} from "@editor/document/mapPropertyCommands";
 import executeCommand from "@editor/history/executeCommand";
-
-const hasEjectCameraAtom = atom((get) => {
-    const allElements = get(allElementsAtom);
-    return allElements.some((element) => element.type === "util-eject");
-});
+import {elementTypeExistsAtomFamily} from "@/hooks/elementTypes/useElementTypeExists";
 
 export default function MapExileInput() {
     const {t} = useTranslation();
     const properties = useAtomValue(docPropertiesAtom);
-    const hasEjectCamera = useAtomValue(hasEjectCameraAtom);
+    const hasEjectCamera = useAtomValue(elementTypeExistsAtomFamily("util-eject"));
     const {mapTarget} = useAtomValue(docPropertiesAtom);
 
     const currentValue = React.useMemo(() => {

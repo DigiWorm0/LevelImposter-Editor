@@ -1,10 +1,11 @@
 import {deleteAsset} from "./deleteAsset";
 import store from "../../shared/store";
 import {allAssetsAtom} from "./assetsStore";
-import {allElementsAtom, docSpriteAtlasesAtom} from "../document/documentStore";
+import {docSpriteAtlasesAtom, documentAtom} from "../document/documentStore";
 
 export const trimUnusedAssets = () => {
-    const allElements = store.get(allElementsAtom);
+    const currentDocument = store.get(documentAtom);
+    const allElements = Object.values(currentDocument.elements);
 
     // Get All Used Asset IDs
     const spriteIDs = allElements.map((e) => e.properties.spriteID);

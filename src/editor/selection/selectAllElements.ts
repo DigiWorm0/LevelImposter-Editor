@@ -1,9 +1,10 @@
 import store from "../../shared/store";
-import {allElementsAtom} from "../document/documentStore";
+import {documentAtom} from "../document/documentStore";
 import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
+import GUID from "@/types/common/GUID";
 
 export const selectAllElements = () => {
-    const allElements = store.get(allElementsAtom);
-    const allElementIDs = allElements.map(elem => elem.id);
+    const currentDocument = store.get(documentAtom);
+    const allElementIDs = Object.keys(currentDocument.elements) as GUID[];
     store.set(selectedElementIDsAtom, allElementIDs);
 };

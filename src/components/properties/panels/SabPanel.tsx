@@ -12,7 +12,6 @@ import {Comment, Room, Timer} from "@mui/icons-material";
 import TypePreviewImage from "../util/TypePreviewImage";
 import {useAtomValue} from "jotai";
 import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
-import {connectionsAtomFamily} from "@/hooks/useElemConnections";
 
 const timerElems = [
     "sab-reactorleft",
@@ -29,13 +28,14 @@ export default function SabPanel() {
     const selectedType = useAtomValue(selectedElementTypeAtom);
     const parentID = useSelectedElemPropValue("parent");
     const roomElems = useElementsOfType("util-room");
-    const [, sourceConnections] = useAtomValue(connectionsAtomFamily(parentID));
+    // const inboundConnectionIDs = useAtomValue(inboundConnectionIDsAtomFamily(parentID));
 
-    const otherSab = React.useMemo(() => {
-        if (selectedType?.startsWith("sab-btn"))
-            return undefined;
-        return sourceConnections?.find((c) => c.type.startsWith("sab-") && !c.type.startsWith("sab-btn"));
-    }, [sourceConnections, selectedType]);
+    // TODO: FIX ME
+    // const otherSab = React.useMemo(() => {
+    //     if (selectedType?.startsWith("sab-btn"))
+    //         return undefined;
+    //     return sourceConnections?.find((c) => c.type.startsWith("sab-") && !c.type.startsWith("sab-btn"));
+    // }, [sourceConnections, selectedType]);
 
     const parentRoom = React.useMemo(() => {
         return roomElems.find((e) => e.id === parentID);
@@ -94,11 +94,11 @@ export default function SabPanel() {
             >
                 {t("sab.doorInfo") as string}
             </MapError>
-            <MapError
-                isVisible={otherSab !== undefined}
-            >
-                {t("sab.errorMultipleSabs", {name: otherSab?.name}) as string}
-            </MapError>
+            {/*<MapError*/}
+            {/*    isVisible={otherSab !== undefined}*/}
+            {/*>*/}
+            {/*    {t("sab.errorMultipleSabs", {name: otherSab?.name}) as string}*/}
+            {/*</MapError>*/}
         </>
     );
 }

@@ -1,15 +1,14 @@
 import {atomFamily} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 
-import {allElementsAtom} from "@editor/document/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
 
-export const elementTypeCountAtom = atomFamily((typeFilter: string) => {
-    return atom((get) => {
-        const elements = get(allElementsAtom);
-        return elements.filter((elem) => elem.type.includes(typeFilter)).length;
-    });
-});
+export const elementTypeCountAtomFamily = atomFamily((typeFilter: string) => atom((get) => {
+    const currentDocument = get(documentAtom);
+    const allElements = Object.values(currentDocument.elements); // TODO: Refactor this out
+    return allElements.filter((elem) => elem.type.includes(typeFilter)).length;
+}));
 
 export default function useElementTypeCount(type: string) {
-    return useAtomValue(elementTypeCountAtom(type));
+    return useAtomValue(elementTypeCountAtomFamily(type));
 }

@@ -1,14 +1,12 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
-import {allElementsAtom} from "@editor/document/documentStore";
 import generateGUID from "../strings/generateGUID";
 import {MaybeGUID} from "@/types/common/GUID";
 import canvasToBitmap from "../canvas/canvasToBitmap";
 import {encodeBitmapToDDS} from "../dds/convertImageToDDS";
 import {createAsset} from "@editor/assets/createAsset";
 import store from "../../shared/store";
-import primaryStore from "../../shared/store";
 import {assetsAtomFamily} from "@editor/assets/assetsStore";
 
 /**
@@ -188,19 +186,19 @@ export async function convertGIFAssetToSpriteAnim(assetID: MaybeGUID): Promise<L
     const stillSpriteID = animation.frames[0].spriteID;
 
     // Find all elements using this asset and update to use the new animation
-    const allElements = primaryStore.get(allElementsAtom) || [];
-    const elementsToUpdate = allElements.filter(el => el.properties.spriteID === asset.id);
-    for (const element of elementsToUpdate) {
-        // TODO: FIX ME!!!!
-        // primaryStore.set(elementAtomFamily(element.id), {
-        //     ...element,
-        //     properties: {
-        //         ...element.properties,
-        //         spriteID: stillSpriteID,
-        //         animations: getSubAnimationsFromElementType(element.type, animation.frames)
-        //     }
-        // });
-    }
+    // const allElements = primaryStore.get(allElementsAtom) || [];
+    // const elementsToUpdate = allElements.filter(el => el.properties.spriteID === asset.id);
+    // for (const element of elementsToUpdate) {
+    // TODO: FIX ME!!!!
+    // primaryStore.set(elementAtomFamily(element.id), {
+    //     ...element,
+    //     properties: {
+    //         ...element.properties,
+    //         spriteID: stillSpriteID,
+    //         animations: getSubAnimationsFromElementType(element.type, animation.frames)
+    //     }
+    // });
+    // }
 
     // Replace all instances of the old asset with the 1st frame of the new animation
     // TODO: FIX ME!!!!

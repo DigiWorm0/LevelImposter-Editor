@@ -1,5 +1,4 @@
 import GUID from "@/types/common/GUID";
-import LIScene from "@/types/li/LIScene";
 import LISpriteAtlas from "@/types/li/LISpriteAtlas";
 import {MapProperties} from "@editor/document/types/MapProperties";
 import {MapElementProperties} from "@editor/document/types/MapElementProperties";
@@ -15,7 +14,7 @@ export interface MapDocument {
     properties: MapProperties;
     elements: Record<GUID, MapElement>;
     spriteAtlases: Record<GUID, LISpriteAtlas>;
-    scenes: Record<GUID, LIScene>;
+    scenes: Record<GUID, MapScene>;
 }
 
 export interface MapElement {
@@ -35,4 +34,10 @@ export interface MapElement {
     rotation: number;
 
     properties: MapElementProperties;
+}
+
+export interface MapScene {
+    id: GUID;
+    name: string;
+    childrenIDs: GUID[];
 }

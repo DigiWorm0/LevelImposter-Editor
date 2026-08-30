@@ -1,15 +1,12 @@
-import {allElementsAtom} from "@editor/document/documentStore";
 import makeElementTypeFilter from "../makeElementTypeFilter";
 import {SINGLE_TYPES} from "@/types/amongus/Constants";
+import {elementTypeExistsAtomFamily} from "@/hooks/elementTypes/useElementTypeExists";
 
 const SingleElementOnlyFilter = makeElementTypeFilter((type, get) => {
     if (!SINGLE_TYPES.includes(type))
         return true;
 
-    const elements = get(allElementsAtom);
-    const elementExists = elements.some((elem) => elem.type === type);
-
-    return !elementExists;
+    return !get(elementTypeExistsAtomFamily(type));
 });
 
 export default SingleElementOnlyFilter;

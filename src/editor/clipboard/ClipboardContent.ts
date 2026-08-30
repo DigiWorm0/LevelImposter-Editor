@@ -1,6 +1,6 @@
 import GUID from "../../types/common/GUID";
-import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
 import {MapElement} from "@editor/document/types/MapDocument";
+import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 
 export const ClipboardContentType = "text/plain";
 
@@ -8,5 +8,9 @@ export default interface ClipboardContent {
     elem?: MapElement[];
     focusIDs?: GUID[];
 
-    keyframe?: LIAnimKeyframe[];
+    keyframe?: {
+        targetID: GUID;
+        property: LIAnimPropertyType;
+        value?: number;
+    }[];
 }

@@ -65,4 +65,4 @@ const populatePartialElement = (partialElem: Partial<MapElement>): MapElement =>
         properties: {},
         ...partialElem
     };
-}
+};
