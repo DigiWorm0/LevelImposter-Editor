@@ -5,7 +5,8 @@ import {Matrix} from "pixi.js";
 import Transform2D from "../../types/transform/Transform2D";
 import degToRad from "../../utils/common/degToRad";
 
-import {elementAtomFamily} from "@editor/documentStore";
+
+import {elementAtomFamily} from "@/hooks/elements/useElement";
 
 export const transformAtomFamily = atomFamily((elementID: MaybeGUID) => atom((get) => {
     // Retrieve the element using the elementID

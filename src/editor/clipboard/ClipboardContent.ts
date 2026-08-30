@@ -1,17 +1,12 @@
-import LIElement from "../../types/li/LIElement";
 import GUID from "../../types/common/GUID";
-import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimKeyframe from "../../types/li/LIAnimKeyframe";
+import {MapElement} from "@editor/document/types/MapDocument";
 
 export const ClipboardContentType = "text/plain";
 
 export default interface ClipboardContent {
-    elem?: LIElement[];
+    elem?: MapElement[];
     focusIDs?: GUID[];
 
-    keyframe?: {
-        targetID: GUID;
-        property: LIAnimPropertyType;
-        keyframe: LIAnimKeyframe;
-    }[];
+    keyframe?: LIAnimKeyframe[];
 }

@@ -5,7 +5,6 @@ import {Application, Sprite, Texture} from "pixi.js";
 import {textureFromURLAtomFamily} from "@/hooks/texture/useTextureFromURL";
 import LISpriteAtlas from "../../types/li/LISpriteAtlas";
 import generateGUID from "../../utils/strings/generateGUID";
-import {spritesAtlasesAtom} from "../documentStore";
 import {encodeBitmapToDDS} from "@/utils/dds/convertImageToDDS";
 import {allAssetsAtom, MapAsset} from "../assets/assetsStore";
 import store from "../../shared/store";
@@ -126,8 +125,10 @@ async function combineMapAssetsIntoSpriteSheet(imageAssets: MapAsset[]) {
     }
 
     // Add new sprite atlases to store
-    const allSpriteAtlases = primaryStore.get(spritesAtlasesAtom) || [];
-    primaryStore.set(spritesAtlasesAtom, [...allSpriteAtlases, ...spriteAtlases]);
+    executeCommand(map => {
+        for (const atlas of spriteAtlases)
+            map.spriteAtlases[atlas.id] = atlas;
+    });
 
     // Log result
     BuildOperationLog.success(`Combined ${spriteAtlases.length} images into 1 ${bitmapData.width}x${bitmapData.height} asset.`);

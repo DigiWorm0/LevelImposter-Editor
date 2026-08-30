@@ -2,8 +2,9 @@ import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
 import {atom} from "jotai";
 import LIElement from "@/types/li/LIElement";
-import {allElementsAtom, elementAtomFamily} from "@editor/documentStore";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
+import {elementAtomFamily} from "@/hooks/elements/useElement";
+import {allElementsAtom} from "@editor/document/documentStore";
 
 export const connectionsAtomFamily = atomFamily((elemID: MaybeGUID) =>
     atom<[LIElement[], LIElement[]]>((get) => {

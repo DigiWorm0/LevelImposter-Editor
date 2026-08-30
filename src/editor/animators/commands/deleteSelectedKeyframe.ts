@@ -1,9 +1,9 @@
-import {MapCommand} from "@editor/history/executeCommand";
+import {EditorCommand} from "@editor/history/executeCommand";
 import {getAnimTarget} from "@editor/elements/getAnimTarget";
 import store from "@/shared/store";
 import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 
-export const deleteSelectedKeyframe = (): MapCommand => map => {
+export const deleteSelectedKeyframe = (): EditorCommand => map => {
     const selectedKeyframe = store.get(selectedKeyframeAtom);
     if (!selectedKeyframe)
         throw new Error("No keyframe selected");

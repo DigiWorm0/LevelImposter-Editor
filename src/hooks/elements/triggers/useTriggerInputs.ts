@@ -1,9 +1,10 @@
-import {allElementsAtom} from "@editor/documentStore";
 import {InputTriggerDB} from "@/db/TriggerDB";
 import LIElement from "../../../types/li/LIElement";
 import compareArrays from "../../../utils/common/compareArrays";
 import {atom, useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
+
+import {allElementsAtom} from "@editor/document/documentStore";
 
 let previousTriggerInputs: LIElement[] = [];
 

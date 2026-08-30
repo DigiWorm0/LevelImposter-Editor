@@ -1,7 +1,7 @@
 import {getSelectedCollider} from "./getSelectedCollider";
-import {MapCommand} from "../../history/executeCommand";
+import {EditorCommand} from "../../history/executeCommand";
 
-export const deleteColliderPoint = (pointIndex: number): MapCommand => map => {
+export const deleteColliderPoint = (pointIndex: number): EditorCommand => map => {
     const selectedCollider = getSelectedCollider(map);
     if (!selectedCollider)
         throw new Error("No collider selected");

@@ -1,30 +1,24 @@
-import LIClipboard from "../../../types/li/LIClipboard";
-import LIElement from "../../../types/li/LIElement";
 import store from "../../../shared/store";
-import {mapAtom} from "../../documentStore";
+import {documentAtom} from "../../document/documentStore";
 import {selectedElementsAtom} from "../../selection/stores/elementSelectionStore";
 import setClipboard from "@editor/clipboard/setClipboard";
+import {MapElement} from "@editor/document/types/MapDocument";
+import ClipboardContent from "@editor/clipboard/ClipboardContent";
 
-export const copyElementsToClipboard = (elements: LIElement[]) => {
+export const copyElementsToClipboard = (elements: MapElement[]) => {
     // Create a clipboard object
-    const clipboardData: LIClipboard = {
+    const clipboardData: ClipboardContent = {
         elem: elements,
         focusIDs: elements.map(elem => elem.id),
     };
 
     // Recursively add children to the clipboard
-    const map = store.get(mapAtom);
-    const addChildren = (elem: LIElement) => {
-        for (const child of map.elements) {
+    const currentDocument = store.get(documentAtom);
 
-            // Check if the element is a child of the current element
-            if (child.parentID !== elem.id)
-                continue;
-
-            // Add children to the clipboard
+    const addChildren = (elem: MapElement) => {
+        for (const childID of elem.childrenIDs) {
+            const child = currentDocument.elements[childID];
             clipboardData.elem?.push(child);
-
-            // Recursively add children of the child
             addChildren(child);
         }
     };

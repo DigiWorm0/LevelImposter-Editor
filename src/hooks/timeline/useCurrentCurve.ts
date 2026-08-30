@@ -4,7 +4,7 @@ import GUID from "../../types/common/GUID";
 import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import LIAnimCurve from "../../types/li/LIAnimCurve";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
-import {mapAtom} from "@editor/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
 
 export interface CurrentCurveOptions {
     targetID: GUID;
@@ -15,7 +15,7 @@ const DEFAULT_CURVE: LIAnimCurve = "linear";
 
 export const currentCurveAtomFamily = atomFamily((options: CurrentCurveOptions) => atom((get) => {
     const prevKeyframe = getAdjacentKeyframe(
-        get(mapAtom),
+        get(documentAtom),
         options.targetID,
         options.property,
         "prev"

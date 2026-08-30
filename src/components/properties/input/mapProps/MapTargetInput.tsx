@@ -1,14 +1,16 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {mapTargetAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {Place} from "@mui/icons-material";
 import MapTarget from "../../../../types/li/MapTarget";
-import {useAtom} from "jotai";
+import {useAtomValue} from "jotai";
+import executeCommand from "@editor/history/executeCommand";
+import {setMapProperty} from "@editor/document/mapPropertyCommands";
 
 export default function MapTargetInput() {
     const {t} = useTranslation();
-    const [target, setTarget] = useAtom(mapTargetAtom);
+    const {mapTarget} = useAtomValue(docPropertiesAtom);
 
     return (
         <ListItem
@@ -17,8 +19,8 @@ export default function MapTargetInput() {
             secondaryAction={
                 <Select
                     size={"small"}
-                    value={target ?? MapTarget.Game}
-                    onChange={(e) => setTarget(e.target.value)}
+                    value={mapTarget ?? MapTarget.Game}
+                    onChange={e => executeCommand(setMapProperty("mapTarget", e.target.value))}
                     style={{width: 200}}
                     variant={"standard"}
                 >

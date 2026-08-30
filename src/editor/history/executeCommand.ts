@@ -1,36 +1,36 @@
 import {getDefaultStore} from "jotai";
-import {mapAtom} from "../documentStore";
+import {documentAtom} from "../document/documentStore";
 import {Draft, produceWithPatches} from "immer";
-import LIMap from "../../types/li/LIMap";
 import savePatch from "./savePatch";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
-export type MapDraft = Draft<LIMap>;
-export type MapCommand = (map: MapDraft) => void;
+export type DocDraft = Draft<MapDocument>;
+export type EditorCommand = (doc: DocDraft) => void;
 
 /**
- * Executes a map command.
+ * Executes an editor command.
  * Ensures that the correct state is mutated and undo/redo history is saved.
  * @param cmd - The command to execute.
  */
-export default function executeCommand(cmd: MapCommand) {
+export default function executeCommand(cmd: EditorCommand) {
     executeCommands([cmd]);
 }
 
 /**
- * Executes a batch of map commands.
- * Only the final state is saved to the undo/redo history.
+ * Executes a batch of editor commands.
+ * All the commands are batched into a single undo/redo entry.
  * @param commands - A list of commands to execute.
  */
-export function executeCommands(commands: MapCommand[]) {
+export function executeCommands(commands: EditorCommand[]) {
     const store = getDefaultStore();
-    const [nextMap, patches, inversePatches] = produceWithPatches(
-        store.get(mapAtom),
+    const [nextDocument, patches, inversePatches] = produceWithPatches(
+        store.get(documentAtom),
         draft => {
             for (const cmd of commands)
                 cmd(draft);
         }
     );
 
-    store.set(mapAtom, nextMap);
+    store.set(documentAtom, nextDocument);
     savePatch({patches, inversePatches});
 }

@@ -4,7 +4,7 @@ import {storage} from "@/utils/Firebase";
 import downloadFromURL from "@/utils/fileio/downloadFromURL";
 import deserializeMapFile from "@editor/fileio/deserialization/deserializeMapFile";
 import store from "@/shared/store";
-import {setMap} from "@editor/history/setMap";
+import {setDocument} from "@editor/history/setDocument";
 
 export const importMapFromID = async (
     id: string,
@@ -22,7 +22,7 @@ export const importMapFromID = async (
         const bytes = await downloadFromURL(url, onProgress);
         const map = deserializeMapFile(bytes);
 
-        setMap(map);
+        setDocument(map);
         return map;
     };
 

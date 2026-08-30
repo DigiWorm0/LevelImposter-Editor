@@ -1,13 +1,13 @@
 import GUID from "@/types/common/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
-import {MapCommand} from "@editor/history/executeCommand";
+import {EditorCommand} from "@editor/history/executeCommand";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
 
 export const updateAnimationKeyframe = (
     targetID: GUID,
     property: LIAnimPropertyType,
     value: number
-): MapCommand => map => {
+): EditorCommand => map => {
     const prevKeyframe = getAdjacentKeyframe(
         map,
         targetID,

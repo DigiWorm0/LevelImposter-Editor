@@ -1,8 +1,6 @@
-import LIClipboard from "@/types/li/LIClipboard";
 import store from "@/shared/store";
 import {selectedElementPropAtom} from "@/hooks/elements/useSelectedElemProperty";
 import LIAnimTarget from "@/types/li/LIAnimTarget";
-import setClipboard from "@editor/clipboard/setClipboard";
 import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 
 export const copyKeyframesToClipboard = () => {
@@ -25,14 +23,16 @@ export const copyKeyframesToClipboard = () => {
         return;
 
     // Create a clipboard object
-    const clipboardData: LIClipboard = {
-        keyframe: [{
-            targetID: targetID,
-            property: property,
-            keyframe: selectedKeyframe
-        }]
-    };
+    // const clipboardData: ClipboardContent = {
+    //     keyframe: [{
+    //         targetID: targetID,
+    //         property: property,
+    //         keyframe: selectedKeyframe
+    //     }]
+    // };
+    //
+    // // Set the clipboard
+    // setClipboard(clipboardData);
 
-    // Set the clipboard
-    setClipboard(clipboardData);
+    // TODO: FIX ME!
 };

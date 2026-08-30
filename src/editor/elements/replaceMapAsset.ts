@@ -1,4 +1,4 @@
-import {MapCommand} from "../history/executeCommand";
+import {EditorCommand} from "../history/executeCommand";
 import {MaybeGUID} from "@/types/common/GUID";
 import {deleteAsset} from "../assets/deleteAsset";
 
@@ -8,7 +8,7 @@ export let replaceMapAssetReferenceCount = 0;
 export const replaceMapAsset = (
     fromID: MaybeGUID,
     toID: MaybeGUID
-): MapCommand => map => {
+): EditorCommand => map => {
 
     // Helper function to check asset ID
     replaceMapAssetReferenceCount = 0;
@@ -21,7 +21,8 @@ export const replaceMapAsset = (
     };
 
     // Iterate through all elements
-    for (const element of map.elements) {
+    const allElements = Object.values(map.elements);
+    for (const element of allElements) {
 
         // Update other properties
         element.properties.spriteID = checkID(element.properties.spriteID);
@@ -42,7 +43,8 @@ export const replaceMapAsset = (
     }
 
     // Update Sprite Atlases
-    for (const atlas of map.spriteAtlases || [])
+    const allSpriteAtlases = Object.values(map.spriteAtlases);
+    for (const atlas of allSpriteAtlases)
         atlas.assetID = checkID(atlas.assetID) || atlas.assetID;
 
     // Delete old asset

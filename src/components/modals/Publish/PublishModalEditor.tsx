@@ -2,23 +2,27 @@ import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useTranslation} from "react-i18next";
 import {auth} from "@/utils/Firebase";
-import {mapAuthorNameAtom, mapDescriptionAtom, mapIsPublicAtom, mapNameAtom} from "@editor/documentStore";
+import {docNameAtom, docPropertiesAtom} from "@editor/document/documentStore";
 import ThumbnailEdit from "../../utils/ThumbnailEdit";
 import {Box, FormControlLabel, Grid, InputAdornment, Radio, RadioGroup, TextField} from "@mui/material";
 import PublishModalRemixOptions from "./PublishModalRemixOptions";
 import {useAtomValue} from "jotai";
 import executeCommand from "../../../editor/history/executeCommand";
-import {setAuthorName, setIsPublic, setMapDescription, setMapName} from "@editor/baseMapProperties";
+import {setMapName, setMapProperty} from "@editor/document/mapPropertyCommands";
 
 export default function PublishModalEditor() {
     const {t} = useTranslation();
     const [user] = useAuthState(auth);
+    
+    const mapName = useAtomValue(docNameAtom);
+    const docProperties = useAtomValue(docPropertiesAtom);
+    const authorName = docProperties.authorName;
+    const description = docProperties.description;
+    const isPublic = docProperties.isPublic;
 
-    // Edit Hooks
-    const mapName = useAtomValue(mapNameAtom);
-    const description = useAtomValue(mapDescriptionAtom);
-    const authorName = useAtomValue(mapAuthorNameAtom);
-    const isPublic = useAtomValue(mapIsPublicAtom);
+    const setAuthorName = (name: string) => executeCommand(setMapProperty("authorName", name));
+    const setMapDescription = (description: string) => executeCommand(setMapProperty("description", description));
+    const setIsPublic = (isPublic: boolean) => executeCommand(setMapProperty("isPublic", isPublic));
 
     return (
         <Grid container>
@@ -31,7 +35,7 @@ export default function PublishModalEditor() {
                         sx={{mb: 1}}
                         placeholder={t("publish.mapName")}
                         value={mapName}
-                        onChange={(e) => executeCommand(setMapName(e.target.value))}
+                        onChange={(e) => setMapName(e.target.value)}
                     />
                     <TextField
                         fullWidth
@@ -39,7 +43,7 @@ export default function PublishModalEditor() {
                         sx={{mb: 1}}
                         placeholder={t("publish.authorName")}
                         value={authorName || user?.displayName || "Anonymous"}
-                        onChange={(e) => executeCommand(setAuthorName(e.target.value))}
+                        onChange={(e) => setAuthorName(e.target.value)}
                         InputProps={{
                             startAdornment: (<InputAdornment position={"start"}>by </InputAdornment>),
                         }}
@@ -52,7 +56,7 @@ export default function PublishModalEditor() {
                         maxRows={12}
                         minRows={3}
                         value={description}
-                        onChange={(e) => executeCommand(setMapDescription(e.target.value))}
+                        onChange={(e) => setMapDescription(e.target.value)}
                     />
                 </Box>
                 <Box
@@ -63,7 +67,7 @@ export default function PublishModalEditor() {
                 >
                     <RadioGroup
                         row
-                        onChange={(e) => executeCommand(setIsPublic(e.currentTarget.value === "public"))}
+                        onChange={(e) => setIsPublic(e.currentTarget.value === "public")}
                         value={isPublic ? "public" : "private"}
                     >
                         <FormControlLabel

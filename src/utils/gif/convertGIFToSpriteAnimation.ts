@@ -1,7 +1,7 @@
 import LISpriteAnimation from "../../types/li/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
 import LISpriteAnimationFrame from "../../types/li/LISpriteAnimationFrame";
-import {allElementsAtom} from "@editor/documentStore";
+import {allElementsAtom} from "@editor/document/documentStore";
 import generateGUID from "../strings/generateGUID";
 import {MaybeGUID} from "@/types/common/GUID";
 import canvasToBitmap from "../canvas/canvasToBitmap";

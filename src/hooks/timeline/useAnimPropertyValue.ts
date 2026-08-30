@@ -3,7 +3,7 @@ import LIAnimPropertyType from "../../types/li/LIAnimPropertyType";
 import GUID from "../../types/common/GUID";
 import {atom, useAtom} from "jotai";
 import {lerpBetweenKeyframes} from "./useAnimationPlayback";
-import {mapAtom} from "@editor/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
 import {getAdjacentKeyframe} from "@editor/animators/keyframes/getAdjacentKeyframe";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import executeCommand from "@editor/history/executeCommand";
@@ -18,7 +18,7 @@ export interface AnimPropertyValueOptions {
 export const animPropertyValueAtom = atomFamily(
     (options: AnimPropertyValueOptions) => atom((get) => {
         // Get the previous/next keyframe
-        const map = get(mapAtom);
+        const map = get(documentAtom);
         const prevKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "prev");
         const nextKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "next");
 
@@ -38,7 +38,7 @@ export const animPropertyValueAtom = atomFamily(
     }, (get, set, value: number) => {
         // Find a keyframe at the current playhead
         const playhead = get(animatorsPlayheadAtom);
-        const map = get(mapAtom);
+        const map = get(documentAtom);
         const prevKeyframe = getAdjacentKeyframe(map, options.targetID, options.property, "prev");
         const keyframe = prevKeyframe && prevKeyframe.t === playhead ? prevKeyframe : null;
 

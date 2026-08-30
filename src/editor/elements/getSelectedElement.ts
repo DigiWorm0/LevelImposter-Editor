@@ -1,13 +1,18 @@
 import store from "../../shared/store";
-import {MapDraft} from "../history/executeCommand";
+import {DocDraft} from "../history/executeCommand";
 import {selectedElementIDAtom, selectedElementIDsAtom} from "../selection/stores/elementSelectionStore";
 
-export const getSelectedElement = (map: MapDraft) => {
+export const getSelectedElement = (map: DocDraft) => {
     const selectedElementID = store.get(selectedElementIDAtom);
-    return map.elements.find(e => e.id === selectedElementID) || null;
+    if (!selectedElementID)
+        return null;
+
+    return map.elements[selectedElementID] || null;
 };
 
-export const getSelectedElements = (map: MapDraft) => {
+export const getSelectedElements = (map: DocDraft) => {
     const selectedElementIDs = store.get(selectedElementIDsAtom);
-    return map.elements.filter(e => selectedElementIDs.includes(e.id));
+    return selectedElementIDs
+        .map(id => map.elements[id] || null)
+        .filter(e => e !== null);
 };

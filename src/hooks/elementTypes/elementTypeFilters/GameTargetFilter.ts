@@ -1,9 +1,9 @@
-import {mapTargetAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import MapTarget from "../../../types/li/MapTarget";
 import makeElementTypeFilter from "../makeElementTypeFilter";
 
 const GameTargetFilter = makeElementTypeFilter((type, get) => {
-    const mapTarget = get(mapTargetAtom);
+    const {mapTarget} = get(docPropertiesAtom);
     if (mapTarget !== MapTarget.Game)
         return true;
 

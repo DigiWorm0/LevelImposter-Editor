@@ -1,11 +1,9 @@
-import LIMetadata from "@/types/li/LIMetadata";
 import {getDownloadURL, ref, StorageReference, uploadBytesResumable} from "firebase/storage";
-import LIMap from "@/types/li/LIMap";
 import {db, storage} from "@/utils/Firebase";
 import serializeCompressedLIMFile from "@editor/fileio/serialization/serializeCompressedLIMFile";
 import {collection, doc, setDoc} from "firebase/firestore";
 import store from "@/shared/store";
-import generateGUID from "@/utils/strings/generateGUID";
+import generateGUID, {DEFAULT_GUID} from "@/utils/strings/generateGUID";
 import {getI18n} from "react-i18next";
 import {
     currentUserAtom,
@@ -13,30 +11,37 @@ import {
     publishTargetIDAtom,
     publishThumbnailAtom
 } from "@editor/firebase/publish/publishStore";
-import {mapAtom} from "@editor/documentStore";
+import {documentAtom} from "@editor/document/documentStore";
+import {MapProperties} from "@editor/document/types/MapProperties";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
 const MAX_VALUE = 2147483647;
 
 // Uploads a map and its thumbnail to Firebase Storage and posts its metadata to Firestore
 export const publishMap = async (onProgress: (percent: number) => void) => {
-    const map = store.get(mapAtom);
+    const map = store.get(documentAtom);
     const thumbnail = store.get(publishThumbnailAtom);
 
     checkUserPermissions();
-    const modifiedMap = getModifiedMapData(map);
+
+    // Make local copy of map to modify properties before publishing
+    const modifiedMap = {
+        ...map,
+        properties: getModifiedMapProperties(map.properties)
+    };
 
     // Publish Files
     await uploadMapFile(modifiedMap, onProgress);
     if (thumbnail)
-        modifiedMap.thumbnailURL = await uploadMapThumbnail(
-            modifiedMap.id,
+        modifiedMap.properties.thumbnailURL = await uploadMapThumbnail(
+            modifiedMap.properties.id ?? DEFAULT_GUID,
             thumbnail,
             onProgress
         );
 
     // Post Metadata
     await postMapMetadata(modifiedMap);
-    return modifiedMap.id;
+    return modifiedMap.properties.id ?? DEFAULT_GUID;
 };
 
 const checkUserPermissions = () => {
@@ -50,7 +55,7 @@ const checkUserPermissions = () => {
         throw new Error(t("publish.errorEmailNotVerified"));
 };
 
-const getModifiedMapData = (map: LIMap): LIMap => {
+const getModifiedMapProperties = (properties: MapProperties): MapProperties => {
     const user = store.get(currentUserAtom);
     const publishTargetID = store.get(publishTargetIDAtom);
     const remixID = store.get(publishRemixIDAtom);
@@ -58,14 +63,14 @@ const getModifiedMapData = (map: LIMap): LIMap => {
     // TODO: Move targetID and remixID into document instead
 
     return {
-        ...map,
+        ...properties,
         id: publishTargetID ?? generateGUID(),
         idVersion: Math.round(Math.random() * MAX_VALUE),
-        remixOf: remixID,
+        remixOf: remixID ?? undefined,
         authorID: user?.uid ?? "",
-        authorName: map.authorName || user?.displayName || "Anonymous",
+        authorName: properties.authorName || user?.displayName || "Anonymous",
         createdAt: new Date().getTime(),
-        thumbnailURL: null,
+        thumbnailURL: undefined,
         isVerified: false,
         likeCount: 0,
         downloadCount: 0,
@@ -89,44 +94,44 @@ const uploadMapThumbnail = async (
 
 // Uploads the map file to Firebase Storage
 const uploadMapFile = async (
-    map: LIMap,
+    map: MapDocument,
     onProgress: (percent: number) => void
 ) => {
     const user = store.get(currentUserAtom);
     if (!user)
         throw new Error("User not logged in");
 
-    const mapStorageRef = ref(storage, `maps/${user.uid}/${map.id}.lim2`);
+    const mapStorageRef = ref(storage, `maps/${user.uid}/${map.properties.id ?? DEFAULT_GUID}.lim2`);
     const mapBytes = await serializeCompressedLIMFile(map);
     await uploadFileToStorage(mapStorageRef, mapBytes, onProgress);
 };
 
 // Posts the map metadata to Firestore
-const postMapMetadata = async (map: LIMap) => {
+const postMapMetadata = async (map: MapProperties) => {
     // Collapse `LIMap` to `LIMetadata`
     // Removes unnecessary data from the map
-    const mapMetadata: LIMetadata = {
-        v: map.v,
-        id: map.id,
-        idVersion: map.idVersion ?? null,
-        name: map.name,
-        description: map.description,
-        isPublic: map.isPublic,
-        authorID: map.authorID,
-        authorName: map.authorName,
-        createdAt: map.createdAt,
-        thumbnailURL: map.thumbnailURL ?? null,
-        remixOf: map.remixOf ?? null,
-        likeCount: map.likeCount,
-        downloadCount: map.downloadCount,
-        isVerified: map.isVerified,
-        mapTarget: map.mapTarget ?? null,
-    };
+    // const mapMetadata: LIMetadata = {
+    //     v: map.v,
+    //     id: map.id,
+    //     idVersion: map.idVersion ?? null,
+    //     name: map.name,
+    //     description: map.description,
+    //     isPublic: map.isPublic,
+    //     authorID: map.authorID,
+    //     authorName: map.authorName,
+    //     createdAt: map.createdAt,
+    //     thumbnailURL: map.thumbnailURL ?? null,
+    //     remixOf: map.remixOf ?? null,
+    //     likeCount: map.likeCount,
+    //     downloadCount: map.downloadCount,
+    //     isVerified: map.isVerified,
+    //     mapTarget: map.mapTarget ?? null,
+    // };
 
     // Upload to Firestore
     const storeRef = collection(db, "maps");
     const docRef = doc(storeRef, map.id);
-    await setDoc(docRef, mapMetadata);
+    await setDoc(docRef, map);
 };
 
 // Uploads a file to Firebase Storage with progress tracking

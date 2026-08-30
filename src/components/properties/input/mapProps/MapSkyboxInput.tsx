@@ -1,16 +1,18 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {mapPropsAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import ColorPicker from "../../../utils/ColorPicker";
 import LIColor from "../../../../types/li/LIColor";
 import {Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {Palette, Refresh} from "@mui/icons-material";
-import {useAtom} from "jotai";
+import {useAtomValue} from "jotai";
+import executeCommand from "@editor/history/executeCommand";
+import {setMapProperty} from "@editor/document/mapPropertyCommands";
 
 
 export default function MapSkyboxInput() {
     const {t} = useTranslation();
-    const [properties, setProperties] = useAtom(mapPropsAtom);
+    const properties = useAtomValue(docPropertiesAtom);
 
     const hexToColor = (hex: string): LIColor => {
         const r = parseInt(hex.substring(1, 3), 16);
@@ -36,11 +38,11 @@ export default function MapSkyboxInput() {
                         disableAlpha
                         title={t("settings.map.setColor")}
                         color={hexToColor(properties.bgColor || "#ffffff")}
-                        onChange={(color) => setProperties({...properties, bgColor: colorToHex(color)})}
+                        onChange={color => executeCommand(setMapProperty("bgColor", colorToHex(color)))}
                     />
                     <Button
                         color={"error"}
-                        onClick={() => setProperties({...properties, bgColor: undefined})}
+                        onClick={() => executeCommand(setMapProperty("bgColor", undefined))}
                     >
                         <Refresh/>
                     </Button>

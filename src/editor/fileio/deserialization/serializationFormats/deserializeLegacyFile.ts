@@ -6,13 +6,15 @@ import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
+import {convertMapToDocument} from "@editor/fileio/deserialization/convertMapToDocument";
+import {MapDocument} from "@/editor/document/types/MapDocument";
 
 /**
  * Deserializes a legacy .LIM/.JSON file from an ArrayBuffer
  * @param buffer - The ArrayBuffer of the .LIM file
- * @returns The deserialized LIMap
+ * @returns The deserialized MapDocument
  */
-export default function deserializeLegacyFile(buffer: ArrayBuffer): LIMap {
+export default function deserializeLegacyFile(buffer: ArrayBuffer): MapDocument {
 
     // Deserialize JSON
     const textDecoder = new TextDecoder();
@@ -25,7 +27,7 @@ export default function deserializeLegacyFile(buffer: ArrayBuffer): LIMap {
     // Check for necessary migrations
     checkForMapMigrations(mapData);
 
-    return mapData;
+    return convertMapToDocument(mapData);
 }
 
 /**

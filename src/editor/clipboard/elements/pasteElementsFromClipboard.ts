@@ -1,4 +1,4 @@
-import executeCommand, {MapCommand} from "../../history/executeCommand";
+import executeCommand, {EditorCommand} from "../../history/executeCommand";
 import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import generateGUID from "../../../utils/strings/generateGUID";
 import getClipboard from "../getClipboard";
@@ -22,7 +22,7 @@ export const pasteElementsFromClipboard = async () => {
 
 const pasteElementsFromClipboardContent = (
     clipboardContent: ClipboardContent
-): MapCommand => map => {
+): EditorCommand => map => {
 
     // Get Elements
     const elements = clipboardContent.elem;

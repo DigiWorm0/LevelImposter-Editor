@@ -1,16 +1,14 @@
 import {atomFamily} from "jotai/utils";
 import {MaybeGUID} from "@/types/common/GUID";
 import {atom, useAtomValue} from "jotai";
-import {mapAtom} from "@editor/documentStore";
+import {docElementsAtom} from "@editor/document/documentStore";
 
 export const elementIDExistsAtomFamily = atomFamily((id: MaybeGUID) => {
     return atom((get) => {
         if (!id)
             return false;
 
-        const map = get(mapAtom);
-        const elem = map.elements.find((e) => e.id === id);
-        return !!elem;
+        return id in get(docElementsAtom);
     });
 });
 

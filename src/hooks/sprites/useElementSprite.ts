@@ -4,7 +4,8 @@ import {MaybeGUID} from "@/types/common/GUID";
 import {spriteAtomFamily} from "./useSprite";
 import {textureFromURLAtomFamily} from "../texture/useTextureFromURL";
 
-import {elementAtomFamily} from "@editor/documentStore";
+
+import {elementAtomFamily} from "@/hooks/elements/useElement";
 
 const UNKNOWN_SPRITE_URL = "/sprites/util-unknown.png";
 

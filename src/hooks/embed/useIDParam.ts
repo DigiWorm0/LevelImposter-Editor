@@ -31,7 +31,7 @@ export default function useIDParam() {
             toaster.dismiss(toastID);
 
             // Show success message
-            toaster.success(t("embed.loadedMap", {name: map.name, author: map.authorName}));
+            toaster.success(t("embed.loadedMap", {name: map.name, author: map.properties.authorName ?? "Unknown"}));
         }).catch(toaster.error);
     }, []);
 

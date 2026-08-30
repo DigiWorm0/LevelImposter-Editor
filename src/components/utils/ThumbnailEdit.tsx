@@ -3,7 +3,7 @@ import React from "react";
 import openUploadDialog from "../../utils/fileio/openUploadDialog";
 import useToaster from "../../hooks/useToaster";
 import {useTranslation} from "react-i18next";
-import {mapAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import {Box, Button, ButtonGroup, CardMedia, Typography} from "@mui/material";
 import {CloudUpload, Refresh} from "@mui/icons-material";
 import useMapThumbnailURL from "../../hooks/firebase/useMapThumbnailURL";
@@ -11,7 +11,7 @@ import {useAtom, useAtomValue} from "jotai";
 import {publishThumbnailAtom} from "@editor/firebase/publish/publishStore";
 
 export default function ThumbnailEdit() {
-    const map = useAtomValue(mapAtom);
+    const docProperties = useAtomValue(docPropertiesAtom);
     const toaster = useToaster();
     const [thumbnail, setThumbnail] = useAtom(publishThumbnailAtom);
     const thumbnailURL = useMapThumbnailURL();
@@ -21,13 +21,13 @@ export default function ThumbnailEdit() {
      * Set default thumbnail.
      */
     React.useEffect(() => {
-        if (!map.thumbnailURL || thumbnail)
+        if (!docProperties.thumbnailURL || thumbnail)
             return;
-        fetch(map.thumbnailURL)
+        fetch(docProperties.thumbnailURL)
             .then((response) => response.blob())
             .then((blob) => setThumbnail(blob))
             .catch(toaster.error);
-    }, [map.thumbnailURL, setThumbnail]);
+    }, [docProperties.thumbnailURL, setThumbnail]);
 
     /**
      * Resizes an image to the specified width and height.

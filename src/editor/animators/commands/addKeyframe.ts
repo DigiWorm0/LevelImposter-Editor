@@ -1,4 +1,4 @@
-import {MapCommand} from "@editor/history/executeCommand";
+import {EditorCommand} from "@editor/history/executeCommand";
 import GUID from "@/types/common/GUID";
 import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
 import store from "@/shared/store";
@@ -10,7 +10,7 @@ export const addKeyframe = (
     targetID: GUID,
     property: LIAnimPropertyType,
     value?: number
-): MapCommand => map => {
+): EditorCommand => map => {
     // Get the target properties
     const animTargetProperty = getAnimTargetProperty(map, targetID, property);
     if (!animTargetProperty)

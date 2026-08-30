@@ -9,6 +9,7 @@ export interface SceneGraphElementsProps {
 }
 
 export default function SceneGraphElements(props: SceneGraphElementsProps) {
+    // TODO: Replace w/ scenes
     const elementIDs = useElementChildIDs(undefined);
     return (
         <List sx={{flexGrow: 1, overflowY: "auto"}}>

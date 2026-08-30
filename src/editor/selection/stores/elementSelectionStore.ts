@@ -3,7 +3,8 @@ import GUID, {MaybeGUID} from "../../../types/common/GUID";
 import {atomFamily} from "jotai/utils";
 import {isElementSelectedAtomFamily} from "@/hooks/elements/useIsElementSelected";
 
-import {elementAtomFamily} from "../../documentStore";
+
+import {elementAtomFamily} from "@/hooks/elements/useElement";
 
 export const selectedElementIDsAtom = atom<GUID[]>([]);
 

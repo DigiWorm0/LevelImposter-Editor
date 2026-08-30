@@ -1,7 +1,7 @@
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import {Public} from "@mui/icons-material";
-import {mapNameAtom} from "@editor/documentStore";
+import {docNameAtom} from "@editor/document/documentStore";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
 import React from "react";
 import handleSceneGraphDrop from "../../utils/element/handleSceneGraphDrop";
@@ -10,7 +10,7 @@ import selectElementID from "../../editor/selection/selectElementID";
 import {panToElement} from "@editor/viewport/panToElement";
 
 export default function SceneGraphOrigin() {
-    const mapName = useAtomValue(mapNameAtom);
+    const mapName = useAtomValue(docNameAtom);
 
     const [, setDraggingID] = useDraggingElementID();
     const [isDragOver, setDragOver] = React.useState(false);

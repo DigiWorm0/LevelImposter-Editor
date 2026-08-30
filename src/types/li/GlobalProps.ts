@@ -1,8 +1,8 @@
-import LIProperties from "./LIProperties";
+import {MapElementProperties} from "@editor/document/types/MapElementProperties";
 
 export interface GlobalProp {
-    prop: keyof LIProperties,
-    types: string[]
+    prop: keyof MapElementProperties,
+    types: (string | undefined)[]
 }
 
 const GLOBAL_PROPERTIES: GlobalProp[] = [

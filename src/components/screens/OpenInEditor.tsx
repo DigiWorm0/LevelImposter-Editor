@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {DEFAULT_GUID} from "@/utils/strings/generateGUID";
-import {mapAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import useEmbed from "../../hooks/embed/useEmbed";
 import {Button, Tooltip} from "@mui/material";
 import {Launch} from "@mui/icons-material";
@@ -8,21 +8,21 @@ import React from "react";
 import {useAtomValue} from "jotai";
 
 export default function OpenInEditor() {
-    const map = useAtomValue(mapAtom);
+    const docProperties = useAtomValue(docPropertiesAtom);
     const isEmbed = useEmbed();
     const {t} = useTranslation();
 
     const url = React.useMemo(() => {
         const url = new URL(window.location.href);
         url.searchParams.delete("embed");
-        url.searchParams.set("id", map.id);
+        url.searchParams.set("id", docProperties.id ?? DEFAULT_GUID);
         return url.toString();
-    }, [map.id]);
+    }, [docProperties]);
 
-    if (!isEmbed || map.id === DEFAULT_GUID)
+    if (!isEmbed || docProperties.id === DEFAULT_GUID)
         return null;
 
-    const canRemix = map.properties.canRemix !== false;
+    const canRemix = docProperties.canRemix !== false;
 
     return (
         <div

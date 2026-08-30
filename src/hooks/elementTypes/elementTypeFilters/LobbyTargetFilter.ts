@@ -1,6 +1,6 @@
-import {mapTargetAtom} from "@editor/documentStore";
 import MapTarget from "../../../types/li/MapTarget";
 import makeElementTypeFilter from "../makeElementTypeFilter";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 
 const LOBBY_ELEMENT_WHITELIST = [
     "util-blank",
@@ -31,7 +31,7 @@ const GAME_ELEMENT_BLACKLIST = [
 ];
 
 const LobbyTargetFilter = makeElementTypeFilter((type, get) => {
-    const mapTarget = get(mapTargetAtom);
+    const {mapTarget} = get(docPropertiesAtom);
     const isLobbyMap = mapTarget === MapTarget.Lobby;
 
     if (!isLobbyMap) {

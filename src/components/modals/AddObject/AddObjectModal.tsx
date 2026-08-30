@@ -30,6 +30,7 @@ export default function AddObjectModal(props: AddObjectModalProps) {
             xScale: 1,
             yScale: 1,
             rotation: 0,
+            childrenIDs: [],
             properties: {}
         }));
         props.onClose();

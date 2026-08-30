@@ -4,6 +4,8 @@ import LIProperties from "./LIProperties";
 export default interface LIElement {
     id: GUID;
     parentID?: GUID;
+    childrenIDs?: GUID[];
+
     name: string;
     type: string;
     x: number;

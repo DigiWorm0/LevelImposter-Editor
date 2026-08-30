@@ -6,13 +6,12 @@ import BuildOperation from "../../../editor/build/BuildOperation";
 import OptimizeMapOption from "./OptimizeMapOption";
 import TrimMapAssetsOperation from "../../../editor/build/TrimMapAssetsOperation";
 import MergeMapAssetsOperation from "../../../editor/build/MergeMapAssetsOperation";
-import useOptimizeLog from "../../../hooks/optimize/useOptimizeLog";
 import {Interweave} from "interweave";
-import useAppendOptimizeLog from "../../../hooks/optimize/useAppendOptimizeLog";
-import EncodeToDDSOperation from "../../../editor/build/EncodeToDDSOperation";
-import useIsOptimizationRunning from "../../../hooks/optimize/useIsOptimizationRunning";
-import ConvertToSpriteAnimOperation from "../../../editor/build/ConvertToSpriteAnimOperation";
-import useEnabledOptimizeOptionIDs from "../../../hooks/optimize/useEnabledOptimizeOptionIDs";
+import {useAtom} from "jotai";
+import {buildLogAtom, enabledBuildOptionIDs, isBuildRunningAtom} from "@editor/build/buildStore";
+import BuildOperationLog from "@editor/build/BuildOperationLog";
+import EncodeToDDSOperation from "@editor/build/EncodeToDDSOperation";
+import ConvertToSpriteAnimOperation from "@editor/build/ConvertToSpriteAnimOperation";
 
 interface OptimizeMapOption {
     id: string;
@@ -23,6 +22,7 @@ interface OptimizeMapOption {
     operation: BuildOperation;
 }
 
+// TODO: Replace constant strings w/ i18n translations
 const optimizeOptions: OptimizeMapOption[] = [
     {
         id: "trim-unused-assets",
@@ -65,10 +65,9 @@ const optimizeOptions: OptimizeMapOption[] = [
 
 export default function OptimizeMapPanel() {
     const {t} = useTranslation();
-    const [enabledIDs, setEnabledIDs] = useEnabledOptimizeOptionIDs();
-    const [isRunning, setIsRunning] = useIsOptimizationRunning();
-    const [optimizeLog, setOptimizeLog] = useOptimizeLog();
-    const appendOptimizeLog = useAppendOptimizeLog();
+    const [enabledIDs, setEnabledIDs] = useAtom(enabledBuildOptionIDs);
+    const [isRunning, setIsRunning] = useAtom(isBuildRunningAtom);
+    const [optimizeLog, setOptimizeLog] = useAtom(buildLogAtom);
     const bottomLogRef = React.useRef<HTMLDivElement>(null);
 
     const setOptionEnabled = React.useCallback((id: string, isEnabled: boolean) => {
@@ -90,23 +89,23 @@ export default function OptimizeMapPanel() {
         for (const selectedOption of selectedOptions) {
             try {
                 // Log start
-                appendOptimizeLog(`<span style="color: #1b91c8;">Start ►</span> ${selectedOption.label}`);
+                BuildOperationLog._log(`<span style="color: #1b91c8;">Start ►</span> ${selectedOption.label}`);
 
                 // Run operation
                 await selectedOption.operation.run();
             } catch (error) {
                 // Log error
                 console.error(error);
-                appendOptimizeLog(`<span style="color: red;">Exception during ${selectedOption.label}:</span> ${(error as Error).message}`);
+                BuildOperationLog._log(`<span style="color: red;">Exception during ${selectedOption.label}:</span> ${(error as Error).message}`);
             }
         }
 
         // Log done
-        appendOptimizeLog("<span style=\"color: #00c216;\">Done ✔</span>");
+        BuildOperationLog._log("<span style=\"color: #00c216;\">Done ✔</span>");
 
         // Mark as not running
         setIsRunning(false);
-    }, [appendOptimizeLog, enabledIDs, setIsRunning, setOptimizeLog]);
+    }, [BuildOperationLog, enabledIDs, setIsRunning, setOptimizeLog]);
 
     // On render, scroll to bottom of log
     React.useEffect(() => {

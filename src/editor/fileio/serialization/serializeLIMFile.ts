@@ -1,17 +1,19 @@
-import LIMap from "../../../types/li/LIMap";
 import {toUTF8} from "../../../utils/strings/toUTF8";
 import store from "../../../shared/store";
 import {allAssetsAtom} from "@editor/assets/assetsStore";
+import {convertDocumentToMap} from "@editor/fileio/serialization/convertDocumentToMap";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
 /**
- * Serializes a LIMap to a LIM2 file format
- * @param map - The LIMap to serialize
+ * Serializes a MapDocument to a LIM2 file format
+ * @param doc - The MapDocument to serialize
  * @returns A promise that resolves to the serialized LIM2 file as a Uint8Array
  */
-export default async function serializeLIMFile(map: LIMap): Promise<Uint8Array> {
+export default async function serializeLIMFile(doc: MapDocument): Promise<Uint8Array> {
     const assets = store.get(allAssetsAtom); // TODO: Separate getter to get serializable assets
 
     // Serialize JSON
+    const map = convertDocumentToMap(doc);
     const jsonString = toUTF8(JSON.stringify({...map, assets: undefined}));
     const jsonLength = jsonString.length;
 

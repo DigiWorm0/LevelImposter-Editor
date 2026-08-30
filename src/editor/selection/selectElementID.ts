@@ -3,12 +3,17 @@ import store from "../../shared/store";
 import SelectOperation from "../../types/common/SelectOperation";
 import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
-import {elementAtomFamily} from "../documentStore";
+
+import {elementAtomFamily} from "@/hooks/elements/useElement";
+import {deselectAll} from "@editor/selection/deselectAll";
 
 const selectElementID = (
     id: MaybeGUID,
     operation: SelectOperation = "set"
 ) => {
+    // Deselect everything else 1st
+    deselectAll();
+
     let selectedIDs = store.get(selectedElementIDsAtom);
 
     // If no id is provided, clear the selection

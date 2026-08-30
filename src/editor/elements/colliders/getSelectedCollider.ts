@@ -1,10 +1,10 @@
-import {MapDraft} from "../../history/executeCommand";
+import {DocDraft} from "../../history/executeCommand";
 import {getSelectedElement} from "../getSelectedElement";
 import store from "../../../shared/store";
 import {selectedColliderIDAtom} from "../../selection/stores/colliderSelectionStore";
 import GUID from "../../../types/common/GUID";
 
-export const getSelectedCollider = (map: MapDraft) => {
+export const getSelectedCollider = (map: DocDraft) => {
     const selectedColliderID = store.get(selectedColliderIDAtom);
     if (!selectedColliderID)
         return undefined;
@@ -12,7 +12,7 @@ export const getSelectedCollider = (map: MapDraft) => {
     return getCollider(map, selectedColliderID);
 };
 
-export const getCollider = (map: MapDraft, id: GUID) => {
+export const getCollider = (map: DocDraft, id: GUID) => {
     const selectedElement = getSelectedElement(map);
     return selectedElement?.properties.colliders?.find(c => c.id === id);
 };

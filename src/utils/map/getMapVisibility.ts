@@ -1,4 +1,4 @@
-import LIElement from "../../types/li/LIElement";
+import {MapElement} from "@editor/document/types/MapDocument";
 
 const INVISIBLE_TYPES = [
     "util-spawn1",
@@ -59,17 +59,19 @@ export enum ElemVisibility {
     InvisibleFreeplay
 }
 
-export default function getElemVisibility(elem?: LIElement): ElemVisibility {
+export default function getElemVisibility(elem?: MapElement): ElemVisibility {
     if (!elem)
         return ElemVisibility.Invisible;
 
-    if (INVISIBLE_TYPES.includes(elem.type))
+    const elemType = elem?.type ?? "";
+
+    if (INVISIBLE_TYPES.includes(elemType))
         return ElemVisibility.Invisible;
 
-    if (INVISIBLE_TYPES_NO_SPRITE.includes(elem.type) && !elem.properties.spriteID)
+    if (INVISIBLE_TYPES_NO_SPRITE.includes(elemType) && !elem.properties.spriteID)
         return ElemVisibility.InvisibleNoSprite;
 
-    if (INVISIBLE_TYPES_MINIMAP.includes(elem.type))
+    if (INVISIBLE_TYPES_MINIMAP.includes(elemType))
         return ElemVisibility.InvisibleMinimap;
 
     if (elem.type === "util-room") {

@@ -1,19 +1,19 @@
-import {mapAtom} from "@editor/documentStore";
-import MapCard from "../../utils/MapCard";
-import React from "react";
+import {documentAtom} from "@editor/document/documentStore";
 import useMapThumbnailURL from "../../../hooks/firebase/useMapThumbnailURL";
 import {useAtomValue} from "jotai";
 
 export default function PublishModalUploadPreview() {
-    const map = useAtomValue(mapAtom);
+    const map = useAtomValue(documentAtom);
     const thumbnailURL = useMapThumbnailURL();
 
-    return (
-        <MapCard
-            map={{
-                ...map,
-                thumbnailURL
-            }}
-        />
-    );
+    // TODO: FIX ME!
+    return null;
+    // return (
+    //     <MapCard
+    //         map={{
+    //             ...map,
+    //             thumbnailURL
+    //         }}
+    //     />
+    // );
 }

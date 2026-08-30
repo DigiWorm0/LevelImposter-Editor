@@ -2,7 +2,7 @@ import {atomFamily, unwrap} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 import {Assets, Texture} from "pixi.js";
 import {assetAtURLAtom} from "../assets/useAssetAtURL";
-import {mapPropsAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 
 export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => {
     return atom(async (get) => {
@@ -37,7 +37,7 @@ export const textureFromURLAtomFamily = atomFamily((url: string | undefined) => 
             }
 
             // If the map is pixel-art, set the texture's scale mode to NEAREST
-            const {pixelArtMode} = get(mapPropsAtom);
+            const {pixelArtMode} = get(docPropertiesAtom);
             if (pixelArtMode)
                 texture.source.scaleMode = "nearest";
 

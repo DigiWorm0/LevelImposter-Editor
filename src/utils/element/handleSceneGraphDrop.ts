@@ -44,14 +44,11 @@ export default function handleSceneGraphDrop(targetElementID: MaybeGUID) {
 
     // Move each element under the target element
     executeCommand(map => {
-        for (const id of elementIDsToMove) {
-            // Get the element data
-            const element = map.elements.find(e => e.id === id);
-            if (!element)
-                return;
+        if (!targetElementID)
+            return;
 
-            // Update the parentID of the element to the target elementID
-            element.parentID = targetElementID;
-        }
+        map.elements[targetElementID].childrenIDs.push(...elementIDsToMove);
+        for (const id of elementIDsToMove)
+            map.elements[id].parentID = targetElementID;
     });
 }

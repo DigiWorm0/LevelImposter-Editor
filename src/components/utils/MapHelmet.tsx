@@ -1,19 +1,15 @@
-import {isDocumentSavedAtom, mapAtom} from "@editor/documentStore";
+import {documentAtom, isDocSavedAtom} from "@editor/document/documentStore";
 import {Helmet} from "react-helmet";
 import {useAtomValue} from "jotai";
 
 export default function MapHelmet() {
-    const map = useAtomValue(mapAtom);
-    const isSaved = useAtomValue(isDocumentSavedAtom);
+    const map = useAtomValue(documentAtom);
+    const isSaved = useAtomValue(isDocSavedAtom);
 
     return (
         <Helmet>
-            {map.elements.length > 0 ?
-                (<title>{map.name}{isSaved ? "" : "*"}</title>)
-                :
-                (<title>LevelImposter Editor</title>)
-            }
-            <meta name="description" content={map.description}/>
+            <title>{map.name}{isSaved ? "" : "*"}</title>
+            <meta name="description" content={map.properties.description}/>
         </Helmet>
     );
 }

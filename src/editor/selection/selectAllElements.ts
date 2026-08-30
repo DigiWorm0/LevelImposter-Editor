@@ -1,5 +1,5 @@
 import store from "../../shared/store";
-import {allElementsAtom} from "../documentStore";
+import {allElementsAtom} from "../document/documentStore";
 import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
 export const selectAllElements = () => {

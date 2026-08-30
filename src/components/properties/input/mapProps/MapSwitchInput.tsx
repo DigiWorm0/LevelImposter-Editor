@@ -1,8 +1,9 @@
 import React from "react";
 import LIMapProperties from "../../../../types/li/LIMapProperties";
-import {mapPropsAtom} from "@editor/documentStore";
+import {docPropertiesAtom} from "@editor/document/documentStore";
 import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {useAtom} from "jotai";
+import {setMapProperty} from "@editor/document/mapPropertyCommands";
 
 export interface MapSwitchInputProps {
     name: string;
@@ -13,7 +14,7 @@ export interface MapSwitchInputProps {
 }
 
 export default function MapSwitchInput(props: MapSwitchInputProps) {
-    const [properties, setProperties] = useAtom(mapPropsAtom);
+    const [properties, setProperties] = useAtom(docPropertiesAtom);
 
     const value = React.useMemo(() => {
         if (props.prop === undefined)
@@ -24,19 +25,13 @@ export default function MapSwitchInput(props: MapSwitchInputProps) {
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (props.prop === undefined)
             return;
-        setProperties({
-            ...properties,
-            [props.prop]: e.target.checked
-        });
+        setMapProperty(props.prop, e.target.checked);
     }, [properties, props.prop, setProperties]);
 
     const onClick = React.useCallback(() => {
         if (props.prop === undefined)
             return;
-        setProperties({
-            ...properties,
-            [props.prop]: !value
-        });
+        setMapProperty(props.prop, !value);
     }, [properties, props.prop, setProperties, value]);
 
     return (

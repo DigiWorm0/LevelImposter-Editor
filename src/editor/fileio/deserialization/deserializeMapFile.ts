@@ -1,17 +1,17 @@
 import deserializeLegacyFile from "./serializationFormats/deserializeLegacyFile";
 import identifySerializationType, {MapSerializationType} from "./identifySerializationType";
 import deserializeLIMFile from "./serializationFormats/deserializeLIMFile";
-import LIMap from "../../../types/li/LIMap";
 import deserializeCompressedLIMFile from "./serializationFormats/deserializeCompressedLIMFile";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
 /**
  * Deserializes a map file from an ArrayBuffer.
  * Automatically identifies the deserialization format,
  * deserializes it, and performs any necessary migrations.
  * @param buffer - The ArrayBuffer of the map file
- * @returns The deserialized LIMap
+ * @returns The deserialized MapDocument
  */
-export default function deserializeMapFile(buffer: ArrayBuffer): LIMap {
+export default function deserializeMapFile(buffer: ArrayBuffer): MapDocument {
     const serializationType = identifySerializationType(buffer);
 
     switch (serializationType) {
@@ -31,9 +31,9 @@ export default function deserializeMapFile(buffer: ArrayBuffer): LIMap {
 /**
  * Deserializes a map file from a Blob
  * @param blob - The Blob of the map file
- * @returns A promise that resolves to the deserialized LIMap
+ * @returns A promise that resolves to the deserialized MapDocument
  */
-export function deserializeMapFileFromBlob(blob: Blob): Promise<LIMap> {
+export function deserializeMapFileFromBlob(blob: Blob): Promise<MapDocument> {
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader();
         fileReader.onload = () => {

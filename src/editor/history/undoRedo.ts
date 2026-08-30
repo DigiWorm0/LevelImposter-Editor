@@ -1,6 +1,6 @@
 import store from "../../shared/store";
 import {allPatchesAtom, patchHeadIndexAtom} from "./historyStore";
-import {mapAtom} from "../documentStore";
+import {documentAtom} from "../document/documentStore";
 import {applyPatches} from "immer";
 
 export function undo() {
@@ -25,7 +25,7 @@ function movePatchHead(action: "undo" | "redo") {
         return;
 
     const currentPatch = allPatches[patchHeadIndex];
-    const currentDocument = store.get(mapAtom);
+    const currentDocument = store.get(documentAtom);
 
     const nextDocument = applyPatches(
         currentDocument,
@@ -33,5 +33,5 @@ function movePatchHead(action: "undo" | "redo") {
     );
 
     store.set(patchHeadIndexAtom, patchHeadIndex + headDelta);
-    store.set(mapAtom, nextDocument);
+    store.set(documentAtom, nextDocument);
 }

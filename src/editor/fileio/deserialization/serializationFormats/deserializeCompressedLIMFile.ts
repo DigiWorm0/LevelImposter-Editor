@@ -5,6 +5,8 @@ import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import checkForMapMigrations from "../migrations/checkForMapMigrations";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
+import {convertMapToDocument} from "@editor/fileio/deserialization/convertMapToDocument";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
 const MAP_JSON_FILENAME = "map.json";
 
@@ -13,7 +15,7 @@ const MAP_JSON_FILENAME = "map.json";
  * @param buffer - The ArrayBuffer of the .LIM2 file
  * @returns The deserialized LIMap
  */
-export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap {
+export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): MapDocument {
 
     // Read Compressed Data
     const unzippedData = unzipSync(new Uint8Array(buffer));
@@ -26,6 +28,7 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap
     const textDecoder = new TextDecoder();
     const jsonString = textDecoder.decode(jsonBuffer);
     const mapData = JSON.parse(jsonString) as LIMap;
+    const mapDocument = convertMapToDocument(mapData);
 
     // Read Assets
     const allAssets: MapAsset[] = [];
@@ -57,5 +60,5 @@ export default function deserializeCompressedLIMFile(buffer: ArrayBuffer): LIMap
     // TODO: Return the assets instead of storing them locally
     store.set(allAssetsAtom, allAssets);
 
-    return mapData;
+    return mapDocument;
 }

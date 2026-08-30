@@ -1,4 +1,4 @@
-import {allElementsAtom} from "@editor/documentStore";
+import {allElementsAtom} from "@editor/document/documentStore";
 import makeElementTypeFilter from "../makeElementTypeFilter";
 import {SINGLE_TYPES} from "@/types/amongus/Constants";
 

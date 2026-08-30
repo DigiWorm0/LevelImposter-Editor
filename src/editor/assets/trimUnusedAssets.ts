@@ -1,18 +1,17 @@
 import {deleteAsset} from "./deleteAsset";
 import store from "../../shared/store";
 import {allAssetsAtom} from "./assetsStore";
-import {mapAtom} from "../documentStore";
+import {allElementsAtom, docSpriteAtlasesAtom} from "../document/documentStore";
 
 export const trimUnusedAssets = () => {
-    const map = store.get(mapAtom);
-    const {elements, spriteAtlases} = map;
+    const allElements = store.get(allElementsAtom);
 
     // Get All Used Asset IDs
-    const spriteIDs = elements.map((e) => e.properties.spriteID);
-    const meetingSpriteIDs = elements.map((e) => e.properties.meetingBackgroundID);
-    const minigameIDs = elements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
-    const soundIDs = elements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
-    const animationSpriteIDs = elements?.map(elem =>
+    const spriteIDs = allElements.map((e) => e.properties.spriteID);
+    const meetingSpriteIDs = allElements.map((e) => e.properties.meetingBackgroundID);
+    const minigameIDs = allElements.map((e) => e.properties.minigames?.map((m) => m.spriteID)).flat();
+    const soundIDs = allElements.map((e) => e.properties.sounds?.map((s) => s.dataID)).flat();
+    const animationSpriteIDs = allElements?.map(elem =>
         elem.properties.animations?.map(anim =>
             anim.frames?.map(frame => frame.spriteID)).flat()
     ).flat() || [];
@@ -24,7 +23,9 @@ export const trimUnusedAssets = () => {
     // map.spriteAtlases = map.spriteAtlases?.filter((a) => usedAssetIDs.includes(a.id));
 
     // Add Sprite Atlas Asset IDs to Used IDs
-    usedAssetIDs.push(...spriteAtlases?.map((a) => a.assetID) || []);
+    const spriteAtlases = store.get(docSpriteAtlasesAtom);
+    const spriteAtlasAssetIDs = Object.values(spriteAtlases).map((a) => a.assetID);
+    usedAssetIDs.push(...spriteAtlasAssetIDs);
 
     // Delete Unused Assets
     const allAssets = store.get(allAssetsAtom);

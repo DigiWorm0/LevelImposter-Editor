@@ -1,7 +1,6 @@
 import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
 import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
-import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import {MaybeGUID} from "@/types/common/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
 import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
@@ -23,7 +22,6 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const [_isExpanded, setIsExpanded] = React.useState(true);
     const isSelected = useIsElementSelected(props.elementID);
     const element = useElement(props.elementID);
-    const childIDs = useElementChildIDs(props.elementID);
     const [isDragOver, setDragOver] = React.useState(false);
 
     if (element === undefined)
@@ -36,7 +34,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
     const isMatchID = element.id.startsWith(props.searchQuery);
     const isMatch = isMatchName || isMatchType || isMatchID;
 
-    if (!isMatch && childIDs.length === 0)
+    if (!isMatch && element.childrenIDs.length === 0)
         return null;
 
     return (
@@ -121,7 +119,7 @@ export default function SceneGraphElement(props: SceneGraphElementProps) {
                 </ListItemButton>
             </SceneGraphListItem>
             <Collapse in={isExpanded}>
-                {childIDs.map((childID) => (
+                {element.childrenIDs.map((childID) => (
                     <SceneGraphElement
                         elementID={childID}
                         key={childID}

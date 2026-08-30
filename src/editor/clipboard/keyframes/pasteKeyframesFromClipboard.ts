@@ -1,6 +1,6 @@
 import getClipboard from "@editor/clipboard/getClipboard";
 import ClipboardContent from "@editor/clipboard/ClipboardContent";
-import executeCommand, {MapCommand} from "@editor/history/executeCommand";
+import executeCommand, {EditorCommand} from "@editor/history/executeCommand";
 
 export const pasteKeyframesFromClipboard = async () => {
     // Get the clipboard data
@@ -13,7 +13,7 @@ export const pasteKeyframesFromClipboard = async () => {
 
 const pasteKeyframesFromClipboardContent = (
     clipboardContent: ClipboardContent
-): MapCommand => map => {
+): EditorCommand => map => {
 
     // Get Keyframes
     const keyframes = clipboardContent.keyframe;

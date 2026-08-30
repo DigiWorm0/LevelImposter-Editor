@@ -1,7 +1,7 @@
-import {MapCommand} from "../../history/executeCommand";
+import {EditorCommand} from "../../history/executeCommand";
 import {getSelectedCollider} from "./getSelectedCollider";
 
-export const setColliderPointsLength = (length: number): MapCommand => map => {
+export const setColliderPointsLength = (length: number): EditorCommand => map => {
     const collider = getSelectedCollider(map);
     if (!collider)
         return;

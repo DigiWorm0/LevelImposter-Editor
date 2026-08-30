@@ -3,6 +3,8 @@ import GUID from "../../../../types/common/GUID";
 import parseAssetType from "../../../../utils/fileio/parseAssetType";
 import store from "../../../../shared/store";
 import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
+import {convertMapToDocument} from "@editor/fileio/deserialization/convertMapToDocument";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
 /**
  * Deserializes a .LIM2 file from an ArrayBuffer
@@ -10,7 +12,7 @@ import {allAssetsAtom, MapAsset} from "@editor/assets/assetsStore";
  * @param hasSignature - Whether the file has a 4-byte signature at the start
  * @returns The deserialized LIMap, or undefined if deserialization failed
  */
-export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: boolean): LIMap {
+export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: boolean): MapDocument {
     const dataView = new DataView(buffer);
     const textDecoder = new TextDecoder("utf-8");
 
@@ -61,5 +63,5 @@ export default function deserializeLIMFile(buffer: ArrayBuffer, hasSignature?: b
 
     // TODO: Return the assets instead of storing them locally
     store.set(allAssetsAtom, [...allAssets]);
-    return mapData;
+    return convertMapToDocument(mapData);
 }

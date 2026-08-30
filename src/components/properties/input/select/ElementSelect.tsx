@@ -2,10 +2,10 @@ import {Autocomplete, PopperPlacementType, TextField, Tooltip} from "@mui/materi
 import React from "react";
 import {useElementsOfType} from "@/hooks/elements/useElementsOfType";
 import {MaybeGUID} from "@/types/common/GUID";
-import LIElement from "../../../../types/li/LIElement";
 import {useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {useElement} from "@/hooks/elements/useElement";
+import {MapElement} from "@editor/document/types/MapDocument";
 
 export interface ElementSelectProps {
     nameFilter?: string;
@@ -21,7 +21,7 @@ export interface ElementSelectProps {
     noElementsText: string;
     defaultText: string;
     selectedID: MaybeGUID;
-    onPick: (elem: LIElement) => void;
+    onPick: (elem: MapElement) => void;
     onReset: () => void;
 }
 
@@ -33,7 +33,7 @@ export default function ElementSelect(props: ElementSelectProps) {
         return props.whitelistedIDs ?
             elems.filter((e) => props.whitelistedIDs?.includes(e.id))
             :
-            elems.filter((e) => e.name.includes(props.nameFilter ?? "")
+            elems.filter((e) => e.name?.includes(props.nameFilter ?? "")
                 && (props.allowSelected || e.id !== selectedElemID)
                 && !props.blacklistedIDs?.includes(e.id));
     }, [elems, props.nameFilter, props.allowSelected, selectedElemID, props.blacklistedIDs]);
@@ -72,8 +72,8 @@ export default function ElementSelect(props: ElementSelectProps) {
                         else
                             props.onReset();
                     }}
-                    getOptionLabel={(elem) => elem.name}
                     getOptionKey={(elem) => elem.id}
+                    getOptionLabel={(elem) => elem.name ?? ""}
                 />
             </span>
         </Tooltip>

@@ -1,12 +1,14 @@
 import GUID from "../../../types/common/GUID";
 import {zip} from "fflate";
-import {toUTF8} from "../../../utils/strings/toUTF8";
-import LIMap from "../../../types/li/LIMap";
 import store from "../../../shared/store";
 import {allAssetsAtom} from "@editor/assets/assetsStore";
+import {convertDocumentToMap} from "@editor/fileio/serialization/convertDocumentToMap";
+import {toUTF8} from "@/utils/strings/toUTF8";
+import {MapDocument} from "@editor/document/types/MapDocument";
 
-export default async function serializeCompressedLIMFile(map: LIMap): Promise<Uint8Array> {
+export default async function serializeCompressedLIMFile(doc: MapDocument): Promise<Uint8Array> {
     // Serialize JSON
+    const map = convertDocumentToMap(doc);
     const jsonString = toUTF8(JSON.stringify({...map, assets: undefined}));
     const jsonData = new Uint8Array(jsonString.length);
     const textEncoder = new TextEncoder();

@@ -1,11 +1,13 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {allElementsAtom, mapPropsAtom, mapTargetAtom} from "@editor/documentStore";
+import {allElementsAtom, docPropertiesAtom} from "@editor/document/documentStore";
 import {Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {ExitToApp} from "@mui/icons-material";
 import {EXILE_IDS} from "@/db/AUElementDB";
-import {atom, useAtom, useAtomValue} from "jotai";
+import {atom, useAtomValue} from "jotai";
 import MapTarget from "../../../../types/li/MapTarget";
+import {setMapProperty} from "@editor/document/mapPropertyCommands";
+import executeCommand from "@editor/history/executeCommand";
 
 const hasEjectCameraAtom = atom((get) => {
     const allElements = get(allElementsAtom);
@@ -14,9 +16,9 @@ const hasEjectCameraAtom = atom((get) => {
 
 export default function MapExileInput() {
     const {t} = useTranslation();
-    const [properties, setProperties] = useAtom(mapPropsAtom);
+    const properties = useAtomValue(docPropertiesAtom);
     const hasEjectCamera = useAtomValue(hasEjectCameraAtom);
-    const [mapTarget] = useAtom(mapTargetAtom);
+    const {mapTarget} = useAtomValue(docPropertiesAtom);
 
     const currentValue = React.useMemo(() => {
         if (hasEjectCamera)
@@ -33,7 +35,7 @@ export default function MapExileInput() {
                     <Select
                         size={"small"}
                         value={currentValue}
-                        onChange={(e) => setProperties({...properties, exileID: e.target.value})}
+                        onChange={e => executeCommand(setMapProperty("exileID", e.target.value))}
                         style={{width: 200}}
                         variant={"standard"}
                         disabled={hasEjectCamera}

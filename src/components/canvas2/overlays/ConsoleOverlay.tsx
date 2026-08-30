@@ -1,10 +1,5 @@
 import GUID from "../../../types/common/GUID";
-import {
-    DEFAULT_CONSOLE_RANGE,
-    DEFAULT_SPORE_RANGE,
-    UNITY_SCALE,
-    VENT_CONSOLE_RANGE
-} from "@/types/amongus/Constants";
+import {DEFAULT_CONSOLE_RANGE, DEFAULT_SPORE_RANGE, UNITY_SCALE, VENT_CONSOLE_RANGE} from "@/types/amongus/Constants";
 import getIsConsole from "../../../utils/map/getIsConsole";
 import {useElement} from "@/hooks/elements/useElement";
 
@@ -15,9 +10,9 @@ export interface ConsoleOverlayProps {
 export default function ConsoleOverlay(props: ConsoleOverlayProps) {
     const element = useElement(props.elementID);
 
-    const isDoor = element?.type.startsWith("sab-door");
+    const isDoor = element?.type?.startsWith("sab-door");
     const isSpore = element?.type === "util-spore";
-    const isVent = element?.type.startsWith("util-vent");
+    const isVent = element?.type?.startsWith("util-vent");
     const radius = element?.properties.range ?? (
         isVent ? VENT_CONSOLE_RANGE :
             isSpore ? DEFAULT_SPORE_RANGE :

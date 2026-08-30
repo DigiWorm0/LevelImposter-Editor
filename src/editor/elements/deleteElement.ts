@@ -1,30 +1,26 @@
 import GUID from "../../types/common/GUID";
-import {MapCommand} from "../history/executeCommand";
-import {elementChildIDsAtomFamily} from "@/hooks/elements/useElementChildIDs";
+import {EditorCommand} from "../history/executeCommand";
 import store from "../../shared/store";
-import {selectedColliderIDAtom} from "../selection/stores/colliderSelectionStore";
 import {selectedElementIDsAtom} from "../selection/stores/elementSelectionStore";
+import {deselectAll} from "@editor/selection/deselectAll";
 
-import {elementAtomFamily} from "../documentStore";
+export const deleteElement = (elementID: GUID): EditorCommand => map => {
+    const recursivelyDeleteElement = (id: GUID) => {
+        // Recurse through children and delete them first
+        const element = map.elements[id];
+        for (const childID of element.childrenIDs)
+            recursivelyDeleteElement(childID);
 
-export const deleteElement = (elementID: GUID): MapCommand => map => {
-    const recursivelyDeleteElement = (childID: GUID) => {
-        console.log(`Removed ${childID} (child of ${elementID})`);
-        elementAtomFamily.remove(childID);
-        map.elements = map.elements.filter(elem => elem.id !== childID);
-
-        // TODO: Recursively find children an alternative way that doesn't require the use of atoms
-        const childIDs = store.get(elementChildIDsAtomFamily(childID));
-        childIDs.forEach(recursivelyDeleteElement);
+        // Delete the element itself
+        console.log(`Removed ${id} (child of ${elementID})`);
+        delete map.elements[id];
     };
 
     recursivelyDeleteElement(elementID);
-
-    store.set(selectedElementIDsAtom, []);
-    store.set(selectedColliderIDAtom, undefined);
+    deselectAll();
 };
 
-export const deleteSelectedElements = (): MapCommand => map => {
+export const deleteSelectedElements = (): EditorCommand => map => {
     const selectedElementIDs = store.get(selectedElementIDsAtom);
     for (const id of selectedElementIDs)
         deleteElement(id)(map);

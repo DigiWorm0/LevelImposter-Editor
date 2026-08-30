@@ -4,8 +4,9 @@ import MapElementError from "./MapElementError";
 import ErrorBoundary from "../../utils/ErrorBoundary";
 
 export default function MapElementsRenderer() {
+    // TODO: Replace w/ scenes
     const orphanElementIDs = useElementChildIDs(undefined);
-    
+
     return (
         <pixiContainer>
             {orphanElementIDs.map(id => (

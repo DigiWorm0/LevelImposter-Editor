@@ -1,5 +1,5 @@
 import Vector2 from "../../../types/transform/Vector2";
-import {MapCommand} from "../../history/executeCommand";
+import {EditorCommand} from "../../history/executeCommand";
 import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
 import {viewportAtom} from "@/hooks/canvas/useViewport";
 import {getReverseOffsetToElement} from "@/utils/canvas/getOffsetFromElement";
@@ -11,7 +11,7 @@ import {selectedElementIDAtom} from "../../selection/stores/elementSelectionStor
 import screenToWorld from "@editor/viewport/screenToWorld";
 
 // TODO: Fetch and store `mouseScreenPosition` ourselves instead of passing it in as an argument.
-export const insertColliderPointAtMouse = (mouseScreenPosition: Vector2): MapCommand => map => {
+export const insertColliderPointAtMouse = (mouseScreenPosition: Vector2): EditorCommand => map => {
 
     // Get the map element of the selected collider
     const selectedElementID = store.get(selectedElementIDAtom);

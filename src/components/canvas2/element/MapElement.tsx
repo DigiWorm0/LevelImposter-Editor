@@ -1,6 +1,5 @@
 import React from "react";
 import {MaybeGUID} from "@/types/common/GUID";
-import {useElementChildIDs} from "@/hooks/elements/useElementChildIDs";
 import getGlobalZFromLocalZ from "../../../utils/canvas/getGlobalZFromLocalZ";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import useElementOpacity from "../../../hooks/canvas/useElementOpacity";
@@ -28,7 +27,6 @@ export interface MapElementProps {
 
 export default function MapElement(props: MapElementProps) {
     const {isGridSnapEnabled, gridSnapResolution} = useSettingsValue();
-    const childElementIDs = useElementChildIDs(props.elementID);
     const isSelected = useIsElementSelected(props.elementID);
     const element = useElement(props.elementID);
     const sprite = useElementSprite(props.elementID);
@@ -88,7 +86,7 @@ export default function MapElement(props: MapElementProps) {
                 }));
             }}
 
-            nonInteractableChildren={isVisible && childElementIDs.map(id => <MapElement key={id} elementID={id}/>)}
+            nonInteractableChildren={isVisible && element.childrenIDs.map(id => <MapElement key={id} elementID={id}/>)}
         >
             <pixiContainer ref={containerRef}>
                 {sprite && (

@@ -17,8 +17,10 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
         const id = generateGUID();
         executeCommand(createElement({
             id,
+
             name: t("layer.new"),
             type: "util-layer",
+            childrenIDs: [],
             x: 0,
             y: 0,
             z: 0,
@@ -26,6 +28,7 @@ export default function AddLayerButton(props: AddLayerButtonProps) {
             xScale: 1,
             yScale: 1,
             rotation: 0,
+
             properties: {}
         }));
     }, []);
