@@ -1,0 +1,55 @@
+import React from "react";
+import {EditorSettings} from "@editor/settings/EditorSettings";
+import {InputAdornment, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import FlexNumericInput from "../../util/FlexNumericInput";
+import {useAtom} from "jotai";
+import {settingsAtom} from "@editor/settings/settingsStore";
+
+export interface SettingsPercentInputProps {
+    name: string;
+    prop: keyof EditorSettings;
+
+    icon?: React.ReactNode;
+    disabled?: boolean;
+}
+
+export default function SettingsPercentInput(props: SettingsPercentInputProps) {
+    const [settings, setSettings] = useAtom(settingsAtom);
+
+    const onChange = React.useCallback((value: number) => {
+        const percent = value / 100;
+        setSettings({
+            ...settings,
+            [props.prop]: percent
+        });
+    }, [settings, props.prop]);
+
+    return (
+        <ListItem
+            dense
+            disablePadding
+            secondaryAction={
+                <FlexNumericInput
+                    value={(settings[props.prop] as number) * 100}
+                    onChange={onChange}
+                    min={0}
+                    max={100}
+                    stepSize={10}
+                    inputProps={{
+                        style: {width: 150},
+                        disabled: props.disabled,
+                        InputProps: {
+                            endAdornment: (<InputAdornment position={"end"}>%</InputAdornment>)
+                        },
+                        variant: "standard"
+                    }}
+                />
+            }
+        >
+            <ListItemButton>
+                {props.icon && <ListItemIcon>{props.icon}</ListItemIcon>}
+                <ListItemText primary={props.name}/>
+            </ListItemButton>
+        </ListItem>
+    );
+}

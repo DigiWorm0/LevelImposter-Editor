@@ -1,6 +1,6 @@
 import store from "@/shared/store";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
-import {timelineIntervalAtom} from "@/hooks/timeline/useTimelineInterval";
+import {timelineIntervalAtom} from "@/rendering/timeline/hooks/useTimelineInterval";
 import {setPlaybackState} from "@editor/animators/setPlaybackState";
 
 export const stepPlayhead = (dir: "left" | "right") => {

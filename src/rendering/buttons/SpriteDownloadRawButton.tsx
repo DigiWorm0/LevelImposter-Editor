@@ -1,0 +1,58 @@
+import {Download} from "@mui/icons-material";
+import {Button, IconButton, Tooltip} from "@mui/material";
+import React from "react";
+import GUID from "@shared/types/GUID";
+import {useTranslation} from "react-i18next";
+import {downloadRawAsset} from "@editor/assets/downloadAsset";
+import {useAtomValue} from "jotai";
+import {assetsAtomFamily} from "@editor/assets/assetsStore";
+
+export interface SpriteDownloadRawButtonProps {
+    assetID: GUID | undefined;
+    small?: boolean;
+}
+
+export default function SpriteDownloadRawButton(props: SpriteDownloadRawButtonProps) {
+    const {t} = useTranslation();
+    const asset = useAtomValue(assetsAtomFamily(props.assetID));
+
+    const fileName = asset?.id ?? "sprite";
+    const assetType = asset?.blob.type.split("/")[1].toLowerCase();
+
+    const onClick = React.useCallback(() => {
+        downloadRawAsset(props.assetID, fileName)
+            .catch(console.error);
+    }, [props.assetID, fileName]);
+
+    if (!asset)
+        return null;
+
+    if (props.small)
+        return (
+            <Tooltip title={t("sprite.downloadAsType", {type: assetType || "N/A"})}>
+                <IconButton
+                    color={"primary"}
+                    size={"small"}
+                    onClick={onClick}
+                >
+                    <Download fontSize={"small"}/>
+                </IconButton>
+            </Tooltip>
+        );
+
+    return (
+        <Button
+            variant={"outlined"}
+            color={"secondary"}
+            size={"small"}
+            fullWidth
+            onClick={onClick}
+        >
+            <Download
+                sx={{marginRight: 0.5}}
+                fontSize={"small"}
+            />
+            {t("sprite.downloadAsType", {type: assetType || "N/A"})}
+        </Button>
+    );
+}

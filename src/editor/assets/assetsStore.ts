@@ -1,6 +1,6 @@
 import {atom} from "jotai";
-import {atomFamily} from "jotai/utils";
 import GUID, {MaybeGUID} from "@/shared/types/GUID";
+import cachedAtomFamily from "@shared/atomics/cachedAtomFamily";
 
 export interface MapAsset {
     id: GUID;
@@ -12,7 +12,7 @@ export interface MapAsset {
 export const allAssetsAtom = atom<MapAsset[]>([]);
 
 // Computed
-export const assetsAtomFamily = atomFamily((id: MaybeGUID) => atom(get => {
+export const assetsAtomFamily = cachedAtomFamily((id: MaybeGUID, get) => {
     const allAssets = get(allAssetsAtom);
     return allAssets.find(asset => asset.id === id);
-}));
+});

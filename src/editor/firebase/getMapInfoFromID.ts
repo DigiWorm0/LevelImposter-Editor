@@ -1,6 +1,7 @@
 import {collection, doc, getDoc} from "firebase/firestore";
 import {db} from "@editor/firebase/Firebase";
 import LIMetadata from "@/types/li/LIMetadata";
+import cachedAtomFamily from "@shared/atomics/cachedAtomFamily";
 
 export const getMapInfoFromID = async (id: string) => {
     // Get Firebase Refs
@@ -15,3 +16,5 @@ export const getMapInfoFromID = async (id: string) => {
     // Get Storage Ref
     return document.data() as LIMetadata;
 };
+
+export const mapInfoFromIDAtomFamily = cachedAtomFamily((mapID: string) => getMapInfoFromID(mapID));

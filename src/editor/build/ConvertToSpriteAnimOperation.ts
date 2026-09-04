@@ -1,6 +1,6 @@
 import BuildOperation from "./BuildOperation";
 import BuildOperationLog from "./BuildOperationLog";
-import {convertGIFAssetToSpriteAnim} from "@editor/assets/images/convertGIFToSpriteAnimation";
+import {convertGIFAssetToSpriteAnim} from "@editor/assets/animations/convertGIFToSpriteAnimation";
 import store from "../../shared/store";
 import {allAssetsAtom} from "../assets/assetsStore";
 

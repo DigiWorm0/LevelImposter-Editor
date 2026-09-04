@@ -1,9 +1,10 @@
-import {mapAssetAsImageBlobAtomFamily} from "@/hooks/assets/useMapAssetAsImageBlob";
 import downloadFileFromURL from "../fileio/download/downloadFileFromURL";
 import store from "../../shared/store";
 import {MaybeGUID} from "@/shared/types/GUID";
 import assetTypeToFileExtension from "./assetTypeToFileExtension";
 import {assetsAtomFamily} from "./assetsStore";
+import {textureToImageBlob} from "@editor/assets/textureToImageBlob";
+import {textureAtomFamily} from "@/rendering/canvas2/hooks/texture/useTexture";
 
 export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) => {
     // Get Asset
@@ -18,7 +19,8 @@ export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) =>
 
 export const downloadAssetAsPNG = async (assetID: MaybeGUID, fileName?: string) => {
     // Convert DDS to PNG
-    const imageBlob = await store.get(mapAssetAsImageBlobAtomFamily(assetID));
+    const texture = await get(textureAtomFamily(assetID));
+    const imageBlob = await textureToImageBlob(texture);
     if (!imageBlob)
         return;
 

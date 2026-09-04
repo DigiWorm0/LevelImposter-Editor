@@ -3,7 +3,7 @@ import store from "../../shared/store";
 import {selectedElementIDsAtom} from "./stores/elementSelectionStore";
 
 
-import {elementAtomFamily} from "@/hooks/elements/useElement";
+import {elementAtomFamily} from "@editor/document/elements/useElement";
 import {deselectAll} from "@editor/selection/deselectAll";
 
 /**

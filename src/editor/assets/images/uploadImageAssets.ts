@@ -1,6 +1,6 @@
 import openUploadDialog, {openMultipleUploadDialog} from "@shared/utils/openUploadDialog";
 import duplicateBlob from "@shared/utils/duplicateBlob";
-import getAssetType from "../getAssetType";
+import parseAssetType from "../parseAssetType";
 import {convertImageBlobToDDS} from "@editor/assets/dds/convertImageToDDS";
 import {SUPPORTED_IMAGE_TYPES} from "@/types/amongus/Constants";
 import {createAsset} from "@editor/assets/createAsset";
@@ -56,7 +56,7 @@ async function processImageFile(file: File) {
 
     // Identify the asset type
     const arrayBuffer = await blob.arrayBuffer();
-    let assetType = getAssetType(arrayBuffer);
+    let assetType = parseAssetType(arrayBuffer);
 
     // Check if the asset type is valid
     if (!assetType.startsWith("image/"))

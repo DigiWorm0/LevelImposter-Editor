@@ -1,8 +1,8 @@
 import {MaybeGUID} from "@/shared/types/GUID";
 import {Ticker} from "pixi.js";
-import {getMapElementRef} from "@/hooks/canvas/useMapElementRef";
+import {getMapElementRef} from "@/rendering/canvas2/element/useMapElementRef";
 import store from "@/shared/store";
-import {viewportAtom} from "@/hooks/canvas/useViewport";
+import {viewportAtom} from "@/rendering/canvas2/hooks/useViewport";
 import screenToWorld from "@editor/viewport/screenToWorld";
 
 const ticker = new Ticker();

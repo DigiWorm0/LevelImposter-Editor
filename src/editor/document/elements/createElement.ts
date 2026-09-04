@@ -1,12 +1,12 @@
 import {EditorCommand} from "../../history/executeCommand";
 import GLOBAL_PROPERTIES from "../../../types/li/GlobalProps";
 import store from "@shared/store";
-import {viewportAtom} from "@/hooks/canvas/useViewport";
+import {viewportAtom} from "@/rendering/canvas2/hooks/useViewport";
 import {UNITY_SCALE} from "@/types/amongus/Constants";
 import selectElementID from "../../selection/selectElementID";
 import {MapElement} from "@editor/document/types/MapDocument";
 import {MapElementProperties} from "@editor/document/types/MapElementProperties";
-import getElemVisibility, {ElemVisibility} from "@/utils/map/getMapVisibility";
+import getElementVisibility, {ElemVisibility} from "@editor/document/elements/types/getElementVisibility";
 import {generateGUID} from "@shared/types/GUID";
 
 export const createElement = (partialElem: Partial<MapElement>): EditorCommand => map => {
@@ -45,7 +45,7 @@ const getDefaultZ = (elem: MapElement) => {
         return 0;
     if (elem.type?.startsWith("room-"))
         return 20;
-    if (getElemVisibility(elem) === ElemVisibility.Invisible || elem.type === "util-room")
+    if (getElementVisibility(elem) === ElemVisibility.Invisible || elem.type === "util-room")
         return -20;
     return 0;
 };

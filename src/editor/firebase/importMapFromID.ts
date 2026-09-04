@@ -1,10 +1,10 @@
-import {mapInfoFromIDAtom} from "@/hooks/firebase/useMapInfoFromID";
 import {getDownloadURL, ref, StorageReference} from "firebase/storage";
 import {storage} from "@editor/firebase/Firebase";
 import fetchFromURL from "@editor/firebase/fetchFromURL";
 import deserializeMapFile from "@editor/fileio/deserialization/deserializeMapFile";
 import store from "@/shared/store";
 import {setDocument} from "@editor/history/setDocument";
+import {mapInfoFromIDAtomFamily} from "@editor/firebase/getMapInfoFromID";
 
 export const importMapFromID = async (
     id: string,
@@ -12,7 +12,7 @@ export const importMapFromID = async (
 ) => {
 
     // Get Storage Ref
-    const metadata = await store.get(mapInfoFromIDAtom(id));
+    const metadata = await store.get(mapInfoFromIDAtomFamily(id));
     const storageRef = ref(storage, `maps/${metadata.authorID}/${id}.lim2`);
     const legacyRef = ref(storage, `maps/${metadata.authorID}/${id}.lim`);
 

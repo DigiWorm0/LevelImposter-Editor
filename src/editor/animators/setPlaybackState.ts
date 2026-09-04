@@ -1,6 +1,6 @@
 import store from "@/shared/store";
 import {animatorsPlayheadAtom, isAnimatorsPlayingAtom} from "@editor/animators/animatorPlaybackStore";
-import {animDurationAtom} from "@/hooks/timeline/useAnimDuration";
+import {animDurationAtom} from "@/rendering/timeline/hooks/useAnimDuration";
 
 export const setPlaybackState = (isPlaying: boolean, t: number) => {
     setAnimatorsPlaying(isPlaying);

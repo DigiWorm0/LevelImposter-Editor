@@ -2,7 +2,7 @@ import {atom} from "jotai";
 import GUID from "@shared/types/GUID";
 
 
-import {elementAtomFamily} from "@/hooks/elements/useElement";
+import {elementAtomFamily} from "@editor/document/elements/useElement";
 
 export const selectedElementIDsAtom = atom<GUID[]>([]);
 
