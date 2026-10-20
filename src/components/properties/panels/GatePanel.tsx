@@ -16,7 +16,7 @@ export default function GatePanel() {
         <PanelContainer title={t("triggergate.title") as string}>
             <ElementSelect
                 label={t("triggergate.value")}
-                typeFilter={"util-valuebool"}
+                typeFilter={"util-value"}
                 noElementsText={t("triggergate.noValues")}
                 defaultText={t("triggergate.selectValue")}
                 selectedID={selectedValueID}

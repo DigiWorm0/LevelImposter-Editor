@@ -7,8 +7,8 @@ import LITrigger from "../../../types/li/LITrigger";
 import ElementSelect from "../input/select/ElementSelect";
 import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
 import useTriggerInputs from "../../../hooks/elements/triggers/useTriggerInputs";
-import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {Timer} from "@mui/icons-material";
+import NumericPanelInput from "../input/panel/NumericPanelInput";
 
 interface TriggerEditorProps {
     triggerID: string;
@@ -88,12 +88,21 @@ export default function TriggerEditorPanel(props: TriggerEditorProps) {
                 ))}
             </Select>
             {(trigger.triggerID === "show" || trigger.triggerID === "hide") && (
-                <ElementPropNumericInput
+                <NumericPanelInput
+                    value={trigger.properties?.["fadeTime"] ?? 0}
+                    onChange={value => {
+                        setTrigger({
+                            ...trigger,
+                            properties: {
+                                ...trigger.properties,
+                                fadeTime: value,
+                            }
+                        });
+                    }}
                     name={"Fade Duration"}
-                    prop={"triggerFadeTime"}
-                    defaultValue={0}
                     icon={<Timer/>}
                     label={"ms"}
+                    {...props}
                 />
             )}
         </Box>

@@ -24,8 +24,12 @@ export default interface LIProperties {
     triggerCount?: number;
     triggerLoop?: boolean;
     createDeadBody?: boolean;
-    triggerFadeTime?: number;
     triggerGateValueID?: GUID;
+
+    /**
+     * @deprecated Use trigger.properties["fadeTime"] instead
+     */
+    triggerFadeTime?: number;
 
     // Value
     valuePresetType?: string;

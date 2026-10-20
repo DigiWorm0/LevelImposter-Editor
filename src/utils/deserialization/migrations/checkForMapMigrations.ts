@@ -22,10 +22,22 @@ export default function checkForMapMigrations(map: LIMap) {
     if (map.remixOf === undefined)
         map.remixOf = null;
 
-    // Find any layers from V2 and fix them
     for (const elem of map.elements) {
+
+        // Find any layers from V2 and fix them
         if (elem.type === "util-layer" && map.v <= 2)
             elem.z = 0;
+
+        // noinspection JSDeprecatedSymbols
+        if (elem.properties.triggerFadeTime !== undefined) {
+            for (const trigger of elem.properties.triggers ?? []) {
+                trigger.properties = {
+                    ...trigger.properties,
+                    fadeTime: elem.properties.triggerFadeTime
+                };
+            }
+            elem.properties.triggerFadeTime = undefined;
+        }
     }
 
     map.v = MAP_FORMAT_VER;
