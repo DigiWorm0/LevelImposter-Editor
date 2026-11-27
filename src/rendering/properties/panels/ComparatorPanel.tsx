@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementSelect from "../input/select/ElementSelect";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {Collapse, MenuItem, Select} from "@mui/material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function ComparatorPanel() {
     const {t} = useTranslation();

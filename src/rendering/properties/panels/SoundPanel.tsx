@@ -3,9 +3,9 @@ import {useTranslation} from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import SoundUpload from "../util/SoundUpload";
-import useSelectedElemProp, {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp, {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
 import {HighlightAlt, VolumeOff} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function SoundPanel() {
     const {t} = useTranslation();

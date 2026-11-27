@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {DEFAULT_LADDER_HEIGHTS, DEFAULT_LADDER_OFFSET, LADDER_RADIUS, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_LADDER_HEIGHTS, DEFAULT_LADDER_OFFSET, LADDER_RADIUS} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import getOffsetFromElement from "../utils/getOffsetFromElement";
 import useMapElementRef from "../element/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";

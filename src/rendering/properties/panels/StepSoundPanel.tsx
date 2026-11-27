@@ -1,15 +1,15 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
+import {DEFAULT_VOLUME} from "@editor/assets/audio/audioDefaults";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import SoundPresetSelect from "../input/select/SoundPresetSelect";
 import DropdownList from "../util/DropdownList";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import FlexNumericInput from "../util/FlexNumericInput";
 import {PriorityHigh, VolumeUp} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 import {generateGUID} from "@/shared/types/GUID";
 
 export default function StepSoundPanel() {

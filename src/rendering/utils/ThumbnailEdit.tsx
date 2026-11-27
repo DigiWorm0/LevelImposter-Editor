@@ -1,4 +1,4 @@
-import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "@/types/amongus/Constants";
+import {THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH} from "@editor/firebase/publish/thumbnailDimensions";
 import React from "react";
 import openUploadDialog from "@shared/utils/openUploadDialog";
 import useToaster from "../toast/useToaster";

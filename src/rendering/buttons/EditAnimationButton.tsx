@@ -1,12 +1,13 @@
 import React from "react";
-import useSpriteAnimEditorOpen from "../../hooks/spriteAnim/useSpriteAnimEditorOpen";
+import {useAtom} from "jotai";
+import {isSpriteAnimEditorOpenAtom} from "@editor/spriteAnim/spriteAnimStore";
 import {Button} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {Animation} from "@mui/icons-material";
 
 export default function EditAnimationButton() {
     const {t} = useTranslation();
-    const [isAnimEditorOpen, setAnimEditorOpen] = useSpriteAnimEditorOpen();
+    const [isAnimEditorOpen, setAnimEditorOpen] = useAtom(isSpriteAnimEditorOpenAtom);
 
     return (
         <Button

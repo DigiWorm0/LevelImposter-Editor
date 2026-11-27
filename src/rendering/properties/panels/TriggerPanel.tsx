@@ -7,7 +7,7 @@ import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import useElementIDs from "../../../hooks/elements/useElementIDs";
+import useElementIDs from "@editor/document/elements/useElementIDs";
 import {HighlightAlt, SettingsInputAntenna, Shuffle} from "@mui/icons-material";
 import {useAtom, useAtomValue} from "jotai";
 import {selectedElementAtom} from "@editor/selection/stores/elementSelectionStore";

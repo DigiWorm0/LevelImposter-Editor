@@ -2,7 +2,7 @@ import React from "react";
 import {Delete, DragHandle} from "@mui/icons-material";
 import {ButtonGroup, IconButton, InputAdornment, ListItem} from "@mui/material";
 import FlexNumericInput from "../../../properties/util/FlexNumericInput";
-import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
+import LISpriteAnimationFrame from "@/map-format/LISpriteAnimationFrame";
 import useSpriteThumbnail from "../../../canvas2/hooks/texture/useSpriteThumbnail";
 import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
 import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";

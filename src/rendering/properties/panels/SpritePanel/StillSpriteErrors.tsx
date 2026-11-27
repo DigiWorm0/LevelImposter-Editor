@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import getIsElementInteractable from "@editor/document/elements/types/getIsElementInteractable";
 import MapError from "../../util/MapError";
 import {Padding, PlayArrow, Visibility} from "@mui/icons-material";

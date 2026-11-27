@@ -1,6 +1,6 @@
 import GUID from "@/shared/types/GUID";
-import MapTarget from "@/types/li/MapTarget";
-import LIMapProperties from "@/types/li/LIMapProperties";
+import MapTarget from "@/map-format/MapTarget";
+import LIMapProperties from "@/map-format/LIMapProperties";
 
 export interface MapProperties extends LIMapProperties {
     [key: string]: any;

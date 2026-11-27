@@ -6,7 +6,7 @@ import FlexNumericInput from "../../properties/util/FlexNumericInput";
 import TimelineKeyframe from "./TimelineKeyframe";
 import GUID from "@shared/types/GUID";
 import TimelinePlayhead from "./TimelinePlayhead";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import useIsCurrentKeyframe from "../hooks/useIsCurrentKeyframe";
 import useAnimPropertyValue from "../hooks/useAnimPropertyValue";
 import useAnimTargetProperty from "../hooks/useAnimTargetProperty";

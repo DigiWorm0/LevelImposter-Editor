@@ -2,7 +2,7 @@ import {QuestionMark} from "@mui/icons-material";
 import {IconButton, MenuItem, Select, Tooltip} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import InputGroup from "../InputGroup";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 
 export default function DoorTypeSelect() {
     const {t} = useTranslation();

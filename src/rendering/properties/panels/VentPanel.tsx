@@ -6,9 +6,9 @@ import VentSelect from "../input/select/VentSelect";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
 import {VolumeDown, VolumeUp} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 const VENT_OPEN_SOUND = "ventOpen";
 const VENT_MOVE_SOUND = "ventMove";

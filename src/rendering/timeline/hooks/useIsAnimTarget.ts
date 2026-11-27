@@ -1,8 +1,8 @@
 import {atomFamily} from "jotai/utils";
 import {atom, useAtomValue} from "jotai";
 import {MaybeGUID} from "@shared/types/GUID";
-import {selectedElementPropAtom} from "../../../hooks/elements/useSelectedElemProperty";
-import LIAnimTarget from "../../../types/li/LIAnimTarget";
+import {selectedElementPropAtom} from "@editor/selection/useSelectedElemProperty";
+import LIAnimTarget from "@/map-format/LIAnimTarget";
 import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export const isAnimTargetAtom = atomFamily((id: MaybeGUID) => {

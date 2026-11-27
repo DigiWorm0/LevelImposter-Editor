@@ -1,5 +1,5 @@
 import makeElementTypeFilter from "./makeElementTypeFilter";
-import {SINGLE_TYPES} from "@/types/amongus/Constants";
+import {SINGLE_TYPES} from "@/db/elementDefaults";
 import {elementTypeExistsAtomFamily} from "@/rendering/modals/AddObject/useElementTypeExists";
 
 const SingleElementOnlyFilter = makeElementTypeFilter((type, get) => {

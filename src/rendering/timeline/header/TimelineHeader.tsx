@@ -4,7 +4,7 @@ import TimelineRow from "../TimelineRow";
 import TimelineTimesteps from "./TimelineTimesteps";
 import TimelinePlayheadHandle from "./TimelinePlayheadHandle";
 import TimelineTimestamp from "./TimelineTimestamp";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {useTranslation} from "react-i18next";
 import {useAtomValue} from "jotai";
 import {isAnimatorsPlayingAtom} from "@editor/animators/animatorPlaybackStore";

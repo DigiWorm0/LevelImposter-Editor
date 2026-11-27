@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function MinimapSpritePanel() {
     const {t} = useTranslation();

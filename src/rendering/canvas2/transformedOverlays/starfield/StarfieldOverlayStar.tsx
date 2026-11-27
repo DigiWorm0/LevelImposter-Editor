@@ -1,13 +1,8 @@
 import React, {useRef} from "react";
 import useElementSprite from "../../hooks/texture/useElementSprite";
 import {Sprite} from "pixi.js";
-import {
-    DEFAULT_STARFIELD_HEIGHT,
-    DEFAULT_STARFIELD_LENGTH,
-    DEFAULT_STARFIELD_MAXSPEED,
-    DEFAULT_STARFIELD_MINSPEED,
-    UNITY_SCALE
-} from "@/types/amongus/Constants";
+import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useTick} from "@pixi/react";
 import {StarfieldOverlayProps} from "./StarfieldOverlay";
 import {useElement} from "@editor/document/elements/useElement";

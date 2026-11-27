@@ -1,11 +1,11 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import ImageUpload from "../../util/ImageUpload";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import LazyCollapse from "../../util/LazyCollapse";
 import {Box, Button, ButtonGroup} from "@mui/material";
 import AnimatedCaretIcon from "../../../utils/AnimatedCaretIcon";
-import LISpriteAnimation from "../../../../types/li/LISpriteAnimation";
+import LISpriteAnimation from "@/map-format/LISpriteAnimation";
 import {getSubAnimationsFromElementType} from "@editor/assets/animations/convertGIFToSpriteAnimation";
 import SpriteDownloadPNGButton from "../../../buttons/SpriteDownloadPNGButton";
 import SpriteDownloadRawButton from "../../../buttons/SpriteDownloadRawButton";

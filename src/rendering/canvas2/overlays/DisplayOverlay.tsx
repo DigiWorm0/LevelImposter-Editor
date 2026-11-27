@@ -1,5 +1,5 @@
 import GUID from "@shared/types/GUID";
-import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "@/types/amongus/Constants";
+import {DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH} from "@/db/elementDefaults";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../utils/getOffsetFromElement";
 import useMapElementRef from "../element/useMapElementRef";

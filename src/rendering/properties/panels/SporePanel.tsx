@@ -1,15 +1,10 @@
 import {useTranslation} from "react-i18next";
-import {
-    DEFAULT_SPORE_COOLDOWN,
-    DEFAULT_SPORE_DURATION,
-    DEFAULT_SPORE_GAS_RANGE,
-    DEFAULT_SPORE_RANGE
-} from "@/types/amongus/Constants";
+import {DEFAULT_SPORE_COOLDOWN, DEFAULT_SPORE_DURATION, DEFAULT_SPORE_GAS_RANGE, DEFAULT_SPORE_RANGE} from "@/db/elementDefaults";
 import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {HourglassEmpty, Timer, TripOrigin} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function SporePanel() {
     const {t} = useTranslation();

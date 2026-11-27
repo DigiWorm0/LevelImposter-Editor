@@ -1,4 +1,4 @@
-import {DEFAULT_STARFIELD_COUNT} from "@/types/amongus/Constants";
+import {DEFAULT_STARFIELD_COUNT} from "@/db/elementDefaults";
 import StarfieldOverlayStar from "./StarfieldOverlayStar";
 import {useElement} from "@editor/document/elements/useElement";
 import GUID from "@shared/types/GUID";

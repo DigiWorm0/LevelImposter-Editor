@@ -1,7 +1,7 @@
 import React from "react";
-import LIProperties from "../../../../types/li/LIProperties";
+import LIProperties from "@/map-format/LIProperties";
 import SwitchPanelInput, {ChildSwitchInputProps} from "../panel/SwitchPanelInput";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 
 
 export default function ElementPropSwitch(props: ChildSwitchInputProps<LIProperties>) {

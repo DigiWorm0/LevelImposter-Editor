@@ -3,7 +3,7 @@ import {EditorCommand} from "../../../history/executeCommand";
 import {getMapElementRef} from "@/rendering/canvas2/element/useMapElementRef";
 import {viewportAtom} from "@/rendering/canvas2/hooks/useViewport";
 import {getReverseOffsetToElement} from "@/rendering/canvas2/utils/getOffsetFromElement";
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import getDistanceFromLine from "@shared/math/getDistanceFromLine";
 import store from "@shared/store";
 import {getSelectedCollider} from "./getSelectedCollider";

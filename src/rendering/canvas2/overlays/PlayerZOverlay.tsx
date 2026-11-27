@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {PLAYER_POS, UNITY_SCALE} from "@/types/amongus/Constants";
+import {PLAYER_POS} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import useElementSprite from "../hooks/texture/useElementSprite";
 import useTextureOfType from "@/rendering/canvas2/hooks/texture/useTextureOfType";
 import {useElement} from "@editor/document/elements/useElement";

@@ -2,7 +2,7 @@ import {atomFamily} from "jotai/utils";
 import GUID, {MaybeGUID} from "@shared/types/GUID";
 import {atom} from "jotai";
 import {elementAtomFamily} from "@editor/document/elements/useElement";
-import {elementIDsAtom} from "@/hooks/elements/useElementIDs";
+import {elementIDsAtom} from "@editor/document/elements/useElementIDs";
 
 export const outboundConnectionIDsAtomFamily = atomFamily((elemID: MaybeGUID) => atom(get => {
     const elem = get(elementAtomFamily(elemID));

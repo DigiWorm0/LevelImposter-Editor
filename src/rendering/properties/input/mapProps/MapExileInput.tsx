@@ -5,7 +5,7 @@ import {Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem
 import {ExitToApp} from "@mui/icons-material";
 import {EXILE_IDS} from "@/db/AUElementDB";
 import {useAtomValue} from "jotai";
-import MapTarget from "../../../../types/li/MapTarget";
+import MapTarget from "@/map-format/MapTarget";
 import {setMapProperty} from "@editor/document/mapPropertyCommands";
 import executeCommand from "@editor/history/executeCommand";
 import {elementTypeExistsAtomFamily} from "@/rendering/modals/AddObject/useElementTypeExists";

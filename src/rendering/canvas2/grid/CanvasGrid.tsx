@@ -3,7 +3,7 @@ import useViewportPosition from "../hooks/useViewportPosition";
 import React from "react";
 import CanvasGridSection from "./CanvasGridSection";
 import CanvasGridBorder from "./CanvasGridBorder";
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useAtomValue} from "jotai";
 import {settingsAtom} from "@editor/settings/settingsStore";
 

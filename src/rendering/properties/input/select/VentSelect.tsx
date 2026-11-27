@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
-import useSelectedElemProp, {useSelectedElemPropValue} from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp, {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
 
 export interface VentSelectProps {
     prop: "leftVent" | "middleVent" | "rightVent";

@@ -1,6 +1,6 @@
 import GUID from "@shared/types/GUID";
 import {MapElement} from "@editor/document/types/MapDocument";
-import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 
 export const ClipboardContentType = "text/plain";
 

@@ -1,8 +1,8 @@
 import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {PRESET_RESOURCE_IDS} from "@/db/AUElementDB";
-import {DEFAULT_VOLUME} from "@/types/amongus/Constants";
-import useSelectedElemProp, {useSetSelectedElemProp} from "../../../../hooks/elements/useSelectedElemProperty";
+import {DEFAULT_VOLUME} from "@editor/assets/audio/audioDefaults";
+import useSelectedElemProp, {useSetSelectedElemProp} from "@editor/selection/useSelectedElemProperty";
 import React from "react";
 import {generateGUID} from "@/shared/types/GUID";
 

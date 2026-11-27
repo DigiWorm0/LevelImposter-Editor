@@ -1,20 +1,19 @@
 import React, {RefObject} from "react";
 import {useApplication, useTick} from "@pixi/react";
 import {Sprite} from "pixi.js";
-import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
 import {spriteAtomFamily} from "@/rendering/canvas2/hooks/texture/useSprite";
 import {unwrap} from "jotai/utils";
 import spriteAnimEventEmitter from "@editor/assets/animations/spriteAnimEventEmitter";
 import GUID from "@shared/types/GUID";
 import primaryStore from "@shared/store";
-import {useAtom} from "jotai";
-import {isSpriteAnimPlayingAtom} from "@editor/spriteAnim/spriteAnimStore";
+import {useAtom, useAtomValue} from "jotai";
+import {isSpriteAnimPlayingAtom, selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 
 export default function useSpriteAnimPlayback(
     spriteRef: RefObject<Sprite | null>
 ) {
     const app = useApplication();
-    const [animation] = useSelectedSpriteAnim();
+    const animation = useAtomValue(selectedSpriteAnimAtom);
     const [isPlaying, setIsPlaying] = useAtom(isSpriteAnimPlayingAtom);
 
     const frameTimeRef = React.useRef(0);

@@ -1,6 +1,6 @@
 import {MaybeGUID} from "@/shared/types/GUID";
 import React from "react";
-import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import FloatingOverlay from "../transformedOverlays/FloatingOverlay";
 import AnimationOverlay from "../transformedOverlays/AnimationOverlay";
 import StarfieldOverlay from "../transformedOverlays/starfield/StarfieldOverlay";

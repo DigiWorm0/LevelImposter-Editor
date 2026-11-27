@@ -17,22 +17,22 @@ import {ElemVisibility} from "@editor/document/elements/types/getElementVisibili
 import InputGroup from "../input/InputGroup";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import useElementVisibility from "../../../hooks/elements/useElementVisibility";
+import useElementVisibility from "@editor/document/elements/useElementVisibility";
 import TransformNumericInput from "../input/TransformNumericInput";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import getIsElementInteractable from "@editor/document/elements/types/getIsElementInteractable";
 import {useAtomValue} from "jotai";
-import useSelectedElemTransform from "@/hooks/elements/useSelectedElemTransform";
+import useSelectedElemTransform from "@/rendering/properties/useSelectedElemTransform";
 import {deleteSelectedElements} from "@editor/document/elements/deleteElement";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import {settingsAtom} from "@editor/settings/settingsStore";
 
 export default function TransformPanel() {
     const {t} = useTranslation();
-    const [type, setType] = useSelectedElemTransform<string>("type");
-    const [name, setName] = useSelectedElemTransform<string>("name");
-    const [xScale] = useSelectedElemTransform<number>("xScale");
-    const [yScale] = useSelectedElemTransform<number>("yScale");
+    const [type, setType] = useSelectedElemTransform("type");
+    const [name, setName] = useSelectedElemTransform("name");
+    const [xScale] = useSelectedElemTransform("xScale");
+    const [yScale] = useSelectedElemTransform("yScale");
     const [_isLocked, setLocked] = useSelectedElemProp("isLocked");
     const [_isVisible, setVisible] = useSelectedElemProp("isVisible");
     const selectedElemID = useAtomValue(selectedElementIDAtom);

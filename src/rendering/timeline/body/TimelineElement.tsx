@@ -6,10 +6,10 @@ import TimelineRow from "../TimelineRow";
 import TimelineKeyframeRow from "./TimelineKeyframeRow";
 import TimelineProperty from "./TimelineProperty";
 import GUID from "@shared/types/GUID";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {Delete} from "@mui/icons-material";
 import TimelinePlayhead from "./TimelinePlayhead";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import {useElement} from "@editor/document/elements/useElement";
 
 const PROPERTIES: LIAnimPropertyType[] = [

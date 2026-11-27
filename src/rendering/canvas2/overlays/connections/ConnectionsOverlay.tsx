@@ -2,7 +2,7 @@ import GUID from "@shared/types/GUID";
 import ArrowOverlay from "./ArrowOverlay";
 import {useAtomValue} from "jotai";
 import {useElement} from "@editor/document/elements/useElement";
-import {inboundConnectionIDsAtomFamily, outboundConnectionIDsAtomFamily} from "@/hooks/useElemConnections";
+import {inboundConnectionIDsAtomFamily, outboundConnectionIDsAtomFamily} from "@editor/document/elements/elementConnectionsStore";
 import {settingsAtom} from "@editor/settings/settingsStore";
 
 export interface ConnectionOverlayProps {

@@ -3,7 +3,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {Timer} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function TimerPanel() {
     const {t} = useTranslation();

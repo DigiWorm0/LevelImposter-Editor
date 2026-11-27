@@ -1,8 +1,8 @@
 import {Autocomplete, TextField} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {AUTaskLengthDB, TaskLength} from "@/types/amongus/TaskLength";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import {AUTaskLengthDB, TaskLength} from "@/db/TaskLength";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {useAtomValue} from "jotai";
 import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";
 

@@ -1,5 +1,5 @@
 import GUID from "@shared/types/GUID";
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useElement} from "@editor/document/elements/useElement";
 import {useAtomValue} from "jotai";
 import {settingsAtom} from "@editor/settings/settingsStore";

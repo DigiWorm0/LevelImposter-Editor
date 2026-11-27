@@ -1,10 +1,10 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_SPAWN_RANGE} from "@/types/amongus/Constants";
+import {DEFAULT_SPAWN_RANGE} from "@/db/elementDefaults";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {TripOrigin} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function SpawnPanel() {
     const {t} = useTranslation();

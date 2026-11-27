@@ -3,9 +3,9 @@ import {useTranslation} from "react-i18next";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import ImageUpload from "../util/ImageUpload";
 import PanelContainer from "../util/PanelContainer";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {Box} from "@mui/material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function MeetingPanel() {
     const {t} = useTranslation();

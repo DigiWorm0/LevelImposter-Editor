@@ -1,4 +1,4 @@
-import LIMetadata from "../../types/li/LIMetadata";
+import LIMetadata from "@/map-format/LIMetadata";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {Box, Card, CardContent, Chip, IconButton, Typography} from "@mui/material";

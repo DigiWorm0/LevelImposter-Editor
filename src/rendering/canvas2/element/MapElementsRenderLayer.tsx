@@ -1,6 +1,6 @@
 import React from "react";
 import {IRenderLayer} from "pixi.js";
-import useElementIDs from "../../../hooks/elements/useElementIDs";
+import useElementIDs from "@editor/document/elements/useElementIDs";
 import {getMapElementRef} from "@/rendering/canvas2/element/useMapElementRef";
 
 /**

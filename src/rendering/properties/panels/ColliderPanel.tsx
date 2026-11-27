@@ -6,7 +6,7 @@ import ColliderEditorPanel from "../editors/ColliderEditorPanel";
 import DropdownList from "../util/DropdownList";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import {useAtom, useAtomValue} from "jotai";
 import {selectedColliderIDAtom} from "@editor/selection/stores/colliderSelectionStore";
 import {selectedElementTypeAtom} from "@editor/selection/stores/elementSelectionStore";

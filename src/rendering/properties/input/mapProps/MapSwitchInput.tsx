@@ -1,5 +1,5 @@
 import React from "react";
-import LIMapProperties from "../../../../types/li/LIMapProperties";
+import LIMapProperties from "@/map-format/LIMapProperties";
 import {docPropertiesAtom} from "@editor/document/documentStore";
 import {Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {useAtom} from "jotai";

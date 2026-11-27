@@ -2,7 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {docPropertiesAtom} from "@editor/document/documentStore";
 import ColorPicker from "../../../utils/ColorPicker";
-import LIColor from "../../../../types/li/LIColor";
+import LIColor from "@/map-format/LIColor";
 import {Button, ButtonGroup, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {Palette, Refresh} from "@mui/icons-material";
 import {useAtomValue} from "jotai";

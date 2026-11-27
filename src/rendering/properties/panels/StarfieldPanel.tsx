@@ -1,11 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {
-    DEFAULT_STARFIELD_COUNT,
-    DEFAULT_STARFIELD_HEIGHT,
-    DEFAULT_STARFIELD_LENGTH,
-    DEFAULT_STARFIELD_MAXSPEED,
-    DEFAULT_STARFIELD_MINSPEED
-} from "@/types/amongus/Constants";
+import {DEFAULT_STARFIELD_COUNT, DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, DEFAULT_STARFIELD_MAXSPEED, DEFAULT_STARFIELD_MINSPEED} from "@/db/elementDefaults";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
@@ -19,7 +13,7 @@ import {
     Workspaces
 } from "@mui/icons-material";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function StarfieldPanel() {
     const {t} = useTranslation();

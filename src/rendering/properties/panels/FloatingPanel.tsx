@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED} from "@/types/amongus/Constants";
+import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED} from "@/db/elementDefaults";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {Speed, SwapVert} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function FloatingPanel() {
     const {t} = useTranslation();

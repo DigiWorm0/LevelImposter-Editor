@@ -7,7 +7,7 @@ import LadderOverlay from "../overlays/LadderOverlay";
 import ConnectionsOverlay from "../overlays/connections/ConnectionsOverlay";
 import SporeOverlay from "../overlays/SporeOverlay";
 import React from "react";
-import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import useMapElementRef from "./useMapElementRef";
 import PlayerZOverlay from "../overlays/PlayerZOverlay";
 import PlatformPathOverlay from "../overlays/PlatformPathOverlay";

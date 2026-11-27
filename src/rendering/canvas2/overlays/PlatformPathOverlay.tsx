@@ -1,11 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {
-    DEFAULT_PLATFORM_ENTER,
-    DEFAULT_PLATFORM_EXIT,
-    DEFAULT_PLATFORM_OFFSET,
-    PLATFORM_RADIUS,
-    UNITY_SCALE
-} from "@/types/amongus/Constants";
+import {DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET, PLATFORM_RADIUS} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../utils/getOffsetFromElement";
 import useMapElementRef from "../element/useMapElementRef";

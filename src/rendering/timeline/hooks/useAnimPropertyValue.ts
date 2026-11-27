@@ -1,5 +1,5 @@
 import {atomFamily} from "jotai/utils";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import GUID from "@shared/types/GUID";
 import {atom, useAtom} from "jotai";
 import {lerpBetweenKeyframes} from "./useAnimationPlayback";

@@ -2,7 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import openUploadDialog from "@shared/utils/openUploadDialog";
 import useToaster from "../../toast/useToaster";
-import LIColor from "../../../types/li/LIColor";
+import LIColor from "@/map-format/LIColor";
 import ColorPicker from "../../utils/ColorPicker";
 import GUID from "@shared/types/GUID";
 import duplicateBlob from "@shared/utils/duplicateBlob";
@@ -11,7 +11,7 @@ import {CloudUpload, Done, HideImageOutlined, Refresh} from "@mui/icons-material
 import SpriteWindow from "./SpriteWindow";
 import parseAssetType from "@editor/assets/parseAssetType";
 import {convertImageBlobToDDS} from "@editor/assets/dds/convertImageToDDS";
-import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
+import LISpriteAnimation from "@/map-format/LISpriteAnimation";
 import convertGIFToSpriteAnimation from "@editor/assets/animations/convertGIFToSpriteAnimation";
 import ImageUploadDetails from "./ImageUploadDetails";
 import {createAsset} from "@editor/assets/createAsset";

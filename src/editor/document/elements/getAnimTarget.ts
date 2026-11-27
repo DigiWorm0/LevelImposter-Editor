@@ -1,7 +1,7 @@
 import {DocDraft} from "@editor/history/executeCommand";
 import GUID from "@shared/types/GUID";
 import {getSelectedElement} from "@editor/document/elements/getSelectedElement";
-import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 
 export const getAnimTarget = (map: DocDraft, id: GUID) => {
     const selectedElement = getSelectedElement(map);

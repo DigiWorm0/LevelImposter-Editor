@@ -1,4 +1,4 @@
-import LIMap from "../../../../types/li/LIMap";
+import LIMap from "@/map-format/LIMap";
 import {unzipSync} from "fflate";
 import GUID from "@shared/types/GUID";
 import parseAssetType from "../../../assets/parseAssetType";

@@ -1,6 +1,6 @@
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
-import {THUMBNAIL_WIDTH} from "@/types/amongus/Constants";
-import LIMetadata from "../../types/li/LIMetadata";
+import {THUMBNAIL_WIDTH} from "@editor/firebase/publish/thumbnailDimensions";
+import LIMetadata from "@/map-format/LIMetadata";
 
 export interface MapCardProps {
     map: LIMetadata;

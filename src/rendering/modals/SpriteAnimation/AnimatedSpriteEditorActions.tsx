@@ -2,11 +2,12 @@ import {RestartAlt, Upload} from "@mui/icons-material";
 import {Button, ButtonGroup} from "@mui/material";
 import uploadSpriteAnimFrames from "@editor/assets/animations/uploadSpriteAnimFrames";
 import uploadSpriteAnimGIF from "@editor/assets/animations/uploadSpriteAnimGIF";
-import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import {useSetAtom} from "jotai";
+import {selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 import SpriteAnimExportButton from "../../buttons/SpriteAnimExportButton";
 
 export function AnimatedSpriteEditorActions() {
-    const [, setAnimation] = useSelectedSpriteAnim();
+    const setAnimation = useSetAtom(selectedSpriteAnimAtom);
 
     return (
         <ButtonGroup

@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {DEFAULT_SPORE_GAS_RANGE, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_SPORE_GAS_RANGE} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useElement} from "@editor/document/elements/useElement";
 
 export interface SporeOverlayProps {

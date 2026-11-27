@@ -1,12 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {
-    DEFAULT_CAM_ASPECT,
-    DEFAULT_CAM_SIZE,
-    DEFAULT_DISPLAY_HEIGHT,
-    DEFAULT_DISPLAY_WIDTH,
-    SECONDARY_CAM_ASPECT,
-    UNITY_SCALE
-} from "@/types/amongus/Constants";
+import {DEFAULT_CAM_ASPECT, DEFAULT_CAM_SIZE, DEFAULT_DISPLAY_HEIGHT, DEFAULT_DISPLAY_WIDTH, SECONDARY_CAM_ASPECT} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useElement} from "@editor/document/elements/useElement";
 
 export interface CameraOverlayProps {

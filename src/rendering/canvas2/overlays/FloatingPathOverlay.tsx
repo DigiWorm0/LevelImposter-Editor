@@ -1,6 +1,7 @@
 import React from "react";
 import GUID from "@shared/types/GUID";
-import {DEFAULT_FLOATING_HEIGHT, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_FLOATING_HEIGHT} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import useMapElementRef from "../element/useMapElementRef";
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../utils/getOffsetFromElement";

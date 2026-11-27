@@ -1,5 +1,5 @@
 import React from "react";
-import LIColor from "../../types/li/LIColor";
+import LIColor from "@/map-format/LIColor";
 import {Button, Popover} from "@mui/material";
 import {Palette} from "@mui/icons-material";
 import {RgbaColorPicker} from "react-colorful";

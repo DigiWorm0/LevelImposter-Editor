@@ -1,5 +1,5 @@
 import GUID from "@/shared/types/GUID";
-import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import {atom} from "jotai";
 
 export interface SelectedKeyframe {

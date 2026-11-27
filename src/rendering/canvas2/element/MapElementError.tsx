@@ -1,4 +1,4 @@
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {MaybeGUID} from "@/shared/types/GUID";
 import {useElement} from "@editor/document/elements/useElement";
 

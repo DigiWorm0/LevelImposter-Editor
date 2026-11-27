@@ -1,4 +1,4 @@
-import LIElement from "../../../../types/li/LIElement";
+import LIElement from "@/map-format/LIElement";
 import {EXILE_IDS} from "@/db/AUElementDB";
 import {EmptyGUID, generateGUID} from "@/shared/types/GUID";
 

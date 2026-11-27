@@ -4,10 +4,10 @@ import DoorSelect from "../input/select/DoorSelect";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
-import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
-import useElementIDExists from "../../../hooks/elements/useElementIDExists";
+import {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
+import useElementIDExists from "@editor/document/elements/useElementIDExists";
 import {Timer} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function DecontaminationPanel() {
     const {t} = useTranslation();

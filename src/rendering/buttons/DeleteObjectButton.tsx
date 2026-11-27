@@ -2,7 +2,7 @@ import {Delete} from "@mui/icons-material";
 import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import executeCommand from "../../editor/history/executeCommand";
 import {deleteSelectedElements} from "@editor/document/elements/deleteElement";
 

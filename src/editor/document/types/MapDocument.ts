@@ -1,5 +1,5 @@
 import GUID from "@/shared/types/GUID";
-import LISpriteAtlas from "@/types/li/LISpriteAtlas";
+import LISpriteAtlas from "@/map-format/LISpriteAtlas";
 import {MapProperties} from "@editor/document/types/MapProperties";
 import {MapElementProperties} from "@editor/document/types/MapElementProperties";
 

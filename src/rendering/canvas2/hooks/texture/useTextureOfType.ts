@@ -1,7 +1,7 @@
 import {useAtomValue} from "jotai";
 import {atomFamily, unwrap} from "jotai/utils";
 
-import {textureFromURLAtomFamily} from "@/rendering/canvas2/hooks/texture/getTextureFromURL";
+import {textureFromURLAtomFamily} from "@/rendering/canvas2/hooks/texture/useTextureFromURL";
 
 export const textureOfTypeAtomFamily = atomFamily((type?: string) => {
     if (type === "undefined" || !type)

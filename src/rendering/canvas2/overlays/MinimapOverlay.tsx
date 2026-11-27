@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {MINIMAP_HEIGHT, MINIMAP_WIDTH, UNITY_SCALE} from "@/types/amongus/Constants";
+import {MINIMAP_HEIGHT, MINIMAP_WIDTH} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {useElement} from "@editor/document/elements/useElement";
 
 export interface MinimapOverlayProps {

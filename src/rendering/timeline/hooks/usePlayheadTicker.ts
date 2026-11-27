@@ -1,6 +1,6 @@
 import {useTick} from "@pixi/react";
 import {animDurationAtom} from "./useAnimDuration";
-import {selectedElementPropAtom} from "../../../hooks/elements/useSelectedElemProperty";
+import {selectedElementPropAtom} from "@editor/selection/useSelectedElemProperty";
 import primaryStore from "@shared/store";
 import {animatorsPlayheadAtom, isAnimatorsPlayingAtom} from "@editor/animators/animatorPlaybackStore";
 import {pauseAnimators} from "@editor/animators/setPlaybackState";

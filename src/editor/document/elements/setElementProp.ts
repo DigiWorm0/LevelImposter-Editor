@@ -1,6 +1,6 @@
 import GUID from "@shared/types/GUID";
 import {EditorCommand} from "../../history/executeCommand";
-import LIProperties from "../../../types/li/LIProperties";
+import LIProperties from "@/map-format/LIProperties";
 import store from "@shared/store";
 import {selectedElementIDAtom} from "../../selection/stores/elementSelectionStore";
 

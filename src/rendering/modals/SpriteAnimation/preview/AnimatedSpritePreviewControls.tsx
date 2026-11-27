@@ -2,14 +2,14 @@ import {Box, IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {Pause, PlayArrow, Repeat, Stop} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
-import useSpriteAnimPlaying from "../../../../hooks/spriteAnim/playback/useSpriteAnimPlaying";
+import {useAtom} from "jotai";
 import spriteAnimEventEmitter from "@editor/assets/animations/spriteAnimEventEmitter";
-import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import {isSpriteAnimPlayingAtom, selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 
 export default function AnimatedSpritePreviewControls() {
     const {t} = useTranslation();
-    const [animation, setAnimation] = useSelectedSpriteAnim();
-    const [isPlaying, setIsPlaying] = useSpriteAnimPlaying();
+    const [animation, setAnimation] = useAtom(selectedSpriteAnimAtom);
+    const [isPlaying, setIsPlaying] = useAtom(isSpriteAnimPlayingAtom);
 
     const isLoop = animation?.loop ?? true;
     const setLoop = (newLoop: boolean) => {

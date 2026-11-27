@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {DEFAULT_CONSOLE_RANGE, DEFAULT_SPORE_RANGE, UNITY_SCALE, VENT_CONSOLE_RANGE} from "@/types/amongus/Constants";
+import {DEFAULT_CONSOLE_RANGE, DEFAULT_SPORE_RANGE, VENT_CONSOLE_RANGE} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import getIsElementInteractable from "@editor/document/elements/types/getIsElementInteractable";
 import {useElement} from "@editor/document/elements/useElement";
 

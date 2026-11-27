@@ -1,7 +1,7 @@
 import GUID from "@shared/types/GUID";
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {Container, Graphics} from "pixi.js";
-import LICollider from "../../../../types/li/LICollider";
+import LICollider from "@/map-format/LICollider";
 import useMapElementRef from "../../element/useMapElementRef";
 import {RefObject} from "react";
 import getOffsetFromElement from "../../utils/getOffsetFromElement";

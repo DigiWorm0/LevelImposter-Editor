@@ -2,11 +2,12 @@ import React from "react";
 import {Box, Divider, List, Typography} from "@mui/material";
 import AnimatedSpriteFrameRow from "./AnimatedSpriteFrameRow";
 import {ReactSortable} from "react-sortablejs";
-import LISpriteAnimationFrame from "../../../../types/li/LISpriteAnimationFrame";
-import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import LISpriteAnimationFrame from "@/map-format/LISpriteAnimationFrame";
+import {useAtom} from "jotai";
+import {selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 
 export default function AnimatedSpriteFrameList() {
-    const [animation, setAnimation] = useSelectedSpriteAnim();
+    const [animation, setAnimation] = useAtom(selectedSpriteAnimAtom);
 
     const frames = animation?.frames || [];
     const setFrames = (newFrames: LISpriteAnimationFrame[]) => {
@@ -14,6 +15,16 @@ export default function AnimatedSpriteFrameList() {
             return;
 
         setAnimation({...animation, frames: newFrames});
+    };
+
+    const reorderFrames = (items: Pick<LISpriteAnimationFrame, "id">[]) => {
+        if (items.length !== frames.length || items.every(({id}, index) => id === frames[index].id))
+            return;
+
+        const framesByID = new Map(frames.map(frame => [frame.id, frame]));
+        const reorderedFrames = items.flatMap(({id}) => framesByID.get(id) ?? []);
+        if (reorderedFrames.length === frames.length)
+            setFrames(reorderedFrames);
     };
 
     if (!animation)
@@ -38,8 +49,9 @@ export default function AnimatedSpriteFrameList() {
                 }}
             >
                 <ReactSortable
-                    list={frames}
-                    setList={setFrames}
+                    // Sortable mutates its list items; keep that UI state out of the document.
+                    list={frames.map(({id}) => ({id}))}
+                    setList={reorderFrames}
                     animation={150}
                     handle={".drag-handle"}
                 >

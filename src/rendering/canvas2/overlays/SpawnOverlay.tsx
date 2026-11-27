@@ -1,5 +1,6 @@
 import GUID from "@shared/types/GUID";
-import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_SPAWN_RANGE, SPAWN_PLAYER_COUNT} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import useTextureOfType from "@/rendering/canvas2/hooks/texture/useTextureOfType";
 import {useElement} from "@editor/document/elements/useElement";
 

@@ -1,5 +1,5 @@
-import {MAP_FORMAT_VER} from "@/types/amongus/Constants";
-import LIMap from "../../../../types/li/LIMap";
+import {MAP_FORMAT_VER} from "@/map-format/version";
+import LIMap from "@/map-format/LIMap";
 import {EmptyGUID} from "@/shared/types/GUID";
 
 /**

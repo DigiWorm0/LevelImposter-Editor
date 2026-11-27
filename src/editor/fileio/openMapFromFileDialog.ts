@@ -1,5 +1,5 @@
 import openUploadDialog from "@shared/utils/openUploadDialog";
-import {SUPPORTED_MAP_FILE_TYPES} from "@/types/amongus/Constants";
+import {SUPPORTED_MAP_FILE_TYPES} from "@editor/fileio/supportedMapFileTypes";
 import {deserializeMapFileFromBlob} from "@editor/fileio/deserialization/deserializeMapFile";
 import {setDocument} from "@editor/history/setDocument";
 

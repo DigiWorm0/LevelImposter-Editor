@@ -1,4 +1,4 @@
-import LIMap from "@/types/li/LIMap";
+import LIMap from "@/map-format/LIMap";
 import {MapDocument} from "@editor/document/types/MapDocument";
 import {generateGUID} from "@/shared/types/GUID";
 

@@ -1,5 +1,5 @@
 import useToaster from "../../rendering/toast/useToaster";
-import {selectedElementPropAtom, useSetSelectedElemProp} from "@/hooks/elements/useSelectedElemProperty";
+import {selectedElementPropAtom, useSetSelectedElemProp} from "@editor/selection/useSelectedElemProperty";
 import {copySelectedElementsToClipboard} from "@editor/clipboard/elements/copyElementsToClipboard";
 import {redo, undo} from "@editor/history/undoRedo";
 import executeCommand from "../history/executeCommand";

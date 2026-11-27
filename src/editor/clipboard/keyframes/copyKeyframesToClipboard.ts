@@ -1,6 +1,6 @@
 import store from "@/shared/store";
-import {selectedElementPropAtom} from "@/hooks/elements/useSelectedElemProperty";
-import LIAnimTarget from "@/types/li/LIAnimTarget";
+import {selectedElementPropAtom} from "@editor/selection/useSelectedElemProperty";
+import LIAnimTarget from "@/map-format/LIAnimTarget";
 import {selectedKeyframeAtom} from "@editor/selection/stores/keyframeSelectionStore";
 
 export const copyKeyframesToClipboard = () => {

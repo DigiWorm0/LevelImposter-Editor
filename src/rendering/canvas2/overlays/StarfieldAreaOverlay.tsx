@@ -1,7 +1,8 @@
 import TickingGraphics from "../common/TickingGraphics";
 import getOffsetFromElement from "../utils/getOffsetFromElement";
 import useMapElementRef from "../element/useMapElementRef";
-import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_STARFIELD_HEIGHT, DEFAULT_STARFIELD_LENGTH} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import GUID from "@shared/types/GUID";
 import {useElement} from "@editor/document/elements/useElement";
 

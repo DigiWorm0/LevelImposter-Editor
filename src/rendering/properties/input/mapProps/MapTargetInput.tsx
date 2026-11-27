@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {docPropertiesAtom} from "@editor/document/documentStore";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {Place} from "@mui/icons-material";
-import MapTarget from "../../../../types/li/MapTarget";
+import MapTarget from "@/map-format/MapTarget";
 import {useAtomValue} from "jotai";
 import executeCommand from "@editor/history/executeCommand";
 import {setMapProperty} from "@editor/document/mapPropertyCommands";

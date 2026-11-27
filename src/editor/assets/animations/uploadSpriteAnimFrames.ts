@@ -1,6 +1,6 @@
 import uploadImageAssets from "@editor/assets/images/uploadImageAssets";
-import {selectedSpriteAnimAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnim";
-import {selectedSpriteAnimTypeAtom} from "@/hooks/spriteAnim/useSelectedSpriteAnimType";
+import {activeSpriteAnimTypeAtom, selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
+import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 import primaryStore from "@shared/store";
 import {generateGUID} from "@shared/types/GUID";
 
@@ -8,30 +8,25 @@ import {generateGUID} from "@shared/types/GUID";
  * Opens a file dialog to upload sprite animation frames.
  */
 export default async function uploadSpriteAnimFrames() {
+    const elementID = primaryStore.get(selectedElementIDAtom);
+    if (!elementID)
+        return;
+
+    const type = primaryStore.get(activeSpriteAnimTypeAtom);
     const imageAssets = await uploadImageAssets();
-    let animation = primaryStore.get(selectedSpriteAnimAtom);
+    if (primaryStore.get(selectedElementIDAtom) !== elementID || primaryStore.get(activeSpriteAnimTypeAtom) !== type)
+        return;
 
-    // Create new animation if none selected
-    if (!animation) {
-        const selectedType = primaryStore.get(selectedSpriteAnimTypeAtom);
-        animation = {
-            id: generateGUID(),
-            type: selectedType,
-            frames: [],
-            loop: true,
-        };
-    }
-
-    // Append new frames to animation
-    animation.frames = [
-        ...animation.frames,
-        ...imageAssets.map(asset => ({
-            id: generateGUID(),
-            spriteID: asset.id,
-            delay: 100
-        })),
-    ];
-
-    // Save updated animation
-    primaryStore.set(selectedSpriteAnimAtom, {...animation});
+    const animation = primaryStore.get(selectedSpriteAnimAtom) ?? {
+        id: generateGUID(),
+        type,
+        frames: [],
+        loop: true,
+    };
+    const newFrames = imageAssets.map(asset => ({
+        id: generateGUID(),
+        spriteID: asset.id,
+        delay: 100
+    }));
+    primaryStore.set(selectedSpriteAnimAtom, {...animation, frames: [...animation.frames, ...newFrames]});
 }

@@ -1,9 +1,9 @@
 import {Collapse, IconButton, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import React from "react";
-import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
+import useDraggingElementID from "./useDraggingElementID";
 import {MaybeGUID} from "@/shared/types/GUID";
 import SceneGraphElementIcon from "./SceneGraphElementIcon";
-import useIsElementSelected from "../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import AnimatedCaretIcon from "../utils/AnimatedCaretIcon";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import handleSceneGraphDrop from "./handleSceneGraphDrop";

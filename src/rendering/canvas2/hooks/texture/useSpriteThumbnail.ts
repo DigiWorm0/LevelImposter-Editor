@@ -2,12 +2,12 @@ import {atom, useAtomValue} from "jotai";
 import {atomFamily, unwrap} from "jotai/utils";
 import {MaybeGUID} from "@shared/types/GUID";
 import {spriteAtomFamily} from "./useSprite";
-import {Application, Graphics, Sprite} from "pixi.js";
+import {Application, Container, Graphics, Sprite} from "pixi.js";
 import drawAlphaGrid from "@/rendering/canvas2/utils/drawAlphaGrid";
 
 const MAX_THUMBNAIL_SIZE = 128;
 
-let app: Application | null = null;
+let applicationPromise: Promise<Application> | undefined;
 
 export const spriteThumbnailAtomFamily = atomFamily((spriteID: MaybeGUID) => {
     return atom(async (get) => {
@@ -36,44 +36,38 @@ export const spriteThumbnailAtomFamily = atomFamily((spriteID: MaybeGUID) => {
         }
 
         // Initialize PIXI application if not already done
-        if (!app || !app.renderer) {
-            app = new Application();
-            await app.init({
-                width,
-                height,
+        if (!applicationPromise) {
+            const app = new Application();
+            applicationPromise = app.init({
+                width: MAX_THUMBNAIL_SIZE,
+                height: MAX_THUMBNAIL_SIZE,
                 backgroundAlpha: 0,
-                preserveDrawingBuffer: true,
+            }).then(() => app).catch(error => {
+                applicationPromise = undefined;
+                throw error;
             });
         }
+        const app = await applicationPromise;
 
-        // Reset stage
-        app.renderer.resize(width, height);
-        app.stage.removeChildren();
+        // Each request owns its render target, so concurrent thumbnails cannot clear it.
+        const thumbnail = new Container();
 
         // Add transparency checkerboard background
         const graphics = new Graphics();
         drawAlphaGrid(graphics, width, height, 10);
-        app.stage.addChild(graphics);
+        thumbnail.addChild(graphics);
 
         // Create sprite
         const sprite = new Sprite(spriteTexture);
         sprite.setSize(width, height);
-        app.stage.addChild(sprite);
+        thumbnail.addChild(sprite);
 
-        // Render once
-        app.renderer.render(app.stage);
-
-        // Get thumbnail as data URL
-        const thumbnailURL = await app.renderer.extract.base64(app.stage);
-
-        // Clean up
-        sprite.destroy();
-
-        return {
-            src: thumbnailURL,
-            width,
-            height,
-        };
+        try {
+            const src = await app.renderer.extract.base64(thumbnail);
+            return {src, width, height};
+        } finally {
+            thumbnail.destroy({children: true});
+        }
     });
 });
 

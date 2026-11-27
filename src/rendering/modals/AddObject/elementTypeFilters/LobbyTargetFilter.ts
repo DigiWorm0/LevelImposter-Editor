@@ -1,4 +1,4 @@
-import MapTarget from "../../../../types/li/MapTarget";
+import MapTarget from "@/map-format/MapTarget";
 import makeElementTypeFilter from "./makeElementTypeFilter";
 import {docPropertiesAtom} from "@editor/document/documentStore";
 

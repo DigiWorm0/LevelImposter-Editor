@@ -19,7 +19,9 @@ export const downloadRawAsset = async (assetID: MaybeGUID, fileName?: string) =>
 
 export const downloadAssetAsPNG = async (assetID: MaybeGUID, fileName?: string) => {
     // Convert DDS to PNG
-    const texture = await get(textureAtomFamily(assetID));
+    const texture = await store.get(textureAtomFamily(assetID));
+    if (!texture)
+        return;
     const imageBlob = await textureToImageBlob(texture);
     if (!imageBlob)
         return;

@@ -2,7 +2,7 @@ import openUploadDialog, {openMultipleUploadDialog} from "@shared/utils/openUplo
 import duplicateBlob from "@shared/utils/duplicateBlob";
 import parseAssetType from "../parseAssetType";
 import {convertImageBlobToDDS} from "@editor/assets/dds/convertImageToDDS";
-import {SUPPORTED_IMAGE_TYPES} from "@/types/amongus/Constants";
+import {SUPPORTED_IMAGE_TYPES} from "@editor/assets/images/supportedImageTypes";
 import {createAsset} from "@editor/assets/createAsset";
 import primaryStore from "@shared/store";
 import {settingsAtom} from "@editor/settings/settingsStore";

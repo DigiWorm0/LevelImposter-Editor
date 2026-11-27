@@ -1,11 +1,11 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET} from "@/types/amongus/Constants";
+import {DEFAULT_PLATFORM_ENTER, DEFAULT_PLATFORM_EXIT, DEFAULT_PLATFORM_OFFSET} from "@/db/elementDefaults";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import InputGroup from "../input/InputGroup";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {Login, Logout, SwapHoriz, SwapVert} from "@mui/icons-material";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 const PLATFORM_MOVE_SOUND = "platformMove";
 

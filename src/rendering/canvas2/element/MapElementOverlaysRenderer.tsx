@@ -1,6 +1,6 @@
 import MapElementError from "./MapElementError";
 import ErrorBoundary from "../../utils/ErrorBoundary";
-import useElementIDs from "../../../hooks/elements/useElementIDs";
+import useElementIDs from "@editor/document/elements/useElementIDs";
 import MapElementOverlays from "./MapElementOverlays";
 import usePlayheadTicker from "../../timeline/hooks/usePlayheadTicker";
 

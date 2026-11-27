@@ -1,4 +1,4 @@
-import LIProperties from "@/types/li/LIProperties";
+import LIProperties from "@/map-format/LIProperties";
 
 export interface MapElementProperties extends LIProperties {
     [key: string]: any;

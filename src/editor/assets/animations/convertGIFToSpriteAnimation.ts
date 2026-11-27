@@ -1,6 +1,6 @@
-import LISpriteAnimation from "../../../types/li/LISpriteAnimation";
+import LISpriteAnimation from "@/map-format/LISpriteAnimation";
 import {decompressFrames, ParsedFrame, parseGIF} from "gifuct-js";
-import LISpriteAnimationFrame from "../../../types/li/LISpriteAnimationFrame";
+import LISpriteAnimationFrame from "@/map-format/LISpriteAnimationFrame";
 import {generateGUID, MaybeGUID} from "@shared/types/GUID";
 import canvasToBitmap from "@editor/assets/dds/canvasToBitmap";
 import {encodeBitmapToDDS} from "@editor/assets/dds/convertImageToDDS";

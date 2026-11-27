@@ -1,9 +1,9 @@
-import {UNITY_SCALE} from "@/types/amongus/Constants";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import {getSelectOperationFromEvent} from "@/rendering/canvas2/utils/getSelectOperationFromEvent";
 import Draggable from "../../draggable/Draggable";
 import React from "react";
 import Vector2 from "../../../../shared/types/Vector2";
-import LICollider from "../../../../types/li/LICollider";
+import LICollider from "@/map-format/LICollider";
 import useMapElementRef from "../../element/useMapElementRef";
 import getOffsetFromElement, {getReverseOffsetToElement} from "../../utils/getOffsetFromElement";
 import {useAtomValue} from "jotai";

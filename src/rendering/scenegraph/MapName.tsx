@@ -5,7 +5,7 @@ import {useAtomValue} from "jotai";
 import {docNameAtom} from "@editor/document/documentStore";
 import executeCommand from "@editor/history/executeCommand";
 import {setMapName} from "@editor/document/mapPropertyCommands";
-import {LANGUAGES} from "@/types/amongus/Constants";
+import {LANGUAGES} from "@editor/settings/languages";
 import i18next from "i18next";
 
 export default function MapName() {

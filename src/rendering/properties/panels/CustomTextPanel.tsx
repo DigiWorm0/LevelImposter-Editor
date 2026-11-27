@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import MapError from "../util/MapError";
 import PanelContainer from "../util/PanelContainer";
 import AUTextDB from "../../../db/AUTextDB";
-import {useSelectedElemPropValue} from "@/hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
 import {Notes, OpenInNew} from "@mui/icons-material";
 import DropdownList from "../util/DropdownList";
 import CustomTextEditorPanel from "../editors/CustomTextEditorPanel";

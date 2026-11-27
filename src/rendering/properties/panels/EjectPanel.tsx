@@ -3,7 +3,7 @@ import PanelContainer from "../util/PanelContainer";
 import ElementPropNumericInput from "../input/elementProps/ElementPropNumericInput";
 import {ArrowBack, ArrowForward, Logout, TextFields} from "@mui/icons-material";
 import MapError from "../util/MapError";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function EjectPanel() {
     const {t} = useTranslation();

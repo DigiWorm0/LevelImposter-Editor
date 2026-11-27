@@ -5,14 +5,14 @@ import MapElementAnimatedSprite from "../../../canvas2/element/MapElementAnimate
 import AnimatedSpritePreviewControls from "./AnimatedSpritePreviewControls";
 import useWindowSize from "../../../canvas2/hooks/useWindowSize";
 import AnimatedSpritePreviewBackground from "./AnimatedSpritePreviewBackground";
-import useSelectedSpriteAnim from "../../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import {selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 import {useAtomValue} from "jotai";
 import {selectedElementIDAtom} from "@editor/selection/stores/elementSelectionStore";
 
 export default function AnimatedSpritePreview() {
     const selectedElementID = useAtomValue(selectedElementIDAtom);
     const [windowWidth, windowHeight] = useWindowSize();
-    const [animation] = useSelectedSpriteAnim();
+    const animation = useAtomValue(selectedSpriteAnimAtom);
 
     const animationWindowSize = Math.min(windowWidth, windowHeight) * 0.4;
 

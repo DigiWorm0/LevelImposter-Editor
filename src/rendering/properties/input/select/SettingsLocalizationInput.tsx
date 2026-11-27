@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
-import {LANGUAGES} from "@/types/amongus/Constants";
+import {LANGUAGES} from "@editor/settings/languages";
 import {Language} from "@mui/icons-material";
 import {useAtom} from "jotai";
 import {settingsAtom} from "@editor/settings/settingsStore";

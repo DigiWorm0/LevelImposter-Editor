@@ -1,13 +1,13 @@
 import useCurrentCurve from "../hooks/useCurrentCurve";
 import GUID from "@shared/types/GUID";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import {IconButton, InputAdornment, MenuItem, Popover, Tooltip} from "@mui/material";
 import LinearSVG from "../icons/LinearSVG";
 import EaseInSVG from "../icons/EaseInSVG";
 import EaseOutSVG from "../icons/EaseOutSVG";
 import EaseInOutSVG from "../icons/EaseInOutSVG";
 import React from "react";
-import LIAnimCurve from "../../../types/li/LIAnimCurve";
+import LIAnimCurve from "@/map-format/LIAnimCurve";
 import {useTranslation} from "react-i18next";
 import executeCommand from "@editor/history/executeCommand";
 import {setAnimationCurve} from "@editor/animators/commands/setAnimationCurve";

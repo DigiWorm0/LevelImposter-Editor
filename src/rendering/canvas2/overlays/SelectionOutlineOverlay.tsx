@@ -2,7 +2,7 @@ import React from "react";
 import useViewportScale from "../hooks/useViewportScale";
 import GUID from "@shared/types/GUID";
 import useElementSprite from "../hooks/texture/useElementSprite";
-import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import getOffsetFromElement from "../utils/getOffsetFromElement";
 import useMapElementRef from "../element/useMapElementRef";
 import useIsHoveringOverMapElement from "../element/useIsHoveringOverMapElement";

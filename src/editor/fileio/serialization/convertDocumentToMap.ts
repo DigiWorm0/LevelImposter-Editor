@@ -1,5 +1,5 @@
-import LIMap from "@/types/li/LIMap";
-import {MAP_FORMAT_VER} from "@/types/amongus/Constants";
+import LIMap from "@/map-format/LIMap";
+import {MAP_FORMAT_VER} from "@/map-format/version";
 import {MapDocument} from "@editor/document/types/MapDocument";
 import {generateGUID} from "@/shared/types/GUID";
 

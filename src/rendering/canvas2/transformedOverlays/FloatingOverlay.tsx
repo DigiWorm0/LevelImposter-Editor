@@ -1,6 +1,7 @@
 import React from "react";
 import GUID from "@shared/types/GUID";
-import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED, UNITY_SCALE} from "@/types/amongus/Constants";
+import {DEFAULT_FLOATING_HEIGHT, DEFAULT_FLOATING_SPEED} from "@/db/elementDefaults";
+import {UNITY_SCALE} from "@editor/viewport/coordinates";
 import useMapElementRef from "../element/useMapElementRef";
 import StaticMapElement from "../element/StaticMapElement";
 import {Container} from "pixi.js";

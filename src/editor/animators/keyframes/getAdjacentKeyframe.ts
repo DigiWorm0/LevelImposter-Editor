@@ -1,9 +1,9 @@
 import GUID from "@/shared/types/GUID";
-import LIAnimPropertyType from "@/types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import {getAnimTarget} from "@editor/document/elements/getAnimTarget";
 import {animatorsPlayheadAtom} from "@editor/animators/animatorPlaybackStore";
 import store from "@/shared/store";
-import LIAnimKeyframe from "@/types/li/LIAnimKeyframe";
+import LIAnimKeyframe from "@/map-format/LIAnimKeyframe";
 import {DocDraft} from "@editor/history/executeCommand";
 
 export const getAdjacentKeyframe = (

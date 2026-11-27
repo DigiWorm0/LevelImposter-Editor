@@ -1,9 +1,9 @@
 import {atomFamily} from "jotai/utils";
 import GUID from "@shared/types/GUID";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 import {animTargetAtomFamily} from "./useAnimTarget";
 import {atom, useAtom} from "jotai";
-import LIAnimProperty from "../../../types/li/LIAnimProperty";
+import LIAnimProperty from "@/map-format/LIAnimProperty";
 
 export interface AnimTargetPropertiesOptions {
     targetID: GUID;

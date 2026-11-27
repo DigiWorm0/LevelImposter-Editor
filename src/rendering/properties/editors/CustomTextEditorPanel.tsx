@@ -2,7 +2,7 @@ import {Clear} from "@mui/icons-material";
 import {Box, IconButton, InputAdornment, TextField, Typography} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 import ColoredTextPreview from "../../utils/ColoredTextPreview";
 
 interface CustomTextEditorPanelProps {

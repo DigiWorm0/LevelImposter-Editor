@@ -6,12 +6,12 @@ import writeDXT1Texture from "./write/writeDXT1Texture";
 import {MaybeGUID} from "@/shared/types/GUID";
 import {Application, Sprite, Texture} from "pixi.js";
 import {textureAtomFamily} from "@/rendering/canvas2/hooks/texture/useTexture";
-import BitmapData from "../../../types/texture/BitmapData";
+import type {BitmapData} from "./canvasToBitmap";
 import {createAsset} from "@editor/assets/createAsset";
 import executeCommand from "../../history/executeCommand";
 import {replaceMapAsset} from "@editor/assets/replaceMapAsset";
 import primaryStore from "@/shared/store";
-import {textureFromURLAtomFamily} from "@/rendering/canvas2/hooks/texture/getTextureFromURL";
+import {textureFromURLAtomFamily} from "@/rendering/canvas2/hooks/texture/useTextureFromURL";
 
 /**
  * Converts bitmap data to a DDS Blob using DXT1 or DXT5 compression.

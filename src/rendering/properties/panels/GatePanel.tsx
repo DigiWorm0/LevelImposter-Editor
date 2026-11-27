@@ -1,8 +1,8 @@
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
 import ElementSelect from "../input/select/ElementSelect";
-import useSelectedElemProp from "../../../hooks/elements/useSelectedElemProperty";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function GatePanel() {
     const {t} = useTranslation();

@@ -1,9 +1,9 @@
 import {Box} from "@mui/material";
 import React from "react";
-import LIColor from "../../../../types/li/LIColor";
-import LIProperties from "../../../../types/li/LIProperties";
+import LIColor from "@/map-format/LIColor";
+import LIProperties from "@/map-format/LIProperties";
 import ColorPicker from "../../../utils/ColorPicker";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 
 export interface ColorInputProps {
     name: string;

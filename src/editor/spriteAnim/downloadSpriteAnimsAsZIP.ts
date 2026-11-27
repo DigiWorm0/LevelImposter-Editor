@@ -5,7 +5,7 @@ import {textureToImageBlob} from "@editor/assets/textureToImageBlob";
 import downloadFileFromURL from "@editor/fileio/download/downloadFileFromURL";
 import store from "@shared/store";
 import GUID from "@shared/types/GUID";
-import LISpriteAnimation from "@/types/li/LISpriteAnimation";
+import LISpriteAnimation from "@/map-format/LISpriteAnimation";
 import {zipAsync} from "@shared/utils/zipAsync";
 
 export const downloadSpriteAnimsAsZIP = async (

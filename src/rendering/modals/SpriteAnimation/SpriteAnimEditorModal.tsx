@@ -1,7 +1,8 @@
 import GenericModal from "../GenericModal";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import useSpriteAnimEditorOpen from "../../../hooks/spriteAnim/useSpriteAnimEditorOpen";
+import {useAtom} from "jotai";
+import {isSpriteAnimEditorOpenAtom} from "@editor/spriteAnim/spriteAnimStore";
 import {Alert, AlertTitle, Box} from "@mui/material";
 import AnimatedSpriteFrameList from "./frames/AnimatedSpriteFrameList";
 import AnimatedSpritePreview from "./preview/AnimatedSpritePreview";
@@ -13,7 +14,7 @@ import {AnimatedSpriteEditorActions} from "./AnimatedSpriteEditorActions";
 
 export default function SpriteAnimEditorModal() {
     const {t} = useTranslation();
-    const [isOpen, setIsOpen] = useSpriteAnimEditorOpen();
+    const [isOpen, setIsOpen] = useAtom(isSpriteAnimEditorOpenAtom);
 
     return (
         <GenericModal

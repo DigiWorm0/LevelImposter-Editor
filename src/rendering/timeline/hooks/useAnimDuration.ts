@@ -1,7 +1,7 @@
-import {selectedElementPropAtom} from "../../../hooks/elements/useSelectedElemProperty";
-import LIAnimTarget from "../../../types/li/LIAnimTarget";
+import {selectedElementPropAtom} from "@editor/selection/useSelectedElemProperty";
+import LIAnimTarget from "@/map-format/LIAnimTarget";
 import {atom} from "jotai";
-import LIAnimPropertyType from "../../../types/li/LIAnimPropertyType";
+import LIAnimPropertyType from "@/map-format/LIAnimPropertyType";
 
 export const animDurationAtom = atom((get) => {
     // Get selected element anim targets

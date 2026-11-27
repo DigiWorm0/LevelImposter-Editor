@@ -2,7 +2,7 @@ import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {SceneGraphListItem} from "./SceneGraphListItem";
 import {Public} from "@mui/icons-material";
 import {docNameAtom} from "@editor/document/documentStore";
-import useDraggingElementID from "../../hooks/elements/dragging/useDraggingElementID";
+import useDraggingElementID from "./useDraggingElementID";
 import React from "react";
 import handleSceneGraphDrop from "./handleSceneGraphDrop";
 import {useAtomValue} from "jotai";

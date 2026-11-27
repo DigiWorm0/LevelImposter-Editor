@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 import {useAtom} from "jotai";
 import {isTimelineVisibleAtom} from "@editor/animators/animatorPlaybackStore";
 

@@ -1,10 +1,11 @@
 import {Box, Typography} from "@mui/material";
 import React from "react";
 import {Animation} from "@mui/icons-material";
-import useSelectedSpriteAnim from "../../../hooks/spriteAnim/useSelectedSpriteAnim";
+import {useAtomValue} from "jotai";
+import {selectedSpriteAnimAtom} from "@editor/spriteAnim/spriteAnimStore";
 
 export default function SpriteAnimEditorNoAnimationError() {
-    const [animation] = useSelectedSpriteAnim();
+    const animation = useAtomValue(selectedSpriteAnimAtom);
 
     if (animation)
         return null;

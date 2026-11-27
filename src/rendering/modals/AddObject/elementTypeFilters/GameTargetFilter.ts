@@ -1,5 +1,5 @@
 import {docPropertiesAtom} from "@editor/document/documentStore";
-import MapTarget from "../../../../types/li/MapTarget";
+import MapTarget from "@/map-format/MapTarget";
 import makeElementTypeFilter from "./makeElementTypeFilter";
 
 const GameTargetFilter = makeElementTypeFilter((type, get) => {

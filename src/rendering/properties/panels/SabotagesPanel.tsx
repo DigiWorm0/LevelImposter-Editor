@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import SoundEditorPanel from "../editors/SoundEditorPanel";
 import PanelContainer from "../util/PanelContainer";
-import useIsSelectedElemType from "../../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 
 export default function SabotagesPanel() {
     const {t} = useTranslation();

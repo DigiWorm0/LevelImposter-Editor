@@ -1,13 +1,15 @@
 import React from "react";
 import {List} from "@mui/material";
 import AnimatedSpriteTypeButton from "./AnimatedSpriteTypeButton";
-import useAvailableSpriteAnimTypes from "@editor/spriteAnim/useAvailableSpriteAnimTypes";
-import useSelectedSpriteAnimType from "../../../../hooks/spriteAnim/useSelectedSpriteAnimType";
+import {useAtomValue} from "jotai";
+import {availableSpriteAnimTypesAtom} from "@editor/spriteAnim/availableSpriteAnimTypes";
+import {activeSpriteAnimTypeAtom} from "@editor/spriteAnim/spriteAnimStore";
+import {selectSpriteAnim} from "@editor/selection/selectSpriteAnim";
 
 
 export default function AnimatedSpriteTypeList() {
-    const availableTypes = useAvailableSpriteAnimTypes();
-    const [selectedType, setSelectedType] = useSelectedSpriteAnimType();
+    const availableTypes = useAtomValue(availableSpriteAnimTypesAtom);
+    const selectedType = useAtomValue(activeSpriteAnimTypeAtom);
 
     return (
         <List
@@ -24,7 +26,7 @@ export default function AnimatedSpriteTypeList() {
                     key={type}
                     type={type}
                     active={selectedType === type}
-                    onClick={() => setSelectedType(type)}
+                    onClick={() => selectSpriteAnim(undefined, type)}
                 />
             ))}
         </List>

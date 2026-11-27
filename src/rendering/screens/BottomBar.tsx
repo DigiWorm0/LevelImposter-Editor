@@ -3,7 +3,7 @@ import {Paper} from "@mui/material";
 import Timeline from "../timeline/Timeline";
 import LazyCollapse from "../properties/util/LazyCollapse";
 import Resizable from "../utils/Resizable";
-import useIsSelectedElemType from "../../hooks/elements/useIsSelectedElemType";
+import useIsSelectedElemType from "@editor/selection/useIsSelectedElemType";
 import {useAtomValue} from "jotai";
 import {isTimelineVisibleAtom} from "@editor/animators/animatorPlaybackStore";
 import {setFocus} from "@editor/hotkeys/setFocus";

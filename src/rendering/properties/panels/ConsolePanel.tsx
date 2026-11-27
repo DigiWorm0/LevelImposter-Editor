@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {DEFAULT_CONSOLE_RANGE} from "@/types/amongus/Constants";
+import {DEFAULT_CONSOLE_RANGE} from "@/db/elementDefaults";
 import ElementPropColorInput from "../input/elementProps/ElementPropColorInput";
 import PanelContainer from "../util/PanelContainer";
 import ElementPropSwitch from "../input/elementProps/ElementPropSwitch";

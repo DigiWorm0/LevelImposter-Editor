@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import ElementSelect from "./ElementSelect";
-import useSelectedElemProp from "../../../../hooks/elements/useSelectedElemProperty";
+import useSelectedElemProp from "@editor/selection/useSelectedElemProperty";
 
 export default function TeleSelect() {
     const {t} = useTranslation();

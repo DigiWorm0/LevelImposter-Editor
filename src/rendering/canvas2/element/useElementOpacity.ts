@@ -1,7 +1,7 @@
 import getElementVisibility, {ElemVisibility} from "@editor/document/elements/types/getElementVisibility";
-import {useSelectedElemPropValue} from "../../../hooks/elements/useSelectedElemProperty";
+import {useSelectedElemPropValue} from "@editor/selection/useSelectedElemProperty";
 import {MaybeGUID} from "@shared/types/GUID";
-import useIsElementSelected from "../../../hooks/elements/useIsElementSelected";
+import useIsElementSelected from "@editor/selection/useIsElementSelected";
 import {Color} from "pixi.js";
 import {useElement} from "@editor/document/elements/useElement";
 import {useAtomValue} from "jotai";
